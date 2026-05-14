@@ -22,3 +22,4 @@
 詳細課程規劃見 [docs/18_week_plan.md](docs/18_week_plan.md)。
 採購清單見 [docs/purchase_list.md](docs/purchase_list.md)。
 入門 QA 見 [docs/iot_beginner_qa.md](docs/iot_beginner_qa.md)。
+學生圖解講義 PDF 見 [docs/iot_beginner_visual_qa.pdf](docs/iot_beginner_visual_qa.pdf)。

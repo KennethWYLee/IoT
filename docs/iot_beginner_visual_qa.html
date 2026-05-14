@@ -1,0 +1,1310 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IoT 入門圖解 QA</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #5f6f7d;
+      --line: #d9e2ea;
+      --paper: #ffffff;
+      --soft: #f5f8fb;
+      --blue: #1f6feb;
+      --green: #0f8b8d;
+      --amber: #b7791f;
+      --red: #c2410c;
+      --purple: #6f42c1;
+      --dark: #1f2937;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e9eef3;
+      color: var(--ink);
+      font-family: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", Arial, sans-serif;
+      line-height: 1.65;
+      font-size: 15px;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 16px auto;
+      padding: 18mm 16mm;
+      background: var(--paper);
+      box-shadow: 0 10px 32px rgba(15, 23, 42, 0.16);
+      position: relative;
+    }
+
+    .cover {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 261mm;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.25;
+      margin: 0;
+      color: var(--dark);
+    }
+
+    h1 {
+      font-size: 34px;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      font-size: 23px;
+      padding-bottom: 8px;
+      border-bottom: 3px solid var(--line);
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin: 18px 0 8px;
+    }
+
+    p {
+      margin: 8px 0;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      margin-top: 14px;
+      max-width: 620px;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 18px;
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .toc div, .card, .example, .warn, .check, .mini, .callout {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .toc div {
+      padding: 12px 14px;
+    }
+
+    .toc strong {
+      display: block;
+      color: var(--blue);
+      margin-bottom: 4px;
+    }
+
+    .week {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #e8f1ff;
+      color: #174ea6;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .grid.two {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .grid.three {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .card {
+      padding: 14px;
+      background: #fff;
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .definition {
+      border-left: 5px solid var(--green);
+      padding: 10px 12px;
+      background: #edfafa;
+      margin: 12px 0;
+      border-radius: 4px;
+    }
+
+    .example {
+      border-left: 5px solid var(--blue);
+      background: #f4f8ff;
+      padding: 10px 12px;
+      margin: 12px 0;
+    }
+
+    .warn {
+      border-left: 5px solid var(--red);
+      background: #fff7ed;
+      padding: 10px 12px;
+      margin: 12px 0;
+    }
+
+    .check {
+      border-left: 5px solid var(--green);
+      background: #f0fdf4;
+      padding: 10px 12px;
+      margin: 12px 0;
+    }
+
+    .callout {
+      padding: 12px 14px;
+      background: #f8fafc;
+      margin: 12px 0;
+    }
+
+    code, pre {
+      font-family: Consolas, "Cascadia Mono", "Courier New", monospace;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      background: #111827;
+      color: #e5e7eb;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      line-height: 1.45;
+      margin: 10px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 13.5px;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 7px 8px;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef4fa;
+      text-align: left;
+    }
+
+    .flow {
+      display: flex;
+      align-items: stretch;
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .flow .node {
+      flex: 1;
+      padding: 12px 10px;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      min-height: 74px;
+    }
+
+    .flow .arrow {
+      display: flex;
+      align-items: center;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .node .label {
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .node .small {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .diagram {
+      border: 1px solid var(--line);
+      background: #fbfdff;
+      border-radius: 8px;
+      padding: 14px;
+      margin: 14px 0;
+      break-inside: avoid;
+    }
+
+    .legend {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      display: inline-block;
+      border-radius: 50%;
+      margin-right: 4px;
+      vertical-align: -1px;
+    }
+
+    .dot.blue { background: var(--blue); }
+    .dot.green { background: var(--green); }
+    .dot.amber { background: var(--amber); }
+    .dot.red { background: var(--red); }
+    .dot.purple { background: var(--purple); }
+
+    .pin-board {
+      display: grid;
+      grid-template-columns: 120px 1fr 120px;
+      gap: 12px;
+      align-items: center;
+      margin: 12px 0;
+    }
+
+    .esp {
+      border: 2px solid #0f766e;
+      border-radius: 10px;
+      padding: 12px;
+      background: #e6fffb;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .pins {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-top: 8px;
+      font-size: 11px;
+      color: #115e59;
+    }
+
+    .pins span {
+      border: 1px solid #99f6e4;
+      border-radius: 4px;
+      background: #fff;
+      padding: 2px 4px;
+    }
+
+    .part {
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .wire {
+      height: 4px;
+      background: linear-gradient(90deg, var(--green), var(--blue));
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .wire::after {
+      content: "資料線 / 控制線";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -22px;
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .breadboard {
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      background: #f8fafc;
+      padding: 10px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .rail {
+      display: grid;
+      grid-template-columns: repeat(18, 1fr);
+      gap: 3px;
+    }
+
+    .rail span, .holes span {
+      height: 10px;
+      border-radius: 50%;
+      background: #cbd5e1;
+      display: block;
+    }
+
+    .rail.red span { background: #fecaca; }
+    .rail.blue span { background: #bfdbfe; }
+
+    .holes {
+      display: grid;
+      grid-template-columns: repeat(18, 1fr);
+      gap: 3px;
+    }
+
+    .holes span:nth-child(5n) {
+      background: #94a3b8;
+    }
+
+    .divider {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      align-items: center;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .resistor {
+      border: 2px solid #f59e0b;
+      border-radius: 999px;
+      padding: 8px;
+      background: #fffbeb;
+      font-weight: 700;
+    }
+
+    .safe, .danger {
+      padding: 8px 10px;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 700;
+      display: inline-block;
+    }
+
+    .safe { background: #15803d; }
+    .danger { background: #b91c1c; }
+
+    .footer {
+      position: absolute;
+      bottom: 9mm;
+      left: 16mm;
+      right: 16mm;
+      display: flex;
+      justify-content: space-between;
+      color: #94a3b8;
+      font-size: 11px;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 5px;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      body {
+        background: #fff;
+      }
+
+      .page {
+        margin: 0;
+        box-shadow: none;
+        width: auto;
+        min-height: 297mm;
+        page-break-after: always;
+      }
+
+      .page:last-child {
+        page-break-after: auto;
+      }
+
+      .card, .diagram, .example, .warn, .check, table, pre {
+        break-inside: avoid;
+      }
+
+      * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover">
+    <div>
+      <span class="week">學生版講義</span>
+      <h1>IoT 入門圖解 QA</h1>
+      <p class="subtitle">用智慧停車場與智慧教室兩個專題，理解 ESP32-S3、感測器、致動器、3.3V / 5V、MQTT / HTTP、dashboard 與後續延伸。</p>
+      <p class="meta">適用課程：低成本 IoT 互動系統設計與實作<br>版本：2026-05-14</p>
+
+      <div class="diagram">
+        <h3>先記住這張大圖</h3>
+        <div class="flow">
+          <div class="node">
+            <div class="label">現實世界</div>
+            <div class="small">車位、門口、教室、人、燈光、溫濕度</div>
+          </div>
+          <div class="arrow">-></div>
+          <div class="node">
+            <div class="label">資料來源</div>
+            <div class="small">手機影像、PIR、DHT11、光敏、超音波</div>
+          </div>
+          <div class="arrow">-></div>
+          <div class="node">
+            <div class="label">系統判斷</div>
+            <div class="small">OpenCV、規則、後端 API、MQTT topic</div>
+          </div>
+          <div class="arrow">-></div>
+          <div class="node">
+            <div class="label">實體反應</div>
+            <div class="small">ESP32-S3 控制燈號、蜂鳴器、伺服馬達</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="toc">
+        <div><strong>1. 板子與角色</strong>ESP32-S3、Arduino、Raspberry Pi 到底差在哪。</div>
+        <div><strong>2. 電路安全</strong>GPIO、GND、3.3V / 5V、限流電阻、麵包板。</div>
+        <div><strong>3. 元件分類</strong>感測器、致動器、模組、開發板怎麼分。</div>
+        <div><strong>4. 網路通訊</strong>HTTP、MQTT、topic、message、dashboard。</div>
+        <div><strong>5. 專題資料流</strong>智慧停車場、智慧教室完整流程。</div>
+        <div><strong>6. 延伸方向</strong>自走車、夾娃娃機、ROS 2 怎麼接上來。</div>
+      </div>
+    </div>
+    <div class="footer"><span>IoT 入門圖解 QA</span><span>Cover</span></div>
+  </section>
+
+  <section class="page">
+    <span class="week">第 1-2 週</span>
+    <h2>1. ESP32-S3、Arduino、Raspberry Pi 是什麼關係？</h2>
+    <div class="definition">
+      <strong>一句話：</strong>ESP32-S3 是本課程的「小型連網控制器」，Arduino 是入門寫法，Raspberry Pi 是比較像小電腦的 Linux 主機。
+    </div>
+
+    <div class="grid three">
+      <div class="card">
+        <h3>ESP32-S3</h3>
+        <p>像一個很會控制現場設備的小腦袋。它便宜、可連 Wi-Fi、可接感測器、可控制馬達與 LED。</p>
+        <p><strong>課程用途：</strong>閘門、燈號、蜂鳴器、教室感測器。</p>
+      </div>
+      <div class="card">
+        <h3>Arduino</h3>
+        <p>在本課程多半指「Arduino framework」，也就是一套容易上手的寫法，不一定是 Arduino Uno 那片板子。</p>
+        <p><strong>課程用途：</strong>用 Arduino IDE 寫 ESP32-S3。</p>
+      </div>
+      <div class="card">
+        <h3>Raspberry Pi</h3>
+        <p>像一台小型 Linux 電腦，可以跑 Python、OpenCV、Web server、ROS 2，但成本與維護負擔較高。</p>
+        <p><strong>課程用途：</strong>選修或期末進階。</p>
+      </div>
+    </div>
+
+    <div class="diagram">
+      <h3>三者的定位圖</h3>
+      <div class="flow">
+        <div class="node">
+          <div class="label">Arduino 寫法</div>
+          <div class="small">讓初學者容易寫 GPIO、Wi-Fi、馬達</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">ESP32-S3 板子</div>
+          <div class="small">實際接線、讀感測器、控制實體裝置</div>
+        </div>
+        <div class="arrow">+</div>
+        <div class="node">
+          <div class="label">筆電 / 手機</div>
+          <div class="small">跑 OpenCV、dashboard、後端、資料庫</div>
+        </div>
+      </div>
+      <div class="legend">
+        <span><span class="dot green"></span>本課程必用</span>
+        <span><span class="dot blue"></span>軟體平台</span>
+        <span><span class="dot amber"></span>進階選修</span>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>問題</th>
+          <th>學生容易誤會</th>
+          <th>正確想法</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ESP32-S3 可以跑 ROS 2 嗎？</td>
+          <td>以為買 ESP32-S3 就能完整跑 SLAM、Nav2。</td>
+          <td>ESP32-S3 可當 ROS 2 系統的低階控制器，但完整 ROS 2 主機通常要筆電或 Raspberry Pi。</td>
+        </tr>
+        <tr>
+          <td>為什麼不一開始買 Raspberry Pi？</td>
+          <td>以為越強越好。</td>
+          <td>本課程先練 IoT 資料流與實體控制。手機和筆電已能負責影像與後端，ESP32-S3 負責現場控制，成本最低。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="example">
+      <strong>課程例子：</strong>手機拍停車場，筆電跑 OpenCV 判斷車位，ESP32-S3 控制閘門與燈號。這樣不用 Raspberry Pi，也能完成完整 IoT 系統。
+    </div>
+    <div class="footer"><span>IoT 入門圖解 QA</span><span>1</span></div>
+  </section>
+
+  <section class="page">
+    <span class="week">第 2 週</span>
+    <h2>2. GPIO 是什麼？GND 又是什麼？</h2>
+    <div class="definition">
+      <strong>GPIO：</strong>General Purpose Input / Output，通用輸入輸出腳位。它是 ESP32-S3 跟外部元件溝通的腳。<br>
+      <strong>GND：</strong>Ground，接地。它是整個電路共同的 0V 參考點。
+    </div>
+
+    <div class="diagram">
+      <h3>GPIO 可以是輸入，也可以是輸出</h3>
+      <div class="pin-board">
+        <div class="part">按鈕 / 感測器<br><small>輸入資料</small></div>
+        <div class="wire"></div>
+        <div class="esp">
+          ESP32-S3
+          <div class="pins">
+            <span>GPIO 4</span><span>GPIO 5</span>
+            <span>3V3</span><span>GND</span>
+            <span>GPIO 18</span><span>GPIO 19</span>
+          </div>
+        </div>
+      </div>
+      <div class="pin-board">
+        <div class="esp">
+          ESP32-S3
+          <div class="pins">
+            <span>GPIO 4</span><span>GPIO 5</span>
+            <span>3V3</span><span>GND</span>
+            <span>GPIO 18</span><span>GPIO 19</span>
+          </div>
+        </div>
+        <div class="wire"></div>
+        <div class="part">LED / 蜂鳴器 / 伺服<br><small>被控制的輸出</small></div>
+      </div>
+    </div>
+
+    <div class="grid two">
+      <div class="card">
+        <h3>輸入範例</h3>
+        <p>按鈕被按下，GPIO 讀到 HIGH 或 LOW。</p>
+        <pre>int button = digitalRead(4);
+if (button == LOW) {
+  Serial.println("button pressed");
+}</pre>
+      </div>
+      <div class="card">
+        <h3>輸出範例</h3>
+        <p>ESP32-S3 控制 LED 亮或暗。</p>
+        <pre>pinMode(5, OUTPUT);
+digitalWrite(5, HIGH); // 亮
+delay(500);
+digitalWrite(5, LOW);  // 暗</pre>
+      </div>
+    </div>
+
+    <h3>GND 的生活比喻</h3>
+    <p>如果電壓像高度，GND 就是地面。大家要先約定同一個地面高度，才知道 3.3V、5V 到底是相對於哪裡。</p>
+
+    <div class="diagram">
+      <h3>ESP32-S3 與外部模組要共地</h3>
+      <div class="flow">
+        <div class="node">
+          <div class="label">ESP32-S3 GND</div>
+          <div class="small">控制訊號的參考點</div>
+        </div>
+        <div class="arrow">連在一起</div>
+        <div class="node">
+          <div class="label">伺服 / 感測器 GND</div>
+          <div class="small">模組讀懂訊號的參考點</div>
+        </div>
+      </div>
+      <div class="warn"><strong>常見錯誤：</strong>伺服馬達另外供電，但沒有把伺服 GND 和 ESP32-S3 GND 接在一起，結果伺服亂抖或完全不動。</div>
+    </div>
+
+    <div class="check">
+      <strong>接線口訣：</strong>先找 VCC、GND、Signal。VCC 供電，GND 共地，Signal 接 GPIO。不要看到三根線就亂插。
+    </div>
+    <div class="footer"><span>IoT 入門圖解 QA</span><span>2</span></div>
+  </section>
+
+  <section class="page">
+    <span class="week">第 2-3 週</span>
+    <h2>3. 3.3V / 5V 為什麼重要？可以統一嗎？</h2>
+    <div class="definition">
+      <strong>一句話：</strong>不同晶片和模組的安全工作電壓不同。ESP32-S3 的 GPIO 是 3.3V 邏輯，很多傳統 Arduino 模組是 5V 供電或 5V 訊號。
+    </div>
+
+    <div class="grid two">
+      <div class="card">
+        <h3>3.3V 常見位置</h3>
+        <p>ESP32-S3 GPIO 訊號、高階感測器、I2C 模組、ESP32 本身邏輯。</p>
+        <p><span class="safe">安全原則</span> 進入 ESP32-S3 GPIO 的訊號最好是 0V 到 3.3V。</p>
+      </div>
+      <div class="card">
+        <h3>5V 常見位置</h3>
+        <p>USB 供電、SG90 伺服、HC-SR04 VCC、部分 LED / 蜂鳴器模組。</p>
+        <p><span class="danger">風險</span> 5V 訊號直接進 ESP32-S3 GPIO，可能傷板子。</p>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>元件</th>
+          <th>供電可能用</th>
+          <th>訊號要注意</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ESP32-S3</td>
+          <td>USB 5V 進板子，再由板上穩壓</td>
+          <td>GPIO 是 3.3V 邏輯</td>
+        </tr>
+        <tr>
+          <td>SG90 伺服</td>
+          <td>通常 5V 較穩</td>
+          <td>控制線可由 ESP32 GPIO 輸出 PWM，但要共地</td>
+        </tr>
+        <tr>
+          <td>HC-SR04</td>
+          <td>常見 VCC 5V</td>
+          <td>Echo 常是 5V，回 ESP32 前要降壓</td>
+        </tr>
+        <tr>
+          <td>DHT11 模組</td>
+          <td>多數可 3.3V 或 5V，依模組規格</td>
+          <td>用 3.3V 供電最省事</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>限流電阻是什麼？</h3>
+    <div class="definition">
+      <strong>限流電阻：</strong>用來限制電流，不讓 LED 或 GPIO 承受過大電流。可以想成水管中的縮口，讓水不要一下子衝太大。
+    </div>
+
+    <div class="diagram">
+      <h3>LED 需要限流電阻</h3>
+      <div class="flow">
+        <div class="node">
+          <div class="label">ESP32 GPIO</div>
+          <div class="small">輸出 HIGH</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">電阻 220Ω 或 330Ω</div>
+          <div class="small">限制電流</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">LED</div>
+          <div class="small">亮起但不燒掉</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">GND</div>
+          <div class="small">回到地</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="warn">
+      <strong>不統一的原因：</strong>電子元件不是同一世代、同一用途。低電壓省電且適合新晶片，高一點的 5V 對馬達、伺服、傳統模組比較常見。課堂重點不是背所有規格，而是每次接線前確認：供電電壓、訊號電壓、GND。
+    </div>
+    <div class="footer"><span>IoT 入門圖解 QA</span><span>3</span></div>
+  </section>
+
+  <section class="page">
+    <span class="week">第 2-4 週</span>
+    <h2>4. 麵包板和杜邦線怎麼接才不會燒掉？</h2>
+    <div class="definition">
+      <strong>麵包板：</strong>不用焊接就能暫時接電路的板子。<strong>杜邦線：</strong>用來把開發板、麵包板和模組接起來的線。
+    </div>
+
+    <div class="diagram">
+      <h3>麵包板的洞不是每個都互通</h3>
+      <div class="breadboard">
+        <div class="rail red">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="rail blue">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="holes">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="holes">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="legend">
+        <span><span class="dot red"></span>紅色電源排通常接 3.3V 或 5V，只能選一種並貼標籤</span>
+        <span><span class="dot blue"></span>藍色電源排通常接 GND</span>
+        <span><span class="dot amber"></span>中間區域同一排互通，左右中間通常斷開</span>
+      </div>
+    </div>
+
+    <div class="grid two">
+      <div class="card">
+        <h3>安全接線順序</h3>
+        <p>1. 先拔 USB，不要帶電插拔。</p>
+        <p>2. 找出模組 VCC、GND、Signal。</p>
+        <p>3. 先接 GND，再接 VCC，最後接 Signal。</p>
+        <p>4. 拍照或畫接線圖，再上電測試。</p>
+      </div>
+      <div class="card">
+        <h3>危險行為</h3>
+        <p>把 5V 直接接到 GPIO。</p>
+        <p>把 3.3V 和 GND 短路。</p>
+        <p>伺服馬達從 ESP32-S3 的 3.3V 腳吃電。</p>
+        <p>不知道模組腳位就直接插。</p>
+      </div>
+    </div>
+
+    <h3>HC-SR04 Echo 為什麼要分壓？</h3>
+    <p>常見 HC-SR04 的 Echo 腳會輸出 5V。ESP32-S3 GPIO 只適合 3.3V，因此 Echo 回到 ESP32-S3 前要降壓。</p>
+
+    <div class="diagram">
+      <h3>用 1k + 2.2k 做簡易分壓</h3>
+      <div class="divider">
+        <div class="part">HC-SR04 Echo<br><strong>5V 訊號</strong></div>
+        <div>
+          <div class="resistor">1kΩ</div>
+          <p>中間點接 ESP32 GPIO</p>
+          <div class="resistor">2.2kΩ 到 GND</div>
+        </div>
+        <div class="part">ESP32-S3 GPIO<br><strong>約 3.4V 以下</strong></div>
+      </div>
+      <div class="warn"><strong>提醒：</strong>這不是為了讓超音波更準，而是為了保護 ESP32-S3 腳位。</div>
+    </div>
+
+    <div class="footer"><span>IoT 入門圖解 QA</span><span>4</span></div>
+  </section>
+
+  <section class="page">
+    <span class="week">第 3-5 週</span>
+    <h2>5. 感測器、致動器、模組、開發板怎麼分？</h2>
+    <div class="definition">
+      <strong>一句話：</strong>感測器把現實變成資料，致動器把指令變成動作，模組是已經整理好的小電路板，開發板是可寫程式的主控。
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>類別</th>
+          <th>像什麼</th>
+          <th>本課程例子</th>
+          <th>資料方向</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>開發板</td>
+          <td>小腦袋</td>
+          <td>ESP32-S3 DevKit</td>
+          <td>讀資料，也下指令</td>
+        </tr>
+        <tr>
+          <td>感測器</td>
+          <td>眼睛、耳朵、皮膚</td>
+          <td>DHT11、PIR、光敏、HC-SR04</td>
+          <td>現實 -> 數位資料</td>
+        </tr>
+        <tr>
+          <td>致動器</td>
+          <td>手、嘴巴、燈號</td>
+          <td>SG90、RGB LED、蜂鳴器</td>
+          <td>數位指令 -> 實體反應</td>
+        </tr>
+        <tr>
+          <td>模組</td>
+          <td>包裝好的零件小板</td>
+          <td>KY-016、KY-012、DHT11 模組</td>
+          <td>讓初學者比較好接</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="diagram">
+      <h3>停車場中各元件的角色</h3>
+      <div class="flow">
+        <div class="node">
+          <div class="label">手機相機</div>
+          <div class="small">感測器，看到車位</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">筆電 OpenCV</div>
+          <div class="small">判斷 A1 空/滿</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">ESP32-S3</div>
+          <div class="small">收到結果，控制現場</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">SG90 / LED / 蜂鳴器</div>
+          <div class="small">致動器，做出反應</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="example">
+      <strong>學生範例：</strong>如果你做「自動教室占用偵測」，PIR 是感測器，DHT11 是感測器，RGB LED 是致動器，ESP32-S3 是開發板，DHT11 那片小板是模組。
+    </div>
+
+    <div class="footer"><span>IoT 入門圖解 QA</span><span>5</span></div>
+  </section>
+
+  <section class="page">
+    <span class="week">第 3 週</span>
+    <h2>6. HTTP、MQTT、Dashboard 是什麼？</h2>
+    <div class="definition">
+      <strong>Dashboard：</strong>不是硬體，也不是麵包板。它是使用者看到系統狀態的網頁或畫面，例如車位空滿、教室是否有人、異常告警。
+    </div>
+
+    <div class="grid two">
+      <div class="card">
+        <h3>HTTP 像填表單</h3>
+        <p>裝置或網頁主動去呼叫 API。</p>
+        <pre>POST /api/parking/A1
+{
+  "status": "occupied"
+}</pre>
+        <p>適合 dashboard 查詢、按按鈕控制、送一次資料。</p>
+      </div>
+      <div class="card">
+        <h3>MQTT 像訂閱頻道</h3>
+        <p>大家都連到 broker，發布或訂閱 topic。</p>
+        <pre>topic: parking/A1/status
+message: occupied</pre>
+        <p>適合多裝置、即時狀態、事件推播。</p>
+      </div>
+    </div>
+
+    <div class="diagram">
+      <h3>MQTT 的三個角色</h3>
+      <div class="flow">
+        <div class="node">
+          <div class="label">Publisher</div>
+          <div class="small">發布訊息<br>OpenCV、ESP32-S3</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">Broker</div>
+          <div class="small">訊息中繼站<br>Mosquitto、EMQX</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">Subscriber</div>
+          <div class="small">訂閱訊息<br>dashboard、ESP32-S3</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>本課程建議 topic 命名</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>topic</th>
+          <th>誰發</th>
+          <th>誰收</th>
+          <th>用途</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>parking/A1/status</code></td>
+          <td>OpenCV 或後端</td>
+          <td>dashboard</td>
+          <td>A1 車位空/滿</td>
+        </tr>
+        <tr>
+          <td><code>parking/gate/command</code></td>
+          <td>dashboard 或後端</td>
+          <td>ESP32-S3</td>
+          <td>命令閘門 open / close</td>
+        </tr>
+        <tr>
+          <td><code>classroom/room1/sensors</code></td>
+          <td>ESP32-S3</td>
+          <td>後端、dashboard</td>
+          <td>溫濕度、亮度、PIR 狀態</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="example">
+      <strong>範例 JSON：</strong>
+      <pre>{
+  "room": "A301",
+  "motion": true,
+  "light": 780,
+  "temperature": 26.8,
+  "humidity": 62,
+  "time": "2026-05-14T10:30:00"
+}</pre>
+    </div>
+
+    <div class="footer"><span>IoT 入門圖解 QA</span><span>6</span></div>
+  </section>
+
+  <section class="page">
+    <span class="week">第 7-9 週</span>
+    <h2>7. 手機視覺、ESP32-S3、Dashboard 彼此怎麼溝通？</h2>
+    <div class="definition">
+      <strong>一句話：</strong>手機負責拍，筆電負責看懂影像，ESP32-S3 負責控制現場，dashboard 負責讓人看懂狀態。
+    </div>
+
+    <div class="diagram">
+      <h3>智慧停車場完整資料流</h3>
+      <div class="flow">
+        <div class="node">
+          <div class="label">手機</div>
+          <div class="small">當相機，固定拍停車場模型</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">筆電 OpenCV</div>
+          <div class="small">讀影像，判斷每格車位空/滿</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">後端 / MQTT</div>
+          <div class="small">儲存事件，發布狀態</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">ESP32-S3</div>
+          <div class="small">控制閘門、LED、蜂鳴器</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">Dashboard</div>
+          <div class="small">顯示空位數、進出紀錄、告警</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>一步一步發生什麼事？</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>步驟</th>
+          <th>發生的事</th>
+          <th>資料例子</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>手機拍到停車場模型。</td>
+          <td>一張影像 frame</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>OpenCV 只看指定 ROI 車格。</td>
+          <td>A1、A2、A3 的矩形範圍</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>程式判斷車格空/滿。</td>
+          <td><code>A1=occupied</code></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>後端更新資料庫與 dashboard。</td>
+          <td>剩餘空位 2 格</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>ESP32-S3 收到命令並控制硬體。</td>
+          <td>空位可進場 -> 閘門開</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="example">
+      <strong>學生最低可做版本：</strong>手機拍 3 個車位，OpenCV 用顏色或輪廓判斷空/滿，dashboard 顯示 3 格狀態，ESP32-S3 用 RGB LED 表示「可停 / 已滿」。
+    </div>
+
+    <div class="warn">
+      <strong>為什麼不用相機板？</strong>相機板是接在開發板上的小型攝影模組，例如 ESP32-CAM 或 Raspberry Pi Camera。它會增加硬體與驅動問題。初學者先用自己的手機，影像品質高、架設簡單、成本為 0。
+    </div>
+
+    <div class="footer"><span>IoT 入門圖解 QA</span><span>7</span></div>
+  </section>
+
+  <section class="page">
+    <span class="week">第 10-12 週</span>
+    <h2>8. 智慧教室的完整資料流怎麼跑？</h2>
+    <div class="definition">
+      <strong>目標：</strong>不用按鈕，也不用 RFID。讓系統用 PIR、光敏、溫濕度自動推論教室狀態。
+    </div>
+
+    <div class="diagram">
+      <h3>智慧教室資料流</h3>
+      <div class="flow">
+        <div class="node">
+          <div class="label">PIR</div>
+          <div class="small">近期是否有人移動</div>
+        </div>
+        <div class="arrow">+</div>
+        <div class="node">
+          <div class="label">光敏</div>
+          <div class="small">燈是否亮、環境是否太暗</div>
+        </div>
+        <div class="arrow">+</div>
+        <div class="node">
+          <div class="label">DHT11</div>
+          <div class="small">溫度、濕度</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">ESP32-S3</div>
+          <div class="small">彙整資料，上傳後端</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">Dashboard</div>
+          <div class="small">占用、空置、忘關燈、舒適度異常</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>狀態推論範例</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>PIR</th>
+          <th>亮度</th>
+          <th>溫濕度</th>
+          <th>系統判斷</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>5 分鐘內有人動</td>
+          <td>亮</td>
+          <td>正常</td>
+          <td>教室使用中</td>
+        </tr>
+        <tr>
+          <td>30 分鐘沒人動</td>
+          <td>很亮</td>
+          <td>正常</td>
+          <td>疑似忘關燈</td>
+        </tr>
+        <tr>
+          <td>有人動</td>
+          <td>很暗</td>
+          <td>正常</td>
+          <td>有人但燈光不足</td>
+        </tr>
+        <tr>
+          <td>有人動</td>
+          <td>正常</td>
+          <td>過熱或過濕</td>
+          <td>舒適度異常</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="example">
+      <strong>ESP32-S3 上傳資料範例：</strong>
+      <pre>{
+  "room": "A301",
+  "motion_recent": true,
+  "light_level": 812,
+  "temperature": 27.4,
+  "humidity": 68,
+  "device": "esp32s3-01"
+}</pre>
+    </div>
+
+    <div class="check">
+      <strong>這個專題在教什麼？</strong>它不是只量溫濕度，而是讓學生練習「多個不完美感測器 -> 推論狀態 -> 發出告警 -> 顯示給管理者」的完整 IoT 思維。
+    </div>
+
+    <div class="footer"><span>IoT 入門圖解 QA</span><span>8</span></div>
+  </section>
+
+  <section class="page">
+    <span class="week">第 13-18 週</span>
+    <h2>9. 後面怎麼延伸到自走車、夾娃娃機、ROS 2？</h2>
+    <div class="definition">
+      <strong>一句話：</strong>前半學期買的材料不是一次性玩具，而是後續專題的控制核心。差別在於後面加上新的機構、馬達、感測器或上位系統。
+    </div>
+
+    <div class="diagram">
+      <h3>延伸路線圖</h3>
+      <div class="flow">
+        <div class="node">
+          <div class="label">共同基礎</div>
+          <div class="small">ESP32-S3、Wi-Fi、GPIO、MQTT、dashboard</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">互動機構</div>
+          <div class="small">伺服、按鈕、LED、蜂鳴器</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">移動或機台</div>
+          <div class="small">自走車、夾娃娃機、置物櫃、入口閘門</div>
+        </div>
+        <div class="arrow">-></div>
+        <div class="node">
+          <div class="label">進階系統</div>
+          <div class="small">ROS 2、Nav2、Gazebo、PX4、ArduPilot</div>
+        </div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>想做什麼</th>
+          <th>沿用材料</th>
+          <th>可能加買</th>
+          <th>學到什麼</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>自走車</td>
+          <td>ESP32-S3、超音波、LED、蜂鳴器、dashboard</td>
+          <td>TT 馬達、馬達驅動板、底盤、電池盒</td>
+          <td>馬達控制、避障、任務狀態回報</td>
+        </tr>
+        <tr>
+          <td>夾娃娃機</td>
+          <td>ESP32-S3、SG90、按鈕、LED、蜂鳴器</td>
+          <td>更多伺服、搖桿、紙板或滑軌材料</td>
+          <td>機構控制、使用者互動、遊戲流程</td>
+        </tr>
+        <tr>
+          <td>ROS 2</td>
+          <td>ESP32-S3 當低階控制器</td>
+          <td>筆電或 Raspberry Pi、馬達編碼器、深度相機或 LiDAR</td>
+          <td>節點、topic、導航、模擬、機器人架構</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>ROS 2 需要深入嗎？</h3>
+    <p>對這門課來說，ROS 2 不必成為全班期中前的必修深水區。它適合放在後半學期做「進階選修路線」：先讓學生知道 ROS 2 是大型機器人系統的資料流與模組化架構，再讓有興趣的組別接 Gazebo、Nav2、PX4 或 ArduPilot。</p>
+
+    <div class="check">
+      <strong>本課程的核心不是某一片板子，也不是某一台車。</strong>核心是：把便宜硬體、程式、資料、dashboard、流程與場域問題整合成能被人使用的 IoT 系統。
+    </div>
+
+    <div class="footer"><span>IoT 入門圖解 QA</span><span>9</span></div>
+  </section>
+
+  <section class="page">
+    <span class="week">教師備課</span>
+    <h2>10. 如果分量太大，可以怎麼切成每週講義？</h2>
+    <p>這份 PDF 可以先作為完整學生手冊。若課堂上覺得一次給太多，可以從同一份內容拆成週次講義。</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>週次</th>
+          <th>建議拆分主題</th>
+          <th>學生要能回答</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>第 1 週</td>
+          <td>課程大圖、ESP32-S3 / Arduino / Raspberry Pi 差異</td>
+          <td>為什麼這門課先用 ESP32-S3 和手機視覺？</td>
+        </tr>
+        <tr>
+          <td>第 2 週</td>
+          <td>GPIO、GND、3.3V / 5V、麵包板安全</td>
+          <td>怎麼接線比較不會燒板子？</td>
+        </tr>
+        <tr>
+          <td>第 3 週</td>
+          <td>HTTP、MQTT、dashboard、topic</td>
+          <td>裝置如何把資料送出去，又如何接收命令？</td>
+        </tr>
+        <tr>
+          <td>第 4-6 週</td>
+          <td>伺服、LED、蜂鳴器、停車場模型</td>
+          <td>ESP32-S3 怎麼控制現場反應？</td>
+        </tr>
+        <tr>
+          <td>第 7-9 週</td>
+          <td>手機視覺、OpenCV、智慧停車場資料流</td>
+          <td>影像判斷如何變成 dashboard 和實體動作？</td>
+        </tr>
+        <tr>
+          <td>第 10-12 週</td>
+          <td>智慧教室、多感測器推論、節能異常</td>
+          <td>怎麼用不完美的感測器推論真實狀態？</td>
+        </tr>
+        <tr>
+          <td>第 13-18 週</td>
+          <td>期末延伸：自走車、夾娃娃機、ROS 2</td>
+          <td>如何把前面材料轉成自己的專題？</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>學生檢核清單</h3>
+    <div class="grid two">
+      <div class="card">
+        <p><strong>接線前：</strong>我知道 VCC、GND、Signal 在哪裡。</p>
+        <p><strong>上電前：</strong>我確認沒有把 5V 接進 ESP32 GPIO。</p>
+        <p><strong>測試時：</strong>我一次只加一個元件，成功再加下一個。</p>
+      </div>
+      <div class="card">
+        <p><strong>寫程式前：</strong>我知道資料從哪裡來，要送到哪裡。</p>
+        <p><strong>做 dashboard 前：</strong>我知道使用者需要看到什麼狀態。</p>
+        <p><strong>做專題前：</strong>我能畫出資料流與元件表。</p>
+      </div>
+    </div>
+
+    <div class="footer"><span>IoT 入門圖解 QA</span><span>10</span></div>
+  </section>
+</body>
+</html>
