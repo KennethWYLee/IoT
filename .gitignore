@@ -1,2 +1,14 @@
 course_ref/
+tmp/
+_outputs/
 
+# Local credentials and runtime logs
+.env
+.env.*
+!.env.example
+*.log
+
+# Local development caches
+node_modules/
+.venv/
+__pycache__/

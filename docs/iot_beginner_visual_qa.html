@@ -459,7 +459,7 @@
     <div>
       <span class="week">學生版講義</span>
       <h1>IoT 入門圖解 QA</h1>
-      <p class="subtitle">用智慧停車場與智慧教室兩個專題，理解 ESP32-S3、感測器、致動器、3.3V / 5V、MQTT / HTTP、dashboard 與後續延伸。</p>
+      <p class="subtitle">用考試用智慧停車場與自動停車小車，理解 ESP32-S3、感測器、致動器、3.3V / 5V、MQTT / HTTP、dashboard 與後續延伸。</p>
       <p class="meta">適用課程：低成本 IoT 互動系統設計與實作<br>版本：2026-05-14</p>
 
       <div class="diagram">
@@ -467,17 +467,17 @@
         <div class="flow">
           <div class="node">
             <div class="label">現實世界</div>
-            <div class="small">車位、門口、教室、人、燈光、溫濕度</div>
+            <div class="small">考試場、邊界、車位、小車、閘門、管理者</div>
           </div>
           <div class="arrow">-></div>
           <div class="node">
             <div class="label">資料來源</div>
-            <div class="small">手機影像、PIR、DHT11、光敏、超音波</div>
+            <div class="small">碰撞開關、距離感測、按鈕、狀態事件</div>
           </div>
           <div class="arrow">-></div>
           <div class="node">
             <div class="label">系統判斷</div>
-            <div class="small">OpenCV、規則、後端 API、MQTT topic</div>
+            <div class="small">規則、計時、後端 API、MQTT topic</div>
           </div>
           <div class="arrow">-></div>
           <div class="node">
@@ -492,7 +492,7 @@
         <div><strong>2. 電路安全</strong>GPIO、GND、3.3V / 5V、限流電阻、麵包板。</div>
         <div><strong>3. 元件分類</strong>感測器、致動器、模組、開發板怎麼分。</div>
         <div><strong>4. 網路通訊</strong>HTTP、MQTT、topic、message、dashboard。</div>
-        <div><strong>5. 專題資料流</strong>智慧停車場、智慧教室完整流程。</div>
+        <div><strong>5. 專題資料流</strong>考試用智慧停車場、自動停車小車完整流程。</div>
         <div><strong>6. 延伸方向</strong>自走車、夾娃娃機、ROS 2 怎麼接上來。</div>
       </div>
     </div>
@@ -886,7 +886,7 @@ digitalWrite(5, LOW);  // 暗</pre>
     </div>
 
     <div class="example">
-      <strong>學生範例：</strong>如果你做「自動教室占用偵測」，PIR 是感測器，DHT11 是感測器，RGB LED 是致動器，ESP32-S3 是開發板，DHT11 那片小板是模組。
+      <strong>學生範例：</strong>如果你做「自動停車小車」，HC-SR04 是感測器，L298N 是馬達驅動模組，TT 馬達是致動器，ESP32-S3 是開發板。
     </div>
 
     <div class="footer"><span>IoT 入門圖解 QA</span><span>5</span></div>
@@ -986,7 +986,7 @@ message: occupied</pre>
   </section>
 
   <section class="page">
-    <span class="week">第 7-9 週</span>
+    <span class="week">延伸：手機視覺</span>
     <h2>7. 手機視覺、ESP32-S3、Dashboard 彼此怎麼溝通？</h2>
     <div class="definition">
       <strong>一句話：</strong>手機負責拍，筆電負責看懂影像，ESP32-S3 負責控制現場，dashboard 負責讓人看懂狀態。
@@ -1073,75 +1073,75 @@ message: occupied</pre>
 
   <section class="page">
     <span class="week">第 10-12 週</span>
-    <h2>8. 智慧教室的完整資料流怎麼跑？</h2>
+    <h2>8. 智慧停車場的完整資料流怎麼跑？</h2>
     <div class="definition">
-      <strong>目標：</strong>不用按鈕，也不用 RFID。讓系統用 PIR、光敏、溫濕度自動推論教室狀態。
+      <strong>目標：</strong>把倒車入庫小車放回可管理的停車場，讓車輛、閘門、車位與 dashboard 使用同一套事件資料。
     </div>
 
     <div class="diagram">
-      <h3>智慧教室資料流</h3>
+      <h3>智慧停車場資料流</h3>
       <div class="flow">
         <div class="node">
-          <div class="label">PIR</div>
-          <div class="small">近期是否有人移動</div>
+          <div class="label">小車</div>
+          <div class="small">入庫、出庫、錯誤狀態</div>
         </div>
         <div class="arrow">+</div>
         <div class="node">
-          <div class="label">光敏</div>
-          <div class="small">燈是否亮、環境是否太暗</div>
+          <div class="label">閘門</div>
+          <div class="small">open / closed / error</div>
         </div>
         <div class="arrow">+</div>
         <div class="node">
-          <div class="label">DHT11</div>
-          <div class="small">溫度、濕度</div>
+          <div class="label">車位</div>
+          <div class="small">empty / occupied</div>
         </div>
         <div class="arrow">-></div>
         <div class="node">
           <div class="label">ESP32-S3</div>
-          <div class="small">彙整資料，上傳後端</div>
+          <div class="small">控制或回報事件</div>
         </div>
         <div class="arrow">-></div>
         <div class="node">
           <div class="label">Dashboard</div>
-          <div class="small">占用、空置、忘關燈、舒適度異常</div>
+          <div class="small">車位、閘門、車輛、log</div>
         </div>
       </div>
     </div>
 
-    <h3>狀態推論範例</h3>
+    <h3>事件資料範例</h3>
     <table>
       <thead>
         <tr>
-          <th>PIR</th>
-          <th>亮度</th>
-          <th>溫濕度</th>
+          <th>event</th>
+          <th>slot_id</th>
+          <th>device_id</th>
           <th>系統判斷</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>5 分鐘內有人動</td>
-          <td>亮</td>
-          <td>正常</td>
-          <td>教室使用中</td>
+          <td>car_parked</td>
+          <td>A01</td>
+          <td>car_03</td>
+          <td>車位已占用</td>
         </tr>
         <tr>
-          <td>30 分鐘沒人動</td>
-          <td>很亮</td>
-          <td>正常</td>
-          <td>疑似忘關燈</td>
+          <td>gate_open</td>
+          <td>入口</td>
+          <td>gate_01</td>
+          <td>閘門開啟</td>
         </tr>
         <tr>
-          <td>有人動</td>
-          <td>很暗</td>
-          <td>正常</td>
-          <td>有人但燈光不足</td>
+          <td>parking_error</td>
+          <td>A01</td>
+          <td>car_03</td>
+          <td>入庫失敗或卡住</td>
         </tr>
         <tr>
-          <td>有人動</td>
-          <td>正常</td>
-          <td>過熱或過濕</td>
-          <td>舒適度異常</td>
+          <td>slot_empty</td>
+          <td>A01</td>
+          <td>slot_sensor_01</td>
+          <td>車位已釋出</td>
         </tr>
       </tbody>
     </table>
@@ -1149,17 +1149,17 @@ message: occupied</pre>
     <div class="example">
       <strong>ESP32-S3 上傳資料範例：</strong>
       <pre>{
-  "room": "A301",
-  "motion_recent": true,
-  "light_level": 812,
-  "temperature": 27.4,
-  "humidity": 68,
-  "device": "esp32s3-01"
+  "lot_id": "lot_a",
+  "slot_id": "A01",
+  "event": "car_parked",
+  "device_id": "car_03",
+  "status": "occupied",
+  "time": "2026-11-18T14:32:00+08:00"
 }</pre>
     </div>
 
     <div class="check">
-      <strong>這個專題在教什麼？</strong>它不是只量溫濕度，而是讓學生練習「多個不完美感測器 -> 推論狀態 -> 發出告警 -> 顯示給管理者」的完整 IoT 思維。
+      <strong>這個專題在教什麼？</strong>它不是只讓車子會動，而是讓學生練習「實體事件 -> 裝置回報 -> dashboard 顯示 -> log 與異常處理」的完整 IoT 思維。
     </div>
 
     <div class="footer"><span>IoT 入門圖解 QA</span><span>8</span></div>
@@ -1236,7 +1236,7 @@ message: occupied</pre>
     </div>
 
     <div class="callout">
-      <strong>第 13-18 週節奏：</strong>第 13、15、17 週做專題進度回報；第 14、16 週穿插 Pico 小車工作坊；第 18 週保留為自由學習與技術探索。
+      <strong>第 13-18 週節奏：</strong>第 12 週做唯一一次期末題目報告；第 13-16 週是 sprint gate：垂直切片、場域功能、故障注入、demo freeze；第 17 週看學生作品；第 18 週是官方期末考週，不安排進度，只提供進階教材與自學路線。
     </div>
 
     <div class="footer"><span>IoT 入門圖解 QA</span><span>9</span></div>
@@ -1263,33 +1263,33 @@ message: occupied</pre>
         </tr>
         <tr>
           <td>第 2 週</td>
+          <td>ESP32-S3 開發環境、Serial、Wi-Fi scan</td>
+          <td>沒有完整材料包時，如何先確認板子能工作？</td>
+        </tr>
+        <tr>
+          <td>第 3 週</td>
           <td>GPIO、GND、3.3V / 5V、麵包板安全</td>
           <td>怎麼接線比較不會燒板子？</td>
         </tr>
         <tr>
-          <td>第 3 週</td>
-          <td>HTTP、MQTT、dashboard、topic</td>
-          <td>裝置如何把資料送出去，又如何接收命令？</td>
-        </tr>
-        <tr>
           <td>第 4-6 週</td>
-          <td>伺服、LED、蜂鳴器、停車場模型</td>
-          <td>ESP32-S3 怎麼控制現場反應？</td>
+          <td>考試用智慧停車場、碰撞偵測、蜂鳴器、燈號</td>
+          <td>怎麼讓場地知道車子碰到邊界，並記錄違規？</td>
         </tr>
         <tr>
           <td>第 7-9 週</td>
-          <td>手機視覺、OpenCV、智慧停車場資料流</td>
-          <td>影像判斷如何變成 dashboard 和實體動作？</td>
+          <td>自製小車、倒車入庫、測試紀錄、期中評分</td>
+          <td>如何讓車子不是靠運氣，而是在考場中可重複地倒車入庫？</td>
         </tr>
         <tr>
           <td>第 10-12 週</td>
-          <td>智慧教室、多感測器推論、節能異常</td>
-          <td>怎麼用不完美的感測器推論真實狀態？</td>
+          <td>考後檢討、期末題目、MQTT / WebSocket、dashboard</td>
+          <td>如何把考試經驗延伸成自己的 IoT project？</td>
         </tr>
         <tr>
           <td>第 13-18 週</td>
-          <td>期末延伸、Pico 小車、自由學習</td>
-          <td>如何用 13/15/17 週回報進度，並把第 18 週變成自己的延伸學習？</td>
+          <td>Sprint gate、作品展示、進階教材</td>
+          <td>如何通過垂直切片、場域功能、故障注入、demo freeze，並在第 17 週展示可運作作品？</td>
         </tr>
       </tbody>
     </table>
