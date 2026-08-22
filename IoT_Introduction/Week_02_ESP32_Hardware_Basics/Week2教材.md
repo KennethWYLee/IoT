@@ -30,7 +30,7 @@ Serial Monitor 疊在同一個小視窗中反覆切換。
 
 完成本教材後，你應該能：
 
-1. 說出 ESP32-S3、USB、GPIO、GND、3.3V 與 5V 的用途。
+1. 辨認並記錄 ESP32-S3、USB、GPIO、GND、3.3V 與 5V 的用途。
 2. 在 Arduino IDE 選擇正確開發板及連接埠。
 3. 編譯、上傳程式並使用 Serial Monitor 查看 log。
 4. 用萬用電表確認通斷與直流電壓。
@@ -224,32 +224,56 @@ A B C D E             ||             F G H I J
 ● ● ● ● ●             ||             ● ● ● ● ●
 ```
 
-四腳按鈕內部通常是同側兩腳相通，按下後才連接兩側：
+四腳按鈕內部通常是左側兩腳相通、右側兩腳相通，按下後才連接左右兩側：
 
 ```text
-A1 ----- A2
- |       |
- | 按鈕  |
-B1 ----- B2
+左側                 右側
+L1 ●                 ● R1
+   │     [按鈕]      │
+L2 ●                 ● R2
 
-未按下：A 側和 B 側分離
-按下：A 側和 B 側導通
+未按下：左側和右側分離
+按下：左側和右側導通
 ```
 
 把按鈕跨過麵包板中央溝槽，可以讓按鈕兩側落在原本不相通的區域。方向放錯
 時，程式可能永遠判定按下或永遠沒有反應。
+
+本課的 ESP32 是「排針向下」版本。若板子尺寸和麵包板相符，兩排排針可
+跨過中央溝槽，分別插入 `B` 欄與 `I` 欄。這樣 `A` 欄與 `J` 欄會留在板子
+外側，可作為接線孔：
+
+```text
+外側可接線                                      外側可接線
+ A   B C D E          中央溝槽          F G H I   J
+ ●   ▼ ● ● ●             ||             ● ● ● ▼   ●
+     左排針              ESP32              右排針
+
+同一編號列中：A～E 相通；F～J 相通
+因此排針在 B 欄時，可從同列 A 欄接線。
+排針在 I 欄時，可從同列 J 欄接線。
+```
+
+這只是本批 400 孔麵包板的預定放法，不能用力硬壓。若兩排無法同時自然對準
+`B`、`I`，或插入後完全沒有可用的外側孔，停止操作，改用公對母杜邦線方案，
+不要扳彎、剪短或擠壓排針。
 
 ## A8. 萬用電表本週只用兩個功能
 
 ### 通斷檔
 
 - 電路必須斷電。
+- 黑表筆插 `COM`，紅表筆插 `VΩmA`；不可插 `10A` 孔。
 - 用來確認兩點是否電氣連通。
 - 可檢查按鈕、麵包板內部與杜邦線。
+- 若 A830L 沒有蜂鳴通斷功能，改用 `Ω 200` 檔：接近 `0 Ω` 表示導通，
+  顯示 `1`、`OL` 或超出量程表示不導通。
 
 ### 直流電壓檔
 
 - 電路需要上電。
+- 黑表筆仍插 `COM`，紅表筆仍插 `VΩmA`。
+- A830L 旋鈕轉到 `DCV 20`，不是 `ACV`、`DCA` 或 `10A`。
 - 黑表筆接 GND，紅表筆接測試點。
 - 量程要高於預期的 3.3V。
 
@@ -297,7 +321,7 @@ Part B 不需要從頭重念 Part A。每張卡先完整讀完，再動手，最
 - 一條確認可傳輸資料的 USB 線。
 - 400 孔麵包板。
 - 6×6 mm 四腳按鈕一顆。
-- 公對公杜邦線至少兩條。
+- 公對公杜邦線至少四條。
 - 筆電與充電器。
 
 全班共用一支 A830L 萬用電表，各組依序到量測站操作。SG90、MG90S、
@@ -330,7 +354,25 @@ GPIO36、GPIO37。官方文件指出部分 Octal flash／PSRAM 版本會把這�
 
 ### 步驟 1：開啟課前安裝成果
 
-確認下列項目：
+依下列順序確認，不要只看桌面上有沒有 Arduino 圖示：
+
+1. 啟動 Arduino IDE 2，等待主視窗完整出現。
+2. 點左側 **Boards Manager** 圖示；若看不到，使用選單
+   **Tools → Board → Boards Manager**。
+3. 在搜尋欄輸入 `esp32`。
+4. 找到作者為 **Espressif Systems** 的 `esp32` package。
+5. 確認按鈕顯示 `REMOVE` 或旁邊標示已安裝版本；若仍顯示 `INSTALL`，表示
+   課前作業尚未完成。
+6. 把已安裝版本填入：
+
+```text
+Arduino IDE 版本：____________________
+Espressif esp32 package 版本：____________________
+```
+
+7. 用瀏覽器開啟本 repository，確認目前看到的檔名是 `Week2教材.md`。
+
+最後勾選：
 
 - [ ] Arduino IDE 2 可以正常開啟。
 - [ ] Boards Manager 顯示 Espressif `esp32` platform 已安裝。
@@ -368,14 +410,21 @@ GPIO36、GPIO37。官方文件指出部分 Octal flash／PSRAM 版本會把這�
 
 ### 檢查點 1
 
-請同組另一人指一個位置，你負責說出名稱與用途；交換角色再做一次。
+兩位組員各自在板卡照片上標出 USB、BOOT、RESET、GPIO4、GPIO5 與 GND，
+再互相比對；有不同之處就回到板身絲印核對並修正標記。
 
 ## 五、階段 2：Arduino IDE、Board 與 Port
 
 ### 步驟 1：接上 USB
 
-本週優先使用教師指定並在板子上貼標籤的 USB 接頭。使用已確認可傳資料的
-線連接筆電。只接 USB，不接麵包板及其他模組。
+1. 確認 ESP32 尚未插在麵包板，也沒有接任何杜邦線。
+2. 關閉 Arduino IDE 的 Serial Monitor，避免它占用 Port。
+3. 把資料線接到教師在板子上標記的 **USB-to-UART** 接頭。
+4. 把另一端接到筆電；不要使用鬆動的 USB hub。
+5. 等待作業系統完成裝置辨識。
+6. 確認板上電源指示燈亮起。燈亮只證明有電，下一步仍要確認 Port。
+
+此時桌面上只能有「ESP32 + USB + 筆電」，不能接麵包板或任何模組。
 
 ### 步驟 2：選擇 Board 與 N16R8 設定
 
@@ -401,10 +450,31 @@ GPIO36、GPIO37。官方文件指出部分 Octal flash／PSRAM 版本會把這�
 
 官方參考：[Arduino-ESP32 Tools Menu](https://docs.espressif.com/projects/arduino-esp32/en/latest/guides/tools_menu.html)｜[PSRAM 設定排錯](https://docs.espressif.com/projects/arduino-esp32/en/latest/troubleshooting.html)
 
+實際點選順序：
+
+1. 點 **Tools → Board → esp32 → ESP32S3 Dev Module**。
+2. 再打開 **Tools**，逐項找到上表選項。
+3. 每設定一項就回到 Tools 再設定下一項；不要以為選 Board 後全部自動正確。
+4. 設完後重新打開 Tools，由上往下逐項比對一次。
+5. 把 Tools 選單截圖保存為 `week02_board_settings_組別.png`。
+
+如果 Tools 中完全看不到 ESP32-S3、Flash Size 或 PSRAM，通常是選錯 Board，
+或 Espressif `esp32` package 沒有正確安裝。回到階段 1，不要繼續 Upload。
+
 ### 步驟 3：選擇 Port
 
-先記下拔除 ESP32 時的 port 清單，再插回去。新出現的 port 通常就是本板。
-選取後把實際 port 寫下來：
+用「拔除前後比較」找 Port：
+
+1. 先拔掉 ESP32 的 USB。
+2. 打開 **Tools → Port**，把目前清單記下來或截圖。
+3. 關閉 Port 選單。
+4. 把 ESP32 接回同一個 USB 孔，等待裝置辨識。
+5. 再開 **Tools → Port**。
+6. 找出新出現的 Port，例如 Windows 的 `COM5`。
+7. 點選該 Port；被選取的項目前應出現勾選符號。
+8. 不要依照別組的 COM 號碼選擇，每台電腦可能不同。
+
+把實際 Port 寫下來：
 
 ```text
 我的 Port：____________________
@@ -418,11 +488,28 @@ GPIO36、GPIO37。官方文件指出部分 Octal flash／PSRAM 版本會把這�
 4. 查看 Windows 裝置管理員是否出現未知裝置。
 5. 保存畫面後再請教師協助，不要隨機安裝來源不明的 driver。
 
+### 階段 2 通過條件
+
+- [ ] Board 是 `ESP32S3 Dev Module`。
+- [ ] Flash Size 是 16MB，PSRAM 是 OPI。
+- [ ] 使用 USB-to-UART 時，USB CDC On Boot 是 Disabled。
+- [ ] 已用拔除前後比較找到自己的 Port。
+- [ ] Board 設定截圖已保存。
+
 ## 六、階段 3：第一個可辨識的程式
 
 ### 步驟 1：建立程式
 
-新增 sketch，完整貼上以下程式：
+1. 點 **File → New Sketch**。
+2. 點 **File → Save As**。
+3. 將資料夾／Sketch 名稱設為 `week02_serial_groupXX`，把 `XX` 換成組別。
+4. 刪除編輯器內原本的 `setup()` 與 `loop()` 範本，避免重複定義。
+5. 使用 GitHub 程式區塊右上角的 Copy 按鈕，完整複製下列程式。
+6. 貼到 Arduino IDE。
+7. 把 `CHANGE_ME` 改成組別，例如第 3 組改成 `03`。
+8. 按 **Ctrl+S** 儲存。
+
+完整程式：
 
 ```cpp
 unsigned long lastReportMs = 0;
@@ -443,20 +530,47 @@ void loop() {
 }
 ```
 
-把 `CHANGE_ME` 改成組別，例如 `group=03`。不要更改 baud rate。
+不要更改 baud rate。貼上後確認程式只出現一組 `setup()` 與一組 `loop()`。
 
 ### 步驟 2：分辨 Verify 與 Upload
 
-1. 按 **Verify**：只編譯，確認程式語法能轉成韌體。
-2. 按 **Upload**：將韌體寫入目前選擇的 port。
-3. 等待 IDE 顯示上傳完成。
+1. 點左上角勾號 **Verify**。
+2. 看視窗下方 Output，不要只看進度動畫。
+3. 等待看到編譯完成及記憶體用量；若出現紅色錯誤，先找最上面的第一個
+   錯誤，不要從最後一行開始猜。
+4. Verify 成功後，點右箭頭 **Upload**。
+5. Output 會先再次編譯，再出現連線、寫入百分比及完成訊息。
+6. 等待 `Hard resetting via RTS pin...` 或 IDE 顯示 Upload 完成。
+7. Upload 期間不要拔線、按 RESET 或移動板子。
 
 Verify 成功不等於 Upload 成功；Upload 成功也不等於程式功能正確。三者需要
 不同證據。
 
+#### 若一直停在 Connecting
+
+依下列順序做一次手動下載模式：
+
+1. 保持 USB 連接。
+2. 按住板上的 **BOOT** 不放。
+3. 短按一下 **RESET／RST** 後放開 RESET。
+4. 再放開 BOOT。
+5. 回到 Arduino IDE，重新確認 Port。
+6. 再按 Upload。
+
+另一種常見操作是先按 Upload，看到 `Connecting...` 時按住 BOOT，連線開始
+寫入後再放開。兩種方式都只在正常自動 Upload 失敗時使用。
+
+若 Output 顯示晶片不是 ESP32-S3，立即停止，回到 Board 設定；不要用錯誤
+Board 強行上傳。
+
 ### 步驟 3：查看 Serial Monitor
 
-開啟 Serial Monitor，baud rate 選擇 `115200`。預期看到類似：
+1. Upload 完成後，點 Arduino IDE 右上角 **Serial Monitor** 圖示，或選
+   **Tools → Serial Monitor**。
+2. 在 Serial Monitor 的 baud rate 選單選擇 `115200`。
+3. 按一下板上的 RESET，讓開機訊息重新出現。
+4. 不要在 Serial 輸入框亂輸入文字；本程式不讀取鍵盤輸入。
+5. 預期看到：
 
 ```text
 boot: week02 group=03 version=1
@@ -465,45 +579,163 @@ status: uptime_ms=2000
 status: uptime_ms=3000
 ```
 
-若是亂碼，先檢查 baud rate。若完全沒有文字，按一次 RESET，再檢查 port、
-Monitor 是否開啟及程式是否包含 `Serial.begin(115200)`。
+若是亂碼：
+
+1. 確認 baud rate 是 115200。
+2. 確認 Serial Monitor 使用的 Port 和 Upload 的 Port 相同。
+3. 按 RESET 再看一次。
+
+若完全沒有文字：
+
+1. 關閉 Serial Monitor。
+2. 重新確認 Tools → Port。
+3. 再開 Serial Monitor 並選 115200。
+4. 按 RESET。
+5. 檢查程式是否包含 `Serial.begin(115200)`。
+6. 仍無輸出時重新 Upload，保存 Output 及 Serial 畫面再求助。
 
 ### 步驟 4：證明不是舊程式
 
-把 `version=1` 改成 `version=2`，再次 Upload。Serial 必須出現 `version=2`。
-保存包含組別、版本與 uptime 的畫面。
+1. 關閉 Serial Monitor。
+2. 在程式中把 `version=1` 改成 `version=2`。
+3. 按 Ctrl+S。
+4. 再按 Upload。
+5. Upload 完成後重新開啟 Serial Monitor，確認 115200。
+6. 按 RESET。
+7. Serial 必須出現正確組別及 `version=2`。
+8. 保存包含組別、版本與 uptime 的畫面，命名
+   `week02_serial_version2_組別.png`。
 
 ### 檢查點 2
 
 - [ ] Verify 成功。
 - [ ] Upload 成功。
 - [ ] Serial 顯示正確組別與 `version=2`。
-- [ ] 能用自己的話說明 Verify 與 Upload 的差異。
+- [ ] Lab Notebook 已各用一句文字記錄 Verify 與 Upload 的用途。
 
 ## 七、階段 4：認識麵包板與按鈕
 
 ### 步驟 1：先拔除 USB
 
-確認開發板完全斷電。此時才拿出麵包板、按鈕與杜邦線。
+1. 關閉 Serial Monitor。
+2. 從 ESP32 端拔除 USB 線。
+3. 確認板上電源燈熄滅。
+4. 等待數秒後，再拿出麵包板、按鈕與杜邦線。
 
-### 步驟 2：了解四腳按鈕
+後面凡是寫「拔除 USB」，都要做到電源燈熄滅。只關閉 Serial Monitor 或只
+停止程式，都不等於斷電。
+
+### 步驟 2：先看懂麵包板，不放任何零件
+
+1. 將麵包板橫放，使 `A～E` 在中央溝槽左側、`F～J` 在右側。
+2. 找到列號，例如 1、5、10；列號沿著長邊增加。
+3. 在同一列中，`A～E` 五孔相通，`F～J` 五孔相通。
+4. `E` 和 `F` 中間有溝槽，兩側不相通。
+5. 若板上有紅、藍長電源軌，本週不使用，避免把「同列」和「長條電源軌」
+   混在一起。
+
+先用筆或可移除標籤在板邊寫下：
+
+```text
+左外側接線欄：A
+右外側接線欄：J
+TP5 預留列：________
+TPG 預留列：________
+```
+
+TP5 與 TPG 必須是兩個不同的空白列，而且不能位於 ESP32 排針占用的列。
+
+### 步驟 3：辨認四腳按鈕方向
 
 四腳按鈕通常是：
 
 ```text
-A1 ----- A2
- |       |
- | 按鈕  |
-B1 ----- B2
+左側                 右側
+L1 ●                 ● R1
+   │     [按鈕]      │
+L2 ●                 ● R2
 
-未按下：A 側與 B 側不通
-按下：A 側與 B 側導通
+未按下：左側與右側不通
+按下：左側與右側導通
 ```
 
 同一側的兩腳通常原本就相通，但必須在量測站用通斷檔確認實物，不能只看
 示意圖。把按鈕跨在麵包板中央溝槽，避免四腳落在錯誤的同一排導通區。
 
-### 步驟 3：本週按鈕接線
+先不要插入，將按鈕放在桌上觀察：
+
+1. 找到按鈕本體兩側各伸出的兩支腳。
+2. 讓兩支腳朝左、兩支腳朝右，而不是四支腳排成上下方向。
+3. 選兩個相隔約兩列的空白位置，例如第 27 與第 29 列。
+4. 預定讓左側兩腳進入 `E27`、`E29`，右側兩腳進入 `F27`、`F29`。
+5. 此時按鈕本體跨在 `E`、`F` 之間的中央溝槽。
+
+若實物腳距不同，列號可以改，但必須同時滿足「左右跨槽」與「四腳自然對
+孔」。不得把腳扳到明顯變形來配合例子。
+
+### 步驟 4：把 ESP32 插到麵包板
+
+1. 確認 USB 仍未接上。
+2. 讓 ESP32 元件與絲印朝上、排針朝下。
+3. 讓兩個 USB 接頭朝麵包板短邊外側，避免接上線後壓住麵包板。
+4. 先讓左排針對準 `B` 欄、右排針對準 `I` 欄，不要立刻壓下。
+5. 從板子兩端目視，確認每一支排針都正對一個孔，沒有任何一支偏在孔邊。
+6. 兩手分別平均按住板子兩端，垂直、緩慢壓入；不可只壓單側或 USB 接頭。
+7. 插入後從側面確認兩排高度大致一致，排針沒有外彎。
+8. 確認 `A`、`J` 外側各留一欄可插杜邦線。
+
+若第 4 步無法自然對準，立刻停止，不要施力。改用以下備用方式：
+
+1. ESP32 放在不導電且穩固的桌面墊上，不讓排針碰到金屬。
+2. 使用公對母杜邦線，母端套在 ESP32 的 GPIO4、GPIO5、GND。
+3. 公端分別插入麵包板預定列。
+4. 每條線貼上 `4`、`5`、`G` 標籤。
+5. 板子不得懸吊在線材上，也不得讓裸露排針碰觸彼此。
+
+### 步驟 5：把板身接腳轉成麵包板接線孔
+
+ESP32 插在 `B`、`I` 欄時，不要把杜邦線硬塞到排針旁邊。請看板身絲印，
+找出 GPIO4、GPIO5、GND 各自所在的「同一列」，再使用該列外側的孔：
+
+| 板身接腳落在哪一側 | 排針所在欄 | 同列可用接線孔 |
+|---|---|---|
+| 左側 | B | A |
+| 右側 | I | J |
+
+例如 GPIO4 的排針若落在 `B8`，則 `A8` 就與 GPIO4 相通；若 GPIO4 落在
+`I8`，則使用 `J8`。**列號只是實物位置，請依絲印找，不可照抄這個例子。**
+
+把實際孔位填好後才接線：
+
+| 訊號 | 板身絲印 | 外側實際孔位 |
+|---|---|---|
+| 按鈕輸入 | `4`／GPIO4 |  |
+| 測試輸出 | `5`／GPIO5 |  |
+| 地 | `G`／GND |  |
+
+### 步驟 6：插入按鈕
+
+1. 再確認預定的四個孔沒有被 ESP32 或導線占用。
+2. 讓按鈕跨過中央溝槽。
+3. 四支腳全部對孔後，從按鈕本體正上方平均壓入。
+4. 輕推按鈕；它應穩定留在板上，不應只有兩腳勉強插入。
+5. 用標籤把左側稱為 `BTN-A`，右側稱為 `BTN-B`。
+
+### 步驟 7：逐條完成本週接線
+
+一次只插一條線，每插完一條就在表中打勾：
+
+1. [ ] GPIO4 的外側同列孔 → `BTN-A` 所在列的左側五孔組。
+2. [ ] GND 的外側同列孔 → 預留的 TPG 空白五孔組。
+3. [ ] TPG 同一五孔組的另一孔 → `BTN-B` 所在列的右側五孔組。
+4. [ ] GPIO5 的外側同列孔 → 預留的 TP5 空白五孔組。
+
+這樣只需使用板上一個 GND：TPG 是共同接地列，再從 TPG 分接到按鈕。四條
+杜邦線分別是 `GPIO4→BTN-A`、`GND→TPG`、`TPG→BTN-B`、`GPIO5→TP5`。
+
+本週的電氣關係必須是：
+
+![Week 2 GPIO4 按鈕與 GPIO5 量測點接線圖](wiring_gpio4_gpio5.svg)
 
 ```text
 ESP32 GPIO4 -------- 按鈕的一側
@@ -525,6 +757,18 @@ ESP32 GND  --------- 麵包板另一空白列（標記為 TPG）
 - 未按下：讀到 `HIGH`。
 - 按下：GPIO4 被接到 GND，讀到 `LOW`。
 
+### 步驟 8：上電前逐線覆核
+
+覆核者不能只看「像不像圖片」，要從訊號起點沿線摸到終點：
+
+1. 指著板身 `4` 絲印，沿著同列孔與線走到按鈕一側。
+2. 指著板身 `G`／`GND`，沿線走到 TPG，再從 TPG 走到按鈕另一側。
+3. 指著板身 `5`，沿線走到標記 TP5 的獨立列。
+4. 指著 GND，沿線走到標記 TPG 的另一獨立列。
+5. 確認 TP5 與 TPG 不在同一個五孔導通組。
+6. 確認沒有任何線接到 `5V`、`3V3` 或未使用的 GPIO。
+7. 從正上方拍一張能看清板身絲印與線路終點的照片。
+
 ### 上電前接線表
 
 | 元件 | 元件腳位 | ESP32 腳位 | 方向／用途 |
@@ -540,16 +784,41 @@ ESP32 GND  --------- 麵包板另一空白列（標記為 TPG）
 檢查者：____________________
 ```
 
+### 階段 4 通過條件
+
+- [ ] ESP32 排針筆直，或已使用安全固定的公對母備用接法。
+- [ ] 按鈕四腳自然插入並跨過中央溝槽。
+- [ ] GPIO4 只經按鈕連到 GND。
+- [ ] GPIO5 只連到 TP5。
+- [ ] TPG 連到 GND，而且 TP5、TPG 不互通。
+- [ ] 另一人已逐線覆核並簽名。
+
 ## 八、階段 5：按鈕輸入與 GPIO5 輸出
 
-### 步驟 1：上傳完整程式
+### 步驟 1：接回 USB，但先不碰電路
+
+1. 確認階段 4 的覆核者已簽名。
+2. 確認沒有人握著按鈕、杜邦線或萬用電表表筆。
+3. 把 USB 接回原本測試成功的 USB-to-UART 接頭。
+4. 觀察數秒；若出現發熱、異味或異常聲音，立刻拔除 USB。
+5. 正常時只開 Arduino IDE，不要在上電後移動任何接線。
+
+### 步驟 2：另存按鈕程式
 
 GPIO5 本週不接 LED、蜂鳴器、馬達或其他負載；我們直接用 Serial 與萬用
 電表驗證它的輸出電壓。
 
+1. 在 Arduino IDE 點 **File → Save As**。
+2. 新名稱輸入 `week02_button_groupXX`，將 `XX` 改成兩位數組別。
+3. 確認視窗標題已變成新名稱，避免覆蓋前一個 Serial 練習。
+4. 按 **Ctrl+A** 全選舊程式，再貼上下列完整程式。
+5. 把 `CHANGE_ME` 改成組別，例如第 3 組改成 `03`，保留雙引號。
+6. 按 **Ctrl+S**。
+
 ```cpp
 const int PIN_BUTTON = 4;
 const int PIN_TEST_OUTPUT = 5;
+const char *GROUP_ID = "CHANGE_ME";
 
 bool stablePressed = false;
 bool lastRawPressed = false;
@@ -564,7 +833,7 @@ void setup() {
   pinMode(PIN_TEST_OUTPUT, OUTPUT);
   digitalWrite(PIN_TEST_OUTPUT, LOW);
 
-  Serial.println("boot: week02 button-test version=1");
+  Serial.printf("boot: week02 group=%s button-test version=1\n", GROUP_ID);
   Serial.println("state: released output=LOW");
 }
 
@@ -582,7 +851,8 @@ void loop() {
     digitalWrite(PIN_TEST_OUTPUT, stablePressed ? HIGH : LOW);
 
     Serial.printf(
-      "event=button_changed pressed=%s gpio5=%s time_ms=%lu\n",
+      "group=%s event=button_changed pressed=%s gpio5=%s time_ms=%lu\n",
+      GROUP_ID,
       stablePressed ? "true" : "false",
       stablePressed ? "HIGH" : "LOW",
       now
@@ -591,14 +861,45 @@ void loop() {
 }
 ```
 
-### 步驟 2：觀察預期結果
+貼上後先做人工檢查：
+
+- [ ] `PIN_BUTTON = 4`，不是板上排針位置的數字。
+- [ ] `PIN_TEST_OUTPUT = 5`。
+- [ ] `GROUP_ID` 已改成自己的組別。
+- [ ] 只有一組 `setup()` 與一組 `loop()`。
+- [ ] 程式最後的左右大括號數量沒有因複製而缺少。
+
+### 步驟 3：Verify、Upload、開啟 Serial
+
+1. 先按 **Verify**。
+2. Verify 成功後，再檢查一次 **Tools → Board** 與 **Tools → Port**。
+3. 關閉 Serial Monitor。
+4. 按 **Upload**，等待完整寫入與重設完成。
+5. 開啟 Serial Monitor，設定 `115200`。
+6. 按一下 RESET。
+7. 第一段文字必須包含自己的組別與 `button-test version=1`。
+
+如果 Upload 成功但仍看到前一支程式每秒輸出的 `uptime_ms`，表示目前顯示的
+可能是錯誤 Port、舊程式或 Upload 未真正完成。先核對 Port 和 Upload Output，
+不要改硬體接線。
+
+### 步驟 4：只用手按按鈕觀察結果
 
 按下與放開時，Serial 應出現：
 
 ```text
-event=button_changed pressed=true gpio5=HIGH time_ms=...
-event=button_changed pressed=false gpio5=LOW time_ms=...
+group=03 event=button_changed pressed=true gpio5=HIGH time_ms=...
+group=03 event=button_changed pressed=false gpio5=LOW time_ms=...
 ```
+
+請照固定節奏操作：
+
+1. 先放開按鈕，確認沒有持續重複事件。
+2. 按下並保持約一秒，只應新增一筆 `pressed=true`。
+3. 放開並等待約一秒，只應新增一筆 `pressed=false`。
+4. 再慢速做兩次。
+5. 若一次動作印出很多筆，不要急著增大 `DEBOUNCE_MS`；先排除接觸不良和
+   按鈕插錯方向。
 
 如果按下沒有反應：
 
@@ -610,7 +911,19 @@ event=button_changed pressed=false gpio5=LOW time_ms=...
 
 不要在通電時一邊改線一邊猜。
 
-### 步驟 3：連續測試五次
+### 步驟 5：依現象走固定排錯路徑
+
+| Serial 現象 | 最可能方向 | 下一個動作 |
+|---|---|---|
+| 一上電就顯示 `pressed=true` | GPIO4 持續接地 | 拔 USB，檢查按鈕方向及 GPIO4、GND 是否在同一導通組 |
+| 按下、放開都沒有事件 | GPIO4 未經按鈕接到 GND | 拔 USB，逐線摸查，再做通斷測試 |
+| 一次按壓出現很多事件 | 接點彈跳或接觸不良 | 確認按鈕完全插入，再比較去抖設定 |
+| 事件正常但組別錯誤 | 程式未改或舊程式 | 修改 `GROUP_ID`、Save、Upload、RESET |
+| 完全沒有 Serial 文字 | Port／baud／USB 問題 | 回到階段 3 的 Serial 排錯，不動硬體線 |
+
+排錯前先保存畫面。凡是要碰線，一律先拔 USB，修正後再由第二人覆核。
+
+### 步驟 6：連續測試五次
 
 每次完整按下再放開，記錄：
 
@@ -626,12 +939,44 @@ event=button_changed pressed=false gpio5=LOW time_ms=...
 
 ## 九、階段 6：萬用電表量測站（分組輪流）
 
+萬用電表只有一支，所以到量測站前先完成五次 Serial 測試。量測者控制表筆，
+另一人負責按鈕與記錄；兩人的手不要同時伸進電路。
+
 ### A. 通斷量測：必須斷電
 
-1. 拔除 USB。
-2. 黑表筆插 `COM`，紅表筆插電壓／電阻／通斷孔。
-3. 選擇通斷檔。
-4. 量按鈕兩側：未按下應不導通，按下應導通。
+#### A1. 準備表筆與確認斷電
+
+1. 從 ESP32 端拔除 USB，確認電源燈熄滅。
+2. 萬用電表旋鈕先轉到 `OFF`。
+3. 黑表筆插入標示 `COM` 的孔，插到底。
+4. 紅表筆插入標示 `VΩmA` 的孔，**不可插在 `10A` 孔**。
+5. 輕拉兩條表筆接頭，確認沒有鬆脫。
+6. 確認桌上沒有外接電池或其他電源。
+
+#### A2. 選擇通斷或 200 Ω 檔
+
+1. 若表上有蜂鳴器／聲波符號，選擇通斷檔。
+2. 若這支 A830L 沒有蜂鳴功能，旋鈕轉到電阻區的 `200`，表示最高量測
+   200 Ω 的檔位。
+3. 讓紅、黑表筆金屬尖端彼此接觸：應發出聲音，或顯示接近 `0` 的小數值。
+4. 把兩表筆分開：應停止蜂鳴，或顯示 `1`／`OL`／超出量程。
+5. 若短接表筆仍完全無反應，先檢查檔位、插孔、電池與表筆，不要拿錯誤的
+   電表結果判定按鈕壞掉。
+
+#### A3. 確認麵包板與按鈕
+
+下列每次量測，表筆各碰一個孔中的金屬接點或同列杜邦線金屬端，不能讓兩支
+表筆尖端互相碰到。
+
+1. 先量同一側同一五孔組，例如 `A27` 與 `E27`：應導通。
+2. 再量中央溝槽兩側同一列，例如 `E27` 與 `F27`：應不導通。
+3. 將一支表筆接 `BTN-A`，另一支接 `BTN-B`。
+4. 不按按鈕時讀值：應不導通。
+5. 保持表筆不滑動，請記錄者按住按鈕：應導通。
+6. 放開按鈕：應再次不導通。
+
+若第 4 步一開始就導通，先檢查表筆是否放在按鈕同一側，或按鈕是否轉錯
+90 度；不要上電試運氣。
 
 記錄結果：
 
@@ -642,10 +987,40 @@ event=button_changed pressed=false gpio5=LOW time_ms=...
 
 ### B. 直流電壓量測：接回 USB
 
-1. 選擇直流電壓檔，量程必須高於預期的 3.3V。
-2. 黑表筆接 TPG，紅表筆接 TP5；TPG 已連到 GND，TP5 已連到 GPIO5。
-3. 放開按鈕，程式使 GPIO5 為 LOW，記錄電壓。
-4. 按住按鈕，程式使 GPIO5 為 HIGH，記錄電壓。
+#### B1. 切換到正確檔位
+
+1. 保持黑表筆在 `COM`、紅表筆在 `VΩmA`。
+2. 將旋鈕從電阻／通斷轉到直流電壓區的 `DCV 20`。
+3. 確認不是 `ACV 200`、`DCA 20m`、`hFE` 或 `10A`。
+4. 檔位切好後才接回 USB。
+5. 開啟 Serial Monitor 並確認按下、放開事件仍正常。
+
+`DCV 20` 表示可量測到 20V 左右，適合本週約 3.3V 的訊號；它不是要把
+電路設定成 20V。
+
+#### B2. 先固定黑表筆
+
+1. 找到貼有 `TPG` 標籤的五孔組。
+2. 黑表筆只接觸 TPG，不要直接探 ESP32 密集排針。
+3. 由記錄者確認 TPG 的杜邦線另一端確實回到板身 `G`／`GND`。
+4. 量測過程中先保持黑表筆不移動。
+
+#### B3. 量 LOW
+
+1. 完全放開按鈕。
+2. 看 Serial 是否出現 `pressed=false gpio5=LOW`；若沒有，先按下再放開一次。
+3. 紅表筆接觸 TP5 的另一個空孔。
+4. 等顯示穩定後記錄數值和正負號。
+5. 正常應接近 0V。若跳動很大，先確認表筆接觸與 TP5 接線。
+
+#### B4. 量 HIGH
+
+1. 紅、黑表筆保持在 TP5、TPG。
+2. 請另一人按住按鈕，不要由量測者同時按。
+3. 看 Serial 是否出現 `pressed=true gpio5=HIGH`。
+4. 等電表顯示穩定後記錄數值，正常應接近 3.3V。
+5. 請另一人放開按鈕，確認電壓回到接近 0V。
+6. 若顯示約 `-3.3V`，代表紅黑測點對調；停止並重新確認 TP5、TPG。
 
 | GPIO5 狀態 | 預期 | 實測值 |
 |---|---:|---:|
@@ -654,12 +1029,20 @@ event=button_changed pressed=false gpio5=LOW time_ms=...
 
 不要把萬用電表切到電流檔。本週不量電流。
 
+#### B5. 量測完成後
+
+1. 先把紅表筆移離 TP5，再移開黑表筆。
+2. 拔除 ESP32 USB。
+3. 萬用電表旋鈕轉回 `OFF`。
+4. 表筆整理好後交給下一組。
+5. 將實測值連同單位 `V` 寫入表格，不可只寫 HIGH／LOW。
+
 ### 檢查點 3
 
 - [ ] 按鈕通斷結果符合實際狀態。
 - [ ] GPIO5 LOW 與 HIGH 的量測值不同且合理。
-- [ ] 能說明黑表筆為何接 GND。
-- [ ] 能說明程式顯示 HIGH 仍需要量測證據的原因。
+- [ ] Lab Notebook 已記錄黑表筆接 GND 的原因。
+- [ ] Lab Notebook 已記錄為何程式顯示 HIGH 仍要實際量測。
 
 # Part C：修改、變化與驗收
 
@@ -679,7 +1062,114 @@ group=03 event=button_pressed count=2
 
 只有「按下」增加次數，放開不增加。Reset 後從 0 重新計算。
 
-提示：新增一個整數變數，只在狀態從放開變成按下時加一。
+不要一邊猜位置一邊改。照下列順序做：
+
+1. 點 **File → Save As**，另存為 `week02_count_groupXX`。
+2. 找到 `const unsigned long DEBOUNCE_MS = 30;`。
+3. 在它的下一行新增：
+
+```cpp
+unsigned long pressCount = 0;
+```
+
+這一行必須放在 `setup()` 外面，讓 `loop()` 每次執行都保留原本數值。
+
+4. 在 `loop()` 內找到這一行：
+
+```cpp
+digitalWrite(PIN_TEST_OUTPUT, stablePressed ? HIGH : LOW);
+```
+
+5. 在它的下一行、原本 `Serial.printf(` 的上一行插入：
+
+```cpp
+if (stablePressed) {
+  pressCount++;
+  Serial.printf(
+    "group=%s event=button_pressed count=%lu\n",
+    GROUP_ID,
+    pressCount
+  );
+}
+```
+
+6. 按 **Ctrl+S → Verify → Upload**。
+7. 開啟 115200 Serial Monitor，按 RESET。
+8. 完整按下再放開三次。
+9. 必須依序看到 `count=1`、`count=2`、`count=3`；放開事件之間不能增加
+   count。
+10. 再按 RESET，第一次按下必須重新顯示 `count=1`。
+
+如果 Compile 出錯：
+
+- `pressCount was not declared`：變數可能被放進錯誤函式或名稱拼錯。
+- `expected '}'`：新增的 `if` 區塊少了一個右大括號。
+- `expected ')'`：檢查 `Serial.printf` 的右括號及分號。
+- Compile 成功但每次加兩次：確認增加程式只在 `if (stablePressed)` 中出現
+  一次，而且不是放在每次 `loop()` 都執行的位置。
+
+<details>
+<summary>完成後展開：核對完整參考程式</summary>
+
+```cpp
+const int PIN_BUTTON = 4;
+const int PIN_TEST_OUTPUT = 5;
+const char *GROUP_ID = "CHANGE_ME";
+
+bool stablePressed = false;
+bool lastRawPressed = false;
+unsigned long changedAtMs = 0;
+const unsigned long DEBOUNCE_MS = 30;
+unsigned long pressCount = 0;
+
+void setup() {
+  Serial.begin(115200);
+  delay(500);
+
+  pinMode(PIN_BUTTON, INPUT_PULLUP);
+  pinMode(PIN_TEST_OUTPUT, OUTPUT);
+  digitalWrite(PIN_TEST_OUTPUT, LOW);
+
+  Serial.printf("boot: week02 group=%s button-count version=1\n", GROUP_ID);
+  Serial.println("state: released output=LOW count=0");
+}
+
+void loop() {
+  bool rawPressed = digitalRead(PIN_BUTTON) == LOW;
+  unsigned long now = millis();
+
+  if (rawPressed != lastRawPressed) {
+    lastRawPressed = rawPressed;
+    changedAtMs = now;
+  }
+
+  if (now - changedAtMs >= DEBOUNCE_MS && rawPressed != stablePressed) {
+    stablePressed = rawPressed;
+    digitalWrite(PIN_TEST_OUTPUT, stablePressed ? HIGH : LOW);
+
+    if (stablePressed) {
+      pressCount++;
+      Serial.printf(
+        "group=%s event=button_pressed count=%lu\n",
+        GROUP_ID,
+        pressCount
+      );
+    }
+
+    Serial.printf(
+      "group=%s event=button_changed pressed=%s gpio5=%s time_ms=%lu\n",
+      GROUP_ID,
+      stablePressed ? "true" : "false",
+      stablePressed ? "HIGH" : "LOW",
+      now
+    );
+  }
+}
+```
+
+核對時仍要把 `CHANGE_ME` 換成自己的組別。
+
+</details>
 
 ### 變化 1：切換模式
 
