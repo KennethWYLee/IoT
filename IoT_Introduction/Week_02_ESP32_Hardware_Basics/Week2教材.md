@@ -17,18 +17,23 @@
 4. 若結果不同，直接查看同一張卡下面的排錯，不要同時改很多設定。
 5. 每個檢查點通過後再繼續。快速完成者做變化題，不必等待其他組。
 
-建議開兩個視窗：左邊顯示本教材，右邊開 Arduino IDE。不要把教材、IDE、
-Serial Monitor 疊在同一個小視窗中反覆切換。
+建議開兩個視窗：左邊顯示本教材，右邊開 Arduino IDE（用來撰寫、編譯及
+上傳 ESP32 程式的軟體）。不要把教材、IDE、Serial Monitor 疊在同一個
+小視窗中反覆切換。
 
 ## 文件導覽
 
-- Part A：ESP32、程式流程、USB、電壓、GPIO、麵包板與萬用電表觀念。
+- Part A：先查 A0 名詞速查，再閱讀 ESP32、程式流程、USB、電壓、GPIO、
+  麵包板與萬用電表觀念。
 - Part B：從接上 USB 到按鈕、GPIO5 與萬用電表的完整實作。
 - Part C：必要修改、九種變化題、故障排查、繳交與驗收。
 
 ## 一、今天會完成什麼
 
 完成本教材後，你應該能：
+
+如果下列目標出現不熟悉的詞，先不要猜，也不用立刻背誦；進入 Part A 後從
+[A0 本教材名詞速查](#a0-本教材名詞速查)查詢。
 
 1. 辨認並記錄 ESP32-S3、USB、GPIO、GND、3.3V 與 5V 的用途。
 2. 在 Arduino IDE 選擇正確開發板及連接埠。
@@ -42,6 +47,214 @@ Serial Monitor 疊在同一個小視窗中反覆切換。
 
 閱讀 Part A 時不要接線。這一部分的目的，是先知道每個動作背後的原因；
 稍後操作時只需依卡片做，不必在接線途中才第一次理解概念。
+
+## A0. 本教材名詞速查
+
+這份表不是要求一次背完。第一次閱讀時先看「基本硬體與電學」及「Arduino
+操作」兩表；後面遇到看不懂的粗體字、英文或縮寫時，用瀏覽器搜尋功能
+`Ctrl+F` 回到這一節查詢。同一英文在不同場合可能代表不同東西，例如電表的
+`COM` 與 Windows 的 `COM5` 完全不同。
+
+開始 Part B 前，至少要能在下表中找到這些核心詞：ESP32-S3、開發板、USB、
+Board、Port、Verify、Upload、Serial Monitor、GPIO、輸入、輸出、GND、3V3、
+5V、HIGH、LOW、`INPUT_PULLUP`、麵包板、通斷、DCV、TP5 與 TPG。其他詞在
+操作或變化題遇到時再回來查，不要求一次背誦整張表。
+
+### A0-0. 課程與文件用語
+
+| 名詞 | 英文全名 | 本教材中的意思 |
+|---|---|---|
+| IoT | Internet of Things，物聯網 | 讓實體裝置感測、運算、連網及交換資料的系統。本週先建立「感測輸入、程式判斷、產生輸出」的基礎。 |
+| 感測器 | Sensor | 把溫度、光線、距離等物理現象轉成電訊號或數位資料的元件；按鈕也可視為最簡單的輸入元件。 |
+| 致動器 | Actuator | 把電訊號轉成動作、聲音或光的元件，例如馬達、舵機、蜂鳴器與 LED。 |
+| Wi-Fi | Wireless networking | 裝置連接無線網路的技術。本週尚不連網，先確認 GPIO 與基本程式流程。 |
+| GitHub | 程式碼託管網站 | 本課教材與範例程式的線上存放位置。看到網頁內容不代表本機一定已下載最新版。 |
+| repository／repo | 版本控制資料庫／專案庫 | 一個由 Git 管理的專案資料夾，保存教材、程式、圖片與修改歷史。 |
+| Lab Notebook | 實驗紀錄 | 學生保存設定、接線、程式、log、量測值、錯誤和修正結果的文件，不是只寫「成功」。 |
+
+### A0-1. ESP32、接腳與基本電學
+
+| 名詞 | 英文全名／單位 | 本教材中的意思 |
+|---|---|---|
+| ESP32-S3 | Espressif ESP32-S3 | 一顆可執行程式、讀取接腳並控制輸出的微控制器晶片。它不是用來執行完整桌面作業系統的電腦。 |
+| 微控制器 | Microcontroller／MCU | 把處理器、記憶體與周邊功能整合在一顆晶片中，用來控制特定裝置。 |
+| 模組 | Module | 金屬屏蔽罩下的 ESP32-S3、Flash、PSRAM 與天線組合；本板模組名稱含 `WROOM-1`。 |
+| 開發板 | Development board | 將模組、USB、穩壓、按鈕和排針組合起來，方便供電、上傳與接線的整塊板子。 |
+| 接腳／排針 | Pin／header | 板邊的金屬針腳。板身旁的 `4`、`5`、`G` 等絲印用來說明每支腳的功能。 |
+| 絲印 | Silkscreen | 印在電路板表面的文字與符號，用來標示接腳、按鈕、方向及零件位置；實際接線先看絲印。 |
+| pinout | 接腳功能圖 | 列出每支排針位置和功能的圖或表。必須核對同一板型與版本，不能套用外觀相似板子的圖。 |
+| J1／J3 | Connector designator | 官方原理圖或接腳表對兩排連接器的編號，不是 GPIO 編號。實作仍以板身絲印為主。 |
+| GPIO | General-Purpose Input/Output | 「通用輸入／輸出接腳」。可由程式設定為讀取按鈕等輸入，或產生 HIGH／LOW 輸出。GPIO 不是大功率電源。 |
+| GPIO4／GPIO5 | GPIO number 4／5 | 晶片接腳編號，不是「從板邊數過來第 4／5 支」。本週 GPIO4 當按鈕輸入，GPIO5 當測試輸出。 |
+| GND | Ground | 電路共同的 0V 參考點，也是電流返回路徑。本課的 GND 不等於建築物的保護接地。 |
+| 3V3 | 3.3 volts | 板上的 3.3V 電源接腳。`3V3` 是接腳名稱，GPIO 的 HIGH 通常也接近 3.3V，但兩者用途不同。 |
+| 5V | 5 volts | 板上的 5V 電源接腳。ESP32-S3 GPIO 使用 3.3V 邏輯，不可把 5V 直接接到 GPIO。 |
+| 電壓 | Voltage，單位 V | 兩點之間的電位差。量 GPIO5 時，是比較 TP5 相對 TPG／GND 的電壓。 |
+| 電流 | Current，單位 A／mA | 電荷流動的速率。馬達需要的電流通常遠高於 GPIO 能安全提供的程度。 |
+| 電阻 | Resistance，單位 Ω | 對電流的阻礙程度。`0 Ω` 附近通常表示兩點近似直接導通。 |
+| 邏輯準位 | Logic level | 數位電路用電壓區間代表狀態；ESP32 常把接近 0V 視為 LOW、接近 3.3V 視為 HIGH。 |
+| 數位訊號 | Digital signal | 用有限狀態表示資訊，本週主要是 HIGH／LOW 兩種；它仍由實際電壓形成。 |
+| 雜訊 | Electrical noise | 不希望出現的電氣擾動；浮動輸入可能把雜訊誤判成真實按鈕變化。 |
+| HIGH／LOW | 邏輯高／邏輯低 | 程式中的兩種數位狀態，不是「一定精確等於 3.300V／0.000V」。要知道實際電壓仍需量測。 |
+| 輸入 | Input | GPIO 接收外部狀態，例如讀取按鈕。輸入腳主要用來感知訊號。 |
+| 輸出 | Output | GPIO 由程式控制 HIGH 或 LOW。本週 GPIO5 只接高阻抗電表，不直接帶動馬達。 |
+| 浮動 | Floating | 輸入腳沒有被明確拉到 HIGH 或 LOW，容易受雜訊影響而隨機變動。 |
+| 上拉 | Pull-up | 用電阻把輸入預設拉向 HIGH；按鈕按下時再把它接到 GND 形成 LOW。 |
+| `INPUT_PULLUP` | Internal input pull-up | Arduino 接腳模式：設為輸入並啟用 ESP32 內部上拉電阻，因此本週不需另接外部上拉電阻。 |
+| 導通／開路 | Continuity／open circuit | 導通表示兩點間有低阻抗路徑；開路表示路徑中斷，正常情況下沒有電流通過。 |
+| 短路 | Short circuit | 兩個不該直接相連的點形成極低阻抗路徑，例如 5V 直接接 GND。可能造成發熱或損壞。 |
+| 負載 | Load | 從電源取用能量的裝置，例如 LED、蜂鳴器、舵機或馬達。不同負載需要不同供電與驅動方式。 |
+| 串聯／並聯 | Series／parallel | 串聯是電流依序通過元件；並聯是兩元件跨在同兩點。電壓表並聯跨接兩點，電流表則需串入路徑。 |
+| 高阻抗 | High impedance | 儀表或輸入對電路取用很少電流的特性。電壓檔通常是高阻抗，適合觀察 GPIO5 而不當成負載。 |
+
+### A0-2. USB、Arduino IDE 與上傳流程
+
+| 名詞 | 英文全名 | 本教材中的意思 |
+|---|---|---|
+| USB | Universal Serial Bus | 本週同時提供板子電力與電腦資料通訊。能充電的線不一定包含資料線芯。 |
+| USB 接頭 | USB connector | 板上的實體插座。本板有兩個 USB 接頭，必須依教材使用已確認的 USB-to-UART 接頭。 |
+| USB hub | USB 集線器 | 把一個電腦 USB 孔擴充成多個孔的裝置；品質、供電或接觸不穩時可能影響 Upload。 |
+| USB-to-UART | USB to UART bridge | 把電腦 USB 資料轉成 ESP32 可用序列通訊的橋接晶片與接頭路徑。 |
+| 原生 USB | Native USB | 直接使用 ESP32-S3 晶片內建 USB 功能，不經外部 USB-to-UART 晶片；相關 CDC 與 Upload 設定不同。 |
+| UART | Universal Asynchronous Receiver/Transmitter | 常用的序列通訊方式；資料依序一個位元接一個位元傳送。`UART0` 是其中一組 UART。 |
+| USB CDC | USB Communications Device Class | 讓 USB 裝置表現成序列通訊埠的標準。本週走 USB-to-UART，因此 `USB CDC On Boot` 設為 Disabled。 |
+| Arduino IDE | Integrated Development Environment | 撰寫、編譯、上傳 Arduino Sketch，以及查看 Serial Monitor 的軟體。 |
+| Board | 開發板設定 | 告訴 IDE 要為哪一類晶片與板子編譯。選錯 Board 可能無法編譯、上傳或正確使用記憶體。 |
+| Port | 通訊連接埠 | IDE 要和哪一個已連接裝置通訊。Windows 常顯示成 `COM5` 等名稱，每台電腦可能不同。 |
+| `COM5` | Windows COM port example | Windows 的第 5 號序列連接埠範例，和萬用電表的 `COM` 插孔沒有關係。 |
+| Driver | 裝置驅動程式 | 讓作業系統辨認 USB 裝置並建立 Port 的軟體元件。 |
+| Boards Manager | 開發板管理員 | Arduino IDE 中安裝或更新 ESP32 開發板支援套件的位置。 |
+| Package／platform | 開發板支援套件 | Espressif 提供給 Arduino IDE 的編譯工具、板型定義與函式庫集合。 |
+| Arduino-ESP32 | Espressif Arduino core | Espressif 官方讓 Arduino IDE 支援 ESP32 系列的 platform；Boards Manager 搜尋的 `esp32` package 就是它。 |
+| `INSTALL`／`REMOVE` | 安裝／移除按鈕 | Boards Manager 顯示 INSTALL 代表尚未安裝；顯示 REMOVE 或版本號通常代表已安裝。不要按 REMOVE。 |
+| Sketch | Arduino 程式專案 | Arduino 對一份程式專案的稱呼，通常資料夾與主要 `.ino` 檔同名。 |
+| 韌體 | Firmware | 編譯後寫入微控制器 Flash、由板子開機執行的程式。 |
+| Verify／Compile | 驗證／編譯 | 檢查語法並把原始碼轉成 ESP32 可執行的韌體；成功不代表已寫入板子。 |
+| Upload | 上傳／燒錄 | 將編譯完成的韌體寫入 ESP32 Flash。Upload 成功後仍需用輸出證明功能正確。 |
+| Serial | 序列通訊 | ESP32 與電腦依序傳送文字或資料的方式；本週用來輸出程式狀態。 |
+| Serial Monitor | 序列監控視窗 | Arduino IDE 中顯示 ESP32 Serial 文字的工具。它不是 Upload Output 視窗。 |
+| baud rate | 鮑率／傳輸速率 | 序列通訊雙方約定的傳輸速度。本週程式和 Serial Monitor 都設為 `115200`。 |
+| log | 執行紀錄 | 程式輸出的狀態、事件、時間與錯誤文字，用來證明及排查實際行為。 |
+| BOOT | 開機／下載模式按鈕 | 自動 Upload 失敗時，可配合 RESET 讓 ESP32 進入韌體下載模式。平常不必一直按住。 |
+| RESET／RST | 重設按鈕 | 讓目前程式停止並從頭重新執行；不會刪除已上傳的韌體。 |
+| RTS | Request To Send | USB-to-UART 控制訊號之一；IDE 常用它自動重設板子，所以 Output 可能顯示 `Hard resetting via RTS pin...`。 |
+| Output 視窗 | 編譯／上傳訊息區 | Arduino IDE 下方顯示 Compile 和 Upload 過程及錯誤的區域，不等同 Serial Monitor。 |
+| placeholder | 預留文字 | `CHANGE_ME`、`XX` 表示學生必須換成自己的組別；它們不是固定答案。 |
+| Upload Mode | 上傳通道設定 | 決定 IDE 透過哪個硬體通訊路徑寫入韌體；本週使用 `UART0 / Hardware CDC`。 |
+| Upload Speed | 上傳速度 | IDE 傳送韌體的速率；速度較高較快，但線材或連線不穩時可降低一級排錯。 |
+| USB CDC On Boot | 開機 USB CDC 開關 | 決定程式開機時是否建立原生 USB CDC；本週使用 USB-to-UART，所以設為 Disabled。 |
+| `Connecting...` | 正在建立上傳連線 | IDE 正嘗試進入下載模式並聯絡 ESP32；長時間停住才需要檢查 Port、線材或使用 BOOT。 |
+| `Hard resetting via RTS pin...` | 透過 RTS 自動重設 | 通常是 Upload 完成後讓新韌體開始執行的訊息，不是「硬體壞掉」。 |
+
+### A0-3. 型號、Flash 與記憶體設定
+
+| 名詞 | 英文全名 | 本教材中的意思 |
+|---|---|---|
+| WROOM-1 | ESP32-S3-WROOM-1 | 本開發板上使用的 ESP32-S3 模組系列名稱，以金屬屏蔽罩實際字樣為準。 |
+| DevKitC-1 | ESP32-S3-DevKitC-1 | Espressif 開發板系列名稱；開發板上承載 WROOM 模組、USB、按鈕和排針。 |
+| v1.1／板本 | Hardware revision | 同一產品的硬體修訂版本。不同板本可能更改板載 RGB LED 接腳，因此必須核對文件版本。 |
+| `ESP32S3 Dev Module` | Arduino 通用板型設定 | Arduino IDE 對一般 ESP32-S3 開發板提供的 Board profile；它不一定和商品完整名稱逐字相同。 |
+| N16R8 | 料號容量標示 | `N16` 表示 16 MB Flash，`R8` 表示 8 MB PSRAM。它不是 GPIO 編號。 |
+| bit／byte | 位元／位元組 | 8 bits = 1 byte；小寫 `b` 常代表 bit，大寫 `B` 常代表 byte，因此 128 Mb = 16 MB。 |
+| Flash | 非揮發性快閃記憶體 | 斷電後仍保存韌體與資料。Upload 主要就是把韌體寫入 Flash。 |
+| PSRAM | Pseudo Static RAM | 程式執行時可用的額外記憶體，斷電後內容消失。本批 `R8` 表示 8 MB。 |
+| QSPI | Quad Serial Peripheral Interface | 使用四條資料線的高速 Flash 通訊模式；本批 N16 Flash 設定使用 QIO。 |
+| OPI | Octal Peripheral Interface | 使用八條資料線的高速介面；本批 PSRAM 選 `OPI PSRAM`。 |
+| QIO | Quad I/O | QSPI 的四線輸入／輸出模式。Arduino Tools 中本批 Flash Mode 使用 `QIO 80MHz`。 |
+| Flash Mode | Flash 通訊模式 | 告訴 ESP32 以何種資料線寬及時脈存取 Flash；必須配合模組規格，不能只選看起來最快的值。 |
+| Flash Size | Flash 容量設定 | 必須和實物容量相符；本批選 `16MB (128Mb)`。 |
+| Partition Scheme | Flash 分割配置 | 決定 Flash 中韌體、檔案系統等區域各占多少空間；本批選名稱含 `16M Flash` 的配置。 |
+| Erase All Flash | 清除整顆 Flash | 上傳前是否先清除所有 Flash 內容。本週保持 Disabled，除非有明確排錯需求。 |
+| Disabled／Enabled | 停用／啟用 | Arduino Tools 的開關值；不是錯誤訊息。 |
+
+### A0-4. 麵包板、按鈕與萬用電表
+
+| 名詞 | 英文全名／符號 | 本教材中的意思 |
+|---|---|---|
+| 麵包板 | Solderless breadboard | 不必焊接即可暫時接線的實驗板；中央區通常每列左右各五孔相通。 |
+| 中央溝槽 | Center trench | 麵包板中間不導通的分隔，四腳按鈕和雙排開發板會跨在它兩側。 |
+| 電源軌 | Power rail | 麵包板邊緣常見紅、藍長列；可能中途斷開。本週不使用，不能假設整條相通。 |
+| 杜邦線 | Jumper wire | 實驗用接線。公頭是裸露金屬針，母頭是可套住排針的插孔。 |
+| 公對公／公對母 | Male-male／male-female | 公對公適合連接麵包板孔；公對母可把母端套到向下排針，再把公端插入麵包板。 |
+| 四腳輕觸按鈕 | Tactile push button | 常開型瞬時按鈕；未按下時左右分離，按下時左右導通，放開後恢復。 |
+| 常開／瞬時 | Normally open／momentary | 常開表示平常不導通；瞬時表示只有按住期間改變狀態，不會像電源開關保持位置。 |
+| TP | Test Point | 測試點的縮寫。本教材自訂 `TP5` 為 GPIO5 測試列、`TPG` 為 GND 測試列。 |
+| 萬用電表 | Multimeter | 可量測電壓、電阻等電氣量的儀表。本週只用通斷／電阻與直流電壓功能。 |
+| A830L | 本課萬用電表型號 | 本班共用儀表的型號；不同批次符號可能略有差異，操作前仍要看實物旋鈕與插孔標示。 |
+| 表筆 | Test probe | 黑、紅兩條量測線。量電壓時黑表筆作 GND 參考，紅表筆接待測點。 |
+| 電表 `COM` | Common jack | 萬用電表的黑表筆插孔，代表共同參考端；和 Windows 的 COM Port 無關。 |
+| `VΩmA` | Voltage／ohm／milliamp jack | 紅表筆量電壓、電阻與小電流時使用的插孔。本週紅表筆插這裡，但不量電流。 |
+| `10A` | 10 ampere jack | 大電流量測插孔。本週完全不用，紅表筆不可插這裡。 |
+| DCV | Direct Current Voltage | 直流電壓檔；本週使用 `DCV 20` 量約 0～3.3V。數字 20 是量程，不是輸出 20V。 |
+| ACV | Alternating Current Voltage | 交流電壓檔，例如市電量測；本週不用。 |
+| DCA | Direct Current Ampere | 直流電流檔，需要串聯接法；本週不用，不能拿來像電壓檔一樣跨接兩點。 |
+| 通斷檔 | Continuity mode | 檢查兩點是否低阻抗相通；必須在待測電路斷電時使用。 |
+| 量程 | Measurement range | 儀表某一檔可量的範圍。A830L 的 `200 Ω` 與 `DCV 20` 是不同量測功能。 |
+| `OL`／畫面顯示 `1` | Over limit／open loop | 電阻檔超出量程或開路的常見顯示，不代表測得 1 Ω。先依電表型號確認。 |
+| hFE | Transistor current gain test | 電晶體增益測試區。本週不用。 |
+
+### A0-5. 程式碼與資料紀錄
+
+| 名詞 | 程式中的角色 | 本教材中的意思 |
+|---|---|---|
+| 變數 | Variable | 有名稱、可在程式執行時保存或改變的資料，例如 `pressCount`。 |
+| 常數 | Constant／`const` | 設定後不應再改變的名稱，例如 `PIN_BUTTON`，可減少程式中散落的神祕數字。 |
+| `int` | 整數資料型別 | 保存一般整數；本教材用它保存 GPIO 編號。 |
+| `char`／`const char *` | 字元／唯讀文字指標 | C++ 表示文字的一種方式；本教材的 `GROUP_ID` 指向組別文字，例如 `"03"`。 |
+| `void` | 無回傳值 | 表示函式執行完不回傳資料；Arduino 的 `setup()` 與 `loop()` 都宣告為 `void`。 |
+| `setup()` | 初始化函式 | ESP32 每次開機或 RESET 後執行一次，用來設定 Serial、GPIO 模式與初始狀態。 |
+| `loop()` | 主循環函式 | `setup()` 完成後反覆執行，速度很快；因此不能把一次迴圈誤當成一次按鈕事件。 |
+| `pinMode()` | 接腳模式設定 | 指定 GPIO 是輸入、內部上拉輸入或輸出。 |
+| `digitalRead()` | 數位讀取 | 讀取 GPIO 當下為 HIGH 或 LOW。 |
+| `digitalWrite()` | 數位輸出 | 將輸出 GPIO 設為 HIGH 或 LOW。 |
+| `bool` | 布林資料型別 | 只有 `true`／`false` 兩種值，適合保存按鈕是否按下。 |
+| `unsigned long` | 非負長整數型別 | Arduino-ESP32 常用來保存 `millis()` 時間或大型計數值。 |
+| `if` | 條件判斷 | 只有條件成立時才執行大括號內的程式。 |
+| `enum` | 列舉型別 | 為有限狀態取有意義的名稱，例如 NORMAL、WARNING、ALARM。 |
+| `millis()` | 開機毫秒計時 | 回傳程式啟動後經過的毫秒數，適合計時而不中斷其他工作。 |
+| `delay()` | 阻塞等待 | 讓程式停在原地一段時間；等待期間無法正常處理其他事件，因此變化題避免長時間使用。 |
+| `random()` | 偽隨機數函式 | 產生指定範圍內看似隨機的數字，反應遊戲用它改變等待長度。 |
+| 原始狀態 | Raw state | `digitalRead()` 當下直接讀到的值，可能含按鈕彈跳造成的快速變化。 |
+| 穩定狀態 | Stable state | 經過去抖判定、確認維持一段時間後才接受的按鈕狀態。 |
+| 去抖 | Debounce | 過濾機械接點在一次按壓中快速開合的現象，避免一次按壓被計數多次。 |
+| 狀態 | State | 系統目前所處情況，例如 released、pressed、NORMAL 或 ALARM。 |
+| 事件 | Event | 值得記錄的一次狀態改變，例如 button_pressed，不是每次 `loop()` 都發生。 |
+| idle | 閒置狀態 | 一段時間沒有新事件；`idle_ms` 表示已閒置的毫秒數。 |
+| `Serial.begin(115200)` | 啟動 Serial | 以 115200 baud 啟動序列通訊；Serial Monitor 必須選相同速率。 |
+| `Serial.println()` | 輸出一行文字 | 將括號內文字送到 Serial，並在結尾換行。 |
+| `Serial.printf()` | 格式化輸出 | 把文字與變數組合成一行 log；`%s` 放字串，`%lu` 放 unsigned long。 |
+| JSON | JavaScript Object Notation | 以鍵和值表示結構化資料的文字格式，常用於裝置與後端交換資料。 |
+| Backend | 後端系統 | 在裝置或瀏覽器之外接收、保存、分析資料的伺服器端程式。 |
+
+#### 常見程式符號
+
+| 符號 | 意思 | 本教材中的例子 |
+|---|---|---|
+| `=` | 指派 | 把右邊的值存進左邊變數，例如 `stablePressed = rawPressed`。 |
+| `==` | 是否相等 | 比較兩邊是否相等，例如讀值是否為 LOW；不要和單一 `=` 混淆。 |
+| `!=` | 是否不相等 | 兩邊不同時為 true，用來找出按鈕狀態是否改變。 |
+| `&&` | 而且 | 左右兩個條件都成立時，整體才成立。 |
+| `? :` | 條件選擇運算子 | `stablePressed ? HIGH : LOW` 表示按下選 HIGH，否則選 LOW。 |
+| `++` | 加一 | `pressCount++` 把原本計數增加 1。 |
+| `{ }` | 程式區塊 | 包住函式或 `if` 要執行的內容；左右缺一個就會 Compile 失敗。 |
+| `( )` | 參數或條件括號 | 函式呼叫把參數放在括號內，`if` 把判斷條件放在括號內。 |
+| `;` | 敘述結尾 | 多數 C++ 指令最後需要分號；控制區塊右大括號後通常不加分號。 |
+| `//` | 單行註解 | 右側文字給人閱讀，不會當成程式執行。 |
+| `\n` | 換行字元 | 在 `Serial.printf()` 字串內表示輸出後換到下一行。 |
+| `"文字"` | 字串常值 | 雙引號包住要輸出的文字；刪掉一邊會造成 Compile 錯誤。 |
+
+### A0-6. 教材提到但本週不接的設備
+
+| 名詞 | 是什麼 | 本週不使用的原因 |
+|---|---|---|
+| LED | Light-Emitting Diode，發光二極體 | 需要限流及正確極性；本週先以電表驗證 GPIO5。 |
+| RGB LED／KY-016／WS2812 | 可顯示多種顏色的 LED | KY-016 分別控制紅綠藍，WS2812 使用內建控制晶片；接法與供電不同，留到後續主題。 |
+| 蜂鳴器／KY-012 | Buzzer | 能把電訊號轉成聲音；KY-012 是本批主動蜂鳴器模組，仍需確認電壓與接腳。 |
+| SG90／MG90S | 小型伺服馬達 | 瞬間電流較大，需規劃獨立供電與共同 GND，不能直接由 GPIO 供電。 |
+| TT 馬達 | 小型直流減速馬達 | 需要馬達驅動器與適當電源，不能直接接 GPIO。 |
+| L298N | 雙 H 橋馬達驅動板 | 用控制訊號切換較大的馬達電流，本週尚未進入馬達控制。 |
+| LM2596 | DC-DC 降壓模組 | 把較高直流電壓降到較低電壓，使用前要先調整並量測輸出。 |
+| 電池盒 | Battery holder | 提供外部電源；本週僅用 USB，避免同時接入未驗證的兩個電源來源。 |
 
 ## A1. ESP32-S3 是什麼
 
@@ -414,6 +627,9 @@ Espressif esp32 package 版本：____________________
 再互相比對；有不同之處就回到板身絲印核對並修正標記。
 
 ## 五、階段 2：Arduino IDE、Board 與 Port
+
+開始前若還分不清 Board、Port、COM、Verify、Upload 或 Serial Monitor，先回
+到 [A0-2 USB、Arduino IDE 與上傳流程](#a0-2-usbarduino-ide-與上傳流程)。
 
 ### 步驟 1：接上 USB
 
@@ -795,6 +1011,10 @@ ESP32 GND  --------- 麵包板另一空白列（標記為 TPG）
 
 ## 八、階段 5：按鈕輸入與 GPIO5 輸出
 
+程式中的資料型別、函式和符號可回查
+[A0-5 程式碼與資料紀錄](#a0-5-程式碼與資料紀錄)。先看懂每一區的用途，再
+複製完整程式。
+
 ### 步驟 1：接回 USB，但先不碰電路
 
 1. 確認階段 4 的覆核者已簽名。
@@ -938,6 +1158,9 @@ group=03 event=button_changed pressed=false gpio5=LOW time_ms=...
 五次中任何一次失敗，都先留下 log，再修正並重新計算五次。
 
 ## 九、階段 6：萬用電表量測站（分組輪流）
+
+如果無法立即分辨電表 `COM`、Windows `COM5`、`VΩmA`、`DCV` 或 `DCA`，先回
+查 [A0-4 麵包板、按鈕與萬用電表](#a0-4-麵包板按鈕與萬用電表)。
 
 萬用電表只有一支，所以到量測站前先完成五次 Serial 測試。量測者控制表筆，
 另一人負責按鈕與記錄；兩人的手不要同時伸進電路。
