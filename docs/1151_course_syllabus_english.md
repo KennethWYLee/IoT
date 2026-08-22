@@ -1,54 +1,84 @@
-# 115-1 Internet of Things: Full-stack IoT Systems Design and Implementation
-
-This version is intended for the English fields of the course syllabus system. The instructor's smart parking and UCI 4WD system is an integration demonstration; students are not required to build vehicles.
+# 115-1 Internet of Things and Cloud Computing
 
 ## Course Objectives
 
-This course guides information management students in designing low-cost, connected, observable, and manageable IoT systems. Students begin with the ESP32-S3, sensors, actuators, electrical safety, and Wi-Fi. They then connect physical devices to student-built backends, databases, structured logs, and mobile-friendly user interfaces through HTTP, MQTT, WebSocket, and JSON. By the end of the course, each team must implement a complete Full-stack IoT system with real sensing, real-time and historical data, controlled two-way interaction, automation, failure handling, and reproducible deployment. The course emphasizes system integration, testing evidence, troubleshooting, safety, collaboration, and human verification of AI-assisted development.
+This course enables information management students to build toys, interactive
+mechanisms, environmental devices, mobile platforms, or other physical systems
+of their own design. Weeks 2-5 focus on hardware: safe wiring, GPIO, logic
+levels, sensors, actuators, power, physical interaction, and failure handling.
+Beginning in Week 6, students connect the ESP32-S3 to student-built software
+through Wi-Fi, HTTP, WebSocket, JSON, MQTT, a backend, a database, structured
+logs, and a mobile-friendly interface. Every final project must contain working
+physical hardware and software that records useful data or events and assists
+users in monitoring or operating the device. Assessment emphasizes integration,
+testing evidence, safety, reproducibility, collaboration, and human verification
+of AI-assisted work rather than hardware price, mechanical complexity, or speed.
 
-## Course Content
+## Learning Outcomes
 
-The course has four stages. The first stage establishes ESP32-S3 development, GPIO, GND, 3.3V/5V, breadboards, sensors, actuators, Wi-Fi, and structured event data. The second stage develops a shared end-to-end vertical slice using HTTP, a student-built Node.js or Python backend, WebSocket, server logs, and a responsive mobile web interface. Students complete an individual concept examination and a team technical-feasibility interview before beginning the project phase. The third stage adds MQTT, multi-device communication, databases, historical queries, structured log analysis, PWA or optional Flutter interfaces, permissions, and controlled commands. The fourth stage requires teams to build, test, deploy, and present complete Full-stack IoT projects.
+After completing the course, students will be able to:
+
+1. Explain the responsibilities of a development board, sensors, actuators,
+   network protocols, a backend, a database, logs, and a mobile interface.
+2. Wire and measure ESP32-S3 circuits safely with attention to GPIO, GND,
+   3.3V/5V logic, current, power, and actuator shutdown.
+3. Combine physical inputs, state, decisions, and outputs into a repeatable
+   standalone interactive device.
+4. Connect a device, student-built backend, database, and mobile interface with
+   HTTP or MQTT, JSON, and WebSocket.
+5. Use historical data and structured logs to diagnose a failure, verify a
+   correction, and document recovery.
+6. Implement and explain a complete Full-stack IoT project with physical
+   behavior, meaningful software support, safe failure handling, and
+   reproducible setup.
 
 ## Required Final Project Capabilities
 
-Each team may select its own application, but the final system must include:
+Each team selects its own physical project. The final submission must include:
 
-1. At least one real sensor or physical input.
-2. An ESP32-S3 sending structured data through Wi-Fi.
-3. A student-built and reproducible backend.
-4. A database and useful historical queries.
-5. Searchable or aggregated structured logs and at least one analysis.
-6. A mobile-friendly frontend showing real-time and historical information.
-7. At least one controlled command sent from the phone through the backend, with a device acknowledgement.
-8. At least one automated rule, state machine, alert, or decision process.
-9. Handling and test evidence for a disconnection, invalid input, or device failure.
-10. Source code, an architecture diagram, a data dictionary, deployment instructions, test evidence, known limitations, and an AI-use record.
+1. A safely operating physical artifact and a clear use scenario.
+2. An ESP32-S3 or an instructor-approved equivalent controller.
+3. At least one physical input and one physical output, unless an exception is
+   approved during the Week 8 interview.
+4. Wi-Fi and either HTTP or MQTT device communication.
+5. A student-built backend that another computer can start from documentation.
+6. A database, useful historical queries, and structured logs.
+7. A mobile-friendly interface for current status, history, an operation or
+   setting, and visible offline or error states.
+8. WebSocket updates; controlled actions must record success, failure, or
+   timeout.
+9. At least one automated response, state machine, or schedule.
+10. Three test scenarios, including a disconnection, invalid input, sensor
+    failure, or stopped service.
+11. Source code, wiring and data-flow diagrams, data formats, a bill of
+    materials, rebuild instructions, AI-use and verification records, and known
+    limitations.
 
-Responsive Web/PWA is the common mobile implementation. Flutter is an optional advanced alternative, but it does not replace the required backend, database, logging, and device integration.
+Commercial IoT dashboards may support a project, but they may not replace the
+student-built device software, backend, database, and mobile interface.
 
 ## Weekly Schedule
 
 | Week | Date | Topic |
 |---:|---|---|
-| 1 | 2026-09-09 | Course Introduction; ESP32-S3, Arduino IDE, Serial, Wi-Fi Scan, and the First JSON Event |
-| 2 | 2026-09-16 | GPIO, GND, 3.3V/5V, Breadboards, Multimeters, and Safe Wiring |
-| 3 | 2026-09-23 | Multiple Sensors, OLED Displays, and Event Data Models |
-| 4 | 2026-09-30 | Wi-Fi, HTTP, REST APIs, and the First Student-built Backend |
-| 5 | 2026-10-07 | WebSocket, Responsive Mobile Interfaces, and Two-way Control |
-| 6 | 2026-10-14 | Shared Full-stack IoT Vertical Slice, Interface Contracts, Logs, and Failure Handling |
-| 7 | 2026-10-21 | Individual Concept Examination and Project Topic Workshop |
-| 8 | 2026-10-28 | Team Concept and Technical-feasibility Interviews |
+| 1 | 2026-09-09 | Course Introduction; ESP32-S3, Arduino IDE, Serial, and Physical/Software Project Ideas |
+| 2 | 2026-09-16 | GPIO, GND, 3.3V/5V, Breadboards, Multimeters, Buttons, LEDs, and Buzzers |
+| 3 | 2026-09-23 | Sensors, OLED Displays, Calibration, Debouncing, Noise, and Invalid Readings |
+| 4 | 2026-09-30 | Servos, LEDs, Buzzers, PWM, External Power, Common Ground, and Safe Shutdown |
+| 5 | 2026-10-07 | Standalone Interactive Hardware: Input, State, Decisions, Output, Reset, and Failure Handling |
+| 6 | 2026-10-14 | Wi-Fi, HTTP, JSON, WebSocket, and the First Student-built Backend |
+| 7 | 2026-10-21 | Individual Concept Examination; WebSocket Control and Project Topic Workshop |
+| 8 | 2026-10-28 | Team Topic and Technical-feasibility Interviews |
 | 9 | 2026-11-04 | Instructor Conference Travel: No Required Attendance and No New Assessed Evidence |
-| 10 | 2026-11-11 | MQTT, Multi-device Topics, Presence, and Command Acknowledgements |
+| 10 | 2026-11-11 | MQTT, Multi-device Topics, Presence, Commands, and Acknowledgements |
 | 11 | 2026-11-18 | Databases, Historical Queries, Structured Logs, and Basic Analysis |
-| 12 | 2026-11-25 | Mobile Frontends, PWA, WebSocket, Permissions, and Controlled Commands |
-| 13 | 2026-12-02 | Project Checkpoint 1: Minimum Complete Vertical Slice and Interface Freeze |
-| 14 | 2026-12-09 | Project Workshop: Automation, State Machines, Safety, and User Workflows |
-| 15 | 2026-12-16 | Project Checkpoint 2: Mobile Use, Data, Logs, and Peer Usability Test |
-| 16 | 2026-12-23 | Integration Testing, Fault Injection, Deployment Rebuild, and Demo Freeze |
-| 17 | 2026-12-30 | Final Full-stack IoT Project Demonstrations |
-| 18 | 2027-01-06 | Final Examination Week: Advanced Self-study in MQTT, Flutter, ROS 2, Gazebo, and Nav2 |
+| 12 | 2026-11-25 | Mobile Frontends, PWA, WebSocket, User Flows, and Permissions |
+| 13 | 2026-12-02 | Final Project Check 1: Real Hardware-to-Database-to-Mobile Path |
+| 14 | 2026-12-09 | Development Workshop: Automated Responses, State, Safety, and Recovery |
+| 15 | 2026-12-16 | Final Project Check 2: Peer Use, Historical Data, Logs, and Revisions |
+| 16 | 2026-12-23 | Integration, Fault Injection, Deployment Rebuild, and Version Freeze |
+| 17 | 2026-12-30 | Final Physical and Full-stack IoT Project Demonstrations |
+| 18 | 2027-01-06 | Final Examination Week: Advanced Self-study in Cloud Deployment, MQTT, Flutter, ROS 2, Gazebo, and Nav2 |
 
 ## Assessment
 
@@ -56,22 +86,35 @@ Responsive Web/PWA is the common mobile implementation. Flutter is an optional a
 |---|---:|
 | Weekly QA, Type B Activities, and Lab Notebook | 15% |
 | Week 7 Individual Concept Examination | 15% |
-| Week 8 Team Concept and Technical-feasibility Interview | 15% |
-| Week 13 and Week 15 Project Checkpoints | 15% |
-| Week 17 Full-stack IoT Final Project | 30% |
-| Documentation, Safety, Collaboration, Reflection, and AI-use Evidence | 10% |
+| Week 8 Topic and Technical-feasibility Interview | 15% |
+| Week 13 and Week 15 Final Project Checks | 15% |
+| Week 17 Final Project | 30% |
+| Documentation, Safety, Collaboration, and AI-use Evidence | 10% |
 | Total | 100% |
 
 ## Required Textbooks and References
 
-- Instructor-developed notes, diagrams, code examples, worksheets, and assessment checklists.
-- Official documentation for the Espressif ESP32-S3 DevKitC-1 and Arduino-ESP32.
-- Official specifications and instructional resources for HTTP, MQTT, WebSocket, and JSON.
-- Instructional materials for Node.js or Python backends, databases, PWAs, and structured logging.
-- Official introductory resources for ROS 2, Gazebo, and Nav2 as advanced readings.
+- Instructor-developed notes, wiring diagrams, code examples, worksheets, and
+  assessment checklists.
+- Official Espressif ESP32-S3 DevKitC-1 and Arduino-ESP32 documentation.
+- Materials on HTTP, MQTT, WebSocket, JSON, backends, databases, and PWAs.
+- Official introductory resources for ROS 2, Gazebo, and Nav2 as advanced study.
 - No single textbook or paid cloud service is required.
-- Students must respect intellectual property rights. Illegal photocopying is prohibited.
+- Students must respect intellectual property rights. Illegal photocopying is
+  prohibited.
 
 ## Generative AI Policy
 
-Students may use generative AI for code drafts, interfaces, schemas, test cases, and debugging hypotheses. Each team must document what the AI produced, what the students changed, why they changed it, and how they verified the result. Students may not submit or execute code that they cannot explain or have not tested. Assessment emphasizes the ability to explain, test, revise, and reproduce the system.
+Students may use generative AI for code drafts, interfaces, data formats, test
+cases, and debugging hypotheses. They must document what the AI produced, what
+they changed, why they changed it, and how they verified the result. Students
+must be able to explain and reproduce all submitted work.
+
+## Hardware and Data Safety
+
+Students must verify board models, pin assignments, logic levels, polarity,
+current, power, and common ground before applying power. ESP32-S3 GPIO uses
+3.3V logic; unprotected 5V signals must not be connected directly. Motors and
+servos must not be powered from a GPIO pin and must have a safe stop or power-off
+method. Projects may not collect identifiable images, audio, or other sensitive
+data without informed permission.

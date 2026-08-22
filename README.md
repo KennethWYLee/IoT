@@ -1,38 +1,83 @@
-# 低成本 IoT 互動系統設計與實作
+# 低成本 IoT 玩具與互動硬體設計
 
-本課程目前規劃為資管學生可負擔、可入門、可延伸的 Full-stack IoT 實作課。教師以智慧停車系統作為整合案例，學生不必造車。學生先建立 ESP32-S3、感測／輸出、HTTP／JSON、WebSocket 與手機介面的共同能力，再加入 MQTT、學生自建後端、資料庫、結構化 log 與分析，期末完成具前台、後台及實體互動的完整 IoT 系統。
+這門課讓資管學生把程式帶進實體世界。學生可以做自己想玩的玩具、
+互動裝置、環境系統、機構或移動平台；共同要求不是指定外型，而是硬體
+必須真的產生行為，軟體必須留下可查的資料／事件，或實際協助使用者
+監看與操作。期末作品會把兩者整合成可說明、可測試、可重建的
+Full-stack IoT 系統。
 
-## 設計原則
+## 課程主線
 
-- 每組使用一片 ESP32-S3 DevKit，視覺辨識使用學生手機與筆電，不要求購買相機板、樹莓派、Jetson 或 LiDAR。
-- 第 7 週以個人概念筆試確認基礎理解；第 8 週每組只進行一次題目與技術可行性訪談，不要求繳交完整成品。
-- 期末共同技術邊界為 `ESP32-S3 -> HTTP/MQTT -> 自建後端 -> 資料庫/log -> WebSocket -> 手機前台`，並包含反向控制與故障處理。
-- 學生自費上限以每人整學期 NT$800 內為原則，必買材料控制在每組約 NT$600-1,200。
-- 停車場只是訓練場，不是期末限制；材料需能延伸到其他互動 IoT 題目。
+```text
+實體輸入（按鈕／感測器／手機判斷）
+  -> ESP32-S3 的狀態與決策
+  -> 實體輸出（燈／聲音／顯示／舵機／馬達）
+  -> Wi-Fi + HTTP／MQTT
+  -> 學生建立的後端
+  -> Database + structured log
+  -> WebSocket
+  -> 手機可用的監看與操作介面
+```
 
-## 目前決策
+第 2-5 週只處理硬體：安全用電、輸入、輸出、機構、供電、狀態與故障。
+第 6 週才開始將 ESP32-S3 接到 HTTP／WebSocket；第 10-12 週再補 MQTT、
+Database、log 分析及完整手機介面。
 
-- 主板：ESP32-S3-DevKitC-1 N16R8，已焊排針，排針向下，44 腳位。
-- 教師參考案例：智慧停車場與 UCI K-4 4WD 自主停靠系統；不是學生共同必修作品。
-- 第 7 週：個人概念筆試與題目工作坊。
-- 第 8 週：每組一次 12-15 分鐘概念與技術可行性訪談，展示一個可運作片段。
-- 第 9 週：教師出國，不要求到校、不收新評量成果。
-- 學生期末作品：自選題目的完整 Full-stack IoT 系統，必須具自建後端、資料庫、structured log、手機前台及雙向控制。
-- 視覺方案：學生手機當相機，筆電跑 OpenCV。
-- ESP32-S3 角色：學生專題控制器；亦用於教師停車案例的車輛控制、距離感測、閘門、燈號、蜂鳴器與狀態回傳。
-- 第 10-12 週新內容：MQTT／多裝置、資料庫／log 分析、手機 PWA／WebSocket／權限。
-- 後半學期安排：第 13、15 週進度檢核，第 14、16 週整合工作坊，第 17 週作品展示。
-- 不採用循跡車作為共同案例。
+## 學生可以做什麼
 
-詳細課程規劃見 [docs/18_week_plan.md](docs/18_week_plan.md)。
-115-1 課程教學大綱填寫草案見 [docs/1151_course_syllabus_draft.md](docs/1151_course_syllabus_draft.md)。
-115-1 課程教學大綱英文版見 [docs/1151_course_syllabus_english.md](docs/1151_course_syllabus_english.md)。
-115-1 校曆對齊版課程規劃見 [docs/1151_calendar_aligned_course_plan.md](docs/1151_calendar_aligned_course_plan.md)。
-Type B 互動教學重設計版見 [docs/typeb_course_redesign.md](docs/typeb_course_redesign.md)。
-舊版 UCI 4WD 材料 Runbook 見 [docs/18_week_materials_arrival_runbook.md](docs/18_week_materials_arrival_runbook.md)，目前只供教師參考案例使用，不是現行學生週次。
-舊版課堂教材包見 [docs/course_materials/README.md](docs/course_materials/README.md)，待依現行 Full-stack IoT 課表重寫。
-採購清單見 [docs/purchase_list.md](docs/purchase_list.md)。
-已購器材庫存盤點見 [docs/purchased_inventory.md](docs/purchased_inventory.md)。
-入門 QA 見 [docs/iot_beginner_qa.md](docs/iot_beginner_qa.md)。
-學生圖解講義 PDF 見 [docs/iot_beginner_visual_qa.pdf](docs/iot_beginner_visual_qa.pdf)。
-課程 DokuWiki 離線鏡像工具見 [scripts/README.md](scripts/README.md)。
+- 手機控制、會記錄每次命令與結果的夾取或投擲玩具。
+- 依光線、距離或人體活動反應，並保留歷史資料的互動燈具。
+- 有使用時間、錯誤與得分紀錄的桌上遊戲或反應遊戲。
+- 能在手機設定模式、查詢事件並安全停止的移動平台。
+- 感測環境並由軟體告警、查詢與分析的教室或生活裝置。
+- 其他經教師確認供電、致動器與使用情境可安全完成的作品。
+
+昂貴硬體、複雜機構與速度不直接換取高分。基礎材料做出清楚的使用情境、
+可靠的互動、完整的 log 與可重現測試，也可以取得完整評分。
+
+## 教師材料
+
+教師已購三套 ESP32-S3 與常用輸入／輸出材料，作為課前驗證、課堂示範、
+短期借用、故障替換與專題備品，不視為全班每組固定配發。學生在第 8 週
+確認題目後可按作品需要加購材料；購買前須先核對相容性與安全。
+
+教師的智慧停車與 UCI K-4 4WD 只是延伸示範，學生不必造車，也不採用
+循跡車作為共同作業。
+
+## 課程節點
+
+- 第 7 週：個人概念筆試，以及 WebSocket／手機即時操作實作。
+- 第 8 週：每組一次 12-15 分鐘題目與技術可行性訪談。
+- 第 9 週：教師出國，不要求到校、不收新的評量成果。
+- 第 13、15 週：期末作品進度檢查。
+- 第 17 週：作品展示與個人問答。
+- 第 18 週：進階自學，不新增評量進度。
+
+## 文件導覽
+
+- [18 週課程進度](docs/18_week_plan.md)
+- [校曆對齊計畫](docs/1151_calendar_aligned_course_plan.md)
+- [中文課程大綱](docs/1151_course_syllabus_draft.md)
+- [英文課程大綱](docs/1151_course_syllabus_english.md)
+- [Type B 課堂設計](docs/typeb_course_redesign.md)
+- [每週材料與課堂執行](docs/18_week_materials_arrival_runbook.md)
+- [課堂教材入口](docs/course_materials/README.md)
+- [採購原則](docs/purchase_list.md)
+- [已購庫存](docs/purchased_inventory.md)
+- [跨電腦硬體狀態](docs/hardware_state.md)
+- [HTTP／WebSocket／SQLite 課堂 prototype](examples/course_backend/README.md)
+- [入門 QA](docs/iot_beginner_qa.md)
+- [圖解 QA PDF](docs/iot_beginner_visual_qa.pdf)
+- [同步工具](scripts/README.md)
+
+## 另一台電腦接手
+
+```powershell
+git clone https://github.com/KennethWYLee/IoT.git
+cd IoT
+git pull --ff-only
+```
+
+開始實機前先讀 `PROJECT.md`、`docs/hardware_state.md` 與最新的
+`docs/lab_notes/`；完成實驗後更新硬體狀態與實作紀錄，再 commit、push。
+Wi-Fi 密碼、API key 與裝置秘密不得進入 Git。

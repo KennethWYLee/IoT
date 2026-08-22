@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IoT Course Console</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; }
+    body { margin: 0; background: #f4f5f7; color: #17202a; }
+    header { padding: 16px 20px; background: #16324f; color: white; }
+    h1 { margin: 0; font-size: 22px; letter-spacing: 0; }
+    main { width: min(960px, calc(100% - 24px)); margin: 16px auto; }
+    section { margin-bottom: 18px; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; }
+    label { display: grid; gap: 4px; font-size: 13px; }
+    input, select, button { min-height: 40px; padding: 8px 10px; font: inherit; }
+    button { border: 0; background: #0b6e4f; color: white; cursor: pointer; }
+    button:disabled { opacity: .55; cursor: default; }
+    .status { padding: 8px 10px; border-left: 4px solid #8a939b; background: white; }
+    .status.online { border-color: #0b6e4f; }
+    .status.offline { border-color: #b42318; }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { padding: 9px; border-bottom: 1px solid #dfe3e8; text-align: left; vertical-align: top; }
+    th { background: #e9edf1; font-size: 13px; }
+    td { font-size: 14px; overflow-wrap: anywhere; }
+    @media (max-width: 680px) {
+      table, thead, tbody, tr, th, td { display: block; }
+      thead { position: absolute; left: -9999px; }
+      tr { border-bottom: 8px solid #f4f5f7; }
+      td::before { content: attr(data-label) ": "; font-weight: 700; }
+    }
+  </style>
+</head>
+<body>
+  <header><h1>IoT Course Console</h1></header>
+  <main>
+    <p id="status" class="status offline">WebSocket: connecting</p>
+
+    <section>
+      <h2>Send Command</h2>
+      <form id="command-form" class="toolbar">
+        <label>Device ID<input id="device-id" value="demo-device" required></label>
+        <label>Command
+          <select id="command"><option>start</option><option>stop</option><option>reset</option></select>
+        </label>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Recent Events</h2>
+      <table><thead><tr><th>Time</th><th>Device</th><th>Event</th><th>State</th><th>Value</th></tr></thead>
+      <tbody id="events"></tbody></table>
+    </section>
+
+    <section>
+      <h2>Recent Commands</h2>
+      <table><thead><tr><th>Time</th><th>Device</th><th>Command</th><th>Status</th><th>Message</th></tr></thead>
+      <tbody id="commands"></tbody></table>
+    </section>
+  </main>
+  <script>
+    const eventBody = document.querySelector('#events');
+    const commandBody = document.querySelector('#commands');
+    const statusBox = document.querySelector('#status');
+
+    const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, character => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+    })[character]);
+    const cell = (label, value) => `<td data-label="${escapeHtml(label)}">${escapeHtml(value)}</td>`;
+    const eventRow = (item) => `<tr>${cell('Time', item.recorded_at)}${cell('Device', item.device_id)}${cell('Event', item.event_type)}${cell('State', item.state)}${cell('Value', JSON.stringify(item.value))}</tr>`;
+    const commandRow = (item) => `<tr>${cell('Time', item.requested_at)}${cell('Device', item.device_id)}${cell('Command', item.command)}${cell('Status', item.status || item.result)}${cell('Message', item.message)}</tr>`;
+
+    async function refresh() {
+      const [events, commands] = await Promise.all([
+        fetch('/api/events?limit=25').then(r => r.json()),
+        fetch('/api/commands?limit=25').then(r => r.json())
+      ]);
+      eventBody.innerHTML = events.map(eventRow).join('');
+      commandBody.innerHTML = commands.map(commandRow).join('');
+    }
+
+    function connect() {
+      const scheme = location.protocol === 'https:' ? 'wss' : 'ws';
+      const ws = new WebSocket(`${scheme}://${location.host}/ws`);
+      ws.onopen = () => {
+        statusBox.textContent = 'WebSocket: connected';
+        statusBox.className = 'status online';
+      };
+      ws.onmessage = () => refresh();
+      ws.onclose = () => {
+        statusBox.textContent = 'WebSocket: disconnected; retrying';
+        statusBox.className = 'status offline';
+        setTimeout(connect, 1500);
+      };
+    }
+
+    document.querySelector('#command-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      await fetch('/api/commands', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          device_id: document.querySelector('#device-id').value,
+          command: document.querySelector('#command').value,
+          parameters: {}
+        })
+      });
+      await refresh();
+    });
+
+    refresh();
+    connect();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+"""FastAPI classroom backend example."""

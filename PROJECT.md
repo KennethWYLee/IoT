@@ -1,74 +1,93 @@
-# Internet of Things — Project Context
+# Internet of Things - Project Context
 
-> 本檔記錄此課程的專屬事實與硬體脈絡，不取代工作區根目錄的
+> 本檔記錄課程專屬事實與固定決策，不取代工作區根目錄的
 > `AGENTS.md`／`CLAUDE.md`。
 
-- 最後盤點日期：2026-08-05
-- 課程狀態：115-1 課程與 Type B 教材規劃中
+- 最後更新日期：2026-08-22
+- 課程狀態：115-1 教材與實作環境建置中
 - Repository：本資料夾為獨立 Git repository
-- 文件可見性：課程內部；硬體與採購文件發布前需確認
-
-## 課程專屬規則
-
-- 115-1 工作須同時核對 18 週計畫、calendar-aligned plan、Type B
-  redesign 與 materials-arrival runbook；衝突必須明示，不得自行選版。
-- ESP32-S3 DevKit 與 UCI K-4 4WD 的描述在 exact model、revision、
-  pinout、peripherals 及供電限制確認前均視為 provisional。
-- `_outputs/` 是衍生輸出；canonical firmware、wiring diagram 或教材
-  位置未確認前，不得把輸出提升為權威來源。
-- Approved BOM、設備數量、分組、到貨狀態與替代料件確認前，不得
-  定稿硬體依賴的 labs 或對學生承諾設備能力。
-- 課程紀錄必須分開標示 compile、simulation、target、HIL 與 physical
-  test，學生硬體活動必須包含安全啟動、停止、故障與復原程序。
+- Repository remote：`https://github.com/KennethWYLee/IoT.git`
+- 文件可見性：課程內部；發布學生教材前須另做答案與個資檢查
 
 ## 課程定位
 
 - 課程名稱：Internet of Things
-- 教師以智慧停車與 UCI K-4 4WD 作為整合參考案例；學生不必造車。
-- 第 7 週進行個人概念筆試；第 8 週每組只進行一次題目與技術可行性
-  訪談，展示一個可運作片段，不要求完整期中成品。
-- 第 9 週教師出國，不要求到校、不收新評量成果。
-- 共同技術主線為 ESP32-S3、Wi-Fi、HTTP／MQTT、學生自建後端、
-  資料庫、structured log、WebSocket 與手機前台；期末必須包含
-  即時狀態、歷史查詢、雙向控制、自動化與故障處理。
-- README 提及 ESP32-S3 DevKit 與 UCI K-4 4WD；實機操作前仍需
-  依確切板卡 revision、pinout 與供電規格重新核對。
+- 對象：具程式能力、硬體經驗較少的資管學生。
+- 學生可製作自己想要的玩具、互動機構、環境裝置、移動平台或其他
+  實體作品，不以無人車或智慧停車場為共同必做題目。
+- 每件作品都必須包含可運作的實體硬體，以及能記錄資料／事件或協助
+  使用者操作的軟體。只接感測器、只展示網頁或只使用現成平台均不足。
+- 第 2-5 週專注硬體、安全接線、感測、致動與單機互動；第 6 週才開始
+  Wi-Fi、HTTP、WebSocket 等裝置與軟體連線。
+- 第 7 週進行個人概念筆試與手機即時控制實作；第 8 週每組進行一次
+  12-15 分鐘題目與技術可行性訪談。
+- 第 9 週教師出國，不要求到校、不收新的評量成果。
+- 第 10-12 週依序加入 MQTT、多裝置、Database、structured log、
+  歷史查詢與手機前台。
+- 第 13、15 週檢查同一件期末作品的進度；第 17 週展示；第 18 週只
+  提供進階自學教材，不新增評量。
 
-## 權威文件與材料
+## 共同作品要求
+
+- 至少一片 ESP32-S3 或經教師核准的同等控制板。
+- 至少一種實體輸入與一種實體輸出；純監測題目須事前說明為何不需要
+  致動器。
+- 有意義的硬體行為，例如感測、互動、移動、提示、控制或自動反應。
+- 軟體至少能保存結構化資料／事件，或協助使用者即時監看與操作；
+  期末完整作品應同時具備後端、Database、log 與手機可用介面。
+- 控制命令必須記錄發送、執行結果或失敗原因。
+- 必須展示安全停止、斷線／錯誤處理、測試證據與可重建步驟。
+- 不以硬體價格、機構複雜度或速度作為主要評分依據。
+
+## 已核准課程用語
+
+- `Full-stack IoT`：本課中指實體裝置、網路通訊、學生建立的後端、
+  Database／structured log，以及手機可用前台所形成的完整系統。
+  允許用於課程定位、作品要求與評量文件。
+- `Type B`：依 `2026_Oxford EMI` 教學重設計指南使用，指課前／課中
+  問題驅動、學生作答或操作、同儕比較、教師回饋與再次應用的學習循環。
+  不把它改名或延伸成其他自創分類。
+
+## 教師設備政策
+
+- 已購三片 ESP32-S3 DevKitC-1 N16R8 與三套主要感測／輸出材料。
+- 原先預留給兩位孩子的材料不再作暑期兒童教材，改為教師課前驗證、
+  課堂示範、短期借用、故障替換與專題備品。
+- 三套教師材料不能被計入「全班每組均有一套」的設備承諾。
+- 教師智慧停車與 UCI K-4 4WD 可作延伸示範，但不支配學生選題。
+- 學生可在第 8 週題目確認後按需要加購材料；額外採購不帶來評分優勢，
+  購買前須檢查電壓、電流、邏輯準位、供電、驅動與機構安全。
+
+## 權威文件
 
 - 課程入口：`README.md`
 - 18 週進度：`docs/18_week_plan.md`
-- 115-1 日曆對齊計畫：`docs/1151_calendar_aligned_course_plan.md`
-- 115-1 課程大綱填寫草案：`docs/1151_course_syllabus_draft.md`
-- 115-1 課程大綱英文版：`docs/1151_course_syllabus_english.md`
+- 校曆對齊：`docs/1151_calendar_aligned_course_plan.md`
+- 中文課綱：`docs/1151_course_syllabus_draft.md`
+- 英文課綱：`docs/1151_course_syllabus_english.md`
 - Type B 設計：`docs/typeb_course_redesign.md`
-- 材料到貨與課程運作：`docs/18_week_materials_arrival_runbook.md`
-- 課程教材：`docs/course_materials/`
-- 採購資訊：`docs/purchase_list.md`
-- 已購器材庫存：`docs/purchased_inventory.md`
-- 同步工具：`scripts/`
+- 每週運作：`docs/18_week_materials_arrival_runbook.md`
+- 教師與學生教材：`docs/course_materials/`
+- 採購原則：`docs/purchase_list.md`
+- 已購庫存：`docs/purchased_inventory.md`
+- 跨電腦硬體狀態：`docs/hardware_state.md`
+- 實作紀錄：`docs/lab_notes/`
+- 共用後端 prototype：`examples/course_backend/`
 
-## 技術、硬體與驗證
+## 硬體與驗證規則
 
-- 確切 MCU、board revision、toolchain、firmware、周邊、電壓、
-  電流、腳位與通訊參數，以 vendor 文件及實際設備為準。
-- `_outputs/` 預設是衍生輸出，不是權威來源。
-- 編譯、模擬、target test、HIL 與實機測試必須分別記錄。
-- 學生使用硬體前需確認安全啟動、停止、故障與復原流程。
+- 實機操作前依 exact board revision、pinout、模組資料與實測確認 GPIO、
+  電壓、電流、供電及通訊參數。
+- 程式範例不得把尚未核對的 GPIO 當成固定答案。
+- 編譯、host test、simulation、target test 與實機測試分別記錄。
+- 致動器必須先在安全狀態上電，具有停止、timeout、故障與復原方法。
+- Wi-Fi 密碼、API key、broker 密碼與其他秘密不得提交 Git。
 
 ## 待確認事項
 
-- [ ] 確認正式班級、設備數量、分組方式與學生先備能力。
-- [ ] 確認科目代碼、學分數、必修／選修、授課語言及 115-1 核心能力欄位。
-- [ ] 建立已核准硬體 BOM、精確版本與替代料件表。
-- [ ] 教師參考車尚未購買：2 個碼盤測速模組、4 個 104 陶瓷電容、
-  1 個 1000 uF／16V 電解電容及 1 片 5 x 7 cm 洞洞板；現有 3 個
-  HC-SR04 可先供一台參考車使用。
-- [x] `docs/18_week_plan.md`、calendar-aligned plan、中文與英文課綱及
-  Type B redesign 已同步為 Full-stack IoT 版本。
-- [ ] `docs/18_week_materials_arrival_runbook.md` 與 `docs/course_materials/`
-  仍是舊的學生 UCI 4WD 版本，目前僅作教師智慧停車參考案例，需另案
-  重寫為現行 Full-stack IoT 課堂教材。
-- [ ] 確認 firmware／wiring diagram／課程文件的權威位置。
-- [ ] 依現行課表建立第 7 週筆試藍圖、第 8 週訪談表、第 13／15 週
-  進度檢核表與第 17 週 Full-stack IoT rubric。
+- [ ] 正式班級人數、分組數、學生先備能力與每組可取得的 ESP32-S3。
+- [ ] 科目代碼、學分數、必修／選修、授課語言及核心能力欄位。
+- [ ] 學生基本材料包、自購方式、借用規則與預算上限。
+- [ ] 第 7 週筆試藍圖、第 8 週訪談表、第 13／15 週檢核表與第 17 週
+  評分表的正式發布版本。
+- [ ] 完成教師參考硬體的逐項實機驗證與 `docs/hardware_state.md` 紀錄。

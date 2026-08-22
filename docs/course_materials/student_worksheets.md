@@ -1,255 +1,270 @@
-# 學生任務單與可複製模板
+# 學生任務單與紀錄模板
 
-本文件提供每週可以直接發給學生的任務單。教師可複製到 LMS、Google Docs、Word 或 Markdown。
+教師可依當週需要將單一區段貼入 LMS。不要每週重交同一份資料；已有內容
+以連結或版本編號引用，再補本週新增的證據。
 
-## 0. 每週 Lab Notebook 模板
+## 1. Lab Notebook
 
 ```text
-組別：
-週次：
-本週目標：
+組別／成員／角色：
+日期／週次：
+程式版本：
+今天要驗證的問題：
 
-1. 今天接了什麼？
-   - 硬體：
-   - 腳位：
-   - 電源：
+硬體
+- 開發板與模組：
+- GPIO 與接線圖：
+- 邏輯準位／供電／共地：
+- 安全停止或斷電方式：
 
-2. 今天資料怎麼流？
-   Input -> Controller -> Network/Data -> Output
+軟體與資料流
+- Input -> ESP32 state/action -> Network -> Backend -> Database -> Phone
+- 本週實際完成到哪一段：
 
-3. 成功證據
-   - 截圖 / 照片 / 影片 / Serial log：
+測試證據
+- 測試條件：
+- 預期結果：
+- 實際結果與 log／照片／影片：
 
-4. 遇到的錯誤
-   - 錯誤現象：
-   - 我們怎麼判斷：
-   - 修正方式：
+錯誤與修正
+- 現象：
+- 根據哪項證據判斷：
+- 修改：
+- 重測結果：
 
-5. AI / LLM 使用紀錄
-   - 問了什麼：
-   - 採用了什麼：
-   - 修改了什麼：
-   - 如何驗證：
+AI 使用
+- AI 產出：
+- 人工修改與理由：
+- 如何驗證：
 
-6. 下週第一件要做的事：
+下一次第一件事：
 ```
 
-## 1. 元件分類表
+## 2. 實體作品與軟體用途
 
-| 元件 | Sensor | Actuator | Controller | Network | Interface | 理由 |
-|---|---|---|---|---|---|---|
-| ESP32-S3 |  |  |  |  |  |  |
-| 按鈕 |  |  |  |  |  |  |
-| RGB LED |  |  |  |  |  |  |
-| 蜂鳴器 |  |  |  |  |  |  |
-| TT 馬達 |  |  |  |  |  |  |
-| L298N |  |  |  |  |  |  |
-| UCI 4WD 底盤 |  |  |  |  |  |  |
-| 手機相機 |  |  |  |  |  |  |
-| Dashboard |  |  |  |  |  |  |
-
-## 2. ESP32-S3 開發環境證據表
-
-| 項目 | 成功證據 | 截圖或 log |
-|---|---|---|
-| Board 選對 |  |  |
-| Port 選對 |  |  |
-| 程式上傳成功 |  |  |
-| Serial Monitor 有輸出 |  |  |
-| Wi-Fi scan 有結果 |  |  |
-
-## 3. 接線安全判斷表
-
-| 問題 | 安全或危險 | 理由 | 修正方式 |
-|---|---|---|---|
-| LED 沒有限流電阻 |  |  |  |
-| 5V Echo 直接接 GPIO |  |  |  |
-| 馬達電源和 ESP32 沒有共地 |  |  |  |
-| 杜邦線鬆脫但程式一直重開 |  |  |  |
-| 3.3V 腳位接到 5V 輸出 |  |  |  |
-
-## 4. 智慧停車場場地設計表
-
-| 項目 | 本組設計 |
+| 問題 | 本組回答 |
 |---|---|
-| 起點位置 |  |
-| 車道寬度 |  |
-| 停車格尺寸 |  |
-| 禁撞區 |  |
-| 邊界觸發方式 |  |
-| 成功定義 |  |
-| 失敗定義 |  |
-| 重試規則 |  |
+| 想製作什麼玩具或硬體？ |  |
+| 誰會操作或使用？ |  |
+| 實體輸入是什麼？ |  |
+| 實體輸出或行為是什麼？ |  |
+| 軟體要記錄哪些資料／事件？ |  |
+| 軟體如何協助監看或操作？ |  |
+| 斷線或錯誤時，硬體應怎麼做？ |  |
+| 哪個結果可以證明作品有完成？ |  |
 
-## 5. 停車場事件資料格式
+## 3. 開發環境證據
 
-| 欄位 | 範例 | 說明 |
+| 項目 | 實際設定 | 成功證據／錯誤 |
 |---|---|---|
-| event_type | start / collision / parked / finish | 事件類型 |
-| time_ms | 15230 | 從開始到事件發生的時間 |
-| zone | left_wall / slot / gate | 事件位置 |
-| count | 2 | 碰撞次數或累積值 |
-| result | success / fail / running | 目前結果 |
+| Board model |  |  |
+| Board revision／外觀辨識 |  |  |
+| USB port |  |  |
+| Arduino-ESP32 version |  |  |
+| 上傳 |  |  |
+| Serial baud rate／輸出 |  |  |
 
-範例 JSON：
+## 4. 上電前檢查
 
-```json
-{
-  "event_type": "collision",
-  "time_ms": 15230,
-  "zone": "left_wall",
-  "count": 2,
-  "result": "running"
-}
-```
+| 檢查 | 結果 | 證據或修正 |
+|---|---|---|
+| 已核對板卡與模組供電規格 |  |  |
+| ESP32 GPIO 未直接收到未保護的 5V |  |  |
+| 電源正負極與麵包板電源軌正確 |  |  |
+| LED 有限流；輸入有必要的上拉／下拉 |  |  |
+| 外部電源與 ESP32 訊號共地 |  |  |
+| 馬達／舵機不由 GPIO 供電 |  |  |
+| 已先測 stop／timeout／斷電方式 |  |  |
+| 線材固定且不會因機構移動短路 |  |  |
 
-## 6. 馬達除錯表
+## 5. GPIO 與接線表
 
-| 現象 | 可能原因 | 如何驗證 | 修正 |
-|---|---|---|---|
-| 完全不動 |  |  |  |
-| 只有一邊動 |  |  |  |
-| 左右方向相反 |  |  |  |
-| 一跑就重開機 |  |  |  |
-| 速度忽快忽慢 |  |  |  |
+| 模組／腳位 | VCC | GND | Signal GPIO | 邏輯準位 | 方向 | 備註 |
+|---|---|---|---|---|---|---|
+|  |  |  |  |  | input／output |  |
+|  |  |  |  |  | input／output |  |
+|  |  |  |  |  | input／output |  |
 
-## 7. UCI 4WD 馬達對照與校正表
+## 6. 感測品質測試
 
-| 位置 | 接到哪個輪組 / channel | 指令為正時實際方向 | 是否需要反相 |
-|---|---|---|---|
-| 左前馬達 | 左側 / A |  |  |
-| 左後馬達 | 左側 / A |  |  |
-| 右前馬達 | 右側 / B |  |  |
-| 右後馬達 | 右側 / B |  |  |
+| 測試條件 | Raw value | 處理後值／狀態 | 有效？ | 原因／限制 |
+|---|---:|---|---|---|
+| 1 |  |  |  |  |
+| 2 |  |  |  |  |
+| 3 |  |  |  |  |
+| 異常或拔除 |  |  |  |  |
 
-| 測試 | 左 PWM | 右 PWM | 距離 | 左右偏移 | 修正 |
-|---:|---:|---:|---:|---:|---|
+請回答：取樣間隔、門檻、去抖／平滑、無效值與感測器拔除分別如何處理？
+
+## 7. 致動器與供電測試
+
+| 測試 | 電源 | 控制值 | 負載 | 預期 | 實際 | 是否安全停止 |
+|---|---|---:|---|---|---|---|
+| 無負載 |  |  |  |  |  |  |
+| 輕負載 |  |  |  |  |  |  |
+| timeout |  |  |  |  |  |  |
+| 重開機 |  |  |  |  |  |  |
+
+## 8. 單機互動狀態表
+
+| State | Input／觸發 | Action／Output | 結束條件 | Timeout | Error／Recovery |
+|---|---|---|---|---|---|
+| idle |  |  |  |  |  |
+| active |  |  |  |  |  |
+| success |  |  |  |  |  |
+| error |  |  |  |  |  |
+| reset |  |  |  |  |  |
+
+| Run | 成功／失敗 | 完成時間 | 誤觸發 | 失敗原因 | 下次修改 |
+|---:|---|---:|---:|---|---|
 | 1 |  |  |  |  |  |
 | 2 |  |  |  |  |  |
 | 3 |  |  |  |  |  |
 
-## 8. 自主停靠狀態表
+## 9. 事件與命令格式
 
-| 狀態 | 動作 | 結束條件 | 可能失敗 |
-|---|---|---|---|
-| approach |  |  |  |
-| align |  |  |  |
-| reverse / side_move |  |  |  |
-| parked |  |  |  |
-| leave |  |  |  |
-| error |  |  |  |
+### Device event
 
-請在每個狀態填入左右輪方向、PWM、執行時間與轉向模式：arc、pivot 或 spin。
-
-| 轉向模式 | 左輪命令 | 右輪命令 | 完成角度 | 時間 | 最終偏差 | 電流／打滑觀察 |
-|---|---:|---:|---:|---:|---:|---|
-| Arc turn |  |  |  |  |  |  |
-| Pivot turn |  |  |  |  |  |  |
-| Spin turn |  |  |  |  |  |  |
-
-## 9. 自主停靠測試紀錄
-
-| 任務 | 測試 | 成功/失敗 | 時間 | 碰撞/越界 | 最終偏移 | 下次修正 |
-|---|---:|---|---:|---:|---:|---|
-| 倒車入格 | 1 |  |  |  |  |  |
-| 倒車入格 | 2 |  |  |  |  |  |
-| 倒車入格 | 3 |  |  |  |  |  |
-| 側向停靠 | 1 |  |  |  |  |  |
-| 側向停靠 | 2 |  |  |  |  |  |
-| 側向停靠 | 3 |  |  |  |  |  |
-
-## 10. 11/04 非同步期中證據包
-
-```text
-截止內容：
-1. 10/28 前完成的三次測試影片連結。
-2. 狀態機與左右輪動作序列。
-3. PWM、時間、電池狀態與校正參數表。
-4. 三次測試的成功、碰撞、偏移與時間比較。
-5. 一次失敗原因與下一版修改。
-6. AI / LLM 使用、人工修改與實車驗證紀錄。
-
-安全限制：11/04 不新增馬達接線、不改電源架構；需要硬體重接者留到 11/11 由教師檢查。
+```json
+{
+  "device_id": "team01-device01",
+  "event_type": "action_completed",
+  "value": 1,
+  "state": "idle",
+  "timestamp": "2026-10-14T14:30:00+08:00"
+}
 ```
 
-## 11. 期末 Project Card
+### Command and result
 
-| 欄位 | 內容 |
-|---|---|
-| Project name |  |
-| Problem |  |
-| User |  |
-| Data source |  |
-| Device action |  |
-| Dashboard / interface |  |
-| Network method | HTTP / MQTT / WebSocket / other |
-| BOM |  |
-| Top 3 risks |  |
-| Smallest demo for Week 13 |  |
+```json
+{
+  "command_id": "cmd-001",
+  "device_id": "team01-device01",
+  "command": "start",
+  "parameters": {},
+  "requested_at": "2026-10-21T14:30:00+08:00"
+}
+```
 
-## 12. 技術路線選擇表
+```json
+{
+  "command_id": "cmd-001",
+  "device_id": "team01-device01",
+  "result": "done",
+  "message": "action completed",
+  "completed_at": "2026-10-21T14:30:03+08:00"
+}
+```
 
-| 技術 | 本組是否使用 | 使用理由 | 不使用理由 |
-|---|---|---|---|
-| HTTP |  |  |  |
-| MQTT |  |  |  |
-| WebSocket |  |  |  |
-| 手機視覺 |  |  |  |
-| OLED |  |  |  |
-| 馬達 |  |  |  |
-| 伺服馬達 |  |  |  |
-
-## 13. Contract Card
-
-| 欄位 | 本組內容 |
-|---|---|
-| Input |  |
-| Message | API route / MQTT topic / WebSocket event |
-| Payload | JSON 欄位與範例 |
-| Output |  |
-| Error | 失敗時如何表示 |
-
-## 14. User Journey Card
-
-| 欄位 | 內容 |
-|---|---|
-| User goal |  |
-| Steps |  |
-| System feedback |  |
-| Evidence |  |
-| Friction |  |
-
-## 15. Fault Injection Cards
-
-| 類型 | 本組測試方式 | 預期結果 | 實際結果 | 修正 |
+| 欄位 | 必要理由 | 產生者 | 使用者 | 無效時如何處理 |
 |---|---|---|---|---|
-| Sensor | 拔掉、固定讀值、製造雜訊 |  |  |  |
-| Network | Wi-Fi 斷線、broker/API 連不上 |  |  |  |
-| Power / wiring | 電池低電壓、GND 鬆脫、訊號腳接錯 |  |  |  |
-| User | 按錯、重複觸發、不照流程 |  |  |  |
-| Field | 光線變化、場地歪掉、距離改變 |  |  |  |
+| device_id |  |  |  |  |
+| event_type／command |  |  |  |  |
+| timestamp |  |  |  |  |
+| state／result |  |  |  |  |
+| command_id |  |  |  |  |
 
-## 16. Demo Freeze Checklist
+## 10. 通訊與除錯分段表
 
-| 項目 | 已完成 | 證據 |
-|---|---|---|
-| Code 版本固定 |  |  |
-| 接線圖和實物一致 |  |  |
-| 場地與起點固定 |  |  |
-| API/topic/JSON 不再改名 |  |  |
-| 1 分鐘影片完成 |  |  |
-| 展示腳本完成 |  |  |
-| 備援方案完成 |  |  |
+| 檢查位置 | 成功證據 | 失敗證據 | 本組結果 |
+|---|---|---|---|
+| ESP32 input／state | Serial log | 無讀值／狀態錯 |  |
+| Wi-Fi | IP、連線狀態 | 斷線／認證失敗 |  |
+| HTTP／MQTT | status／publish | timeout／錯 topic |  |
+| Backend | request log | validation error |  |
+| Database | 新增 row | transaction／schema error |  |
+| WebSocket | client update | disconnected／stale |  |
+| Phone UI | 正確狀態／結果 | 不更新／誤導 |  |
 
-## 17. 期末展示摘要表
+## 11. 第 8 週訪談準備
 
-| 項目 | 內容 |
+| 欄位 | 內容 |
 |---|---|
-| 現場 demo 展示什麼 |  |
-| 系統感測什麼 |  |
-| 系統控制什麼 |  |
-| 資料如何流動 |  |
-| 最大失敗情境 |  |
-| 如何偵測或恢復 |  |
-| 已知限制 |  |
-| 考後延伸方向 |  |
+| Project title |  |
+| User and use scenario |  |
+| Physical input |  |
+| Physical output／behavior |  |
+| What the software records |  |
+| How the software assists operation |  |
+| Working hardware fragment |  |
+| Device -> Backend -> Database -> Phone data flow |  |
+| Materials already available |  |
+| Proposed purchases and estimated cost |  |
+| Power／driver／logic-level risks |  |
+| Three main project risks |  |
+| Minimum acceptable Week 13 result |  |
+
+## 12. MQTT Topic 表
+
+| Purpose | Topic | Publisher | Subscriber | Payload | Retained／QoS |
+|---|---|---|---|---|---|
+| telemetry |  |  |  |  |  |
+| event |  |  |  |  |  |
+| command |  |  |  |  |  |
+| acknowledgement |  |  |  |  |  |
+| presence |  |  |  |  |  |
+
+## 13. Database 與 log 設計
+
+| 資料 | 保存位置 | 主要欄位 | 保留理由 | 查詢／分析 |
+|---|---|---|---|---|
+| Sensor reading |  |  |  |  |
+| Device event |  |  |  |  |
+| Command／result |  |  |  |  |
+| System error |  |  |  |  |
+
+請用一筆 log 回答：何時、哪台裝置、發生什麼、系統怎麼處理、最後結果是什麼？
+
+## 14. 手機使用流程
+
+| Step | User action | System response | Stored evidence | Error state |
+|---:|---|---|---|---|
+| 1 |  |  |  |  |
+| 2 |  |  |  |  |
+| 3 |  |  |  |  |
+| 4 |  |  |  |  |
+
+## 15. 期末進度檢查
+
+### Week 13
+
+| 檢查 | 完成 | 證據 |
+|---|---|---|
+| 真實硬體輸入／行為 |  |  |
+| ESP32 到 Backend |  |  |
+| Database 新增紀錄 |  |  |
+| 手機即時顯示 |  |  |
+| 資料格式固定 |  |  |
+
+### Week 15
+
+| 檢查 | 完成 | 證據 |
+|---|---|---|
+| 非開發者完成核心操作三次 |  |  |
+| 歷史資料可查詢 |  |  |
+| 命令與結果可追蹤 |  |  |
+| 離線／錯誤狀態可見 |  |  |
+| 根據證據完成一項修正 |  |  |
+
+## 16. 故障測試
+
+| 故障 | 操作方式 | 預期硬體狀態 | 預期手機狀態 | Log | Recovery | 實際結果 |
+|---|---|---|---|---|---|---|
+| 感測異常 |  |  |  |  |  |  |
+| 網路中斷 |  |  |  |  |  |  |
+| 錯誤命令／重複操作 |  |  |  |  |  |  |
+| 服務停止 |  |  |  |  |  |  |
+
+## 17. 版本凍結與展示
+
+| 項目 | 完成 | 版本／證據 |
+|---|---|---|
+| 原始碼已 commit |  |  |
+| 接線圖與實物一致 |  |  |
+| Backend／Database 可依文件重建 |  |  |
+| Wi-Fi／secret 未提交 |  |  |
+| 三項異常測試完成 |  |  |
+| 兩次完整彩排完成 |  |  |
+| 展示影片與斷線備案完成 |  |  |
+| 每位成員可解釋一條資料或命令路徑 |  |  |
