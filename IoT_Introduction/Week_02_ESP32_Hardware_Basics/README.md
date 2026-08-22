@@ -4,8 +4,11 @@
 
 ## 準備器材
 
-ESP32-S3 N16R8 向下 44 腳、USB 資料線、麵包板、公對公杜邦線、按鈕、
-220Ω／330Ω 電阻、LED 或蜂鳴器、萬用電表。
+ESP32-S3 N16R8 向下 44 腳、USB 資料線、麵包板、公對公杜邦線、按鈕與
+萬用電表。本週不使用 LED、蜂鳴器、馬達或外部電池。
+
+依目前三組工作站配置，本週不需再購買電子零件。請依[Week 2 必買／必帶
+清單](week02_purchase_list.md)完成數量確認及資料線測試。
 
 學生在 Week 1 課後已完成 Arduino IDE 與 ESP32 board package 安裝。Week 2
 只做快速驗證；安裝失敗者進個別排錯區，不占用全班授課時間。
@@ -38,7 +41,6 @@ ESP32-S3 N16R8 向下 44 腳、USB 資料線、麵包板、公對公杜邦線、
 - [ ] 可獨立上傳程式並查看 Serial。
 - [ ] 上電前檢查與 GPIO 接線表完成。
 - [ ] 按鈕控制輸出連續測試五次。
-- [ ] 每位組員完成一題個別口頭驗收。
 - [ ] 能說明 5V 訊號直接進入 3.3V GPIO 的風險。
 
 參考：[已購設備總表](equipment_index.md)｜[程式片段](../../docs/course_materials/starter_code_snippets.md)｜[安全檢核](../../docs/course_materials/rubrics_and_checklists.md)
