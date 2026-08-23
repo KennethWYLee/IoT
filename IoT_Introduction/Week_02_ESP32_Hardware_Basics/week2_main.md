@@ -14,8 +14,8 @@ By the end of this unit, students will be able to:
 2. Configure Arduino IDE, compile and upload a program, and interpret Serial Monitor
    output.
 3. Build and test a push-button input with `INPUT_PULLUP` and a GPIO HIGH/LOW output.
-4. Use continuity and DC voltage measurements to verify the physical circuit and the
-   program state.
+4. Measure loose resistors, continuity, and DC voltage with the correct multimeter
+   function and range.
 5. Use wiring, Serial logs, and measurements together to locate and explain a fault.
 
 ### Teaching Content
@@ -26,8 +26,9 @@ environment, upload firmware, and use Serial output to observe what the program 
 
 The hardware activity connects a push button as a digital input and uses another GPIO
 as a measurable digital output. Students will learn how `INPUT_PULLUP`, HIGH, LOW, GND,
-and 3.3V logic relate to the physical circuit. A multimeter will then be used to verify
-continuity and voltage so that software messages are supported by physical evidence.
+and 3.3V logic relate to the physical circuit. A multimeter will first be used to compare
+the nominal and measured resistance of loose resistors, and then to verify continuity
+and voltage so that software messages are supported by physical evidence.
 Safe power handling, systematic testing, and evidence-based troubleshooting are applied
 throughout the activity.
 
@@ -38,9 +39,9 @@ throughout the activity.
 | 1 | 板子未接 USB | 環境與實物辨識 | 找到 USB、BOOT、RESET、GPIO4、GPIO5、GND |
 | 2 | 只接 USB | 設定 Board 與 Port | IDE 顯示正確 Board、Port 與 N16R8 設定 |
 | 3 | 只接 USB | Upload 與 Serial | log 顯示本組組別及 `version=2` |
-| 4 | USB 已拔除 | 麵包板、按鈕、TP5、TPG 接線 | 跨組或同組第二人逐線確認 |
+| 4 | USB 已拔除 | 麵包板、按鈕、TP5、TPG 接線 | 依接線表逐線確認；獨自操作時正向、反向各檢查一次 |
 | 5 | 接線已確認 | GPIO4 輸入與 GPIO5 輸出 | 五次按下／放開事件完全對應 |
-| 6 | 量測站 | 通斷及電壓 | 通斷合理，TP5 LOW／HIGH 可分辨 |
+| 6 | 量測站 | 散裝電阻、通斷及電壓 | 三種電阻有實測值；通斷合理；TP5 LOW／HIGH可分辨 |
 | 7 | 核心任務完成 | 基本練習 | 按壓計數有可重複的 Serial 證據 |
 
 各階段應依序完成。未達成完成條件時，應先依該節故障排除內容修正，再進入
@@ -49,7 +50,7 @@ throughout the activity.
 ## 二、實驗器材與分組
 
 每個工作站使用一片ESP32-S3、一條可傳輸資料的USB線、一片400孔麵包板、
-一顆四腳按鈕、至少四條公對公杜邦線，以及一台筆電。萬用電表由課堂輪流
+一顆四腳按鈕、至少四條公對公杜邦線、一包常用電阻，以及一台筆電。萬用電表由課堂輪流
 提供；馬達、舵機、電池盒及其他高耗電設備不進入工作區。
 
 上課前依[Week 2器材與必帶確認表](week2_support.md#一本週必帶與器材確認)
@@ -74,7 +75,8 @@ throughout the activity.
 2. 5V 不得接入任何 GPIO。
 3. GPIO 是訊號腳，不得直接作為舵機或馬達的電源。
 4. 接腳不確定時，應核對板身絲印與官方 pinout，不得憑記憶接線。
-5. 上電前必須由另一位組員依接線表逐條檢查。
+5. 接回 USB 前，必須依接線表逐條檢查。身邊有同學時，請同學和你一起檢查；
+   獨自操作時，先從 ESP32 腳位沿線檢查到零件，再從零件反向檢查回 ESP32。
 6. 發現板子、線材或零件發熱、異味或異常聲音，立即斷電並通知教師。
 
 本次使用 GPIO4 與 GPIO5。Espressif 官方 DevKitC-1 接腳表將兩者列為
@@ -614,9 +616,9 @@ ESP32 GND  --------- 麵包板另一空白列（標記為 TPG）
 - 未按下：讀到 `HIGH`。
 - 按下：GPIO4 被接到 GND，讀到 `LOW`。
 
-### 步驟 8：執行上電前覆核
+### 步驟 8：執行上電前接線檢查
 
-覆核者不能只看「像不像圖片」，要從訊號起點沿線摸到終點：
+不能只看接線「像不像圖片」，必須從訊號起點沿線檢查到終點：
 
 1. 指著板身 `4` 絲印，沿著同列孔與線走到按鈕一側。
 2. 指著板身 `G`／`GND`，沿線走到 TPG，再從 TPG 走到按鈕另一側。
@@ -635,11 +637,9 @@ ESP32 GND  --------- 麵包板另一空白列（標記為 TPG）
 | TP5 測試列 | 空白麵包板列 | GPIO5 | HIGH／LOW 電壓測試 |
 | TPG 參考列 | 另一空白列 | GND | 黑表筆參考點 |
 
-請另一位組員逐線檢查，簽名後才能插回 USB：
-
-```text
-檢查者：____________________
-```
+身邊有同學時，請同學依照上述順序和你一起檢查。獨自操作時，先依第 1 至
+第 5 項檢查一次，再從第 5 項反向檢查回第 1 項。確認兩次結果一致，而且沒有
+任何線接到 5V，才能插回 USB。
 
 ### 本節檢核
 
@@ -648,7 +648,7 @@ ESP32 GND  --------- 麵包板另一空白列（標記為 TPG）
 - [ ] GPIO4 只經按鈕連到 GND。
 - [ ] GPIO5 只連到 TP5。
 - [ ] TPG 連到 GND，而且 TP5、TPG 不互通。
-- [ ] 另一人已逐線覆核並簽名。
+- [ ] 接線已依上述方式逐線確認；獨自操作時已完成正向與反向兩次檢查。
 
 ## 八、GPIO4 按鈕輸入與 GPIO5 測試輸出
 
@@ -666,7 +666,7 @@ ESP32 GND  --------- 麵包板另一空白列（標記為 TPG）
 
 ### 步驟 1：上電前確認與 USB 復電
 
-1. 確認階段 4 的覆核者已簽名。
+1. 確認階段 4 的接線檢查項目已全部通過。
 2. 確認沒有人握著按鈕、杜邦線或萬用電表表筆。
 3. 把 USB 接回原本測試成功的 USB-to-UART 接頭。
 4. 觀察數秒；若出現發熱、異味或異常聲音，立刻拔除 USB。
@@ -802,7 +802,8 @@ group=03 event=button_changed pressed=false gpio5=LOW time_ms=...
 | 事件正常但組別錯誤 | 程式未改或舊程式 | 修改 `GROUP_ID`、Save、Upload、RESET |
 | 完全沒有 Serial 文字 | Port／baud／USB 問題 | 回到階段 3 的 Serial 排錯，不動硬體線 |
 
-排錯前先保存畫面。凡是要碰線，一律先拔 USB，修正後再由第二人覆核。
+排錯前先保存畫面。凡是要碰線，一律先拔 USB。修正後重新逐線檢查；獨自
+操作時，必須再做一次正向與反向檢查。
 
 ### 步驟 6：執行五次重複性測試
 
@@ -828,9 +829,51 @@ group=03 event=button_changed pressed=false gpio5=LOW time_ms=...
 A830L 為操作示例；若正式材料清單安排功能相當的其他型號，符號與檔位位置
 可能不同，操作時仍以實物標示為準。
 
-### A. 通斷量測（斷電）
+### A. 散裝電阻量測（斷電、電阻不接電路）
 
-#### A1. 表筆安裝與斷電確認
+**電阻（resistor）**是限制電流或建立電壓關係的元件，單位是歐姆`Ω`。
+包裝上的220Ω、1kΩ與10kΩ是**標稱值**；萬用電表量到的是這顆實物在目前
+環境下的實測值。兩者不一定完全相同，但必須具有相同數量級。
+
+#### A1. 取出並辨識三顆電阻
+
+1. 從ESP32端拔除USB，確認電源燈熄滅，桌上沒有電池或其他電源。
+2. 從有原始標籤的電阻包各取出一顆220Ω、1kΩ與10kΩ電阻。
+3. 三顆分開放置，分別貼上標稱值；未確認包裝標籤時不靠外觀猜測。
+4. 電阻不得插在已上電的麵包板，也不得接到ESP32。
+
+`kΩ`表示千歐姆，因此1kΩ等於1000Ω，10kΩ等於10000Ω。
+
+#### A2. 選擇電阻檔與確認表筆
+
+1. 萬用電表旋鈕轉到`OFF`。
+2. 黑表筆插入`COM`，紅表筆插入`VΩmA`；本週完全不使用`10A`孔。
+3. 先讓兩支表筆分開，再將旋鈕切到實物電表的電阻`Ω`區。
+4. 選擇大於待測標稱值的最小量程。例如200Ω檔不足以量220Ω，應選下一個
+   較高量程；1kΩ與10kΩ也依相同原則選擇。
+5. 若顯示`OL`或最左側固定的`1`，先確認表筆沒有接觸，再切到更高量程重測。
+
+#### A3. 逐顆量測並記錄
+
+1. 將電阻平放在不導電桌面，一支表筆接觸一端金屬腳，另一支表筆接觸另一端。
+2. 手可壓住電阻本體的絕緣部分，不要同時用手捏住兩端金屬腳。
+3. 等顯示穩定後，記錄檔位、畫面數值及換算後的歐姆值。
+4. 對220Ω、1kΩ、10kΩ各量一次；每次換電阻前先讓兩表筆離開元件。
+5. 若三顆讀值幾乎相同，先檢查是否選錯元件、表筆接觸不良或沒有理解目前
+   量程，不要直接把標稱值抄成實測值。
+
+| 電阻標稱值 | 使用檔位 | 電表畫面 | 換算實測值 | 標稱與實測是否同數量級 |
+|---:|---|---:|---:|---|
+| 220Ω |  |  |  Ω | 是／否 |
+| 1kΩ |  |  |  Ω | 是／否 |
+| 10kΩ |  |  |  Ω | 是／否 |
+
+三筆都有檔位、數值及單位，而且能辨認約十倍的1kΩ與10kΩ差異，才完成本段。
+量完後將三顆電阻分別放回有標示的收納位置。
+
+### B. 通斷量測（斷電）
+
+#### B1. 表筆安裝與斷電確認
 
 - 電表的 **`COM`** 是共同參考插孔，接黑表筆；它不是 Windows 的 COM Port。
 - **`VΩmA`** 是量電壓、電阻與小電流時使用的紅表筆插孔。本週只量電壓與
@@ -844,7 +887,7 @@ A830L 為操作示例；若正式材料清單安排功能相當的其他型號�
 5. 輕拉兩條表筆接頭，確認沒有鬆脫。
 6. 確認桌上沒有外接電池或其他電源。
 
-#### A2. 選擇通斷或 200 Ω 檔
+#### B2. 選擇通斷或 200 Ω 檔
 
 **通斷檔**用來判斷兩點是否低阻抗相通，必須先讓待測電路斷電。`Ω` 是電阻
 單位歐姆；`200 Ω` 是這次選擇的量程。畫面顯示 `OL` 或最左側的 `1`，通常
@@ -858,7 +901,7 @@ A830L 為操作示例；若正式材料清單安排功能相當的其他型號�
 5. 若短接表筆仍完全無反應，先檢查檔位、插孔、電池與表筆，不要拿錯誤的
    電表結果判定按鈕壞掉。
 
-#### A3. 麵包板與按鈕量測
+#### B3. 麵包板與按鈕量測
 
 下列每次量測，表筆各碰一個孔中的金屬接點或同列杜邦線金屬端，不能讓兩支
 表筆尖端互相碰到。
@@ -880,12 +923,12 @@ A830L 為操作示例；若正式材料清單安排功能相當的其他型號�
 | 未按下 |  | 導通／不導通 |
 | 按下 |  | 導通／不導通 |
 
-### B. 直流電壓量測（上電）
+### C. 直流電壓量測（上電）
 
 **電壓**是兩點之間的電位差，不是單獨一點自帶的數字。本實驗量測 TP5 相對
 TPG／GND 的電壓，所以黑表筆固定在 TPG，紅表筆才移到 TP5。
 
-#### B1. 切換到正確檔位
+#### C1. 切換到正確檔位
 
 - **DCV** 是直流電壓，適合量 ESP32；**ACV** 是交流電壓，本週不用。
 - **DCA** 是直流電流，必須用不同的串聯接法，本週不用。
@@ -902,14 +945,14 @@ TPG／GND 的電壓，所以黑表筆固定在 TPG，紅表筆才移到 TP5。
 `DCV 20` 表示可量測到 20V 左右，適合本週約 3.3V 的訊號；它不是要把
 電路設定成 20V。
 
-#### B2. 黑表筆參考點
+#### C2. 黑表筆參考點
 
 1. 找到貼有 `TPG` 標籤的五孔組。
 2. 黑表筆只接觸 TPG，不要直接探 ESP32 密集排針。
 3. 由記錄者確認 TPG 的杜邦線另一端確實回到板身 `G`／`GND`。
 4. 量測過程中先保持黑表筆不移動。
 
-#### B3. LOW 電壓量測
+#### C3. LOW 電壓量測
 
 1. 完全放開按鈕。
 2. 看 Serial 是否出現 `pressed=false gpio5=LOW`；若沒有，先按下再放開一次。
@@ -917,7 +960,7 @@ TPG／GND 的電壓，所以黑表筆固定在 TPG，紅表筆才移到 TP5。
 4. 等顯示穩定後記錄數值和正負號。
 5. 正常應接近 0V。若跳動很大，先確認表筆接觸與 TP5 接線。
 
-#### B4. HIGH 電壓量測
+#### C4. HIGH 電壓量測
 
 1. 紅、黑表筆保持在 TP5、TPG。
 2. 請另一人按住按鈕，不要由量測者同時按。
@@ -933,7 +976,7 @@ TPG／GND 的電壓，所以黑表筆固定在 TPG，紅表筆才移到 TP5。
 
 不要把萬用電表切到電流檔。本週不量電流。
 
-#### B5. 量測結束與儀表復原
+#### C5. 量測結束與儀表復原
 
 1. 先把紅表筆移離 TP5，再移開黑表筆。
 2. 拔除 ESP32 USB。
@@ -944,6 +987,7 @@ TPG／GND 的電壓，所以黑表筆固定在 TPG，紅表筆才移到 TP5。
 ### 本節檢核
 
 - [ ] 按鈕通斷結果符合實際狀態。
+- [ ] 220Ω、1kΩ及10kΩ都有檔位、實測值與單位。
 - [ ] GPIO5 LOW 與 HIGH 的量測值不同且合理。
 - [ ] 實驗紀錄已記錄黑表筆接 GND 的原因。
 - [ ] 實驗紀錄已記錄為何程式顯示 HIGH 仍要實際量測。
@@ -1085,7 +1129,7 @@ void loop() {
 3. GPIO4 按鈕與 GPIO5 測試輸出的接線表。
 4. 接線清楚照片。
 5. 五次按壓測試表。
-6. 通斷、GPIO5 LOW 及 HIGH 的量測值。
+6. 220Ω、1kΩ、10kΩ、通斷、GPIO5 LOW及HIGH的量測值。
 7. 修改後的完整程式。
 8. 基本練習的按壓計數；若完成選做延伸，再附上對應的 log／量測／測試表。
 9. 一項遇到的問題、證據、修改與結果。
@@ -1100,10 +1144,10 @@ void loop() {
 - [ ] Serial log 有組別、版本、按鈕事件與按壓計數。
 - [ ] GPIO4、GPIO5 與 GND 接線表正確。
 - [ ] 按鈕連續五次測試通過。
-- [ ] 通斷及直流電壓量測有檔位、測試點與實測值。
+- [ ] 三種散裝電阻、通斷及直流電壓量測都有檔位、測試點、單位與實測值。
 - [ ] 基本練習的按壓計數可重複驗證，並保存預期、實際結果及修改證據。
 - [ ] 程式、實驗紀錄與證據已保存／提交。
 - [ ] USB 已拔除，零件數量確認，桌面與線材已復原。
 
-全部通過並簽核後，可依課程規定提前離開。未保存證據、未斷電或未完成收納
+全部通過後，可依課程規定提前離開。未保存證據、未斷電或未完成收納
 者，不列為完成。
