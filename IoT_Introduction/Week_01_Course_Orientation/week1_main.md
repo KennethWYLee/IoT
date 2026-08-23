@@ -12,30 +12,33 @@
 
 By the end of Week 1, students will be able to:
 
-1. Explain why the course project must combine physical hardware with software.
-2. Identify the roles of the ESP32-S3, backend, database, and mobile interface in a
-   full-stack IoT system.
-3. Describe the purposes of the examinations and project reports in Weeks 7, 8, 13,
-   15, and 16-17.
-4. State the six assessment components, their percentages, and the evidence required
-   for each component.
-5. Distinguish between student-provided materials and classroom-provided equipment.
-6. Propose an initial project idea with a user, physical input, physical output,
-   software purpose, and one identifiable risk.
-7. Complete the software installation, purchasing, and preparation requirements for
-   Week 2.
+1. Explain what a full-stack IoT system is and why it requires both physical hardware
+   and software.
+2. Describe how physical input, an ESP32-S3, physical output, network communication,
+   a backend, a database, and a mobile interface work together.
+3. Analyze an IoT project in terms of its user, input, output, data, interaction, and
+   safety requirements.
+4. Develop an initial IoT project idea with a clear purpose and a feasible system scope.
 
 ### Teaching Content
 
-| Topic | Content covered in Week 1 |
-|---|---|
-| Course scope | Course purpose, prerequisites, semester structure, and the difference between a simple connected device and a complete full-stack IoT system |
-| System architecture | Roles and data flow among physical input, ESP32-S3, physical output, Wi-Fi, HTTP or MQTT, backend, database, WebSocket, and a mobile interface |
-| Semester learning path | Hardware fundamentals, sensing, actuation, networking, backend services, databases, mobile interfaces, system integration, examinations, and three project reports |
-| Assessment | Regular coursework, two individual written examinations, three project reports, grading percentages, required evidence, and examination weeks with no new instruction |
-| Final project | Acceptable project topics, minimum physical and software requirements, safety and recovery requirements, documentation, testing, and individual responsibility |
-| Materials and safety | Required personal component kit, equipment supplied by the classroom, optional project parts, purchasing rules, electrical safety, data privacy, and credential protection |
-| Preparation for Week 2 | Arduino IDE 2, the Espressif board package, a data-capable USB cable, the latest course repository, required purchases, and material issue reporting |
+This course introduces the design of complete IoT systems that connect physical
+devices with useful software. Students will learn how sensors and buttons provide
+input, how an ESP32-S3 interprets that input, and how LEDs, buzzers, servos, or other
+actuators create observable physical responses. Electrical safety, power, grounding,
+signal quality, system states, and recovery from errors are treated as essential parts
+of the design process.
+
+The course also covers the communication and software layers that make a device part
+of a larger system. Students will connect devices through Wi-Fi, exchange structured
+data with HTTP, WebSocket, or MQTT, develop backend services, store events in a
+database, and use logs to understand successful and failed operations. A mobile-friendly
+interface will provide real-time status, historical information, and controlled commands.
+
+These elements will be combined into a full-stack IoT project with a clear user and
+purpose. The completed system should include meaningful physical interaction, reliable
+data flow, safe behavior, error handling, testing evidence, and enough documentation
+for another person to understand and rebuild it.
 
 ## 二、課程基本資料
 
