@@ -177,7 +177,7 @@ AI 使用
 | WebSocket | client update | disconnected／stale |  |
 | Phone UI | 正確狀態／結果 | 不更新／誤導 |  |
 
-## 11. 第 8 週訪談準備
+## 11. 第一次專題報告準備（第8週）
 
 | 欄位 | 內容 |
 |---|---|
@@ -193,7 +193,7 @@ AI 使用
 | Proposed purchases and estimated cost |  |
 | Power／driver／logic-level risks |  |
 | Three main project risks |  |
-| Minimum acceptable Week 13 result |  |
+| Minimum acceptable Week 15 result |  |
 
 ## 12. MQTT Topic 表
 
@@ -225,9 +225,7 @@ AI 使用
 | 3 |  |  |  |  |
 | 4 |  |  |  |  |
 
-## 15. 期末進度檢查
-
-### Week 13
+## 15. 第二次專題報告準備（第15週）
 
 | 檢查 | 完成 | 證據 |
 |---|---|---|
@@ -236,11 +234,6 @@ AI 使用
 | Database 新增紀錄 |  |  |
 | 手機即時顯示 |  |  |
 | 資料格式固定 |  |  |
-
-### Week 15
-
-| 檢查 | 完成 | 證據 |
-|---|---|---|
 | 非開發者完成核心操作三次 |  |  |
 | 歷史資料可查詢 |  |  |
 | 命令與結果可追蹤 |  |  |

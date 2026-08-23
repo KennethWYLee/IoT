@@ -45,7 +45,7 @@ Week 3～5沿用`week2_main.md`的學生實驗手冊寫法，每週教材應包�
 | 2 | 如何證明板卡、程式與基本接線正常？ | ESP32-S3、按鈕、麵包板、萬用電表 | Upload、Serial、GPIO4輸入、GPIO5輸出及電壓證據 | 建立所有後續實作的安全起點 |
 | 3 | Serial出現數字，是否代表感測可靠？ | KY-018、DHT11 | 光線校正、溫溼度讀值、有效性、取樣間隔及故障狀態 | 建立Week 6要傳送的可信事件 |
 | 4 | 程式正確時，為何輸出仍可能重啟或失控？ | KY-016、KY-012、SG90、4AA電池盒 | 狀態提示、外部供電、共地、安全角度、停止與timeout | 建立手機命令可安全控制的實體輸出 |
-| 5 | 如何讓輸入、決策與輸出每次都能重複？ | 重用Week 2～4器材 | 不依賴網路的互動裝置、狀態機、三次流程及故障復原 | 作為Week 6～7連網與雙向控制的基礎 |
+| 5 | 如何讓輸入、決策與輸出每次都能重複？ | 重用Week 2～4器材 | 不依賴網路的互動裝置、狀態機、三次流程及故障復原 | 作為Week 6連網與雙向控制的基礎 |
 
 ## 四、Week 2：開發板、GPIO與量測基礎
 
@@ -182,7 +182,7 @@ device=student01 event=actuator_command requested_angle=90 applied_angle=90 resu
 device=student01 event=actuator_command requested_angle=200 applied_angle=SAFE result=rejected reason=out_of_range
 ```
 
-這些欄位會在Week 7加入`command_id`，形成手機命令與實體結果的追蹤路徑。
+這些欄位會在Week 6加入`command_id`，形成手機命令與實體結果的追蹤路徑。
 
 ### 教材證據
 

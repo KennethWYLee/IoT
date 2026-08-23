@@ -1,8 +1,8 @@
 # Week 8支援資料
 
-訪談要求見[Week 8主教材](week8_main.md)。
+第一次專題報告要求見[Week 8主教材](week8_main.md)。
 
-## 訪談資料包
+## 報告資料包
 
 - 使用者、使用情境、核心問題與一次完整操作流程。
 - 可現場重現的真實硬體片段，以及對應接線圖與測試證據。
@@ -11,12 +11,12 @@
 - 供電、驅動、網路、時間與安全風險。
 - 三到五項可實際驗收的最低完成條件。
 
-## 訪談決議
+## 報告回饋與決議
 
 | 決議 | 負責人 | 期限 | 驗收方法 |
 |---|---|---|---|
 |  |  |  |  |
 
-未通過電壓、電流或驅動驗證的特殊零件，訪談前不先購買。
+未通過電壓、電流或驅動驗證的特殊零件，第一次報告前不先購買。
 
-參考：[訪談準備單](../../docs/course_materials/student_worksheets.md)｜[訪談評分表](../../docs/course_materials/rubrics_and_checklists.md)
+參考：[第一次報告準備單](../../docs/course_materials/student_worksheets.md)｜[專題報告評分表](../../docs/course_materials/rubrics_and_checklists.md)

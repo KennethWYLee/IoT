@@ -66,30 +66,30 @@ student-built device software, backend, database, and mobile interface.
 | 3 | 2026-09-23 | KY-018 and DHT11: Calibration, Sampling, Data Validity, and Invalid Readings |
 | 4 | 2026-09-30 | KY-016, KY-012, SG90, PWM, 4AA External Power, Common Ground, Timeout, and Safe Shutdown |
 | 5 | 2026-10-07 | Standalone Light-Interactive Device: Button, Sensor, State Machine, Indicators, Servo, and Failure Recovery |
-| 6 | 2026-10-14 | Wi-Fi, HTTP, JSON, WebSocket, and the First Student-built Backend |
-| 7 | 2026-10-21 | Individual Concept Examination; WebSocket Control and Project Topic Workshop |
-| 8 | 2026-10-28 | Team Topic and Technical-feasibility Interviews |
+| 6 | 2026-10-14 | Wi-Fi, HTTP, JSON, WebSocket, the First Student-built Backend, and Bidirectional Mobile Control |
+| 7 | 2026-10-21 | Individual Examination 1: Hardware Wiring, Electrical Concepts, and Safety; No New Instruction or Lab Work |
+| 8 | 2026-10-28 | Project Report 1: Topic and Technical Feasibility |
 | 9 | 2026-11-04 | Instructor Conference Travel: No Required Attendance and No New Assessed Evidence |
 | 10 | 2026-11-11 | MQTT, Multi-device Topics, Presence, Commands, and Acknowledgements |
 | 11 | 2026-11-18 | Databases, Historical Queries, Structured Logs, and Basic Analysis |
 | 12 | 2026-11-25 | Mobile Frontends, PWA, WebSocket, User Flows, and Permissions |
-| 13 | 2026-12-02 | Final Project Check 1: Real Hardware-to-Database-to-Mobile Path |
+| 13 | 2026-12-02 | Individual Examination 2: Network Communication and Hardware-software Integration Architecture; No New Instruction or Lab Work |
 | 14 | 2026-12-09 | Development Workshop: Automated Responses, State, Safety, and Recovery |
-| 15 | 2026-12-16 | Final Project Check 2: Peer Use, Historical Data, Logs, and Revisions |
+| 15 | 2026-12-16 | Project Report 2: End-to-end Integration, Usability, Historical Data, Logs, and Revisions |
 | 16 | 2026-12-23 | Integration, Fault Injection, Deployment Rebuild, and Version Freeze |
-| 17 | 2026-12-30 | Final Physical and Full-stack IoT Project Demonstrations |
-| 18 | 2027-01-06 | Final Examination Week: Advanced Self-study in Cloud Deployment, MQTT, Flutter, ROS 2, Gazebo, and Nav2 |
+| 17 | 2026-12-30 | Project Report 3: Final Physical and Full-stack IoT Demonstration |
+| 18 | 2027-01-06 | University Final Examination Week: Reserved; No Regular Course Material, New Content, or Assessment |
 
 ## Assessment
 
 | Assessment Item | Weight |
 |---|---:|
-| Weekly QA, Type B Activities, and Lab Notebook | 15% |
-| Week 7 Individual Concept Examination | 15% |
-| Week 8 Topic and Technical-feasibility Interview | 15% |
-| Week 13 and Week 15 Final Project Checks | 15% |
-| Week 17 Final Project | 30% |
-| Documentation, Safety, Collaboration, and AI-use Evidence | 10% |
+| Regular Coursework | 15% |
+| Individual Examination 1 (Week 7) | 15% |
+| Project Report 1 (Week 8) | 15% |
+| Individual Examination 2 (Week 13) | 15% |
+| Project Report 2 (Week 15) | 15% |
+| Project Report 3 (Week 17) | 25% |
 | Total | 100% |
 
 ## Required Textbooks and References

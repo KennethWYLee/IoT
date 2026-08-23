@@ -7,7 +7,7 @@
 
 - `teacher_18_week_materials.md`：每週教師課卡、時間配置與可收成果。
 - `student_worksheets.md`：可貼到 LMS 的學生任務單與紀錄模板。
-- `rubrics_and_checklists.md`：安全檢查、筆試藍圖、訪談與期末評分表。
+- `rubrics_and_checklists.md`：安全檢查、兩次筆試藍圖與三次專題報告評分表。
 - `starter_code_snippets.md`：ESP32-S3 與連網範例骨架；實機前須核對腳位。
 - `../../examples/course_backend/`：可執行的 HTTP／WebSocket／SQLite 課堂 prototype。
 
