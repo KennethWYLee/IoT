@@ -46,7 +46,7 @@ the control signal is detached after a bounded sequence. Students will compare n
 motion, rejected input, timeout, restart, and power-related faults while preserving
 measurements and Serial logs as evidence.
 
-### 必做實驗流程
+### 核心實驗流程
 
 | 階段 | 開始前狀態 | 實驗內容 | 完成條件 |
 |---:|---|---|---|
@@ -189,12 +189,20 @@ const int BUZZ_DURATION_MS = -1;
 
 unsigned long buzzerOffAt = 0;
 
+bool allPinsUnique(const int *pins, size_t count) {
+  for (size_t left = 0; left < count; left++)
+    for (size_t right = left + 1; right < count; right++)
+      if (pins[left] == pins[right]) return false;
+  return true;
+}
+
 bool profileReady() {
+  const int pins[] = {PIN_RGB_R, PIN_RGB_G, PIN_RGB_B, PIN_BUZZER};
   bool pinsReady = PIN_RGB_R >= 0 && PIN_RGB_G >= 0 &&
                    PIN_RGB_B >= 0 && PIN_BUZZER >= 0;
   bool levelsReady = (RGB_ON_LEVEL == LOW || RGB_ON_LEVEL == HIGH) &&
                      (BUZZER_ON_LEVEL == LOW || BUZZER_ON_LEVEL == HIGH);
-  return pinsReady && levelsReady &&
+  return pinsReady && allPinsUnique(pins, 4) && levelsReady &&
          BUZZ_DURATION_MS >= 20 && BUZZ_DURATION_MS <= 500;
 }
 
@@ -360,7 +368,17 @@ unsigned long lastCommandAt = 0;
 unsigned long buzzerOffAt = 0;
 bool hasAcceptedCommand = false;
 
+bool allPinsUnique(const int *pins, size_t count) {
+  for (size_t left = 0; left < count; left++)
+    for (size_t right = left + 1; right < count; right++)
+      if (pins[left] == pins[right]) return false;
+  return true;
+}
+
 bool profileReady() {
+  const int pins[] = {
+    PIN_BUTTON, PIN_SERVO, PIN_RGB_R, PIN_RGB_G, PIN_RGB_B, PIN_BUZZER
+  };
   bool pinsReady = PIN_BUTTON >= 0 && PIN_SERVO >= 0 && PIN_RGB_R >= 0 &&
                    PIN_RGB_G >= 0 && PIN_RGB_B >= 0 && PIN_BUZZER >= 0;
   bool levelsReady = (RGB_ON_LEVEL == LOW || RGB_ON_LEVEL == HIGH) &&
@@ -374,7 +392,8 @@ bool profileReady() {
                    SEQUENCE_TIMEOUT_MS >= SERVO_HOLD_MS * 2 + 100 &&
                    COMMAND_COOLDOWN_MS >= 500 &&
                    BUZZ_DURATION_MS >= 20 && BUZZ_DURATION_MS <= 500;
-  return pinsReady && levelsReady && angleReady && pulseReady && timeReady;
+  return pinsReady && allPinsUnique(pins, 6) && levelsReady &&
+         angleReady && pulseReady && timeReady;
 }
 
 int offLevel(int onLevel) {
@@ -481,14 +500,31 @@ void readSerialCommand() {
   if (Serial.available() == 0) return;
   String command = Serial.readStringUntil('\n');
   command.trim();
-  if (command == "home") {
+  if (command == "test_timeout") {
+    if (motionPhase != IDLE) {
+      rejectCommand(SAFE_HOME_ANGLE, "busy");
+      return;
+    }
+    unsigned long now = millis();
+    servo.setPeriodHertz(50);
+    servo.attach(PIN_SERVO, SERVO_MIN_US, SERVO_MAX_US);
+    servo.write(SAFE_HOME_ANGLE);
+    motionPhase = MOVING_TO_TARGET;
+    phaseDeadline = now + SERVO_HOLD_MS;
+    sequenceStartedAt = now - (unsigned long)SEQUENCE_TIMEOUT_MS;
+    lastCommandAt = now;
+    hasAcceptedCommand = true;
+    setRgb(true, true, false);
+    Serial.printf("device=%s event=timeout_test result=armed applied_angle=%d\n",
+                  DEVICE_ID, SAFE_HOME_ANGLE);
+  } else if (command == "home") {
     startSequence(SAFE_HOME_ANGLE, "serial");
   } else if (command == "stop") {
     setRgb(true, false, false);
     detachServo("stopped", "manual_stop");
   } else if (command.startsWith("move ")) {
     String valueText = command.substring(5);
-    bool validNumber = valueText.length() > 0;
+    bool validNumber = valueText.length() > 0 && valueText.length() <= 4;
     bool hasDigit = false;
     for (unsigned int i = 0; i < valueText.length(); i++) {
       if (isDigit(valueText[i])) hasDigit = true;
@@ -518,7 +554,7 @@ void setup() {
   digitalWrite(PIN_BUZZER, offLevel(BUZZER_ON_LEVEL));
   setRgb(false, false, true);
   Serial.println("week=4 servo status=ready external_power=off");
-  Serial.println("commands: home, move <angle>, stop");
+  Serial.println("commands: home, move <angle>, stop, test_timeout");
 }
 
 void loop() {
@@ -571,8 +607,12 @@ void loop() {
 1. **out_of_range**：輸入超出安全角度的命令，確認沒有`applied`。
 2. **cooldown／busy**：在動作尚未結束或冷卻期內再次要求動作，確認新命令被拒絕。
 3. **manual_stop**：動作開始後輸入`stop`，確認脈波停止；再把電池盒切到OFF。
-4. **timeout**：只使用教師核准的故障測試方式，不以手卡住舵機。若profile沒有
-   公布安全測試方法，本項只驗證程式時間條件，不進行實物故障注入。
+4. **timeout**：先保持電池盒OFF並輸入`test_timeout`。程式會把舵機控制設在
+   HOME，接著以測試用的逾時起點立即走到既有timeout分支；預期依序看到
+   `event=timeout_test result=armed`與`event=actuator_result result=stopped reason=timeout`。
+   這個命令只建立可重現的程式逾時，不代表真實機械故障。只有hardware profile
+   另外核准「舵機不接機構、保持HOME」的實機方法時，才可在電池盒ON狀態重做；
+   不以手卡住舵機，也不延長動作時間製造故障。
 5. **restart**：電池盒先OFF，再按RESET。確認重新開機只有READY狀態，沒有自動
    執行上一筆命令；確認後才重新開啟電池盒。
 6. **恢復**：回到正常命令，完成一次target→HOME→detach流程並保存`result=done`。

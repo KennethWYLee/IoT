@@ -2,6 +2,29 @@
 
 日期：2026-11-25
 
+## Unit Overview
+
+### Teaching Objectives
+
+By the end of this project report, students will be able to:
+
+1. Classify each major system component as complete, partially complete, or not started
+   by using reproducible implementation evidence.
+2. Demonstrate one repeatable physical or integrated system path and distinguish real
+   operation from mock data or interface-only evidence.
+3. Identify a current problem or risk from observable behavior, data, or logs and explain
+   its effect on the project.
+4. Convert feedback into a prioritized revision plan with an owner, completion condition,
+   and retest method for every selected action.
+
+### Teaching Content
+
+This project report examines the current implementation rather than a polished final
+product. Students align hardware behavior, device communication, backend, database,
+mobile interface, testing, and documentation with evidence from the version being shown.
+Incomplete work and unresolved risks remain visible, while report feedback is transformed
+into a bounded and verifiable development plan for Weeks 13 and 14.
+
 每組說明目前完成、部分完成及尚未開始的功能，並以真實硬體行為、程式、資料、
 log或操作結果支持判定。尚未完成的功能可以誠實標示，不得以mock或投影片冒充
 實作完成。本週只追蹤進度、取得回饋並建立修正計畫，Week 13～14仍可持續開發。

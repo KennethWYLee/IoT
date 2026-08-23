@@ -24,7 +24,7 @@
 
 - [ ] USB已拔除，電源燈熄滅。
 - [ ] `P3V3`只接ESP32 `3V3`，`PGND`只接ESP32 `GND`。
-- [ ] KY-018訊號→GPIO4，DHT11資料→GPIO5。
+- [ ] KY-018與DHT11腳位來自同批板卡target-test profile，不是候選值或網路圖片。
 - [ ] `P3V3`與`PGND`是兩個分開的五孔組，沒有任何線接到5V。
 - [ ] 接線已正向、反向各檢查一次。
 - [ ] 俯視照可辨識模組絲印、ESP32腳位、`P3V3`與`PGND`。
@@ -40,7 +40,7 @@
 
 | 實物絲印 | 功能 | 線材 | 接到 | 線色 | 已確認 |
 |---|---|---|---|---|---|
-|  | 訊號 | 母對母 | GPIO4 |  | [ ] |
+|  | 訊號 | 母對母 | profile的`PIN_LIGHT` |  | [ ] |
 |  | 電源 | 公對母 | P3V3 |  | [ ] |
 |  | 參考地 | 公對母 | PGND |  | [ ] |
 
@@ -48,7 +48,7 @@
 
 | 實物絲印 | 功能 | 線材 | 接到 | 線色 | 已確認 |
 |---|---|---|---|---|---|
-|  | 資料 | 母對母 | GPIO5 |  | [ ] |
+|  | 資料 | 母對母 | profile的`PIN_DHT` |  | [ ] |
 |  | 電源 | 公對母 | P3V3 |  | [ ] |
 |  | 參考地 | 公對母 | PGND |  | [ ] |
 
@@ -141,7 +141,7 @@
 
 - [ ] P3V3共有ESP32 3V3、KY-018 VCC、DHT11 VCC三條線。
 - [ ] PGND共有ESP32 GND、KY-018 GND、DHT11 GND三條線。
-- [ ] KY-018訊號只接GPIO4，DHT11資料只接GPIO5。
+- [ ] KY-018訊號只接`PIN_LIGHT`，DHT11資料只接`PIN_DHT`，且兩者不同。
 - [ ] 沒有任何線接到5V，接線已正向、反向各檢查一次。
 
 | 測試 | light_raw／state | temperature／humidity | valid／reason | 結果 |
@@ -164,7 +164,7 @@
 |---|---|
 | 日期與使用者 |  |
 | Board ID／模組絲印 |  |
-| GPIO4／GPIO5用途 |  |
+| `PIN_LIGHT`／`PIN_DHT`實際值、用途與target-test來源 |  |
 | 供電與GND |  |
 | Board package／library版本 |  |
 | 已完成測試 |  |

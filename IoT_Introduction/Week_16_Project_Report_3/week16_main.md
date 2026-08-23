@@ -2,6 +2,29 @@
 
 日期：2026-12-23
 
+## Unit Overview
+
+### Teaching Objectives
+
+By the end of the final project report, students will be able to:
+
+1. Demonstrate a safe and repeatable physical interaction together with its mobile,
+   backend, database, and communication evidence.
+2. Trace one event and one control command across the complete system, including a
+   terminal result or timeout.
+3. Reproduce an automatic behavior, a fault response, and recovery without concealing
+   known limitations.
+4. Explain individual implementation decisions, test evidence, AI-assisted work, and
+   unresolved risks using the submitted version and documentation.
+
+### Teaching Content
+
+The final project report integrates the physical artifact, device firmware, network
+communication, backend, persistent data, structured logs, and mobile workflow into one
+verifiable demonstration. Students present normal operation and abnormal recovery,
+connect interface claims to physical and logged evidence, and answer individual questions
+about architecture, implementation, safety, testing, and reconstruction.
+
 本週與Week 17共同構成第三次專題報告時段。每組依教師公布的場次，在其中一週
 完成一次期末展示與個人問答；本項仍只計一次，占學期成績25%。兩週皆不安排
 新進度、功能開發或額外實作。

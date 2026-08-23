@@ -160,7 +160,8 @@ profile來源確認日期：____________________
 | Busy | 動作中再次命令 | rejected／busy |  | 原流程不變 |  |
 | Cooldown | 完成後立即命令 | rejected／cooldown |  | 不啟動 |  |
 | Manual stop | 動作中`stop` | stopped／manual_stop |  | detach，再OFF |  |
-| Timeout | 核准方式 | stopped／timeout |  | detach，再OFF |  |
+| Timeout程式路徑 | 電池盒OFF，輸入`test_timeout` | armed→stopped／timeout |  | detach；未供應舵機電力 |  |
+| Timeout實機路徑 | 僅依profile核准方式 | armed→stopped／timeout |  | 無負載HOME後detach，再OFF |  |
 | Restart | 電池OFF後RESET | READY，不重播 |  | 無自動動作 |  |
 | Recovery | 正常命令 | done／none |  | 正常完成 |  |
 

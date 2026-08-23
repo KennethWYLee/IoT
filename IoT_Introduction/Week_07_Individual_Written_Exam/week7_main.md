@@ -2,6 +2,27 @@
 
 日期：2026-10-21
 
+## Unit Overview
+
+### Teaching Objectives
+
+By the end of this assessment, students will be able to:
+
+1. Analyze a hardware wiring diagram and identify GPIO, ground, power, signal, and
+   common-ground relationships.
+2. Interpret voltage, continuity, sensor-validity, actuator-power, state, and timeout
+   evidence without relying on trial-and-error wiring.
+3. Select a safe first diagnostic action for a stated hardware symptom and explain
+   why unsafe alternatives must not be attempted.
+
+### Teaching Content
+
+This individual written assessment examines the hardware concepts and safety reasoning
+developed in Weeks 2 through 5. Students interpret wiring, measurements, program states,
+and observable failures involving the ESP32-S3, sensors, low-power outputs, external
+actuator power, common ground, safe stop, and timeout behavior. No networking topic,
+new teaching content, laboratory activity, or group work is included during the week.
+
 ## 本週性質
 
 本週全週只進行個人筆試，不安排新進度、硬體實作、手機操作或小組活動。

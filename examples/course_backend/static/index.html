@@ -1,116 +1,350 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#16324f">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <title>IoT Course Console</title>
   <style>
-    :root { color-scheme: light; font-family: system-ui, sans-serif; }
-    body { margin: 0; background: #f4f5f7; color: #17202a; }
-    header { padding: 16px 20px; background: #16324f; color: white; }
-    h1 { margin: 0; font-size: 22px; letter-spacing: 0; }
-    main { width: min(960px, calc(100% - 24px)); margin: 16px auto; }
-    section { margin-bottom: 18px; }
+    :root {
+      color-scheme: light;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      --navy: #16324f;
+      --green: #0b6e4f;
+      --red: #b42318;
+      --amber: #9a6700;
+      --paper: #ffffff;
+      --page: #f4f5f7;
+      --line: #d5dbe1;
+      --text: #17202a;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--page); color: var(--text); }
+    header { padding: 16px 20px; background: var(--navy); color: white; }
+    h1 { margin: 0; font-size: 1.35rem; }
+    header p { margin: 4px 0 0; opacity: .86; }
+    main { width: min(1060px, calc(100% - 24px)); margin: 16px auto 40px; }
+    section { margin-bottom: 16px; padding: 16px; background: var(--paper); border-radius: 10px; }
+    h2 { margin: 0 0 12px; font-size: 1.05rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
     .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; }
-    label { display: grid; gap: 4px; font-size: 13px; }
-    input, select, button { min-height: 40px; padding: 8px 10px; font: inherit; }
-    button { border: 0; background: #0b6e4f; color: white; cursor: pointer; }
-    button:disabled { opacity: .55; cursor: default; }
-    .status { padding: 8px 10px; border-left: 4px solid #8a939b; background: white; }
-    .status.online { border-color: #0b6e4f; }
-    .status.offline { border-color: #b42318; }
+    label { display: grid; gap: 4px; min-width: 190px; font-size: .84rem; }
+    input, select, button { min-height: 44px; padding: 8px 10px; font: inherit; }
+    input, select { width: 100%; border: 1px solid #aeb7c1; border-radius: 6px; }
+    button { border: 0; border-radius: 6px; background: var(--green); color: white; cursor: pointer; }
+    button.secondary { background: #4b6074; }
+    button.danger { background: var(--red); }
+    button:disabled { opacity: .48; cursor: not-allowed; }
+    .status { margin: 0; padding: 10px 12px; border-left: 5px solid #8a939b; background: #f8f9fa; }
+    .online { border-color: var(--green); }
+    .offline, .failure { border-color: var(--red); }
+    .pending { border-color: var(--amber); }
+    .metric { padding: 10px; border: 1px solid var(--line); border-radius: 8px; }
+    .metric strong { display: block; margin-top: 4px; font-size: 1.3rem; }
+    .table-wrap { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; background: white; }
-    th, td { padding: 9px; border-bottom: 1px solid #dfe3e8; text-align: left; vertical-align: top; }
-    th { background: #e9edf1; font-size: 13px; }
-    td { font-size: 14px; overflow-wrap: anywhere; }
+    th, td { padding: 9px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { background: #e9edf1; font-size: .8rem; }
+    td { font-size: .86rem; overflow-wrap: anywhere; }
+    .empty { padding: 12px; color: #5c6773; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
     @media (max-width: 680px) {
+      main { width: min(100% - 16px, 1060px); margin-top: 8px; }
+      section { padding: 12px; }
+      .toolbar > * { width: 100%; }
+      label { min-width: 0; }
       table, thead, tbody, tr, th, td { display: block; }
       thead { position: absolute; left: -9999px; }
-      tr { border-bottom: 8px solid #f4f5f7; }
+      tr { border-bottom: 8px solid var(--page); }
+      td { border-bottom: 1px solid #edf0f2; }
       td::before { content: attr(data-label) ": "; font-weight: 700; }
     }
   </style>
 </head>
 <body>
-  <header><h1>IoT Course Console</h1></header>
+  <header>
+    <h1>IoT Course Console</h1>
+    <p>即時事件、歷史資料與可追蹤命令</p>
+  </header>
   <main>
-    <p id="status" class="status offline">WebSocket: connecting</p>
-
-    <section>
-      <h2>Send Command</h2>
-      <form id="command-form" class="toolbar">
-        <label>Device ID<input id="device-id" value="demo-device" required></label>
-        <label>Command
-          <select id="command"><option>start</option><option>stop</option><option>reset</option></select>
+    <section aria-labelledby="connection-heading">
+      <h2 id="connection-heading">連線與權限</h2>
+      <div class="grid">
+        <p id="network-status" class="status pending" role="status">Network: checking</p>
+        <p id="ws-status" class="status pending" role="status">WebSocket: connecting</p>
+        <p id="role-status" class="status">Role: viewer</p>
+      </div>
+      <div class="toolbar" style="margin-top:12px">
+        <label>Device ID
+          <input id="device-id" value="demo-device" maxlength="80" autocomplete="off">
         </label>
-        <button type="submit">Send</button>
+        <label>Operator key（只保留在此頁記憶體）
+          <input id="operator-key" type="password" autocomplete="off" placeholder="viewer mode">
+        </label>
+        <button id="apply-settings" type="button" class="secondary">套用並重新整理</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="command-heading">
+      <h2 id="command-heading">安全命令</h2>
+      <p id="command-status" class="status">尚未送出命令。</p>
+      <form id="command-form" class="toolbar" style="margin-top:12px">
+        <label>Command
+          <select id="command">
+            <option value="start">start</option>
+            <option value="stop">stop</option>
+            <option value="reset">reset</option>
+          </select>
+        </label>
+        <button id="send-command" type="submit">Send command</button>
       </form>
+      <p>手機顯示「requested」只代表Backend收件；必須等相同`command_id`出現
+        accepted及最終done／rejected／error／timeout，才能判定硬體結果。</p>
     </section>
 
-    <section>
-      <h2>Recent Events</h2>
-      <table><thead><tr><th>Time</th><th>Device</th><th>Event</th><th>State</th><th>Value</th></tr></thead>
-      <tbody id="events"></tbody></table>
+    <section aria-labelledby="summary-heading">
+      <h2 id="summary-heading">裝置摘要</h2>
+      <div class="grid">
+        <div class="metric">Events<strong id="event-count">—</strong></div>
+        <div class="metric">Invalid events<strong id="invalid-count">—</strong></div>
+        <div class="metric">Commands<strong id="command-count">—</strong></div>
+        <div class="metric">Last successful refresh<strong id="last-refresh">—</strong></div>
+      </div>
     </section>
 
-    <section>
-      <h2>Recent Commands</h2>
-      <table><thead><tr><th>Time</th><th>Device</th><th>Command</th><th>Status</th><th>Message</th></tr></thead>
-      <tbody id="commands"></tbody></table>
+    <section aria-labelledby="events-heading">
+      <h2 id="events-heading">Recent events</h2>
+      <p id="events-message" class="empty">Loading…</p>
+      <div class="table-wrap">
+        <table id="events-table" hidden>
+          <thead><tr><th>Server time</th><th>Event</th><th>State</th><th>Value</th><th>Valid</th><th>Reason</th></tr></thead>
+          <tbody id="events"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="commands-heading">
+      <h2 id="commands-heading">Recent commands</h2>
+      <p id="commands-message" class="empty">Loading…</p>
+      <div class="table-wrap">
+        <table id="commands-table" hidden>
+          <thead><tr><th>Requested</th><th>Command ID</th><th>Command</th><th>Status</th><th>Message</th></tr></thead>
+          <tbody id="commands"></tbody>
+        </table>
+      </div>
     </section>
   </main>
-  <script>
-    const eventBody = document.querySelector('#events');
-    const commandBody = document.querySelector('#commands');
-    const statusBox = document.querySelector('#status');
 
-    const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, character => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
-    })[character]);
-    const cell = (label, value) => `<td data-label="${escapeHtml(label)}">${escapeHtml(value)}</td>`;
-    const eventRow = (item) => `<tr>${cell('Time', item.recorded_at)}${cell('Device', item.device_id)}${cell('Event', item.event_type)}${cell('State', item.state)}${cell('Value', JSON.stringify(item.value))}</tr>`;
-    const commandRow = (item) => `<tr>${cell('Time', item.requested_at)}${cell('Device', item.device_id)}${cell('Command', item.command)}${cell('Status', item.status || item.result)}${cell('Message', item.message)}</tr>`;
+  <script>
+    const ui = {
+      network: document.querySelector('#network-status'),
+      ws: document.querySelector('#ws-status'),
+      role: document.querySelector('#role-status'),
+      commandStatus: document.querySelector('#command-status'),
+      deviceId: document.querySelector('#device-id'),
+      operatorKey: document.querySelector('#operator-key'),
+      sendButton: document.querySelector('#send-command'),
+      eventsBody: document.querySelector('#events'),
+      commandsBody: document.querySelector('#commands'),
+      eventsTable: document.querySelector('#events-table'),
+      commandsTable: document.querySelector('#commands-table'),
+      eventsMessage: document.querySelector('#events-message'),
+      commandsMessage: document.querySelector('#commands-message'),
+      eventCount: document.querySelector('#event-count'),
+      invalidCount: document.querySelector('#invalid-count'),
+      commandCount: document.querySelector('#command-count'),
+      lastRefresh: document.querySelector('#last-refresh')
+    };
+
+    let wsConnected = false;
+    let operatorKey = '';
+    let reconnectTimer;
+
+    function setStatus(element, text, kind = '') {
+      element.textContent = text;
+      element.className = `status ${kind}`.trim();
+    }
+
+    function updateAvailability() {
+      const online = navigator.onLine;
+      setStatus(ui.network, online ? 'Network: browser online' : 'Network: browser offline', online ? 'online' : 'offline');
+      setStatus(ui.role, operatorKey ? 'Role: operator key entered' : 'Role: viewer', operatorKey ? 'online' : '');
+      ui.sendButton.disabled = !online || !wsConnected || !operatorKey;
+    }
+
+    function appendCell(row, label, value) {
+      const cell = document.createElement('td');
+      cell.dataset.label = label;
+      cell.textContent = value ?? '—';
+      row.appendChild(cell);
+    }
+
+    function renderEvents(items) {
+      ui.eventsBody.replaceChildren();
+      ui.eventsTable.hidden = items.length === 0;
+      ui.eventsMessage.hidden = items.length > 0;
+      ui.eventsMessage.textContent = items.length === 0 ? '目前沒有符合條件的事件。' : '';
+      for (const item of items) {
+        const row = document.createElement('tr');
+        appendCell(row, 'Server time', item.recorded_at);
+        appendCell(row, 'Event', item.event_type);
+        appendCell(row, 'State', item.state);
+        appendCell(row, 'Value', `${JSON.stringify(item.value)} ${item.unit ?? ''}`.trim());
+        appendCell(row, 'Valid', item.valid);
+        appendCell(row, 'Reason', item.reason);
+        ui.eventsBody.appendChild(row);
+      }
+    }
+
+    function renderCommands(items) {
+      ui.commandsBody.replaceChildren();
+      ui.commandsTable.hidden = items.length === 0;
+      ui.commandsMessage.hidden = items.length > 0;
+      ui.commandsMessage.textContent = items.length === 0 ? '目前沒有符合條件的命令。' : '';
+      for (const item of items) {
+        const row = document.createElement('tr');
+        appendCell(row, 'Requested', item.requested_at);
+        appendCell(row, 'Command ID', item.command_id);
+        appendCell(row, 'Command', item.command);
+        appendCell(row, 'Status', item.status);
+        appendCell(row, 'Message', item.message);
+        ui.commandsBody.appendChild(row);
+      }
+    }
+
+    async function fetchJson(url, options = {}) {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        let detail = `${response.status} ${response.statusText}`;
+        try {
+          const responseBody = await response.json();
+          const responseDetail = responseBody.detail;
+          if (typeof responseDetail === 'string') detail = responseDetail;
+          else if (Array.isArray(responseDetail)) {
+            detail = responseDetail.map(item => {
+              const field = Array.isArray(item.loc) ? item.loc.at(-1) : 'input';
+              if (field === 'device_id') {
+                return 'Device ID只可使用英文字母、數字、句點、底線與連字號，且必須以英文字母或數字開頭。';
+              }
+              return `${field}: ${item.msg ?? JSON.stringify(item)}`;
+            }).join(' ');
+          } else if (responseDetail !== undefined) detail = JSON.stringify(responseDetail);
+        } catch (_) {}
+        throw new Error(detail);
+      }
+      return response.json();
+    }
 
     async function refresh() {
-      const [events, commands] = await Promise.all([
-        fetch('/api/events?limit=25').then(r => r.json()),
-        fetch('/api/commands?limit=25').then(r => r.json())
-      ]);
-      eventBody.innerHTML = events.map(eventRow).join('');
-      commandBody.innerHTML = commands.map(commandRow).join('');
+      const device = encodeURIComponent(ui.deviceId.value.trim());
+      if (!device) return;
+      ui.eventsMessage.hidden = false;
+      ui.eventsMessage.textContent = 'Loading…';
+      ui.commandsMessage.hidden = false;
+      ui.commandsMessage.textContent = 'Loading…';
+      try {
+        const [events, commands, stats] = await Promise.all([
+          fetchJson(`/api/events?limit=25&device_id=${device}`),
+          fetchJson(`/api/commands?limit=25&device_id=${device}`),
+          fetchJson(`/api/stats?device_id=${device}`)
+        ]);
+        renderEvents(events);
+        renderCommands(commands);
+        ui.eventCount.textContent = stats.event_count;
+        ui.invalidCount.textContent = stats.invalid_event_count;
+        ui.commandCount.textContent = stats.command_count;
+        ui.lastRefresh.textContent = new Date().toLocaleString();
+      } catch (error) {
+        const hasOldEvents = ui.eventsBody.children.length > 0;
+        const hasOldCommands = ui.commandsBody.children.length > 0;
+        ui.eventsTable.hidden = !hasOldEvents;
+        ui.commandsTable.hidden = !hasOldCommands;
+        ui.eventsMessage.hidden = false;
+        ui.commandsMessage.hidden = false;
+        const staleNotice = ui.lastRefresh.textContent === '—'
+          ? '沒有可確認的舊資料。'
+          : `下方保留的是 ${ui.lastRefresh.textContent} 最後成功讀取的舊資料。`;
+        ui.eventsMessage.textContent = `讀取失敗：${error.message} ${staleNotice}`;
+        ui.commandsMessage.textContent = `讀取失敗：${error.message} ${staleNotice}`;
+      }
     }
 
-    function connect() {
+    function connectWebSocket() {
+      clearTimeout(reconnectTimer);
       const scheme = location.protocol === 'https:' ? 'wss' : 'ws';
-      const ws = new WebSocket(`${scheme}://${location.host}/ws`);
-      ws.onopen = () => {
-        statusBox.textContent = 'WebSocket: connected';
-        statusBox.className = 'status online';
+      const socket = new WebSocket(`${scheme}://${location.host}/ws`);
+      setStatus(ui.ws, 'WebSocket: connecting', 'pending');
+      socket.onopen = () => {
+        wsConnected = true;
+        setStatus(ui.ws, 'WebSocket: connected', 'online');
+        updateAvailability();
       };
-      ws.onmessage = () => refresh();
-      ws.onclose = () => {
-        statusBox.textContent = 'WebSocket: disconnected; retrying';
-        statusBox.className = 'status offline';
-        setTimeout(connect, 1500);
+      socket.onmessage = event => {
+        try {
+          const message = JSON.parse(event.data);
+          const data = message.data ?? {};
+          if (message.type === 'command_result' &&
+              data.device_id === ui.deviceId.value.trim()) {
+            const kind = data.result === 'done' ? 'online' :
+              data.result === 'accepted' ? 'pending' : 'failure';
+            setStatus(
+              ui.commandStatus,
+              `Command: ${data.result}; id=${data.command_id}; ${data.message ?? ''}`,
+              kind
+            );
+          }
+        } catch (_) {}
+        refresh();
+      };
+      socket.onerror = () => socket.close();
+      socket.onclose = () => {
+        const wasConnected = wsConnected;
+        wsConnected = false;
+        setStatus(ui.ws, 'WebSocket: disconnected; retrying', 'offline');
+        updateAvailability();
+        if (wasConnected) refresh();
+        reconnectTimer = setTimeout(connectWebSocket, 1500);
       };
     }
+
+    document.querySelector('#apply-settings').addEventListener('click', () => {
+      operatorKey = ui.operatorKey.value;
+      updateAvailability();
+      refresh();
+    });
 
     document.querySelector('#command-form').addEventListener('submit', async (event) => {
       event.preventDefault();
-      await fetch('/api/commands', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          device_id: document.querySelector('#device-id').value,
-          command: document.querySelector('#command').value,
-          parameters: {}
-        })
-      });
-      await refresh();
+      const deviceId = ui.deviceId.value.trim();
+      const command = document.querySelector('#command').value;
+      if (!deviceId || !operatorKey || !navigator.onLine || !wsConnected) return;
+      ui.sendButton.disabled = true;
+      setStatus(ui.commandStatus, 'Command: sending request', 'pending');
+      try {
+        const result = await fetchJson('/api/commands', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json', 'X-IoT-Key': operatorKey},
+          body: JSON.stringify({device_id: deviceId, command, parameters: {}})
+        });
+        setStatus(ui.commandStatus, `Command: requested; id=${result.command_id}`, 'pending');
+        await refresh();
+      } catch (error) {
+        setStatus(ui.commandStatus, `Command: failure; ${error.message}`, 'failure');
+      } finally {
+        updateAvailability();
+      }
     });
 
+    window.addEventListener('online', () => { updateAvailability(); refresh(); });
+    window.addEventListener('offline', updateAvailability);
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+    updateAvailability();
     refresh();
-    connect();
+    connectWebSocket();
   </script>
 </body>
 </html>

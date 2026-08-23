@@ -25,7 +25,7 @@
 | 外部供電與 ESP32 訊號共地 |  |  |
 | 馬達／舵機未由 GPIO 供電 |  |  |
 | 開機預設狀態安全 |  |  |
-| stop、timeout 或斷電方式可立即使用 |  |  |
+| stop路徑已有實測最長反應時間；必要時另有不依賴軟體的斷電方式 |  |  |
 | 機構移動範圍不夾人、不拉扯線材 |  |  |
 | 發熱、異味、反覆重開機時會立即斷電 |  |  |
 
@@ -53,7 +53,7 @@
 | 硬體片段 | 3 | 至少一項真實輸入或輸出可運作，並能說明供電與安全 |
 | 軟體用途與資料流 | 3 | 明確說明要記錄什麼或如何協助操作，並畫到 Backend／Database／Phone |
 | 技術可行性 | 3 | 材料、成本、供電、驅動、網路及工作量合理 |
-| 風險與下一步 | 3 | 提出三項具體風險與Week15最低可驗收結果 |
+| 風險與下一步 | 3 | 提出三項具體風險、Week12進度里程碑與期末最低可驗收結果 |
 
 第一次報告不是完整成品評量。若題目過大，教師應以刪減功能的書面回饋協助縮小，
 不得用「還沒做完」重複扣分。
@@ -65,7 +65,7 @@
 | 能力 | 建議比例 | 題型與可觀察表現 |
 |---|---:|---|
 | Wi-Fi、IP、HTTP與JSON | 20% | 追蹤裝置位址、request／response、status code與資料欄位 |
-| WebSocket與雙向訊號 | 20% | 區分push、command、result、error與timeout的路徑 |
+| WebSocket更新與雙向命令追蹤 | 20% | 區分Backend→browser WebSocket push、HTTP／MQTT command、result、error與timeout的路徑 |
 | MQTT與多裝置 | 20% | 判斷broker、topic、payload、presence與acknowledgement |
 | 軟硬整合責任 | 20% | 區分ESP32、Backend、Database、structured log與手機前台責任 |
 | 跨層資料流與除錯 | 20% | 根據signal、event、command、result與多層log定位中斷位置 |

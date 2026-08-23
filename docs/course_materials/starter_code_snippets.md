@@ -26,12 +26,12 @@ void loop() {
 
 ## 2. 按鈕去抖與 LED 狀態
 
-請把 `VERIFIED_...` 改成已核對且適合的 GPIO；原樣不能編譯是刻意的，
-避免學生把範例腳位當成板卡規格。
+以下預設腳位為`-1`，因此原樣可以編譯但不會啟用硬體。教師完成同批板卡
+target test並公布profile後，才把兩個值改成profile內容；兩腳必須不同。
 
 ```cpp
-const int PIN_BUTTON = VERIFIED_INPUT_GPIO;
-const int PIN_LED = VERIFIED_OUTPUT_GPIO;
+const int PIN_BUTTON = -1;
+const int PIN_LED = -1;
 
 bool stablePressed = false;
 bool lastRawPressed = false;
@@ -40,12 +40,18 @@ const unsigned long DEBOUNCE_MS = 30;
 
 void setup() {
   Serial.begin(115200);
+  if (PIN_BUTTON < 0 || PIN_LED < 0 || PIN_BUTTON == PIN_LED) {
+    Serial.println("profile=blocked reason=replace_and_verify_pins");
+    return;
+  }
   pinMode(PIN_BUTTON, INPUT_PULLUP);
   pinMode(PIN_LED, OUTPUT);
   digitalWrite(PIN_LED, LOW);
 }
 
 void loop() {
+  if (PIN_BUTTON < 0 || PIN_LED < 0 || PIN_BUTTON == PIN_LED) return;
+
   bool rawPressed = digitalRead(PIN_BUTTON) == LOW;
   unsigned long now = millis();
 
@@ -104,11 +110,14 @@ void enterState(DeviceState next) {
   // Set every actuator explicitly here. ERROR_STATE must be physically safe.
 }
 
-void updateState(bool startPressed, bool taskCompleted, bool sensorValid) {
+void updateState(bool startPressed, bool taskCompleted, bool sensorValid,
+                 bool stopPressed, bool resetRequested) {
   unsigned long elapsed = millis() - stateStartedMs;
 
-  if (!sensorValid) {
-    enterState(DeviceState::ERROR_STATE);
+  if (stopPressed || !sensorValid) {
+    if (state != DeviceState::ERROR_STATE) {
+      enterState(DeviceState::ERROR_STATE);
+    }
     return;
   }
 
@@ -121,12 +130,19 @@ void updateState(bool startPressed, bool taskCompleted, bool sensorValid) {
       else if (elapsed >= ACTIVE_TIMEOUT_MS) enterState(DeviceState::ERROR_STATE);
       break;
     case DeviceState::SUCCESS:
-    case DeviceState::ERROR_STATE:
       if (!startPressed) enterState(DeviceState::IDLE);
+      break;
+    case DeviceState::ERROR_STATE:
+      if (resetRequested && sensorValid && !stopPressed) {
+        enterState(DeviceState::IDLE);
+      }
       break;
   }
 }
 ```
+
+`ERROR_STATE`是鎖定狀態：放開START不會自動清除錯誤。必須先排除故障、
+確認STOP未按下，再提出明確reset要求。
 
 ## 5. 舵機安全骨架
 
@@ -136,13 +152,19 @@ ESP32 共地；不得由 GPIO 供電。先無負載測試角度限制。
 ```cpp
 #include <ESP32Servo.h>
 
-const int PIN_SERVO = VERIFIED_PWM_GPIO;
+const int PIN_SERVO = -1;
 const int SAFE_ANGLE = 20;
 const int MAX_ANGLE = 120;
+const bool DRY_RUN = true;
 Servo actuator;
 
 void moveSafelyTo(int requestedAngle) {
   int limited = constrain(requestedAngle, SAFE_ANGLE, MAX_ANGLE);
+  if (DRY_RUN || PIN_SERVO < 0) {
+    Serial.printf("event=actuator_dry_run requested=%d applied=%d\n",
+                  requestedAngle, limited);
+    return;
+  }
   actuator.write(limited);
   Serial.printf("event=actuator_move requested=%d applied=%d\n",
                 requestedAngle, limited);
@@ -150,12 +172,23 @@ void moveSafelyTo(int requestedAngle) {
 
 void setup() {
   Serial.begin(115200);
+  if (PIN_SERVO < 0) {
+    Serial.println("profile=blocked reason=replace_and_verify_servo_pin");
+    return;
+  }
+  if (DRY_RUN) {
+    Serial.println("actuator=dry_run reason=verify_power_ground_and_range_first");
+    return;
+  }
   actuator.attach(PIN_SERVO);
   moveSafelyTo(SAFE_ANGLE);
 }
 
 void loop() {}
 ```
+
+先在`DRY_RUN=true`確認請求角度會被限制；完成外部供電、共地、空載角度及
+停止測試後，才可改為`false`。這段不取代Week 4完整的持續STOP與timeout流程。
 
 ## 6. Wi-Fi 設定檔
 
@@ -192,6 +225,10 @@ void connectWifi(unsigned long timeoutMs) {
 }
 ```
 
+這個函式只適合不含致動器的最小連線測試，因為等待期間會阻塞其他工作。
+軟硬整合版本必須採用Week 6的非阻塞重連流程，並在每次網路處理前先讀取
+實體STOP與更新安全狀態。
+
 ## 7. HTTP POST 事件
 
 ```cpp
@@ -203,9 +240,15 @@ bool postEvent(const String& json) {
     return false;
   }
 
+  WiFiClient client;
   HTTPClient http;
   String url = String(API_BASE_URL) + "/api/events";
-  http.begin(url);
+  if (!http.begin(client, url)) {
+    Serial.println("http=failed reason=begin_failed");
+    return false;
+  }
+  http.setConnectTimeout(1500);
+  http.setTimeout(1500);
   http.addHeader("Content-Type", "application/json");
   int status = http.POST(json);
   String response = status > 0 ? http.getString() : "";
@@ -225,28 +268,12 @@ String eventJson =
   "\"value\":1,\"state\":\"idle\"}";
 ```
 
-## 8. WebSocket 即時命令結構
+## 8. WebSocket 的課程責任邊界
 
-以下使用常見的 `arduinoWebSockets` library；版本與 API 須在正式教材發布
-前鎖定並編譯驗證。收到命令後先驗證裝置 ID、命令、參數與目前狀態，
-不要直接把任意文字映射為致動器動作。
-
-```cpp
-#include <WebSocketsClient.h>
-
-WebSocketsClient ws;
-
-void onWebSocketEvent(WStype_t type, uint8_t* payload, size_t length) {
-  if (type != WStype_TEXT) return;
-
-  String message(reinterpret_cast<char*>(payload), length);
-  Serial.printf("ws_command=%s\n", message.c_str());
-
-  // Parse JSON, validate device_id and allowed command, then update state.
-  // Send a result only after the device accepts or completes the action.
-  ws.sendTXT("{\"command_id\":\"replace\",\"result\":\"accepted\"}");
-}
-```
+本課程Week 6的WebSocket連線位於**手機瀏覽器與Backend之間**，由Backend把
+新事件與命令結果推送到畫面。ESP32使用有timeout的HTTP上傳事件及輪詢命令，
+不需要額外安裝`arduinoWebSockets`。完整、已驗證的ESP32與Backend流程以
+Week 6 main為準；不要把網頁收到的任意文字直接映射為致動器動作。
 
 ## 9. MQTT Topic 與 acknowledgement
 
@@ -266,24 +293,33 @@ String topic(const char* suffix) {
 }
 
 void publishResult(const String& commandId, const char* result) {
-  String payload = String("{\"command_id\":\"") + commandId +
+  String payload = String("{\"device_id\":\"") + DEVICE_ID +
+                   "\",\"command_id\":\"" + commandId +
                    "\",\"result\":\"" + result + "\"}";
-  mqtt.publish(topic("ack").c_str(), payload.c_str(), false);
+  mqtt.publish(topic("acks").c_str(), payload.c_str(), false);
 }
 ```
+
+`commandId`必須原樣回傳Backend產生的UUID，不能由裝置自行改寫或改成流水號。
 
 ## 10. 安全停止與網路獨立性
 
 ```cpp
 unsigned long lastValidCommandMs = 0;
 const unsigned long COMMAND_TIMEOUT_MS = 3000;
+bool actuatorActive = false;
 
 void stopAllActuators() {
   // Set every physical output to the verified safe state.
+  actuatorActive = false;
 }
 
-void enforceCommandTimeout() {
-  if (millis() - lastValidCommandMs > COMMAND_TIMEOUT_MS) {
+void enforceSafety(bool physicalStopPressed) {
+  if (physicalStopPressed) {
+    stopAllActuators();
+    return;
+  }
+  if (actuatorActive && millis() - lastValidCommandMs > COMMAND_TIMEOUT_MS) {
     stopAllActuators();
   }
 }

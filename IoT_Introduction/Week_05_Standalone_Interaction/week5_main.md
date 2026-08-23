@@ -46,7 +46,7 @@ cycles, timeout, simulated sensor failure, restart, and recovery are compared so
 the same local behavior can later be connected to a backend without weakening the
 hardware safety rules.
 
-### 必做實驗流程
+### 核心實驗流程
 
 | 階段 | 開始前狀態 | 實驗內容 | 完成條件 |
 |---:|---|---|---|
@@ -90,7 +90,7 @@ DHT11不是本週共同必接元件；先讓狀態、停止與重複測試清楚
 | READY | 接受開始 | 藍燈；檢查profile及感測設定 | 檢查通過後進ACTIVE |
 | ACTIVE | 檢查通過 | 黃燈；定期讀KY-018 | 條件連續成立或timeout |
 | RESULT | 條件成立 | 綠燈、短聲、受限動作→HOME→detach | 動作完成後回IDLE |
-| ERROR | STOP、感測無效、timeout或fault | 紅燈、短聲、立即detach | `clear`後再`reset` |
+| ERROR | STOP、感測無效、timeout或fault | 紅燈、短聲，並在本機輸入處理週期detach | `clear`後再`reset` |
 
 **非阻塞（non-blocking）**表示程式不以長時間`delay()`停住全部工作，而是用
 `millis()`比較時間。這樣動作期間仍能處理`stop`、timeout及感測故障。
@@ -192,6 +192,7 @@ int consecutiveMatches = 0;
 int latestLightRaw = 0;
 bool simulatedSensorFault = false;
 bool resultMotionDone = false;
+bool errorCleared = false;
 
 const char* stateName(SystemState value) {
   if (value == IDLE) return "IDLE";
@@ -201,7 +202,18 @@ const char* stateName(SystemState value) {
   return "ERROR";
 }
 
+bool allPinsUnique(const int *pins, size_t count) {
+  for (size_t left = 0; left < count; left++)
+    for (size_t right = left + 1; right < count; right++)
+      if (pins[left] == pins[right]) return false;
+  return true;
+}
+
 bool hardwareProfileReady() {
+  const int pins[] = {
+    PIN_START, PIN_STOP, PIN_LIGHT, PIN_SERVO,
+    PIN_RGB_R, PIN_RGB_G, PIN_RGB_B, PIN_BUZZER
+  };
   bool pinsReady = PIN_START >= 0 && PIN_STOP >= 0 &&
                    PIN_START != PIN_STOP && PIN_LIGHT >= 0 && PIN_SERVO >= 0 &&
                    PIN_RGB_R >= 0 && PIN_RGB_G >= 0 && PIN_RGB_B >= 0 &&
@@ -210,9 +222,15 @@ bool hardwareProfileReady() {
                      (BUZZER_ON_LEVEL == LOW || BUZZER_ON_LEVEL == HIGH);
   bool lightReady = (LIGHT_DIRECTION == 1 || LIGHT_DIRECTION == -1) &&
                     LIGHT_THRESHOLD_DARK_NORMAL >= 0 &&
+                    LIGHT_THRESHOLD_DARK_NORMAL <= 4095 &&
                     LIGHT_THRESHOLD_NORMAL_BRIGHT >= 0 &&
+                    LIGHT_THRESHOLD_NORMAL_BRIGHT <= 4095 &&
                     LIGHT_VALID_MIN >= 0 && LIGHT_VALID_MAX <= 4095 &&
                     LIGHT_VALID_MIN < LIGHT_VALID_MAX &&
+                    LIGHT_THRESHOLD_DARK_NORMAL >= LIGHT_VALID_MIN &&
+                    LIGHT_THRESHOLD_DARK_NORMAL <= LIGHT_VALID_MAX &&
+                    LIGHT_THRESHOLD_NORMAL_BRIGHT >= LIGHT_VALID_MIN &&
+                    LIGHT_THRESHOLD_NORMAL_BRIGHT <= LIGHT_VALID_MAX &&
                     LIGHT_PROFILES_SEPARATED &&
                     (TARGET_LIGHT_STATE == 1 || TARGET_LIGHT_STATE == 2) &&
                     ((LIGHT_DIRECTION == 1 &&
@@ -232,7 +250,8 @@ bool hardwareProfileReady() {
                     SERVO_HOLD_MS >= 100 && SERVO_HOLD_MS <= 2000 &&
                     SERVO_SEQUENCE_TIMEOUT_MS >= SERVO_HOLD_MS * 2 + 100 &&
                     BUZZ_DURATION_MS >= 20 && BUZZ_DURATION_MS <= 500;
-  return pinsReady && levelsReady && lightReady && servoReady;
+  return pinsReady && allPinsUnique(pins, 8) && levelsReady &&
+         lightReady && servoReady;
 }
 
 int offLevel(int onLevel) {
@@ -286,6 +305,7 @@ void enterState(SystemState nextState, bool valid, const char* reason) {
     resultReadyAt = DRY_RUN ? millis() : 0;
   } else {
     stopServoSignal();
+    errorCleared = false;
     setRgb(true, false, false);
     startBuzz();
   }
@@ -368,12 +388,15 @@ bool pressedEvent(int pin, bool& lastRawPressed, bool& stablePressed,
 
 void readButtons() {
   if (DRY_RUN) return;
-  bool stopPressed = pressedEvent(PIN_STOP, stopLastRawPressed,
-                                  stopStablePressed, stopChangedAt);
+  bool stopPressedEvent = pressedEvent(PIN_STOP, stopLastRawPressed,
+                                       stopStablePressed, stopChangedAt);
   bool startPressed = pressedEvent(PIN_START, startLastRawPressed,
                                    startStablePressed, startChangedAt);
-  if (stopPressed) {
-    enterState(ERROR_STATE, false, "physical_stop");
+  // STOP是持續的安全條件，不只是一個按下邊緣。按住STOP時不得被reset繞過。
+  if (stopStablePressed) {
+    if (stopPressedEvent || state != ERROR_STATE) {
+      enterState(ERROR_STATE, false, "physical_stop");
+    }
     return;
   }
   if (startPressed && state == IDLE) {
@@ -398,11 +421,30 @@ void readSerialCommand() {
   } else if (command == "stop") {
     enterState(ERROR_STATE, false, "manual_stop");
   } else if (command == "clear") {
-    simulatedSensorFault = false;
-    logEvent("fault_cleared", latestLightRaw, "adc_raw", true, "none");
-  } else if (command == "reset" && state == ERROR_STATE &&
-             !simulatedSensorFault) {
-    enterState(IDLE, true, "manual_reset");
+    if (state != ERROR_STATE) {
+      logEvent("command_rejected", latestLightRaw, "adc_raw", false,
+               "clear_not_in_error");
+    } else if (!DRY_RUN && stopStablePressed) {
+      logEvent("command_rejected", latestLightRaw, "adc_raw", false,
+               "physical_stop_active");
+    } else {
+      simulatedSensorFault = false;
+      errorCleared = true;
+      logEvent("fault_cleared", latestLightRaw, "adc_raw", true, "none");
+    }
+  } else if (command == "reset" && state == ERROR_STATE) {
+    if (simulatedSensorFault) {
+      logEvent("command_rejected", latestLightRaw, "adc_raw", false,
+               "sensor_fault_active");
+    } else if (!DRY_RUN && stopStablePressed) {
+      logEvent("command_rejected", latestLightRaw, "adc_raw", false,
+               "physical_stop_active");
+    } else if (!errorCleared) {
+      logEvent("command_rejected", latestLightRaw, "adc_raw", false,
+               "clear_required");
+    } else {
+      enterState(IDLE, true, "manual_reset");
+    }
   } else if (command == "status") {
     logEvent("status", latestLightRaw, "adc_raw",
              state != ERROR_STATE, state == ERROR_STATE ? "error_active" : "none");
@@ -498,13 +540,20 @@ Serial Monitor，行結尾設Newline。
 
 1. 再輸入`start`，進入ACTIVE後不要輸入`trigger`。
 2. 超過`ACTIVE_TIMEOUT_MS`後應進入ERROR，reason為`active_timeout`。
-3. ERROR中直接輸入`reset`；若故障旗標未啟用，應回IDLE。
-4. 再進入ACTIVE並輸入`stop`，應立即進ERROR並顯示`manual_stop`。
-5. 輸入`reset`回IDLE，再輸入`fault`；應立即進ERROR並顯示
+3. ERROR中直接輸入`reset`，應得到`command_rejected reason=clear_required`。
+4. 依序輸入`clear`與`reset`，確認回到IDLE。
+5. 再進入ACTIVE並輸入`stop`，應立即進ERROR並顯示`manual_stop`；直接
+   `reset`仍應被拒絕，再依序輸入`clear`與`reset`回到IDLE。
+6. 輸入`fault`；應立即進ERROR並顯示
    `simulated_sensor_fault`。
-6. fault仍存在時直接輸入`reset`，應得到`command_rejected`。
-7. 先輸入`clear`，再輸入`reset`，才能回IDLE。
-8. 在不允許的狀態輸入`trigger`，應得到`command_rejected`。
+7. fault仍存在時直接輸入`reset`，應得到
+   `command_rejected reason=sensor_fault_active`。
+8. 先輸入`clear`，再輸入`reset`，才能回IDLE。
+9. 在不允許的狀態輸入`trigger`，應得到`command_rejected`。
+
+切換到實體模式後另做安全測試：按住STOP不放，再輸入`clear`與`reset`，系統必須
+保持ERROR，並回報`physical_stop_active`。放開STOP、確認其他故障條件消失後，
+才可再次執行clear與reset。
 
 DRY RUN完成條件是狀態順序與state table一致，而且timeout期間Serial仍可接受命令，
 沒有使用長時間`delay()`阻塞整個loop。
@@ -541,10 +590,11 @@ DRY RUN完成條件是狀態順序與state table一致，而且timeout期間Seri
 
 ## 九、故障、restart與恢復
 
-1. **實體STOP**：從IDLE按START，進入ACTIVE後按STOP，程式應立即進ERROR、
+1. **實體STOP**：從IDLE按START，進入ACTIVE後按STOP，程式應在下一次本機
+   輸入處理時進ERROR、
    舵機detach並顯示`reason=physical_stop`。輸入`clear`後再`reset`，完成一次正常
-   流程；下一次舵機開始受限動作後，再按STOP，確認仍會立即detach。若來不及按，
-   不延長舵機動作時間，
+   流程；下一次舵機開始受限動作後，再按STOP，確認仍會detach，並記錄從按下
+   到ERROR log的最長觀察時間。若來不及按，不延長舵機動作時間，
    保留ACTIVE階段的STOP證據即可。
 2. **安全感測故障**：使用Serial輸入`fault`，不必拔除感測線。程式應進ERROR、
    舵機detach、紅燈及短聲。輸入`clear`後再`reset`才可恢復。
@@ -603,7 +653,8 @@ KY-018訊號線拔除不一定能產生可辨識的固定錯誤值，因此不�
 - [ ] DRY RUN與實體模式使用相同的五個狀態名稱及轉移規則。
 - [ ] 三次正常流程都從IDLE開始、經READY／ACTIVE／RESULT並回IDLE。
 - [ ] fault、timeout及restart不會讓舵機持續收到控制脈波。
-- [ ] 第二顆實體STOP按鈕在ACTIVE時會立即進ERROR，且與START使用不同GPIO。
+- [ ] 第二顆實體STOP按鈕在ACTIVE時會於下一次本機輸入處理進ERROR；已記錄
+      最長觀察反應時間，且STOP與START使用不同GPIO。
 - [ ] ERROR必須先清除原因，再reset，不能自動假裝恢復。
 - [ ] 修改後仍通過三次正常流程與一次ERROR測試。
 - [ ] 八個後續網路單元事件欄位名稱、型別與意義已固定。

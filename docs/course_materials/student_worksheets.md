@@ -92,9 +92,9 @@ AI 使用
 | 1 |  |  |  |  |
 | 2 |  |  |  |  |
 | 3 |  |  |  |  |
-| 異常或拔除 |  |  |  |  |
+| 教材指定的安全異常情境 |  |  |  |  |
 
-請回答：取樣間隔、門檻、去抖／平滑、無效值與感測器拔除分別如何處理？
+請回答：取樣間隔、門檻、去抖／平滑、無效值與教材指定的異常情境分別如何處理？
 
 ## 7. 致動器與供電測試
 
@@ -139,21 +139,21 @@ AI 使用
 
 ```json
 {
-  "command_id": "cmd-001",
+  "command_id": "7d27d95a-7742-44cb-a10a-a4702bc71ba4",
   "device_id": "team01-device01",
   "command": "start",
   "parameters": {},
-  "requested_at": "2026-10-21T14:30:00+08:00"
+  "requested_at": "2026-10-14T14:30:00+08:00"
 }
 ```
 
 ```json
 {
-  "command_id": "cmd-001",
+  "command_id": "7d27d95a-7742-44cb-a10a-a4702bc71ba4",
   "device_id": "team01-device01",
   "result": "done",
   "message": "action completed",
-  "completed_at": "2026-10-21T14:30:03+08:00"
+  "completed_at": "2026-10-14T14:30:03+08:00"
 }
 ```
 
@@ -193,7 +193,8 @@ AI 使用
 | Proposed purchases and estimated cost |  |
 | Power／driver／logic-level risks |  |
 | Three main project risks |  |
-| Minimum acceptable Week 12 result |  |
+| Minimum acceptable Week 12 milestone |  |
+| Minimum acceptable final result |  |
 
 ## 12. MQTT Topic 表
 

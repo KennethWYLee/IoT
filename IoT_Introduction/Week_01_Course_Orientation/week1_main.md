@@ -1,7 +1,7 @@
 # Week 1: Course Overview, Assessment, and Project Direction
 
 Date: September 9, 2026<br>
-Course: Internet of Things and Cloud Computing
+Course: Internet of Things
 
 No hardware is required, connected, or powered on in Week 1, and no program will be
 uploaded. This week establishes the project expectations, the eighteen-week learning
@@ -146,7 +146,7 @@ Based on the instructor's previous purchase prices, the electronics kit costs
 approximately **NT$659 per student**. The exact models and specifications, first and
 later weeks of use, additional student-provided items, items not yet required, product
 identification images, and delivery inspection procedure are maintained in the
-[Week 1 support material](week1_support.md#一學生材料採購總表).
+[Week 1 support material](week1_support.md#purchase-table).
 
 ## 7. Hardware and Data Safety Responsibilities
 
@@ -187,7 +187,7 @@ follow these rules:
 
 The initial direction proposed in Week 1 does not fix the final topic and does not
 require students to purchase project-specific materials in advance. Use the
-[project idea card](week1_support.md#二作品構想卡) to record:
+[project idea card](week1_support.md#project-idea-card) to record:
 
 1. The intended user or use context.
 2. One observable physical input.
@@ -195,14 +195,39 @@ require students to purchase project-specific materials in advance. Use the
 4. What the software should record or how it should assist operation.
 5. One currently known technical, safety, or scope risk.
 
-## 10. Complete Before Week 2
+## 10. Week 1 Learning Evidence
+
+Complete the following written activities in the
+[Week 1 support material](week1_support.md#week-1-learning-evidence). They do not
+require hardware, software installation during class, or a fixed final-project topic.
+
+1. Compare two possible project ideas, select one provisional direction, and explain
+   why its physical input, physical output, and software purpose form a feasible core
+   interaction.
+2. Trace one event from a physical input through the controller, network, backend,
+   database, and mobile interface. Then trace one command in the reverse direction
+   until a physical result or failure record is produced.
+3. Classify the assessment and schedule scenarios by citing the relevant course week
+   or assessment rule.
+4. Complete the personal material-readiness check without purchasing optional project
+   parts before the topic is reviewed in Week 8.
+5. For each safety and evidence scenario, record the first safe action and the course
+   rule that supports it.
+
+The Week 1 evidence is complete when every response identifies a reason or a source,
+the selected idea can be represented as a physical input-to-output interaction, and
+no response depends on guessing a pin, voltage, test result, or future project need.
+If a response conflicts with this course outline, revise it before completing the
+Week 2 preparation checklist.
+
+## 11. Complete Before Week 2
 
 - [ ] Read this course outline and confirm the assessment weights and key weeks.
 - [ ] Complete the project idea card.
 - [ ] Order the required materials or confirm equivalent existing items against the
   official purchase list.
 - [ ] Read and complete the
-  [Week 2 pre-class setup](week1_support.md#三week-2課前環境準備).
+  [Week 2 pre-class setup](week1_support.md#week-2-preclass-setup).
 - [ ] Confirm that Arduino IDE 2 opens successfully.
 - [ ] Install the Espressif `esp32` board package.
 - [ ] Obtain the latest version of the course repository.

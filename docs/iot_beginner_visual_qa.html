@@ -593,9 +593,9 @@
         <div class="esp">
           ESP32-S3
           <div class="pins">
-            <span>GPIO 4</span><span>GPIO 5</span>
+            <span>PIN_BUTTON</span><span>PIN_TEST_OUTPUT</span>
             <span>3V3</span><span>GND</span>
-            <span>GPIO 18</span><span>GPIO 19</span>
+            <span>其他 GPIO</span><span>USB</span>
           </div>
         </div>
       </div>
@@ -603,9 +603,9 @@
         <div class="esp">
           ESP32-S3
           <div class="pins">
-            <span>GPIO 4</span><span>GPIO 5</span>
+            <span>PIN_BUTTON</span><span>PIN_TEST_OUTPUT</span>
             <span>3V3</span><span>GND</span>
-            <span>GPIO 18</span><span>GPIO 19</span>
+            <span>其他 GPIO</span><span>USB</span>
           </div>
         </div>
         <div class="wire"></div>
@@ -617,7 +617,8 @@
       <div class="card">
         <h3>輸入範例</h3>
         <p>按鈕被按下，GPIO 讀到 HIGH 或 LOW。</p>
-        <pre>int button = digitalRead(4);
+        <pre>// PIN_BUTTON 來自教師公布的 verified profile
+int button = digitalRead(PIN_BUTTON);
 if (button == LOW) {
   Serial.println("button pressed");
 }</pre>
@@ -625,10 +626,11 @@ if (button == LOW) {
       <div class="card">
         <h3>輸出範例</h3>
         <p>ESP32-S3 控制 LED 亮或暗。</p>
-        <pre>pinMode(5, OUTPUT);
-digitalWrite(5, HIGH); // 亮
+        <pre>// PIN_TEST_OUTPUT 來自教師公布的 verified profile
+pinMode(PIN_TEST_OUTPUT, OUTPUT);
+digitalWrite(PIN_TEST_OUTPUT, HIGH); // 亮
 delay(500);
-digitalWrite(5, LOW);  // 暗</pre>
+digitalWrite(PIN_TEST_OUTPUT, LOW);  // 暗</pre>
       </div>
     </div>
 

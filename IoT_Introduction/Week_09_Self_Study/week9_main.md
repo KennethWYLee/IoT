@@ -2,6 +2,27 @@
 
 日期：2026-11-04
 
+## Unit Overview
+
+### Teaching Objectives
+
+The following objectives apply only to students who choose to complete the optional
+consolidation activities. Students will be able to:
+
+1. Convert Week 8 feedback into bounded Git issues with an owner, completion condition,
+   and evidence requirement.
+2. Improve a wiring diagram, data-flow diagram, bill of materials, or test record without
+   expanding the approved project scope.
+3. Describe a technical question with an environment, reproduction steps, expected
+   result, actual result, and relevant log evidence.
+
+### Teaching Content
+
+Week 9 contains no required attendance, new teaching content, or assessed submission.
+Optional consolidation focuses on organizing Week 8 feedback, improving existing project
+documentation, protecting secrets, and preparing reproducible technical questions for the
+next class meeting.
+
 教師於 2026-11-01 至 2026-11-07 出國參加研討會。本週不要求到校、不教
 新單元、不收新成果，也不增加同步評量。
 

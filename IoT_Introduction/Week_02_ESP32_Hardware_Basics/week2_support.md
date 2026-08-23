@@ -16,16 +16,19 @@
 
 | 品項 | 最低數量 | 本週用途 | 取得方式 |
 |---|---:|---|---|
-| ESP32-S3-DevKitC-1 N16R8，排針向下44腳 | 1 | Upload、GPIO4輸入、GPIO5輸出 | 學生自備 |
+| ESP32-S3-DevKitC-1 N16R8，排針向下44腳 | 1 | Upload、profile指定輸入與測試輸出 | 學生自備 |
 | 可傳資料的USB線 | 1 | 供電、Upload、Serial | 學生自備 |
 | 400孔麵包板 | 1 | 按鈕與安全測試點 | 學生自備 |
 | 四腳輕觸按鈕 | 1 | 數位輸入 | 學生自備 |
-| 公對公杜邦線 | 至少4條 | GPIO4、GPIO5、GND及測試點 | 學生自備 |
+| 公對公杜邦線 | 至少4條 | 兩個profile GPIO、GND及測試點 | 學生自備 |
 | 常用電阻包 | 220Ω、1kΩ及10kΩ各至少1顆 | 標稱值與實測值比較 | 學生自備 |
 | 萬用電表 | 輪流共用 | 電阻、通斷、LOW／HIGH電壓 | 課堂提供 |
 
 本週不使用LED、蜂鳴器、舵機、馬達、電池盒、外部電源或感測模組。
 上電前請把這些物品移出工作區。
+
+實作前另須確認`docs/hardware_state.md`已有本批板卡的target-test組合與GPIO
+profile。未公布時，GPIO4／GPIO5只屬候選值，不得依教材文字自行啟用。
 
 ### 上電前最後確認
 
@@ -47,7 +50,7 @@
 ![本課使用的ESP32-S3 DevKitC-1 N16R8](../../docs/images/hardware/esp32-s3-devkitc-1-n16r8-product-page.png)
 
 其餘學生必買品項及購買圖片見
-[Week 1正式採購總表](../Week_01_Course_Orientation/week1_support.md#一學生材料採購總表)。
+[Week 1正式採購總表](../Week_01_Course_Orientation/week1_support.md#purchase-table)。
 
 ## 三、缺料或故障回報格式
 
@@ -65,8 +68,8 @@
 
 ## 四、相關資料
 
-- [Week 1正式採購總表](../Week_01_Course_Orientation/week1_support.md#一學生材料採購總表)
-- [Week 2課前環境準備](../Week_01_Course_Orientation/week1_support.md#三week-2課前環境準備)
+- [Week 1正式採購總表](../Week_01_Course_Orientation/week1_support.md#purchase-table)
+- [Week 2課前環境準備](../Week_01_Course_Orientation/week1_support.md#week-2-preclass-setup)
 - [程式片段](../../docs/course_materials/starter_code_snippets.md)
 - [安全檢核](../../docs/course_materials/rubrics_and_checklists.md)
 
@@ -76,13 +79,13 @@
 
 ### 延伸實作1：切換模式
 
-每次按下按鈕，GPIO5在HIGH與LOW之間切換；放開按鈕不改變模式。
+每次按下按鈕，`PIN_TEST_OUTPUT`在HIGH與LOW之間切換；放開按鈕不改變模式。
 
 預期log：
 
 ```text
-event=mode_changed mode=ON gpio5=HIGH
-event=mode_changed mode=OFF gpio5=LOW
+event=mode_changed mode=ON test_output=HIGH
+event=mode_changed mode=OFF test_output=LOW
 ```
 
 提示：建立`bool outputOn`，只在新的按下事件發生時反轉它。
@@ -119,7 +122,7 @@ status=idle idle_ms=10000
 NORMAL -> WARNING -> ALARM -> NORMAL
 ```
 
-每個狀態要有不同的GPIO5行為或Serial文字，並能在Reset後回到NORMAL。
+每個狀態要有不同的`PIN_TEST_OUTPUT`行為或Serial文字，並能在Reset後回到NORMAL。
 
 提示：可以使用整數0、1、2，也可以使用`enum`建立有名稱的有限狀態。
 
@@ -157,8 +160,8 @@ game=result reaction_ms=418
 重複一筆事件：
 
 ```text
-group=03 seq=1 event=button_changed pressed=true gpio5=HIGH time_ms=12345
-group=03 seq=2 event=button_changed pressed=false gpio5=LOW time_ms=13021
+group=03 seq=1 event=button_changed pressed=true test_output=HIGH time_ms=12345
+group=03 seq=2 event=button_changed pressed=false test_output=LOW time_ms=13021
 ```
 
 提示：建立`unsigned long eventSeq = 0;`，只在穩定狀態真正改變時先加1，
@@ -166,7 +169,7 @@ group=03 seq=2 event=button_changed pressed=false gpio5=LOW time_ms=13021
 
 ### 延伸實作8：找出系統無法偵測的故障
 
-先斷電，拔掉GPIO4訊號線，再重新上電。觀察程式會把它看成什麼狀態，
+先斷電，拔掉`PIN_BUTTON`訊號線，再重新上電。觀察程式會把它看成什麼狀態，
 回答：只有`INPUT_PULLUP`時，程式能否分辨「真的沒按」與「訊號線脫落」？
 
 提出一種未來可改善的硬體或軟體方法。本題不要求立刻加購或重新接線。
@@ -174,7 +177,7 @@ group=03 seq=2 event=button_changed pressed=false gpio5=LOW time_ms=13021
 ### 延伸實作9：交換操作與隱藏錯誤
 
 由另一位組員操作上傳及測試。接著在斷電狀態下，由教師或其他組製造一個
-安全的小錯誤，例如換錯GPIO4訊號線的位置。依序使用接線表、通斷、Serial
+安全的小錯誤，例如換錯`PIN_BUTTON`訊號線的位置。依序使用接線表、通斷、Serial
 及電壓證據找出問題；一次只能改一個變因。
 
 ### 延伸實作紀錄
@@ -192,9 +195,9 @@ group=03 seq=2 event=button_changed pressed=false gpio5=LOW time_ms=13021
 | Compile失敗 | 第一個錯誤、括號、分號、board package | 重插所有接線 |
 | Upload失敗 | Board、Port、線材、是否被其他程式占用 | 直接更換整塊板 |
 | Upload完成但無Serial | baud rate、port、RESET、`Serial.begin` | 同時改多個設定 |
-| 按鈕永遠未按 | GPIO4、GND、按鈕方向、`INPUT_PULLUP` | 帶電改線 |
-| 按鈕永遠按下 | GPIO4是否持續短接GND | 將5V接入測試 |
-| GPIO5電壓不變 | 程式版本、Serial事件、表筆位置與檔位 | 切到電流檔 |
+| 按鈕永遠未按 | `PIN_BUTTON`、GND、按鈕方向、`INPUT_PULLUP` | 帶電改線 |
+| 按鈕永遠按下 | `PIN_BUTTON`是否持續短接GND | 將5V接入測試 |
+| 測試輸出電壓不變 | `PIN_TEST_OUTPUT`、程式版本、Serial事件、表筆位置與檔位 | 切到電流檔 |
 | 三種電阻讀值幾乎相同 | 元件標籤、Ω量程、表筆接觸與單位換算 | 把標稱值當實測值 |
 | 板子發熱或異味 | 立即拔USB，通知教師 | 再次上電測試 |
 

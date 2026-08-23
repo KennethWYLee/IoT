@@ -19,11 +19,13 @@ sensor signal
   -> phone state
 
 phone command
-  -> WebSocket / Backend
-  -> ESP32 validation
-  -> physical action
-  -> result / error / timeout
-  -> log and phone feedback
+  -> HTTP POST / Backend authorization
+  -> HTTP polling or MQTT command delivery
+  -> ESP32 validation and physical action
+  -> HTTP result or MQTT acknowledgement
+  -> Backend / Database
+  -> WebSocket
+  -> phone result
 ```
 
 學生應能根據資料流圖、JSON、topic、程式片段、log或錯誤畫面，判斷每一層的

@@ -1,7 +1,16 @@
 # Week 2：ESP32-S3 開發環境與數位輸入輸出實驗
 
+日期：2026-09-16
+
 本章以 ESP32-S3 開發板為實驗平台，完成開發環境確認、程式編譯與上傳、
 GPIO 按鈕輸入、數位輸出及萬用電表驗證。
+
+> 實機驗證門檻：Espressif官方文件支持GPIO4與GPIO5作為本批板卡的候選一般
+> 輸入／輸出腳位，但`docs/hardware_state.md`目前仍將指定板卡標為`unverified`。
+> GPIO4／GPIO5只是教師target test的候選值。所有操作步驟一律使用教師以同批
+> 板卡、相同board package與USB路徑測試後公布的hardware profile；範例程式
+> 預設腳位為`-1`；
+> 尚未公布profile時只能閱讀、設定IDE及完成compile-only檢查，不得接線或Upload。
 
 ## 一、Unit Overview
 
@@ -32,16 +41,16 @@ and voltage so that software messages are supported by physical evidence.
 Safe power handling, systematic testing, and evidence-based troubleshooting are applied
 throughout the activity.
 
-### 必做實驗流程
+### 核心實驗流程
 
 | 階段 | 開始狀態 | 實驗內容 | 完成條件 |
 |---:|---|---|---|
-| 1 | 板子未接 USB | 環境與實物辨識 | 找到 USB、BOOT、RESET、GPIO4、GPIO5、GND |
+| 1 | 板子未接 USB | 環境與實物辨識 | 找到 USB、BOOT、RESET、候選GPIO4、候選GPIO5、GND |
 | 2 | 只接 USB | 設定 Board 與 Port | IDE 顯示正確 Board、Port 與 N16R8 設定 |
 | 3 | 只接 USB | Upload 與 Serial | log 顯示本組組別及 `version=2` |
-| 4 | USB 已拔除 | 麵包板、按鈕、TP5、TPG 接線 | 依接線表逐線確認；獨自操作時正向、反向各檢查一次 |
-| 5 | 接線已確認 | GPIO4 輸入與 GPIO5 輸出 | 五次按下／放開事件完全對應 |
-| 6 | 量測站 | 散裝電阻、通斷及電壓 | 三種電阻有實測值；通斷合理；TP5 LOW／HIGH可分辨 |
+| 4 | USB 已拔除 | 麵包板、按鈕、TPO、TPG 接線 | 依profile與接線表逐線確認；獨自操作時正向、反向各檢查一次 |
+| 5 | 已公布profile且接線已確認 | profile輸入與測試輸出 | 五次按下／放開事件完全對應 |
+| 6 | 量測站 | 散裝電阻、通斷及電壓 | 三種電阻有實測值；通斷合理；TPO LOW／HIGH可分辨 |
 | 7 | 核心任務完成 | 基本練習 | 按壓計數有可重複的 Serial 證據 |
 
 各階段應依序完成。未達成完成條件時，應先依該節故障排除內容修正，再進入
@@ -79,9 +88,10 @@ throughout the activity.
    獨自操作時，先從 ESP32 腳位沿線檢查到零件，再從零件反向檢查回 ESP32。
 6. 發現板子、線材或零件發熱、異味或異常聲音，立即斷電並通知教師。
 
-本次使用 GPIO4 與 GPIO5。Espressif 官方 DevKitC-1 接腳表將兩者列為
-一般輸入／輸出接腳。採購紀錄標示本課板卡為 N16R8，操作前仍須讀取金屬
-屏蔽罩確認。為避免記憶體配置差異，本課不使用 GPIO35、GPIO36、GPIO37，
+教師會先以 GPIO4 與 GPIO5 作為候選profile進行target test。Espressif 官方 DevKitC-1 接腳表將
+兩者列為一般輸入／輸出接腳，但官方資料不能取代本批實物target test。教師公布
+profile後，學生須核對profile、板身絲印與金屬屏蔽罩。所有後續接線都以profile中的
+`PIN_BUTTON`與`PIN_TEST_OUTPUT`為準，不依候選值猜測。為避免記憶體配置差異，本課不使用GPIO35、GPIO36、GPIO37，
 因為使用 Octal SPI Flash／PSRAM 的相關版本會把這些腳位保留給板內部通訊。
 
 板載 RGB LED（可顯示紅、綠、藍的多色燈）不列入本週必要任務。DevKitC-1
@@ -147,11 +157,11 @@ Espressif esp32 package 版本：____________________
 - BOOT 按鈕。
 - RESET／RST 按鈕。
 - 3V3、5V、G／GND。
-- GPIO4 與 GPIO5。
+- 教師profile所列的`PIN_BUTTON`與`PIN_TEST_OUTPUT`絲印位置。
 
-官方 v1.1 header table 中，GPIO4 是 J1 第 4 腳、GPIO5 是 J1 第 5 腳；J1
-第 22 腳與 J3 第 1、21、22 腳都是 GND。**實際操作應直接找板上印的 `4`、
-`5`、`G`／`GND`，不得僅以排針順序判斷。**
+官方 v1.1 header table 可用來把profile的GPIO編號對照到J1／J3位置；J1第22腳與
+J3第1、21、22腳都是GND。**實際操作應讀profile，再找板上對應數字與`G`／`GND`
+絲印，不得僅以排針順序判斷。**
 
 `J1`、`J3` 是官方文件替兩排連接器取的編號，不是 GPIO 編號；學生實際接線
 仍以板上 `4`、`5`、`G` 等絲印為主。
@@ -164,13 +174,13 @@ Espressif esp32 package 版本：____________________
 | 預計使用的 USB 接頭 |  |
 | BOOT |  |
 | RESET／RST |  |
-| GPIO4 |  |
-| GPIO5 |  |
+| `PIN_BUTTON`（profile值與位置） |  |
+| `PIN_TEST_OUTPUT`（profile值與位置） |  |
 | GND |  |
 
 ### 本節檢核
 
-兩位組員各自在板卡照片上標出 USB、BOOT、RESET、GPIO4、GPIO5 與 GND，
+兩位組員各自在板卡照片上標出 USB、BOOT、RESET、profile指定的兩個GPIO與 GND，
 再互相比對；有不同之處就回到板身絲印核對並修正標記。
 
 ## 五、Arduino IDE 板卡與連接埠設定
@@ -482,19 +492,19 @@ status: uptime_ms=3000
 5. 若板上有紅、藍長電源軌，本週不使用，避免把「同列」和「長條電源軌」
    混在一起。
 
-**TP** 是 Test Point（測試點）的縮寫。`TP5` 和 `TPG` 不是麵包板原廠名稱，
-而是本實驗定義的標籤：TP5 之後接 GPIO5，TPG 之後接 GND。
+**TP** 是 Test Point（測試點）的縮寫。`TPO`和`TPG`不是麵包板原廠名稱，
+而是本實驗定義的標籤：TPO接profile指定的測試輸出，TPG接GND。
 
 先用筆或可移除標籤在板邊寫下：
 
 ```text
 左外側接線欄：A
 右外側接線欄：J
-TP5 預留列：________
+TPO 預留列：________
 TPG 預留列：________
 ```
 
-TP5 與 TPG 必須是兩個不同的空白列，而且不能位於 ESP32 排針占用的列。
+TPO 與 TPG 必須是兩個不同的空白列，而且不能位於 ESP32 排針占用的列。
 
 ### 步驟 3：確認四腳按鈕結構
 
@@ -546,30 +556,31 @@ L2 ●                 ● R2
 若第 4 步無法自然對準，應立即停止且不得施力，改用以下備用方式：
 
 1. ESP32 放在不導電且穩固的桌面墊上，不讓排針碰到金屬。
-2. 使用公對母杜邦線，母端套在 ESP32 的 GPIO4、GPIO5、GND。
+2. 使用公對母杜邦線，母端套在profile指定的`PIN_BUTTON`、`PIN_TEST_OUTPUT`與GND。
 3. 公端分別插入麵包板預定列。
-4. 每條線貼上 `4`、`5`、`G` 標籤。
+4. 每條線貼上`BTN`、`OUT`、`G`標籤，並另記錄profile的實際GPIO編號。
 5. 板子不得懸吊在線材上，也不得讓裸露排針碰觸彼此。
 
 ### 步驟 5：確認排針與外側接線孔
 
 ESP32 插在 `B`、`I` 欄時，不要把杜邦線硬塞到排針旁邊。請看板身絲印，
-找出 GPIO4、GPIO5、GND 各自所在的「同一列」，再使用該列外側的孔：
+找出profile指定的`PIN_BUTTON`、`PIN_TEST_OUTPUT`與GND各自所在的「同一列」，
+再使用該列外側的孔：
 
 | 板身接腳落在哪一側 | 排針所在欄 | 同列可用接線孔 |
 |---|---|---|
 | 左側 | B | A |
 | 右側 | I | J |
 
-例如 GPIO4 的排針若落在 `B8`，則 `A8` 就與 GPIO4 相通；若 GPIO4 落在
-`I8`，則使用 `J8`。**列號只是實物位置，請依絲印找，不可照抄這個例子。**
+例如profile指定的某個GPIO排針若落在`B8`，則`A8`就與該GPIO相通；若落在
+`I8`，則使用`J8`。**列號只是導通關係的例子，請依profile與絲印找，不可照抄。**
 
 把實際孔位填好後才接線：
 
 | 訊號 | 板身絲印 | 外側實際孔位 |
 |---|---|---|
-| 按鈕輸入 | `4`／GPIO4 |  |
-| 測試輸出 | `5`／GPIO5 |  |
+| 按鈕輸入 | profile的`PIN_BUTTON`：_____ |  |
+| 測試輸出 | profile的`PIN_TEST_OUTPUT`：_____ |  |
 | 地 | `G`／GND |  |
 
 ### 步驟 6：安裝按鈕
@@ -584,47 +595,48 @@ ESP32 插在 `B`、`I` 欄時，不要把杜邦線硬塞到排針旁邊。請看
 
 一次只插一條線，每插完一條就在表中打勾：
 
-1. [ ] GPIO4 的外側同列孔 → `BTN-A` 所在列的左側五孔組。
+1. [ ] `PIN_BUTTON`的外側同列孔 → `BTN-A`所在列的左側五孔組。
 2. [ ] GND 的外側同列孔 → 預留的 TPG 空白五孔組。
 3. [ ] TPG 同一五孔組的另一孔 → `BTN-B` 所在列的右側五孔組。
-4. [ ] GPIO5 的外側同列孔 → 預留的 TP5 空白五孔組。
+4. [ ] `PIN_TEST_OUTPUT`的外側同列孔 → 預留的TPO空白五孔組。
 
 此接法只使用板上一個 GND：TPG 是共同接地列，再從 TPG 分接到按鈕。四條
-杜邦線分別是 `GPIO4→BTN-A`、`GND→TPG`、`TPG→BTN-B`、`GPIO5→TP5`。
+杜邦線分別是`PIN_BUTTON→BTN-A`、`GND→TPG`、`TPG→BTN-B`、
+`PIN_TEST_OUTPUT→TPO`。
 
 本週的電氣關係必須是：
 
-![Week 2 GPIO4 按鈕與 GPIO5 量測點接線圖](../../docs/images/wiring/week2_gpio4_gpio5.svg)
+![Week 2 profile按鈕與測試輸出量測點接線圖](../../docs/images/wiring/week2_gpio4_gpio5.svg)
 
 ```text
-ESP32 GPIO4 -------- 按鈕的一側
+ESP32 PIN_BUTTON ---- 按鈕的一側
 ESP32 GND  --------- 按鈕的另一側
 ```
 
 另外建立兩個安全量測點，不要直接用表筆在相鄰排針間探測：
 
 ```text
-ESP32 GPIO5 -------- 麵包板空白列（標記為 TP5）
+ESP32 PIN_TEST_OUTPUT -- 麵包板空白列（標記為 TPO）
 ESP32 GND  --------- 麵包板另一空白列（標記為 TPG）
 ```
 
-後面量電壓時，黑表筆接 TPG，紅表筆接 TP5，可降低表筆滑動造成短路的
-風險。TP5 只接 GPIO5 與紅表筆，不接其他模組。
+後面量電壓時，黑表筆接TPG，紅表筆接TPO，可降低表筆滑動造成短路的
+風險。TPO只接`PIN_TEST_OUTPUT`與紅表筆，不接其他模組。
 
 本接法在程式中使用 `INPUT_PULLUP`，不需要額外外接上拉電阻：
 
 - 未按下：讀到 `HIGH`。
-- 按下：GPIO4 被接到 GND，讀到 `LOW`。
+- 按下：`PIN_BUTTON`被接到GND，讀到`LOW`。
 
 ### 步驟 8：執行上電前接線檢查
 
 不能只看接線「像不像圖片」，必須從訊號起點沿線檢查到終點：
 
-1. 指著板身 `4` 絲印，沿著同列孔與線走到按鈕一側。
+1. 依profile指著`PIN_BUTTON`的板身絲印，沿著同列孔與線走到按鈕一側。
 2. 指著板身 `G`／`GND`，沿線走到 TPG，再從 TPG 走到按鈕另一側。
-3. 指著板身 `5`，沿線走到標記 TP5 的獨立列。
+3. 依profile指著`PIN_TEST_OUTPUT`的板身絲印，沿線走到標記TPO的獨立列。
 4. 指著 GND，沿線走到標記 TPG 的另一獨立列。
-5. 確認 TP5 與 TPG 不在同一個五孔導通組。
+5. 確認TPO與TPG不在同一個五孔導通組。
 6. 確認沒有任何線接到 `5V`、`3V3` 或未使用的 GPIO。
 7. 從正上方拍一張能看清板身絲印與線路終點的照片。
 
@@ -632,9 +644,9 @@ ESP32 GND  --------- 麵包板另一空白列（標記為 TPG）
 
 | 元件 | 元件腳位 | ESP32 腳位 | 方向／用途 |
 |---|---|---|---|
-| 按鈕 | 一側 | GPIO4 | 數位輸入 |
+| 按鈕 | 一側 | `PIN_BUTTON`（填實際GPIO：_____） | 數位輸入 |
 | 按鈕 | 另一側 | GND | 按下時接地 |
-| TP5 測試列 | 空白麵包板列 | GPIO5 | HIGH／LOW 電壓測試 |
+| TPO 測試列 | 空白麵包板列 | `PIN_TEST_OUTPUT`（填實際GPIO：_____） | HIGH／LOW 電壓測試 |
 | TPG 參考列 | 另一空白列 | GND | 黑表筆參考點 |
 
 身邊有同學時，請同學依照上述順序和你一起檢查。獨自操作時，先依第 1 至
@@ -645,12 +657,12 @@ ESP32 GND  --------- 麵包板另一空白列（標記為 TPG）
 
 - [ ] ESP32 排針筆直，或已使用安全固定的公對母備用接法。
 - [ ] 按鈕四腳自然插入並跨過中央溝槽。
-- [ ] GPIO4 只經按鈕連到 GND。
-- [ ] GPIO5 只連到 TP5。
-- [ ] TPG 連到 GND，而且 TP5、TPG 不互通。
+- [ ] `PIN_BUTTON`只經按鈕連到GND。
+- [ ] `PIN_TEST_OUTPUT`只連到TPO。
+- [ ] TPG連到GND，而且TPO、TPG不互通。
 - [ ] 接線已依上述方式逐線確認；獨自操作時已完成正向與反向兩次檢查。
 
-## 八、GPIO4 按鈕輸入與 GPIO5 測試輸出
+## 八、Profile按鈕輸入與測試輸出
 
 ### GPIO 與按鈕原理
 
@@ -674,13 +686,13 @@ ESP32 GND  --------- 麵包板另一空白列（標記為 TPG）
 
 ### 步驟 2：建立按鈕測試程式
 
-GPIO5 本週不接 LED、蜂鳴器、馬達或其他負載；本實驗直接用 Serial 與萬用
+`PIN_TEST_OUTPUT`本週不接LED、蜂鳴器、馬達或其他負載；本實驗直接用Serial與萬用
 電表驗證它的輸出電壓。**負載**是從電路取得能量的裝置，例如 LED、蜂鳴器
 或馬達；GPIO 不適合直接供應高電流負載。
 
 #### 程式結構
 
-- `const int` 建立不應改變的整數名稱，本程式用它替 GPIO4、GPIO5 命名。
+- `const int`建立不應改變的整數名稱，本程式用它替profile的兩個GPIO命名。
 - `bool` 只保存 `true`／`false`，用來表示是否按下。
 - `unsigned long` 可保存非負整數，本程式用來保存 `millis()` 毫秒時間。
 - `setup()` 開機後執行一次；`loop()` 之後持續重複。
@@ -697,8 +709,9 @@ GPIO5 本週不接 LED、蜂鳴器、馬達或其他負載；本實驗直接用 
 6. 按 **Ctrl+S**。
 
 ```cpp
-const int PIN_BUTTON = 4;
-const int PIN_TEST_OUTPUT = 5;
+// 由教師公布的同批板卡target-test profile填入；未公布時保持-1。
+const int PIN_BUTTON = -1;
+const int PIN_TEST_OUTPUT = -1;
 const char *GROUP_ID = "CHANGE_ME";
 
 bool stablePressed = false;
@@ -706,9 +719,19 @@ bool lastRawPressed = false;
 unsigned long changedAtMs = 0;
 const unsigned long DEBOUNCE_MS = 30;
 
+bool profileReady() {
+  return PIN_BUTTON >= 0 && PIN_TEST_OUTPUT >= 0 &&
+         PIN_BUTTON != PIN_TEST_OUTPUT;
+}
+
 void setup() {
   Serial.begin(115200);
   delay(500);
+
+  if (!profileReady()) {
+    Serial.println("week=2 status=blocked reason=gpio_profile_missing");
+    return;
+  }
 
   pinMode(PIN_BUTTON, INPUT_PULLUP);
   pinMode(PIN_TEST_OUTPUT, OUTPUT);
@@ -719,6 +742,7 @@ void setup() {
 }
 
 void loop() {
+  if (!profileReady()) return;
   bool rawPressed = digitalRead(PIN_BUTTON) == LOW;
   unsigned long now = millis();
 
@@ -732,7 +756,7 @@ void loop() {
     digitalWrite(PIN_TEST_OUTPUT, stablePressed ? HIGH : LOW);
 
     Serial.printf(
-      "group=%s event=button_changed pressed=%s gpio5=%s time_ms=%lu\n",
+      "group=%s event=button_changed pressed=%s test_output=%s time_ms=%lu\n",
       GROUP_ID,
       stablePressed ? "true" : "false",
       stablePressed ? "HIGH" : "LOW",
@@ -744,8 +768,8 @@ void loop() {
 
 貼上後先做人工檢查：
 
-- [ ] `PIN_BUTTON = 4`，不是板上排針位置的數字。
-- [ ] `PIN_TEST_OUTPUT = 5`。
+- [ ] `PIN_BUTTON`與`PIN_TEST_OUTPUT`已填入教師公布profile，不再是`-1`。
+- [ ] 兩個值不同，且可由本批板卡target-test紀錄追溯。
 - [ ] `GROUP_ID` 已改成自己的組別。
 - [ ] 只有一組 `setup()` 與一組 `loop()`。
 - [ ] 程式最後的左右大括號數量沒有因複製而缺少。
@@ -769,8 +793,8 @@ void loop() {
 按下與放開時，Serial 應出現：
 
 ```text
-group=03 event=button_changed pressed=true gpio5=HIGH time_ms=...
-group=03 event=button_changed pressed=false gpio5=LOW time_ms=...
+group=03 event=button_changed pressed=true test_output=HIGH time_ms=...
+group=03 event=button_changed pressed=false test_output=LOW time_ms=...
 ```
 
 請照固定節奏操作：
@@ -785,7 +809,7 @@ group=03 event=button_changed pressed=false gpio5=LOW time_ms=...
 如果按下沒有反應：
 
 1. 拔除 USB。
-2. 檢查是否真的接到 GPIO4 與 GND。
+2. 檢查是否真的接到profile指定的`PIN_BUTTON`與GND。
 3. 確認按鈕方向及是否跨過麵包板中央溝槽。
 4. 用通斷檔確認按鈕按下時兩側導通。
 5. 接回 USB，按 RESET，再看 Serial。
@@ -796,8 +820,8 @@ group=03 event=button_changed pressed=false gpio5=LOW time_ms=...
 
 | Serial 現象 | 最可能方向 | 下一個動作 |
 |---|---|---|
-| 一上電就顯示 `pressed=true` | GPIO4 持續接地 | 拔 USB，檢查按鈕方向及 GPIO4、GND 是否在同一導通組 |
-| 按下、放開都沒有事件 | GPIO4 未經按鈕接到 GND | 拔 USB，逐線摸查，再做通斷測試 |
+| 一上電就顯示 `pressed=true` | `PIN_BUTTON`持續接地 | 拔USB，檢查按鈕方向及`PIN_BUTTON`、GND是否在同一導通組 |
+| 按下、放開都沒有事件 | `PIN_BUTTON`未經按鈕接到GND | 拔USB，逐線摸查，再做通斷測試 |
 | 一次按壓出現很多事件 | 接點彈跳或接觸不良 | 確認按鈕完全插入，再比較去抖設定 |
 | 事件正常但組別錯誤 | 程式未改或舊程式 | 修改 `GROUP_ID`、Save、Upload、RESET |
 | 完全沒有 Serial 文字 | Port／baud／USB 問題 | 回到階段 3 的 Serial 排錯，不動硬體線 |
@@ -925,8 +949,8 @@ A830L 為操作示例；若正式材料清單安排功能相當的其他型號�
 
 ### C. 直流電壓量測（上電）
 
-**電壓**是兩點之間的電位差，不是單獨一點自帶的數字。本實驗量測 TP5 相對
-TPG／GND 的電壓，所以黑表筆固定在 TPG，紅表筆才移到 TP5。
+**電壓**是兩點之間的電位差，不是單獨一點自帶的數字。本實驗量測TPO相對
+TPG／GND的電壓，所以黑表筆固定在TPG，紅表筆才移到TPO。
 
 #### C1. 切換到正確檔位
 
@@ -955,21 +979,21 @@ TPG／GND 的電壓，所以黑表筆固定在 TPG，紅表筆才移到 TP5。
 #### C3. LOW 電壓量測
 
 1. 完全放開按鈕。
-2. 看 Serial 是否出現 `pressed=false gpio5=LOW`；若沒有，先按下再放開一次。
-3. 紅表筆接觸 TP5 的另一個空孔。
+2. 看Serial是否出現`pressed=false test_output=LOW`；若沒有，先按下再放開一次。
+3. 紅表筆接觸TPO的另一個空孔。
 4. 等顯示穩定後記錄數值和正負號。
-5. 正常應接近 0V。若跳動很大，先確認表筆接觸與 TP5 接線。
+5. 正常應接近0V。若跳動很大，先確認表筆接觸與TPO接線。
 
 #### C4. HIGH 電壓量測
 
-1. 紅、黑表筆保持在 TP5、TPG。
+1. 紅、黑表筆保持在TPO、TPG。
 2. 請另一人按住按鈕，不要由量測者同時按。
-3. 看 Serial 是否出現 `pressed=true gpio5=HIGH`。
+3. 看Serial是否出現`pressed=true test_output=HIGH`。
 4. 等電表顯示穩定後記錄數值，正常應接近 3.3V。
 5. 請另一人放開按鈕，確認電壓回到接近 0V。
-6. 若顯示約 `-3.3V`，代表紅黑測點對調；停止並重新確認 TP5、TPG。
+6. 若顯示約`-3.3V`，代表紅黑測點對調；停止並重新確認TPO、TPG。
 
-| GPIO5 狀態 | 預期 | 實測值 |
+| 測試輸出狀態 | 預期 | 實測值 |
 |---|---:|---:|
 | LOW | 接近 0V |  V |
 | HIGH | 接近 3.3V |  V |
@@ -978,7 +1002,7 @@ TPG／GND 的電壓，所以黑表筆固定在 TPG，紅表筆才移到 TP5。
 
 #### C5. 量測結束與儀表復原
 
-1. 先把紅表筆移離 TP5，再移開黑表筆。
+1. 先把紅表筆移離TPO，再移開黑表筆。
 2. 拔除 ESP32 USB。
 3. 萬用電表旋鈕轉回 `OFF`。
 4. 表筆整理好後交給下一組。
@@ -988,7 +1012,7 @@ TPG／GND 的電壓，所以黑表筆固定在 TPG，紅表筆才移到 TP5。
 
 - [ ] 按鈕通斷結果符合實際狀態。
 - [ ] 220Ω、1kΩ及10kΩ都有檔位、實測值與單位。
-- [ ] GPIO5 LOW 與 HIGH 的量測值不同且合理。
+- [ ] `PIN_TEST_OUTPUT`的LOW與HIGH量測值不同且合理。
 - [ ] 實驗紀錄已記錄黑表筆接 GND 的原因。
 - [ ] 實驗紀錄已記錄為何程式顯示 HIGH 仍要實際量測。
 
@@ -1060,8 +1084,9 @@ if (stablePressed) {
 #### 完整參考程式
 
 ```cpp
-const int PIN_BUTTON = 4;
-const int PIN_TEST_OUTPUT = 5;
+// 由教師公布的同批板卡target-test profile填入；未公布時保持-1。
+const int PIN_BUTTON = -1;
+const int PIN_TEST_OUTPUT = -1;
 const char *GROUP_ID = "CHANGE_ME";
 
 bool stablePressed = false;
@@ -1070,9 +1095,19 @@ unsigned long changedAtMs = 0;
 const unsigned long DEBOUNCE_MS = 30;
 unsigned long pressCount = 0;
 
+bool profileReady() {
+  return PIN_BUTTON >= 0 && PIN_TEST_OUTPUT >= 0 &&
+         PIN_BUTTON != PIN_TEST_OUTPUT;
+}
+
 void setup() {
   Serial.begin(115200);
   delay(500);
+
+  if (!profileReady()) {
+    Serial.println("week=2 status=blocked reason=gpio_profile_missing");
+    return;
+  }
 
   pinMode(PIN_BUTTON, INPUT_PULLUP);
   pinMode(PIN_TEST_OUTPUT, OUTPUT);
@@ -1083,6 +1118,7 @@ void setup() {
 }
 
 void loop() {
+  if (!profileReady()) return;
   bool rawPressed = digitalRead(PIN_BUTTON) == LOW;
   unsigned long now = millis();
 
@@ -1105,7 +1141,7 @@ void loop() {
     }
 
     Serial.printf(
-      "group=%s event=button_changed pressed=%s gpio5=%s time_ms=%lu\n",
+      "group=%s event=button_changed pressed=%s test_output=%s time_ms=%lu\n",
       GROUP_ID,
       stablePressed ? "true" : "false",
       stablePressed ? "HIGH" : "LOW",
@@ -1126,10 +1162,10 @@ void loop() {
 
 1. Arduino IDE board、port 與 ESP32 package 版本。
 2. `version=2` 的第一次 Serial log。
-3. GPIO4 按鈕與 GPIO5 測試輸出的接線表。
+3. `PIN_BUTTON`按鈕與`PIN_TEST_OUTPUT`測試輸出的接線表及實際GPIO值。
 4. 接線清楚照片。
 5. 五次按壓測試表。
-6. 220Ω、1kΩ、10kΩ、通斷、GPIO5 LOW及HIGH的量測值。
+6. 220Ω、1kΩ、10kΩ、通斷、測試輸出LOW及HIGH的量測值。
 7. 修改後的完整程式。
 8. 基本練習的按壓計數；若完成選做延伸，再附上對應的 log／量測／測試表。
 9. 一項遇到的問題、證據、修改與結果。
@@ -1138,11 +1174,11 @@ void loop() {
 
 ## 十二、完成檢核與器材復原
 
-完成下列項目後，由教師或助教逐項檢查：
+完成下列項目後，由教師逐項檢查：
 
 - [ ] 每個工作站能選擇正確 Board 與 Port 並完成上傳。
 - [ ] Serial log 有組別、版本、按鈕事件與按壓計數。
-- [ ] GPIO4、GPIO5 與 GND 接線表正確。
+- [ ] `PIN_BUTTON`、`PIN_TEST_OUTPUT`與GND接線表正確，且GPIO值可追溯到profile。
 - [ ] 按鈕連續五次測試通過。
 - [ ] 三種散裝電阻、通斷及直流電壓量測都有檔位、測試點、單位與實測值。
 - [ ] 基本練習的按壓計數可重複驗證，並保存預期、實際結果及修改證據。

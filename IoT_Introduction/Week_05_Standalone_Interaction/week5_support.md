@@ -104,6 +104,8 @@
 | 6 | ERROR且fault仍存在 | `reset` |  |  |
 | 7 | ERROR | `clear`後`reset` |  |  |
 | 8 | 不允許的狀態 | `trigger` |  |  |
+| 9 | ERROR且尚未`clear` | `reset` |  |  |
+| 10 | ERROR且實體STOP仍按住 | `clear`或`reset` |  |  |
 
 ## 四、DRY RUN測試紀錄
 
@@ -114,6 +116,7 @@
 | `stop` |  |  | ☐是 ☐否 | ☐通過 ☐失敗 |
 | `fault` |  |  | ☐是 ☐否 | ☐通過 ☐失敗 |
 | fault未清除直接reset |  |  | ☐是 ☐否 | ☐通過 ☐失敗 |
+| timeout後未clear直接reset |  |  | ☐是 ☐否 | ☐通過 ☐失敗 |
 | `clear`後`reset` |  |  | ☐是 ☐否 | ☐通過 ☐失敗 |
 | 不合法命令 |  |  | ☐是 ☐否 | ☐通過 ☐失敗 |
 
@@ -259,6 +262,38 @@ DRY RUN log檔名：`____________________________`
 3. 為什麼ERROR不應在原因未清除時自動回IDLE？
 4. 為什麼KY-018拔線不能當作唯一感測故障測試？
 5. 哪些profile或實體條件仍未驗證？因此不能做出什麼結論？
+
+## 十三、Week 6課前軟體準備
+
+Week 6會在筆電執行Backend。下課後開啟PowerShell，逐一執行：
+
+```powershell
+git --version
+python --version
+```
+
+兩行都必須顯示版本號。若`python`找不到，再執行：
+
+```powershell
+py --version
+```
+
+若`py`可用，Week 6凡是`python -m ...`都可改成`py -m ...`。若Git或Python均
+無法顯示版本，從[Git for Windows官方下載頁](https://git-scm.com/downloads/win)
+與[Python官方Windows下載頁](https://www.python.org/downloads/windows/)安裝；
+安裝Python時勾選將Python加入PATH。安裝後關閉原PowerShell、開新視窗並重做
+版本檢查，不只以安裝畫面作為成功證據。
+
+課前確認repository中存在：
+
+```text
+examples/course_backend/app.py
+examples/course_backend/requirements.txt
+IoT_Introduction/Week_06_HTTP_WebSocket_Backend/week6_main.md
+```
+
+只需完成版本檢查與檔案確認；虛擬環境、套件及Backend會依Week 6 main建立。
+若失敗，保留作業系統版本、完整命令、完整錯誤及已嘗試方法，不提交密碼或token。
 
 ## 相關資料
 

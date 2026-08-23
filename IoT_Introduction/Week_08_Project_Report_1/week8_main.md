@@ -2,11 +2,35 @@
 
 日期：2026-10-28
 
+## Unit Overview
+
+### Teaching Objectives
+
+By the end of this project report, students will be able to:
+
+1. Define a specific user, use context, core physical interaction, and useful software
+   purpose for an IoT project.
+2. Demonstrate a repeatable hardware segment and connect the observation to its wiring,
+   program, and test evidence.
+3. Explain the proposed device, backend, database, and mobile data flow, including the
+   role of each layer.
+4. Evaluate materials, power, driver, network, schedule, and safety risks and establish
+   observable minimum acceptance criteria.
+
+### Teaching Content
+
+This project report develops a feasible project direction from a user need and a tested
+hardware segment. Students connect physical behavior to a proposed software purpose,
+describe the full system data flow, identify required and optional materials, and make
+technical risks visible. Feedback and questions are used to reduce scope and convert the
+proposal into testable acceptance criteria rather than a list of unverified features.
+
 ## 本週安排
 
 每組進行一次12–15分鐘報告、硬體片段示範與問答。本週就是期中小組成果，
 占學期成績15%，不另收內容重複的
-期中整合包。
+期中整合包。Week 8不要求完整成品；評量重點是已驗證片段能否支持題目、
+風險是否誠實，以及後續成果是否有可觀察的驗收方式。
 
 ## 每組必帶
 

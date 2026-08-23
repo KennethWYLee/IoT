@@ -156,23 +156,28 @@ GPIO 是 **General Purpose Input/Output**，意思是「通用輸入/輸出腳�
 例子：
 
 ```text
-GPIO 13 -> 控制 SG90 伺服馬達訊號線
-GPIO 14 -> 控制 RGB LED 的紅色腳
-GPIO 27 <- 讀取按鈕是否被按下
-GPIO 33 <- 讀取 PIR 是否偵測到動作
+PIN_SERVO     -> 控制 SG90 伺服馬達訊號線
+PIN_RGB_RED   -> 控制 RGB LED 的紅色腳
+PIN_BUTTON    <- 讀取按鈕是否被按下
+PIN_PIR       <- 讀取 PIR 是否偵測到動作
 ```
 
 程式概念：
 
 ```cpp
-pinMode(14, OUTPUT);
-digitalWrite(14, HIGH);  // 讓 GPIO 14 輸出高電位
+// 這兩個值只能從教師公布的verified pin profile填入。
+const int PIN_RGB_RED = -1;
+const int PIN_BUTTON = -1;
 
-pinMode(27, INPUT_PULLUP);
-int pressed = digitalRead(27);  // 讀按鈕狀態
+pinMode(PIN_RGB_RED, OUTPUT);
+digitalWrite(PIN_RGB_RED, HIGH);
+
+pinMode(PIN_BUTTON, INPUT_PULLUP);
+int pressed = digitalRead(PIN_BUTTON);
 ```
 
-注意：不是每個 ESP32-S3 腳位都適合所有用途。課堂會給固定腳位表，學生照表接線。
+注意：不是每個 ESP32-S3 腳位都適合所有用途。教師會先用同批板卡完成
+target test，再公布當週verified pin profile；學生只依該profile接線。
 
 ## Q6. GND 是什麼？
 

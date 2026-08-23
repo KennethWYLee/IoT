@@ -6,11 +6,13 @@
 Serial Monitor不只會顯示數字，還會標示單位、狀態、有效性與失敗原因。
 光線門檻必須來自自己的重複量測，不直接複製別人的數字。
 
-> 驗證狀態：本版已依Espressif官方資料選擇GPIO4作ADC輸入、GPIO5作
-> DHT11資料腳。三個程式已以Arduino CLI 1.4.1、Espressif `esp32` core 3.3.11、
+> 驗證狀態：Espressif官方資料支持GPIO4作為ADC候選輸入，GPIO5作為一般
+> 數位候選腳位；但它們尚未完成本批板卡與模組的target test，因此程式預設
+> `PIN_LIGHT=-1`與`PIN_DHT=-1`。三個程式已以Arduino CLI 1.4.1、Espressif `esp32` core 3.3.11、
 > `esp32:esp32:esp32s3`、DHT sensor library 1.4.7及Adafruit Unified Sensor 1.1.15
 > 完成compile。`docs/hardware_state.md`中的指定板卡與模組仍為`unverified`；
-> 未進行指定實物的Upload、Serial輸出、接線、量測或故障注入。
+> 未進行指定實物的Upload、Serial輸出、接線、量測或故障注入。學生只能將教師
+> 公布、且可追溯至target-test紀錄的腳位填入placeholder。
 
 ## 一、Unit Overview
 
@@ -45,7 +47,7 @@ state, validity, and diagnostic reason reflect the actual quality of the measure
 Safe power removal, physical connection checks, repeatable testing, and recovery evidence
 are applied throughout the activity.
 
-### 必做實驗流程
+### 核心實驗流程
 
 | 階段 | 開始前狀態 | 操作 | 完成條件 |
 |---|---|---|---|
@@ -75,6 +77,10 @@ are applied throughout the activity.
 軟體條件：Arduino IDE 2、Espressif `esp32` board package，以及Adafruit的
 `DHT sensor library`與`Adafruit Unified Sensor`。如尚無法Verify、Upload或開啟
 Serial Monitor，先回到[Week 2主教材](../Week_02_ESP32_Hardware_Basics/week2_main.md)排除開發環境問題。
+
+硬體進入條件：`docs/hardware_state.md`已有本批板卡的Week 2 target-test紀錄，
+而且教師已公布KY-018使用的ADC GPIO與DHT11資料GPIO。未達成時只執行library安裝及
+compile-only，不接模組、不Upload，也不把候選GPIO4／GPIO5當成固定答案。
 
 ## 三、安全與資料原則
 
@@ -136,7 +142,7 @@ ESP32讀到的是ADC raw value，不是lux或絕對照度。
 
 | 實物絲印 | 作用 | 將連接到 |
 |---|---|---|
-| ______ | 訊號 | GPIO4／ADC |
+| ______ | 訊號 | profile的`PIN_LIGHT`／ADC GPIO |
 | ______ | 電源 | 3V3 |
 | ______ | 參考地 | GND |
 
@@ -150,7 +156,7 @@ DHT11模組將溫度與相對濕度以數位通訊送給ESP32，不使用`analog
 
 | 實物絲印 | 作用 | 將連接到 |
 |---|---|---|
-| ______ | 資料 | GPIO5 |
+| ______ | 資料 | profile的`PIN_DHT` |
 | ______ | 電源 | 3V3 |
 | ______ | 參考地 | GND |
 
@@ -158,11 +164,12 @@ DHT11模組將溫度與相對濕度以數位通訊送給ESP32，不使用`analog
 
 ## 五、KY-018類比讀取與校正
 
-### ADC、raw value與GPIO4
+### ADC、raw value與`PIN_LIGHT`
 
 ADC是Analog-to-Digital Converter（類比數位轉換器）。本程式設為12-bit，
-`analogRead()`預期回傳0～4095的raw value。GPIO4是ESP32-S3的ADC1腳位；
-本週不保留Week 2的GPIO4按鈕線路。
+`analogRead()`預期回傳0～4095的raw value。官方資料將候選GPIO4列為
+ESP32-S3 ADC1腳位；真正使用值以教師公布的`PIN_LIGHT`為準。本週不保留
+Week 2的按鈕輸入線路。
 
 ### 步驟1：接線
 
@@ -170,17 +177,17 @@ ADC是Analog-to-Digital Converter（類比數位轉換器）。本程式設為12
 
 | KY-018 | 連接方式 | 接到 | 接回USB前確認 |
 |---|---|---|---|
-| `S`或訊號 | 母對母線 | GPIO4 | 不是5V、3V3或GND |
+| `S`或訊號 | 母對母線 | profile的`PIN_LIGHT` | 不是5V、3V3或GND |
 | `+`或VCC | 公對母線 | `P3V3`五孔組 | `P3V3`另一條線回到ESP32 3V3 |
 | `-`或GND | 公對母線 | `PGND`五孔組 | `PGND`另一條線回到ESP32 GND |
 
-![KY-018與ESP32-S3接線圖](../../docs/images/wiring/week3_ky018.svg)
+![KY-018訊號接到profile ADC GPIO、電源接3V3、接地接GND](../../docs/images/wiring/week3_ky018.svg)
 
 此圖只表示三條線的電氣關係；實際供電依前述方法經`P3V3`與`PGND`分接，
 不將模組VCC或GND直接套接到已被占用的ESP32排針。
 
-用手指沿著每一條線走完整條路徑：訊號→GPIO4、VCC→P3V3→ESP32 3V3、
-GND→PGND→ESP32 GND。接著從GPIO4、3V3與GND反向檢查回模組。確認正向與
+用手指沿著每一條線走完整條路徑：訊號→`PIN_LIGHT`、VCC→P3V3→ESP32 3V3、
+GND→PGND→ESP32 GND。接著從`PIN_LIGHT`、3V3與GND反向檢查回模組。確認正向與
 反向結果一致，而且沒有任何線接到5V後，拍攝能看見模組絲印、ESP32腳位及
 P3V3／PGND的俯視照片，才能接回USB。
 
@@ -190,7 +197,8 @@ P3V3／PGND的俯視照片，才能接回USB。
 `week3_ky018_calibration`，貼上完整程式：
 
 ```cpp
-const int PIN_LIGHT = 4;
+// 由教師公布的ADC target-test profile填入；未公布時保持-1。
+const int PIN_LIGHT = -1;
 const int SAMPLE_COUNT = 30;
 const unsigned long SAMPLE_INTERVAL_MS = 100;
 
@@ -205,6 +213,10 @@ struct Profile {
 Profile darkProfile = {"DARK", 0, 0, 0, false};
 Profile normalProfile = {"NORMAL", 0, 0, 0, false};
 Profile brightProfile = {"BRIGHT", 0, 0, 0, false};
+
+bool pinProfileReady() {
+  return PIN_LIGHT >= 0;
+}
 
 void captureProfile(Profile& profile) {
   long total = 0;
@@ -323,12 +335,17 @@ void reportCurrent() {
 void setup() {
   Serial.begin(115200);
   delay(1000);
+  if (!pinProfileReady()) {
+    Serial.println("week=3 sensor=ky018 status=blocked reason=gpio_profile_missing");
+    return;
+  }
   analogReadResolution(12);
   Serial.println("week=3 sensor=ky018 status=ready adc_bits=12");
   Serial.println("commands: d=DARK n=NORMAL b=BRIGHT r=read");
 }
 
 void loop() {
+  if (!pinProfileReady()) return;
   if (Serial.available() == 0) return;
   char command = Serial.read();
   while (Serial.available() > 0) Serial.read();
@@ -396,7 +413,7 @@ calibration_valid=true direction=<raw_rises_with_light或raw_falls_with_light> t
 2. 保留一筆正常log後拔除USB。
 3. 只移除KY-018訊號線，保留3V3與GND，拍照後復電並送出`r`。
 4. 記錄raw固定、漂動或靠近0／4095；不先假設特定數字。
-5. 斷電後將訊號線恢復到GPIO4，復電、重新校正並保留正常log。
+5. 斷電後將訊號線恢復到profile的`PIN_LIGHT`，復電、重新校正並保留正常log。
 
 本程式無法可靠辨識所有KY-018斷線狀況，這項限制必須寫入Lab Note。
 
@@ -410,17 +427,17 @@ calibration_valid=true direction=<raw_rises_with_light或raw_falls_with_light> t
 
 | DHT11 | 連接方式 | 接到 | 接回USB前確認 |
 |---|---|---|---|
-| `S`或`OUT` | 母對母線 | GPIO5 | 不是5V、3V3或GND |
+| `S`或`OUT` | 母對母線 | profile的`PIN_DHT` | 不是5V、3V3或GND |
 | `+`或`VCC` | 公對母線 | `P3V3`五孔組 | `P3V3`另一條線回到ESP32 3V3 |
 | `-`或`GND` | 公對母線 | `PGND`五孔組 | `PGND`另一條線回到ESP32 GND |
 
-![DHT11與ESP32-S3接線圖](../../docs/images/wiring/week3_dht11.svg)
+![DHT11資料接到profile數位GPIO、電源接3V3、接地接GND](../../docs/images/wiring/week3_dht11.svg)
 
 此圖只表示電氣關係；實際VCC與GND仍分別接到`P3V3`與`PGND`。
 
-用手指先依DATA→GPIO5、VCC→P3V3→3V3、GND→PGND→GND正向檢查，再從
+用手指先依DATA→`PIN_DHT`、VCC→P3V3→3V3、GND→PGND→GND正向檢查，再從
 ESP32反向檢查回DHT11。兩次結果一致且沒有線接到5V後，拍攝可看見DHT11
-絲印、GPIO5、P3V3與PGND的俯視照片。
+絲印、`PIN_DHT`、P3V3與PGND的俯視照片。
 
 ### 步驟2：安裝library
 
@@ -439,13 +456,18 @@ ESP32反向檢查回DHT11。兩次結果一致且沒有線接到5V後，拍攝�
 ```cpp
 #include <DHT.h>
 
-const int PIN_DHT = 5;
+// 由教師公布的DHT11 target-test profile填入；未公布時保持-1。
+const int PIN_DHT = -1;
 const int DHT_TYPE = DHT11;
 const unsigned long SAMPLE_INTERVAL_MS = 2500;
 const char* DEVICE_ID = "student01";
 
 DHT dht(PIN_DHT, DHT_TYPE);
 unsigned long lastSampleMs = 0;
+
+bool pinProfileReady() {
+  return PIN_DHT >= 0;
+}
 
 void reportReading(float temperatureC, float humidityPct) {
   if (isnan(temperatureC) || isnan(humidityPct)) {
@@ -474,12 +496,17 @@ void reportReading(float temperatureC, float humidityPct) {
 void setup() {
   Serial.begin(115200);
   delay(1000);
+  if (!pinProfileReady()) {
+    Serial.println("week=3 sensor=dht11 status=blocked reason=gpio_profile_missing");
+    return;
+  }
   dht.begin();
   Serial.printf("week=3 sensor=dht11 status=ready interval_ms=%lu\n",
                 SAMPLE_INTERVAL_MS);
 }
 
 void loop() {
+  if (!pinProfileReady()) return;
   unsigned long now = millis();
   if (now - lastSampleMs < SAMPLE_INTERVAL_MS) return;
   lastSampleMs = now;
@@ -499,7 +526,7 @@ void loop() {
 ### 步驟4：上傳與觀察
 
 1. 依接線表正向、反向各檢查一次：VCC→P3V3→3V3、GND→PGND→GND、
-   DATA→GPIO5。
+   DATA→profile的`PIN_DHT`。
 2. 接回USB，Verify、Upload，再開啟115200 baud的Serial Monitor。
 3. 等待至少5筆，不對感測器吹氣、潑水或加熱。
 4. 正常格式為：
@@ -529,7 +556,7 @@ device=<你的裝置代碼> uptime_ms=<實測> sensor=dht11 temperature_c=nan hu
 ```
 
 4. 如現象不同，記錄實際結果，不修改證據去符合範例。
-5. 拔除USB，將資料線恢復到GPIO5。
+5. 拔除USB，將資料線恢復到profile的`PIN_DHT`。
 6. 復電後保留至少兩筆`valid=true`。
 
 ## 七、整合兩種感測資料
@@ -537,22 +564,24 @@ device=<你的裝置代碼> uptime_ms=<實測> sensor=dht11 temperature_c=nan hu
 本階段不傳Wi-Fi、JSON或Backend；先將本機資料整理成一致欄位。
 
 1. 拔除USB，保留DHT11線路以及ESP32到`P3V3`、`PGND`的兩條電源線。
-2. 用母對母線將KY-018訊號腳接到GPIO4。
+2. 用母對母線將KY-018訊號腳接到profile的`PIN_LIGHT`。
 3. 用公對母線將KY-018 VCC接到`P3V3`，再用一條公對母線將KY-018 GND
    接到`PGND`。
 4. 確認`P3V3`五孔組共有三條線，分別通往ESP32 3V3、KY-018 VCC與DHT11
    VCC；`PGND`也有三條線，分別通往ESP32 GND與兩個模組的GND。
-5. 確認GPIO4只接KY-018訊號、GPIO5只接DHT11資料，沒有任何線接到5V。
+5. 確認`PIN_LIGHT`只接KY-018訊號、`PIN_DHT`只接DHT11資料，沒有任何線接到5V。
 6. 先正向、再反向逐線檢查，拍攝能辨識所有端點的俯視照片後才能復電。
-7. 建立`week3_combined_sensors`並貼上程式。依校正輸出修改`DEVICE_ID`、
-   `LIGHT_DIRECTION`及兩個threshold。只有校正輸出為`calibration_valid=true`時，
-   才能把`LIGHT_PROFILES_SEPARATED`改成`true`。
+7. 建立`week3_combined_sensors`並貼上程式。依target-test紀錄填入`PIN_LIGHT`與
+   `PIN_DHT`，再依校正輸出修改`DEVICE_ID`、`LIGHT_DIRECTION`及兩個threshold。
+   只有校正輸出為`calibration_valid=true`時，才能把
+   `LIGHT_PROFILES_SEPARATED`改成`true`。
 
 ```cpp
 #include <DHT.h>
 
-const int PIN_LIGHT = 4;
-const int PIN_DHT = 5;
+// 由教師公布的target-test profile填入；未公布時保持-1。
+const int PIN_LIGHT = -1;
+const int PIN_DHT = -1;
 const int DHT_TYPE = DHT11;
 const unsigned long SAMPLE_INTERVAL_MS = 2500;
 const char* DEVICE_ID = "student01";
@@ -565,6 +594,10 @@ const bool LIGHT_PROFILES_SEPARATED = false;
 
 DHT dht(PIN_DHT, DHT_TYPE);
 unsigned long lastSampleMs = 0;
+
+bool pinProfileReady() {
+  return PIN_LIGHT >= 0 && PIN_DHT >= 0 && PIN_LIGHT != PIN_DHT;
+}
 
 bool lightConfigured() {
   bool directionReady = LIGHT_DIRECTION == 1 || LIGHT_DIRECTION == -1;
@@ -630,12 +663,17 @@ void reportCombined() {
 void setup() {
   Serial.begin(115200);
   delay(1000);
+  if (!pinProfileReady()) {
+    Serial.println("week=3 mode=combined status=blocked reason=gpio_profile_missing");
+    return;
+  }
   analogReadResolution(12);
   dht.begin();
   Serial.println("week=3 mode=combined status=ready");
 }
 
 void loop() {
+  if (!pinProfileReady()) return;
   unsigned long now = millis();
   if (now - lastSampleMs < SAMPLE_INTERVAL_MS) return;
   lastSampleMs = now;
@@ -672,12 +710,12 @@ Week 6會將`device`、`uptime_ms`、`light_raw`、`light_state`、`temperature_
 |---|---|---|---|
 | 無Port | 更換已知可傳資料的USB線與USB孔 | 檢查Week 2環境 | 不先改感測腳 |
 | `DHT.h`找不到 | 查Library Manager | 核對Adafruit作者與依賴 | 不改接線 |
-| KY-018永遠0 | 拔USB | 核對S→GPIO4、VCC→3V3、GND→GND | 不帶電改線 |
+| KY-018永遠0 | 拔USB | 核對S→`PIN_LIGHT`、VCC→3V3、GND→GND | 不帶電改線 |
 | KY-018永遠4095 | 拔USB | 檢查訊號浮接或誤接3V3 | 不用手指短接 |
-| raw不隨光變 | 確認光真正照到光敏電阻 | 斷電核對GPIO4與絲印 | 不猜測數值方向 |
+| raw不隨光變 | 確認光真正照到光敏電阻 | 斷電核對`PIN_LIGHT`與絲印 | 不猜測數值方向 |
 | `profiles_overlap` | 保留原始資料 | 重新固定遮光與手電筒距離 | 不任意改數字 |
 | `profiles_not_ordered` | 保留三組統計 | 固定三種條件後重新量測 | 不交換標籤掩蓋結果 |
-| DHT持續`read_failed` | 拔USB | 核對DATA→GPIO5、VCC→3V3、GND→GND | 不改5V試錯 |
+| DHT持續`read_failed` | 拔USB | 核對DATA→`PIN_DHT`、VCC→3V3、GND→GND | 不改5V試錯 |
 | DHT重複舊值 | 恢復2500 ms間隔 | 核對library版本 | 不吹氣、潑水或加熱 |
 | ESP32反覆重啟 | 立即拔USB | 拆模組，先驗證空板 | 不連續復電 |
 | `light_not_calibrated` | 檢查direction或threshold是否仍為預設值 | 填入自己的校正輸出並重上傳 | 不複製別組數字 |

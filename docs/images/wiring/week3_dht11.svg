@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1120" height="500" viewBox="0 0 1120 500" role="img" aria-labelledby="title desc">
   <title id="title">Week 3 DHT11與ESP32-S3接線圖</title>
-  <desc id="desc">DHT11資料腳連GPIO5，電源腳連3V3，接地腳連GND。依實物絲印辨識腳位。</desc>
+  <desc id="desc">DHT11資料腳連到target-test profile指定的數位GPIO，電源腳連3V3，接地腳連GND。依實物絲印辨識腳位。</desc>
   <rect width="1120" height="500" fill="#f8fafc"/>
   <text x="560" y="48" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="700" fill="#0f172a">Week 3：YS-31 DHT11 ↔ ESP32-S3</text>
   <rect x="80" y="105" width="340" height="270" rx="18" fill="#eff6ff" stroke="#1d4ed8" stroke-width="3"/>
@@ -11,7 +11,7 @@
   <circle cx="390" cy="335" r="9" fill="#111827"/><text x="330" y="342" text-anchor="end" font-family="monospace" font-size="22">- / GND</text>
   <rect x="700" y="105" width="340" height="270" rx="18" fill="#ecfdf5" stroke="#047857" stroke-width="3"/>
   <text x="870" y="150" text-anchor="middle" font-family="sans-serif" font-size="25" font-weight="700" fill="#065f46">ESP32-S3</text>
-  <circle cx="730" cy="235" r="9" fill="#f59e0b"/><text x="780" y="242" font-family="monospace" font-size="22">GPIO5 / DATA</text>
+  <circle cx="730" cy="235" r="9" fill="#f59e0b"/><text x="780" y="242" font-family="monospace" font-size="22">PIN_DHT / DATA</text>
   <circle cx="730" cy="285" r="9" fill="#dc2626"/><text x="780" y="292" font-family="monospace" font-size="22">3V3</text>
   <circle cx="730" cy="335" r="9" fill="#111827"/><text x="780" y="342" font-family="monospace" font-size="22">GND</text>
   <line x1="399" y1="235" x2="721" y2="235" stroke="#f59e0b" stroke-width="6"/>
