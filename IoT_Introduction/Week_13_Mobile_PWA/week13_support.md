@@ -1,6 +1,6 @@
-# Week 12支援資料
+# Week 13支援資料
 
-實作要求見[Week 12主教材](week12_main.md)。
+實作要求見[Week 13主教材](week13_main.md)。
 
 ## 手機核心流程表
 

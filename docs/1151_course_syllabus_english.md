@@ -72,10 +72,10 @@ student-built device software, backend, database, and mobile interface.
 | 9 | 2026-11-04 | Instructor Conference Travel: No Required Attendance and No New Assessed Evidence |
 | 10 | 2026-11-11 | MQTT, Multi-device Topics, Presence, Commands, and Acknowledgements |
 | 11 | 2026-11-18 | Databases, Historical Queries, Structured Logs, and Basic Analysis |
-| 12 | 2026-11-25 | Mobile Frontends, PWA, WebSocket, User Flows, and Permissions |
-| 13 | 2026-12-02 | Individual Examination 2: Network Communication and Hardware-software Integration Architecture; No New Instruction or Lab Work |
+| 12 | 2026-11-25 | Project Report 2: Progress Review, Feedback, and Revision Plan |
+| 13 | 2026-12-02 | Mobile Frontends, PWA, WebSocket, User Flows, and Permissions |
 | 14 | 2026-12-09 | Development Workshop: Automation, Safety, Fault Recovery, and Clean-environment Rebuild |
-| 15 | 2026-12-16 | Project Report 2, Revisions, Rehearsal, and Version Freeze |
+| 15 | 2026-12-16 | Individual Examination 2: Network Communication and Hardware-software Integration Architecture; No New Instruction or Lab Work |
 | 16 | 2026-12-23 | Project Report 3: Final Demonstration and Individual Questions; Scheduled Groups; No New Instruction |
 | 17 | 2026-12-30 | Project Report 3: Final Demonstration and Individual Questions; Scheduled Groups; No New Instruction |
 | 18 | 2027-01-06 | University Final Examination Week: Reserved; No Regular Course Material, New Content, or Assessment |
@@ -87,8 +87,8 @@ student-built device software, backend, database, and mobile interface.
 | Regular Coursework | 15% |
 | Individual Examination 1 (Week 7) | 15% |
 | Project Report 1 (Week 8) | 15% |
-| Individual Examination 2 (Week 13) | 15% |
-| Project Report 2 (Week 15) | 15% |
+| Individual Examination 2 (Week 15) | 15% |
+| Project Report 2 (Week 12) | 15% |
 | Project Report 3 (Weeks 16-17) | 25% |
 | Total | 100% |
 

@@ -5,7 +5,7 @@
 ## 上台前現場表
 
 - [ ] 電源、電池、USB線、轉接線、作品固定與絕緣已檢查。
-- [ ] Week 15凍結commit／tag可辨識，Backend、Database與前台可依步驟重啟。
+- [ ] Week 12～14進度commit可辨識，Backend、Database與前台可依步驟重啟。
 - [ ] 手機已登入、充電且關閉非必要通知。
 - [ ] 網路正常版與離線備案都已彩排。
 - [ ] 接線圖、資料流、BOM、API／topic、測試、log與已知限制可隨時開啟。

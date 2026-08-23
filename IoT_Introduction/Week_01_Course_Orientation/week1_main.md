@@ -75,10 +75,10 @@ system announcement.
 | 9 | 11-04 | Instructor abroad | No required attendance and no new assessed work; optional reading is provided |
 | 10 | 11-11 | MQTT, multiple devices, topics, presence, and acknowledgement | Telemetry, online and offline states, commands, and responses |
 | 11 | 11-18 | Database, historical API, structured logs, and analysis | Data tables, historical queries, and error explanations |
-| 12 | 11-25 | Mobile frontend, responsive web or PWA, and permissions | Real-time data, history, controls, and error or offline flows |
-| 13 | 12-02 | Individual Written Exam 2: network communication and integrated hardware-software architecture | Individual written work for the entire class; no new content or laboratory work |
+| 12 | 11-25 | Project Report 2: progress review, feedback, and revision plan | Current implementation evidence, identified problems, feedback, and a prioritized revision plan |
+| 13 | 12-02 | Mobile frontend, responsive web or PWA, and permissions | Real-time data, history, controls, and error or offline flows |
 | 14 | 12-09 | Automation, safety, fault recovery, and reconstruction | Automated behavior, three fault tests, recovery, and reconstruction in a clean environment |
-| 15 | 12-16 | Project Report 2, revision, rehearsal, and version freeze | Complete data path, usability testing, revisions, two rehearsals, and a frozen release |
+| 15 | 12-16 | Individual Written Exam 2: network communication and integrated hardware-software architecture | Individual written work for the entire class; no new content or laboratory work |
 | 16 | 12-23 | Project Report 3: final demonstration and individual questions | Final presentations according to the published schedule; no new content |
 | 17 | 12-30 | Project Report 3: final demonstration and individual questions | Final presentations according to the published schedule; no new content |
 | 18 | 01-06 | University final examination week: reserved | No regular materials, new content, or assessment |
@@ -90,8 +90,8 @@ system announcement.
 | Coursework | 15% | Weekly laboratory work, questions and answers, Lab Notebook, documentation, safety, collaboration, and verified AI use |
 | Individual Written Exam 1 (Week 7) | 15% | Hardware wiring, GPIO and GND, voltage, common ground, sensing, actuation, power, and safety |
 | Project Report 1 (Week 8) | 15% | Topic, hardware segment, software purpose, architecture, materials, risks, and acceptance criteria |
-| Individual Written Exam 2 (Week 13) | 15% | Wi-Fi, HTTP, JSON, WebSocket, MQTT, integrated data flow, and log-based troubleshooting |
-| Project Report 2 (Week 15) | 15% | End-to-end data path, mobile workflow, historical data, logs, usability testing, and revision evidence |
+| Individual Written Exam 2 (Week 15) | 15% | Wi-Fi, HTTP, JSON, WebSocket, MQTT, integrated data flow, and log-based troubleshooting |
+| Project Report 2 (Week 12) | 15% | Current implementation evidence, progress status, identified problems, risk analysis, and a revision plan |
 | Project Report 3 (Weeks 16-17) | 25% | Complete physical interaction, frontend and backend, data, reliability, testing, documentation, and individual understanding |
 | Total | 100% |  |
 

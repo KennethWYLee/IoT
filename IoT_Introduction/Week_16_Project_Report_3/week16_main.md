@@ -24,7 +24,7 @@
 ## 上台前檢核
 
 - [ ] 電源、線材、帳號、網路與離線備案已確認。
-- [ ] 使用Week 15凍結版本，commit或tag可辨識。
+- [ ] Week 12～14各階段commit可辨識，並指定最新已驗證展示版本。
 - [ ] 所有組員能解釋完整資料流。
 
 參考：[期末Rubric](../../docs/course_materials/rubrics_and_checklists.md)
