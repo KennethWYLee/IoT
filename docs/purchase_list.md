@@ -1,7 +1,7 @@
 # 採購原則與材料清單
 
 發給學生的正式品項、數量、使用週次與到貨檢查，以Week 1的
-[學生材料採購總表](../IoT_Introduction/Week_01_Course_Orientation/student_purchase_list.md)
+[學生材料採購總表](../IoT_Introduction/Week_01_Course_Orientation/week1_support.md#一學生材料採購總表)
 為唯一依據。本文件保留課程採購原則、課堂萬用電表、專題選配及教師示範政策。
 
 本課不要求學生製作車輛，也不以買更多模組換取更高成績。共同材料先支援
@@ -24,7 +24,7 @@ NT$659／人；USB資料線、AA電池、安全轉接端子、斜口鉗、剝線
 容器由學生自備且另計，OLED不列共同必買。
 
 各品項的確切規格、數量與週次不得在本文件另建一份副本，應直接查閱
-[學生材料採購總表](../IoT_Introduction/Week_01_Course_Orientation/student_purchase_list.md)，
+[學生材料採購總表](../IoT_Introduction/Week_01_Course_Orientation/week1_support.md#一學生材料採購總表)，
 避免兩份清單失去同步。
 
 電池盒列入個人自購，不等於可任意裝入四顆電池後直接接上舵機。AA 電池類型、

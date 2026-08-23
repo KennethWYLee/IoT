@@ -47,7 +47,7 @@ GPIO 按鈕輸入、數位輸出及萬用電表驗證。
 零件盒內。
 
 上課前請依 Week 1 公布的正式材料清單完成準備，並使用[Week 2 器材與必帶
-確認表](week02_purchase_list.md)逐項檢查。這份確認表只說明本實驗會用到什麼，
+確認表](week2_support.md#一本週必帶與器材確認)逐項檢查。這份確認表只說明本實驗會用到什麼，
 不取代全課程正式購買清單；不得因教師目前持有三套設備，就推定每組一定有
 教師設備可用。
 
@@ -114,7 +114,7 @@ Arduino IDE 版本：____________________
 Espressif esp32 package 版本：____________________
 ```
 
-7. 用瀏覽器開啟本 repository，確認目前看到的檔名是 `Week2教材.md`。
+7. 用瀏覽器開啟本 repository，確認目前看到的檔名是 `week2_main.md`。
 
 最後勾選：
 
@@ -124,7 +124,7 @@ Espressif esp32 package 版本：____________________
 - [ ] USB 線已知具有資料傳輸功能。
 
 任一項未完成時，應先進入環境排錯區。每位學生均須完成自己的環境驗收。
-課前安裝方式見[Week 2 課前環境準備](../Week_01_Course_Orientation/preclass_setup.md)。
+課前安裝方式見[Week 2 課前環境準備](../Week_01_Course_Orientation/week1_support.md#三week-2課前環境準備)。
 
 ### 步驟 2：辨識板卡，不接線
 
@@ -594,7 +594,7 @@ ESP32 插在 `B`、`I` 欄時，不要把杜邦線硬塞到排針旁邊。請看
 
 本週的電氣關係必須是：
 
-![Week 2 GPIO4 按鈕與 GPIO5 量測點接線圖](wiring_gpio4_gpio5.svg)
+![Week 2 GPIO4 按鈕與 GPIO5 量測點接線圖](../../docs/images/wiring/week2_gpio4_gpio5.svg)
 
 ```text
 ESP32 GPIO4 -------- 按鈕的一側

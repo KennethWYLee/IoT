@@ -4,7 +4,7 @@
 板上絲印、資料表及實測為準，不以外觀相似的網路圖片判定腳位或電壓。
 
 - [學生用訂單設備圖鑑](order_gallery.md)：五張訂單參考圖與品項對照。
-- [課程用設備索引](../../../IoT_Introduction/Week_02_ESP32_Hardware_Basics/equipment_index.md)：Week 2 的器材規格與數量。
+- [課程用設備索引](../../../IoT_Introduction/Week_02_ESP32_Hardware_Basics/week2_support.md#二已購設備辨識索引)：Week 2 的器材規格與數量。
 
 ## 狀態
 

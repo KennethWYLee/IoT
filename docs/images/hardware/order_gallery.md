@@ -4,7 +4,7 @@
 只保留作購買紀錄；**不可把商品圖當成接線圖或腳位文件**。使用前應再核對
 實物正反面、板身絲印、電壓及可靠的 pinout／datasheet。
 
-完整數量與用途分類見[Week 2 設備索引](../../../IoT_Introduction/Week_02_ESP32_Hardware_Basics/equipment_index.md)。
+完整數量與用途分類見[Week 2 設備索引](../../../IoT_Introduction/Week_02_ESP32_Hardware_Basics/week2_support.md#二已購設備辨識索引)。
 
 ## 訂單圖 1：基礎原型、馬達與電源
 

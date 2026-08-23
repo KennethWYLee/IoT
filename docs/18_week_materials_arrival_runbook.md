@@ -36,7 +36,7 @@
   密封袋及標籤。課堂只提供萬用電表。
 
 確切規格、數量與使用週次以Week 1的
-[學生材料採購總表](../IoT_Introduction/Week_01_Course_Orientation/student_purchase_list.md)
+[學生材料採購總表](../IoT_Introduction/Week_01_Course_Orientation/week1_support.md#一學生材料採購總表)
 為準。
 
 題目確認前不要求購買感測器大全包、相機板、Raspberry Pi、車體、LiDAR

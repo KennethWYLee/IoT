@@ -23,7 +23,7 @@
 - 本週原則：課堂不發硬體、不接線、不上傳程式；課後完成 Arduino IDE、
   Espressif ESP32 board package 與課程資料下載。
 - 說明：課程定位、18 週節奏、每週紀錄方式、成績配分及 AI 使用責任。
-- 材料：使用Week 1的[學生材料採購總表](../../IoT_Introduction/Week_01_Course_Orientation/student_purchase_list.md)，
+- 材料：使用Week 1的[學生材料採購總表](../../IoT_Introduction/Week_01_Course_Orientation/week1_support.md#一學生材料採購總表)，
   說明個人必買、已有即可、課堂只提供萬用電表、專題選配、準備期限、預算與缺料處理。
 - 作品：說明第 8 週題目與技術可行性訪談、第 13／15 週進度檢查及
   第 17 週期末展示，並比較可接受、範圍過大與只有硬體／軟體單邊的案例。

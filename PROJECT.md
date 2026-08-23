@@ -22,7 +22,7 @@
   可選題目、安全責任與學生採購方式；不操作硬體、不安裝開發環境、
   不進行程式上傳。
 - 全班共同材料的正式「學生必買／已有即可／課堂提供／專題選配」清單已定稿，
-  以`IoT_Introduction/Week_01_Course_Orientation/student_purchase_list.md`為唯一
+  以`IoT_Introduction/Week_01_Course_Orientation/week1_support.md`的採購總表為唯一
   學生採購依據，於第1週公布，Week 2上課前備妥。
 - 基本材料由每位學生自行購買，不由教師替各組購買；電子基本包依既有成交價
   估算為NT$659／人。USB資料線、AA電池、電池盒安全轉接端子、
@@ -37,6 +37,9 @@
   歷史查詢與手機前台。
 - 第 13、15 週檢查同一件期末作品的進度；第 17 週展示；第 18 週只
   提供進階自學教材，不新增評量。
+- `IoT_Introduction/`的每個週次資料夾固定只放兩個Markdown檔：
+  `weekN_main.md`為學生主教材，`weekN_support.md`放課前準備、表格、
+  證據紀錄、故障排除與延伸資料；圖片與共用資源放在週次資料夾之外。
 
 ## 共同作品要求
 
