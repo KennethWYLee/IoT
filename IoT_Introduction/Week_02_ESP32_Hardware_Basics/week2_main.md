@@ -3,19 +3,35 @@
 本章以 ESP32-S3 開發板為實驗平台，完成開發環境確認、程式編譯與上傳、
 GPIO 按鈕輸入、數位輸出及萬用電表驗證。
 
-## 一、學習目標
+## 一、Unit Overview
 
-完成本章後，學生應能：
+### Teaching Objectives
 
-1. 辨認並記錄 ESP32-S3、USB、GPIO、GND、3.3V 與 5V 的用途。
-2. 在 Arduino IDE 選擇正確開發板及連接埠。
-3. 編譯、上傳程式並使用 Serial Monitor 查看 log。
-4. 用萬用電表確認通斷與直流電壓。
-5. 將按鈕接到 GPIO4，使用 `INPUT_PULLUP` 讀取狀態。
-6. 使用 GPIO5 產生 HIGH／LOW，並以 Serial 與萬用電表證明結果。
-7. 保存接線圖、程式、log、量測值及測試結果。
+By the end of this unit, students will be able to:
 
-## 實驗流程
+1. Identify the ESP32-S3 power, ground, USB, and GPIO connections required for a
+   safe digital input and output circuit.
+2. Configure Arduino IDE, compile and upload a program, and interpret Serial Monitor
+   output.
+3. Build and test a push-button input with `INPUT_PULLUP` and a GPIO HIGH/LOW output.
+4. Use continuity and DC voltage measurements to verify the physical circuit and the
+   program state.
+5. Use wiring, Serial logs, and measurements together to locate and explain a fault.
+
+### Teaching Content
+
+This unit introduces the complete workflow for developing a small embedded system with
+an ESP32-S3. Students will identify the board connections, configure the development
+environment, upload firmware, and use Serial output to observe what the program is doing.
+
+The hardware activity connects a push button as a digital input and uses another GPIO
+as a measurable digital output. Students will learn how `INPUT_PULLUP`, HIGH, LOW, GND,
+and 3.3V logic relate to the physical circuit. A multimeter will then be used to verify
+continuity and voltage so that software messages are supported by physical evidence.
+Safe power handling, systematic testing, and evidence-based troubleshooting are applied
+throughout the activity.
+
+### 必做實驗流程
 
 | 階段 | 開始狀態 | 實驗內容 | 完成條件 |
 |---:|---|---|---|
@@ -32,24 +48,12 @@ GPIO 按鈕輸入、數位輸出及萬用電表驗證。
 
 ## 二、實驗器材與分組
 
-每個工作站需要：
+每個工作站使用一片ESP32-S3、一條可傳輸資料的USB線、一片400孔麵包板、
+一顆四腳按鈕、至少四條公對公杜邦線，以及一台筆電。萬用電表由課堂輪流
+提供；馬達、舵機、電池盒及其他高耗電設備不進入工作區。
 
-- ESP32-S3-DevKitC-1 N16R8（16 MB Flash、8 MB PSRAM），排針向下 44 腳。
-- 一條確認可傳輸資料的 USB 線。
-- 400 孔麵包板。
-- 6×6 mm 四腳按鈕一顆。
-- 公對公杜邦線至少四條。
-- 筆電與充電器。
-
-萬用電表可由數個工作站輪流使用；實際共用與借用方式以 Week 1 正式材料
-清單為準。若使用教師現有的 A830L，各工作站依排定順序到量測站操作。馬達、
-舵機、馬達驅動板、降壓模組、電池盒及其他高耗電設備本週不使用，先收在
-零件盒內。
-
-上課前請依 Week 1 公布的正式材料清單完成準備，並使用[Week 2 器材與必帶
-確認表](week2_support.md#一本週必帶與器材確認)逐項檢查。這份確認表只說明本實驗會用到什麼，
-不取代全課程正式購買清單；不得因教師目前持有三套設備，就推定每組一定有
-教師設備可用。
+上課前依[Week 2器材與必帶確認表](week2_support.md#一本週必帶與器材確認)
+核對完整型號、數量、取得方式與上電前狀態。
 
 ## 三、安全須知
 
@@ -114,7 +118,7 @@ Arduino IDE 版本：____________________
 Espressif esp32 package 版本：____________________
 ```
 
-7. 用瀏覽器開啟本 repository，確認目前看到的檔名是 `week2_main.md`。
+7. 用瀏覽器開啟本repository，確認目前看到的檔名是`week2_main.md`。
 
 最後勾選：
 
@@ -124,7 +128,6 @@ Espressif esp32 package 版本：____________________
 - [ ] USB 線已知具有資料傳輸功能。
 
 任一項未完成時，應先進入環境排錯區。每位學生均須完成自己的環境驗收。
-課前安裝方式見[Week 2 課前環境準備](../Week_01_Course_Orientation/week1_support.md#三week-2課前環境準備)。
 
 ### 步驟 2：辨識板卡，不接線
 
@@ -135,11 +138,6 @@ Espressif esp32 package 版本：____________________
   則再加上 USB、穩壓、按鈕與兩排排針，方便實驗。
 - **BOOT** 用於進入程式下載模式；**RESET／RST** 讓目前程式從頭執行，
   不會刪除已上傳的程式。
-
-下圖是本課已購買板卡的商品辨識圖，只用來確認外觀與型號；接腳仍以實物
-絲印為準。
-
-![本課使用的 ESP32-S3 DevKitC-1 N16R8](../../docs/images/hardware/esp32-s3-devkitc-1-n16r8-product-page.png)
 
 拿起 ESP32-S3，依板身標示找出：
 
@@ -950,10 +948,9 @@ TPG／GND 的電壓，所以黑表筆固定在 TPG，紅表筆才移到 TP5。
 - [ ] 實驗紀錄已記錄黑表筆接 GND 的原因。
 - [ ] 實驗紀錄已記錄為何程式顯示 HIGH 仍要實際量測。
 
-## 十、基本練習與延伸實作
+## 十、基本練習
 
-每位組員均須參與程式修改、上傳或測試。完成基本練習後，從延伸實作中至少
-選擇一題；完成者可繼續進行其他延伸實作。
+每位組員均須參與程式修改、上傳或測試。
 
 ### 基本練習：加入組別與按壓次數
 
@@ -1076,137 +1073,10 @@ void loop() {
 
 核對時仍要把 `CHANGE_ME` 換成自己的組別。
 
-### 延伸實作 1：切換模式
+完成必要練習後，可使用[Week 2支援資料](week2_support.md#五延伸實作)
+選做延伸實作；故障現象與安全排查表也集中在支援資料。
 
-每次按下按鈕，GPIO5 在 HIGH 與 LOW 之間切換；放開按鈕不改變模式。
-
-預期 log：
-
-```text
-event=mode_changed mode=ON gpio5=HIGH
-event=mode_changed mode=OFF gpio5=LOW
-```
-
-提示：建立 `bool outputOn`，只在新的按下事件發生時反轉它。
-
-### 延伸實作 2：長按與短按
-
-放開按鈕時，計算這次按住多久。小於門檻輸出 `short_press`，達到門檻輸出
-`long_press`。
-
-```text
-event=short_press duration_ms=326
-event=long_press duration_ms=1842
-```
-
-提示：按下時保存 `pressedAtMs`，放開時以目前 `millis()` 相減。不得使用
-阻塞式的長時間 `delay()`。
-
-### 延伸實作 3：閒置提醒
-
-一段時間都沒有按鈕事件時，輸出一次 idle 訊息；再次操作後重新計時。
-
-```text
-status=idle idle_ms=10000
-```
-
-提示：保存 `lastActivityMs`。為避免每次 loop 都重複印出 idle，再增加一個
-`idleReported` 狀態。
-
-### 延伸實作 4：三段狀態循環
-
-每次按下依序切換：
-
-```text
-NORMAL -> WARNING -> ALARM -> NORMAL
-```
-
-每個狀態要有不同的 GPIO5 行為或 Serial 文字，並能在 Reset 後回到 NORMAL。
-
-提示：可以使用整數 0、1、2，也可以使用 `enum`（替有限狀態建立名稱的列舉
-型別）。log 必須印出狀態名稱，不能只印數字。
-
-### 延伸實作 5：比較不同去抖時間
-
-將 `DEBOUNCE_MS` 分別設成 `0`、`10`、`30`、`100`，每種設定實際按十次，
-比較程式記錄到幾次按下事件。
-
-| 去抖設定 | 實際按下 | 程式計數 | 使用感覺／問題 |
-|---:|---:|---:|---|
-| 0 ms | 10 |  |  |
-| 10 ms | 10 |  |  |
-| 30 ms | 10 |  |  |
-| 100 ms | 10 |  |  |
-
-結果說明須以重複計數或反應延遲為依據，不得只填寫哪個設定「最好」。
-
-### 延伸實作 6：反應時間遊戲
-
-Reset 後等待一段隨機時間，Serial 顯示 `GO` 才能按按鈕。記錄從 `GO` 到
-按下的反應時間；提早按下則顯示 `too_early`。
-
-```text
-game=ready
-game=go
-game=result reaction_ms=418
-```
-
-提示：需要 WAIT、GO、RESULT 等狀態，並使用 `random()`（產生指定範圍內的
-偽隨機數）與 `millis()`；不可用長時間 `delay()`，否則無法偵測提早按下。
-
-### 延伸實作 7：加入事件序號
-
-替每一筆按鈕事件加入從 1 開始的 `seq`（sequence，事件序號），讓閱讀 log
-的人能判斷是否漏掉或重複一筆事件：
-
-```text
-group=03 seq=1 event=button_changed pressed=true gpio5=HIGH time_ms=12345
-group=03 seq=2 event=button_changed pressed=false gpio5=LOW time_ms=13021
-```
-
-提示：建立 `unsigned long eventSeq = 0;`，只在穩定狀態真正改變時先加 1，
-再把 `eventSeq` 放進同一行 `Serial.printf()`。按下與放開都算一筆事件；Reset
-後序號從 1 重新開始。本週只處理 Serial log；網路資料格式與伺服器端處理
-留到後面的連網單元。
-
-### 延伸實作 8：找出系統無法偵測的故障
-
-先斷電，拔掉 GPIO4 的訊號線，再重新上電。觀察程式會把它看成什麼狀態，
-回答：目前只有 `INPUT_PULLUP` 時，程式能否分辨「真的沒按」與「訊號線
-脫落」？
-
-提出一種未來可改善的硬體或軟體方法。這題不要求立刻加購或重新接線，重點
-是理解「看起來正常」不一定代表線材仍完整。
-
-### 延伸實作 9：交換操作與隱藏錯誤
-
-由另一位組員操作上傳及測試。接著在斷電狀態下，由教師或其他組製造一個
-安全的小錯誤，例如換錯 GPIO4 那條線的位置。請依序使用接線表、通斷、
-Serial 及電壓證據找出問題；一次只能改一個變因。
-
-### 延伸實作紀錄
-
-| 選擇的延伸實作 | 修改內容 | 預期結果 | 實際結果 | 修正 |
-|---|---|---|---|---|
-|  |  |  |  |  |
-|  |  |  |  |  |
-
-## 十一、故障排查表
-
-| 現象 | 優先檢查 | 禁止或不建議的動作 |
-|---|---|---|
-| 沒有 Port | 資料線、USB 接頭、裝置管理員 | 安裝來源不明的 driver |
-| Compile 失敗 | 第一個錯誤、括號、分號、board package | 重插所有接線 |
-| Upload 失敗 | Board、Port、線材、是否被其他程式占用 | 直接更換整塊板 |
-| Upload 完成但無 Serial | baud rate、port、RESET、`Serial.begin` | 同時改多個設定 |
-| 按鈕永遠未按 | GPIO4、GND、按鈕方向、`INPUT_PULLUP` | 帶電改線 |
-| 按鈕永遠按下 | GPIO4 是否持續短接 GND | 將 5V 接入測試 |
-| GPIO5 電壓不變 | 程式版本、Serial 事件、表筆位置與檔位 | 切到電流檔 |
-| 板子發熱或異味 | 立即拔 USB，通知教師 | 再次上電測試 |
-
-故障排除時一次只改一個變因，並保存修改前後的 log，以判定有效的修正動作。
-
-## 十二、實驗紀錄與繳交內容
+## 十一、實驗紀錄與繳交內容
 
 建立 Week 2 實驗紀錄（Lab Notebook），至少包含：
 
@@ -1222,7 +1092,7 @@ Serial 及電壓證據找出問題；一次只能改一個變因。
 
 不得只交「成功」兩個字，也不能只交沒有接腳標示的照片。
 
-## 十三、完成檢核與器材復原
+## 十二、完成檢核與器材復原
 
 完成下列項目後，由教師或助教逐項檢查：
 
