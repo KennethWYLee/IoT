@@ -90,8 +90,8 @@ system announcement.
 | Coursework | 15% | Weekly laboratory work, questions and answers, Lab Notebook, documentation, safety, collaboration, and verified AI use |
 | Individual Written Exam 1 (Week 7) | 15% | Hardware wiring, GPIO and GND, voltage, common ground, sensing, actuation, power, and safety |
 | Project Report 1 (Week 8) | 15% | Topic, hardware segment, software purpose, architecture, materials, risks, and acceptance criteria |
-| Individual Written Exam 2 (Week 15) | 15% | Wi-Fi, HTTP, JSON, WebSocket, MQTT, integrated data flow, and log-based troubleshooting |
 | Project Report 2 (Week 12) | 15% | Current implementation evidence, progress status, identified problems, risk analysis, and a revision plan |
+| Individual Written Exam 2 (Week 15) | 15% | Wi-Fi, HTTP, JSON, WebSocket, MQTT, integrated data flow, and log-based troubleshooting |
 | Project Report 3 (Weeks 16-17) | 25% | Complete physical interaction, frontend and backend, data, reliability, testing, documentation, and individual understanding |
 | Total | 100% |  |
 

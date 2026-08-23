@@ -87,8 +87,8 @@ student-built device software, backend, database, and mobile interface.
 | Regular Coursework | 15% |
 | Individual Examination 1 (Week 7) | 15% |
 | Project Report 1 (Week 8) | 15% |
-| Individual Examination 2 (Week 15) | 15% |
 | Project Report 2 (Week 12) | 15% |
+| Individual Examination 2 (Week 15) | 15% |
 | Project Report 3 (Weeks 16-17) | 25% |
 | Total | 100% |
 
