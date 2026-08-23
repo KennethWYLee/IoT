@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="500" viewBox="0 0 1120 500" role="img" aria-labelledby="title desc">
+  <title id="title">Week 3 DHT11與ESP32-S3接線圖</title>
+  <desc id="desc">DHT11資料腳連GPIO5，電源腳連3V3，接地腳連GND。依實物絲印辨識腳位。</desc>
+  <rect width="1120" height="500" fill="#f8fafc"/>
+  <text x="560" y="48" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="700" fill="#0f172a">Week 3：YS-31 DHT11 ↔ ESP32-S3</text>
+  <rect x="80" y="105" width="340" height="270" rx="18" fill="#eff6ff" stroke="#1d4ed8" stroke-width="3"/>
+  <text x="250" y="150" text-anchor="middle" font-family="sans-serif" font-size="25" font-weight="700" fill="#1e40af">YS-31 DHT11</text>
+  <text x="250" y="190" text-anchor="middle" font-family="sans-serif" font-size="18">以實物絲印辨識</text>
+  <circle cx="390" cy="235" r="9" fill="#f59e0b"/><text x="330" y="242" text-anchor="end" font-family="monospace" font-size="22">S / OUT</text>
+  <circle cx="390" cy="285" r="9" fill="#dc2626"/><text x="330" y="292" text-anchor="end" font-family="monospace" font-size="22">+ / VCC</text>
+  <circle cx="390" cy="335" r="9" fill="#111827"/><text x="330" y="342" text-anchor="end" font-family="monospace" font-size="22">- / GND</text>
+  <rect x="700" y="105" width="340" height="270" rx="18" fill="#ecfdf5" stroke="#047857" stroke-width="3"/>
+  <text x="870" y="150" text-anchor="middle" font-family="sans-serif" font-size="25" font-weight="700" fill="#065f46">ESP32-S3</text>
+  <circle cx="730" cy="235" r="9" fill="#f59e0b"/><text x="780" y="242" font-family="monospace" font-size="22">GPIO5 / DATA</text>
+  <circle cx="730" cy="285" r="9" fill="#dc2626"/><text x="780" y="292" font-family="monospace" font-size="22">3V3</text>
+  <circle cx="730" cy="335" r="9" fill="#111827"/><text x="780" y="342" font-family="monospace" font-size="22">GND</text>
+  <line x1="399" y1="235" x2="721" y2="235" stroke="#f59e0b" stroke-width="6"/>
+  <line x1="399" y1="285" x2="721" y2="285" stroke="#dc2626" stroke-width="6"/>
+  <line x1="399" y1="335" x2="721" y2="335" stroke="#111827" stroke-width="6"/>
+  <rect x="160" y="415" width="800" height="55" rx="12" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="560" y="450" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="700" fill="#9a3412">拔USB斷電後才能接線或改線；本週不使用5V。</text>
+</svg>
