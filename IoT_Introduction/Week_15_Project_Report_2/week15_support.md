@@ -25,4 +25,12 @@
 
 測試者不能依賴IDE、Serial Monitor或現場改程式才能完成使用者流程。
 
+## 報告後修正與版本凍結
+
+- [ ] 第二次報告回饋已轉成修正項目、負責人與完成條件。
+- [ ] 固定commit或tag，且文件、接線圖、資料流與BOM對應同一版本。
+- [ ] 兩次完整展示彩排都在時間限制內完成。
+- [ ] 網路正常版與離線備案均已確認。
+- [ ] 每位組員能解釋一條完整資料或命令路徑。
+
 參考：[報告準備表](../../docs/course_materials/student_worksheets.md)｜[專題報告評分表](../../docs/course_materials/rubrics_and_checklists.md)

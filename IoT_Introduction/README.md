@@ -28,9 +28,9 @@
 | 11 | 2026-11-18 | Database 與 structured log | [main](Week_11_Database_and_Logs/week11_main.md) | [support](Week_11_Database_and_Logs/week11_support.md) |
 | 12 | 2026-11-25 | 手機前台與 PWA | [main](Week_12_Mobile_PWA/week12_main.md) | [support](Week_12_Mobile_PWA/week12_support.md) |
 | 13 | 2026-12-02 | 第二次個人筆試：網路通訊與軟硬整合架構 | [main](Week_13_Integrated_Framework_Exam/week13_main.md) | [support](Week_13_Integrated_Framework_Exam/week13_support.md) |
-| 14 | 2026-12-09 | 自動反應、安全與復原 | [main](Week_14_Automation_and_Safety/week14_main.md) | [support](Week_14_Automation_and_Safety/week14_support.md) |
-| 15 | 2026-12-16 | 第二次專題報告：端到端整合、使用性與修正 | [main](Week_15_Project_Report_2/week15_main.md) | [support](Week_15_Project_Report_2/week15_support.md) |
-| 16 | 2026-12-23 | 整合、故障注入與版本凍結 | [main](Week_16_Integration_Freeze/week16_main.md) | [support](Week_16_Integration_Freeze/week16_support.md) |
+| 14 | 2026-12-09 | 自動反應、安全、故障復原與重建 | [main](Week_14_Automation_and_Safety/week14_main.md) | [support](Week_14_Automation_and_Safety/week14_support.md) |
+| 15 | 2026-12-16 | 第二次專題報告、修正、彩排與版本凍結 | [main](Week_15_Project_Report_2/week15_main.md) | [support](Week_15_Project_Report_2/week15_support.md) |
+| 16 | 2026-12-23 | 第三次專題報告：期末展示與個人問答 | [main](Week_16_Project_Report_3/week16_main.md) | [support](Week_16_Project_Report_3/week16_support.md) |
 | 17 | 2026-12-30 | 第三次專題報告：期末展示與個人問答 | [main](Week_17_Project_Report_3/week17_main.md) | [support](Week_17_Project_Report_3/week17_support.md) |
 | 18 | 2027-01-06 | 校定期末考週：保留空白 | [main](Week_18_Reserved/week18_main.md) | [support](Week_18_Reserved/week18_support.md) |
 
