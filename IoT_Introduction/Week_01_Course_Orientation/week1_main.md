@@ -6,15 +6,36 @@
 第一週不攜帶硬體、不接線、不上電，也不進行程式上傳。本週先確認整學期
 要完成的作品、18週學習路徑、評量方式、材料責任及第二週前的準備工作。
 
-## 一、本週完成後應能說明
+## 一、Week 1 Overview
 
-1. 這門課的作品為何同時需要實體硬體與軟體。
-2. ESP32-S3、Backend、Database與手機介面在完整IoT系統中的位置。
-3. Week 7、8、13、15及16～17分別要接受什麼檢查。
-4. 六個評量項目的比例及主要證據。
-5. 哪些材料由學生自備，以及課堂只提供萬用電表。
-6. 一個初步作品構想的使用者、輸入、輸出、軟體用途及風險。
-7. Week 2上課前必須完成的安裝、採購與資料準備。
+### Teaching Objectives
+
+By the end of Week 1, students will be able to:
+
+1. Explain why the course project must combine physical hardware with software.
+2. Identify the roles of the ESP32-S3, backend, database, and mobile interface in a
+   full-stack IoT system.
+3. Describe the purposes of the examinations and project reports in Weeks 7, 8, 13,
+   15, and 16-17.
+4. State the six assessment components, their percentages, and the evidence required
+   for each component.
+5. Distinguish between student-provided materials and classroom-provided equipment.
+6. Propose an initial project idea with a user, physical input, physical output,
+   software purpose, and one identifiable risk.
+7. Complete the software installation, purchasing, and preparation requirements for
+   Week 2.
+
+### Teaching Content
+
+| Topic | Content covered in Week 1 |
+|---|---|
+| Course scope | Course purpose, prerequisites, semester structure, and the difference between a simple connected device and a complete full-stack IoT system |
+| System architecture | Roles and data flow among physical input, ESP32-S3, physical output, Wi-Fi, HTTP or MQTT, backend, database, WebSocket, and a mobile interface |
+| Semester learning path | Hardware fundamentals, sensing, actuation, networking, backend services, databases, mobile interfaces, system integration, examinations, and three project reports |
+| Assessment | Regular coursework, two individual written examinations, three project reports, grading percentages, required evidence, and examination weeks with no new instruction |
+| Final project | Acceptable project topics, minimum physical and software requirements, safety and recovery requirements, documentation, testing, and individual responsibility |
+| Materials and safety | Required personal component kit, equipment supplied by the classroom, optional project parts, purchasing rules, electrical safety, data privacy, and credential protection |
+| Preparation for Week 2 | Arduino IDE 2, the Espressif board package, a data-capable USB cable, the latest course repository, required purchases, and material issue reporting |
 
 ## 二、課程基本資料
 
