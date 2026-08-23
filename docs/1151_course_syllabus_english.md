@@ -61,11 +61,11 @@ student-built device software, backend, database, and mobile interface.
 
 | Week | Date | Topic |
 |---:|---|---|
-| 1 | 2026-09-09 | Course Orientation: Scope, Assessment Weights, Midterm and Final Projects, Topic Options, and Safety Responsibilities; No Hardware Operation |
-| 2 | 2026-09-16 | ESP32-S3, Arduino IDE, Program Upload, Serial, GPIO, GND, 3.3V/5V, Breadboards, Multimeters, Buttons, LEDs, and Buzzers |
-| 3 | 2026-09-23 | Sensors, OLED Displays, Calibration, Debouncing, Noise, and Invalid Readings |
-| 4 | 2026-09-30 | Servos, LEDs, Buzzers, PWM, External Power, Common Ground, and Safe Shutdown |
-| 5 | 2026-10-07 | Standalone Interactive Hardware: Input, State, Decisions, Output, Reset, and Failure Handling |
+| 1 | 2026-09-09 | Course Orientation: Scope, Assessment Weights, Projects, Topic Options, Safety Responsibilities, and the Official Student Materials List; No Hardware Operation |
+| 2 | 2026-09-16 | ESP32-S3, Arduino IDE, Program Upload, Serial, GPIO, GND, 3.3V/5V, Breadboards, Multimeters, Buttons, and GPIO Test Output |
+| 3 | 2026-09-23 | KY-018 and DHT11: Calibration, Sampling, Data Validity, and Invalid Readings |
+| 4 | 2026-09-30 | KY-016, KY-012, SG90, PWM, 4AA External Power, Common Ground, Timeout, and Safe Shutdown |
+| 5 | 2026-10-07 | Standalone Light-Interactive Device: Button, Sensor, State Machine, Indicators, Servo, and Failure Recovery |
 | 6 | 2026-10-14 | Wi-Fi, HTTP, JSON, WebSocket, and the First Student-built Backend |
 | 7 | 2026-10-21 | Individual Concept Examination; WebSocket Control and Project Topic Workshop |
 | 8 | 2026-10-28 | Team Topic and Technical-feasibility Interviews |

@@ -39,7 +39,8 @@ docs/course_materials/student_worksheets.md
 - 筆電與充電器。
 - 一條已知可傳輸資料的 USB 線；只有充電功能的線不合格。
 - 可登入自己的電腦並具備必要的安裝權限。
-- ESP32 與其他課堂硬體由教師提供，不要求學生自行購買。
+- 依Week 1的[學生材料採購總表](student_purchase_list.md)準備個人必買器材，
+  並完成到貨檢查。若材料來不及到貨或規格不同，須在Week 2前回報。
 
 ## 繳交證據
 

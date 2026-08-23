@@ -32,7 +32,7 @@ GPIO 按鈕輸入、數位輸出及萬用電表驗證。
 
 ## 二、實驗器材與分組
 
-每組使用：
+每個工作站需要：
 
 - ESP32-S3-DevKitC-1 N16R8（16 MB Flash、8 MB PSRAM），排針向下 44 腳。
 - 一條確認可傳輸資料的 USB 線。
@@ -41,15 +41,19 @@ GPIO 按鈕輸入、數位輸出及萬用電表驗證。
 - 公對公杜邦線至少四條。
 - 筆電與充電器。
 
-全班共用一支 A830L 型號的萬用電表，各組依序到量測站操作。馬達、舵機、
-馬達驅動板、降壓模組、電池盒及其他高耗電設備本週不使用，先收在零件盒內。
+萬用電表可由數個工作站輪流使用；實際共用與借用方式以 Week 1 正式材料
+清單為準。若使用教師現有的 A830L，各工作站依排定順序到量測站操作。馬達、
+舵機、馬達驅動板、降壓模組、電池盒及其他高耗電設備本週不使用，先收在
+零件盒內。
 
-上課前請確認[Week 2 必買／必帶清單](week02_purchase_list.md)。依目前三組
-工作站配置，本週不需再購買電子零件。
+上課前請依 Week 1 公布的正式材料清單完成準備，並使用[Week 2 器材與必帶
+確認表](week02_purchase_list.md)逐項檢查。這份確認表只說明本實驗會用到什麼，
+不取代全課程正式購買清單；不得因教師目前持有三套設備，就推定每組一定有
+教師設備可用。
 
 ## 三、安全須知
 
-### 基本名詞
+### 接線前先辨認電源與訊號
 
 - **GPIO**（General-Purpose Input/Output，通用輸入／輸出接腳）：由程式讀取
   或控制的訊號腳，不是供應馬達電力的電源腳。GPIO4、GPIO5 是晶片編號，
@@ -70,9 +74,9 @@ GPIO 按鈕輸入、數位輸出及萬用電表驗證。
 6. 發現板子、線材或零件發熱、異味或異常聲音，立即斷電並通知教師。
 
 本次使用 GPIO4 與 GPIO5。Espressif 官方 DevKitC-1 接腳表將兩者列為
-一般輸入／輸出接腳。本批板卡標示 N16R8；為避免記憶體配置差異，本課不
-使用 GPIO35、GPIO36、GPIO37，因為部分大容量記憶體版本會把這些腳位保留給
-板內部通訊。
+一般輸入／輸出接腳。採購紀錄標示本課板卡為 N16R8，操作前仍須讀取金屬
+屏蔽罩確認。為避免記憶體配置差異，本課不使用 GPIO35、GPIO36、GPIO37，
+因為使用 Octal SPI Flash／PSRAM 的相關版本會把這些腳位保留給板內部通訊。
 
 板載 RGB LED（可顯示紅、綠、藍的多色燈）不列入本週必要任務。DevKitC-1
 不同硬體修訂版本可能把它接到不同 GPIO；未確認板本版本前，不把網路上的
@@ -84,7 +88,7 @@ LED 腳位直接套用到實物。
 
 ### 步驟 1：驗證課前安裝
 
-#### 開發環境名詞
+#### Arduino IDE 與開發板支援套件
 
 - **Arduino IDE**：撰寫、編譯和上傳 ESP32 程式的軟體。
 - **Boards Manager**：Arduino IDE 內安裝開發板支援套件的位置。
@@ -193,13 +197,13 @@ Espressif esp32 package 版本：____________________
 
 - **Board** 是 Arduino IDE 的編譯目標設定，告訴工具要為哪種晶片與硬體
   產生程式；它不是 USB Port。
-- **N16R8** 是本批模組的容量標示：`N16` 表示 16 MB Flash，`R8` 表示
-  8 MB PSRAM。
+- **N16R8** 是模組容量標示：`N16` 表示 16 MB Flash，`R8` 表示 8 MB
+  PSRAM；必須先在金屬屏蔽罩看到相同標示，才能使用後面的候選設定。
 - **Flash** 是斷電後仍保存程式的快閃記憶體；**PSRAM**（Pseudo Static RAM）
   是程式執行時使用、斷電後不保留內容的額外記憶體。
 - **QIO**（Quad I/O，四線輸入／輸出）與 **OPI**（Octal Peripheral
-  Interface，八線周邊介面）是記憶體資料傳輸模式。本批 Flash 使用 QIO，
-  PSRAM 使用 OPI；不是看到較大的數字就任意選最快設定。
+  Interface，八線周邊介面）是記憶體資料傳輸模式。WROOM-1 N16R8 的 Flash
+  使用 QIO，PSRAM 使用 OPI；不是看到較大的數字就任意選最快設定。
 - **Flash Mode／Flash Size** 分別指定 Flash 的通訊方式與容量，兩者都必須
   符合實物 N16 規格。
 - `MB` 的大寫 `B` 表示 byte，`Mb` 的小寫 `b` 表示 bit；8 bits = 1 byte，
@@ -216,11 +220,13 @@ Espressif esp32 package 版本：____________________
 - **Sketch** 是 Arduino 對一個程式專案的稱呼，因此選單中的 `Before Sketch
   Upload` 就是「上傳程式前」。
 
-使用教師標記的 USB-to-UART 接頭時，先採用下列設定。Arduino-ESP32 版本
-不同時，選單文字可能略有差異；若教師已在本批實物完成驗證，以教師公布
-的截圖為準。
+使用教師標記的 USB-to-UART 接頭時，N16R8 規格對應的候選設定如下。
+Arduino-ESP32 版本不同時，選單文字與預設值可能不同；教師必須先在本批
+實物完成 Upload、Serial 與重新開機測試，並把設定截圖記錄到
+`docs/hardware_state.md`。學生以教師公布的實機驗證截圖為準；尚未公布時
+不得猜設定或直接上傳。
 
-| 設定 | 本班使用值 |
+| 設定 | N16R8 候選值／授課時使用方式 |
 |---|---|
 | Board | `ESP32S3 Dev Module` |
 | Flash Mode | `QIO 80MHz`，若選單分開則 Flash Mode 選 QIO |
@@ -229,22 +235,27 @@ Espressif esp32 package 版本：____________________
 | USB CDC On Boot | `Disabled`（本週使用 USB-to-UART） |
 | Upload Mode | `UART0 / Hardware CDC` |
 | Upload Speed | 先用預設；不穩定時降低一級再試 |
-| Partition Scheme | 選擇名稱含 `16M Flash` 的預設配置 |
+| Partition Scheme | 使用教師在相同 package 版本完成實機驗證的值，不自行挑選 |
 | Erase All Flash Before Sketch Upload | `Disabled` |
 
-這些設定來自本批 `WROOM-1 N16R8` 的記憶體標示與 Espressif Arduino-ESP32
-工具選單說明：N16R8 使用 QSPI Flash、16 MB Flash 與 OPI PSRAM。若金屬
-屏蔽罩實際不是 `WROOM-1 N16R8`，停止操作並請教師重新核對。
+Espressif 的 WROOM-1 模組資料表列出 N16R8 為 16 MB Quad SPI Flash 與
+8 MB Octal SPI PSRAM；Arduino-ESP32 工具說明則要求設定符合實際模組。
+這只能支持 QIO、16 MB 與 OPI 的規格判斷，不能取代本批開發板、USB 路徑、
+  package 版本與 Partition Scheme 的指定實機測試（target test，也就是使用
+  課堂實際板卡、線材與軟體版本完成操作）。若金屬屏蔽罩實際不是
+`ESP32-S3-WROOM-1 N16R8`，立即停止並請教師重新核對。
 
-官方參考：[Arduino-ESP32 Tools Menu](https://docs.espressif.com/projects/arduino-esp32/en/latest/guides/tools_menu.html)｜[PSRAM 設定排錯](https://docs.espressif.com/projects/arduino-esp32/en/latest/troubleshooting.html)
+官方參考：[ESP32-S3-WROOM-1 模組資料表](https://documentation.espressif.com/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf)｜[Arduino-ESP32 Tools Menu](https://docs.espressif.com/projects/arduino-esp32/en/latest/guides/tools_menu.html)｜[PSRAM 設定排錯](https://docs.espressif.com/projects/arduino-esp32/en/latest/troubleshooting.html)
 
 實際點選順序：
 
 1. 點 **Tools → Board → esp32 → ESP32S3 Dev Module**。
 2. 再打開 **Tools**，逐項找到上表選項。
 3. 每設定一項後回到 Tools 設定下一項；選擇 Board 不會自動完成其餘設定。
-4. 設完後重新打開 Tools，由上往下逐項比對一次。
-5. 把 Tools 選單截圖保存為 `week02_board_settings_組別.png`。
+4. 對照教師公布、且已記錄 package 版本的實機驗證截圖；任一值不同時先停止，
+   不自行判斷哪一個比較快或比較新。
+5. 設完後重新打開 Tools，由上往下逐項比對一次。
+6. 把 Tools 選單截圖保存為 `week02_board_settings_組別.png`。
 
 如果 Tools 中完全看不到 ESP32-S3、Flash Size 或 PSRAM，通常是選錯 Board，
 或 Espressif `esp32` package 沒有正確安裝。回到階段 1，不要繼續 Upload。
@@ -811,12 +822,13 @@ group=03 event=button_changed pressed=false gpio5=LOW time_ms=...
 
 ## 九、萬用電表驗證
 
-萬用電表只有一支，所以到量測站前先完成五次 Serial 測試。量測者控制表筆，
-另一人負責按鈕與記錄；兩人的手不要同時伸進電路。
+依課堂公布的量測站順序使用萬用電表；輪到量測前，先完成五次 Serial 測試。
+量測者控制表筆，另一人負責按鈕與記錄；兩人的手不要同時伸進電路。
 
 **萬用電表（multimeter）**是一台可選擇不同功能量測電壓、電阻等數值的
-儀表；紅、黑兩條尖端量測線稱為**表筆（probe）**。本課共用型號是 A830L，
-不同批次的符號可能略有差異，仍以實物標示為準。
+儀表；紅、黑兩條尖端量測線稱為**表筆（probe）**。本教材以教師現有的
+A830L 為操作示例；若正式材料清單安排功能相當的其他型號，符號與檔位位置
+可能不同，操作時仍以實物標示為準。
 
 ### A. 通斷量測（斷電）
 
@@ -1142,18 +1154,20 @@ game=result reaction_ms=418
 提示：需要 WAIT、GO、RESULT 等狀態，並使用 `random()`（產生指定範圍內的
 偽隨機數）與 `millis()`；不可用長時間 `delay()`，否則無法偵測提早按下。
 
-### 延伸實作 7：改成 JSON 格式 log
+### 延伸實作 7：加入事件序號
 
-**JSON** 是用鍵和值表示結構化資料的文字格式；**Backend（後端）**是在裝置
-之外接收、保存或分析資料的伺服器端程式。把按鈕事件改成單行 JSON，方便
-未來傳給 Backend：
+替每一筆按鈕事件加入從 1 開始的 `seq`（sequence，事件序號），讓閱讀 log
+的人能判斷是否漏掉或重複一筆事件：
 
-```json
-{"device_id":"group03","event":"button_changed","pressed":true,"gpio5":"HIGH","time_ms":12345}
+```text
+group=03 seq=1 event=button_changed pressed=true gpio5=HIGH time_ms=12345
+group=03 seq=2 event=button_changed pressed=false gpio5=LOW time_ms=13021
 ```
 
-每一行必須是完整的一筆資料。檢查雙引號、逗號、布林值與數字格式，不要
-把所有值都變成字串。
+提示：建立 `unsigned long eventSeq = 0;`，只在穩定狀態真正改變時先加 1，
+再把 `eventSeq` 放進同一行 `Serial.printf()`。按下與放開都算一筆事件；Reset
+後序號從 1 重新開始。本週只處理 Serial log；網路資料格式與伺服器端處理
+留到後面的連網單元。
 
 ### 延伸實作 8：找出系統無法偵測的故障
 
@@ -1212,7 +1226,7 @@ Serial 及電壓證據找出問題；一次只能改一個變因。
 
 完成下列項目後，由教師或助教逐項檢查：
 
-- [ ] 每組能選擇正確 Board 與 Port 並完成上傳。
+- [ ] 每個工作站能選擇正確 Board 與 Port 並完成上傳。
 - [ ] Serial log 有組別、版本、按鈕事件與按壓計數。
 - [ ] GPIO4、GPIO5 與 GND 接線表正確。
 - [ ] 按鈕連續五次測試通過。

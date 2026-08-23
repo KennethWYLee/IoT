@@ -5,10 +5,11 @@
 ## 準備器材
 
 ESP32-S3 N16R8 向下 44 腳、USB 資料線、麵包板、公對公杜邦線、按鈕與
-萬用電表。本週不使用 LED、蜂鳴器、馬達或外部電池。
+萬用電表。本週不使用 LED、蜂鳴器、馬達或外部電池。取得方式以 Week 1
+公布的正式材料清單為準；教師現有三套材料不能視為每組固定配發。
 
-依目前三組工作站配置，本週不需再購買電子零件。請依[Week 2 必買／必帶
-清單](week02_purchase_list.md)完成數量確認及資料線測試。
+請依[Week 2 器材與必帶確認表](week02_purchase_list.md)完成數量確認及資料線
+測試。確認表列的是本實驗依賴，不是另一份購買通知。
 
 學生在 Week 1 課後已完成 Arduino IDE 與 ESP32 board package 安裝。Week 2
 只做快速驗證；安裝失敗者進個別排錯區，不占用全班授課時間。
@@ -40,3 +41,12 @@ ESP32-S3 N16R8 向下 44 腳、USB 資料線、麵包板、公對公杜邦線、
 - [ ] 能說明 5V 訊號直接進入 3.3V GPIO 的風險。
 
 參考：[已購設備總表](equipment_index.md)｜[程式片段](../../docs/course_materials/starter_code_snippets.md)｜[安全檢核](../../docs/course_materials/rubrics_and_checklists.md)
+
+## 發布前驗證狀態
+
+截至 2026-08-23，[硬體狀態表](../../docs/hardware_state.md)中三塊指定板卡仍是
+`unverified`。
+本教材已依 Espressif 官方資料核對模組容量、GPIO4／GPIO5、USB-to-UART 與
+GPIO35～37 限制，但尚未完成 Arduino compile、指定板卡 Upload／Serial、
+麵包板安裝、按鈕接線及萬用電表 target test。完成實機紀錄前，本單元是
+待驗證教材，不應標示為已通過實機測試的學生發布版。

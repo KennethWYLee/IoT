@@ -15,9 +15,9 @@
 
 | ID | 品項 | 狀態 | 最近電腦／日期 | 已驗證 | GPIO／供電設定 | 已知問題 | 下一步 |
 |---|---|---|---|---|---|---|---|
-| BOARD-T01 | ESP32-S3-DevKitC-1 N16R8 | unverified |  |  |  |  | 上傳 Serial 範例 |
-| BOARD-T02 | ESP32-S3-DevKitC-1 N16R8 | unverified |  |  |  |  | 上傳 Serial 範例 |
-| BOARD-T03 | ESP32-S3-DevKitC-1 N16R8 | unverified |  |  |  |  | 上傳 Serial 範例 |
+| BOARD-T01 | ESP32-S3-DevKitC-1 N16R8 | unverified |  |  |  |  | 執行完整 Week 2 target test 並建立 lab note |
+| BOARD-T02 | ESP32-S3-DevKitC-1 N16R8 | unverified |  |  |  |  | 核對模組絲印、設定、Upload 與 Serial |
+| BOARD-T03 | ESP32-S3-DevKitC-1 N16R8 | unverified |  |  |  |  | 核對模組絲印、設定、Upload 與 Serial |
 
 ## 教師材料箱
 
