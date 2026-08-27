@@ -29,6 +29,9 @@ about architecture, implementation, safety, testing, and reconstruction.
 本週與Week 16共同構成第三次專題報告時段。每組依教師公布的場次，在其中一週
 完成一次期末展示與個人問答；兩週皆不安排新進度、功能開發或額外實作。
 
+本週展示必須使用Week 16第一次展示前共同截止時間已提交的commit或tag。截止後
+只允許修復啟動、網路或設備故障，不得增加評分功能。
+
 ## 現場必備
 
 - 安全可運作的實體作品與手機前台。
@@ -47,7 +50,7 @@ about architecture, implementation, safety, testing, and reconstruction.
 ## 上台前檢核
 
 - [ ] 電源、線材、帳號、網路與離線備案已確認。
-- [ ] Week 12～14各階段commit可辨識，並指定最新已驗證展示版本。
+- [ ] Week 12～14各階段commit可辨識，並指定共同截止前的已驗證展示版本。
 - [ ] 所有組員能解釋完整資料流。
 
 參考：[期末 Rubric](../../docs/course_materials/rubrics_and_checklists.md)

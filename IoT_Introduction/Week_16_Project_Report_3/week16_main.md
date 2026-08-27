@@ -29,6 +29,10 @@ about architecture, implementation, safety, testing, and reconstruction.
 完成一次期末展示與個人問答；本項仍只計一次，占學期成績25%。兩週皆不安排
 新進度、功能開發或額外實作。
 
+所有組別須在本週第一次展示前依教師公布的相同截止時間提交展示commit或
+tag、文件與測試證據。截止後只允許修復啟動、網路或設備故障，不得增加評分
+功能；Week 17報告組別同樣使用此截止版本。
+
 ## 現場必備
 
 - 安全可運作的實體作品與手機前台。
@@ -47,7 +51,7 @@ about architecture, implementation, safety, testing, and reconstruction.
 ## 上台前檢核
 
 - [ ] 電源、線材、帳號、網路與離線備案已確認。
-- [ ] Week 12～14各階段commit可辨識，並指定最新已驗證展示版本。
+- [ ] Week 12～14各階段commit可辨識，並指定共同截止前的已驗證展示版本。
 - [ ] 所有組員能解釋完整資料流。
 
 參考：[期末Rubric](../../docs/course_materials/rubrics_and_checklists.md)
