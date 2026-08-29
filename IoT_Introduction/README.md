@@ -4,9 +4,9 @@
 上課時間：每週三 13:30-16:15<br>
 課程期間：2026-09-09 至 2027-01-06
 
-本資料夾依 18 週實際授課順序整理。每週資料夾固定只有兩個檔案：
-`weekN_main.md`是當週主教材，`weekN_support.md`放課前準備、表格、
-證據紀錄、故障排除與延伸資料。
+本資料夾依 18 週實際授課順序整理。學生教材正逐週轉換成單一入口
+`main.ipynb`：核心說明、操作、程式、練習與支援附錄在同一本notebook中。
+Week 2已完成轉換；其他週次在逐週檢查前暫時保留原有main／support雙檔。
 
 > Week 1 做課程介紹、配分、作品與[正式學生材料清單](Week_01_Course_Orientation/week1_support.md#一學生材料採購總表)
 > 說明，不操作硬體。硬體從Week 2開始。
@@ -16,7 +16,7 @@
 | 週次 | 日期 | 主題 | 主教材 | 支援資料 |
 |---:|---|---|---|---|
 | 1 | 2026-09-09 | 課程介紹、配分與作品 | [main](Week_01_Course_Orientation/week1_main.md) | [support](Week_01_Course_Orientation/week1_support.md) |
-| 2 | 2026-09-16 | ESP32-S3、開發環境與安全接線 | [main](Week_02_ESP32_Hardware_Basics/week2_main.md) | [support](Week_02_ESP32_Hardware_Basics/week2_support.md) |
+| 2 | 2026-09-16 | ESP32-S3、開發環境與安全接線 | [main.ipynb](Week_02_ESP32_Hardware_Basics/main.ipynb) | 已整合於notebook附錄 |
 | 3 | 2026-09-23 | 感測器與輸入品質 | [main](Week_03_Sensors_Input_Quality/week3_main.md) | [support](Week_03_Sensors_Input_Quality/week3_support.md) |
 | 4 | 2026-09-30 | 致動器、機構與供電 | [main](Week_04_Actuators_and_Power/week4_main.md) | [support](Week_04_Actuators_and_Power/week4_support.md) |
 | 5 | 2026-10-07 | 單機互動作品 | [main](Week_05_Standalone_Interaction/week5_main.md) | [support](Week_05_Standalone_Interaction/week5_support.md) |

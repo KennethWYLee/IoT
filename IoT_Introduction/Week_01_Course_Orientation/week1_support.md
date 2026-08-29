@@ -280,8 +280,7 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 以 `git pull`、clone或Download ZIP取得最新版，並確認能找到：
 
 ```text
-IoT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.md
-IoT_Introduction/Week_02_ESP32_Hardware_Basics/week2_support.md
+IoT_Introduction/Week_02_ESP32_Hardware_Basics/main.ipynb
 docs/course_materials/starter_code_snippets.md
 ```
 

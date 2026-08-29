@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -31,7 +32,31 @@ def week_number(path: Path) -> int:
     return int(match.group(1))
 
 
-def local_links(markdown: Path, content: str) -> list[tuple[Path, str]]:
+def notebook_content(notebook: Path) -> str:
+    data = json.loads(notebook.read_text(encoding="utf-8"))
+    if data.get("nbformat") != 4 or not isinstance(data.get("cells"), list):
+        raise ValueError(f"invalid notebook structure: {notebook}")
+    default_language = data.get("metadata", {}).get("language_info", {}).get("name", "")
+    parts: list[str] = []
+    for cell in data["cells"]:
+        source = cell.get("source", "")
+        if isinstance(source, list):
+            source = "".join(source)
+        if cell.get("cell_type") == "markdown":
+            parts.append(source)
+        elif cell.get("cell_type") == "code":
+            language = cell.get("metadata", {}).get("language", default_language)
+            parts.append(f"```{language}\n{source.rstrip()}\n```")
+    return "\n\n".join(parts)
+
+
+def document_content(document: Path) -> str:
+    if document.suffix.lower() == ".ipynb":
+        return notebook_content(document)
+    return document.read_text(encoding="utf-8")
+
+
+def local_links(document: Path, content: str) -> list[tuple[Path, str]]:
     results: list[tuple[Path, str]] = []
     for target in re.findall(r"\[[^\]]*\]\(([^)]+)\)", content):
         target = target.strip().strip("<>")
@@ -40,9 +65,8 @@ def local_links(markdown: Path, content: str) -> list[tuple[Path, str]]:
         path_text, _, anchor = target.partition("#")
         path_text = unquote(path_text)
         anchor = unquote(anchor).lower()
-        if not path_text:
-            continue
-        results.append(((markdown.parent / path_text).resolve(), anchor))
+        target_path = document if not path_text else document.parent / path_text
+        results.append((target_path.resolve(), anchor))
     return results
 
 
@@ -58,8 +82,8 @@ def github_heading_slug(heading: str) -> str:
     return re.sub(r"\s+", "-", heading).strip("-")
 
 
-def markdown_anchors(markdown: Path) -> set[str]:
-    text = markdown.read_text(encoding="utf-8")
+def document_anchors(document: Path) -> set[str]:
+    text = document_content(document)
     anchors: set[str] = {
         match.lower()
         for match in re.findall(r'<a\s+(?:name|id)=["\']([^"\']+)["\']', text)
@@ -98,11 +122,12 @@ def markdown_table_blocks(content: str) -> set[str]:
     return blocks
 
 
-def repository_markdown_files() -> list[Path]:
+def repository_documents() -> list[Path]:
     excluded_parts = {".git", ".venv", "node_modules", ".pytest_cache"}
     return sorted(
         path
-        for path in ROOT.rglob("*.md")
+        for pattern in ("*.md", "*.ipynb")
+        for path in ROOT.rglob(pattern)
         if not excluded_parts.intersection(path.parts)
     )
 
@@ -112,20 +137,20 @@ def table_cells(line: str) -> list[str]:
     return [cell.strip() for cell in re.split(r"(?<!\\)\|", body)]
 
 
-def check_markdown_file(markdown: Path, content: str) -> list[str]:
+def check_document_file(document: Path, content: str) -> list[str]:
     errors: list[str] = []
-    relative = markdown.relative_to(ROOT)
+    relative = document.relative_to(ROOT)
     if content.count("```") % 2:
         errors.append(f"{relative}: unbalanced code fence")
-    if markdown.name != "AGENTS.md":
+    if document.name != "AGENTS.md":
         for phrase in FORBIDDEN_EDITORIAL_PHRASES:
             if phrase.lower() in content.lower():
                 errors.append(f"{relative}: forbidden editorial phrase {phrase!r}")
-    for target, anchor in local_links(markdown, content):
+    for target, anchor in local_links(document, content):
         if not target.exists():
             errors.append(f"{relative}: missing local link {target}")
-        elif anchor and target.suffix.lower() == ".md":
-            if anchor not in markdown_anchors(target):
+        elif anchor and target.suffix.lower() in {".md", ".ipynb"}:
+            if anchor not in document_anchors(target):
                 errors.append(
                     f"{relative}: missing anchor #{anchor} in {target.relative_to(ROOT)}"
                 )
@@ -161,9 +186,14 @@ def check_markdown_file(markdown: Path, content: str) -> list[str]:
 def main() -> int:
     errors: list[str] = []
     summaries: list[str] = []
-    all_markdown = repository_markdown_files()
-    for markdown in all_markdown:
-        errors.extend(check_markdown_file(markdown, markdown.read_text(encoding="utf-8")))
+    all_documents = repository_documents()
+    for document in all_documents:
+        try:
+            content = document_content(document)
+        except (json.JSONDecodeError, ValueError) as exc:
+            errors.append(f"{document.relative_to(ROOT)}: {exc}")
+            continue
+        errors.extend(check_document_file(document, content))
 
     week_directories = sorted(COURSE.glob("Week_*"), key=week_number)
     if len(week_directories) != 18:
@@ -172,19 +202,26 @@ def main() -> int:
     for directory in week_directories:
         number = week_number(directory)
         files = sorted(path.name for path in directory.iterdir() if path.is_file())
-        expected = [f"week{number}_main.md", f"week{number}_support.md"]
+        expected = (
+            ["main.ipynb"]
+            if number == 2
+            else [f"week{number}_main.md", f"week{number}_support.md"]
+        )
         if files != expected:
             errors.append(f"{directory.name}: expected only {expected}, found {files}")
             continue
 
         main_path = directory / expected[0]
-        support_path = directory / expected[1]
-        main_content = main_path.read_text(encoding="utf-8")
-        support_content = support_path.read_text(encoding="utf-8")
+        support_path = directory / expected[1] if len(expected) == 2 else None
+        main_content = document_content(main_path)
+        support_content = (
+            support_path.read_text(encoding="utf-8") if support_path else ""
+        )
         main_lines = len(main_content.splitlines())
         support_lines = len(support_content.splitlines())
         summaries.append(
-            f"Week {number:02d}: main={main_lines} lines, support={support_lines} lines"
+            f"Week {number:02d}: main={main_lines} lines"
+            + (f", support={support_lines} lines" if support_path else ", single notebook")
         )
 
         if number == 18 and (main_content.strip() or support_content.strip()):
@@ -192,8 +229,10 @@ def main() -> int:
         if number == 1 and re.search(r"[\u3400-\u9fff]", main_content):
             errors.append(f"{main_path.relative_to(ROOT)}: Week 1 main must be English-only")
 
-        duplicate_tables = markdown_table_blocks(main_content) & markdown_table_blocks(
-            support_content
+        duplicate_tables = (
+            markdown_table_blocks(main_content) & markdown_table_blocks(support_content)
+            if support_path
+            else set()
         )
         if duplicate_tables:
             errors.append(
@@ -237,7 +276,7 @@ def main() -> int:
                 errors.append(
                     f"{main_path.relative_to(ROOT)}: only {main_lines} lines for a regular unit"
                 )
-            if support_lines < 100:
+            if support_path and support_lines < 100:
                 errors.append(
                     f"{support_path.relative_to(ROOT)}: only {support_lines} lines for support"
                 )
@@ -247,7 +286,10 @@ def main() -> int:
         print("\nVerification errors:", file=sys.stderr)
         print("\n".join(f"- {error}" for error in errors), file=sys.stderr)
         return 1
-    print(f"Course material structure, {len(all_markdown)} Markdown files, and local links: PASS")
+    print(
+        f"Course material structure, {len(all_documents)} Markdown/notebook files, "
+        "and local links: PASS"
+    )
     return 0
 
 

@@ -15,7 +15,7 @@
 
 | ID | 品項 | 狀態 | 最近電腦／日期 | 已驗證 | GPIO／供電設定 | 已知問題 | 下一步 |
 |---|---|---|---|---|---|---|---|
-| BOARD-T01 | YD-ESP32-S3 Type-A V1.5；ESP32-S3-WROOM-1 N16R8 | basic-pass | Windows／2026-08-27 | 正反面絲印、向下44腳；`USB`接頭列舉為COM7；`COM`接頭列舉為CH343 COM8（VID 1A86、PID 55D3）；Arduino-ESP32 3.3.11完成compile、115200-baud Upload、hash驗證、RTS自動重設及UART Serial；runtime回報ESP32-S3 revision 2、240 MHz、Flash 16777216 bytes、PSRAM 8388608 bytes | 只以`COM`接頭USB供電；尚未接GPIO | 採購頁稱DevKitC-1但實物PCB為YD版型；GPIO profile尚未驗證 | 在板上貼`BOARD-T01`，驗證GPIO4／GPIO5候選profile |
+| BOARD-T01 | YD-ESP32-S3 Type-A V1.5；ESP32-S3-WROOM-1 N16R8 | basic-pass | Windows／2026-08-29 | 正反面絲印、向下44腳；`USB`接頭列舉為COM7；`COM`接頭列舉為CH343 COM8（VID 1A86、PID 55D3）；Arduino-ESP32 3.3.11完成compile、115200-baud Upload、hash驗證、RTS自動重設及UART Serial；runtime回報ESP32-S3 revision 2、240 MHz、Flash 16777216 bytes、PSRAM 8388608 bytes；在400孔麵包板實際對孔為左排`B3～B24`、右排`J3～J24`；板外候選接線使用棕色GND→`a22`、紅色GPIO4→`a27`、橘色GPIO5→`a20`及`b22 → a29`分接，斷電量測按鈕放開不蜂鳴、按住蜂鳴、再放開不蜂鳴，且TPO `b20`對TPG `c22`不蜂鳴；電表切至OFF並移開後首次帶線上電，`PWR`亮且五秒內無焦味、煙或異常聲音；`TX`週期性閃爍，Serial Monitor以115200 baud連續讀到`uptime_ms=292018`至`302018`且每秒約增加1000 ms；GPIO4／GPIO5候選韌體完成IDE Verify及302752-byte Upload、hash驗證與RTS自動Reset；RST後Serial確認GPIO4 `INPUT_PULLUP`、GPIO5 startup LOW及ready預期狀態；五次按鈕操作皆得到GPIO4按下LOW／放開HIGH各一筆事件 | `COM`接頭USB基本驗證已完成；候選線路、舊board-check基準、候選GPIO韌體寫入及啟動文字已通過，GPIO4五次輸入事件通過；尚未完成GPIO5電壓 | 採購頁稱DevKitC-1但實物PCB為YD版型；GPIO profile尚未驗證；單片400孔麵包板直接安裝只留下左側A欄，右側沒有可接線欄，且USB端遮擋第27／29列按鈕，因此不採直接安裝 | 依2026-08-29課程決定，GPIO5 LOW／HIGH電壓、Reset安全狀態與故障target test移到Week 3開場；見[候選profile測試紀錄](lab_notes/2026-08-29-board-t01-gpio4-gpio5-candidate-test.md) |
 | BOARD-T02 | 採購頁稱ESP32-S3-DevKitC-1 N16R8；實物PCB待核對 | unverified |  |  |  | 不得假設與BOARD-T01同版 | 核對正反面絲印、設定、Upload與Serial |
 | BOARD-T03 | 採購頁稱ESP32-S3-DevKitC-1 N16R8；實物PCB待核對 | unverified |  |  |  | 不得假設與BOARD-T01同版 | 核對正反面絲印、設定、Upload與Serial |
 
@@ -31,7 +31,7 @@
 
 | ID | 品項 | 數量／位置 | 狀態 | 已有證據 | 下一步 |
 |---|---|---|---|---|---|
-| INPUT-SWITCH | 外形符合6×6 mm四腳輕觸按鈕 | 10顆散裝實物；來源待核對 | unverified | [俯視](images/hardware/actual/tact-switch-6x6mm-4pin-actual-top.jpg)／[側視](images/hardware/actual/tact-switch-6x6mm-4pin-actual-side.jpg)；可見金屬上蓋、中央按鍵與成對接腳 | 補拍底面四腳排列；斷電以萬用電表確認同側常通、未按跨側開路及按下跨側導通，再決定麵包板方向 |
+| INPUT-SWITCH | 外形符合6×6 mm四腳常開瞬時按鈕 | 10顆散裝實物；來源待核對 | partially verified | [俯視](images/hardware/actual/tact-switch-6x6mm-4pin-actual-top.jpg)／[側視](images/hardware/actual/tact-switch-6x6mm-4pin-actual-side.jpg)／[麵包板實測接法](images/hardware/actual/tact-switch-6x6mm-4pin-breadboard-continuity-actual.jpg)；2026-08-29以A830L抽測其中一顆：目前方向下第27列兩腳為固定同組，第29列為另一組；跨組未按不蜂鳴、按住蜂鳴、放開恢復不蜂鳴；接入BOARD-T01候選板外線路後，以TPG `c22`與按鈕列`b27`重測仍為放開不蜂鳴、按住蜂鳴、再放開不蜂鳴，見[量測紀錄](lab_notes/2026-08-29-a830l-button-continuity-validation.md) | 其餘9顆尚未逐顆抽測，不能由一顆結果推定全部通過；正式上課前抽測同批按鈕的一致性；候選GPIO尚未上電驗證 |
 | RESISTOR-KIT | 常用電阻包 | 3包；存放學校 | unverified | 購買畫面；尚無實物照片 | 到校後拍包裝阻值標示，使用前以萬用電表抽測 |
 | KY018-T01 | KY-018相容光敏電阻模組 | 已取得1個實物；其餘待盤點 | unverified | [元件面](images/hardware/actual/ky018-photoresistor-module-actual-component-side.jpg)與[焊接面](images/hardware/actual/ky018-photoresistor-module-actual-solder-side.jpg)；可見光敏電阻、三針排針、`S`與`-` | 補拍排針絲印近照，確認`S`／`+`／`-`順序後再決定接線；尚未通電 |
 | DHT11-T01 | 購買頁稱YS-31的DHT11三線模組 | 已取得1個實物；其餘待盤點 | unverified | [元件面與三線](images/hardware/actual/dht11-3pin-module-actual-component-side-with-cable.jpg)／[焊接面與三線](images/hardware/actual/dht11-3pin-module-actual-solder-side-with-cable.jpg) | 斷電取下連接線後補拍三針絲印；線色不能直接當作VCC／DATA／GND證據 |

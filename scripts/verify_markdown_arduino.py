@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 import shutil
 import subprocess
@@ -13,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 WEEK10 = ROOT / "IoT_Introduction/Week_10_MQTT_Multi_Device/week10_main.md"
 SOURCES = (
-    ROOT / "IoT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.md",
+    ROOT / "IoT_Introduction/Week_02_ESP32_Hardware_Basics/main.ipynb",
     ROOT / "IoT_Introduction/Week_03_Sensors_Input_Quality/week3_main.md",
     ROOT / "IoT_Introduction/Week_04_Actuators_and_Power/week4_main.md",
     ROOT / "IoT_Introduction/Week_05_Standalone_Interaction/week5_main.md",
@@ -46,8 +47,28 @@ def find_cli() -> str:
     raise FileNotFoundError("arduino-cli was not found")
 
 
+def source_content(document: Path) -> str:
+    if document.suffix.lower() != ".ipynb":
+        return document.read_text(encoding="utf-8")
+    notebook = json.loads(document.read_text(encoding="utf-8"))
+    default_language = notebook.get("metadata", {}).get("language_info", {}).get(
+        "name", ""
+    )
+    parts: list[str] = []
+    for cell in notebook.get("cells", []):
+        source = cell.get("source", "")
+        if isinstance(source, list):
+            source = "".join(source)
+        if cell.get("cell_type") == "markdown":
+            parts.append(source)
+        elif cell.get("cell_type") == "code":
+            language = cell.get("metadata", {}).get("language", default_language)
+            parts.append(f"```{language}\n{source.rstrip()}\n```")
+    return "\n\n".join(parts)
+
+
 def extract_complete_sketches(markdown: Path) -> list[str]:
-    content = markdown.read_text(encoding="utf-8")
+    content = source_content(markdown)
     blocks = re.findall(r"```cpp\s*\n(.*?)\n```", content, flags=re.DOTALL)
     complete = [block for block in blocks if "void setup()" in block and "void loop()" in block]
     if not complete:
