@@ -102,7 +102,7 @@ def convert(main_path: Path, support_path: Path, output_path: Path) -> None:
 
     main = main.replace(f"{support_path.name}#", "#")
     main = main.replace(f"({support_path.name})", f"(#{appendix_anchor})")
-    main = main.replace(main_path.name, "main.ipynb")
+    main = main.replace(main_path.name, output_path.name)
     main = main.replace(f"Week {week}支援資料", "本notebook附錄")
     main = main.replace("集中在支援資料", "集中在本notebook附錄")
 

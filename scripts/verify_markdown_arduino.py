@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 WEEK10 = ROOT / "IoT_Introduction/Week_10_MQTT_Multi_Device/week10_main.md"
 SOURCES = (
-    ROOT / "IoT_Introduction/Week_02_ESP32_Hardware_Basics/main.ipynb",
+    ROOT / "IoT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb",
     ROOT / "IoT_Introduction/Week_03_Sensors_Input_Quality/week3_main.md",
     ROOT / "IoT_Introduction/Week_04_Actuators_and_Power/week4_main.md",
     ROOT / "IoT_Introduction/Week_05_Standalone_Interaction/week5_main.md",

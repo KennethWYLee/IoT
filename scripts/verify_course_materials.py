@@ -203,7 +203,7 @@ def main() -> int:
         number = week_number(directory)
         files = sorted(path.name for path in directory.iterdir() if path.is_file())
         expected = (
-            ["main.ipynb"]
+            [f"week{number}_main.ipynb"]
             if number == 2
             else [f"week{number}_main.md", f"week{number}_support.md"]
         )

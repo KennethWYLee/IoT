@@ -90,7 +90,7 @@ are applied throughout the activity.
 
 軟體條件：Arduino IDE 2、Espressif `esp32` board package，以及Adafruit的
 `DHT sensor library`與`Adafruit Unified Sensor`。如尚無法Verify、Upload或開啟
-Serial Monitor，先回到[Week 2主教材](../Week_02_ESP32_Hardware_Basics/main.ipynb)排除開發環境問題。
+Serial Monitor，先回到[Week 2主教材](../Week_02_ESP32_Hardware_Basics/week2_main.ipynb)排除開發環境問題。
 
 硬體進入條件：`docs/hardware_state.md`已有本批板卡的Week 2 target-test紀錄，
 而且教師已公布KY-018使用的ADC GPIO與DHT11資料GPIO。未達成時只執行library安裝及

@@ -1,7 +1,7 @@
 # Course Examples
 
 本目錄保存學生教材與教師實機驗證會使用的可執行範例。週次教材以
-`main.ipynb`作為學生入口；Arduino sketch、Backend及其他可執行原始檔集中放在
+`weekN_main.ipynb`作為學生入口；Arduino sketch、Backend及其他可執行原始檔集中放在
 此處，避免repository根目錄出現`sketch_aug27a`之類無法辨認用途的預設名稱，並讓
 notebook中的程式能與已驗證來源交叉核對。
 

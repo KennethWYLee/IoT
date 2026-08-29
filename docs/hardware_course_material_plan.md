@@ -21,7 +21,7 @@ WebSocket、MQTT或Backend操作。
 
 ## 二、共同教材形式
 
-Week 3～5沿用Week 2 `main.ipynb`的學生實驗手冊寫法，每週教材應包含：
+Week 3～5沿用Week 2 `week2_main.ipynb`的學生實驗手冊寫法，每週教材應包含：
 
 1. 本次可觀察成果與學習目標。
 2. 依操作順序列出的實驗流程表，包含開始狀態及完成條件。
@@ -58,7 +58,7 @@ Week 3～5沿用Week 2 `main.ipynb`的學生實驗手冊寫法，每週教材應
 
 完整學生教材已存在：
 
-- `IoT_Introduction/Week_02_ESP32_Hardware_Basics/main.ipynb`
+- `IoT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb`
 - `docs/images/wiring/week2_gpio4_gpio5.svg`
 
 ### 固定成果
