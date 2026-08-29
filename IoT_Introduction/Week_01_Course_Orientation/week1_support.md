@@ -31,7 +31,7 @@
 | 小型舵機 | SG90、180度、全塑膠齒輪 | 1個 | NT$35 | Week 4 | Week 5及專題需要機械輸出時 |
 | 電池盒 | 4AA、帶開關、帶線 | 1個 | NT$15 | Week 4 | Week 5及專題需要外部供電時 |
 
-依教師先前成交單價估算，電子基本包約 **NT$659／人**，不含運費、
+依上述參考單價估算，電子基本包約 **NT$659／人**，不含運費、
 價格波動及下列已有合格用品就不必重買的項目。
 
 ### 學生也須自備
@@ -56,40 +56,42 @@ OLED、WS2812燈條、PIR、HC-SR04、MG90S、TT馬達、L298N、LM2596、
 
 ### 蝦皮購買圖片參考
 
-下列圖片是教師先前的蝦皮訂單紀錄，只用來辨認商品外觀。圖片中的購買數量
-是教師當時的訂單數量，不是每位學生應買數量；價格、庫存與賣場選項也可能
-改變。學生應依本檔採購總表的規格與每人數量下單。
+下列圖片是教師先前的蝦皮訂單或購物畫面，只用來辨認商品外觀。圖片中的數量
+不是每位學生應買數量；部分項目可能只在購物車中，價格、庫存與賣場選項也可能
+改變。學生應依本檔採購總表的規格與每人數量下單，不以圖片判定教師庫存。
 
-訂單圖1中，本課必買的是四腳輕觸按鈕及公對母杜邦線。OLED支架、TT馬達、
-輪胎與LM2596不屬於第一週必買；萬用電表由課堂提供。
+圖1中的四腳輕觸按鈕與公對母杜邦線可用來辨認本課必買品項。圖中的10顆按鈕
+當時沒有完成結帳；教師後來在既有零件中找到10顆實物，但這不改變每位學生須
+依正式清單準備兩顆按鈕的要求。OLED支架、
+TT馬達、輪胎與LM2596不屬於第一週必買；萬用電表由課堂提供。
 
-![蝦皮訂單圖1：按鈕與公對母杜邦線參考](../../docs/images/hardware/orders/order-01.png)
+![蝦皮購物畫面1：按鈕與公對母杜邦線外觀參考](../../docs/images/hardware/orders/shopee-aroundtw-01-prototyping-motors-power.png)
 
 訂單圖2中，本課必買的是母對母杜邦線。L298N、MG90S、HC-SR04、OLED與
 萬向球不屬於第一週必買。
 
-![蝦皮訂單圖2：母對母杜邦線參考](../../docs/images/hardware/orders/order-02.png)
+![蝦皮訂單圖2：母對母杜邦線參考](../../docs/images/hardware/orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png)
 
 訂單圖3中，本課必買的是KY-016、KY-012、公對公杜邦線、DHT11、
 ESP32-S3 N16R8向下44腳及4AA帶開關電池盒。HC-SR501與WS2812不屬於
 第一週必買。
 
-![蝦皮訂單圖3：ESP32、DHT11、RGB、蜂鳴器、公對公杜邦線與電池盒參考](../../docs/images/hardware/orders/order-03.png)
+![蝦皮訂單圖3：ESP32、DHT11、RGB、蜂鳴器、公對公杜邦線與電池盒參考](../../docs/images/hardware/orders/shopee-aroundtw-03-esp32-sensors-lighting-power.png)
 
 開發板下單時須選擇「樂鑫原廠S3開發板（排針向下－44腳位）」；商品頁圖片
 只協助找到選項，收到後仍要核對板上N16R8標示。
 
-![ESP32-S3 N16R8排針向下44腳位商品頁參考](../../docs/images/hardware/esp32-s3-devkitc-1-n16r8-product-page.png)
+![ESP32-S3 N16R8排針向下44腳位商品頁參考](../../docs/images/hardware/products/shopee-esp32-s3-dev-board-n16r8-product-page.png)
 
 訂單圖4中的KY-018、SG90 180度及400孔麵包板都是本課必買。畫面頂端重複
 出現的4AA電池盒不需再增加數量，每人只買一個。
 
-![蝦皮訂單圖4：KY-018、SG90與400孔麵包板參考](../../docs/images/hardware/orders/order-04.png)
+![蝦皮訂單圖4：KY-018、SG90與400孔麵包板參考](../../docs/images/hardware/orders/shopee-aroundtw-04-photoresistor-servo-breadboard.png)
 
 訂單圖5中的常用電阻包是本課必買；收納盒可以使用家中現有的合格容器，不必
 購買與圖片相同的款式。
 
-![蝦皮訂單圖5：常用電阻包與收納盒參考](../../docs/images/hardware/orders/order-05.png)
+![蝦皮訂單圖5：常用電阻包與收納盒參考](../../docs/images/hardware/orders/shopee-loyi-maker-05-resistors-storage.png)
 
 完整訂單圖說與已購數量另見[學生用訂單設備圖鑑](../../docs/images/hardware/order_gallery.md)。
 

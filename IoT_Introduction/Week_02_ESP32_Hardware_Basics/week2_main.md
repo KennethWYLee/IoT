@@ -5,8 +5,9 @@
 本章以 ESP32-S3 開發板為實驗平台，完成開發環境確認、程式編譯與上傳、
 GPIO 按鈕輸入、數位輸出及萬用電表驗證。
 
-> 實機驗證門檻：Espressif官方文件支持GPIO4與GPIO5作為本批板卡的候選一般
-> 輸入／輸出腳位，但`docs/hardware_state.md`目前仍將指定板卡標為`unverified`。
+> 實機驗證門檻：第一片實物為`YD-ESP32-S3 Type-A V1.5`，模組是
+> `ESP32-S3-WROOM-1 N16R8`；板上絲印可見GPIO4與GPIO5，但
+> `docs/hardware_state.md`目前仍將指定板卡標為`unverified`。
 > GPIO4／GPIO5只是教師target test的候選值。所有操作步驟一律使用教師以同批
 > 板卡、相同board package與USB路徑測試後公布的hardware profile；範例程式
 > 預設腳位為`-1`；
@@ -88,49 +89,86 @@ throughout the activity.
    獨自操作時，先從 ESP32 腳位沿線檢查到零件，再從零件反向檢查回 ESP32。
 6. 發現板子、線材或零件發熱、異味或異常聲音，立即斷電並通知教師。
 
-教師會先以 GPIO4 與 GPIO5 作為候選profile進行target test。Espressif 官方 DevKitC-1 接腳表將
-兩者列為一般輸入／輸出接腳，但官方資料不能取代本批實物target test。教師公布
+教師會先以GPIO4與GPIO5作為候選profile進行target test。YD板實物絲印列出兩個
+腳位，Espressif晶片與模組資料可用來查核其限制，但不能用DevKitC-1的PCB外觀或
+header位置取代本批YD板target test。教師公布
 profile後，學生須核對profile、板身絲印與金屬屏蔽罩。所有後續接線都以profile中的
 `PIN_BUTTON`與`PIN_TEST_OUTPUT`為準，不依候選值猜測。為避免記憶體配置差異，本課不使用GPIO35、GPIO36、GPIO37，
 因為使用 Octal SPI Flash／PSRAM 的相關版本會把這些腳位保留給板內部通訊。
 
-板載 RGB LED（可顯示紅、綠、藍的多色燈）不列入本週必要任務。DevKitC-1
-不同硬體修訂版本可能把它接到不同 GPIO；未確認板本版本前，不把網路上的
+板載 RGB LED（可顯示紅、綠、藍的多色燈）不列入本週必要任務。不同開發板
+可能把它接到不同GPIO；未完成YD板實測前，不把網路上的
 LED 腳位直接套用到實物。
 
-官方參考：[ESP32-S3-DevKitC-1 v1.1 使用指南](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/user_guide_v1.1.html)
+官方DevKitC-1照片只能用來比較「同一晶片的不同開發板」；本課YD板的USB與按鈕
+位置以實物為準。晶片與模組規格另見
+[ESP32-S3-WROOM-1資料表](https://documentation.espressif.com/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf)。
 
 ## 四、開發環境與板卡辨識
 
-### 步驟 1：驗證課前安裝
+### 步驟 1：安裝或更新 Arduino IDE
 
-#### Arduino IDE 與開發板支援套件
+#### Arduino IDE
 
 - **Arduino IDE**：撰寫、編譯和上傳 ESP32 程式的軟體。
+- **stable version／穩定版**：Arduino 正式提供給一般使用者的版本。本課使用
+  官方穩定版，不使用 Nightly Builds 測試版。
+
+若電腦尚未安裝 Arduino IDE，或版本不是目前課程採用的版本，依下列順序操作：
+
+1. 用瀏覽器開啟 [Arduino Software 官方下載頁](https://www.arduino.cc/en/software)。
+2. 找到 **Arduino IDE 2**，選擇適合目前 Windows 的 64-bit 安裝版本。不要下載
+   `Arduino IDE 1.8.x` 或 `Nightly Builds`。
+3. 下載頁若出現捐款選項，可按 **JUST DOWNLOAD** 直接下載。
+4. 開啟下載的安裝程式。Windows 顯示使用者帳戶控制確認時，先核對發布者與
+   下載來源，再允許安裝。
+5. 保留預設安裝元件與安裝位置，完成安裝後啟動 Arduino IDE。
+6. 在 Arduino IDE 點 **Help → About Arduino IDE**，記錄 `Version`。關閉
+   About 視窗後才繼續下一步。
+
+若電腦原本已有 Arduino IDE，也必須以 **Help → About Arduino IDE** 讀取實際
+版本；桌面圖示存在並不能證明版本正確。安裝或更新 Arduino IDE 時不需要連接
+ESP32。
+
+正常結果：Arduino IDE 主視窗可以開啟，About 視窗顯示 Arduino IDE 2 的版本。
+若安裝程式無法啟動，先保存完整 Windows 訊息並確認檔案來自 Arduino 官方網站，
+不要改從來路不明的網站下載。
+
+#### 步驟 2：安裝或驗證 ESP32 開發板支援套件
+
 - **Boards Manager**：Arduino IDE 內安裝開發板支援套件的位置。
 - **package／platform**：使 Arduino IDE 認得 ESP32、提供編譯工具與板型設定
   的軟體套件。本課選作者為 Espressif Systems 的 `esp32`。
 - **repository／repo**：由 Git 管理的課程專案資料夾；GitHub 上看到新版不
   代表本機一定已同步。
 
-依下列順序確認，不得僅以桌面是否存在 Arduino 圖示作為判斷：
+依下列順序安裝或確認，不得只看到名稱包含 ESP32 就選取：
 
 1. 啟動 Arduino IDE 2，等待主視窗完整顯示。
 2. 點左側 **Boards Manager** 圖示；若看不到，使用選單
    **Tools → Board → Boards Manager**。
 3. 在搜尋欄輸入 `esp32`。
 4. 找到作者為 **Espressif Systems** 的 `esp32` package。
-5. 確認按鈕顯示 `REMOVE` 或旁邊標示已安裝版本；若仍顯示 `INSTALL`，表示
-   課前作業尚未完成。`INSTALL` 是安裝，`REMOVE` 是移除；已安裝時不得
-   按下 `REMOVE`。
-6. 把已安裝版本填入：
+5. 若按鈕顯示 **INSTALL**，按下後等待下載與安裝完成。安裝期間保持網路連線，
+   不要關閉 Arduino IDE。
+6. 安裝完成後，確認卡片顯示 **REMOVE** 或明確標示已安裝版本。`REMOVE` 是
+   移除，不是完成按鈕；已安裝時不要按下它。
+7. 把實際版本填入：
 
 ```text
 Arduino IDE 版本：____________________
 Espressif esp32 package 版本：____________________
 ```
 
-7. 用瀏覽器開啟本repository，確認目前看到的檔名是`week2_main.md`。
+正常結果：搜尋結果顯示作者為 **Espressif Systems** 的 `esp32`，並能讀到已安裝
+版本。若下載中斷，先保存紅色錯誤訊息；不要同時改網路、重裝 IDE 與安裝未知
+driver，否則無法判斷是哪一項修正有效。
+
+#### 步驟 3：確認課程 repository
+
+1. 用瀏覽器開啟本 repository，確認目前看到的檔名是 `week2_main.md`。
+2. 若使用本機 Git，先確認本機分支已與課程 GitHub 同步；看到 GitHub 新版不代表
+   本機檔案已自動更新。
 
 最後勾選：
 
@@ -141,7 +179,7 @@ Espressif esp32 package 版本：____________________
 
 任一項未完成時，應先進入環境排錯區。每位學生均須完成自己的環境驗收。
 
-### 步驟 2：辨識板卡，不接線
+### 步驟 4：辨識板卡，不接線
 
 #### 板卡組成
 
@@ -159,12 +197,19 @@ Espressif esp32 package 版本：____________________
 - 3V3、5V、G／GND。
 - 教師profile所列的`PIN_BUTTON`與`PIN_TEST_OUTPUT`絲印位置。
 
-官方 v1.1 header table 可用來把profile的GPIO編號對照到J1／J3位置；J1第22腳與
-J3第1、21、22腳都是GND。**實際操作應讀profile，再找板上對應數字與`G`／`GND`
-絲印，不得僅以排針順序判斷。**
+若使用筆電相機保存板卡辨識證據，依
+[Windows相機拍攝與板卡照片檢核](week2_support.md#使用-windows-相機拍攝與板卡照片檢核)
+拍攝。拍照時板卡不得連接USB、電池或其他線路。
 
-`J1`、`J3` 是官方文件替兩排連接器取的編號，不是 GPIO 編號；學生實際接線
-仍以板上 `4`、`5`、`G` 等絲印為主。
+本批板卡不是官方DevKitC-1 PCB，因此不使用DevKitC-1文件中的J1／J3排針位置。
+學生應讀教師公布profile，再找YD板上的`4`、`5`、`GND`等實物絲印，不得僅以
+排針順序或相似板卡圖片判斷。
+
+BOARD-T01原始照片確認：正面朝上、黑色天線在左、兩個USB接頭在右時，靠近照片
+下緣的那排絲印由左起是`3V3`、`3V3`、`RST`、`4`、`5`、`6`……；因此`4`與`5`
+是相鄰腳位，分別位於該排由左數第4與第5個位置。相同排最右端印有`GND`，其左側
+是`5Vin`。這個計數只用來協助找到文字，最後仍必須看腳位旁的`4`、`5`與`GND`
+絲印確認；若學生實物的標示順序不同，立即停止，不得照此位置接線。
 
 依實物填寫下表，不得直接抄錄其他組員的內容：
 
@@ -190,16 +235,21 @@ J3第1、21、22腳都是GND。**實際操作應讀profile，再找板上對應�
 - **USB** 在這一步同時供電和傳輸資料；只有充電功能的線可以讓燈亮，卻不
   會讓電腦出現 Port。
 - **USB-to-UART** 是把電腦 USB 資料轉成 ESP32 序列通訊的橋接路徑。本週
-  固定使用教師標記的這個接頭，不使用另一個原生 USB 接頭。
+  使用YD板背面標示`COM`的接頭，不使用背面標示`USB`的原生USB接頭。
 - **USB hub** 是把一個 USB 孔擴充成多孔的集線器；鬆動或供電不穩時可能
   造成連線中斷，因此第一次測試先直接接筆電。
 
-1. 確認 ESP32 尚未插在麵包板，也沒有接任何杜邦線。
+1. 將ESP32從包裝泡棉或其他不明底材取下，放在乾燥、不導電且不會滑動的平面；
+   確認尚未插入麵包板，也沒有接任何杜邦線。通電時不要用手同時碰觸兩排針腳。
 2. 關閉 Arduino IDE 的 Serial Monitor，避免它占用 Port。
-3. 把資料線接到教師在板子上標記的 **USB-to-UART** 接頭。
-4. 把另一端接到筆電；不得使用接觸鬆動的 USB hub。
-5. 等待作業系統完成裝置辨識。
-6. 確認板上電源指示燈亮起。燈亮只證明有電，下一步仍要確認 Port。
+3. 斷電時翻到背面，確認兩個接頭旁分別印有`COM`與`USB`。`RST`與`BOOT`在
+   正面是並排按鈕，不能用按鈕與接頭是否同列來判斷USB用途。
+4. 翻回正面並放平。當天線在左、兩個USB接頭在右時，`COM`是**右上方**、靠近
+   `RX`／`TX`／`PWR`指示燈與USB轉序列晶片的接頭；`USB`則是右下方、靠近
+   `RGB`區域的原生USB接頭。把資料線接到`COM`的 **USB-to-UART** 接頭。
+5. 把另一端接到筆電；不得使用接觸鬆動的 USB hub。
+6. 等待作業系統完成裝置辨識。
+7. 確認板上電源指示燈亮起。燈亮只證明有電，下一步仍要確認 Port。
 
 此階段僅連接「ESP32、USB 與筆電」，不連接麵包板或其他模組。
 
@@ -289,6 +339,12 @@ Espressif 的 WROOM-1 模組資料表列出 N16R8 為 16 MB Quad SPI Flash 與
 6. 找出新出現的 Port，例如 Windows 的 `COM5`。
 7. 點選該 Port；被選取的項目前應出現勾選符號。
 8. COM 號碼由各台電腦分配，不得直接套用其他組別的號碼。
+
+Windows可能原本就列出多個`Bluetooth`／「透過藍牙連結的標準序列」COM Port。
+它們不是ESP32。這批YD板的`COM`接頭在本次測試顯示為
+`USB-Enhanced-SERIAL CH343 (COM8)`；`CH343`是板上USB-to-UART橋接晶片的名稱，
+`COM8`則只是這台電腦當次分配的號碼。學生仍須用拔除前後比較找出自己新增的
+`USB-Enhanced-SERIAL CH343`，不能照抄別人的COM號碼，也不能選Bluetooth Port。
 
 把實際 Port 寫下來：
 
