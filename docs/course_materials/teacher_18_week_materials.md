@@ -44,14 +44,25 @@
   只有教師能看到的講稿。
 - 節奏：先共同完成核心操作，再進行基礎修改、任選變化及成果驗收；通過
   驗收、保存證據、斷電並收納完成者可先離開。
-- 學生：上傳最小程式並修改 Serial 輸出；量測電源軌與通斷；依教師公布的
+- 學生：上傳最小程式並修改Serial輸出；完成麵包板與按鈕斷電通斷；依教師公布的
   同批板卡profile完成按鈕輸入與HIGH／LOW測試輸出，並連續測試五次。
 - 變化：交換接線圖，由另一組先檢查才允許上電。
 - 收件：上傳證據、Serial log、接線圖、GPIO 表、量測值、狀態切換影片
   與斷電程序。
 - 禁止：未確認的 5V 訊號直接進 GPIO；馬達或舵機由 GPIO 供電。
 
-### Week 3 - 感測與輸入品質
+### Week 3 - 電氣量測與ADC基礎
+
+- 問題：電表與ADC顯示的數字分別能證明什麼？
+- 器材：ESP32-S3、麵包板、萬用電表、電阻包與KY-018；本週不接DHT11、
+  致動器或外部電池。
+- 學生：量測220Ω、1kΩ、10kΩ、3V3、5Vin、GPIO LOW／HIGH及Reset後LOW；
+  再比較三種光線條件下的KY-018原始ADC值。
+- 收件：每筆資料的檔位、測點、數值、單位與條件，以及一段說明結果能證明
+  什麼、不能證明什麼。
+- 安全：通斷與電阻量測須斷電；上電電壓量測不得轉到電流檔或跨接相鄰排針。
+
+### Week 4 - 感測與輸入品質
 
 - 問題：Serial 有數字是否足以證明感測可靠？
 - 器材：全班統一使用KY-018及DHT11，不使用PIR、HC-SR04或OLED。
@@ -61,7 +72,7 @@
 - 安全：更換KY-018或DHT11接線前先斷電；依實物絲印核對VCC、GND與訊號腳，
   不依購物頁圖片猜接腳順序。
 
-### Week 4 - 致動器、機構與供電
+### Week 5 - 致動器、機構與供電
 
 - 問題：程式正確時，為何舵機動作仍會讓 ESP32 重開機？
 - 器材：KY-016、KY-012、SG90、4AA帶開關電池盒、學生自備AA電池，以及
@@ -72,7 +83,7 @@
 - 收件：供電圖、共地證據、動作範圍、停止測試與異常觀察。
 - 注意：舵機不得直接由 ESP32 GPIO 供電；實際電源容量須先驗證。
 
-### Week 5 - 單機互動硬體
+### Week 6 - 單機互動硬體
 
 - 問題：哪些狀態與結束條件能讓作品每次都從相同條件開始？
 - 學生：組合至少一種輸入與一種輸出，建立 idle／active／success／error／reset。
@@ -83,21 +94,10 @@
 - 收件：狀態圖、三次完整流程、一次失敗原因與修正、操作說明。
 - 本週不使用後端，先確認硬體行為可獨立測試。
 
-### Week 6 - HTTP、JSON、WebSocket 與第一個後端
-
-- 問題：如何分辨裝置、Wi-Fi、後端與手機哪一段失敗？
-- 示範：ESP32 連測試網路、HTTP POST 事件、後端驗證 JSON、WebSocket 推播。
-- 學生：將 Week 5 的一項事件上傳，手機瀏覽器即時看到事件與裝置狀態；再以
-  手機送出一項帶 `command_id` 的安全命令，由 ESP32 回傳 accepted、done、
-  error 或 timeout。
-- 錯誤：錯 URL、錯欄位、伺服器停止或 Wi-Fi 斷線，依 log 分段定位。
-- 收件：資料格式、request／response、command／result、server／error log、手機畫面。
-- 秘密：Wi-Fi 與 token 放本機設定，不提交 Git。
-
 ### Week 7 - 第一次個人筆試：硬體接線、電氣概念與安全
 
 - 全週只進行個人情境式筆試。
-- 只考Week 2-5硬體內容，不考HTTP、WebSocket、MQTT或後端架構。
+- 只考Week 2-6硬體內容，不考HTTP、WebSocket、MQTT或後端架構。
 - 不安排新進度、硬體實作、手機操作或小組活動。
 - 收件：個人筆試。
 
@@ -113,23 +113,28 @@
 ### Week 9 - 教師出國
 
 - 不要求到校、不收新評量成果。
-- 只提供連線、JSON、WebSocket 與硬體除錯 QA。
+- 只提供Git、開發環境、硬體整理與第8週回饋的選讀QA，不提前教授網路新進度。
 - 學生可整理第一次報告回饋；不得因本週未取得器材而被扣分。
 
-### Week 10 - MQTT 與多裝置
+### Week 10 - HTTP、JSON、WebSocket與第一個後端
 
-- 問題：如何避免訊息送錯作品，並知道裝置已離線？
-- 學生：設計device ID以及`telemetry`、`events`、`commands`、`acks`topic；
-  處理presence與離線。
-- 比較：HTTP request／response、WebSocket 與 MQTT 各適合什麼資料。
-- 收件：Topic 表、payload、publish／subscribe log、錯裝置防護證據。
+- 問題：如何分辨裝置、Wi-Fi、後端與手機哪一段失敗？
+- 示範：ESP32連測試網路、HTTP POST事件、後端驗證JSON、WebSocket推播。
+- 學生：將Week 6的一項事件上傳，手機瀏覽器即時看到事件與裝置狀態；再以
+  手機送出一項帶`command_id`的安全命令，由ESP32回傳accepted、done、
+  rejected、error或timeout。
+- 錯誤：錯URL、錯欄位、伺服器停止或Wi-Fi斷線，依log分段定位。
+- 收件：資料格式、request／response、command／result、server／error log、手機畫面。
+- 秘密：Wi-Fi與token放本機設定，不提交Git。
 
-### Week 11 - Database 與 log 分析
+### Week 11 - MQTT訊息與持久化資料
 
-- 問題：哪些是量測資料、作品事件、使用者命令與系統錯誤？
-- 學生：建立資料表與歷史 API；以時間、裝置、事件或結果查詢。
-- 分析：事件次數、成功率、回應時間、最近離線或一項作品相關統計。
-- 收件：schema、範例資料、查詢結果、一次從 log 解釋的失敗。
+- 問題：如何避免訊息送錯作品，並讓重要事件成為可查詢的持久紀錄？
+- 學生：設計device ID及`telemetry`、`events`、`commands`、`acks`topic；處理
+  presence與離線；讓一項事件及命令結果進入資料表。
+- 查詢：依時間、裝置、事件或結果完成一個最小歷史查詢。
+- 收件：Topic表、payload、publish／subscribe log、schema、查詢結果、錯裝置
+  防護及一次跨層log解釋。
 
 ### Week 12 - 第二次專題報告：進度檢查、回饋與修正計畫
 

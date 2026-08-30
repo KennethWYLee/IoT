@@ -66,15 +66,15 @@ system announcement.
 |---:|---|---|---|
 | 1 | 09-09 | Course orientation, assessment, project expectations, materials, and safety responsibilities | Course acknowledgement and project idea card; no hardware operation |
 | 2 | 09-16 | ESP32-S3, Upload, Serial, GPIO, GND, and measurement | Upload, button input, GPIO test output, and measurement evidence |
-| 3 | 09-23 | KY-018, DHT11, calibration, sampling, and invalid values | Valid and invalid light, temperature, and humidity records |
-| 4 | 09-30 | RGB LED, buzzer, SG90 servo, 4AA power, common ground, and safe stop | Status indication, constrained motion, and timeout testing |
-| 5 | 10-07 | Standalone interaction, state machines, and error recovery | A repeatable light-responsive state device |
-| 6 | 10-14 | Wi-Fi, HTTP, JSON, WebSocket, backend, and bidirectional mobile control | Real device events reach a phone; mobile commands and device results are traceable |
+| 3 | 09-23 | Electrical measurement and ADC foundations: resistance, voltage, 3.3V/5V, GPIO LOW/HIGH, reset state, and raw analog values | Resistance, supply-pin, GPIO-voltage, and ADC baseline evidence with units and measurement conditions |
+| 4 | 09-30 | KY-018, DHT11, calibration, sampling, valid and invalid values, and sensor quality | Valid and invalid light, temperature, and humidity records with sampling conditions |
+| 5 | 10-07 | RGB LED, buzzer, SG90 servo, 4AA power, common ground, and safe stop | Status indication, constrained motion, and timeout testing |
+| 6 | 10-14 | Standalone interaction, state machines, physical STOP, and error recovery | A repeatable light-responsive state device with safe stop and recovery evidence |
 | 7 | 10-21 | Individual Written Exam 1: hardware wiring, electrical concepts, and safety | Individual written work for the entire class; no new content or laboratory work |
 | 8 | 10-28 | Project Report 1: topic and technical feasibility | Hardware segment, data flow, materials, risks, and acceptance criteria |
 | 9 | 11-04 | Instructor abroad | No required attendance and no new assessed work; optional reading is provided |
-| 10 | 11-11 | MQTT, multiple devices, topics, presence, and acknowledgement | Telemetry, online and offline states, commands, and responses |
-| 11 | 11-18 | Database, historical API, structured logs, and analysis | Data tables, historical queries, and error explanations |
+| 10 | 11-11 | Wi-Fi, HTTP, JSON, WebSocket, backend, and bidirectional mobile control | Real device events reach a phone; mobile commands and device results are traceable |
+| 11 | 11-18 | MQTT messaging and persistent data: topics, presence, commands, acknowledgements, database records, structured logs, and minimal historical queries | One event and command result persist through MQTT into a database and can be explained with cross-layer logs |
 | 12 | 11-25 | Project Report 2: progress review, feedback, and revision plan | Current implementation evidence, identified problems, feedback, and a prioritized revision plan |
 | 13 | 12-02 | Mobile frontend, responsive web or PWA, and permissions | Real-time data, history, controls, and error or offline flows |
 | 14 | 12-09 | Automation, safety, fault recovery, and reconstruction | Automated behavior, three fault tests, recovery, and reconstruction in a clean environment |
@@ -88,7 +88,7 @@ system announcement.
 | Assessment | Weight | Primary Evidence |
 |---|---:|---|
 | Coursework | 15% | Weekly laboratory work, questions and answers, Lab Notebook, documentation, safety, collaboration, and verified AI use |
-| Individual Written Exam 1 (Week 7) | 15% | Hardware wiring, GPIO and GND, voltage, common ground, sensing, actuation, power, and safety |
+| Individual Written Exam 1 (Week 7) | 15% | Hardware wiring, GPIO and GND, electrical measurement, ADC, common ground, sensing, actuation, power, state machines, and safety |
 | Project Report 1 (Week 8) | 15% | Topic, hardware segment, software purpose, architecture, materials, risks, and acceptance criteria |
 | Project Report 2 (Week 12) | 15% | Current implementation evidence, progress status, identified problems, risk analysis, and a revision plan |
 | Individual Written Exam 2 (Week 15) | 15% | Wi-Fi, HTTP, JSON, WebSocket, MQTT, integrated data flow, and log-based troubleshooting |

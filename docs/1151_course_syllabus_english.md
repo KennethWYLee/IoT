@@ -4,9 +4,10 @@
 
 This course enables information management students to build toys, interactive
 mechanisms, environmental devices, mobile platforms, or other physical systems
-of their own design. Weeks 2-5 focus on hardware: safe wiring, GPIO, logic
-levels, sensors, actuators, power, physical interaction, and failure handling.
-Beginning in Week 6, students connect the ESP32-S3 to student-built software
+of their own design. Weeks 2-6 focus on hardware: safe wiring, electrical
+measurement, GPIO, logic levels, analog input, sensors, actuators, power,
+physical interaction, and failure handling. Beginning in Week 10, students
+connect the ESP32-S3 to student-built software
 through Wi-Fi, HTTP, WebSocket, JSON, MQTT, a backend, a database, structured
 logs, and a mobile-friendly interface. Every final project must contain working
 physical hardware and software that records useful data or events and assists
@@ -63,15 +64,15 @@ student-built device software, backend, database, and mobile interface.
 |---:|---|---|
 | 1 | 2026-09-09 | Course Orientation: Scope, Assessment Weights, Projects, Topic Options, Safety Responsibilities, and the Official Student Materials List; No Hardware Operation |
 | 2 | 2026-09-16 | ESP32-S3, Arduino IDE, Program Upload, Serial, GPIO, GND, 3.3V/5V, Breadboards, Multimeters, Buttons, and GPIO Test Output |
-| 3 | 2026-09-23 | KY-018 and DHT11: Calibration, Sampling, Data Validity, and Invalid Readings |
-| 4 | 2026-09-30 | KY-016, KY-012, SG90, PWM, 4AA External Power, Common Ground, Timeout, and Safe Shutdown |
-| 5 | 2026-10-07 | Standalone Light-Interactive Device: Button, Sensor, State Machine, Indicators, Servo, and Failure Recovery |
-| 6 | 2026-10-14 | Wi-Fi, HTTP, JSON, WebSocket, the First Student-built Backend, and Bidirectional Mobile Control |
+| 3 | 2026-09-23 | Electrical Measurement and ADC Foundations: Resistance, Voltage, 3.3V/5V, GPIO LOW/HIGH, Reset State, and Raw Analog Values |
+| 4 | 2026-09-30 | KY-018 and DHT11: Calibration, Sampling, Data Validity, Invalid Readings, and Sensor Quality |
+| 5 | 2026-10-07 | KY-016, KY-012, SG90, PWM, 4AA External Power, Common Ground, Timeout, and Safe Shutdown |
+| 6 | 2026-10-14 | Standalone Light-Interactive Device: Button, Sensor, State Machine, Indicators, Servo, Safe Stop, and Failure Recovery |
 | 7 | 2026-10-21 | Individual Examination 1: Hardware Wiring, Electrical Concepts, and Safety; No New Instruction or Lab Work |
 | 8 | 2026-10-28 | Project Report 1: Topic and Technical Feasibility |
 | 9 | 2026-11-04 | Instructor Conference Travel: No Required Attendance and No New Assessed Evidence |
-| 10 | 2026-11-11 | MQTT, Multi-device Topics, Presence, Commands, and Acknowledgements |
-| 11 | 2026-11-18 | Databases, Historical Queries, Structured Logs, and Basic Analysis |
+| 10 | 2026-11-11 | Wi-Fi, HTTP, JSON, WebSocket, the First Student-built Backend, and Bidirectional Mobile Control |
+| 11 | 2026-11-18 | MQTT Messaging and Persistent Data: Topics, Presence, Commands, Acknowledgements, Database Records, Structured Logs, and Minimal Historical Queries |
 | 12 | 2026-11-25 | Project Report 2: Progress Review, Feedback, and Revision Plan |
 | 13 | 2026-12-02 | Mobile Frontends, PWA, WebSocket, User Flows, and Permissions |
 | 14 | 2026-12-09 | Development Workshop: Automation, Safety, Fault Recovery, and Clean-environment Rebuild |

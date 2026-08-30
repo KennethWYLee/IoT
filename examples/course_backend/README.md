@@ -95,7 +95,7 @@ filters and any device-provided event `timestamp` must use timezone-aware ISO 86
 values, and `since` cannot be later than `until`. Leave the device timestamp null
 until the device has a trustworthy clock.
 
-## Week 10 MQTT bridge
+## Week 11 MQTT bridge
 
 Install and start a classroom MQTT broker first. Then set the broker connection
 for this PowerShell process and run the bridge:

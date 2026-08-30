@@ -270,10 +270,10 @@ String eventJson =
 
 ## 8. WebSocket 的課程責任邊界
 
-本課程Week 6的WebSocket連線位於**手機瀏覽器與Backend之間**，由Backend把
+本課程Week 10的WebSocket連線位於**手機瀏覽器與Backend之間**，由Backend把
 新事件與命令結果推送到畫面。ESP32使用有timeout的HTTP上傳事件及輪詢命令，
 不需要額外安裝`arduinoWebSockets`。完整、已驗證的ESP32與Backend流程以
-Week 6 main為準；不要把網頁收到的任意文字直接映射為致動器動作。
+Week 10正式教材為準；不要把網頁收到的任意文字直接映射為致動器動作。
 
 ## 9. MQTT Topic 與 acknowledgement
 

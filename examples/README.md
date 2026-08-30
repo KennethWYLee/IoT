@@ -21,6 +21,9 @@ notebook中的程式能與已驗證來源交叉核對。
 | Week 2教師實機驗證 | 在BOARD-T01驗證候選GPIO4按鈕輸入與GPIO5安全預設、HIGH／LOW輸出；通過前不得當作全班固定profile | [`week02_gpio4_gpio5_candidate_test/week02_gpio4_gpio5_candidate_test.ino`](week02_gpio4_gpio5_candidate_test/week02_gpio4_gpio5_candidate_test.ino) |
 | Week 2 | 同時記錄按鈕raw變化與去抖後stable事件，比較0／10／30／100 ms去抖設定 | [`week02_button_debounce_lab/week02_button_debounce_lab.ino`](week02_button_debounce_lab/week02_button_debounce_lab.ino) |
 | Week 3 | 每10秒自動切換測試輸出的LOW／HIGH，供單人量測GPIO電壓與Reset後LOW安全狀態 | [`week03_gpio_voltage_cycle/week03_gpio_voltage_cycle.ino`](week03_gpio_voltage_cycle/week03_gpio_voltage_cycle.ino) |
+| Week 3 | 收集KY-018三種光線profile、檢查範圍重疊並由實測資料建立門檻 | [`week03_ky018_calibration/week03_ky018_calibration.ino`](week03_ky018_calibration/week03_ky018_calibration.ino) |
+| Week 3 | 以受控間隔讀取DHT11，區分可用數字與`read_failed` | [`week03_dht11_quality/week03_dht11_quality.ino`](week03_dht11_quality/week03_dht11_quality.ino) |
+| Week 3 | 將KY-018與DHT11整理成一致的本機record，保留`valid`與`reason` | [`week03_combined_sensors/week03_combined_sensors.ino`](week03_combined_sensors/week03_combined_sensors.ino) |
 
 Arduino IDE若建立`sketch_日期`預設名稱，應先使用**File → Save As**改為符合本規則
 的名稱，再納入Git。

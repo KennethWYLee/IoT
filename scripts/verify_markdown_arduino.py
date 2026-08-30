@@ -15,12 +15,19 @@ ROOT = Path(__file__).resolve().parents[1]
 WEEK10 = ROOT / "IoT_Introduction/Week_10_MQTT_Multi_Device/week10_main.md"
 SOURCES = (
     ROOT / "IoT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb",
-    ROOT / "IoT_Introduction/Week_03_Sensors_Input_Quality/week3_main.md",
+    ROOT / "IoT_Introduction/Week_03_Sensors_Input_Quality/week3_main.ipynb",
     ROOT / "IoT_Introduction/Week_04_Actuators_and_Power/week4_main.md",
     ROOT / "IoT_Introduction/Week_05_Standalone_Interaction/week5_main.md",
     ROOT / "IoT_Introduction/Week_06_HTTP_WebSocket_Backend/week6_main.md",
     WEEK10,
     ROOT / "docs/course_materials/starter_code_snippets.md",
+)
+WEEK3 = ROOT / "IoT_Introduction/Week_03_Sensors_Input_Quality/week3_main.ipynb"
+WEEK3_EXAMPLES = (
+    ROOT / "examples/week03_gpio_voltage_cycle/week03_gpio_voltage_cycle.ino",
+    ROOT / "examples/week03_ky018_calibration/week03_ky018_calibration.ino",
+    ROOT / "examples/week03_dht11_quality/week03_dht11_quality.ino",
+    ROOT / "examples/week03_combined_sensors/week03_combined_sensors.ino",
 )
 WEEK14 = ROOT / "IoT_Introduction/Week_14_Automation_and_Safety/week14_main.md"
 WINDOWS_CLI = Path(
@@ -81,6 +88,23 @@ def extract_only_complete_sketch(markdown: Path) -> str:
     if len(complete) != 1:
         raise ValueError(f"expected one complete sketch in {markdown}, found {len(complete)}")
     return complete[0]
+
+
+def verify_week3_example_sync() -> None:
+    notebook_sketches = extract_complete_sketches(WEEK3)
+    if len(notebook_sketches) != len(WEEK3_EXAMPLES):
+        raise ValueError(
+            "Week 3 notebook/example count differs: "
+            f"{len(notebook_sketches)} notebook, {len(WEEK3_EXAMPLES)} examples"
+        )
+    for index, (notebook_source, example_path) in enumerate(
+        zip(notebook_sketches, WEEK3_EXAMPLES), start=1
+    ):
+        example_source = example_path.read_text(encoding="utf-8")
+        if notebook_source != example_source:
+            raise ValueError(
+                f"Week 3 sketch {index} differs from {example_path.relative_to(ROOT)}"
+            )
 
 
 def function_span(source: str, signature: str) -> tuple[int, int]:
@@ -178,6 +202,7 @@ def compile_week14(cli: str, temporary_root: Path) -> None:
 def main() -> int:
     try:
         cli = find_cli()
+        verify_week3_example_sync()
         with tempfile.TemporaryDirectory(prefix="iot-course-arduino-") as directory:
             temporary_root = Path(directory)
             for markdown in SOURCES:
