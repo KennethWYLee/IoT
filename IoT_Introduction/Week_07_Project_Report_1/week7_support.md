@@ -1,6 +1,6 @@
-# Week 8支援資料
+# Week 7支援資料
 
-第一次專題報告要求見[Week 8主教材](week8_main.md)。
+第一次專題報告要求見[Week 7主教材](week7_main.md)。
 
 ## 報告資料包
 
@@ -35,16 +35,16 @@
 
 未通過電壓、電流或驅動驗證的特殊零件，第一次報告前不先購買。
 
-## Week 10課前軟體通知
+## Week 11課前軟體通知
 
-Week 10每兩位學生至少要有一台能執行MQTT broker的Windows筆電。Week 8報告後、
-Week 10上課前，依[Eclipse Mosquitto官方下載頁](https://mosquitto.org/download/)
+Week 11每兩位學生至少要有一台能執行MQTT broker的Windows筆電。Week 7報告後、
+Week 11上課前，依[Eclipse Mosquitto官方下載頁](https://mosquitto.org/download/)
 安裝Windows x64版本，並確認安裝資料夾中有`mosquitto.exe`、
 `mosquitto_pub.exe`及`mosquitto_sub.exe`。本階段不要建立正式密碼或開放路由器
 port；帳密、LAN限制與測試設定會在Week 10 main一起完成。
 
 Arduino IDE的Library Manager須能搜尋到`PubSubClient`。若筆電沒有安裝權限、
-安全軟體阻擋，或同組無可用Windows筆電，應在Week 8結束前告知教師以安排
+安全軟體阻擋，或同組無可用Windows筆電，應在Week 7結束前告知教師以安排
 等價環境；這項環境回報不是新的Week 9評量成果。
 
 參考：[第一次報告準備單](../../docs/course_materials/student_worksheets.md)｜[專題報告評分表](../../docs/course_materials/rubrics_and_checklists.md)

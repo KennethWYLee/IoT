@@ -1,6 +1,6 @@
-# Week 7支援資料
+# Week 8支援資料
 
-當週任務與筆試範圍見[Week 7主教材](week7_main.md)。
+當週任務與筆試範圍見[Week 8主教材](week8_main.md)。
 
 ## 應試準備
 

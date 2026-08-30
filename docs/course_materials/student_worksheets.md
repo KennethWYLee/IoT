@@ -177,7 +177,7 @@ AI 使用
 | WebSocket | client update | disconnected／stale |  |
 | Phone UI | 正確狀態／結果 | 不更新／誤導 |  |
 
-## 11. 第一次專題報告準備（第8週）
+## 11. 第一次專題報告準備（第7週）
 
 | 欄位 | 內容 |
 |---|---|

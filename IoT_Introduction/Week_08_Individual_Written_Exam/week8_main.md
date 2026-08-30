@@ -1,6 +1,6 @@
-# Week 07：第一次個人筆試—硬體接線、電氣概念與安全
+# Week 08：第一次個人筆試—硬體接線、電氣概念與安全
 
-日期：2026-10-21
+日期：2026-10-28
 
 ## Unit Overview
 
@@ -18,7 +18,7 @@ By the end of this assessment, students will be able to:
 ### Teaching Content
 
 This individual written assessment examines the hardware concepts and safety reasoning
-developed in Weeks 2 through 5. Students interpret wiring, measurements, program states,
+developed in Weeks 2 through 6. Students interpret wiring, measurements, program states,
 and observable failures involving the ESP32-S3, sensors, low-power outputs, external
 actuator power, common ground, safe stop, and timeout behavior. No networking topic,
 new teaching content, laboratory activity, or group work is included during the week.

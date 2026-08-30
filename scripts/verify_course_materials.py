@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import base64
+import binascii
 import json
 import re
 import sys
@@ -60,7 +62,7 @@ def local_links(document: Path, content: str) -> list[tuple[Path, str]]:
     results: list[tuple[Path, str]] = []
     for target in re.findall(r"\[[^\]]*\]\(([^)]+)\)", content):
         target = target.strip().strip("<>")
-        if re.match(r"^(https?://|mailto:)", target):
+        if re.match(r"^(https?://|mailto:|attachment:)", target):
             continue
         path_text, _, anchor = target.partition("#")
         path_text = unquote(path_text)
@@ -68,6 +70,51 @@ def local_links(document: Path, content: str) -> list[tuple[Path, str]]:
         target_path = document if not path_text else document.parent / path_text
         results.append((target_path.resolve(), anchor))
     return results
+
+
+def notebook_attachment_errors(notebook: Path) -> list[str]:
+    """Validate Jupyter markdown attachments in the cell that references them."""
+    errors: list[str] = []
+    relative = notebook.relative_to(ROOT)
+    data = json.loads(notebook.read_text(encoding="utf-8"))
+    for index, cell in enumerate(data.get("cells", []), start=1):
+        if cell.get("cell_type") != "markdown":
+            continue
+        source = cell.get("source", "")
+        if isinstance(source, list):
+            source = "".join(source)
+        references = {
+            unquote(name)
+            for name in re.findall(r"\]\(attachment:([^)]+)\)", source)
+        }
+        attachments = cell.get("attachments", {})
+        for name in sorted(references - set(attachments)):
+            errors.append(
+                f"{relative}: cell {index} missing notebook attachment {name}"
+            )
+        for name in sorted(set(attachments) - references):
+            errors.append(
+                f"{relative}: cell {index} has unreferenced notebook attachment {name}"
+            )
+        for name, payloads in attachments.items():
+            if not isinstance(payloads, dict) or not payloads:
+                errors.append(
+                    f"{relative}: cell {index} attachment {name} has no MIME payload"
+                )
+                continue
+            for mime_type, encoded in payloads.items():
+                if not mime_type.startswith("image/"):
+                    errors.append(
+                        f"{relative}: cell {index} attachment {name} has unsupported "
+                        f"MIME type {mime_type}"
+                    )
+                try:
+                    base64.b64decode(encoded, validate=True)
+                except (binascii.Error, ValueError, TypeError):
+                    errors.append(
+                        f"{relative}: cell {index} attachment {name} is not valid base64"
+                    )
+    return errors
 
 
 def github_heading_slug(heading: str) -> str:
@@ -140,6 +187,8 @@ def table_cells(line: str) -> list[str]:
 def check_document_file(document: Path, content: str) -> list[str]:
     errors: list[str] = []
     relative = document.relative_to(ROOT)
+    if document.suffix.lower() == ".ipynb":
+        errors.extend(notebook_attachment_errors(document))
     if content.count("```") % 2:
         errors.append(f"{relative}: unbalanced code fence")
     if document.name != "AGENTS.md":

@@ -17,7 +17,7 @@
 
 | 名稱 | 本質 | 適合做什麼 | 不適合做什麼 |
 |---|---|---|---|
-| ESP32-S3 | 微控制器 MCU | 感測器、馬達、Wi-Fi、MQTT、低成本 IoT 裝置 | 大型影像辨識、完整 Linux、ROS 2 主機 |
+| ESP32-S3 | 微控制器 MCU | 感測器、馬達、Wi-Fi、MQTT、IoT 裝置 | 大型影像辨識、完整 Linux、ROS 2 主機 |
 | Arduino Uno | 微控制器開發板 | 入門 GPIO、感測器、簡單控制 | 內建 Wi-Fi 較弱、效能較低 |
 | Raspberry Pi | 單板電腦 SBC | Linux、Python、OpenCV、ROS 2、Web server | 價格較高、供電與系統維護較麻煩 |
 
@@ -725,6 +725,6 @@ ROS 2 node -> MQTT / Serial -> ESP32-S3
 - 讓系統透過指令控制實體設備。
 - 把資料存下來、視覺化、分析。
 - 設計異常判斷、告警與營運流程。
-- 用低成本材料做出可展示、可延伸的 IoT 原型。
+- 用基礎材料做出可展示、可延伸的 IoT 原型。
 
 資管學生的強項會在後半段出現：資料流、流程設計、dashboard、API、資料庫、使用者情境與營運管理。

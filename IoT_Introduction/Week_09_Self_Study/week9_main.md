@@ -9,7 +9,7 @@
 The following objectives apply only to students who choose to complete the optional
 consolidation activities. Students will be able to:
 
-1. Convert Week 8 feedback into bounded Git issues with an owner, completion condition,
+1. Convert Week 7 feedback into bounded Git issues with an owner, completion condition,
    and evidence requirement.
 2. Improve a wiring diagram, data-flow diagram, bill of materials, or test record without
    expanding the approved project scope.
@@ -19,7 +19,7 @@ consolidation activities. Students will be able to:
 ### Teaching Content
 
 Week 9 contains no required attendance, new teaching content, or assessed submission.
-Optional consolidation focuses on organizing Week 8 feedback, improving existing project
+Optional consolidation focuses on organizing Week 7 feedback, improving existing project
 documentation, protecting secrets, and preparing reproducible technical questions for the
 next class meeting.
 
@@ -28,7 +28,7 @@ next class meeting.
 
 ## 可選活動（不計分）
 
-- 整理Week 8第一次專題報告回饋與Git issue。
+- 整理Week 7第一次專題報告回饋與Git issue。
 - 補畫接線圖、資料流圖、BOM 或測試紀錄。
 - 整理可重現的技術問題，等待下週詢問。
 - 在不擴大題目範圍下修正一個已知小問題。

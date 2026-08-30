@@ -70,8 +70,8 @@ system announcement.
 | 4 | 09-30 | KY-018, DHT11, calibration, sampling, valid and invalid values, and sensor quality | Valid and invalid light, temperature, and humidity records with sampling conditions |
 | 5 | 10-07 | RGB LED, buzzer, SG90 servo, 4AA power, common ground, and safe stop | Status indication, constrained motion, and timeout testing |
 | 6 | 10-14 | Standalone interaction, state machines, physical STOP, and error recovery | A repeatable light-responsive state device with safe stop and recovery evidence |
-| 7 | 10-21 | Individual Written Exam 1: hardware wiring, electrical concepts, and safety | Individual written work for the entire class; no new content or laboratory work |
-| 8 | 10-28 | Project Report 1: topic and technical feasibility | Hardware segment, data flow, materials, risks, and acceptance criteria |
+| 7 | 10-21 | Project Report 1: topic and technical feasibility | Hardware segment, data flow, materials, risks, and acceptance criteria |
+| 8 | 10-28 | Individual Written Exam 1: hardware wiring, electrical concepts, and safety | Individual written work for the entire class; no new content or laboratory work |
 | 9 | 11-04 | Instructor abroad | No required attendance and no new assessed work; optional reading is provided |
 | 10 | 11-11 | Wi-Fi, HTTP, JSON, WebSocket, backend, and bidirectional mobile control | Real device events reach a phone; mobile commands and device results are traceable |
 | 11 | 11-18 | MQTT messaging and persistent data: topics, presence, commands, acknowledgements, database records, structured logs, and minimal historical queries | One event and command result persist through MQTT into a database and can be explained with cross-layer logs |
@@ -88,8 +88,8 @@ system announcement.
 | Assessment | Weight | Primary Evidence |
 |---|---:|---|
 | Coursework | 15% | Weekly laboratory work, questions and answers, Lab Notebook, documentation, safety, collaboration, and verified AI use |
-| Individual Written Exam 1 (Week 7) | 15% | Hardware wiring, GPIO and GND, electrical measurement, ADC, common ground, sensing, actuation, power, state machines, and safety |
-| Project Report 1 (Week 8) | 15% | Topic, hardware segment, software purpose, architecture, materials, risks, and acceptance criteria |
+| Project Report 1 (Week 7) | 15% | Topic, hardware segment, software purpose, architecture, materials, risks, and acceptance criteria |
+| Individual Written Exam 1 (Week 8) | 15% | Hardware wiring, GPIO and GND, electrical measurement, ADC, common ground, sensing, actuation, power, state machines, and safety |
 | Project Report 2 (Week 12) | 15% | Current implementation evidence, progress status, identified problems, risk analysis, and a revision plan |
 | Individual Written Exam 2 (Week 15) | 15% | Wi-Fi, HTTP, JSON, WebSocket, MQTT, integrated data flow, and log-based troubleshooting |
 | Project Report 3 (Weeks 16-17) | 25% | Complete physical interaction, frontend and backend, data, reliability, testing, documentation, and individual understanding |
@@ -107,7 +107,7 @@ The final project must include all of the following:
 - A physical artifact that operates safely and addresses a clearly described use case.
 - An ESP32-S3 or another controller approved by the instructor.
 - At least one physical input and one physical output; an exception must be approved
-  during Week 8.
+  during Week 7.
 - Wi-Fi and device communication through HTTP or MQTT.
 - A student-developed backend that can be restarted from documented instructions.
 - A database, historical queries, and structured logs.
@@ -147,6 +147,20 @@ approximately **NT$659 per student**. The exact models and specifications, first
 later weeks of use, additional student-provided items, items not yet required, product
 identification images, and delivery inspection procedure are maintained in the
 [Week 1 support material](week1_support.md#purchase-table).
+
+### Required Measurement Tool for Each Group
+
+Students work in groups of one to three. Each group must prepare one digital multimeter
+that can measure continuity, resistance, and low-voltage DC. A one-person group may
+share a multimeter with another group, but each group must perform and preserve its own
+measurements and conclusions. The instructor's A830L is a demonstration and reference
+instrument, not the normal instrument assigned to a student group.
+
+Before purchasing, confirm that the meter includes a continuity buzzer, resistance and
+DC-voltage ranges, a `COM` terminal, and a `VΩ` or `VΩmA` terminal. The group multimeter
+is first used in Week 2 and continues to support electrical, power, and troubleshooting
+tasks in later hardware and project work. Its cost is separate from the NT$659
+per-student electronics-kit estimate.
 
 ## 7. Hardware and Data Safety Responsibilities
 
@@ -210,7 +224,7 @@ require hardware, software installation during class, or a fixed final-project t
 3. Classify the assessment and schedule scenarios by citing the relevant course week
    or assessment rule.
 4. Complete the personal material-readiness check without purchasing optional project
-   parts before the topic is reviewed in Week 8.
+   parts before the topic is reviewed in Week 7.
 5. For each safety and evidence scenario, record the first safe action and the course
    rule that supports it.
 

@@ -23,8 +23,8 @@ main／support雙檔。
 | 4 | 2026-09-30 | KY-018、DHT11與感測品質 | 重整中，暫勿發布 | 舊Week 3 notebook的感測段落 |
 | 5 | 2026-10-07 | 致動器、機構與供電 | 重整中，暫勿發布 | 舊Week 4 main／support |
 | 6 | 2026-10-14 | 單機互動、狀態機、安全停止與故障復原 | 重整中，暫勿發布 | 舊Week 5 main／support |
-| 7 | 2026-10-21 | 第一次個人筆試：硬體接線、電氣概念與安全 | [main](Week_07_Individual_Written_Exam/week7_main.md) | [support](Week_07_Individual_Written_Exam/week7_support.md) |
-| 8 | 2026-10-28 | 第一次專題報告：題目與技術可行性 | [main](Week_08_Project_Report_1/week8_main.md) | [support](Week_08_Project_Report_1/week8_support.md) |
+| 7 | 2026-10-21 | 第一次專題報告：題目與技術可行性 | [main](Week_07_Project_Report_1/week7_main.md) | [support](Week_07_Project_Report_1/week7_support.md) |
+| 8 | 2026-10-28 | 第一次個人筆試：硬體接線、電氣概念與安全 | [main](Week_08_Individual_Written_Exam/week8_main.md) | [support](Week_08_Individual_Written_Exam/week8_support.md) |
 | 9 | 2026-11-04 | 教師出國／選讀自學 | [main](Week_09_Self_Study/week9_main.md) | [support](Week_09_Self_Study/week9_support.md) |
 | 10 | 2026-11-11 | HTTP、WebSocket、Backend與手機雙向控制 | 重整中，暫勿發布 | 舊Week 6 main／support |
 | 11 | 2026-11-18 | MQTT訊息、Database、structured log與最小歷史查詢 | 重整中，暫勿發布 | 舊Week 10與Week 11教材整併 |
@@ -59,5 +59,5 @@ main／support雙檔。
 - [設備圖片目錄](../docs/images/hardware/README.md)
 
 每位學生的共同必備器材，以 Week 1 support 的正式學生材料清單為準。教師
-現有器材只作課前實機驗證與示範，不提供學生借用或故障替換；第 8 週之後
+現有器材只作課前實機驗證與示範，不提供學生借用或故障替換；第 7 週之後
 只有選擇特殊專題功能的小組，才依通過安全審查的 BOM 自行增加選配材料。

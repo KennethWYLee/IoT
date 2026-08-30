@@ -13,7 +13,7 @@
 - [學生用訂單設備圖鑑](order_gallery.md)：五張原始訂單參考圖與品項對照。
 - [蝦皮商品圖與實物照片補拍清單](reshoot_checklist.md)：26項已購設備及後來找到的散裝按鈕之圖片狀態與補拍規則。
 - [第一批補拍零件外形示意圖](guides/week02-05-hardware-reshoot-reference.png)：編號06至13的外形辨識參考；不是腳位或接線依據。
-- [Week 2學生器材辨識](../../../IoT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb#二本週學生器材辨識)：Week 2 的器材規格與數量。
+- [Week 2實驗器材與分組](../../../IoT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb#二實驗器材與分組)：Week 2 的器材規格與分組量測工具。
 
 ## 狀態
 

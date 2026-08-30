@@ -40,7 +40,7 @@ Each team selects its own physical project. The final submission must include:
 1. A safely operating physical artifact and a clear use scenario.
 2. An ESP32-S3 or an instructor-approved equivalent controller.
 3. At least one physical input and one physical output, unless an exception is
-   approved during the Week 8 interview.
+   approved during the Week 7 interview.
 4. Wi-Fi and either HTTP or MQTT device communication.
 5. A student-built backend that another computer can start from documentation.
 6. A database, useful historical queries, and structured logs.
@@ -68,8 +68,8 @@ student-built device software, backend, database, and mobile interface.
 | 4 | 2026-09-30 | KY-018 and DHT11: Calibration, Sampling, Data Validity, Invalid Readings, and Sensor Quality |
 | 5 | 2026-10-07 | KY-016, KY-012, SG90, PWM, 4AA External Power, Common Ground, Timeout, and Safe Shutdown |
 | 6 | 2026-10-14 | Standalone Light-Interactive Device: Button, Sensor, State Machine, Indicators, Servo, Safe Stop, and Failure Recovery |
-| 7 | 2026-10-21 | Individual Examination 1: Hardware Wiring, Electrical Concepts, and Safety; No New Instruction or Lab Work |
-| 8 | 2026-10-28 | Project Report 1: Topic and Technical Feasibility |
+| 7 | 2026-10-21 | Project Report 1: Topic and Technical Feasibility |
+| 8 | 2026-10-28 | Individual Examination 1: Hardware Wiring, Electrical Concepts, and Safety; No New Instruction or Lab Work |
 | 9 | 2026-11-04 | Instructor Conference Travel: No Required Attendance and No New Assessed Evidence |
 | 10 | 2026-11-11 | Wi-Fi, HTTP, JSON, WebSocket, the First Student-built Backend, and Bidirectional Mobile Control |
 | 11 | 2026-11-18 | MQTT Messaging and Persistent Data: Topics, Presence, Commands, Acknowledgements, Database Records, Structured Logs, and Minimal Historical Queries |
@@ -86,8 +86,8 @@ student-built device software, backend, database, and mobile interface.
 | Assessment Item | Weight |
 |---|---:|
 | Regular Coursework | 15% |
-| Individual Examination 1 (Week 7) | 15% |
-| Project Report 1 (Week 8) | 15% |
+| Project Report 1 (Week 7) | 15% |
+| Individual Examination 1 (Week 8) | 15% |
 | Project Report 2 (Week 12) | 15% |
 | Individual Examination 2 (Week 15) | 15% |
 | Project Report 3 (Weeks 16-17) | 25% |
@@ -119,3 +119,9 @@ current, power, and common ground before applying power. ESP32-S3 GPIO uses
 servos must not be powered from a GPIO pin and must have a safe stop or power-off
 method. Projects may not collect identifiable images, audio, or other sensitive
 data without informed permission.
+
+Laboratory groups consist of one to three students. Each group prepares one
+digital multimeter with continuity, resistance, and low-voltage DC measurement;
+a one-student group may share a meter with another group, but each group keeps
+separate measurement evidence and conclusions. The instructor's meter is a
+demonstration and reference instrument rather than a normal group instrument.
