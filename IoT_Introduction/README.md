@@ -19,7 +19,7 @@ main／support雙檔。
 |---:|---|---|---|---|
 | 1 | 2026-09-09 | 課程介紹、配分與作品 | [main](Week_01_Course_Orientation/week1_main.md) | [support](Week_01_Course_Orientation/week1_support.md) |
 | 2 | 2026-09-16 | ESP32-S3、開發環境與安全接線 | [week2_main.ipynb](Week_02_ESP32_Hardware_Basics/week2_main.ipynb) | 已整合於notebook附錄 |
-| 3 | 2026-09-23 | 電氣量測與ADC基礎 | 重整中，暫勿發布 | 舊Week 3 notebook的量測段落 |
+| 3 | 2026-09-23 | 電氣量測與ADC基礎 | [week3_main.ipynb](Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb) | 教材與compile已驗證；指定板卡電壓與ADC實測中 |
 | 4 | 2026-09-30 | KY-018、DHT11與感測品質 | 重整中，暫勿發布 | 舊Week 3 notebook的感測段落 |
 | 5 | 2026-10-07 | 致動器、機構與供電 | 重整中，暫勿發布 | 舊Week 4 main／support |
 | 6 | 2026-10-14 | 單機互動、狀態機、安全停止與故障復原 | 重整中，暫勿發布 | 舊Week 5 main／support |
