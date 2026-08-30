@@ -5,6 +5,7 @@
 
 ## 文件
 
+- `weekly_lesson_design_framework.md`：一般教學週的共同教學循環、notebook結構與完成標準。
 - `teacher_18_week_materials.md`：每週教師課卡、時間配置與可收成果。
 - `student_worksheets.md`：可貼到 LMS 的學生任務單與紀錄模板。
 - `rubrics_and_checklists.md`：安全檢查、兩次筆試藍圖與三次專題報告評分表。
@@ -14,10 +15,11 @@
 ## 使用順序
 
 1. 先查 `../../PROJECT.md` 與 `../18_week_plan.md` 的最新固定決策。
-2. 依當週教師課卡準備器材、故障例與課末可檢查成果。
-3. 從學生任務單挑選必要頁面，不必每週整份發放。
-4. 程式範例先由教師使用確切板卡、腳位與供電完成實機驗證。
-5. 學生版本不得包含筆試答案、教師評分註記、Wi-Fi 密碼或 API key。
+2. 一般教學週依 `weekly_lesson_design_framework.md` 建立Teaching Point與完整教學循環。
+3. 依當週教師課卡準備器材、故障例與課末可檢查成果。
+4. 從學生任務單挑選必要頁面，不必每週整份發放。
+5. 程式範例先由教師使用確切板卡、腳位與供電完成實機驗證。
+6. 學生版本不得包含筆試答案、教師評分註記、Wi-Fi 密碼或 API key。
 
 ## 共同底線
 

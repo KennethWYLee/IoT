@@ -82,6 +82,9 @@
 - 一般教學週的收尾練習只鎖定一個當週核心主題，依「理解概念、觀察現象、
   比較或修改、用證據下結論」逐步加深；不得把數個互不相干的能力拼成收尾清單。
   考試、報告、教師出國與保留週不為了形式硬加收尾練習。
+- 一般教學週依`docs/course_materials/weekly_lesson_design_framework.md`設計與驗收；
+  使用「辨認、理解、操作、觀察、解釋、排錯、深入練習、保存證據、安全復原」的
+  教學循環。這份框架是教材維護文件，不加入週次資料夾，也不作為學生的第二入口。
 - 技術名詞、核心機制及基準作法優先依直接相關的官方文件或官方範例說明。
   為學生新增的比喻、變數名稱、示意資料或課堂活動必須標示為教學改寫，
   不得把本課的教學設計寫成官方規範。
@@ -140,6 +143,7 @@
 - Type B 設計：`docs/typeb_course_redesign.md`
 - 每週運作：`docs/18_week_materials_arrival_runbook.md`
 - 教師與學生教材：`docs/course_materials/`
+- 每週教材設計框架：`docs/course_materials/weekly_lesson_design_framework.md`
 - 採購原則：`docs/purchase_list.md`
 - 已購庫存：`docs/purchased_inventory.md`
 - 跨電腦硬體狀態：`docs/hardware_state.md`
