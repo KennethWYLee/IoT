@@ -18,6 +18,8 @@ notebook中的程式能與已驗證來源交叉核對。
 | 週次 | 目的 | 開啟檔案 |
 |---|---|---|
 | Week 2 | 驗證ESP32-S3晶片、CPU、Flash、PSRAM、Upload、RESET及Serial | [`week02_board_check/week02_board_check.ino`](week02_board_check/week02_board_check.ino) |
+| Week 2 | 組別、版本與uptime；分辨Verify、Upload、Reset及Serial Monitor的作用 | [`week02_serial_basics/week02_serial_basics.ino`](week02_serial_basics/week02_serial_basics.ino) |
+| Week 2 | 公開按鈕範例；INPUT_PULLUP、穩定狀態變化與輸出命令，未公布profile前保持-1 | [`week02_button_input/week02_button_input.ino`](week02_button_input/week02_button_input.ino) |
 | Week 2教師實機驗證 | 在BOARD-T01驗證候選GPIO4按鈕輸入與GPIO5安全預設、HIGH／LOW輸出；通過前不得當作全班固定profile | [`week02_gpio4_gpio5_candidate_test/week02_gpio4_gpio5_candidate_test.ino`](week02_gpio4_gpio5_candidate_test/week02_gpio4_gpio5_candidate_test.ino) |
 | Week 2 | 同時記錄按鈕raw變化與去抖後stable事件，比較0／10／30／100 ms去抖設定 | [`week02_button_debounce_lab/week02_button_debounce_lab.ino`](week02_button_debounce_lab/week02_button_debounce_lab.ino) |
 | Week 3 | 每10秒自動切換測試輸出的LOW／HIGH，供單人量測GPIO電壓並觀察Reset後啟動命令 | [`week03_gpio_voltage_cycle/week03_gpio_voltage_cycle.ino`](week03_gpio_voltage_cycle/week03_gpio_voltage_cycle.ino) |

@@ -27,6 +27,43 @@ target behavior.
 python scripts/verify_markdown_arduino.py
 ```
 
+## Week 2 notebook figures and focused verification
+
+`build_week2_figures.cjs` maintains eight original concept diagrams as SVG/PNG pairs
+under `docs/images/wiring/` and embeds the PNG versions in `week2_main.ipynb`.
+Existing photograph attachments are retained. Requirements: Node.js, `sharp`, and
+Microsoft JhengHei (or a reviewed compatible Traditional Chinese font). Set
+`NODE_PATH` if dependencies are supplied by a separate runtime.
+
+```powershell
+node scripts/build_week2_figures.cjs
+node scripts/build_week2_figures.cjs --check
+node scripts/verify_week2_notebook.cjs
+node scripts/verify_week2_notebook.cjs --render
+node scripts/verify_week2_notebook.cjs --compile
+```
+
+Edit the build script before regenerating; `--check` compares source/artifact and
+attachment bytes without writing. Exact raster equality depends on the renderer
+and fonts. The verifier checks the three canonical sketch copies, unpublished GPIO
+guards, thirteen embedded raster references, teaching sequence, selected calculations,
+and a **JavaScript model** of the diagnostic debounce rule. The model checks 0/10/30/100
+ms, boundary timing, missed pulses, held states and 32-bit wrap. It is not execution of
+the Arduino firmware and cannot establish physical button-bounce behavior.
+
+`--render` additionally requires `marked`, `playwright`, and installed Microsoft Edge.
+It writes ignored previews to `_outputs/`, checks image decoding, 1280/420px page
+widths and SVG text bounds. Inspect the diagrams/previews manually; this local HTML
+render is not a live GitHub rendering test. `--compile` uses Arduino CLI (override its
+path with `ARDUINO_CLI`) and the installed ESP32 platform to compile the three public
+examples plus `week02_board_check`. It does not upload, open COM ports, or verify a
+physical board. Default FQBN: `esp32:esp32:esp32s3:FlashSize=16M,PSRAM=opi`.
+
+Run the general course-material verifier and `git diff --check` as well. The
+[Week 2 review record](../docs/lab_notes/2026-09-05-week2-material-review.md) records
+the actual checks and remaining hardware limitations. The notebook intentionally
+includes reference answers under the teacher-approved complete-preparation edition.
+
 ## Week 3 notebook figures and focused verification
 
 `build_week3_figures.cjs` is the editable design source for six original explanatory
