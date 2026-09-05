@@ -158,8 +158,9 @@ async function main(){
  if(!check){
   // Mechanical source normalization and sequential placement; existing cell IDs/photos retained.
   for(const c of nb.cells)if(typeof c.source==='string')c.source=c.source.match(/[^\n]*\n|[^\n]+$/g)||[];
-  const meterIndex=nb.cells.findIndex(c=>c.source.join('').startsWith('## 七、萬用'));
-  const boardIndex=nb.cells.findIndex(c=>c.source.join('').startsWith('## 八、麵包板'));
+  const meterIndex=nb.cells.findIndex(c=>/^## 七、萬用/m.test(c.source.join('')));
+  const boardIndex=nb.cells.findIndex(c=>/^## 八、麵包板/m.test(c.source.join('')));
+  assert(meterIndex>=0&&boardIndex>=0,'Meter and breadboard headings must exist');
   if(meterIndex>boardIndex){const [c]=nb.cells.splice(meterIndex,1);nb.cells.splice(boardIndex,0,c);}
   fs.writeFileSync(target,JSON.stringify(nb,null,1)+'\n');
  }

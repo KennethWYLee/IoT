@@ -22,7 +22,7 @@ for(const [i,c]of nb.cells.entries()){
  for(const name of Object.keys(c.attachments||{}))assert(refs.includes(`attachment:${name}`),name);
 }
 assert.equal(images,14);
-const meter=sources.findIndex(s=>s.startsWith('## 七、萬用')),board=sources.findIndex(s=>s.startsWith('## 八、麵包板')),gpio=sources.findIndex(s=>s.startsWith('## 九、按鈕'));
+const meter=sources.findIndex(s=>/^## 七、萬用/m.test(s)),board=sources.findIndex(s=>/^## 八、麵包板/m.test(s)),gpio=sources.findIndex(s=>/^## 九、按鈕/m.test(s));
 assert(meter<board&&board<gpio);
 for(const p of ['完整備課版（含參考答案）','### 10.7','### 10.8','### 10.9','### 10.10','總數剛好10','模擬教學log','5020','5050','不要求額外穩定時間'])assert(all.includes(p),p);
 assert(!all.includes('E27` 與 `F27`：應不導通'));
@@ -34,7 +34,10 @@ assert.equal(node('a29'),node('b29'));assert.notEqual(node('a29'),node('a28'));
 assert.equal(node('a22'),node('b22'));assert.notEqual(node('a20'),node('a22'));
 assert.notEqual(node('a10'),node('f10'));assert.equal(node('a27'),node('e27'));
 assert(!sources[4].includes('45000'));
-assert(sources[24].includes('0.003 A'));
+assert(sources[9].includes('0.003 A'));
+assert(!sources[24].includes('### 先找已知與未知'));
+assert(sources[9].indexOf('三個量，不是三種說法')<sources[9].indexOf('先找已知與未知'));
+assert(sources[24].includes('w2-ohms-example'));
 assert(sources[9].includes('檔位、兩個測點') || sources[9].includes('五個欄位'));
 assert(sources[9].includes('不能替它們補上Ω'));
 assert(sources[10].indexOf('同組測點示例')<sources[10].indexOf('attachment:week2-button-continuity.jpg'));

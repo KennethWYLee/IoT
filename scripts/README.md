@@ -117,6 +117,24 @@ The [joint beginner review](../docs/lab_notes/2026-09-05-week2-week3-beginner-re
 records the subsequent V/I/R and meter-reading edits, photo placement, unit/evidence
 corrections, phase handoffs, visual checks and remaining first-time learner trial.
 
+## Week 1–3 reading navigation
+
+`verify_intro_navigation.cjs` checks the explicit section links in the Week 1 main/support
+and Week 2/3 notebooks, unique anchors, the English Week 1 outline, and selected
+first-use teaching order. It complements the two notebook verifiers, not a replacement
+for a novice reading trial.
+
+```powershell
+node scripts/verify_intro_navigation.cjs
+node scripts/verify_intro_navigation.cjs --render
+```
+
+Default mode requires only Node.js. `--render` also requires `marked`, `playwright`, and
+Microsoft Edge; set `NODE_PATH` when using bundled dependencies. It creates ignored
+Week 1 HTML/screenshots in `_outputs/`, clicks local section links, loads the six local
+support images, and checks 1200/420px widths. Use the Week 2/3 `--render` commands above
+for those notebooks. These local previews do not test the live GitHub renderer.
+
 ## `mirror_dokuwiki.py`
 
 Mirrors the course DokuWiki reference site into a local folder for offline review and link checking.

@@ -4,6 +4,12 @@
 安裝步驟、課程架構延伸說明與重要評量週次細節。
 課程說明、配分與作品要求請閱讀[Week 1主教材](week1_main.md)。
 
+[採購規格](#purchase-table)｜[每組電表](#group-measurement-tool)｜
+[到貨檢查](#delivery-check)｜[個人準備確認](#personal-purchase-check)｜
+[作品構想卡](#project-idea-card)｜[課程理解練習](#week-1-learning-evidence)｜
+[課後安裝準備](#week-2-preclass-setup)｜[架構延伸](#architecture-extension)｜
+[評量週次](#assessment-details)
+
 <a id="purchase-table"></a>
 
 ## 一、學生材料採購總表
@@ -33,6 +39,8 @@
 
 依上述參考單價估算，電子基本包約 **NT$659／人**，不含運費、
 價格波動及下列已有合格用品就不必重買的項目。
+
+<a id="group-measurement-tool"></a>
 
 ### 每組必備的量測工具
 
@@ -92,8 +100,12 @@ ESP32-S3 N16R8向下44腳及4AA帶開關電池盒。HC-SR501與WS2812不屬於
 
 ![蝦皮訂單圖3：ESP32、DHT11、RGB、蜂鳴器、公對公杜邦線與電池盒參考](../../docs/images/hardware/orders/shopee-aroundtw-03-esp32-sensors-lighting-power.png)
 
-開發板下單時須選擇「樂鑫原廠S3開發板（排針向下－44腳位）」；商品頁圖片
-只協助找到選項，收到後仍要核對板上N16R8標示。
+歷史商品頁的選項文字是「樂鑫原廠S3開發板（排針向下－44腳位）」。這是賣場
+標題，不能據此認定整片開發板就是Espressif原廠DevKitC-1。課程已拍照與測試的
+BOARD-T01實物PCB為YD-ESP32-S3 Type-A V1.5，板上的模組為
+ESP32-S3-WROOM-1 N16R8；模組型號與整片開發板型號是兩件事。
+下單前依正式清單確認規格，到貨後另核對板面與背面標示、排針及USB接頭，
+不能只比對N16R8就照抄另一片板的腳位或供電方式。有差異先交由教師確認。
 
 ![ESP32-S3 N16R8排針向下44腳位商品頁參考](../../docs/images/hardware/products/shopee-esp32-s3-dev-board-n16r8-product-page.png)
 
@@ -113,7 +125,7 @@ ESP32-S3 N16R8向下44腳及4AA帶開關電池盒。HC-SR501與WS2812不屬於
 
 | 週次 | 當週硬體準備 |
 |---:|---|
-| 1 | 不攜帶、不接線；確認清單、完成採購與課前安裝 |
+| 1 | 課堂不攜帶、不接線；確認清單，課後完成採購與Week 2課前安裝 |
 | 2 | ESP32-S3、USB資料線、麵包板、杜邦線與按鈕；每組1台萬用電表 |
 | 3 | ESP32-S3、麵包板、杜邦線與KY-018；電阻包中的1kΩ與10kΩ各一顆做分壓；每組1台萬用電表，完成電氣量測與ADC基礎 |
 | 4 | ESP32-S3、麵包板、杜邦線、KY-018與DHT11；攜帶組內萬用電表供電源與接線排查 |
@@ -130,6 +142,8 @@ ESP32-S3 N16R8向下44腳及4AA帶開關電池盒。HC-SR501與WS2812不屬於
 | 16～17 | 依核准題目攜帶完整期末作品與必要備援材料 |
 | 18 | 校定期末考週，保留空白；不要求攜帶或購買硬體 |
 
+<a id="delivery-check"></a>
+
 ### 到貨檢查
 
 1. 不上電，逐項核對名稱、型號、數量與外觀。
@@ -140,6 +154,10 @@ ESP32-S3 N16R8向下44腳及4AA帶開關電池盒。HC-SR501與WS2812不屬於
 6. 4AA電池盒只檢查開關、導線與外觀；Week 5前不裝電池接舵機。
 7. 將全部器材排開拍照，再放入有姓名或學號標籤的收納盒。
 8. 型號、腳位數或商品選項不同時，Week 2前提交照片與規格，不直接上電試錯。
+
+標籤與訂單可以協助確認購買品項，不等於已通過電氣測試。拍攝物品辨識照片時，
+只保留需要核對的商品與標示；收件地址、電話及訂單中的私人資訊不要放進公開
+repository。個人姓名與學號的收納標籤、構想卡也不應成為公開教材圖片。
 
 <a id="personal-purchase-check"></a>
 
@@ -168,6 +186,10 @@ ESP32-S3 N16R8向下44腳及4AA帶開關電池盒。HC-SR501與WS2812不屬於
 ## 二、作品構想卡
 
 本表只記錄第一週的初步想法，不是正式題目核准，Week 7第一次報告前可修改。
+
+先閱讀主教材的[桌面狀態指示器案例](week1_main.md#first-iot-example)，再換成自己
+的使用者與情境。案例示範「如何把用途拆成可觀察的互動」，不是限定所有組別
+都做同一種作品，也不是已完成實機驗證的成品。
 
 先比較兩個候選方向，不要從「想買哪個零件」開始。每個方向先找出一條最小但
 完整的互動：使用者或環境產生可觀察輸入，系統判斷後產生可觀察輸出，軟體則
@@ -233,6 +255,8 @@ ESP32-S3 N16R8向下44腳及4AA帶開關電池盒。HC-SR501與WS2812不屬於
 ### 2. 兩條資料路徑
 
 使用作品構想卡選定的暫定方向，填入具體事件名稱，不要只抄元件或系統層名稱。
+若還不清楚Backend、Database或命令的角色，先回到主教材的
+[具體案例與兩條訊息路徑](week1_main.md#first-iot-example)，再填本表。
 
 ```text
 實體輸入事件：____________________
@@ -273,31 +297,46 @@ AI回答或購物頁圖片代替證據。
 
 ## 四、Week 2課前環境準備
 
+這一節在Week 1課後完成，不在課堂接板或上傳程式。Arduino IDE是撰寫、編譯及
+上傳程式的電腦軟體；ESP32 board package則讓IDE知道如何為ESP32系列建立程式。
+安裝IDE與安裝board package是兩件事，看到IDE視窗不代表ESP32支援已安裝。
+
+逐畫面的安裝與檢查步驟集中在
+[Week 2第四節：軟體與板卡辨識](../Week_02_ESP32_Hardware_Basics/week2_main.ipynb#w2-install)。
+此處列準備順序與須保存的證據；操作時依該節完整步驟完成。遇到不懂的名詞，
+回到對應說明，不靠猜測更改設定。課前先完成安裝部分，實物板卡設定、接線與
+Upload留到Week 2依序操作。
+
 ### 1. 安裝Arduino IDE 2
 
-從[Arduino官方IDE文件](https://docs.arduino.cc/software/ide/)下載並安裝。
-安裝後至少開啟一次，確認程式可正常啟動。
+依Week 2第四節提供的[Arduino官方來源](https://docs.arduino.cc/software/ide/)
+完成安裝，再開啟一次IDE。保留成功開啟的畫面及實際安裝版本。
 
 ### 2. 安裝Espressif ESP32 board package
 
-依[Espressif官方安裝說明](https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html)
-使用Boards Manager安裝 `esp32` platform。如需Additional Boards Manager URL，使用：
-
-```text
-https://espressif.github.io/arduino-esp32/package_esp32_index.json
-```
-
+依Week 2第四節及其中連結的
+[Espressif官方安裝說明](https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html)
+完成Boards Manager安裝，確認Espressif的`esp32`項目顯示已安裝並記下版本。
 安裝後重新啟動Arduino IDE。Board、flash與PSRAM設定由教師在Week 2
 依實物板卡統一公布，不自行猜測。
 
 ### 3. 取得課程資料
 
-以 `git pull`、clone或Download ZIP取得最新版，並確認能找到：
+第一次取得課程資料且尚未使用Git時，可先在
+[課程GitHub首頁](https://github.com/KennethWYLee/IoT)選擇`Code → Download ZIP`。
+畫面位置可對照[GitHub官方下載說明](https://docs.github.com/en/repositories/working-with-files/using-files/downloading-source-code-archives)。
+下載後解壓縮到一個容易找到的新資料夾，不直接覆蓋自己已修改過的舊資料夾。
+解壓縮後確認能找到：
 
 ```text
 IoT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb
 docs/course_materials/starter_code_snippets.md
 ```
+
+`.ipynb`是包含說明與程式格的notebook文件；在GitHub可以閱讀，不需要在Week 1
+安裝Python或Jupyter才能開始課程。下載的ZIP是一份當下的檔案快照，不會自動
+取得之後的更新。已有Git工作目錄的學生可沿用原有同步方式，但同步前先檢查
+尚未保存的修改；不確定時保留舊資料並提出問題，不用覆蓋或刪除來解決。
 
 ### 4. 準備上課用品與證據
 
@@ -306,9 +345,12 @@ docs/course_materials/starter_code_snippets.md
 - [ ] Boards Manager顯示Espressif `esp32`已安裝的截圖。
 - [ ] 課程資料已下載或同步的截圖。
 - [ ] 已盤點Week 2需用的開發板、麵包板、按鈕與杜邦線。
+- [ ] 已確認本組萬用電表的準備者；1人組若共用，已確認共用對象。
 
 安裝失敗時，回報作業系統版本、卡住的步驟、完整錯誤訊息或截圖，
 以及已經嘗試過的處理方式。
+
+<a id="architecture-extension"></a>
 
 ## 五、Full-stack IoT架構延伸說明
 
@@ -316,37 +358,24 @@ docs/course_materials/starter_code_snippets.md
 逐步完成一個Full-stack IoT系統：實體裝置能感測或回應，網路能傳送事件與
 命令，後端能處理資料，Database能保存歷史，手機介面能協助使用者監看或操作。
 
-```text
-感測器／按鈕
-  → ESP32-S3判斷狀態
-  → 燈、聲音、舵機或其他實體輸出
-  → Wi-Fi與HTTP／MQTT
-  → 學生建立的Backend
-  → Database與structured log
-  → WebSocket
-  → 手機可用介面
+主教材的[兩條訊息路徑](week1_main.md#first-iot-example)是基本架構範例。特別注意：
+ESP32控制實體輸出與ESP32送出網路事件是兩個動作，不是「電流穿過燈後，再流到
+Wi-Fi與Database」。實體輸出使用供電與控制線路；網路傳送的是描述事件或要求
+動作的訊息。電路圖回答「哪些接點相連」，資料流圖回答「哪個部分把什麼資訊
+交給誰」，兩種圖不能互相替代。
 
-手機命令
-  → Backend記錄與派送
-  → ESP32-S3判斷是否接受
-  → 執行、拒絕或timeout
-  → 結果回到Backend、Database與手機
-```
+進一步檢查一條命令時，要分別問：手機是否提出要求？Backend是否接受？裝置有
+沒有收到並執行？結果有沒有回傳？實體是否符合預期？訊息中途遺失時，裝置可能
+沒有執行，也可能已執行但結果未回傳；timeout只表示等待結果逾時，不能由它
+直接推論實體一定沒有動作。這些差異會在後續網路與故障復原單元逐步實作。
 
 作品題目不限定為無人車。互動玩具、智慧教室、環境裝置、警報器、遊戲、
 輔助裝置、移動平台或其他合理題目都可以，但必須具備可說明的使用情境、
 真實硬體行為及有用途的軟體。
 
-完成課程後，學生應能：
-
-1. 分辨開發板、感測器、致動器、網路、Backend、Database與手機介面的責任。
-2. 依電壓、邏輯準位、供電與共地原則安全接線，並使用萬用電表取得證據。
-3. 將輸入、狀態、決策與輸出組成可重複操作且能安全停止的互動硬體。
-4. 使用HTTP／MQTT、JSON與WebSocket串接裝置、後端、資料庫及手機介面。
-5. 使用歷史資料與structured log解釋一次成功、失敗或修正。
-6. 完成並說明一件具實體行為、軟體用途、安全機制與重建文件的IoT作品。
-
 正式週次與成果定義見[18週課程規劃](../../docs/18_week_plan.md)。
+
+<a id="assessment-details"></a>
 
 ## 六、重要評量週次說明
 
