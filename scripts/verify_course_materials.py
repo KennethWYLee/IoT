@@ -253,7 +253,7 @@ def main() -> int:
         files = sorted(path.name for path in directory.iterdir() if path.is_file())
         expected = (
             [f"week{number}_main.ipynb"]
-            if number in {2, 3}
+            if number in {2, 3, 4}
             else [f"week{number}_main.md", f"week{number}_support.md"]
         )
         if files != expected:

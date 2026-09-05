@@ -42,6 +42,13 @@
 
 ## 已驗證組合
 
+Week 4新增的220 Ω／330 Ω量程比較、KY兩條件校正與DHT11品質流程，
+目前只有[文件／編譯／host驗證紀錄](lab_notes/2026-09-05-week4-material-review.md)，
+**未新增實機通過組合**。RESISTOR-KIT需核對實物色環與電表提示；KY需新基準與獨立驗證；
+DHT11-T01需確認三腳功能、3.3 V供電、DATA上拉／邏輯電壓、GPIO及Upload／真實讀值。
+母對母接法只在上述profile核准後執行；公開程式保持GPIO=-1與DHT人工核准閘門false。
+軟體f注入不等於拔線測試，r取消不等於真實恢復成功。本次不修改既有Week 2／3實驗紀錄。
+
 每一列必須能對應一份 `docs/lab_notes/` 紀錄與 Git commit。
 
 | 組合 ID | Board／modules | 電源與邏輯準位 | Firmware／commit | Tool／library versions | 驗證結果 | Lab note |

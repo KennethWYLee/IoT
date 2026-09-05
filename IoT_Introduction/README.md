@@ -6,7 +6,7 @@
 
 本資料夾依 18 週實際授課順序整理。學生教材正逐週轉換成單一入口
 `weekN_main.ipynb`：核心說明、操作、程式、練習與支援附錄在同一本notebook中。
-Week 2已完成轉換。2026-08-29新增一週硬體量測後，Week 3至11的既有教材成為
+Week 2～4已有單本入口。2026-08-29新增一週硬體量測後，其餘受影響週次的既有教材成為
 重整來源，必須依下方搬移表逐週拆分、驗證後才能發布；其他週次暫時保留原有
 main／support雙檔。
 
@@ -20,8 +20,8 @@ main／support雙檔。
 | 1 | 2026-09-09 | 課程介紹、配分與作品 | [main](Week_01_Course_Orientation/week1_main.md) | [support](Week_01_Course_Orientation/week1_support.md) |
 | 2 | 2026-09-16 | ESP32-S3、開發環境與安全接線 | [week2_main.ipynb](Week_02_ESP32_Hardware_Basics/week2_main.ipynb) | 已整合於notebook附錄 |
 | 3 | 2026-09-23 | 電氣量測與ADC基礎 | [week3_main.ipynb](Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb) | 教材與compile已驗證；指定板卡電壓與ADC實測中 |
-| 4 | 2026-09-30 | KY-018、DHT11與感測品質 | 重整中，暫勿發布 | 舊Week 3 notebook的感測段落 |
-| 5 | 2026-10-07 | 致動器、機構與供電 | 重整中，暫勿發布 | 舊Week 4 main／support |
+| 4 | 2026-09-30 | 電阻量程、KY-018、DHT11與感測品質 | [week4_main.ipynb](Week_04_Sensors_and_Data_Quality/week4_main.ipynb) | 完整備課版含解答；[驗證範圍與實機待驗](../docs/lab_notes/2026-09-05-week4-material-review.md) |
+| 5 | 2026-10-07 | 致動器、機構與供電 | 重整中，暫勿發布 | [舊Week 4原稿封存](../docs/legacy_week4_actuators/README.md) |
 | 6 | 2026-10-14 | 單機互動、狀態機、安全停止與故障復原 | 重整中，暫勿發布 | 舊Week 5 main／support |
 | 7 | 2026-10-21 | 第一次專題報告：題目與技術可行性 | [main](Week_07_Project_Report_1/week7_main.md) | [support](Week_07_Project_Report_1/week7_support.md) |
 | 8 | 2026-10-28 | 第一次個人筆試：硬體接線、電氣概念與安全 | [main](Week_08_Individual_Written_Exam/week8_main.md) | [support](Week_08_Individual_Written_Exam/week8_support.md) |
@@ -38,13 +38,18 @@ main／support雙檔。
 
 完整規則與評量以[正式 18 週課程規劃](../docs/18_week_plan.md)為準。
 
+2026-09-05補齊必買材料用途：220 Ω／330 Ω辨識、阻值及量程比較改排Week 4，並共同
+使用DHT11及母對母資料線，Week 5分段操作所有必買輸出與4AA電源，Week 6使用兩顆
+START／STOP按鈕。詳細[材料任務與落實狀態](../docs/course_materials/teacher_18_week_materials.md#required-hardware-activities)
+見教師課卡。Week 4已寫入單本教材，實物profile及實機操作仍待確認；Week 5～6維持重整狀態。
+
 ### 進度搬移表
 
 | 新週次 | 主要來源 | 處理方式 |
 |---:|---|---|
 | 3 | 舊Week 3 notebook的電表、電壓、電阻與ADC內容 | 獨立成量測與ADC基礎，不提前完成DHT11實驗 |
-| 4 | 舊Week 3 notebook的KY-018與DHT11內容 | 保留校正、取樣、有效／無效值與資料品質 |
-| 5 | 舊Week 4教材 | 搬移致動器、外部供電、共地與安全停止 |
+| 4 | 現行Week 2／3教學風格、官方來源與感測範例 | 新增220／330量程、兩條件相對校正、DHT11與品質；不修改Week 2／3來源 |
+| 5 | docs/legacy_week4_actuators內舊Week 4原稿 | 保留致動器、外部供電、共地與安全停止，待後續授權重整 |
 | 6 | 舊Week 5教材 | 搬移單機互動、狀態機、實體STOP及故障復原 |
 | 10 | 舊Week 6教材 | 搬移Wi-Fi、HTTP、JSON、WebSocket、Backend與手機雙向控制 |
 | 11 | 舊Week 10與11教材 | 收斂成MQTT訊息進入持久化紀錄及最小歷史查詢 |

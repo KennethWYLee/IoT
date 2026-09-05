@@ -8,11 +8,17 @@
 - [weekly_lesson_design_framework.md](weekly_lesson_design_framework.md)：依Week 2／Week 3
   修訂經驗建立的教材產生與驗收方法。涵蓋入門概念、完整例子、數字／單位判讀、圖解、
   跨階段操作、單一主題Discussion及學生提問回寫；以好懂、清楚、完整為標準，不設教材時間上限。
-- `teacher_18_week_materials.md`：每週教師課卡、時間配置與可收成果。
+- [teacher_18_week_materials.md](teacher_18_week_materials.md)：每週教師課卡、可收成果與
+  [必買材料任務對照](teacher_18_week_materials.md#required-hardware-activities)，分開記錄設計、主教材與實機待辦。
 - `student_worksheets.md`：可貼到 LMS 的學生任務單與紀錄模板。
 - `rubrics_and_checklists.md`：安全檢查、兩次筆試藍圖與三次專題報告評分表。
 - `starter_code_snippets.md`：ESP32-S3 與連網範例骨架；實機前須核對腳位。
 - `../../examples/course_backend/`：可執行的 HTTP／WebSocket／SQLite 課堂 prototype。
+- [Week 4完整備課版](../../IoT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb)：
+  唯一閱讀入口，含220／330量程、KY兩條件相對校正、DHT11、圖解與參考答案。
+  [week4_main.source.md](week4_main.source.md)僅為維護來源，不是第二份必讀教材。
+  使用[build_week4_materials.cjs](../../scripts/build_week4_materials.cjs)同步嵌入圖檔與兩支原始程式；
+  [Week 4驗證紀錄](../lab_notes/2026-09-05-week4-material-review.md)分列文件、編譯、host與實機待驗。
 
 ## 使用順序
 

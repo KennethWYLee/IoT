@@ -135,6 +135,37 @@ Week 1 HTML/screenshots in `_outputs/`, clicks local section links, loads the si
 support images, and checks 1200/420px widths. Use the Week 2/3 `--render` commands above
 for those notebooks. These local previews do not test the live GitHub renderer.
 
+## Week 4 source, diagrams and checks
+
+The only reading entry is [week4_main.ipynb](../IoT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb).
+Edit [week4_main.source.md](../docs/course_materials/week4_main.source.md), the two
+`examples/week04_*/*.ino` sources, or the code-native diagram builder, then rebuild.
+Do not edit notebook copies independently. No Week 2/3 files are written by these commands.
+
+```powershell
+node scripts/build_week4_materials.cjs
+node scripts/build_week4_materials.cjs --check
+node scripts/verify_week4_notebook.cjs --render
+python scripts/verify_week4_host.py
+```
+
+The builder requires `sharp`; render additionally uses `marked`, `playwright` and Edge.
+Use `NODE_PATH` with the bundled runtime when necessary. Twelve original SVG/PNG diagrams
+and four unmodified original photos are embedded as Jupyter attachments. `--check` is
+read-only. The verifier checks source equality, placeholders, local links, example math,
+modeled breadboard nodes and image bytes. Render writes ignored previews under `_outputs/`
+and checks desktop/mobile page overflow and SVG text bounds; inspect images manually too.
+This is a local notebook-style preview, not a live GitHub-rendering claim.
+
+The host runner uses MSVC on this Windows setup (or g++/clang++ elsewhere), generates
+fixtures under `_outputs/week4_host/`, and executes the actual new sketch logic with
+stubbed I/O. Enabled fixtures change only pin/gate constants for testing; they do not
+publish a GPIO profile. Checks include blocked defaults, timing, two calibration
+directions, overlap, endpoints, invalidation, DHT quality rules, injection and recovery.
+No serial port, board, physical sensor or upload is involved. Arduino compilation is a
+separate check using `verify_markdown_arduino.py` or its existing extraction/CLI functions.
+See [the Week 4 record](../docs/lab_notes/2026-09-05-week4-material-review.md) for actual results.
+
 ## `mirror_dokuwiki.py`
 
 Mirrors the course DokuWiki reference site into a local folder for offline review and link checking.
