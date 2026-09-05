@@ -21,7 +21,7 @@ for(const [i,c]of nb.cells.entries()){
  for(const ref of refs){assert(ref.startsWith('attachment:'));const a=c.attachments?.[ref.slice(11)];assert(a,ref);assert(['image/png','image/jpeg'].includes(Object.keys(a)[0]));images++;}
  for(const name of Object.keys(c.attachments||{}))assert(refs.includes(`attachment:${name}`),name);
 }
-assert.equal(images,13);
+assert.equal(images,14);
 const meter=sources.findIndex(s=>s.startsWith('## 七、萬用')),board=sources.findIndex(s=>s.startsWith('## 八、麵包板')),gpio=sources.findIndex(s=>s.startsWith('## 九、按鈕'));
 assert(meter<board&&board<gpio);
 for(const p of ['完整備課版（含參考答案）','### 10.7','### 10.8','### 10.9','### 10.10','總數剛好10','模擬教學log','5020','5050','不要求額外穩定時間'])assert(all.includes(p),p);
@@ -33,7 +33,18 @@ function node(h){const m=/^([a-j])(\d+)$/.exec(h);assert(m,h);return (m[1]<='e'?
 assert.equal(node('a29'),node('b29'));assert.notEqual(node('a29'),node('a28'));
 assert.equal(node('a22'),node('b22'));assert.notEqual(node('a20'),node('a22'));
 assert.notEqual(node('a10'),node('f10'));assert.equal(node('a27'),node('e27'));
-console.log('PASS thirteen raster images, sequential meter-before-wiring flow, selected concepts and calculations.');
+assert(!sources[4].includes('45000'));
+assert(sources[24].includes('0.003 A'));
+assert(sources[9].includes('檔位、兩個測點') || sources[9].includes('五個欄位'));
+assert(sources[9].includes('不能替它們補上Ω'));
+assert(sources[10].indexOf('同組測點示例')<sources[10].indexOf('attachment:week2-button-continuity.jpg'));
+assert(sources[10].indexOf('板子當時尚未壓入')<sources[10].indexOf('attachment:week2-board-fit.jpg'));
+assert(sources[19].includes('debounce_10ms_run1.txt'));
+assert.equal(3/1000*1000,3);
+assert.equal(3/10000*1000,0.3);
+const meterPhoto=nb.cells[9].attachments['week2-a830l-multimeter.jpg']['image/jpeg'];
+assert(Buffer.from(meterPhoto,'base64').equals(fs.readFileSync(path.join(root,'docs/images/hardware/actual/a830l-multimeter-actual-front.jpg'))));
+console.log('PASS fourteen raster images, first-use explanations, original photo bytes, examples and calculations.');
 
 // Model the two if conditions of the actual diagnostic sketch, with explicit sampling.
 const diagnostic=code[2].source.join('');
@@ -80,10 +91,10 @@ async function render(){
  try{
   const page=await browser.newPage({viewport:{width:1280,height:960}});await page.setContent(html);
   await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));
-  assert.equal(await page.locator('img').count(),13);
+  assert.equal(await page.locator('img').count(),14);
   for(const width of [1280,420]){await page.setViewportSize({width,height:960});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));}
   await page.setViewportSize({width:1280,height:960});
-  for(const heading of ['10.7 練習一預期答案：時間從「最後一次變化」起算','10.8 練習二預期答案：逐行連回狀態與計數','10.9 練習三預期答案：等待時間的取捨','10.10 課中判讀的預期回答']){
+  for(const heading of ['先認位置，再讀畫面','把電表數字讀成一句完整的話','先找已知與未知，不先背三條公式','10.7 練習一預期答案：時間從「最後一次變化」起算','10.8 練習二預期答案：逐行連回狀態與計數','10.9 練習三預期答案：等待時間的取捨','10.10 課中判讀的預期回答']){
    await page.getByRole('heading',{name:heading,exact:true}).evaluate(e=>e.scrollIntoView({block:'start'}));
    await page.screenshot({path:path.join(out,`week2_review_${heading.slice(0,4)}.png`)});
   }
@@ -92,7 +103,7 @@ async function render(){
    const issues=await page.evaluate(()=>{const s=document.querySelector('svg'),v=s.viewBox.baseVal;return [...s.querySelectorAll('text')].filter(t=>{const b=t.getBBox();return b.x<0||b.y<0||b.x+b.width>v.width||b.y+b.height>v.height;}).map(t=>t.textContent);});
    assert.deepEqual(issues,[],`Outside viewBox: ${name}`);
   }
-  console.log('PASS local Edge render: thirteen decoded images, 1280/420px page widths, SVG text bounds. Manual review still required.');
+  console.log('PASS local Edge render: fourteen decoded images, 1280/420px page widths, SVG text bounds. Manual review still required.');
  }finally{await browser.close();}
 }
 async function main(){

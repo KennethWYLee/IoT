@@ -39,6 +39,45 @@ function probes(){
   return svg('電壓像尺：先說清楚在比較哪兩個位置','三種表筆方向比較。示意數字非新增實測，所有移線先斷電。',1230,710,b);
 }
 
+function ohmsReading(){
+  let b=text(32,92,'理想紙上例子：只有一顆1 kΩ電阻；忽略電表分流。不新增實驗、不用電流檔。',23);
+  b+=text(32,139,'電壓表另外跨在A、B兩點；不是串進主路徑。',25,blue,'start',700);
+  b+=box(56,314,170,173,'#edf4fb')+text(141,359,'理想電源',25,ink,'middle',700);
+  b+=text(141,404,'兩端3.0 V',25,ink,'middle')+text(141,450,'維持電位差',22,muted,'middle');
+  b+=wire('M141 314V229H484V339',red,5)+wire('M484 433V572H141V487',green,5);
+  b+=box(459,339,50,94,'#fff5d9','#ad914f',3)+text(370,373,'1 kΩ',26,ink,'end',700)+text(370,411,'1000 Ω',23,ink,'end');
+  b+=dot(484,229,red,8)+dot(484,572,green,8)+text(463,198,'A：相對B為+3.0 V',24,red,'end');
+  b+=text(464,614,'B：GND，選作0 V',24,green,'end');
+  b+=text(275,267,'→ 主路徑',24,green)+text(519,493,'↓ 3 mA（計算）',23,green)+text(270,552,'← 回程',24,green);
+  b+=wire('M484 229H824V331',red,4)+wire('M484 572H824V465',ink,4);
+  b+=text(649,204,'紅表筆：接A',24,red)+text(653,610,'黑表筆：接B',24,ink);
+  b+=box(691,331,267,134,'#e8eef3','#74899d')+box(710,350,228, 60,'#e5ecd8','#849271',4);
+  b+=text(824,393,'3.00',38,ink,'middle',700)+text(824,447,'V⎓ 20（不是A檔）',21,blue,'middle');
+  b+=box(32,659,951,181)+text(55,702,'電表回答：A比B高3.00 V。',26,blue,'start',700);
+  b+=text(55,750,'計算回答：I＝3.0 V ÷ 1000 Ω＝0.003 A＝3 mA。',25);
+  b+=text(55,797,'兩個數字都有3，但量不同、單位不同；不是電表讀到3 mA。',24,red);
+  return svg('讀到3.0 V，怎麼算出3 mA？','單電阻閉合迴路與並聯電壓表；A-B電壓和相同電阻才可代入歐姆定律。示意非實測。',1015,873,b);
+}
+
+function meterScale(){
+  let b=text(32,92,'下方是模擬LCD，不是實拍或新實測。檔位標在螢幕外；先看功能，再讀小數點。',22);
+  const cases=[
+    ['Ω 200；外部斷電','0.6','0.6 Ω','短接表筆：低電阻通路。'],
+    ['Ω 200k；模組斷電','0.6','0.6 kΩ＝600 Ω','不能與上一列當成相同阻值。'],
+    ['V⎓ 20；模組供電','0.60','+0.60 V','紅S、黑GND：兩點電位差。'],
+    ['Ω 20k；模組斷電','1','不填數值與Ω','左側單獨1：超量程或開路提示。'],
+    ['Ω 20k；模組斷電','1.00','1.00 kΩ＝1000 Ω','正常有效數字，不是上一列的提示。']
+  ];
+  cases.forEach((c,i)=>{const y=127+i*184;
+    b+=box(28,y,945,167)+text(50,y+39,c[0],24,blue,'start',700);
+    b+=box(49,y+61,257,81,'#e5ecd8','#849271',4);
+    b+=text(i===3?68:287,y+117,c[1],40,ink,i===3?'start':'end',700);
+    b+=text(339,y+91,c[2],28,ink,'start',700)+text(339,y+134,c[3],23);
+  });
+  b+=text(32,1090,'蜂鳴檔有聲音≠0 Ω；未核對檔位的「61」不能補上Ω。',24,red);
+  return svg('相似的數字，可能是完全不同的量','模擬LCD對照200歐姆、200k歐姆、20伏特及左側單獨1與有效1.00。',1005,1126,b);
+}
+
 function current(){
   let b=text(32,90,'圖只比較外部電阻負載。箭頭為傳統電流方向；不是要求實際斷線或短接。',23);
   ['完整負載路徑','負載路徑中斷','禁止實作：電源短接'].forEach((label,i)=>{
@@ -150,12 +189,30 @@ function memory(){
 
 const figures = [
   ['week3-voltage-probes',probes],['week3-current-loop',current],
+  ['week3-ohms-law-reading',ohmsReading],['week3-meter-scale',meterScale],
   ['week3-ky018-breadboard',kyBreadboard],['week3-divider-comparison',divider],
   ['week3-resistor-breadboard',resistorBoard],['week3-memory-summary',memory]
 ];
 async function main(){
   const nb=JSON.parse(fs.readFileSync(notebook,'utf8'));
   assert.equal(nb.cells.length,20,'Unexpected notebook structure');
+  // Relocate existing original bytes when a photo's first-use explanation moves.
+  // Never synthesize or retouch the evidence photographs.
+  for(const key of ['week3-a830l-multimeter.jpg','week3-ky018-pin-labels.jpg','week3-ky018-solder.jpg']){
+    const sourceCells=nb.cells.filter(c=>c.attachments?.[key]);
+    const destCells=nb.cells.filter(c=>c.source.join('').includes(`attachment:${key}`));
+    assert.equal(destCells.length,1,key);assert(sourceCells.length>0,key);
+    const payload=sourceCells[0].attachments[key];
+    for(const c of sourceCells)assert.deepEqual(c.attachments[key],payload);
+    if(check)assert.deepEqual(sourceCells,destCells,`Relocate original ${key}`);
+    else{for(const c of sourceCells)if(c!==destCells[0])delete c.attachments[key];destCells[0].attachments??={};destCells[0].attachments[key]=payload;}
+    if(key==='week3-a830l-multimeter.jpg'){
+      const original=Buffer.from(payload['image/jpeg'],'base64');
+      const photoPath=path.join(root,'docs/images/hardware/actual/a830l-multimeter-actual-front.jpg');
+      if(check||fs.existsSync(photoPath))assert(fs.readFileSync(photoPath).equals(original),'Original meter photo changed');
+      else fs.writeFileSync(photoPath,original); // Lossless extraction of the existing attachment.
+    }
+  }
   for(const [name,draw] of figures){
     const source=draw(), png=await sharp(Buffer.from(source),{density:120}).png().toBuffer();
     for(const [ext,data] of [['svg',Buffer.from(source)],['png',png]]){
@@ -172,7 +229,7 @@ async function main(){
   // Embed the original, unmodified label photo so offline/GitHub readers do not depend on a relative image URL.
   const photoKey='week3-ky018-pin-labels.jpg', photoRelative='../../docs/images/hardware/actual/ky018-photoresistor-module-actual-pin-labels.jpg';
   const photo=fs.readFileSync(path.resolve(path.dirname(notebook),photoRelative));
-  const photoCell=nb.cells.find(c=>c.source.join('').includes('### 10.1'));
+  const photoCell=nb.cells.find(c=>c.source.join('').includes(`attachment:${photoKey}`));
   const photoExpected={'image/jpeg':photo.toString('base64')};
   if(check){assert.deepEqual(photoCell.attachments?.[photoKey],photoExpected);assert.ok(photoCell.source.join('').includes(`attachment:${photoKey}`));}
   else{photoCell.attachments??={};photoCell.attachments[photoKey]=photoExpected;photoCell.source=photoCell.source.map(l=>l.replace(photoRelative,`attachment:${photoKey}`));}

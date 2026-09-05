@@ -73,11 +73,23 @@ function nodes(){
  return svg('四條線不是四個電源：沿節點追蹤每一條路','同側同列五孔互通，按鈕內部同組跨槽，按下才把27和29列接通。',1360,846,b);
 }
 function meter(){
- let b=t(32,97,'以A830L的斷電檢查為例；其他型號依符號、量程與說明書，不靠藍黑顏色選檔。',23);
- const cases=[['通斷／蜂鳴檔','兩表筆分開：不蜂鳴','穩定碰觸：蜂鳴','聲音代表低於該表門檻。','不表示剛好0Ω。'],['電阻區 Ω 200','兩表筆分開：左側1','穩定碰觸：例如0.6','0.6讀成0.6Ω；1可代表','開路／超量程，不是1Ω。'],['其他區也有200','V區：電壓量程','A區200m：電流量程','不能只找數字200。','本週不做電壓／電流量測。']];
- cases.forEach((c,i)=>{const x=28+i*445;b+=box(x,137,423,355)+t(x+22,186,c[0],27,blue,'start',true);c.slice(1).forEach((s,j)=>b+=t(x+22,250+j*59,s,23));});
- b+=box(28,527,1313,170,'#fff5ef')+t(52,575,'固定表筆：黑 → COM；紅 → VΩmA；10A孔空著。待測物的USB與电池都移除。'.replace('电','電'),25)+t(52,625,'61、198或5x缺少功能與小數點，就不能當作可靠Ω值；先改善接觸再判讀。',25)+t(52,671,'電表用自己的電池做通斷測試。不要在ESP32帶電時使用通斷或電阻檔。',25,red);
- return svg('數字先配功能：有聲音與數值小，是兩件事','三欄比較通斷、200歐姆及其他200量程，非新增電表照片或實測畫面。',1370,731,b);
+ let b=t(32,96,'以下為示意LCD，不是新實測照片。兩欄都選「電阻區 Ω 200」，待測物完全斷電。',22);
+ for(let i=0;i<2;i++){
+  const x=28+i*507;
+  b+=box(x,135,484,342)+t(x+23,178,i?'尖端穩定相碰':'兩支表筆分開',27,blue,'start',true);
+  b+=`<rect x="${x+25}" y="207" width="434" height="101" rx="5" fill="#e5ecd8" stroke="#849271"/>`;
+  b+=t(i?x+433:x+43,278,i?'0.6':'1',48,ink,i?'end':'start',true);
+  b+=t(x+23,354,i?'0.6 Ω：低電阻通路':'左側單獨1：狀態提示',25,ink,'start',true);
+  b+=t(x+23,401,i?'含表筆與接觸電阻，不必恰好0。':'開路或超量程，不是1 Ω。',23);
+  b+=t(x+23,448,i?'若不穩定，先固定接觸與核對插孔。':'短接仍如此，先查接觸與插孔。',22);
+ }
+ b+=box(28,510,991,171,'#edf5ff')+t(50,552,'改成聲波符號的通斷檔，才用「蜂鳴」作判斷。',25,blue,'start',true);
+ b+=t(50,599,'分開：不蜂鳴；穩定碰觸：應蜂鳴。不要求Ω 200一定會響。',24);
+ b+=t(50,647,'蜂鳴有門檻，不代表剛好0 Ω；未確認的61、198、5x不補單位。',23);
+ b+=box(28,716,991,158,'#fff5ef')+t(50,758,'黑COM、紅VΩmA；10A孔保持空置。',25,red,'start',true);
+ b+=t(50,805,'V区的200是電壓量程，A區200m是電流量程；都不是Ω 200。'.replace('区','區'),23);
+ b+=t(50,852,'本週不量電壓或電流；通斷由電表自己的電池提供小測試訊號。',23);
+ return svg('數字在哪一邊？現在是什麼檔位？','A830L讀表示例：左側單獨1與右側0.6；區分Ω數值和通斷聲音。',1050,908,b);
 }
 function decision(){
  let b=t(32,94,'每次loop仍會讀輸入；DEBOUNCE_MS不是每次loop都delay同樣時間。',24);
@@ -119,6 +131,12 @@ function comparison(){
 const figures=[['week2-program-journey',journey],['week2-memory-budget',memory],['week2-pullup-loop',pullup],['week2-breadboard-nodes',nodes],['week2-meter-reading',meter],['week2-debounce-decision',decision],['week2-debounce-timeline',timeline],['week2-debounce-comparison',comparison]];
 async function main(){
  const nb=JSON.parse(fs.readFileSync(target,'utf8'));
+ const photoKey='week2-a830l-multimeter.jpg';
+ const photo=fs.readFileSync(path.join(root,'docs/images/hardware/actual/a830l-multimeter-actual-front.jpg'));
+ const photoCells=nb.cells.filter(c=>c.source.join('').includes(`attachment:${photoKey}`));
+ assert.equal(photoCells.length,1);const photoExpected={'image/jpeg':photo.toString('base64')};
+ if(check)assert.deepEqual(photoCells[0].attachments?.[photoKey],photoExpected);
+ else{photoCells[0].attachments??={};photoCells[0].attachments[photoKey]=photoExpected;}
  for(const [name,draw]of figures){
   const source=draw(),png=await sharp(Buffer.from(source),{density:120}).png().toBuffer();
   for(const [ext,data]of [['svg',Buffer.from(source)],['png',png]]){

@@ -32,8 +32,21 @@ for(const [i,c] of nb.cells.entries()){
   }
   for(const key of Object.keys(c.attachments||{}))assert.ok(refs.includes(`attachment:${key}`),`Unused image ${key}`);
 }
-assert.equal(images,10);
-console.log('PASS ten embedded image references; only PNG/JPEG, no missing or unused attachments.');
+assert.equal(images,12);
+console.log('PASS twelve embedded image references; only PNG/JPEG, no missing or unused attachments.');
+assert(sources[4].indexOf('先分清三個問題')<sources[4].indexOf('I＝V÷R'));
+assert(sources[4].indexOf('1 kΩ＝1000 Ω')<sources[4].indexOf('attachment:week3-current-loop.png'));
+assert(sources[4].includes('同一顆電阻'));
+assert(sources[5].includes('0.6 kΩ＝600 Ω'));
+assert(sources[6].includes('attachment:week3-ky018-pin-labels.jpg'));
+assert(!sources[11].includes('attachment:week3-ky018-pin-labels.jpg'));
+assert(sources[7].indexOf('先結束Week 2線路')<sources[7].indexOf('### 步驟1'));
+assert(sources[7].includes('黑線插e3')&&sources[7].includes('白線插e6')&&sources[7].includes('另選線插e12'));
+assert(sources[8].includes('白色公對公延長端 → 紅表筆'));
+assert.equal(3/1000*1000,3);assert.equal(1.5/1000*1000,1.5);
+assert.equal(0.6*1000,600);
+assert(Buffer.from(nb.cells[5].attachments['week3-a830l-multimeter.jpg']['image/jpeg'],'base64').equals(fs.readFileSync(path.join(root,'docs/images/hardware/actual/a830l-multimeter-actual-front.jpg'))));
+console.log('PASS novice reading order, unit conversion, phase transition and unmodified meter photo.');
 const practice=sources[15].slice(sources[15].indexOf('### 13.7'));
 const rows=practice.split('\n').filter(l=>l.startsWith('| ')).map(l=>l.split('|').slice(1,-1).map(v=>v.trim()));
 function row(label){const result=rows.find(r=>r[0]===label);assert(result,label);return result;}
@@ -104,10 +117,12 @@ async function render(){
     const page=await browser.newPage({viewport:{width:1200,height:920}});
     await page.setContent(html);
     await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));
-    assert.equal(await page.locator('img').count(),10);
+    assert.equal(await page.locator('img').count(),12);
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     for(const i of [4,12,14]){await page.locator(`#cell-${i}`).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,`week3_review_cell${i}.png`)});}
     for(const [heading,name] of [
+      ['一顆電阻的完整例子：電表讀值與計算電流是兩件事','ohms'],
+      ['每筆數字都寫成五欄，不只說「14」或「0.6」','meter'],
       ['步驟三：四個預測小題的預期回答','predictions'],
       ['13.9 其他課中練習與閱讀檢查的預期回答','reading']
     ]){
@@ -116,7 +131,7 @@ async function render(){
     }
     await page.setViewportSize({width:420,height:900});
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-    console.log('PASS Edge preview: all 10 images decoded; 1200px and 420px no page overflow (wide tables/code scroll).');
+    console.log('PASS Edge preview: all 12 images decoded; 1200px and 420px no page overflow (wide tables/code scroll).');
     // Inspect actual SVG text boxes, not only successful rasterization.
     for(const name of fs.readdirSync(path.join(root,'docs/images/wiring')).filter(n=>/^week3-.*\.svg$/.test(n))){
       const source=fs.readFileSync(path.join(root,'docs/images/wiring',name),'utf8');

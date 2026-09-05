@@ -31,7 +31,9 @@ python scripts/verify_markdown_arduino.py
 
 `build_week2_figures.cjs` maintains eight original concept diagrams as SVG/PNG pairs
 under `docs/images/wiring/` and embeds the PNG versions in `week2_main.ipynb`.
-Existing photograph attachments are retained. Requirements: Node.js, `sharp`, and
+Existing photograph attachments are retained. The A830L original is embedded from
+`docs/images/hardware/actual/a830l-multimeter-actual-front.jpg` without retouching.
+Requirements: Node.js, `sharp`, and
 Microsoft JhengHei (or a reviewed compatible Traditional Chinese font). Set
 `NODE_PATH` if dependencies are supplied by a separate runtime.
 
@@ -46,7 +48,7 @@ node scripts/verify_week2_notebook.cjs --compile
 Edit the build script before regenerating; `--check` compares source/artifact and
 attachment bytes without writing. Exact raster equality depends on the renderer
 and fonts. The verifier checks the three canonical sketch copies, unpublished GPIO
-guards, thirteen embedded raster references, teaching sequence, selected calculations,
+guards, fourteen embedded raster references, first-use teaching sequence, selected calculations,
 and a **JavaScript model** of the diagnostic debounce rule. The model checks 0/10/30/100
 ms, boundary timing, missed pulses, held states and 32-bit wrap. It is not execution of
 the Arduino firmware and cannot establish physical button-bounce behavior.
@@ -66,10 +68,13 @@ includes reference answers under the teacher-approved complete-preparation editi
 
 ## Week 3 notebook figures and focused verification
 
-`build_week3_figures.cjs` is the editable design source for six original explanatory
+`build_week3_figures.cjs` is the editable design source for eight original explanatory
 figures. It generates SVG and PNG files in `docs/images/wiring/` and embeds their PNG
 versions in `week3_main.ipynb`. It also embeds the existing KY-018 pin-label photograph
-without changing its bytes. Edit the script before regenerating; do not independently
+without changing its bytes. It relocates the existing meter and module photographs
+with their first-use explanations. The A830L standalone original was extracted
+losslessly from its pre-existing notebook attachment, not recreated from a generated image.
+Edit the script before regenerating; do not independently
 edit its generated SVG, PNG, or attachment copies.
 
 Requirements: Node.js and `sharp`; rendering uses an available Traditional Chinese
@@ -86,7 +91,7 @@ The second command is read-only. It checks generated source/artifact agreement a
 embedded image bytes; it does not validate a physical circuit.
 
 `verify_week3_notebook.cjs` checks the two public sketch sources, unpublished GPIO
-guards, the ten embedded image references, the resistor-practice wiring table against
+guards, the twelve embedded image references, the resistor-practice wiring table against
 an ideal breadboard connectivity model, worked calculations, and evidence disclosures.
 Its default mode requires only Node.js. These are selected assertions, not a replacement
 for reading every teaching step or testing real components.
@@ -98,7 +103,7 @@ node scripts/verify_week3_notebook.cjs --render
 
 The optional render mode additionally requires `marked`, `playwright`, and an installed
 Microsoft Edge browser (`BROWSER_CHANNEL` can select another installed channel). It
-creates ignored previews under `_outputs/`, checks that all ten images decode, checks
+creates ignored previews under `_outputs/`, checks that all twelve images decode, checks
 page overflow at desktop/mobile widths, and checks SVG text bounds. Inspect the previews
 and diagrams manually as well. This is a local HTML preview, not a live GitHub-rendering
 test. Neither script uploads firmware, opens a serial port, or claims hardware testing.
@@ -107,6 +112,10 @@ Run `verify_course_materials.py`, the applicable Arduino compilation checks, and
 `git diff --check` alongside these focused checks. See the
 [Week 3 review record](../docs/lab_notes/2026-09-05-week3-material-review.md) for the
 actual verification scope and remaining hardware work.
+
+The [joint beginner review](../docs/lab_notes/2026-09-05-week2-week3-beginner-review.md)
+records the subsequent V/I/R and meter-reading edits, photo placement, unit/evidence
+corrections, phase handoffs, visual checks and remaining first-time learner trial.
 
 ## `mirror_dokuwiki.py`
 
