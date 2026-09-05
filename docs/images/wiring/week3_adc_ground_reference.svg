@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="820" viewBox="0 0 1100 820" role="img" aria-labelledby="title desc">
+  <title id="title">從電表到ADC：S是量測位置，GND是共同零點</title>
+  <desc id="desc">上半部以電表紅表筆接S、黑表筆接GND，說明兩支表筆進入同一個電壓量測電路。下半部顯示S經黃線、a15與c15、藍線進入ESP32的ADC輸入；模組負號經綠線、c3與a3、棕線接到ESP32 GND。晶片內部的ADC使用輸入訊號與共同地基準，輸出原始數字。內部虛線是功能關係，不是直接短接線。GPIO4只是功能例子，不取代正式公布的腳位。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 1L8 5L0 9" fill="none" stroke="#475569" stroke-width="1.5"/></marker>
+    <style>
+      text { font-family: "Microsoft JhengHei", "Noto Sans CJK TC", sans-serif; fill: #172033; font-size: 20px; }
+      .heading { font-size: 27px; font-weight: 700; }
+      .small { font-size: 18px; }
+      .label { font-size: 22px; font-weight: 700; }
+      .wire { fill: none; stroke-width: 4; }
+      .internal { fill: none; stroke: #475569; stroke-width: 2; stroke-dasharray: 7 5; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1100" height="820" fill="#ffffff"/>
+  <text x="42" y="45" class="heading">從電表到 ADC：都需要「被量的位置」與「零點」</text>
+  <text x="42" y="90" class="label">① 電表：兩支表筆接進同一個量測電路</text>
+
+  <rect x="565" y="120" width="475" height="205" rx="12" fill="#f1f5f9" stroke="#64748b" stroke-width="2"/>
+  <text x="800" y="155" text-anchor="middle" class="label">電表內部：直流電壓量測</text>
+  <text x="58" y="190" class="label">模組 S</text>
+  <text x="58" y="275" class="label">模組 −／共同 GND</text>
+  <path d="M275 183H565" class="wire" stroke="#b91c1c"/>
+  <path d="M275 268H565" class="wire" stroke="#334155"/>
+  <text x="290" y="168">紅表筆：碰 S</text>
+  <text x="290" y="253">黑表筆：碰 GND</text>
+  <circle cx="565" cy="183" r="6" fill="#b91c1c"/>
+  <circle cx="565" cy="268" r="6" fill="#334155"/>
+  <path d="M580 183H665L705 205" class="internal"/>
+  <path d="M580 268H665L705 247" class="internal"/>
+  <text x="845" y="216" text-anchor="middle">量兩個位置的電壓差</text>
+  <text x="845" y="259" text-anchor="middle" class="label">讀值舉例：0.62 V</text>
+  <text x="565" y="355" class="small">紅、黑表筆不直接碰在一起；透過電表內部電路量測。</text>
+
+  <text x="42" y="409" class="label">② ESP32：訊號與共同地都進入晶片的量測關係</text>
+  <rect x="565" y="440" width="475" height="285" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="590" y="474" class="label">ESP32 內部功能示意</text>
+  <text x="58" y="530" class="label">模組 S</text>
+  <text x="58" y="661" class="label">模組 −</text>
+  <path d="M155 523H565" class="wire" stroke="#2563eb"/>
+  <path d="M155 654H565" class="wire" stroke="#795548"/>
+  <text x="180" y="504">黃線 → a15／c15 → 藍線</text>
+  <text x="180" y="635">綠線 → c3／a3 → 棕線</text>
+  <circle cx="565" cy="523" r="6" fill="#2563eb"/>
+  <circle cx="565" cy="654" r="6" fill="#795548"/>
+  <text x="587" y="518">ADC 輸入腳</text>
+  <text x="587" y="545" class="small">GPIO4：功能例</text>
+  <text x="587" y="650">板上 GND</text>
+  <text x="587" y="680" class="small">共同零點</text>
+  <rect x="795" y="504" width="215" height="155" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+  <text x="902" y="548" text-anchor="middle" class="label">ADC 量測電路</text>
+  <text x="902" y="584" text-anchor="middle">量訊號相對 GND</text>
+  <text x="902" y="617" text-anchor="middle">再轉成 raw 數字</text>
+  <path d="M735 523H780" class="internal"/>
+  <path d="M735 654H760V626H780" class="internal"/>
+  <text x="805" y="700" class="small">raw 不是伏特或亮度百分比</text>
+
+  <text x="42" y="765" class="small">實線：外部接線；虛線：內部功能關係。供電線省略，模組仍需接 3V3 與 GND。</text>
+  <text x="42" y="799" class="small">不要把 ADC 輸入腳直接接 GND；實際腳位依教師公布的 profile，不憑本圖選腳。</text>
+</svg>
