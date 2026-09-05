@@ -1,5 +1,5 @@
-// Fill in only the ADC GPIO published in the verified course hardware profile.
-// Keep -1 when no verified profile is available.
+// Instructor-only candidate test for BOARD-T01; GPIO4 is not a published class profile.
+// Student material uses week03_ky018_raw with PIN_LIGHT=-1 until the profile is approved.
 const int PIN_LIGHT = 4;
 const unsigned long SAMPLE_INTERVAL_MS = 500;
 const char* DEVICE_ID = "BOARD-T01";
