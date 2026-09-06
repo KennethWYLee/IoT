@@ -40,8 +40,7 @@
 | BUZZER-T01 | `HW-508`蜂鳴器模組；購買頁稱KY-012有源蜂鳴器 | 已取得1個實物；其餘待盤點 | unverified | [目前元件面](../images/hardware/actual/hw508-buzzer-module-actual-component-side.jpg)可辨識`HW-508`，但焦點不足 | 補拍垂直元件面、焊接面、三針絲印及蜂鳴器標籤；未確認有源／無源與工作電壓前不通電 |
 | SERVO-T01 | Tower Pro Micro Servo 9g SG90 | 已取得至少1個實物；總數待盤點 | unverified | [標籤、三線插頭與舵盤](../images/hardware/actual/sg90-tower-pro-9g-servo-actual-label-connector-accessories.jpg) | 尚未通電；確認外部電源、共地、線序、安全角度及購買選項的180度行程 |
 | POWER-4AA-T01 | 4AA有蓋電池盒；購買頁稱帶開關 | 已取得至少1個實物；總數待盤點 | unverified | [盒蓋與紅黑裸線](../images/hardware/actual/4aa-battery-holder-actual-cover-and-leads.jpg)；照片未顯示開關 | 不裝電池；補拍開關側、盒內四槽、紅黑線末端與極性，再決定安全轉接端子 |
-
-| DISPLAY-OLED | 新增共同I2C OLED | 型號、取得狀態與數量未確認 | unverified | 新課綱核准功能需求，不是已購或已驗證紀錄 | 核對控制器、解析度、位址、腳序、供電／SDA／SCL上拉與3.3 V邏輯相容性；ACK不能證明控制器型號 |
+| DISPLAY-OLED | 已購0.96吋、4針I2C OLED（訂單規格） | 已購5個；目前位置及可用數量未重新盤點 | unverified | [已購清單](purchased_inventory.md)記錄5個、歷史單價NT$65，另有2個不含螢幕的支架；[訂單圖2](../images/hardware/orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png)與教師本次確認支持已購狀態。「新增共同用途」不是重新購買要求，不能再寫成沒有已購紀錄 | 先用已購實物核對控制器、解析度、位址、腳序、供電／SDA／SCL上拉與3.3 V邏輯相容性，再做接線與顯示測試；未測試不等於未購買，ACK不能證明控制器型號 |
 
 ## 已驗證組合
 
