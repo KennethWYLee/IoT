@@ -1,6 +1,6 @@
 # IoT 每週教材設計框架
 
-更新日期：2026-09-05。
+更新日期：2026-09-06。
 
 本文件供教材維護者用來產生、修訂與驗收每週教材。以目前
 [Week 2主教材](../../IoT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb)與
@@ -21,13 +21,14 @@
 1. 先確認目前要求是檢查、規劃或修改，以及指定週次與版本；只更新本框架不等於
    授權重寫全課。除非目前任務要求，不能自行commit、push或發布。
 2. 執行Git工作樹檢查，保留既有變更，不覆寫、回復或刪除使用者內容。
-3. 完整閱讀根目錄[AGENTS.md](../../AGENTS.md)與[PROJECT.md](../../PROJECT.md)。
-   前者規範共通工作方式，後者是本課固定決策與權威文件入口。
-4. 閱讀[正式18週計畫](../18_week_plan.md)、[英文課綱](../1151_course_syllabus_english.md)
+3. 維護者若已取得本機`AGENTS.md`與`PROJECT.md`，先完整閱讀；前者規範工作方式，
+   後者記錄本機課程決策。這些檔案不隨GitHub發布，新電腦須另行取得。
+   Git版本中的課程資訊依下列正式計畫、課綱及驗證紀錄查核，不補造缺少的決策。
+4. 閱讀[正式18週計畫](../course/18_week_plan.md)、[英文課綱](../course/1151_course_syllabus_english.md)
    及目前單元的README（若存在）、全部主教材、支援資料與完整程式。
    重整中的舊資料夾名稱不能取代正式週次。
 5. 閱讀前一個教學週的收尾狀態、下一個教學週的先備條件，以及直接依賴的
-   `examples/`、圖片、`docs/hardware_state.md`與`docs/lab_notes/`。
+   `examples/`、圖片、`docs/hardware/hardware_state.md`與`docs/lab_notes/`。
 6. 查明真正的維護來源與build／verify方法；先查
    [scripts說明](../../scripts/README.md)，只使用實際存在的腳本與環境。
 7. 完整讀取直接相關的官方文件段落、官方範例與成立條件；板卡腳位、電壓、library、
@@ -126,15 +127,23 @@ Week 1及保留週依既有核准形式處理，不為了本框架批次改目�
 
 主教材依實際操作順序安排：
 
-1. 英文`Teaching Objectives`與`Teaching Content`。
+1. 繁體中文「教學目標」與「教學內容」。
 2. 必要器材、前置條件、版本與開始狀態。
 3. 首次操作前的安全說明與實物／介面辨認。
 4. 完整示範、核心操作、分段結果解釋及第一個安全排查。
 5. 單一主題Discussion、練習、應保存紀錄與完成條件。
 6. 安全復原，以及不阻斷主流程的深入補充、詳細故障排查與來源。
 
-Teaching Objectives只寫可檢核能力；Teaching Content用自然英文敘述大方向，
-不以採購、行政、安裝清單或逐週表格代替。其他語言依PROJECT。
+「教學目標」只寫可檢核能力；「教學內容」用自然、連續的繁體中文敘述大方向，
+不以採購、行政、安裝清單或逐週表格代替。適用週次及Week 1的語言例外依PROJECT，
+不再生成英文Teaching Objectives／Teaching Content區塊。
+
+零件及重要術語在區塊首次需要時使用「中文（英文）」，例如麵包板（breadboard）、
+電阻（resistor）、萬用電表（multimeter）、類比數位轉換器（ADC）、
+取樣（sampling）與門檻（threshold）。後續可以中文簡稱承接，不反覆堆疊雙語。
+實體型號、腳位標示、程式識別字與軟體選單不翻寫，例如寫成接地腳位（GND）、
+內部上拉輸入模式（`INPUT_PULLUP`），程式中的`INPUT_PULLUP`仍維持原樣。
+雙語名稱不能取代首次出現時的概念說明，也不要為補英文而添加本週不教的術語。
 
 內容依理解順序分層，但不拆成多個學生入口，也不以授課時間決定刪除哪些說明：
 

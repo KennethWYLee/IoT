@@ -4,26 +4,18 @@
 
 ## Unit Overview
 
-### Teaching Objectives
+### 教學目標
 
-By the end of the final project report, students will be able to:
+完成期末專題報告後，學生應能：
 
-1. Demonstrate a safe and repeatable physical interaction together with its mobile,
-   backend, database, and communication evidence.
-2. Trace one event and one control command across the complete system, including a
-   terminal result or timeout.
-3. Reproduce an automatic behavior, a fault response, and recovery without concealing
-   known limitations.
-4. Explain individual implementation decisions, test evidence, AI-assisted work, and
-   unresolved risks using the submitted version and documentation.
+1. 展示安全且可重複的實體互動（physical interaction），同時提供行動介面（mobile interface）、後端（backend）、資料庫（database）與通訊（communication）證據。
+2. 追蹤一筆事件（event）與一筆控制命令（control command）經過完整系統的過程，包含最終結果（terminal result）或逾時（timeout）。
+3. 重現一項自動行為（automatic behavior）、故障反應（fault response）與復原（recovery），且不隱藏已知限制。
+4. 根據提交的版本及文件，解釋個人實作決策（implementation decision）、測試證據（test evidence）、人工智慧輔助工作（AI-assisted work）與尚未解決的風險。
 
-### Teaching Content
+### 教學內容
 
-The final project report integrates the physical artifact, device firmware, network
-communication, backend, persistent data, structured logs, and mobile workflow into one
-verifiable demonstration. Students present normal operation and abnormal recovery,
-connect interface claims to physical and logged evidence, and answer individual questions
-about architecture, implementation, safety, testing, and reconstruction.
+期末專題報告將實體作品（physical artifact）、裝置韌體（device firmware）、網路通訊（network communication）、後端（backend）、持久化資料（persistent data）、結構化紀錄（structured log）與行動操作流程（mobile workflow），整合為可驗證的展示。學生會呈現正常操作與異常復原（recovery），以實體行為和紀錄支持介面呈現的結果，並個別回答架構（architecture）、實作（implementation）、安全、測試與重建（reconstruction）相關問題。
 
 本次報告占學期成績25%。
 本週與Week 16共同構成第三次專題報告時段。每組依教師公布的場次，在其中一週

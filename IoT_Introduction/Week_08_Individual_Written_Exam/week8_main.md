@@ -4,24 +4,17 @@
 
 ## Unit Overview
 
-### Teaching Objectives
+### 教學目標
 
-By the end of this assessment, students will be able to:
+學生應能在本次評量中展現下列能力：
 
-1. Analyze a hardware wiring diagram and identify GPIO, ground, power, signal, and
-   common-ground relationships.
-2. Interpret voltage, continuity, sensor-validity, actuator-power, state, and timeout
-   evidence without relying on trial-and-error wiring.
-3. Select a safe first diagnostic action for a stated hardware symptom and explain
-   why unsafe alternatives must not be attempted.
+1. 分析硬體接線圖（wiring diagram），辨認通用輸入輸出腳位（GPIO）、接地（ground）、供電（power supply）、訊號（signal）與共地（common ground）的關係。
+2. 根據電壓（voltage）、通斷（continuity）、感測器有效性（sensor validity）、致動器供電（actuator power）、狀態（state）與逾時（timeout）證據作判斷，不依賴反覆猜測接線。
+3. 根據指定的硬體症狀，選擇第一個安全的診斷動作（diagnostic action），並解釋為何不能嘗試不安全的替代作法。
 
-### Teaching Content
+### 教學內容
 
-This individual written assessment examines the hardware concepts and safety reasoning
-developed in Weeks 2 through 6. Students interpret wiring, measurements, program states,
-and observable failures involving the ESP32-S3, sensors, low-power outputs, external
-actuator power, common ground, safe stop, and timeout behavior. No networking topic,
-new teaching content, laboratory activity, or group work is included during the week.
+本次個人筆試評量第2至6週建立的硬體概念與安全推理。學生會判讀涉及ESP32-S3、感測器（sensor）、低功率輸出（low-power output）、致動器外部供電（external actuator power）、共地（common ground）、安全停止（safe stop）及逾時（timeout）的接線、量測、程式狀態與可觀察故障。本週不納入網路主題，不教授新內容，也不安排實驗活動或小組作業。
 
 ## 本週性質
 

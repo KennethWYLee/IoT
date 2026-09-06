@@ -131,7 +131,7 @@ f不呼叫感測器、r不保證成功，以及stub真實呼叫路徑重新得�
   teacher_18_week_materials、weekly_lesson_design_framework、hardware_state、
   IoT_Introduction／course_materials／examples／scripts的README、Week 1 support材料週次，
   及Week 5 support的一個封存連結。本紀錄位於docs/lab_notes，不加入週次目錄。
-- 舊稿保留：`docs/legacy_week4_actuators/week4_main.md`、`week4_support.md`原樣搬移，另加README。
+- 舊稿保留：`docs/archive/week4_actuators/week4_main.md`、`week4_support.md`原樣搬移，另加README。
 - 使用者起點已有上述部分設計／導覽修改及未追蹤`ESP_Drone/`；保留既有修改，未處理ESP_Drone。
 
 ## 目前交付判定

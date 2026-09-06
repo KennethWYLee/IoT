@@ -81,10 +81,10 @@ structured log 與手機操作。期末題目由學生自行決定，但必須�
 學生不必每週購買新模組，同一批材料可以重新組合。
 
 上述新增任務是2026-09-05核准的設計調整，未增加採購、週次或評量項目。
-課卡中的[材料任務對照](course_materials/teacher_18_week_materials.md#required-hardware-activities)
+課卡中的[材料任務對照](../course_materials/teacher_18_week_materials.md#required-hardware-activities)
 記錄每項用途、證據與教材待辦。220 Ω／330 Ω任務依最新決定由設計中的Week 3移至Week 4，
 已與DHT11母對母操作整合於Week 4主教材；Week 2／3檔案不改。Week 4的實機profile與新操作仍待驗，
-Week 5～6保留後續重整。各層檢查見[Week 4紀錄](lab_notes/2026-09-05-week4-material-review.md)。
+Week 5～6保留後續重整。各層檢查見[Week 4紀錄](../lab_notes/2026-09-05-week4-material-review.md)。
 
 ## 五、第7-15週評量安排
 

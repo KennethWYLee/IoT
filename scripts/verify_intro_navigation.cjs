@@ -23,7 +23,9 @@ for(const [i,text]of docs.entries()){
   assert(fs.existsSync(dest),dest);assert(anchors(read(dest)).includes(fragment),`${files[i]}: ${m[1]}`);links++;
  }
 }
-assert(!/[\u3400-\u9fff]/.test(docs[0]),'Week 1 main remains English');
+const englishOutline=docs[0].replace(/^### (?:教學目標|教學內容)\s*$\n.*?(?=^#{1,3}\s|(?![\s\S]))/gms,'');
+assert(!/[\u3400-\u9fff]/.test(englishOutline),'Week 1 remains English outside its Chinese overview sections');
+for(const heading of ['### 教學目標','### 教學內容'])assert(docs[0].includes(heading));
 assert(docs[0].indexOf('### A First IoT Example')<docs[0].indexOf('## 5. Minimum Final Project'));
 assert(docs[0].includes('not a tested')&&docs[0].includes('after class, before Week 2'));
 assert(docs[1].includes('不是已完成實機驗證的成品'));
@@ -33,7 +35,7 @@ assert(docs[2].includes('[依課程profile完成GPIO與GND接線](#w2-wiring)'))
 assert(docs[3].includes('[F2. KY-018原始值](#w3-adc-concept)'));
 assert(docs[3].indexOf('## 九、實驗四')<docs[3].indexOf('const int PIN_TEST_OUTPUT'));
 assert(docs[3].indexOf('## 十二、實驗五')<docs[3].indexOf('const int PIN_LIGHT'));
-console.log(`PASS four introductory documents: ${links} explicit navigation links, unique anchors, English outline and first-use order.`);
+console.log(`PASS four introductory documents: ${links} explicit navigation links, unique anchors, Chinese overviews with remaining English Week 1 outline and first-use order.`);
 
 async function render(){
  const {marked}=await import(pathToFileURL(require.resolve('marked')).href);

@@ -1,6 +1,6 @@
 # Type B 課程設計：IoT 玩具與互動硬體
 
-本文件依據 `C:\Users\User\Documents\Lecture materials\2026_Oxford EMI\output\TypeB-teaching-redesign-guide.md`，將 IoT 課程設計成「概念判斷、實作驗證、同儕比較、修正與遷移」的循環。完整週次以 `docs/18_week_plan.md` 為主。
+本文件依據 `C:\Users\User\Documents\Lecture materials\2026_Oxford EMI\output\TypeB-teaching-redesign-guide.md`，將 IoT 課程設計成「概念判斷、實作驗證、同儕比較、修正與遷移」的循環。完整週次以 `docs/course/18_week_plan.md` 為主。
 
 ## 1. 課程假設
 

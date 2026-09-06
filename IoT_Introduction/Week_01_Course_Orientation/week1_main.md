@@ -22,38 +22,22 @@ Reading path: [a first IoT example](#first-iot-example) →
 
 ## 1. Week 1 Overview
 
-### Teaching Objectives
+### 教學目標
 
-Upon successful completion of this course, students will be able to:
+完成本課程後，學生應能：
 
-1. Design a full-stack IoT system that integrates physical input and output, an
-   ESP32-S3, network communication, a backend, a database, and a mobile interface.
-2. Build and operate embedded hardware safely by applying appropriate voltage, power,
-   grounding, signal, and fail-safe principles.
-3. Implement reliable device-to-software data and command flows using HTTP, WebSocket,
-   MQTT, structured data, persistent storage, and system logs.
-4. Test, troubleshoot, document, and explain an IoT project using observable behavior,
-   measurements, logs, failure evidence, and reproducible setup instructions.
+1. 設計全端物聯網系統（full-stack IoT system），整合實體輸入與輸出、ESP32-S3、網路通訊（network communication）、後端（backend）、資料庫（database）與行動介面（mobile interface）。
+2. 依據適當的電壓（voltage）、供電（power supply）、接地（grounding）、訊號（signal）與故障安全（fail-safe）原則，安全地建立及操作嵌入式硬體（embedded hardware）。
+3. 運用超文字傳輸協定（HTTP）、網頁雙向通訊協定（WebSocket）、訊息佇列遙測傳輸協定（MQTT）、結構化資料（structured data）、持久化儲存（persistent storage）與系統紀錄（system log），實作可靠的裝置與軟體之間的資料及命令流程。
+4. 運用可觀察的行為、量測、紀錄、故障證據與可重現的設定說明，測試、排查、記錄並解釋物聯網專題。
 
-### Teaching Content
+### 教學內容
 
-This course introduces the design of complete IoT systems that connect physical
-devices with useful software. Students will learn how sensors and buttons provide
-input, how an ESP32-S3 interprets that input, and how LEDs, buzzers, servos, or other
-actuators create observable physical responses. Electrical safety, power, grounding,
-signal quality, system states, and recovery from errors are treated as essential parts
-of the design process.
+本課程介紹完整物聯網系統（Internet of Things, IoT）的設計，將實體裝置與具有實際用途的軟體連接起來。學生會學習感測器（sensor）與按鈕（pushbutton）如何提供輸入、ESP32-S3如何解讀輸入，以及發光二極體（LED）、蜂鳴器（buzzer）、舵機（servo）或其他致動器（actuator）如何產生可觀察的實體反應。電氣安全、供電、接地（grounding）、訊號品質（signal quality）、系統狀態（system state）及錯誤復原（error recovery），都是設計過程的必要部分。
 
-The course also covers the communication and software layers that make a device part
-of a larger system. Students will connect devices through Wi-Fi, exchange structured
-data with HTTP, WebSocket, or MQTT, develop backend services, store events in a
-database, and use logs to understand successful and failed operations. A mobile-friendly
-interface will provide real-time status, historical information, and controlled commands.
+課程也涵蓋裝置與其他系統連接所需的通訊及軟體層。學生會透過無線網路（Wi-Fi）連接裝置，以超文字傳輸協定（HTTP）、網頁雙向通訊協定（WebSocket）或訊息佇列遙測傳輸協定（MQTT）交換結構化資料（structured data），開發後端服務（backend service）、將事件（event）存入資料庫（database），並利用紀錄（log）了解操作成功或失敗的原因。適合手機使用的介面會提供即時狀態、歷史資訊及受控命令（command）。
 
-These elements will be combined into a full-stack IoT project with a clear user and
-purpose. The completed system should include meaningful physical interaction, reliable
-data flow, safe behavior, error handling, testing evidence, and enough documentation
-for another person to understand and rebuild it.
+上述部分最後整合為具有明確使用者與用途的全端物聯網專題（full-stack IoT project）。完成的系統應包含有意義的實體互動、可靠的資料流（data flow）、安全行為、錯誤處理（error handling）、測試證據，以及足以讓他人理解並重建系統的文件。
 
 <a id="first-iot-example"></a>
 

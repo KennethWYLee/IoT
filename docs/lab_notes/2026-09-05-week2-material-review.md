@@ -82,7 +82,7 @@
   斷電與導通檢查的通用原則，不能據此指定A830L蜂鳴門檻或證明安全等級。
 
 exact board、候選GPIO、5Vin的IN-OUT限制與既有實測，仍以
-[hardware_state.md](../hardware_state.md)及其指定來源／紀錄為準。
+[hardware_state.md](../hardware/hardware_state.md)及其指定來源／紀錄為準。
 
 ## 150分鐘工作量估算
 

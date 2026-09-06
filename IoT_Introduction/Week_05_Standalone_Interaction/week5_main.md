@@ -8,43 +8,30 @@ SG90與外部供電組成一個不需要網路的光線互動裝置。使用者�
 再返回可重新開始的狀態。感測無效、timeout或模擬故障時必須進入ERROR。
 
 > 驗證狀態：Week 5實物操作依賴已完成target test的Week 3感測profile、Week 4
-> 致動器profile及本週第二顆STOP按鈕profile。目前`docs/hardware_state.md`仍未
+> 致動器profile及本週第二顆STOP按鈕profile。目前`docs/hardware/hardware_state.md`仍未
 > 公布這些驗證結果。完整程式
 > 預設`DRY_RUN=true`，只執行Serial狀態轉換，不驅動GPIO或舵機。只有前兩週
 > profile及Week 5整合接線均驗證後，才能改為`false`並接上外部電源。
 
 ## 一、Unit Overview
 
-### Teaching Objectives
+### 教學目標
 
-By the end of this unit, students will be able to:
+完成本單元後，學生應能：
 
-1. Represent an interactive device with explicit IDLE, READY, ACTIVE, RESULT, and ERROR
-   states.
-2. Separate input reading, validation, state decisions, actuator output, and recovery
-   behavior into explainable program sections.
-3. Use non-blocking timing so that buttons, sensor validity, timeout, and safe-stop logic
-   remain responsive.
-4. Configure every output when a state is entered instead of depending on output left by
-   the previous state.
-5. Complete and document three repeatable interaction cycles from IDLE back to IDLE.
-6. Use a dedicated physical STOP button, safe sensor fault, or timeout to enter ERROR,
-   stop actuator control, and recover through an explicit clear-and-reset process.
-7. Produce consistent event fields that can be converted to JSON and transmitted in the
-   following networking unit.
+1. 使用明確的閒置（IDLE）、就緒（READY）、執行中（ACTIVE）、結果（RESULT）與錯誤（ERROR）狀態描述互動裝置。
+2. 將輸入讀取（input reading）、資料驗證（validation）、狀態判斷（state decision）、致動器輸出（actuator output）與復原行為（recovery）分成能清楚解釋的程式區段。
+3. 使用非阻塞計時（non-blocking timing），讓程式持續處理按鈕（pushbutton）、感測器有效性（sensor validity）、逾時（timeout）及安全停止（safe stop）判斷。
+4. 進入狀態時明確設定所有輸出，不依賴前一個狀態留下的輸出。
+5. 完成並記錄三次可重複的互動循環，每次都從閒置狀態開始並回到閒置狀態。
+6. 使用專用實體停止按鈕（STOP button）、安全的感測故障或逾時條件進入錯誤狀態，停止致動器控制，並依明確的清除（clear）及重設（reset）流程復原。
+7. 產生一致的事件欄位（event field），供後續網路單元轉換為資料交換格式（JSON）並傳送。
 
-### Teaching Content
+### 教學內容
 
-This unit combines previously verified input, sensing, indication, motion, and power
-building blocks into one standalone interactive system. Students will design a state
-table before writing code, test the state transitions without hardware output, and then
-enable the physical circuit without changing the meaning of the states.
+本單元將先前已驗證的輸入、感測、指示、動作與供電部分整合為單機互動系統（standalone interactive system）。學生會先設計狀態表（state table），再撰寫程式；先在不啟用硬體輸出的情況下測試狀態轉換（state transition），確認後才啟用實體線路，且不改變各狀態的意思。
 
-The implementation avoids long blocking delays and records every important transition
-with device, event, state, value, unit, validity, reason, and uptime fields. Normal
-cycles, timeout, simulated sensor failure, restart, and recovery are compared so that
-the same local behavior can later be connected to a backend without weakening the
-hardware safety rules.
+程式避免長時間的阻塞延遲（blocking delay），並以裝置（device）、事件（event）、狀態（state）、數值（value）、單位（unit）、有效性（validity）、原因（reason）與運行時間（uptime）欄位記錄重要轉換。學生會比較正常循環、逾時（timeout）、模擬感測故障（simulated sensor failure）、重新啟動（restart）及復原（recovery），讓相同的本機行為日後能接入後端（backend），而不削弱硬體安全規則。
 
 ### 核心實驗流程
 
@@ -666,4 +653,4 @@ ESP32、線材與電池。
 ## 參考資料
 
 - [ESP32Servo official repository](https://github.com/madhephaestus/ESP32Servo)
-- [Week 2～5硬體教材藍圖](../../docs/hardware_course_material_plan.md)
+- [Week 2～5硬體教材藍圖](../../docs/course_materials/hardware_course_material_plan.md)

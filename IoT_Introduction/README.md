@@ -21,7 +21,7 @@ main／support雙檔。
 | 2 | 2026-09-16 | ESP32-S3、開發環境與安全接線 | [week2_main.ipynb](Week_02_ESP32_Hardware_Basics/week2_main.ipynb) | 已整合於notebook附錄 |
 | 3 | 2026-09-23 | 電氣量測與ADC基礎 | [week3_main.ipynb](Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb) | 教材與compile已驗證；指定板卡電壓與ADC實測中 |
 | 4 | 2026-09-30 | 電阻量程、KY-018、DHT11與感測品質 | [week4_main.ipynb](Week_04_Sensors_and_Data_Quality/week4_main.ipynb) | 完整備課版含解答；[驗證範圍與實機待驗](../docs/lab_notes/2026-09-05-week4-material-review.md) |
-| 5 | 2026-10-07 | 致動器、機構與供電 | 重整中，暫勿發布 | [舊Week 4原稿封存](../docs/legacy_week4_actuators/README.md) |
+| 5 | 2026-10-07 | 致動器、機構與供電 | 重整中，暫勿發布 | [舊Week 4原稿封存](../docs/archive/week4_actuators/README.md) |
 | 6 | 2026-10-14 | 單機互動、狀態機、安全停止與故障復原 | 重整中，暫勿發布 | 舊Week 5 main／support |
 | 7 | 2026-10-21 | 第一次專題報告：題目與技術可行性 | [main](Week_07_Project_Report_1/week7_main.md) | [support](Week_07_Project_Report_1/week7_support.md) |
 | 8 | 2026-10-28 | 第一次個人筆試：硬體接線、電氣概念與安全 | [main](Week_08_Individual_Written_Exam/week8_main.md) | [support](Week_08_Individual_Written_Exam/week8_support.md) |
@@ -36,7 +36,7 @@ main／support雙檔。
 | 17 | 2026-12-30 | 第三次專題報告：期末展示與個人問答 | [main](Week_17_Project_Report_3/week17_main.md) | [support](Week_17_Project_Report_3/week17_support.md) |
 | 18 | 2027-01-06 | 校定期末考週：保留空白 | [main](Week_18_Reserved/week18_main.md) | [support](Week_18_Reserved/week18_support.md) |
 
-完整規則與評量以[正式 18 週課程規劃](../docs/18_week_plan.md)為準。
+完整規則與評量以[正式 18 週課程規劃](../docs/course/18_week_plan.md)為準。
 
 2026-09-05補齊必買材料用途：220 Ω／330 Ω辨識、阻值及量程比較改排Week 4，並共同
 使用DHT11及母對母資料線，Week 5分段操作所有必買輸出與4AA電源，Week 6使用兩顆
@@ -49,7 +49,7 @@ START／STOP按鈕。詳細[材料任務與落實狀態](../docs/course_material
 |---:|---|---|
 | 3 | 舊Week 3 notebook的電表、電壓、電阻與ADC內容 | 獨立成量測與ADC基礎，不提前完成DHT11實驗 |
 | 4 | 現行Week 2／3教學風格、官方來源與感測範例 | 新增220／330量程、兩條件相對校正、DHT11與品質；不修改Week 2／3來源 |
-| 5 | docs/legacy_week4_actuators內舊Week 4原稿 | 保留致動器、外部供電、共地與安全停止，待後續授權重整 |
+| 5 | [封存區內舊Week 4原稿](../docs/archive/week4_actuators/README.md) | 保留致動器、外部供電、共地與安全停止，待後續授權重整 |
 | 6 | 舊Week 5教材 | 搬移單機互動、狀態機、實體STOP及故障復原 |
 | 10 | 舊Week 6教材 | 搬移Wi-Fi、HTTP、JSON、WebSocket、Backend與手機雙向控制 |
 | 11 | 舊Week 10與11教材 | 收斂成MQTT訊息進入持久化紀錄及最小歷史查詢 |

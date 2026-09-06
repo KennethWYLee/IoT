@@ -353,11 +353,11 @@ Week 10只增加Wi-Fi、HTTP、JSON及Backend，不改變硬體判斷與安全�
 
 ## 十、教材製作順序
 
-1. 完成Week 2指定板卡及接線的target test，更新`docs/hardware_state.md`。
+1. 完成Week 2指定板卡及接線的target test，更新`docs/hardware/hardware_state.md`。
 2. 已從舊Week 3 notebook拆出電壓、GPIO與ADC內容，完成新
    `Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb`；2026-09-05依教師最新要求，
    在KY-018板上電阻概念之外加入1kΩ／10kΩ實作分壓。各項實測狀態以
-   `docs/hardware_state.md`為準，不能將計算或已有KY-018測試當作新分壓接法已通過。
+   `docs/hardware/hardware_state.md`為準，不能將計算或已有KY-018測試當作新分壓接法已通過。
 3. 實測KY-018與YS-31 DHT11，固定Week 4 GPIO、library及資料格式，再完成
    `week4_main.ipynb`。
 4. 實測4AA、SG90、RGB與蜂鳴器供電，固定Week 5安全接法並完成

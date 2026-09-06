@@ -10,7 +10,7 @@
 > 驗證狀態：指定KY-016、KY-012、SG90、AA電池種類、安全轉接端子、GPIO、
 > ESP32Servo版本、脈波範圍、安全角度及負載電壓仍為`unverified`。本章程式
 > 使用`-1`作為未公布設定，會安全拒絕控制。教師完成target test並在
-> `docs/hardware_state.md`公布Week 4 hardware profile前，不得自行填值、接上
+> `docs/hardware/hardware_state.md`公布Week 4 hardware profile前，不得自行填值、接上
 > 電池或讓舵機動作。
 
 ## 一、Unit Overview
@@ -85,7 +85,7 @@ Library Manager。SG90段落使用`ESP32Servo`，版本必須與Week 4 hardware 
 
 ### Week 4 hardware profile
 
-開始操作前，將`docs/hardware_state.md`中已完成target test的數值抄入
+開始操作前，將`docs/hardware/hardware_state.md`中已完成target test的數值抄入
 [Week 4支援資料](week4_support.md)。下列任一欄仍空白時，不得上電測試相應元件：
 
 - RGB紅、綠、藍GPIO及ON邏輯準位。
@@ -672,4 +672,4 @@ void loop() {
 
 - [ESP32Servo official repository](https://github.com/madhephaestus/ESP32Servo)
 - [ESP32-S3-DevKitC-1 User Guide](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/index.html)
-- [Week 2～5硬體教材藍圖](../../docs/hardware_course_material_plan.md)
+- [Week 2～5硬體教材藍圖](../../course_materials/hardware_course_material_plan.md)

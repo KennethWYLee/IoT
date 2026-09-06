@@ -8,33 +8,20 @@
 
 ## 一、Unit Overview
 
-### Teaching Objectives
+### 教學目標
 
-By the end of this unit, students will be able to:
+完成本單元後，學生應能：
 
-1. Complete the core monitor-and-control workflow on a phone without horizontal
-   page scrolling, accidental activation, or reliance on desktop-only interactions.
-2. Present loading, empty, live, pending, done, rejected, timeout, failure,
-   disconnected, and offline states as distinguishable interface outcomes.
-3. Combine a historical HTTP API with WebSocket updates without presenting stale
-   data as a current device state.
-4. Enforce viewer and operator capabilities in both the interface and backend, and
-   explain why a hidden or disabled button is not an authorization boundary.
-5. Inspect a web app manifest and service worker, and distinguish a responsive web
-   page from an installable PWA using observed browser conditions.
-6. Conduct a mobile usability, permission, network-loss, and physical-result test
-   with reproducible evidence.
+1. 在手機上完成核心監看與控制流程（monitor-and-control workflow），不依賴橫向整頁捲動、僅限桌面的操作方式，並避免誤觸啟動。
+2. 在介面上明確區分載入中（loading）、無資料（empty）、即時更新（live）、等待結果（pending）、完成（done）、遭拒（rejected）、逾時（timeout）、失敗（failure）、連線中斷（disconnected）及離線（offline）狀態。
+3. 結合HTTP歷史查詢介面（historical HTTP API）與網頁雙向通訊更新（WebSocket update），不將過期資料（stale data）呈現為裝置目前狀態。
+4. 在介面與後端（backend）同時落實檢視者（viewer）及操作者（operator）的能力限制，並解釋隱藏或停用按鈕為何不能取代授權邊界（authorization boundary）。
+5. 檢查網頁應用程式資訊清單（web app manifest）與服務工作者（service worker），依瀏覽器實際條件區分響應式網頁（responsive web page）與可安裝的漸進式網頁應用程式（PWA）。
+6. 執行行動裝置易用性（mobile usability）、權限（permission）、網路中斷（network loss）及實體結果（physical result）測試，並保留可重現的證據。
 
-### Teaching Content
+### 教學內容
 
-This unit develops the user-facing layer of the full-stack IoT system. Students will
-use mobile-first responsive layout, explicit interface states, historical API loading,
-and WebSocket updates to present device information without hiding uncertainty. Remote
-commands are treated as tracked operations rather than immediate button effects, and
-operator authorization is checked by the backend as well as reflected in the interface.
-The web app manifest, service worker, secure-context requirements, and installation
-conditions are inspected so that responsive web behavior and verified PWA behavior are
-reported separately.
+本單元發展全端物聯網系統（full-stack IoT system）面向使用者的介面。學生會運用行動優先（mobile-first）的響應式版面（responsive layout）、明確的介面狀態（interface state）、歷史查詢介面（historical API）載入與網頁雙向通訊更新（WebSocket update），呈現裝置資訊，也呈現資料的不確定性。遠端命令（remote command）必須作為可追蹤的操作處理，不能將按下按鈕直接當成實體已動作；操作者授權（operator authorization）由後端檢查，並在介面上反映其限制。學生會檢查網頁應用程式資訊清單（web app manifest）、服務工作者（service worker）、安全環境（secure context）要求與安裝條件，分開回報響應式網頁行為及已驗證的漸進式網頁應用程式（PWA）行為。
 
 ## 二、核心使用流程與開始狀態
 

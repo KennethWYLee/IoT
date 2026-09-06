@@ -111,7 +111,7 @@ FQBN：`esp32:esp32:esp32s3:FlashSize=16M,PSRAM=opi`。
 ## 目前實作進度與限制
 
 - 3V3、GPIO5一般LOW／HIGH、Reset啟動文字、KY-018電阻與電壓、ADC室內光／遮光已有
-  教師回報紀錄；原始證據與限制以[hardware_state](../hardware_state.md)及其實驗紀錄為準。
+  教師回報紀錄；原始證據與限制以[hardware_state](../hardware/hardware_state.md)及其實驗紀錄為準。
 - 現有兩組電壓／ADC對照可以支持本次變化方向，不是同步取樣或ADC精度校正。
   不要求教師為湊格式重做整批；正式學生作業仍須依題目保存各10筆。
 - **新固定電阻A／B實作尚未實機驗證**。需要1 kΩ、10 kΩ各一顆，確認阻值後依13.7

@@ -9,19 +9,19 @@ Week 3已完成的GPIO電壓、ADC原理及1 kΩ／10 kΩ分壓不重做；
 本週新增220 Ω／330 Ω量程比較、KY-018兩條件校正與DHT11資料品質。
 不接致動器、外部電池，也不使用Wi-Fi或Backend。
 
-### Teaching Objectives
+### 教學目標
 
-1. Identify and measure 220-ohm and 330-ohm resistors, interpret units and range indications, and distinguish nominal values from observations.
-2. Collect labeled light samples under two controlled conditions and explain their timing, spread, and limitations.
-3. Derive a local threshold from non-overlapping calibration samples and evaluate it with separate observations.
-4. Trace approved sensor power, ground, and data paths and justify a female-to-female DHT11 data connection.
-5. Explain temperature, relative humidity, library-mediated digital readings, and the meaning of each recorded field.
-6. Distinguish missing, implausible, suspicious, and usable readings, and document software-injected failure and subsequent hardware-read recovery honestly.
-7. Support a sensor-quality conclusion with traceable evidence rather than the mere presence of numbers.
+1. 辨認並量測220 Ω與330 Ω電阻（resistor），解讀單位及量程（range）指示，區分標示值（nominal value）與量測值（measured value）。
+2. 在兩種受控制的光線條件下收集附有條件標籤的樣本（sample），解釋取樣時間、數值分布及資料限制。
+3. 從分布不重疊的校正樣本（calibration sample）推導適用於目前環境的門檻（threshold），再以另外收集的資料評估判斷結果。
+4. 追蹤已核准接法中的感測器（sensor）供電、接地（ground）與資料路徑，解釋DHT11資料連接選用母對母杜邦線（female-to-female jumper wire）的理由。
+5. 解釋溫度（temperature）、相對濕度（relative humidity）、透過函式庫（library）取得數位讀值的過程，以及每個紀錄欄位的意思。
+6. 區分缺值（missing）、超出合理範圍（implausible）、可疑（suspect）與可用（usable）的讀值，如實記錄軟體注入故障（software-injected failure）及之後恢復實體讀取的結果。
+7. 用可追蹤的證據支持感測品質（sensor quality）結論，不以「有數字」作為資料可信的唯一依據。
 
-### Teaching Content
+### 教學內容
 
-This unit connects electrical measurement to the interpretation of sensor data. Students compare resistor markings with isolated measurements, study repeated KY-018 samples under indoor and shaded conditions, and derive a local decision threshold whose limits are tested with new data. An approved DHT11 module introduces digital sensor communication, temperature and relative humidity, controlled read intervals, and explicit handling of missing or suspicious observations. A single discussion develops evidence-based judgments about whether sensor data are sufficient for a stated purpose.
+本單元將電氣量測連結到感測資料的判讀。學生會比較電阻（resistor）的標示與離開外部電源後的量測結果，在室內光及遮光兩種條件下，研究光敏電阻模組（KY-018 photoresistor module）的重複取樣（repeated sampling），推導適用於目前環境的判斷門檻（threshold），並以新資料檢查其限制。經核准的溫濕度模組（DHT11 temperature and humidity module）用於介紹數位感測通訊（digital sensor communication）、溫度（temperature）、相對濕度（relative humidity）、受控制的讀取間隔（read interval），以及缺值（missing value）和可疑讀值（suspect reading）的明確處理方式。收尾討論集中探討「有數字，就代表感測資料可信嗎？」，練習根據證據判斷資料是否足以支持指定用途。
 
 ## 一、從起點到完成成果
 
@@ -87,7 +87,7 @@ f～j是中央溝槽另一側；也能說明電壓表讀「紅表筆電位減黑
 目前已有KY018-T01與BOARD-T01的局部實驗紀錄，不能自動推廣到全班。
 DHT11-T01只有外觀照片，尚不足以公布實物上電接法。第8～9節會把確認項目與
 **確認後**的完整接線程序列清楚；未核准不是免做DHT11，而是該實作暫待安全條件。
-實機狀態以[硬體紀錄](../hardware_state.md)為準。
+實機狀態以[硬體紀錄](../hardware/hardware_state.md)為準。
 
 上電後若異常發熱、異味、煙或反覆重啟，立即拔USB；沒有這些異常也不等於接線已全部驗證。
 BOARD-T01的`5Vin`不當作USB供電時的5 V輸出，本週不使用它或IN-OUT焊盤。

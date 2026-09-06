@@ -2,6 +2,18 @@ course_ref/
 tmp/
 _outputs/
 
+# Local-only agent instructions and project context (all case variants)
+[Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
+[Cc][Ll][Aa][Uu][Dd][Ee].[Mm][Dd]
+[Pp][Rr][Oo][Jj][Ee][Cc][Tt].[Mm][Dd]
+
+# Personal project, not part of the course repository
+/ESP_Drone/
+
+# Legacy temporary output names; new outputs belong under _outputs/
+/.codex_tmp*/
+.pytest_cache/
+
 # Local credentials and runtime logs
 .env
 .env.*

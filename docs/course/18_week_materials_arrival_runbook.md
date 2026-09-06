@@ -15,7 +15,7 @@
 ## 2. 到貨優先順序
 
 本表按實作週說明使用與缺料處理，不另改Week 1正式採購清單的準備期限。
-新任務的[用途與教材落實狀態](course_materials/teacher_18_week_materials.md#required-hardware-activities)
+新任務的[用途與教材落實狀態](../course_materials/teacher_18_week_materials.md#required-hardware-activities)
 另行追蹤；已排入設計不等於指定實物已驗證。缺料時可先做分析，但不能把分析或教師示範
 當作學生自己的硬體實作已完成。
 
@@ -46,7 +46,7 @@
   自行準備。
 
 確切規格、數量與使用週次以Week 1的
-[學生材料採購總表](../IoT_Introduction/Week_01_Course_Orientation/week1_support.md#一學生材料採購總表)
+[學生材料採購總表](../../IoT_Introduction/Week_01_Course_Orientation/week1_support.md#一學生材料採購總表)
 為準。
 
 題目確認前不要求購買感測器大全包、相機板、Raspberry Pi、車體、LiDAR
@@ -81,12 +81,12 @@
 3. 使用最小程式測單一輸入或輸出。
 4. 更換一條已知良好線材。
 5. 更換同類模組並重測。
-6. 最後才更換開發板，並在 `docs/hardware_state.md` 記錄原板現象。
+6. 最後才更換開發板，並在 `docs/hardware/hardware_state.md` 記錄原板現象。
 
 ## 6. 跨組與跨電腦紀錄
 
 - 每個實體元件貼唯一標籤，例如 `BOARD-T01`、`SERVO-T02`。
-- 借用、接線、供電、library、測試與已知問題記在 `docs/hardware_state.md`。
+- 借用、接線、供電、library、測試與已知問題記在 `docs/hardware/hardware_state.md`。
 - 每次完整實驗在 `docs/lab_notes/` 新增日期檔，附 commit 與下一步。
 - 開始前 `git pull --ff-only`；完成後只提交教材、程式與去敏紀錄。
 - 不提交 Wi-Fi 密碼、API key、Database secrets、學生個資或未授權影像。

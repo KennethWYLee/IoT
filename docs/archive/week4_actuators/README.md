@@ -7,7 +7,7 @@
 
 - [舊main](week4_main.md)
 - [舊support](week4_support.md)
-- [現行Week 4感測品質完整備課版](../../IoT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb)
+- [現行Week 4感測品質完整備課版](../../../IoT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb)
 
-原始檔保留相同的相對目錄深度，原有`../../docs/`等連結仍可解析。
+2026-09-06集中至舊稿區；只更新搬移後的相對連結，教學內容及程式維持原稿。
 後續處理Week 5時須另行核對最新範圍，不直接把封存稿當成發布版。

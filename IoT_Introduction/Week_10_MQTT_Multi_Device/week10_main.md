@@ -9,33 +9,20 @@ ESP32以自己的`device_id`組成topic，發布KY-018遙測、事件與online�
 
 ## 一、Unit Overview
 
-### Teaching Objectives
+### 教學目標
 
-By the end of this unit, students will be able to:
+完成本單元後，學生應能：
 
-1. Explain and demonstrate the roles of an MQTT broker, publisher, subscriber,
-   topic, payload, session, retained message, and Last Will.
-2. Design a topic tree that isolates multiple devices while keeping telemetry,
-   events, presence, commands, and acknowledgements distinguishable.
-3. Publish validated sensor data and presence from an ESP32 and subscribe only to
-   commands addressed to that device.
-4. Track one command and its acknowledgement with a stable `command_id`, and use the
-   documented in-memory cache to prevent duplicate execution during the same boot.
-5. Demonstrate online, unexpected offline, reconnect, wrong-device, malformed-payload,
-   and broker-unavailable behavior with observable evidence.
-6. Connect MQTT messages to the existing backend, database, WebSocket, and mobile
-   interface without exposing broker credentials.
+1. 解釋並示範訊息佇列遙測傳輸協定（MQTT）中的訊息代理伺服器（broker）、發布者（publisher）、訂閱者（subscriber）、主題（topic）、訊息內容（payload）、工作階段（session）、保留訊息（retained message）與遺囑訊息（Last Will）的角色。
+2. 設計可隔離多個裝置的主題樹（topic tree），並區分遙測資料（telemetry）、事件（event）、在線狀態（presence）、命令（command）與回覆確認（acknowledgement）。
+3. 從ESP32發布已驗證的感測資料與在線狀態，且只訂閱指定給該裝置的命令。
+4. 使用穩定的命令識別碼（`command_id`）追蹤命令及其回覆，依文件中的記憶體快取（in-memory cache）機制，避免同一次開機期間重複執行相同命令。
+5. 用可觀察證據示範上線（online）、非預期離線（unexpected offline）、重新連線（reconnect）、錯誤裝置（wrong-device）、格式錯誤訊息（malformed payload）及代理伺服器無法使用（broker unavailable）的行為。
+6. 將MQTT訊息接入既有後端（backend）、資料庫（database）、網頁雙向通訊（WebSocket）及行動介面（mobile interface），而不洩漏代理伺服器的認證資料（credential）。
 
-### Teaching Content
+### 教學內容
 
-This unit introduces MQTT as a broker-mediated publish/subscribe protocol for
-multi-device IoT communication. Students will build a consistent topic hierarchy,
-separate message routing from JSON content, and use presence and acknowledgements to
-make device state and command results observable. The laboratory extends the existing
-HTTP backend rather than replacing it: an MQTT bridge validates device messages,
-stores them through the same API, and relays mobile commands to device-specific topics.
-Retained presence, Last Will, reconnection, duplicate command protection, and local
-safety behavior are tested as system properties.
+本單元介紹訊息佇列遙測傳輸協定（MQTT），以訊息代理伺服器（broker）協助發布／訂閱（publish/subscribe），支援多裝置物聯網通訊（multi-device IoT communication）。學生會建立一致的主題階層（topic hierarchy），區分訊息路由（message routing）與JSON訊息內容（JSON payload），並使用在線狀態（presence）及回覆確認（acknowledgement）讓裝置狀態與命令結果可被觀察。實驗是在既有HTTP後端（HTTP backend）上擴充，不是取代它：MQTT橋接程式（MQTT bridge）驗證裝置訊息，透過相同的應用程式介面（API）儲存資料，再將手機命令轉送到各裝置專用的主題（topic）。學生會測試保留的在線狀態、遺囑訊息（Last Will）、重新連線（reconnection）、重複命令防護（duplicate command protection）與本機安全行為。
 
 ## 二、從Week 6架構加入Broker
 

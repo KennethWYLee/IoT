@@ -4,8 +4,9 @@
 
 Checks all versioned Markdown files for balanced code fences, valid local links and
 anchors, consistent table columns, and forbidden editorial wording. It also enforces
-the 18 weekly directory structure, two-file rule, blank Week 18, English Week 1 main,
-English unit overviews, separation of main/support tables, minimum regular-unit depth,
+the 18 weekly directory structure (single notebooks in Weeks 2–4), blank Week 18,
+Chinese unit overview headings and content, the remaining English Week 1 outline,
+separation of main/support tables, minimum regular-unit depth,
 and absence of positive hard-coded GPIO values in unverified hardware examples.
 
 Run from the repository root:
@@ -13,6 +14,10 @@ Run from the repository root:
 ```powershell
 python scripts/verify_course_materials.py
 ```
+
+Requires Git. Discovery includes tracked and non-ignored new Markdown/notebook files,
+but excludes local-only agent instructions, project context, personal projects and
+generated output. Public links to local-only instruction/context files are rejected.
 
 ## `verify_markdown_arduino.py`
 
@@ -120,7 +125,7 @@ corrections, phase handoffs, visual checks and remaining first-time learner tria
 ## Week 1–3 reading navigation
 
 `verify_intro_navigation.cjs` checks the explicit section links in the Week 1 main/support
-and Week 2/3 notebooks, unique anchors, the English Week 1 outline, and selected
+and Week 2/3 notebooks, unique anchors, the Week 1 Chinese overviews and remaining English outline, and selected
 first-use teaching order. It complements the two notebook verifiers, not a replacement
 for a novice reading trial.
 

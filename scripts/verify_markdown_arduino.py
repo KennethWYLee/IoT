@@ -17,7 +17,7 @@ SOURCES = (
     ROOT / "IoT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb",
     ROOT / "IoT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb",
     ROOT / "IoT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb",
-    ROOT / "docs/legacy_week4_actuators/week4_main.md",
+    ROOT / "docs/archive/week4_actuators/week4_main.md",
     ROOT / "IoT_Introduction/Week_05_Standalone_Interaction/week5_main.md",
     ROOT / "IoT_Introduction/Week_06_HTTP_WebSocket_Backend/week6_main.md",
     WEEK10,

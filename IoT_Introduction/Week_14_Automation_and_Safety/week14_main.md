@@ -9,35 +9,20 @@
 
 ## 一、Unit Overview
 
-### Teaching Objectives
+### 教學目標
 
-By the end of this unit, students will be able to:
+完成本單元後，學生應能：
 
-1. Specify an automation policy with an observable trigger, validity requirement,
-   state precondition, action, maximum duration, stop condition, and safe state.
-2. Implement sensor hysteresis, repeated-sample confirmation, state transitions,
-   explicit manual-versus-automatic ownership, physical stop priority, and bounded
-   recovery behavior.
-3. Resolve conflicts among automatic actions, remote commands, local controls,
-   invalid sensing, network loss, and action timeout using a documented priority order.
-4. Inject and isolate at least three faults while preserving a safe physical output,
-   visible mobile status, structured logs, and reproducible recovery steps.
-5. Reconstruct the backend, database schema, mobile frontend, and device configuration
-   from a clean directory without relying on copied environments or undocumented secrets.
-6. Distinguish host tests, compilation, upload, physical target tests, fault tests,
-   and reconstruction evidence.
+1. 訂定自動化規則（automation policy），明列可觀察的觸發條件（trigger）、資料有效性要求（validity requirement）、狀態前置條件（state precondition）、動作（action）、最長持續時間（maximum duration）、停止條件（stop condition）與安全狀態（safe state）。
+2. 實作感測遲滯（hysteresis）、重複樣本確認（repeated-sample confirmation）、狀態轉換（state transition）、明確的手動／自動控制權（manual/automatic ownership）、實體停止優先權（physical stop priority）及具有明確限制的復原行為（recovery）。
+3. 依文件記錄的優先順序（priority order），處理自動動作、遠端命令（remote command）、本機控制（local control）、無效感測（invalid sensing）、網路中斷（network loss）與動作逾時（action timeout）之間的衝突。
+4. 注入並定位至少三種故障（fault），同時維持安全的實體輸出、可見的手機狀態、結構化紀錄（structured log）與可重現的復原步驟。
+5. 從乾淨目錄重建後端（backend）、資料庫結構（database schema）、行動前端（mobile frontend）與裝置設定（device configuration），不依賴複製既有環境或未記錄的機密資料。
+6. 區分主機測試（host test）、編譯（compilation）、上傳（upload）、實體目標板測試（physical target test）、故障測試（fault test）與重建證據（reconstruction evidence）。
 
-### Teaching Content
+### 教學內容
 
-This unit integrates automation with the safety and recovery properties required of
-a full-stack IoT system. Students will turn calibrated sensor input into a bounded
-state-machine action, prevent threshold chatter with hysteresis and repeated samples,
-and define explicit priorities for physical stop, faults, manual commands, and automatic
-behavior. Network and sensor faults are deliberately introduced so that safe output,
-operator feedback, database records, and logs can be verified together. A clean-room
-reconstruction then tests whether the documented software versions, environment variables,
-database initialization, frontend assets, device profiles, and secret placeholders are
-sufficient for another person to reproduce the system.
+本單元將自動化（automation）與全端物聯網系統（full-stack IoT system）所需的安全及復原能力整合。學生會將已校正的感測輸入轉為具有明確限制的狀態機動作（state-machine action），以遲滯（hysteresis）與重複取樣（repeated sampling）避免門檻附近反覆切換（threshold chatter），並明定實體停止（physical stop）、故障（fault）、手動命令（manual command）及自動行為的優先順序。實作會刻意引入網路及感測故障，同時查驗安全輸出、操作者回饋、資料庫紀錄（database record）與紀錄檔（log）。最後進行乾淨環境重建（clean reconstruction），檢查文件中的軟體版本、環境變數（environment variable）、資料庫初始化（database initialization）、前端資源（frontend asset）、裝置設定檔（device profile）與機密佔位值（secret placeholder），是否足以讓另一個人重現系統。
 
 ## 二、先定義Automation Policy
 

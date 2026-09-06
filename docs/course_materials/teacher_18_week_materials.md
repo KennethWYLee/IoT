@@ -10,7 +10,7 @@
 本課卡是設計要求，不取代主教材。220 Ω／330 Ω量測已由設計中的Week 3改排Week 4，
 與DHT11母對母接法整合於[Week 4完整備課版](../../IoT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb)。
 Week 5～6仍依[教材搬移表](../../IoT_Introduction/README.md)待後續重整。
-腳位與實機狀態依[hardware_state](../hardware_state.md)，不因用途已排定
+腳位與實機狀態依[hardware_state](../hardware/hardware_state.md)，不因用途已排定
 就視為可以上電。完整用途與待辦見[材料任務對照](#required-hardware-activities)。
 
 ## 每週課卡

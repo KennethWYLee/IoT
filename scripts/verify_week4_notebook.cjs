@@ -33,7 +33,7 @@ for(const c of nb.cells){
 }
 assert.equal(images,16);assert(!all.includes('<!-- sketch:'));
 for(let i=1;i<=7;i++)assert(all.includes(`### 13.${i}`));
-for(const s of ['完整備課版（含參考解答）','Teaching Objectives','Teaching Content','母對母','MODULE_PROFILE_CONFIRMED = false','source=injected','不是DHT11原廠','不接致動器','20k','220 Ω','330 Ω'])assert(all.includes(s),s);
+for(const s of ['完整備課版（含參考解答）','### 教學目標','### 教學內容','母對母','MODULE_PROFILE_CONFIRMED = false','source=injected','不是DHT11原廠','不接致動器','20k','220 Ω','330 Ω'])assert(all.includes(s),s);
 const indoor=[300,304,308,312,316,320,304,308,312,316],shade=indoor.map(x=>x+600);
 const avg=a=>a.reduce((a,b)=>a+b,0)/a.length;
 assert.equal(avg(indoor),310);assert.equal(avg(shade),910);assert.equal((Math.max(...indoor)+Math.min(...shade))/2,610);

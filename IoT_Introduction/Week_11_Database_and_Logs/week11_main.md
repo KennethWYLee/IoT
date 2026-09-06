@@ -8,33 +8,20 @@
 
 ## 一、Unit Overview
 
-### Teaching Objectives
+### 教學目標
 
-By the end of this unit, students will be able to:
+完成本單元後，學生應能：
 
-1. Distinguish transient interface state, stored historical records, device time,
-   server time, and process logs.
-2. Interpret the course SQLite schema, including keys, columns, data types, nullable
-   fields, indexes, and the relationship between events and commands.
-3. Query historical events and commands by device, event type, status, and time range
-   through a validated API.
-4. Calculate and interpret event, invalid-data, device, and command-status counts
-   without treating missing or rejected data as successful measurements.
-5. Use a structured log and a stable event or command identity to reconstruct one
-   successful path and one failed path.
-6. Protect credentials and personal information while collecting enough operational
-   evidence to reproduce a fault.
+1. 區分暫時的介面狀態（transient interface state）、已儲存的歷史紀錄（historical record）、裝置時間（device time）、伺服器時間（server time）與程式運作紀錄（process log）。
+2. 判讀課程SQLite資料庫結構（SQLite schema），包括鍵（key）、欄位（column）、資料型別（data type）、允許空值的欄位（nullable field）、索引（index），以及事件（event）與命令（command）的關係。
+3. 透過具有輸入驗證的應用程式介面（API），依裝置、事件類型、狀態與時間範圍查詢歷史事件及命令。
+4. 計算並解釋事件、無效資料（invalid data）、裝置與命令狀態的數量，不將缺值（missing）或遭拒資料（rejected data）當成成功量測。
+5. 使用結構化紀錄（structured log）及穩定的事件或命令識別碼（identifier），重建一次成功流程與一次失敗流程。
+6. 收集足以重現故障的操作證據，同時保護認證資料（credential）與個人資料（personal information）。
 
-### Teaching Content
+### 教學內容
 
-This unit develops the persistence and observability layer of the course IoT system.
-Students will inspect how validated device events and command lifecycles are represented
-in SQLite, compare direct database inspection with historical API queries, and analyze
-counts without losing the meaning of validity and failure. Structured logs are used to
-connect requests, validation decisions, database records, and command results into a
-reconstructable sequence. The unit also distinguishes server-recorded time from device
-uptime and applies data-minimization rules so that useful diagnostics do not become a
-collection of secrets or unnecessary personal information.
+本單元發展課程物聯網系統（IoT system）的持久化儲存（persistence）與可觀測性（observability）。學生會檢視已驗證的裝置事件（device event）及命令生命週期（command lifecycle）如何存入SQLite資料庫（SQLite database），比較直接檢查資料庫與歷史查詢介面（historical API）的結果，並在統計數量時保留有效性與失敗狀態的意思。結構化紀錄（structured log）將請求（request）、驗證決策（validation decision）、資料庫紀錄（database record）及命令結果（command result）串成可重建的順序。本單元也區分伺服器記錄時間（server-recorded time）與裝置運行時間（device uptime），並運用資料最小化（data minimization）原則，避免為了診斷而收集機密或不必要的個人資料。
 
 ## 二、即時畫面、Database與Log不是同一件事
 

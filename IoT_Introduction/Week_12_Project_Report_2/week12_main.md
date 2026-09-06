@@ -4,26 +4,18 @@
 
 ## Unit Overview
 
-### Teaching Objectives
+### 教學目標
 
-By the end of this project report, students will be able to:
+完成本次專題報告後，學生應能：
 
-1. Classify each major system component as complete, partially complete, or not started
-   by using reproducible implementation evidence.
-2. Demonstrate one repeatable physical or integrated system path and distinguish real
-   operation from mock data or interface-only evidence.
-3. Identify a current problem or risk from observable behavior, data, or logs and explain
-   its effect on the project.
-4. Convert feedback into a prioritized revision plan with an owner, completion condition,
-   and retest method for every selected action.
+1. 以可重現的實作證據（implementation evidence），將各主要系統部分區分為已完成、部分完成與尚未開始。
+2. 展示一條可重複的實體操作或整合系統流程（integrated system path），區分真實運作、模擬資料（mock data）及只有介面呈現的證據。
+3. 從可觀察行為、資料或紀錄（log）辨認目前問題或風險，說明其對專題的影響。
+4. 將回饋轉為有優先順序的修正計畫（revision plan），為每項選定行動列出負責人、完成條件與重測方法（retest method）。
 
-### Teaching Content
+### 教學內容
 
-This project report examines the current implementation rather than a polished final
-product. Students align hardware behavior, device communication, backend, database,
-mobile interface, testing, and documentation with evidence from the version being shown.
-Incomplete work and unresolved risks remain visible, while report feedback is transformed
-into a bounded and verifiable development plan for Weeks 13 and 14.
+本次專題報告檢查目前實作，而非要求已修飾完成的最終成品。學生會以正在展示的版本為依據，對照硬體行為（hardware behavior）、裝置通訊（device communication）、後端（backend）、資料庫（database）、行動介面（mobile interface）、測試及文件的證據。未完成工作與尚未解決的風險必須如實呈現，並將報告回饋轉為第13、14週可執行、範圍明確且可驗證的開發計畫（development plan）。
 
 每組說明目前完成、部分完成及尚未開始的功能，並以真實硬體行為、程式、資料、
 log或操作結果支持判定。尚未完成的功能可以誠實標示，不得以mock或投影片冒充

@@ -299,5 +299,5 @@ IoT_Introduction/Week_06_HTTP_WebSocket_Backend/week6_main.md
 
 - [Week 5主教材](week5_main.md)
 - [Week 3教材與附錄](../Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb)
-- [舊Week 4致動器支援資料（封存來源）](../../docs/legacy_week4_actuators/week4_support.md)
-- [硬體教材藍圖](../../docs/hardware_course_material_plan.md)
+- [舊Week 4致動器支援資料（封存來源）](../../docs/archive/week4_actuators/week4_support.md)
+- [硬體教材藍圖](../../docs/course_materials/hardware_course_material_plan.md)

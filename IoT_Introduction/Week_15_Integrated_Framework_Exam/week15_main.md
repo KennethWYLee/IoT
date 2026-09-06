@@ -4,26 +4,18 @@
 
 ## Unit Overview
 
-### Teaching Objectives
+### 教學目標
 
-By the end of this assessment, students will be able to:
+學生應能在本次評量中展現下列能力：
 
-1. Trace sensor events and control commands across ESP32, Wi-Fi, HTTP or MQTT, backend,
-   database, WebSocket, and mobile-interface boundaries.
-2. Compare request-response, publish-subscribe, live-update, historical-storage, and
-   structured-log responsibilities.
-3. Use identifiers, status codes, payload fields, timestamps, and logs to locate the
-   first failed layer in an integrated system.
-4. Explain authorization, timeout, invalid-data, offline, and recovery behavior without
-   confusing interface status with physical evidence.
+1. 追蹤感測事件（sensor event）與控制命令（control command），說明它們如何經過ESP32、無線網路（Wi-Fi）、超文字傳輸協定（HTTP）或訊息佇列遙測傳輸協定（MQTT）、後端（backend）、資料庫（database）、網頁雙向通訊（WebSocket）及行動介面（mobile interface）。
+2. 比較請求／回應（request-response）、發布／訂閱（publish-subscribe）、即時更新（live update）、歷史儲存（historical storage）與結構化紀錄（structured log）的責任。
+3. 使用識別碼（identifier）、狀態碼（status code）、訊息內容欄位（payload field）、時間戳記（timestamp）與紀錄（log），找出整合系統中首先失敗的層次。
+4. 解釋授權（authorization）、逾時（timeout）、無效資料（invalid data）、離線（offline）與復原（recovery）行為，不混淆介面狀態與實體證據。
 
-### Teaching Content
+### 教學內容
 
-This individual written assessment examines the networking and integrated architecture
-developed after the first project report. Students interpret HTTP, JSON, WebSocket, MQTT,
-backend validation, database records, structured logs, mobile states, and cross-layer
-identifiers as one traceable system. No new teaching content, laboratory activity,
-project report, or group work is included during the week.
+本次個人筆試評量第一次專題報告後發展的網路通訊與整合架構（integrated architecture）。學生會將超文字傳輸協定（HTTP）、JSON資料交換格式（JSON）、網頁雙向通訊（WebSocket）、訊息佇列遙測傳輸協定（MQTT）、後端驗證（backend validation）、資料庫紀錄（database record）、結構化紀錄（structured log）、行動介面狀態（mobile state）及跨層識別碼（cross-layer identifier），視為同一套可追蹤系統進行判讀。本週不教授新內容，不安排實驗活動、專題報告或小組作業。
 
 ## 本週性質
 

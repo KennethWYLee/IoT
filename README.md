@@ -1,86 +1,54 @@
 # IoT 玩具與互動硬體設計
 
-這門課讓資管學生把程式帶進實體世界。學生可以做自己想玩的玩具、
-互動裝置、環境系統、機構或移動平台；共同要求不是指定外型，而是硬體
-必須真的產生行為，軟體必須留下可查的資料／事件，或實際協助使用者
-監看與操作。期末作品會把兩者整合成可說明、可測試、可重建的
-Full-stack IoT 系統。
+從ESP32-S3、安全接線與感測實作開始，逐步整合後端、資料庫與手機介面。
+專題由學生自行選題，但必須有可觀察的實體行為、可追蹤的資料或命令，以及安全與復原證據。
 
-## 課程主線
+## 從這裡開始
+
+| 你要做什麼 | 入口 |
+|---|---|
+| 閱讀各週教材、查看目前進度 | [18週教材](IoT_Introduction/README.md) |
+| 確認學生必買器材與分組電表 | [Week 1正式材料清單](IoT_Introduction/Week_01_Course_Orientation/week1_support.md#一學生材料採購總表) |
+| 開啟Arduino程式或執行後端 | [範例程式](examples/README.md) |
+| 備課、查課綱、硬體狀態與實作紀錄 | [課程文件](docs/README.md) |
+
+目前Week 2～4以單本`weekN_main.ipynb`為閱讀入口，包含概念、圖解、程式、
+操作、練習及參考解答；屬於**完整備課版（含答案）**。其他週次的整理狀態見
+[18週導覽](IoT_Introduction/README.md#18-週導覽)，不要把重整中的舊稿當成已完成教材。
+
+## 目錄分工
 
 ```text
-實體輸入（按鈕／感測器／手機判斷）
-  -> ESP32-S3 的狀態與決策
-  -> 實體輸出（燈／聲音／顯示／舵機／馬達）
-  -> Wi-Fi + HTTP／MQTT
-  -> 學生建立的後端
-  -> Database + structured log
-  -> WebSocket
-  -> 手機可用的監看與操作介面
+IoT_Introduction/   各週教材；從這裡閱讀
+examples/           可直接開啟的程式與後端
+docs/              課程規劃、備課、硬體資料、照片與紀錄
+scripts/            教材生成與驗證工具
 ```
 
-第2-6週只處理硬體：安全用電、電氣量測、ADC、感測、輸出、機構、供電、
-狀態與故障。第10週才將ESP32-S3接到HTTP／WebSocket；第11週把MQTT訊息、
-Database與structured log整合成可查詢的持久化資料路徑，第13週再完成手機介面。
+完整週次、評量與作品要求，以[18週課程規劃](docs/course/18_week_plan.md)為準。
+器材圖片保留在`docs/images/`；歷史入門QA及舊致動器教材集中於
+[舊稿區](docs/archive/README.md)，不列入主要閱讀路徑。
 
-## 學生可以做什麼
+## 在另一台電腦繼續
 
-- 手機控制、會記錄每次命令與結果的夾取或投擲玩具。
-- 依光線、距離或人體活動反應，並保留歷史資料的互動燈具。
-- 有使用時間、錯誤與得分紀錄的桌上遊戲或反應遊戲。
-- 能在手機設定模式、查詢事件並安全停止的移動平台。
-- 感測環境並由軟體告警、查詢與分析的教室或生活裝置。
-- 其他經教師確認供電、致動器與使用情境可安全完成的作品。
-
-昂貴硬體、複雜機構與速度不直接換取高分。基礎材料做出清楚的使用情境、
-可靠的互動、完整的 log 與可重現測試，也可以取得完整評分。
-
-## 教師材料
-
-教師已購三套 ESP32-S3 與常用輸入／輸出材料，只作課前驗證、課堂示範與
-教師專題備品，不提供學生借用或故障替換。學生在第 7 週
-確認題目後可按作品需要加購材料；購買前須先核對相容性與安全。
-
-教師的智慧停車與 UCI K-4 4WD 只是延伸示範，學生不必造車，也不採用
-循跡車作為共同作業。
-
-## 課程節點
-
-- 第7週：第一次專題報告—題目與技術可行性。
-- 第8週：第一次個人筆試，檢查硬體接線、電氣概念與安全；不安排新進度。
-- 第 9 週：教師出國，不要求到校、不收新的評量成果。
-- 第12週：第二次專題報告，檢查目前進度、取得回饋並建立修正計畫。
-- 第13週：完成手機前台、Responsive Web／PWA與權限。
-- 第14週：完成故障注入、復原及乾淨環境重建。
-- 第15週：第二次個人筆試，檢查網路通訊與軟硬整合架構；不安排新進度。
-- 第16至17週：第三次專題報告—期末展示與個人問答；分批進行，不安排新進度。
-- 第 18 週：校定期末考週，保留空白，不安排常規教材或評量進度。
-
-## 文件導覽
-
-- [18 週課程進度](docs/18_week_plan.md)
-- [校曆對齊計畫](docs/1151_calendar_aligned_course_plan.md)
-- [中文課程大綱](docs/1151_course_syllabus_draft.md)
-- [英文課程大綱](docs/1151_course_syllabus_english.md)
-- [Type B 課堂設計](docs/typeb_course_redesign.md)
-- [每週材料與課堂執行](docs/18_week_materials_arrival_runbook.md)
-- [課堂教材入口](docs/course_materials/README.md)
-- [採購原則](docs/purchase_list.md)
-- [已購庫存](docs/purchased_inventory.md)
-- [跨電腦硬體狀態](docs/hardware_state.md)
-- [HTTP／WebSocket／SQLite 課堂 prototype](examples/course_backend/README.md)
-- [入門 QA](docs/iot_beginner_qa.md)
-- [圖解 QA PDF](docs/iot_beginner_visual_qa.pdf)
-- [同步工具](scripts/README.md)
-
-## 另一台電腦接手
+第一次下載：
 
 ```powershell
 git clone https://github.com/KennethWYLee/IoT.git
 cd IoT
+```
+
+之後更新，先確認沒有未保存的修改：
+
+```powershell
+git status
 git pull --ff-only
 ```
 
-開始實機前先讀 `PROJECT.md`、`docs/hardware_state.md` 與最新的
-`docs/lab_notes/`；完成實驗後更新硬體狀態與實作紀錄，再 commit、push。
-Wi-Fi 密碼、API key 與裝置秘密不得進入 Git。
+若有本機修改，先保存並檢查差異，不以強制覆寫方式更新。
+實機前查閱[硬體狀態](docs/hardware/hardware_state.md)及[實作紀錄](docs/lab_notes/README.md)；
+完成後記錄接法、結果與尚未驗證事項，再同步版本。
+
+`AGENTS.md`、`CLAUDE.md`、`PROJECT.md`及個人`ESP_Drone/`僅保留本機，
+不會隨GitHub下載；換電腦時如需使用，另行複製本機文件。暫存輸出集中在
+`_outputs/`並排除於Git。Wi-Fi密碼、API金鑰與其他機密不得提交。

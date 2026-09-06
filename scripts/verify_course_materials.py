@@ -6,6 +6,7 @@ import base64
 import binascii
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 from urllib.parse import unquote
@@ -16,6 +17,7 @@ COURSE = ROOT / "IoT_Introduction"
 REGULAR_WEEKS = {1, 2, 3, 4, 5, 6, 10, 11, 13, 14}
 OVERVIEW_WEEKS = set(range(1, 18))
 HARDWARE_CODE_WEEKS = {2, 3, 4, 5, 6, 10, 14}
+LOCAL_ONLY_NAMES = {"agents.md", "claude.md", "project.md"}
 FORBIDDEN_EDITORIAL_PHRASES = (
     "這份教材要怎麼使用",
     "給老師的話",
@@ -170,12 +172,17 @@ def markdown_table_blocks(content: str) -> set[str]:
 
 
 def repository_documents() -> list[Path]:
-    excluded_parts = {".git", ".venv", "node_modules", ".pytest_cache"}
+    # Honor Git exclusions: local rules, personal projects and generated previews
+    # must not become public lesson inputs just because they exist on this computer.
+    paths = subprocess.check_output(
+        ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
+        cwd=ROOT,
+    ).decode("utf-8").split("\0")
     return sorted(
-        path
-        for pattern in ("*.md", "*.ipynb")
-        for path in ROOT.rglob(pattern)
-        if not excluded_parts.intersection(path.parts)
+        {ROOT / name for name in paths
+         if name and Path(name).suffix.lower() in {".md", ".ipynb"}
+         and Path(name).name.lower() not in LOCAL_ONLY_NAMES
+         and (ROOT / name).is_file()}
     )
 
 
@@ -196,7 +203,9 @@ def check_document_file(document: Path, content: str) -> list[str]:
             if phrase.lower() in content.lower():
                 errors.append(f"{relative}: forbidden editorial phrase {phrase!r}")
     for target, anchor in local_links(document, content):
-        if not target.exists():
+        if target.name.lower() in LOCAL_ONLY_NAMES:
+            errors.append(f"{relative}: public document links to local-only file {target.name}")
+        elif not target.exists():
             errors.append(f"{relative}: missing local link {target}")
         elif anchor and target.suffix.lower() in {".md", ".ipynb"}:
             if anchor not in document_anchors(target):
@@ -275,8 +284,17 @@ def main() -> int:
 
         if number == 18 and (main_content.strip() or support_content.strip()):
             errors.append(f"{directory.name}: Week 18 must remain blank")
-        if number == 1 and re.search(r"[\u3400-\u9fff]", main_content):
-            errors.append(f"{main_path.relative_to(ROOT)}: Week 1 main must be English-only")
+        if number == 1:
+            # PROJECT permits Chinese only in these two Week 1 overview sections.
+            remaining = re.sub(
+                r"^### (?:教學目標|教學內容)\s*$\n.*?(?=^#{1,3}\s|\Z)",
+                "", main_content, flags=re.MULTILINE | re.DOTALL,
+            )
+            if re.search(r"[\u3400-\u9fff]", remaining):
+                errors.append(
+                    f"{main_path.relative_to(ROOT)}: Week 1 text outside the Chinese "
+                    "overview sections must remain English"
+                )
 
         duplicate_tables = (
             markdown_table_blocks(main_content) & markdown_table_blocks(support_content)
@@ -289,25 +307,36 @@ def main() -> int:
             )
 
         if number in OVERVIEW_WEEKS:
-            for heading in ("### Teaching Objectives", "### Teaching Content"):
-                if heading not in main_content:
-                    errors.append(f"{main_path.relative_to(ROOT)}: missing {heading}")
+            for heading in ("### 教學目標", "### 教學內容"):
+                if len(re.findall(rf"(?m)^{re.escape(heading)}\s*$", main_content)) != 1:
+                    errors.append(f"{main_path.relative_to(ROOT)}: need exactly one {heading}")
+            if re.search(r"(?m)^### Teaching (?:Objectives|Content)\s*$", main_content):
+                errors.append(f"{main_path.relative_to(ROOT)}: obsolete English overview heading")
 
-            objectives = section(main_content, "### Teaching Objectives")
-            content_overview = section(main_content, "### Teaching Content")
+            objectives = section(main_content, "### 教學目標")
+            content_overview = section(main_content, "### 教學內容")
             if not re.search(r"(?m)^\d+\. ", objectives):
                 errors.append(
-                    f"{main_path.relative_to(ROOT)}: Teaching Objectives need numbered, "
+                    f"{main_path.relative_to(ROOT)}: 教學目標 need numbered, "
                     "observable outcomes"
                 )
-            if re.search(r"\b(?:purchase|install)\b|%", objectives.lower()):
+            for item in re.findall(r"(?m)^\d+\. (.*)", objectives):
+                if not re.search(r"[\u3400-\u9fff]", item):
+                    errors.append(f"{main_path.relative_to(ROOT)}: objective must use Chinese")
+            if not re.search(r"[\u3400-\u9fff]", content_overview):
+                errors.append(f"{main_path.relative_to(ROOT)}: 教學內容 must use Chinese prose")
+            # Evaluating an installable PWA is a learning outcome, not an installation checklist.
+            if re.search(
+                r"\b(?:purchase|install)\b|%|採購|購買|配分|^\d+\.\s*安裝",
+                objectives.lower(), flags=re.MULTILINE,
+            ):
                 errors.append(
-                    f"{main_path.relative_to(ROOT)}: Teaching Objectives include an "
+                    f"{main_path.relative_to(ROOT)}: 教學目標 include an "
                     "administrative or setup item"
                 )
             if re.search(r"(?m)^\s*(?:[-*]|\d+\.)\s", content_overview) or "|---" in content_overview:
                 errors.append(
-                    f"{main_path.relative_to(ROOT)}: Teaching Content must be continuous prose"
+                    f"{main_path.relative_to(ROOT)}: 教學內容 must be continuous prose"
                 )
 
         if number in HARDWARE_CODE_WEEKS:

@@ -1,41 +1,23 @@
-# IoT 課堂教材包
+# 教材設計與維護來源
 
-本資料夾是現行「IoT 玩具與互動硬體設計」可維護教材。學生可自由選擇
-實體作品，但必須讓軟體記錄資料／事件或協助使用者監看與操作。
+學生與教師閱讀各週教材，請使用[18週教材入口](../../IoT_Introduction/README.md)。
+本資料夾保存備課規劃、共用模板與生成來源，不是另一套必讀講義。
 
-## 文件
+| 用途 | 文件 |
+|---|---|
+| 設計、修訂與驗收教材 | [每週教材設計框架](weekly_lesson_design_framework.md) |
+| 每週教學設計與必買材料用途 | [18週教師課卡](teacher_18_week_materials.md) |
+| 第2～6週硬體內容銜接與待辦 | [硬體教材設計藍圖](hardware_course_material_plan.md) |
+| 評分、安全與成果檢核 | [評分規準與檢核表](rubrics_and_checklists.md) |
+| 可選用的任務及紀錄格式 | [學生任務單](student_worksheets.md) |
+| 共用程式骨架 | [程式片段](starter_code_snippets.md) |
+| Week 4文字維護來源 | [week4_main.source.md](week4_main.source.md) |
 
-- [weekly_lesson_design_framework.md](weekly_lesson_design_framework.md)：依Week 2／Week 3
-  修訂經驗建立的教材產生與驗收方法。涵蓋入門概念、完整例子、數字／單位判讀、圖解、
-  跨階段操作、單一主題Discussion及學生提問回寫；以好懂、清楚、完整為標準，不設教材時間上限。
-- [teacher_18_week_materials.md](teacher_18_week_materials.md)：每週教師課卡、可收成果與
-  [必買材料任務對照](teacher_18_week_materials.md#required-hardware-activities)，分開記錄設計、主教材與實機待辦。
-- `student_worksheets.md`：可貼到 LMS 的學生任務單與紀錄模板。
-- `rubrics_and_checklists.md`：安全檢查、兩次筆試藍圖與三次專題報告評分表。
-- `starter_code_snippets.md`：ESP32-S3 與連網範例骨架；實機前須核對腳位。
-- `../../examples/course_backend/`：可執行的 HTTP／WebSocket／SQLite 課堂 prototype。
-- [Week 4完整備課版](../../IoT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb)：
-  唯一閱讀入口，含220／330量程、KY兩條件相對校正、DHT11、圖解與參考答案。
-  [week4_main.source.md](week4_main.source.md)僅為維護來源，不是第二份必讀教材。
-  使用[build_week4_materials.cjs](../../scripts/build_week4_materials.cjs)同步嵌入圖檔與兩支原始程式；
-  [Week 4驗證紀錄](../lab_notes/2026-09-05-week4-material-review.md)分列文件、編譯、host與實機待驗。
+Week 2、3的文字直接維護於各自Notebook；圖解依[工具說明](../../scripts/README.md)
+重新生成。Week 4先修改來源、共用程式或圖解生成器，再產生
+[week4_main.ipynb](../../IoT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb)，
+不要獨立修改生成後的副本。
 
-## 使用順序
-
-1. 先查 `../../PROJECT.md` 與 `../18_week_plan.md` 的最新固定決策。
-2. 一般教學週依 `weekly_lesson_design_framework.md` 建立Teaching Point與完整教學循環；
-   一次完成一個已授權單元的修訂與適用驗證，不以課堂分鐘數刪減必要說明。
-3. 依當週教師課卡準備器材、故障例與課末可檢查成果。
-4. 從學生任務單挑選必要頁面，不必每週整份發放。
-5. 程式範例先由教師使用確切板卡、腳位與供電完成實機驗證。
-6. 學生版本不得包含筆試答案、教師評分註記、Wi-Fi 密碼或 API key。
-
-## 共同底線
-
-- 第2-6週只處理硬體、安全、量測、感測、致動與單機互動。
-- 第10週使用HTTP／WebSocket；第11週整合MQTT與Database，第13週完成手機前台。
-- 每件期末作品有真實硬體、學生後端、Database、structured log 與手機可用介面。
-- 控制行為留下命令與執行結果；系統錯誤有可見狀態與安全處理。
-- 教師三套材料只作驗證與示範，不提供學生借用或故障替換；學生每組1～3人並
-  準備1台萬用電表，1人組可跨組共用，教師電表只作示範與參考。
-- 智慧停車與 UCI 4WD 是教師延伸案例，不是共同評量。
+課程範圍以[正式18週計畫](../course/18_week_plan.md)為準；指定硬體是否已驗證，
+查[硬體狀態](../hardware/hardware_state.md)及[實作紀錄](../lab_notes/README.md)。
+本機維護規則不隨Git發布；需要時另向教師取得，不以缺少本機文件為由猜測課程決策。

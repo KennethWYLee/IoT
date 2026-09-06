@@ -9,33 +9,20 @@ START或STOP後，事件會送到筆電Backend、寫入SQLite，並由WebSocket�
 
 ## 一、Unit Overview
 
-### Teaching Objectives
+### 教學目標
 
-By the end of this unit, students will be able to:
+完成本單元後，學生應能：
 
-1. Trace an IoT event and command across an ESP32, HTTP API, backend, database,
-   WebSocket connection, and mobile browser.
-2. Connect an ESP32 to a trusted Wi-Fi network and distinguish a device address,
-   server address, port, path, and HTTP status code.
-3. Construct and validate JSON events containing a device identity, event type,
-   state, validity, reason, and device uptime.
-4. Run the course backend, verify it independently, and connect a phone and an
-   ESP32 without committing network secrets to Git.
-5. Track one remote command from `requested` through `accepted` to a terminal
-   result, while preserving a network-independent physical stop.
-6. Isolate faults by testing the hardware, Wi-Fi, HTTP, backend, database, and
-   browser layers separately.
+1. 追蹤物聯網（IoT）的事件（event）與命令（command），說明它們如何經過ESP32、超文字傳輸協定應用程式介面（HTTP API）、後端（backend）、資料庫（database）、網頁雙向通訊連線（WebSocket）與手機瀏覽器（mobile browser）。
+2. 將ESP32連接到可信任的無線網路（Wi-Fi），並區分裝置位址（device address）、伺服器位址（server address）、通訊埠（port）、路徑（path）與HTTP狀態碼（HTTP status code）。
+3. 建立及驗證JSON格式事件（JSON event），包含裝置識別（device identity）、事件類型（event type）、狀態（state）、有效性（validity）、原因（reason）與裝置運行時間（device uptime）。
+4. 啟動課程後端並獨立驗證，再連接手機與ESP32，且不將網路機密資料（network secret）提交到Git版本控制系統（Git）。
+5. 追蹤遠端命令從已提出（`requested`）、已接受（`accepted`）到最終結果（terminal result）的過程，同時保留不依賴網路的實體停止功能（physical stop）。
+6. 分別測試硬體、無線網路、HTTP、後端、資料庫與瀏覽器各層，縮小故障範圍。
 
-### Teaching Content
+### 教學內容
 
-This unit introduces the networked path of a full-stack IoT system. Students will
-connect a previously verified physical input and output to a local backend using
-Wi-Fi, HTTP, and JSON. The backend validates and stores device events, exposes a
-command interface, and uses WebSocket to keep a mobile browser synchronized without
-continuous page refreshes. The activity emphasizes observable message flow, stable
-device identity, command acknowledgement, local safety behavior, protection of
-credentials, and layer-by-layer troubleshooting rather than treating networking as
-a single successful or failed connection.
+本單元介紹全端物聯網系統（full-stack IoT system）的網路資料路徑。學生會運用無線網路（Wi-Fi）、超文字傳輸協定（HTTP）與JSON資料交換格式（JSON），將先前已驗證的實體輸入及輸出連接至本機後端（local backend）。後端負責驗證及儲存裝置事件（device event）、提供命令介面（command interface），並透過網頁雙向通訊協定（WebSocket）同步手機瀏覽器，不需持續重新整理整頁。實作重點包括可觀察的訊息流（message flow）、穩定的裝置識別（device identity）、命令回覆確認（command acknowledgement）、本機安全行為、認證資料（credential）保護與分層故障排查（layer-by-layer troubleshooting），而不只把網路操作當成一次連線成功或失敗。
 
 ### 可觀察的完整資料流
 

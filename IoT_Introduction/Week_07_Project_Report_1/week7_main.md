@@ -4,26 +4,18 @@
 
 ## Unit Overview
 
-### Teaching Objectives
+### 教學目標
 
-By the end of this project report, students will be able to:
+完成本次專題報告後，學生應能：
 
-1. Define a specific user, use context, core physical interaction, and useful software
-   purpose for an IoT project.
-2. Demonstrate a repeatable hardware segment and connect the observation to its wiring,
-   program, and test evidence.
-3. Explain the proposed device, backend, database, and mobile data flow, including the
-   role of each layer.
-4. Evaluate materials, power, driver, network, schedule, and safety risks and establish
-   observable minimum acceptance criteria.
+1. 為物聯網專題（IoT project）定義明確的使用者、使用情境（use context）、核心實體互動（physical interaction）與有實際用途的軟體功能。
+2. 展示可重複操作的硬體片段（hardware segment），並將觀察結果連結到接線、程式與測試證據。
+3. 解釋規劃中的裝置（device）、後端（backend）、資料庫（database）與行動介面（mobile interface）之間的資料流（data flow），說明各層的角色。
+4. 評估材料、供電（power supply）、驅動（driver）、網路、時程與安全風險，訂定可觀察的最低驗收條件（minimum acceptance criteria）。
 
-### Teaching Content
+### 教學內容
 
-This project report develops a feasible project direction from a user need and a tested
-hardware segment. Students connect physical behavior to a proposed software purpose,
-describe the full system data flow, identify required and optional materials, and make
-technical risks visible. Feedback and questions are used to reduce scope and convert the
-proposal into testable acceptance criteria rather than a list of unverified features.
+本次專題報告從使用者需求（user need）與已測試的硬體片段（hardware segment）建立可行的專題方向。學生會把實體行為連結到規劃中的軟體用途，描述完整系統的資料流（data flow），區分必要與選配材料，並明確呈現技術風險（technical risk）。透過回饋與提問縮小範圍，將提案轉為可測試的驗收條件（acceptance criteria），而非未經驗證的功能清單。
 
 ## 本週安排
 
