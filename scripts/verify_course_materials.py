@@ -14,9 +14,9 @@ from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
 COURSE = ROOT / "IoT_Introduction"
-REGULAR_WEEKS = {1, 2, 3, 4, 5, 6, 10, 11, 13, 14}
+REGULAR_WEEKS = {1, 2, 3, 4, 5, 6, 7, 11, 12, 14, 15}
 OVERVIEW_WEEKS = set(range(1, 18))
-HARDWARE_CODE_WEEKS = {2, 3, 4, 5, 6, 10, 14}
+HARDWARE_CODE_WEEKS = {2, 3, 4, 5, 6, 7, 11, 12, 15}
 LOCAL_ONLY_NAMES = {"agents.md", "claude.md", "project.md"}
 FORBIDDEN_EDITORIAL_PHRASES = (
     "這份教材要怎麼使用",
@@ -262,7 +262,7 @@ def main() -> int:
         files = sorted(path.name for path in directory.iterdir() if path.is_file())
         expected = (
             [f"week{number}_main.ipynb"]
-            if number in {2, 3, 4}
+            if number in {2, 3, 4, 5, 6, 7}
             else [f"week{number}_main.md", f"week{number}_support.md"]
         )
         if files != expected:

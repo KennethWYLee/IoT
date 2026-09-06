@@ -6,21 +6,24 @@ const {pathToFileURL}=require('node:url');
 const root=path.resolve(__dirname,'..');
 const notebookPath=path.join(root,'IoT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb');
 const nb=JSON.parse(fs.readFileSync(notebookPath,'utf8'));
-const sources=nb.cells.map(c=>c.source.join('')), all=sources.join('\n');
-assert.equal(nb.cells.length,20);
+const allSources=nb.cells.map(c=>c.source.join('')), all=allSources.join('\n');
+// Original material has stable assertions; the additive unit is checked separately.
+const sources=nb.cells.filter(c=>c.metadata?.maintenance_source!=='week3_classification.source.md').map(c=>c.source.join(''));
+assert.equal(sources.length,20);
+assert.equal(nb.cells.length,23);
 assert.deepEqual(fs.readdirSync(path.dirname(notebookPath)),['week3_main.ipynb']);
 const sketches=nb.cells.filter(c=>c.cell_type==='code');
-assert.equal(sketches.length,2);
-for(const [i,name] of ['week03_gpio_voltage_cycle','week03_ky018_raw'].entries()){
+assert.equal(sketches.length,3);
+for(const [i,name] of ['week03_gpio_voltage_cycle','week03_ky018_raw','week03_light_classifier'].entries()){
   assert.equal(sketches[i].source.join('').trim(),fs.readFileSync(path.join(root,`examples/${name}/${name}.ino`),'utf8').trim());
   assert.match(sketches[i].source.join(''),/const int PIN_\w+ = -1;/);
   assert.equal(sketches[i].execution_count,null);
   assert.deepEqual(sketches[i].outputs,[]);
 }
-console.log('PASS two notebook sketches match public examples, -1 gates preserved, no invented runtime output.');
+console.log('PASS three notebook sketches match public examples, -1 gates preserved, no invented runtime output.');
 let images=0;
 for(const [i,c] of nb.cells.entries()){
-  const refs=[...sources[i].matchAll(/!\[[^\]]*\]\(([^)]+)\)/g)].map(m=>m[1]);
+  const refs=[...allSources[i].matchAll(/!\[[^\]]*\]\(([^)]+)\)/g)].map(m=>m[1]);
   for(const ref of refs){
     assert.ok(ref.startsWith('attachment:'),`Image should work offline: ${ref}`);
     const name=ref.slice('attachment:'.length), payload=c.attachments?.[name];
@@ -32,8 +35,10 @@ for(const [i,c] of nb.cells.entries()){
   }
   for(const key of Object.keys(c.attachments||{}))assert.ok(refs.includes(`attachment:${key}`),`Unused image ${key}`);
 }
-assert.equal(images,12);
-console.log('PASS twelve embedded image references; only PNG/JPEG, no missing or unused attachments.');
+assert.equal(images,15);
+for(const phrase of ['w3-classification','12A.1','12A.9','between_baselines','calibration_missing_or_overlap','各5筆'])assert(all.includes(phrase),phrase);
+assert(!all.includes('本週不建立threshold'));
+console.log('PASS fifteen embedded images and classifier teaching/limitation checks.');
 assert(sources[4].indexOf('先分清三個問題')<sources[4].indexOf('I＝V÷R'));
 assert(sources[4].indexOf('1 kΩ＝1000 Ω')<sources[4].indexOf('attachment:week3-current-loop.png'));
 assert(sources[4].includes('同一顆電阻'));
@@ -109,7 +114,7 @@ async function render(){
   const esc=s=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
   let sections='';
   nb.cells.forEach((c,i)=>{
-    let source=sources[i];
+    let source=allSources[i];
     for(const [name,payload] of Object.entries(c.attachments||{})){
       const [mime,data]=Object.entries(payload)[0];source=source.replaceAll(`attachment:${name}`,`data:${mime};base64,${data}`);
     }
@@ -122,7 +127,7 @@ async function render(){
     const page=await browser.newPage({viewport:{width:1200,height:920}});
     await page.setContent(html);
     await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));
-    assert.equal(await page.locator('img').count(),12);
+    assert.equal(await page.locator('img').count(),15);
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     for(const i of [4,12,14]){await page.locator(`#cell-${i}`).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,`week3_review_cell${i}.png`)});}
     for(const [heading,name] of [
@@ -136,7 +141,7 @@ async function render(){
     }
     await page.setViewportSize({width:420,height:900});
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-    console.log('PASS Edge preview: all 12 images decoded; 1200px and 420px no page overflow (wide tables/code scroll).');
+    console.log('PASS Edge preview: all 15 images decoded; 1200px and 420px no page overflow (wide tables/code scroll).');
     // Inspect actual SVG text boxes, not only successful rasterization.
     for(const name of fs.readdirSync(path.join(root,'docs/images/wiring')).filter(n=>/^week3-.*\.svg$/.test(n))){
       const source=fs.readFileSync(path.join(root,'docs/images/wiring',name),'utf8');

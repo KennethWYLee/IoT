@@ -35,5 +35,7 @@
 ## Next action
 ```
 
-完成後同步更新 `../hardware_state.md`。不可提交 Wi-Fi 密碼、token、API
+本輪教材驗證見[紅綠燈遮光挑戰課程修訂紀錄](2026-09-06-traffic-light-course-revision.md)。
+
+完成後同步更新[硬體狀態](../hardware/hardware_state.md)。不可提交 Wi-Fi 密碼、token、API
 key、學生個資或未授權影像。

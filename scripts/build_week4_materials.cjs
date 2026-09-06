@@ -108,6 +108,7 @@ figures['threshold-separated']=threshold(false);figures['threshold-overlap']=thr
 }
 function artifact(file,data){const bytes=Buffer.isBuffer(data)?data:Buffer.from(data);if(check){assert(fs.existsSync(file),`Missing ${file}`);assert(fs.readFileSync(file).equals(bytes),`Stale artifact: ${file}`);}else{fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,bytes);}}
 async function build(){
+ Object.assign(figures,require('./week4_integration_figures.cjs')({svg,t,box,line,arr,ink,blue,red,green,muted}));
  for(const [name,markup]of Object.entries(figures)){
    const base=path.join(root,`docs/images/wiring/week4-${name}`);
    artifact(base+'.svg',markup); artifact(base+'.png',await sharp(Buffer.from(markup)).png().toBuffer());

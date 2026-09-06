@@ -9,7 +9,7 @@ assert.equal(nb.nbformat,4);assert.equal(nb.nbformat_minor,5);
 assert.deepEqual(fs.readdirSync(path.dirname(file)),['week4_main.ipynb']);
 assert.equal(new Set(nb.cells.map(c=>c.id)).size,nb.cells.length);
 const code=nb.cells.filter(c=>c.cell_type==='code');assert.equal(code.length,2);
-for(const [i,name]of ['week04_ky018_quality','week04_dht11_quality'].entries()){
+for(const [i,name]of ['week04_dht11_quality','week04_dual_sensor_alarm'].entries()){
  assert.equal(code[i].source.join(''),fs.readFileSync(path.join(root,`examples/${name}/${name}.ino`),'utf8').replace(/\r\n/g,'\n'));
  assert.match(code[i].source.join(''),/const int PIN_\w+ = -1;/);assert.equal(code[i].execution_count,null);assert.deepEqual(code[i].outputs,[]);
 }
@@ -33,7 +33,7 @@ for(const c of nb.cells){
 }
 assert.equal(images,16);assert(!all.includes('<!-- sketch:'));
 for(let i=1;i<=7;i++)assert(all.includes(`### 13.${i}`));
-for(const s of ['完整備課版（含參考解答）','### 教學目標','### 教學內容','母對母','MODULE_PROFILE_CONFIRMED = false','source=injected','不是DHT11原廠','不接致動器','20k','220 Ω','330 Ω'])assert(all.includes(s),s);
+for(const s of ['完整備課版（含參考解答）','### 教學目標','### 教學內容','母對母','MODULE_PROFILE_CONFIRMED = false','source=injected','不是DHT11原廠','不接舵機','20k','220 Ω','330 Ω','w4-integration','cover_event','BUZZER_PROFILE_CONFIRMED = false','age_ms','候選'])assert(all.includes(s),s);
 const indoor=[300,304,308,312,316,320,304,308,312,316],shade=indoor.map(x=>x+600);
 const avg=a=>a.reduce((a,b)=>a+b,0)/a.length;
 assert.equal(avg(indoor),310);assert.equal(avg(shade),910);assert.equal((Math.max(...indoor)+Math.min(...shade))/2,610);
@@ -58,7 +58,7 @@ async function render(){
   await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));
   assert.equal(await page.locator('img').count(),16);
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-  for(const [name,prefix]of [['4.','range'],['7.5','ky'],['9.3','dht-wiring'],['10.3','library'],['13.4','discussion']]){
+  for(const [name,prefix]of [['4.1A','range'],['6.1','ky-event'],['9.3','dht-wiring'],['10.3','library'],['12A.3','dual-wiring'],['12A.6','integrated-test'],['13.4','discussion']]){
    await page.getByRole('heading').filter({hasText:new RegExp('^'+name.replace('.','\\.'))}).first().evaluate(el=>el.scrollIntoView({block:'start'}));
    await page.screenshot({path:path.join(out,prefix+'.png')});
   }

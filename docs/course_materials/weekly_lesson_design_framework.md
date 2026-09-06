@@ -160,12 +160,14 @@ Week 1及保留週依既有核准形式處理，不為了本框架批次改目�
 
 ### 備課版與學生版
 
-先依PROJECT確認讀者及答案授權。目前Week 2、Week 3及本次明確核准的Week 4是完整備課版，題目、
+先依PROJECT確認讀者及答案授權。目前Week 2～7均已明確核准為完整備課版，題目、
 預期答案、逐步解釋與圖集中同一本，明確標示含答案，不另拆答案檔。
 
 此授權不自動擴張至其他週或未發布考題。學生版的答案公開範圍未核准前，依AGENTS
 處理，不擅自加入完整答案；所有版本都不得混入隱藏測試、評分註記、秘密或個資。
 已核准答案也不取代學生自己的預測、操作與原始紀錄。
+
+本輪Week 3～7跨週作品規則依[紅綠燈遮光挑戰](traffic_light_challenge_design.md)，驗證分層見[本輪紀錄](../lab_notes/2026-09-06-traffic-light-course-revision.md)。不重做已足以支持結論的基準；以既有輸入累加輸出、狀態與整合深度。
 
 Week 4的具體實作見[完整備課版](../../IoT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb)
 與[教學對照／驗證紀錄](../lab_notes/2026-09-05-week4-material-review.md)。
@@ -420,9 +422,17 @@ node scripts/build_week2_figures.cjs --check
 node scripts/verify_week2_notebook.cjs --render
 node scripts/verify_week2_notebook.cjs --compile
 node scripts/build_week3_figures.cjs --check
+node scripts/build_week3_classifier.cjs --check
 node scripts/verify_week3_notebook.cjs --render
+node scripts/build_week4_materials.cjs --check
+node scripts/verify_week4_notebook.cjs --render
+node scripts/build_game_week.cjs 5 --check
+node scripts/verify_game_notebook.cjs 5 --render
+python scripts/verify_game_host.py 5
 git diff --check
 ```
+
+Week 5的共用命令可將5替換成6或7，逐週處理，不另編造工具名稱。
 
 只有改圖時才先執行對應build重建，再用`--check`核對；Week 3編譯依既有Arduino檢查
 方式處理，不發明不存在的`--compile`功能。其他週以其實際存在的編譯或tests為準。

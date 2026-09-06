@@ -177,7 +177,7 @@ AI 使用
 | WebSocket | client update | disconnected／stale |  |
 | Phone UI | 正確狀態／結果 | 不更新／誤導 |  |
 
-## 11. 第一次專題報告準備（第7週）
+## 11. 第一次專題報告準備（第8週）
 
 | 欄位 | 內容 |
 |---|---|
@@ -193,7 +193,7 @@ AI 使用
 | Proposed purchases and estimated cost |  |
 | Power／driver／logic-level risks |  |
 | Three main project risks |  |
-| Minimum acceptable Week 12 milestone |  |
+| Minimum acceptable Week 13 milestone |  |
 | Minimum acceptable final result |  |
 
 ## 12. MQTT Topic 表
@@ -226,7 +226,7 @@ AI 使用
 | 3 |  |  |  |  |
 | 4 |  |  |  |  |
 
-## 15. 第二次專題報告準備（第12週）
+## 15. 第二次專題報告準備（第13週）
 
 | 檢查 | 完成 | 證據 |
 |---|---|---|
@@ -239,9 +239,9 @@ AI 使用
 | 一項目前問題或風險有具體證據 |  |  |
 | 回饋已轉成有優先順序的修正項目 |  |  |
 | 每項修正有負責人、完成條件及預計週次 |  |  |
-| Week 12進度commit或tag可辨識 |  |  |
+| Week 13進度commit或tag可辨識 |  |  |
 
-## 16. 故障測試與乾淨環境重建（第14週）
+## 16. 故障測試與乾淨環境重建（第15週）
 
 | 故障 | 操作方式 | 預期硬體狀態 | 預期手機狀態 | Log | Recovery | 實際結果 |
 |---|---|---|---|---|---|---|
@@ -250,7 +250,7 @@ AI 使用
 | 錯誤命令／重複操作 |  |  |  |  |  |  |
 | 服務停止 |  |  |  |  |  |  |
 
-## 17. 專題進度與期末展示證據（第12至17週）
+## 17. 專題進度與期末展示證據（第13至17週）
 
 | 項目 | 完成 | 版本／證據 |
 |---|---|---|

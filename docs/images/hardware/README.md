@@ -49,8 +49,8 @@
 | 杜邦線 | 母對母、20 cm、40P ×6 排 | `actual/jumper-wires-assorted-actual.jpg` | [商品辨識卡](product-cards/shopee-jumper-wire-20cm-female-to-female-product-card.png)／[三種實物合照](actual/jumper-wires-assorted-actual.jpg) | 實物合照已拍；個別接頭近照待補 |
 | 杜邦線 | 公對公、20 cm、40P ×6 排 | `actual/jumper-wires-assorted-actual.jpg` | [商品辨識卡](product-cards/shopee-jumper-wire-20cm-male-to-male-product-card.png)／[三種實物合照](actual/jumper-wires-assorted-actual.jpg) | 實物合照已拍；已用兩條完成麵包板通斷測試 |
 | 400 孔麵包板 | 8.5 × 5.5 cm ×4 | `actual/breadboard-400-tie-point-actual-top.jpg` | [商品辨識卡](product-cards/shopee-breadboard-400-product-card.png)／[實物俯視圖](actual/breadboard-400-tie-point-actual-top.jpg) | 實物已拍；左側五孔組、中央溝槽、列間、左側紅軌及紅藍軌已完成通斷測試 |
-| 常用電阻包 | 220Ω 至 100KΩ ×3 | `actual/resistor-kit-actual-*` | [訂單圖5](orders/shopee-loyi-maker-05-resistors-storage.png) | 已購、存放學校；到校後補拍包裝阻值標示與實物 |
-| A830L 萬用電表 | 含電池 ×1 | `actual/a830l-multimeter-actual-*` | [訂單圖1](orders/shopee-aroundtw-01-prototyping-motors-power.png) | 商品參考圖；補拍建議 |
+| 常用電阻包 | 採購3包；本次照片不作整批數量盤點 | `actual/resistor-kit-values-actual-overview.png` | [訂單圖5](orders/shopee-loyi-maker-05-resistors-storage.png)／[實物與手寫阻值](actual/resistor-kit-values-actual-overview.png) | 已有實物照片；標示不等於逐顆實測，位置與量測限制見[硬體狀態](../../hardware/hardware_state.md) |
+| A830L 萬用電表 | 教師實物1台 | `actual/a830l-multimeter-actual-*` | [訂單圖1](orders/shopee-aroundtw-01-prototyping-motors-power.png)／[實物正面](actual/a830l-multimeter-actual-front.jpg) | 已有實物照片；各次檔位、讀值與證據限制依[硬體狀態](../../hardware/hardware_state.md)，不以圖片證明精度 |
 | 無格透明收納盒 | ×4 | `actual/storage-box-clear-actual-*` | [訂單圖2](orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png) | 商品參考圖；低優先 |
 | 手提雙層零件盒 | ×3 | `actual/storage-box-double-layer-actual-*` | [訂單圖5](orders/shopee-loyi-maker-05-resistors-storage.png) | 商品參考圖；低優先 |
 

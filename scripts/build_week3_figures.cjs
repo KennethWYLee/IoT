@@ -195,7 +195,11 @@ const figures = [
 ];
 async function main(){
   const nb=JSON.parse(fs.readFileSync(notebook,'utf8'));
-  assert.equal(nb.cells.length,20,'Unexpected notebook structure');
+  // The additive classifier owns its three cells; preserve them while maintaining
+  // the twenty original measurement/ADC cells and their existing attachments.
+  const classifierCells=nb.cells.filter(c=>c.metadata?.maintenance_source==='week3_classification.source.md');
+  assert.equal(nb.cells.length-classifierCells.length,20,'Unexpected base notebook structure');
+  assert([0,3].includes(classifierCells.length),'Unexpected classifier extension structure');
   // Relocate existing original bytes when a photo's first-use explanation moves.
   // Never synthesize or retouch the evidence photographs.
   for(const key of ['week3-a830l-multimeter.jpg','week3-ky018-pin-labels.jpg','week3-ky018-solder.jpg']){

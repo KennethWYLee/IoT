@@ -6,6 +6,7 @@
 ## 狀態代碼
 
 - `unverified`：只有購買／外觀資訊，尚未完成基本實機測試。
+- `partially verified`：已有部分外觀或量測證據，不代表整批與全部情境通過。
 - `basic-pass`：已確認上電、上傳或單一功能。
 - `scenario-pass`：已在指定接線、電源、library 與程式版本完成情境測試。
 - `fault`：有可重現故障或疑似損壞，停止使用並隔離。
@@ -31,8 +32,8 @@
 
 | ID | 品項 | 數量／位置 | 狀態 | 已有證據 | 下一步 |
 |---|---|---|---|---|---|
-| INPUT-SWITCH | 外形符合6×6 mm四腳常開瞬時按鈕 | 10顆散裝實物；來源待核對 | partially verified | [俯視](../images/hardware/actual/tact-switch-6x6mm-4pin-actual-top.jpg)／[側視](../images/hardware/actual/tact-switch-6x6mm-4pin-actual-side.jpg)／[麵包板實測接法](../images/hardware/actual/tact-switch-6x6mm-4pin-breadboard-continuity-actual.jpg)；2026-08-29以A830L抽測其中一顆：目前方向下第27列兩腳為固定同組，第29列為另一組；跨組未按不蜂鳴、按住蜂鳴、放開恢復不蜂鳴；接入BOARD-T01候選板外線路後，以TPG `c22`與按鈕列`b27`重測仍為放開不蜂鳴、按住蜂鳴、再放開不蜂鳴，見[量測紀錄](../lab_notes/2026-08-29-a830l-button-continuity-validation.md) | 其餘9顆尚未逐顆抽測，不能由一顆結果推定全部通過；正式上課前抽測同批按鈕的一致性；候選GPIO尚未上電驗證 |
-| RESISTOR-KIT | 常用電阻包 | 3包；存放學校 | unverified | 購買畫面；尚無實物照片 | 到校後拍包裝阻值標示，使用前以萬用電表抽測；2026-09-05依教師要求新增Week 3學生1kΩ／10kΩ固定分壓與上下位置交換練習，文件結構、連結、理想麵包板接點模型、分壓計算及表格呈現檢查通過，未進行實機驗證。須核對實物阻值、麵包板20／25／30列接法、3V3供電及兩種接法的電壓；不把採購要求或計算值寫成已買齊或實測通過 |
+| INPUT-SWITCH | 外形符合6×6 mm四腳常開瞬時按鈕 | 10顆散裝實物；來源待核對 | partially verified | [俯視](../images/hardware/actual/tact-switch-6x6mm-4pin-actual-top.jpg)／[側視](../images/hardware/actual/tact-switch-6x6mm-4pin-actual-side.jpg)／[麵包板實測接法](../images/hardware/actual/tact-switch-6x6mm-4pin-breadboard-continuity-actual.jpg)；2026-08-29以A830L抽測其中一顆：目前方向下第27列兩腳為固定同組，第29列為另一組；跨組未按不蜂鳴、按住蜂鳴、放開恢復不蜂鳴；接入BOARD-T01候選板外線路後，以TPG `c22`與按鈕列`b27`重測仍為放開不蜂鳴、按住蜂鳴、再放開不蜂鳴，見[量測紀錄](../lab_notes/2026-08-29-a830l-button-continuity-validation.md) | 其餘9顆尚未逐顆抽測，不能由一顆結果推定全部通過；正式上課前抽測同批按鈕的一致性；BOARD-T01既有GPIO4按鈕事件見上表；其他按鈕與新版Start／Finish線路仍待逐項確認 |
+| RESISTOR-KIT | 常用電阻包 | 採購紀錄3包；至少1批實物已拍照，其餘位置未重新盤點 | partially verified | [實物與手寫阻值標示](../images/hardware/actual/resistor-kit-values-actual-overview.png)：可見220、330、1k、10k、4k7、100k等標示；教師在本對話回報量220 Ω時20k檔顯示0.22、200檔顯示1，表筆相碰最後為0。照片證明有這批實物，文字回報不是電表精度驗證，也未證明每顆阻值 | 330 Ω與其餘電阻待逐顆選用時確認；保留未完成的Week 3固定分壓實機待驗，不要求重做已完成觀察。2026-09-06只整理既有照片與回報，未新增實體量測；公開範例與計算不等於所有器材已買齊或實測通過 |
 | KY018-T01 | KY-018相容光敏電阻模組 | 已取得1個實物；其餘待盤點 | basic-pass | [元件面](../images/hardware/actual/ky018-photoresistor-module-actual-component-side.jpg)、[焊接面](../images/hardware/actual/ky018-photoresistor-module-actual-solder-side.jpg)與[排針近照](../images/hardware/actual/ky018-photoresistor-module-actual-pin-labels.jpg)；可辨認獨立`S`、`-`及中央`A／S1／R1`，中央文字不當作排針功能；斷電量測支持固定電阻接於中間排針與S、光敏電阻接於S與−的模型。2026-09-05先以b6供電、b3共地且S未接GPIO，在A830L直流20V、紅表筆碰S／黑表筆碰GND的引導下，手持回報室內光0.62 V、遮光1.75 V、恢復室內光0.55 V；basic-pass僅指這片模組此接法的基本電壓反應。其後使用者確認供電改c6、−改c3，仍與BOARD-T01的a6 3V3及a3 GND同列；S黃線→a15／c15→藍線。候選ADC程式已回報Upload資料校驗成功；其後取得9筆原始Serial輸出，sample4194～4202、間隔500 ms，前6筆raw 248～293、後3筆678～683，該段光線是否改變仍待確認；後續明確標記遮光的5筆sample4527～4531為raw 1419～1450；一般室內光5筆sample4598～4602為275～287，兩組短樣本範圍不重疊，支持本接法遮光raw較大的初步反應，Serial介面回報COM8／115200 baud，詳見[電阻、分壓與ADC候選進度](../lab_notes/2026-09-05-ky018-resistance-and-voltage-divider.md) | 讀值為使用者文字回報，非代理直接量測；20k／200k差異未釐清，不要求作為ADC前置重測；已有兩種光線各5筆raw的基本反應回報；已取得本輪一般光及主動補測陰暗處的電表／raw先後對照；未驗證供電穩定性、同步量測、ADC精度或lux校正。最新回報韌體為GPIO4 ADC候選程式，不再是GPIO5循環程式；依斷USB後接c15藍線到GPIO4的引導，使用者回覆next並在上電／Serial引導後貼出raw；已有程式輸出證據；本輪電壓回報見下，無新接線照片或開場文字。已有遮光與一般光各5筆；最新另收到sample5068～5077連續10筆，raw 2159～2195、間隔500 ms，使用者其後明確確認為一般燈下、沒有遮光，作為目前這輪基準；與較早275～287一般光的差異原因未明，兩輪資料分開保存。使用者明確要求pass、不再重收遮光；保留各輪資料與限制，不把略過當成驗證通過。使用者依斷USB、PWR熄滅、電表OFF的引導回報e15公對公量測延長線已接好；無新照片或通斷量測。其後依直流20 V、紅碰e15 S／黑碰e3 GND的一般光量測引導回報0.52（依上下文記約+0.52 V）；無新電表畫面。其後依保持同條件的引導取得sample376～380新5筆raw 691～701，間隔500 ms，作為0.52 V之後的同條件觀察，不是同步校正；計數變小與前述斷USB重啟相容，不能跨兩次開機混算時間。在斷電完成回覆之前，使用者主動補測「把光敏放到陰暗處」：電表1.14（依既有直流20 V與S對GND操作上下文記約+1.14 V），接著回報sample601～605的5筆raw 1007～1020、間隔500 ms；保留原始情境標籤「移到陰暗處」，不改寫為固定位置遮光。本輪0.52 V／raw 691～701與陰暗處1.14 V／raw 1007～1020皆為先後文字回報，支持電壓與raw變大的方向比較，不構成同步量測、精度或lux校正；移動造成的光照幾何與接觸變化未獨立排除。下一步放下表筆、關閉Serial、拔USB確認PWR熄滅並將電表OFF後進行Discussion；尚未收到斷電完成回覆。改線前仍須拔USB、確認PWR熄滅。先前拒絕重收遮光的決定仍保留，這次主動補測不代表同意反覆補足取樣，也未湊成各條件同輪10筆的完整驗證。不要把GPIO4數位輸入通過或Upload成功當成ADC profile已公布 |
 | DHT11-T01 | 購買頁稱YS-31的DHT11三線模組 | 已取得1個實物；其餘待盤點 | unverified | [元件面與三線](../images/hardware/actual/dht11-3pin-module-actual-component-side-with-cable.jpg)／[焊接面與三線](../images/hardware/actual/dht11-3pin-module-actual-solder-side-with-cable.jpg) | 斷電取下連接線後補拍三針絲印；線色不能直接當作VCC／DATA／GND證據 |
 | RGB-T01 | `HW-479`四針RGB LED模組；購買頁稱KY-016 | 已取得1個實物；其餘待盤點 | unverified | [元件面](../images/hardware/actual/hw479-rgb-led-module-actual-component-side.jpg)／[焊接面](../images/hardware/actual/hw479-rgb-led-module-actual-solder-side.jpg)；可見`HW-479`及`B`／`G`／`R`／`-`絲印 | 尚未通電；先以實物與量測確認共用腳及控制邏輯，不直接套用KY-016假設 |
@@ -40,14 +41,16 @@
 | SERVO-T01 | Tower Pro Micro Servo 9g SG90 | 已取得至少1個實物；總數待盤點 | unverified | [標籤、三線插頭與舵盤](../images/hardware/actual/sg90-tower-pro-9g-servo-actual-label-connector-accessories.jpg) | 尚未通電；確認外部電源、共地、線序、安全角度及購買選項的180度行程 |
 | POWER-4AA-T01 | 4AA有蓋電池盒；購買頁稱帶開關 | 已取得至少1個實物；總數待盤點 | unverified | [盒蓋與紅黑裸線](../images/hardware/actual/4aa-battery-holder-actual-cover-and-leads.jpg)；照片未顯示開關 | 不裝電池；補拍開關側、盒內四槽、紅黑線末端與極性，再決定安全轉接端子 |
 
+| DISPLAY-OLED | 新增共同I2C OLED | 型號、取得狀態與數量未確認 | unverified | 新課綱核准功能需求，不是已購或已驗證紀錄 | 核對控制器、解析度、位址、腳序、供電／SDA／SCL上拉與3.3 V邏輯相容性；ACK不能證明控制器型號 |
+
 ## 已驗證組合
 
-Week 4新增的220 Ω／330 Ω量程比較、KY兩條件校正與DHT11品質流程，
-目前只有[文件／編譯／host驗證紀錄](../lab_notes/2026-09-05-week4-material-review.md)，
-**未新增實機通過組合**。RESISTOR-KIT需核對實物色環與電表提示；KY需新基準與獨立驗證；
-DHT11-T01需確認三腳功能、3.3 V供電、DATA上拉／邏輯電壓、GPIO及Upload／真實讀值。
-母對母接法只在上述profile核准後執行；公開程式保持GPIO=-1與DHT人工核准閘門false。
-軟體f注入不等於拔線測試，r取消不等於真實恢復成功。本次不修改既有Week 2／3實驗紀錄。
+2026-09-06新增／修訂的Week 3分類及Week 4～7整合，只有文件、編譯、主機替代I/O與本機瀏覽器檢查；
+詳見[本輪教材驗證](../lab_notes/2026-09-06-traffic-light-course-revision.md)。**未新增實機通過組合**。
+KY分類沿用可追溯的同輪基準，不混用先前不同位置／開機的短樣本湊成校正；新分類與穩定事件仍待實測。
+DHT11、RGB、HW-508、OLED、SG90、電池種類／負載供電／安全端子皆須確認指定實物profile。
+公開程式GPIO保留-1、人工核准閘門false；軟體注入及主機測試不等於拔線、上電、真實聲音或實體停止。
+新的Start／Finish配置、光學干擾、實體指針與停止最長延遲尚未驗證；保留既有Week 2／3實測紀錄及其限制。
 
 每一列必須能對應一份 `docs/lab_notes/` 紀錄與 Git commit。
 

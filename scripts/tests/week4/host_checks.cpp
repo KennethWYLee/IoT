@@ -1,5 +1,18 @@
 #include "ArduinoFake.h"
+#include "Arduino.h"
 #include "DHT.h"
+namespace blockedClassifier {
+#include "public_classifier.inc"
+}
+namespace classifier {
+#include "enabled_classifier.inc"
+}
+namespace blockedDual {
+#include "public_dual.inc"
+}
+namespace dual {
+#include "enabled_dual.inc"
+}
 namespace blockedKy {
 #include "public_ky.inc"
 }
@@ -66,4 +79,42 @@ int main(){
   std::cout<<"PASS DHT units, finite/RH guards, policy order, boundaries, jump, injection and real-path recovery\n";
   std::cout<<"HOST EXAMPLE OUTPUT (stubbed sensor, not physical):\n"<<Serial.output;
   std::cout<<"PASS "<<checks<<" assertions; no target hardware contacted.\n";
+  Serial.clear();before=adcCalls;int configuredBefore=adcConfigCalls;
+  blockedClassifier::setup();blockedClassifier::loop();
+  expect(has("gpio_profile_missing")&&adcCalls==before&&adcConfigCalls==configuredBefore,"classifier public gate no GPIO access");
+  Serial.clear();classifier::setup();expect(classifier::threshold==610,"classifier computes gap midpoint");
+  expect(std::string(classifier::classifyLight(610))=="INDOOR"&&std::string(classifier::classifyLight(611))=="SHADE","classifier exact boundary");
+  expect(std::string(classifier::classifyLight(0))=="UNDECIDED"&&std::string(classifier::classifyLight(4095))=="UNDECIDED","classifier endpoint policy");
+  expect(std::string(classifier::qualityReason(700))=="between_baselines","gap candidate flagged suspect");
+  expect(std::string(classifier::qualityReason(1200))=="outside_observed_span","outside candidate flagged suspect");
+  expect(std::string(classifier::qualityReason(305))=="within_baseline_range","baseline classified relative only");
+  adcValue=700;before=adcCalls;fakeNow+=499;classifier::loop();expect(adcCalls==before,"classifier no early sample");
+  fakeNow++;classifier::loop();expect(adcCalls==before+1&&has("class=SHADE label=遮光 valid=true quality=suspect reason=between_baselines"),"classifier actual output and Chinese label");
+  std::cout<<"PASS Week 3 classifier actual sketch with stubbed ADC; "<<checks<<" total assertions.\n";
+  Serial.clear();before=adcCalls;configuredBefore=adcConfigCalls;const int modesBefore=gpioModes;
+  blockedDual::setup();blockedDual::loop();
+  expect(has("profile_or_calibration_missing")&&adcCalls==before&&adcConfigCalls==configuredBefore&&gpioModes==modesBefore&&gpioWrites==0,"dual public profile gate never drives hardware");
+  fakeNow=0;Serial.clear();dual::setup();expect(dual::ready&&buzzerLevel==LOW,"dual startup quiet");
+  auto light=[](int raw,unsigned long at){adcValue=raw;fakeNow=at;dual::readLight(at);};
+  light(910,500);light(910,650);expect(!dual::armed&&dual::coverEvents==0,"boot covered does not invent event");
+  light(310,800);light(310,949);expect(!dual::armed,"release waits full stability");light(310,950);expect(dual::armed,"stable release arms");
+  light(910,1000);light(310,1050);light(910,1100);light(910,1249);expect(dual::coverEvents==0,"candidate bounce restarts timer");
+  light(910,1250);expect(dual::coverEvents==1&&dual::beepActive&&buzzerLevel==HIGH,"one stable cover starts one beep");
+  dual::serviceBeep(1369);expect(dual::beepActive,"beep active before 120ms");dual::serviceBeep(1370);expect(!dual::beepActive&&buzzerLevel==LOW,"beep ends at software duration boundary");
+  light(910,2000);light(910,2500);expect(dual::coverEvents==1,"held cover no repeats");
+  light(0,2600);expect(!dual::lightValid&&!dual::armed&&dual::stable==-1,"invalid clears state and rearm");
+  light(910,2700);light(910,2850);expect(dual::coverEvents==1,"recovery covered does not invent edge");
+  light(310,2900);light(310,3050);dual::muted=true;light(910,3100);light(910,3250);
+  expect(dual::coverEvents==2&&!dual::beepActive,"muted event counted without beep");
+  Serial.clear();Serial.command('u');dual::lastDht=fakeNow;dual::lastLight=fakeNow;dual::loop();expect(!dual::muted&&!dual::beepActive,"unmute does not replay");
+  Serial.clear();Serial.command('f');dual::loop();expect(dual::injectDht&&!dual::haveDht&&!dual::dhtValid&&isnan(dual::temperatureC),"DHT injection clears old current value");
+  fakeNow+=2500;before=dhtReads;dual::loop();expect(dhtReads==before&&has("source=injected")&&has("injected_read_failed"),"dual DHT injection never calls hardware");
+  const auto countBefore=dual::coverEvents;
+  light(310,6000);light(310,6150);light(910,6200);light(910,6350);expect(dual::coverEvents==countBefore+1,"KY works while DHT missing");
+  fakeNow=6400;Serial.command('k');dual::loop();expect(dual::injectLight&&!dual::armed&&!dual::beepActive&&dual::lightRaw==-1,"KY injection stops beep and clears current value");
+  Serial.clear();Serial.command('r');dual::loop();expect(!dual::injectLight&&!dual::injectDht&&!dual::haveDht,"resume both sources, not success");
+  fakeNow+=2500;fakeC=NAN;before=dhtReads;dual::loop();expect(dhtReads==before+2&&!dual::dhtValid&&has("reason=read_failed"),"dual resumed hardware can still fail");
+  fakeNow+=2500;fakeC=26;fakeRh=55;dual::loop();expect(dual::dhtValid&&dual::haveDht,"dual actual path recovers on finite data");
+  light(1200,fakeNow+50);expect(!dual::lightValid,"outside calibration span excluded from event control");
+  std::cout<<"PASS Week 4 actual dual sketch: gating, candidates, edges, mute, pulse, independent faults/recovery; "<<checks<<" total assertions.\n";
 }

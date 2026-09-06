@@ -12,23 +12,27 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-WEEK10 = ROOT / "IoT_Introduction/Week_10_MQTT_Multi_Device/week10_main.md"
+MQTT_WEEK = ROOT / "IoT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md"
 SOURCES = (
     ROOT / "IoT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb",
     ROOT / "IoT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb",
     ROOT / "IoT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb",
     ROOT / "docs/archive/week4_actuators/week4_main.md",
-    ROOT / "IoT_Introduction/Week_05_Standalone_Interaction/week5_main.md",
-    ROOT / "IoT_Introduction/Week_06_HTTP_WebSocket_Backend/week6_main.md",
-    WEEK10,
+    ROOT / "docs/archive/week5_standalone/week5_main.md",
+    ROOT / "IoT_Introduction/Week_05_RGB_OLED_Countdown/week5_main.ipynb",
+    ROOT / "IoT_Introduction/Week_06_Servo_Pointer/week6_main.ipynb",
+    ROOT / "IoT_Introduction/Week_07_Traffic_Light_Challenge/week7_main.ipynb",
+    ROOT / "IoT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md",
+    MQTT_WEEK,
     ROOT / "docs/course_materials/starter_code_snippets.md",
 )
 WEEK3 = ROOT / "IoT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb"
 WEEK3_EXAMPLES = (
     ROOT / "examples/week03_gpio_voltage_cycle/week03_gpio_voltage_cycle.ino",
     ROOT / "examples/week03_ky018_raw/week03_ky018_raw.ino",
+    ROOT / "examples/week03_light_classifier/week03_light_classifier.ino",
 )
-WEEK14 = ROOT / "IoT_Introduction/Week_14_Automation_and_Safety/week14_main.md"
+AUTOMATION_WEEK = ROOT / "IoT_Introduction/Week_15_Automation_and_Safety/week15_main.md"
 WINDOWS_CLI = Path(
     r"C:\Program Files\Arduino IDE\resources\app\lib\backend\resources\arduino-cli.exe"
 )
@@ -125,12 +129,12 @@ def replace_function(source: str, signature: str, replacement: str) -> str:
     return source[:start] + replacement + source[end:]
 
 
-def build_week14_sketch() -> str:
-    source = extract_only_complete_sketch(WEEK10)
-    content = WEEK14.read_text(encoding="utf-8")
+def build_week15_sketch() -> str:
+    source = extract_only_complete_sketch(MQTT_WEEK)
+    content = AUTOMATION_WEEK.read_text(encoding="utf-8")
     blocks = re.findall(r"```cpp\s*\n(.*?)\n```", content, flags=re.DOTALL)
     if len(blocks) != 7:
-        raise ValueError(f"expected seven Week 14 modification blocks, found {len(blocks)}")
+        raise ValueError(f"expected seven Week 15 modification blocks, found {len(blocks)}")
 
     source = source.replace(
         "const unsigned long TELEMETRY_MS = 2000;",
@@ -176,11 +180,11 @@ def compile_sketch(
         raise RuntimeError(f"Arduino compile failed for {markdown}")
 
 
-def compile_week14(cli: str, temporary_root: Path) -> None:
-    sketch_dir = temporary_root / "week_14_automation"
+def compile_week15(cli: str, temporary_root: Path) -> None:
+    sketch_dir = temporary_root / "week_15_automation"
     sketch_dir.mkdir()
-    (sketch_dir / "week_14_automation.ino").write_text(
-        build_week14_sketch(), encoding="utf-8"
+    (sketch_dir / "week_15_automation.ino").write_text(
+        build_week15_sketch(), encoding="utf-8"
     )
     (sketch_dir / "secrets.h").write_text(SECRETS, encoding="utf-8")
     result = subprocess.run(
@@ -192,10 +196,10 @@ def compile_week14(cli: str, temporary_root: Path) -> None:
         stderr=subprocess.STDOUT,
         check=False,
     )
-    print(f"[{WEEK14.parent.name}] exit={result.returncode}")
+    print(f"[{AUTOMATION_WEEK.parent.name}] exit={result.returncode}")
     print(result.stdout.rstrip())
     if result.returncode != 0:
-        raise RuntimeError("Arduino compile failed for composed Week 14 sketch")
+        raise RuntimeError("Arduino compile failed for composed Week 15 sketch")
 
 
 def main() -> int:
@@ -209,7 +213,7 @@ def main() -> int:
                     extract_complete_sketches(markdown), start=1
                 ):
                     compile_sketch(cli, markdown, source, index, temporary_root)
-            compile_week14(cli, temporary_root)
+            compile_week15(cli, temporary_root)
     except (FileNotFoundError, RuntimeError, ValueError) as exc:
         print(f"verification error: {exc}", file=sys.stderr)
         return 1

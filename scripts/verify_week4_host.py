@@ -16,6 +16,23 @@ TEST = ROOT / "scripts/tests/week4"
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     for tag, name, replacements in [
+        ("dual", "week04_dual_sensor_alarm", {
+            "const int PIN_LIGHT = -1;": "const int PIN_LIGHT = 4;",
+            "const int PIN_DHT = -1;": "const int PIN_DHT = 5;",
+            "const int PIN_BUZZER_CONTROL = -1;": "const int PIN_BUZZER_CONTROL = 6;",
+            "const bool SENSOR_PROFILES_CONFIRMED = false;": "const bool SENSOR_PROFILES_CONFIRMED = true;",
+            "const bool BUZZER_PROFILE_CONFIRMED = false;": "const bool BUZZER_PROFILE_CONFIRMED = true;",
+            "const int BUZZER_ON_LEVEL = -1;": "const int BUZZER_ON_LEVEL = HIGH;",
+            "const int INDOOR_MIN = -1;": "const int INDOOR_MIN = 300;",
+            "const int INDOOR_MAX = -1;": "const int INDOOR_MAX = 320;",
+            "const int SHADE_MIN = -1;": "const int SHADE_MIN = 900;",
+            "const int SHADE_MAX = -1;": "const int SHADE_MAX = 920;"}),
+        ("classifier", "week03_light_classifier", {
+            "const int PIN_LIGHT = -1;": "const int PIN_LIGHT = 4;",
+            "const int INDOOR_MIN = -1;": "const int INDOOR_MIN = 300;",
+            "const int INDOOR_MAX = -1;": "const int INDOOR_MAX = 320;",
+            "const int SHADE_MIN = -1;": "const int SHADE_MIN = 900;",
+            "const int SHADE_MAX = -1;": "const int SHADE_MAX = 920;"}),
         ("ky", "week04_ky018_quality", {"const int PIN_LIGHT = -1;": "const int PIN_LIGHT = 4;"}),
         ("dht", "week04_dht11_quality", {"const int PIN_DHT = -1;": "const int PIN_DHT = 4;",
                                          "const bool MODULE_PROFILE_CONFIRMED = false;": "const bool MODULE_PROFILE_CONFIRMED = true;"}),
@@ -35,16 +52,18 @@ def main():
                 str(TEST / "host_checks.cpp"), f"/Fe:{exe}", f"/Fo:{OUT / 'week4_host.obj'}"]
         command = f'call "{vcvars}" >nul && ' + subprocess.list2cmdline(args)
         # cmd.exe needs native command-line quoting, not argv's C-runtime \" escapes.
-        result = subprocess.run('cmd /d /s /c "' + command + '"', cwd=OUT, capture_output=True, text=True)
+        result = subprocess.run('cmd /d /s /c "' + command + '"', cwd=OUT, capture_output=True,
+                                text=True, encoding="utf-8", errors="replace",
+                                env={**os.environ, "VSLANG": "1033"})
     else:
         compiler = shutil.which("g++") or shutil.which("clang++")
         if not compiler:
             raise SystemExit("NOT RUN: C++ compiler unavailable.")
         result = subprocess.run([compiler, "-std=c++17", f"-I{TEST}", f"-I{OUT}", str(TEST / "host_checks.cpp"),
-                                 "-o", str(exe)], cwd=OUT, capture_output=True, text=True)
+                                 "-o", str(exe)], cwd=OUT, capture_output=True, text=True, encoding="utf-8")
     print(result.stdout, result.stderr)
     result.check_returncode()
-    run = subprocess.run([str(exe)], cwd=OUT, capture_output=True, text=True)
+    run = subprocess.run([str(exe)], cwd=OUT, capture_output=True, text=True, encoding="utf-8")
     print(run.stdout, run.stderr)
     (OUT / "result.txt").write_text(run.stdout + run.stderr, encoding="utf-8")
     run.check_returncode()

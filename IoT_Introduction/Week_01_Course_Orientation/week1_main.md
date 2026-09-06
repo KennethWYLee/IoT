@@ -33,6 +33,8 @@ Reading path: [a first IoT example](#first-iot-example) →
 
 ### 教學內容
 
+共同硬體練習是「紅綠燈遮光挑戰」：開始按鈕（Start）啟動倒數，光敏模組（photoresistor module）辨認遮光事件，三色發光模組（RGB LED）提示允許或禁止，有機發光顯示器（OLED）呈現時間與次數，舵機（servo）以紙指針指出有效次數，蜂鳴器（buzzer）提示失敗。這是Week 3～7共同練習，不限定期末題目。
+
 本課程介紹完整物聯網系統（Internet of Things, IoT）的設計，將實體裝置與具有實際用途的軟體連接起來。學生會學習感測器（sensor）與按鈕（pushbutton）如何提供輸入、ESP32-S3如何解讀輸入，以及發光二極體（LED）、蜂鳴器（buzzer）、舵機（servo）或其他致動器（actuator）如何產生可觀察的實體反應。電氣安全、供電、接地（grounding）、訊號品質（signal quality）、系統狀態（system state）及錯誤復原（error recovery），都是設計過程的必要部分。
 
 課程也涵蓋裝置與其他系統連接所需的通訊及軟體層。學生會透過無線網路（Wi-Fi）連接裝置，以超文字傳輸協定（HTTP）、網頁雙向通訊協定（WebSocket）或訊息佇列遙測傳輸協定（MQTT）交換結構化資料（structured data），開發後端服務（backend service）、將事件（event）存入資料庫（database），並利用紀錄（log）了解操作成功或失敗的原因。適合手機使用的介面會提供即時狀態、歷史資訊及受控命令（command）。
@@ -41,7 +43,22 @@ Reading path: [a first IoT example](#first-iot-example) →
 
 <a id="first-iot-example"></a>
 
-### A First IoT Example: A Desk Status Indicator
+### A First IoT Example: A Local Game and a Connected Device
+
+The common hardware exercise is a traffic-light shade challenge. Press Start, then cover
+and uncover the light sensor while the indicator is green. Each new stable cover adds one;
+a new cover during red subtracts one, down to zero. Holding it covered does not keep scoring.
+The OLED shows time and effective count; a short paper pointer on a servo indicates 0–6.
+Reach six and press Finish before the deadline. Reaching six alone does not stop time,
+and a later red penalty can reduce it again. Failure produces a brief buzzer sound.
+A device fault or manual abort is recorded separately from player failure.
+
+Week 3 teaches classification, Week 4 dual sensors and one-shot events, Week 5 RGB and
+OLED timing, Week 6 the servo pointer and external power, and Week 7 the complete rules.
+DHT11 has a meaningful Week 4 task but is not forced into the game. This preview is not
+a tested device, and game scores are not course grades. No hardware is operated now.
+A final project can use another topic. The desk-indicator example below explains how
+networked software can extend a local physical interaction.
 
 Consider a proposed desk indicator: a person presses a button to request help, a light
 changes color, and a phone shows which desk requested help. Later, an authorized user
@@ -141,24 +158,24 @@ what to confirm before using a course wiring example.
 
 | Week | Date | Core Content | Main Outcome |
 |---:|---|---|---|
-| 1 | 09-09 | Course orientation, assessment, project expectations, materials, and safety responsibilities | Course acknowledgement and project idea card; no hardware operation |
-| 2 | 09-16 | ESP32-S3, Upload, Serial, GPIO, GND, and measurement | Upload and Serial evidence, unpowered continuity checks, button-input and output-command logs, and button-debounce discussion |
-| 3 | 09-23 | Electrical measurement and ADC foundations: resistance, voltage, 3.3V/5V, GPIO LOW/HIGH, reset state, and raw analog values | Resistance, supply-pin, GPIO-voltage, and ADC baseline evidence with units and measurement conditions |
-| 4 | 09-30 | KY-018, DHT11, calibration, sampling, valid and invalid values, and sensor quality | Valid and invalid light, temperature, and humidity records with sampling conditions |
-| 5 | 10-07 | RGB LED, buzzer, SG90 servo, 4AA power, common ground, and safe stop | Status indication, constrained motion, and timeout testing |
-| 6 | 10-14 | Standalone interaction, state machines, physical STOP, and error recovery | A repeatable light-responsive state device with safe stop and recovery evidence |
-| 7 | 10-21 | Project Report 1: topic and technical feasibility | Hardware segment, data flow, materials, risks, and acceptance criteria |
-| 8 | 10-28 | Individual Written Exam 1: hardware wiring, electrical concepts, and safety | Individual written work for the entire class; no new content or laboratory work |
-| 9 | 11-04 | Instructor abroad | No required attendance and no new assessed work; optional reading is provided |
-| 10 | 11-11 | Wi-Fi, HTTP, JSON, WebSocket, backend, and bidirectional mobile control | Real device events reach a phone; mobile commands and device results are traceable |
-| 11 | 11-18 | MQTT messaging and persistent data: topics, presence, commands, acknowledgements, database records, structured logs, and minimal historical queries | One event and command result persist through MQTT into a database and can be explained with cross-layer logs |
-| 12 | 11-25 | Project Report 2: progress review, feedback, and revision plan | Current implementation evidence, identified problems, feedback, and a prioritized revision plan |
-| 13 | 12-02 | Mobile frontend, responsive web or PWA, and permissions | Real-time data, history, controls, and error or offline flows |
-| 14 | 12-09 | Automation, safety, fault recovery, and reconstruction | Automated behavior, three fault tests, recovery, and reconstruction in a clean environment |
-| 15 | 12-16 | Individual Written Exam 2: network communication and integrated hardware-software architecture | Individual written work for the entire class; no new content or laboratory work |
-| 16 | 12-23 | Project Report 3: final demonstration and individual questions | Final presentations according to the published schedule; no new content |
-| 17 | 12-30 | Project Report 3: final demonstration and individual questions | Final presentations according to the published schedule; no new content |
-| 18 | 01-06 | University final examination week: reserved | No regular materials, new content, or assessment |
+| 1 | 09-09 | Course orientation, assessment, materials, and challenge preview | Explain the common exercise and self-selected final project; no hardware operation |
+| 2 | 09-16 | ESP32-S3, safe wiring, buttons, and debounce | Existing Week 2: upload, Serial, continuity, GPIO events and debounce evidence |
+| 3 | 09-23 | Electrical measurement, ADC, and indoor/shade classification | Retain measurements and resistor-divider work; add local calibration and Serial labels |
+| 4 | 09-30 | Resistor ranges, DHT11, dual sensors, and buzzer events | Independent sampling, per-sensor quality, one-shot events, fault injection and recovery |
+| 5 | 10-07 | RGB, OLED countdown, and time control | Align visible states and elapsed-time countdown; no servo power |
+| 6 | 10-14 | SG90 paper pointer, 0–6 scale, external power, and safety | Map count to verified safe positions; test power, mounting, stop and recovery |
+| 7 | 10-21 | Traffic-light shade challenge integration | Integrate scoring, countdown, Finish, pointer and failure sound; test boundaries and abort |
+| 8 | 10-28 | Project Report 1: topic and technical feasibility | One 12–15 minute report per group: hardware segment, data flow, risk and questions |
+| 9 | 11-04 | Instructor abroad: optional reading | No required attendance, new submissions or assessment |
+| 10 | 11-11 | Individual Written Exam 1: Weeks 2–7 hardware and safety | Individual examination only; no new instruction or laboratory work |
+| 11 | 11-18 | Wi-Fi, HTTP, JSON, WebSocket and backend | Trace device events and mobile commands/results with low-power outputs |
+| 12 | 11-25 | MQTT, database and structured logs | Topics, presence, commands/acks, persistence and minimal history queries |
+| 13 | 12-02 | Project Report 2: progress, feedback and revision | Implementation evidence, problems and a revision plan; further improvement remains possible |
+| 14 | 12-09 | Mobile frontend, responsive web/PWA and permissions | Live/history/control/offline/error and permission flows |
+| 15 | 12-16 | Automation, safety, fault recovery and reconstruction | One automation, three fault tests and clean-environment reconstruction |
+| 16 | 12-23 | Individual Written Exam 2: networks and integration | Assess Weeks 11, 12, 14 and 15; no new instruction or project-progress submission |
+| 17 | 12-30 | Project Report 3: final demonstration and individual questions | All groups present this week; one grade per group, with individual questions |
+| 18 | 01-06 | University final examination week: reserved | No regular materials, new content or assessment |
 
 <a id="assessment"></a>
 
@@ -167,11 +184,11 @@ what to confirm before using a course wiring example.
 | Assessment | Weight | Primary Evidence |
 |---|---:|---|
 | Coursework | 15% | Weekly laboratory work, questions and answers, Lab Notebook, documentation, safety, collaboration, and verified AI use |
-| Project Report 1 (Week 7) | 15% | Topic, hardware segment, software purpose, architecture, materials, risks, and acceptance criteria |
-| Individual Written Exam 1 (Week 8) | 15% | Hardware wiring, GPIO and GND, electrical measurement, ADC, common ground, sensing, actuation, power, state machines, and safety |
-| Project Report 2 (Week 12) | 15% | Current implementation evidence, progress status, identified problems, risk analysis, and a revision plan |
-| Individual Written Exam 2 (Week 15) | 15% | Wi-Fi, HTTP, JSON, WebSocket, MQTT, integrated data flow, and log-based troubleshooting |
-| Project Report 3 (Weeks 16-17) | 25% | Complete physical interaction, frontend and backend, data, reliability, testing, documentation, and individual understanding |
+| Project Report 1 (Week 8) | 15% | Topic, hardware segment, software purpose, architecture, materials, risks, and acceptance criteria |
+| Individual Written Exam 1 (Week 10) | 15% | Hardware wiring, GPIO and GND, electrical measurement, ADC, common ground, sensing, actuation, power, state machines, and safety |
+| Project Report 2 (Week 13) | 15% | Current implementation evidence, progress status, identified problems, risk analysis, and a revision plan |
+| Individual Written Exam 2 (Week 16) | 15% | Wi-Fi, HTTP, JSON, WebSocket, MQTT, integrated data flow, and log-based troubleshooting |
+| Project Report 3 (Week 17) | 25% | Complete physical interaction, frontend and backend, data, reliability, testing, documentation, and individual understanding |
 | Total | 100% |  |
 
 Hardware cost, mechanical complexity, and project speed do not directly earn additional
@@ -180,8 +197,8 @@ provides reliable interaction, a complete data flow, a clear mobile workflow, an
 sufficient testing evidence.
 
 The three project reports are checkpoints in one developing project: feasibility in
-Week 7, implementation progress and revision in Week 12, and the final demonstration
-in Week 16 or 17. Each group receives only one Project Report 3 grade. The two written
+Week 8, implementation progress and revision in Week 13, and the final demonstration
+in Week 17. Each group receives only one Project Report 3 grade. The two written
 exams are individual work; a group demonstration does not replace either exam.
 
 <a id="final-project"></a>
@@ -195,7 +212,7 @@ The final project must include all of the following:
 - A physical artifact that operates safely and addresses a clearly described use case.
 - An ESP32-S3 or another controller approved by the instructor.
 - At least one physical input and one physical output; an exception must be approved
-  during Week 7.
+  during Week 8.
 - Wi-Fi and device communication through HTTP or MQTT.
 - A student-developed backend that can be restarted from documented instructions.
 - A database, historical queries, and structured logs.
@@ -231,9 +248,12 @@ replace the student-developed device program, backend, database, or mobile inter
 | KY-012 active buzzer module | 1 |
 | SG90 180-degree micro servo | 1 |
 | 4AA battery holder with switch | 1 |
+| OLED countdown/status display; approved controller, voltage and pinout required before purchase | 1 |
 
-Based on the instructor's previous purchase prices, the electronics kit costs
-approximately **NT$659 per student**. The exact models and specifications, first and
+**NT$659 per student is the historical kit subtotal before adding the OLED**, not the
+revised complete cost. The OLED price and updated total are pending; unknown prices are
+not zero. USB cable, batteries, verified power adapter, group meter, mounting and shipping
+remain additional costs. The exact models and specifications, first and
 later weeks of use, additional student-provided items, items not yet required, product
 identification images, and delivery inspection procedure are maintained in the
 [Week 1 support material](week1_support.md#purchase-table).
@@ -252,7 +272,7 @@ between two points. Week 2 starts with unpowered checks; Week 3 teaches powered 
 measurement. The modes and probe positions are explained before use. Follow the
 [group-tool specifications](week1_support.md#group-measurement-tool) when purchasing.
 The meter is used again in later hardware and project troubleshooting; its cost is
-separate from the NT$659 per-student electronics-kit estimate.
+separate from the historical NT$659 electronics-kit subtotal.
 
 <a id="safety"></a>
 
@@ -351,7 +371,7 @@ require hardware, software installation during class, or a fixed final-project t
 3. Classify the assessment and schedule scenarios by citing the relevant course week
    or assessment rule.
 4. Complete the personal material-readiness check without purchasing optional project
-   parts before the topic is reviewed in Week 7.
+   parts before the topic is reviewed in Week 8.
 5. For each safety and evidence scenario, record the first safe action and the course
    rule that supports it.
 

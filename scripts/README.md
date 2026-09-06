@@ -4,7 +4,7 @@
 
 Checks all versioned Markdown files for balanced code fences, valid local links and
 anchors, consistent table columns, and forbidden editorial wording. It also enforces
-the 18 weekly directory structure (single notebooks in Weeks 2–4), blank Week 18,
+the 18 weekly directory structure (single notebooks in Weeks 2–7), blank Week 18,
 Chinese unit overview headings and content, the remaining English Week 1 outline,
 separation of main/support tables, minimum regular-unit depth,
 and absence of positive hard-coded GPIO values in unverified hardware examples.
@@ -22,7 +22,7 @@ generated output. Public links to local-only instruction/context files are rejec
 ## `verify_markdown_arduino.py`
 
 Extracts every complete Arduino sketch from the operational weekly materials and the
-shared starter snippets, composes the Week 14 modifications onto the verified Week 10
+shared starter snippets, composes the Week 15 modifications onto the Week 12
 base, and compiles them for the course ESP32-S3 N16R8 build configuration. It requires
 `arduino-cli`, the ESP32 platform, and the libraries named in the weekly materials.
 Compilation proves source/build compatibility only; it does not prove Upload or physical
@@ -90,13 +90,17 @@ fonts; after a renderer/font change, regenerate and visually inspect the images.
 ```powershell
 node scripts/build_week3_figures.cjs
 node scripts/build_week3_figures.cjs --check
+node scripts/build_week3_classifier.cjs
+node scripts/build_week3_classifier.cjs --check
 ```
 
-The second command is read-only. It checks generated source/artifact agreement and
-embedded image bytes; it does not validate a physical circuit.
+Both `--check` commands are read-only. The original builder preserves the classifier's
+three extension cells; the classifier builder maintains those cells, its canonical sketch
+and three added figures. Checks compare source/artifact and embedded image bytes;
+they do not validate a physical circuit.
 
-`verify_week3_notebook.cjs` checks the two public sketch sources, unpublished GPIO
-guards, the twelve embedded image references, the resistor-practice wiring table against
+`verify_week3_notebook.cjs` checks the three public sketch sources, unpublished GPIO
+guards, the fifteen embedded image references, the resistor-practice wiring table against
 an ideal breadboard connectivity model, worked calculations, and evidence disclosures.
 Its default mode requires only Node.js. These are selected assertions, not a replacement
 for reading every teaching step or testing real components.
@@ -108,7 +112,7 @@ node scripts/verify_week3_notebook.cjs --render
 
 The optional render mode additionally requires `marked`, `playwright`, and an installed
 Microsoft Edge browser (`BROWSER_CHANNEL` can select another installed channel). It
-creates ignored previews under `_outputs/`, checks that all twelve images decode, checks
+creates ignored previews under `_outputs/`, checks that all fifteen images decode, checks
 page overflow at desktop/mobile widths, and checks SVG text bounds. Inspect the previews
 and diagrams manually as well. This is a local HTML preview, not a live GitHub-rendering
 test. Neither script uploads firmware, opens a serial port, or claims hardware testing.
@@ -137,14 +141,14 @@ node scripts/verify_intro_navigation.cjs --render
 Default mode requires only Node.js. `--render` also requires `marked`, `playwright`, and
 Microsoft Edge; set `NODE_PATH` when using bundled dependencies. It creates ignored
 Week 1 HTML/screenshots in `_outputs/`, clicks local section links, loads the six local
-support images, and checks 1200/420px widths. Use the Week 2/3 `--render` commands above
+purchase images plus the game overview (seven support images total), and checks 1200/420px widths. Use the Week 2/3 `--render` commands above
 for those notebooks. These local previews do not test the live GitHub renderer.
 
 ## Week 4 source, diagrams and checks
 
 The only reading entry is [week4_main.ipynb](../IoT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb).
-Edit [week4_main.source.md](../docs/course_materials/week4_main.source.md), the two
-`examples/week04_*/*.ino` sources, or the code-native diagram builder, then rebuild.
+Edit [week4_main.source.md](../docs/course_materials/week4_main.source.md), the `week04_dht11_quality` and `week04_dual_sensor_alarm`
+sketch sources, or the code-native diagram builder, then rebuild.
 Do not edit notebook copies independently. No Week 2/3 files are written by these commands.
 
 ```powershell
@@ -155,8 +159,7 @@ python scripts/verify_week4_host.py
 ```
 
 The builder requires `sharp`; render additionally uses `marked`, `playwright` and Edge.
-Use `NODE_PATH` with the bundled runtime when necessary. Twelve original SVG/PNG diagrams
-and four unmodified original photos are embedded as Jupyter attachments. `--check` is
+Use `NODE_PATH` with the bundled runtime when necessary. Sixteen maintained SVG/PNG diagram designs include four new integration diagrams; the notebook embeds sixteen selected diagrams/photos. Original photos are not retouched. The selected images are embedded as Jupyter attachments. `--check` is
 read-only. The verifier checks source equality, placeholders, local links, example math,
 modeled breadboard nodes and image bytes. Render writes ignored previews under `_outputs/`
 and checks desktop/mobile page overflow and SVG text bounds; inspect images manually too.
@@ -170,6 +173,28 @@ directions, overlap, endpoints, invalidation, DHT quality rules, injection and r
 No serial port, board, physical sensor or upload is involved. Arduino compilation is a
 separate check using `verify_markdown_arduino.py` or its existing extraction/CLI functions.
 See [the Week 4 record](../docs/lab_notes/2026-09-05-week4-material-review.md) for actual results.
+
+## Week 5–7 source, diagrams and checks
+
+Edit the matching `docs/course_materials/weekN_main.source.md`, canonical sketch under
+`examples/`, and `scripts/weekN_figures.cjs` before regenerating. The shared builder
+embeds PNG/JPEG attachments and complete sketch copies, preserving one notebook per week.
+Replace 5 below with 6 or 7 for the next authorized unit.
+
+```powershell
+node scripts/build_game_week.cjs 5
+node scripts/build_game_week.cjs 5 --check
+node scripts/verify_game_notebook.cjs 5 --render
+python scripts/verify_game_host.py 5
+```
+
+The host runner executes the actual public sketch with explicit fake I/O and test-only
+profiles. Current assertions: Week 5 = 45, Week 6 = 40, Week 7 = 90. This does not upload
+or validate real modules. The notebook verifier checks source/attachment equality, links,
+tables, fences and 1200/420px Edge previews. Review diagrams manually too. Arduino build
+uses the general verifier; dependencies include U8g2 2.36.15 and ESP32Servo 3.2.1.
+Week 3 classifier and Week 4 integration assertions also run in `verify_week4_host.py`.
+See the [current revision record](../docs/lab_notes/2026-09-06-traffic-light-course-revision.md).
 
 ## `mirror_dokuwiki.py`
 
