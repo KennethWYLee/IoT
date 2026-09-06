@@ -1,11 +1,11 @@
 # 教師用18週課堂教材設計
 
-本文件維護每週成果與交接。正式週次、日期、配分以[18週計畫](18_week_plan.md)為準。
+本文件維護每週成果與交接。正式週次、日期、配分以[18週計畫](../course/18_week_plan.md)為準。
 Week 1、3～7的完整教學對照、圖解要求、Discussion與答案見[紅綠燈遮光挑戰詳細設計](traffic_light_challenge_design.md)。
 不限制教材分鐘數；特殊週不新增普通教學。Week 2教材、程式、圖片保持不變。
 
-Week 1與Week 3～7已完成本輪文件／程式／圖解修訂；主要閱讀入口依[18週導覽](IOT_Introduction/README.md)。
-實際執行的驗證與待驗項目見[本輪紀錄](IOT_Introduction/docs/lab_notes/2026-09-06-traffic-light-course-revision.md)，
+Week 1與Week 3～7已完成本輪文件／程式／圖解修訂；主要閱讀入口依[18週導覽](../../README.md)。
+實際執行的驗證與待驗項目見[本輪紀錄](../lab_notes/2026-09-06-traffic-light-course-revision.md)，
 不把課卡的預期成果視為指定板卡／模組已通過實機。
 
 ## 逐週課卡
@@ -116,7 +116,7 @@ Week 1與Week 3～7已完成本輪文件／程式／圖解修訂；主要閱讀�
 
 ## 共同材料任務與證據
 
-這是用途對照，不另訂採購數量；正式規格與數量只在[Week 1清單](IOT_Introduction/Week_01_Course_Orientation/week1_main.md#purchase-table)維護。
+這是用途對照，不另訂採購數量；正式規格與數量只在[Week 1清單](../../Week_01_Course_Orientation/week1_main.md#purchase-table)維護。
 「教材已寫」不等於指定實物通過。新增教材與實機狀態在交付紀錄分層記錄。
 
 | 材料 | 共同任務 | 完成證據 |

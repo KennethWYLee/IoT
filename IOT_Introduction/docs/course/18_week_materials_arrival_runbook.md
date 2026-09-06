@@ -50,7 +50,7 @@
   自行準備。
 
 確切規格、數量與使用週次以Week 1的
-[學生材料採購總表](IOT_Introduction/Week_01_Course_Orientation/week1_main.md#一學生材料採購總表)
+[學生材料採購總表](../../Week_01_Course_Orientation/week1_main.md#一學生材料採購總表)
 為準。
 
 題目確認前不要求購買感測器大全包、相機板、Raspberry Pi、車體、LiDAR
@@ -58,7 +58,7 @@
 
 ## 4. 教師課前驗證
 
-逐週任務與證據依[教師課卡](teacher_18_week_materials.md)；
+逐週任務與證據依[教師課卡](../course_materials/teacher_18_week_materials.md)；
 新增模組先完成profile、單元與整合測試，再公布可上電程序。
 Week 4確認DHT與蜂鳴器；Week 5確認OLED／RGB；Week 6確認外部供電與紙指針；
 Week 7確認色光干擾、機械遮光、時間邊界、持續中止及故障恢復。

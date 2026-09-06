@@ -3,9 +3,9 @@
 更新日期：2026-09-06。
 
 本文件供教材維護者用來產生、修訂與驗收每週教材。以目前
-[Week 2主教材](IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb)與
-[Week 3主教材](IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb)
-的初學者問答、操作修訂及[聯合檢查紀錄](IOT_Introduction/docs/lab_notes/2026-09-05-week2-week3-beginner-review.md)
+[Week 2主教材](../../Week_02_ESP32_Hardware_Basics/week2_main.ipynb)與
+[Week 3主教材](../../Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb)
+的初學者問答、操作修訂及[聯合檢查紀錄](../lab_notes/2026-09-05-week2-week3-beginner-review.md)
 為設計參照，不把它們當成所有內容均已實機驗證或所有學生均已試讀通過的樣板。
 
 目標是產生好懂、清楚、完整、適合入門者的文件。第一次接觸硬體的學生不只要知道
@@ -24,13 +24,13 @@
 3. 維護者若已取得本機`AGENTS.md`與`PROJECT.md`，先完整閱讀；前者規範工作方式，
    後者記錄本機課程決策。這些檔案不隨GitHub發布，新電腦須另行取得。
    Git版本中的課程資訊依下列正式計畫、課綱及驗證紀錄查核，不補造缺少的決策。
-4. 閱讀[正式18週計畫](18_week_plan.md)、[英文課綱](1151_course_syllabus_english.md)
+4. 閱讀[正式18週計畫](../course/18_week_plan.md)、[英文課綱](../course/1151_course_syllabus_english.md)
    及目前單元的README（若存在）、全部主教材、支援資料與完整程式。
    重整中的舊資料夾名稱不能取代正式週次。
 5. 閱讀前一個教學週的收尾狀態、下一個教學週的先備條件，以及直接依賴的
    `IOT_Introduction/examples/`、圖片、`IOT_Introduction/docs/hardware/hardware_state.md`與`IOT_Introduction/docs/lab_notes/`。
 6. 查明真正的維護來源與build／verify方法；先查
-   [scripts說明](IOT_Introduction/scripts/README.md)，只使用實際存在的腳本與環境。
+   [scripts說明](../../scripts/README.md)，只使用實際存在的腳本與環境。
 7. 完整讀取直接相關的官方文件段落、官方範例與成立條件；板卡腳位、電壓、library、
    API與量測方法依確切型號、版本及可重現證據查核，不憑摘要或相似商品推測。
 
@@ -122,6 +122,11 @@ Teaching Point是一項真正要教、操作或判讀的能力。修改前建立
 
 ## 四、單一主教材與閱讀負擔
 
+公開根目錄只保留`README.md`、`.gitignore`、`Drone/`與`IOT_Introduction/`。
+課綱與進度放在`IOT_Introduction/docs/course/`，備課設計與維護來源放在
+`IOT_Introduction/docs/course_materials/`，統一由[課程文件導覽](../README.md)進入；
+不再把備課MD攤在根目錄。本機`AGENTS.md`、`CLAUDE.md`與`PROJECT.md`仍留根目錄且不提交。
+
 每週只有一個主教材入口。Week 2～7為`weekN_main.ipynb`，其餘週為`weekN_main.md`；
 不再建立當週support或另一份必讀文件。概念、操作、表格、故障排查及延伸參考集中在同一份，
 依閱讀順序安排，重複的摘要與規格表刪去。Week 1同一份包含課程大綱、中文採購清單及課前準備；
@@ -169,10 +174,10 @@ Week 18只保留空白main檔，不新增活動。程式、圖片、維護來源
 處理，不擅自加入完整答案；所有版本都不得混入隱藏測試、評分註記、秘密或個資。
 已核准答案也不取代學生自己的預測、操作與原始紀錄。
 
-本輪Week 3～7跨週作品規則依[紅綠燈遮光挑戰](traffic_light_challenge_design.md)，驗證分層見[本輪紀錄](IOT_Introduction/docs/lab_notes/2026-09-06-traffic-light-course-revision.md)。不重做已足以支持結論的基準；以既有輸入累加輸出、狀態與整合深度。
+本輪Week 3～7跨週作品規則依[紅綠燈遮光挑戰](traffic_light_challenge_design.md)，驗證分層見[本輪紀錄](../lab_notes/2026-09-06-traffic-light-course-revision.md)。不重做已足以支持結論的基準；以既有輸入累加輸出、狀態與整合深度。
 
-Week 4的具體實作見[完整備課版](IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb)
-與[教學對照／驗證紀錄](IOT_Introduction/docs/lab_notes/2026-09-05-week4-material-review.md)。
+Week 4的具體實作見[完整備課版](../../Week_04_Sensors_and_Data_Quality/week4_main.ipynb)
+與[教學對照／驗證紀錄](../lab_notes/2026-09-05-week4-material-review.md)。
 其中220 Ω／330 Ω辨識與量程比較改排Week 4，不要求Week 3回補；新單元參考舊週深度，
 不等於授權修改舊週。DHT11實物腳位與電氣條件未核准時，以明確閘門保留待驗，
 完整說明、示例推理與編譯不能替代實際接線／Upload證據。
@@ -415,7 +420,7 @@ Week 2至Week 3的舊按鈕／舊孔位、GPIO輸出轉S電壓、S電壓轉ADC�
 
 ## 十三、分層驗證與圖文驗收
 
-檢查方式與依賴以[scripts說明](IOT_Introduction/scripts/README.md)為準。下列是目前存在的命令
+檢查方式與依賴以[scripts說明](../../scripts/README.md)為準。下列是目前存在的命令
 示例，從repository根目錄依任務選用，不代表後續每週已有同名腳本：
 
 ```powershell

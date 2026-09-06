@@ -125,7 +125,7 @@ FQBN：`esp32:esp32:esp32s3:FlashSize=16M,PSRAM=opi`。
 ## 跨文件既有衝突（本次不擴張成全課重寫）
 
 `teacher_18_week_materials.md`頂部舊稿以每週165分鐘列活動，
-與使用者及[週教材設計框架](../../../weekly_lesson_design_framework.md)的
+與使用者及[週教材設計框架](../course_materials/weekly_lesson_design_framework.md)的
 150分鐘有效學習量基準不同。本次依較高權威採150分鐘設計估算；沒有自行宣布
 差額15分鐘就是休息時間，也沒有改寫其他週。
 

@@ -2,8 +2,8 @@
 
 本文件是教師與教材維護者的詳細設計，不是已通過實機驗證的接線手冊。
 依2026-09-06核准方向增加一週硬體；Week 2維持不變，Week 9與18固定，
-期末展示集中Week 17。日期與配分以[18週計畫](18_week_plan.md)為準，
-採購以[Week 1清單](IOT_Introduction/Week_01_Course_Orientation/week1_main.md#purchase-table)為準。
+期末展示集中Week 17。日期與配分以[18週計畫](../course/18_week_plan.md)為準，
+採購以[Week 1清單](../../Week_01_Course_Orientation/week1_main.md#purchase-table)為準。
 實際教材完成狀態見[教師課卡](teacher_18_week_materials.md)，不得將「設計完成」寫成「實機完成」。
 
 ## 1. 設計邊界與教學方式

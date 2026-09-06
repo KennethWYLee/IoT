@@ -1,19 +1,20 @@
 # 課程文件
 
-閱讀教材請先到[18週教材入口](../README.md)。本目錄提供課程規劃、
-備課與驗證資料；全課課綱及設計總覽位於 repository 根目錄，以下連到各自唯一來源。
+閱讀教材請先到[18週教材入口](../README.md)。本目錄是教師與維護者的查閱入口，
+不是學生每週必讀清單。課綱與進度集中在`course/`，備課設計與生成來源集中在
+`course_materials/`；不在repository根目錄另放副本。
 
-## 課程規劃
+## 課程規劃（course）
 
-- [18週進度、評量與作品要求](../../18_week_plan.md)：課程進度的主要依據。
-- [中文課綱](../../1151_course_syllabus_draft.md)／[英文課綱](../../1151_course_syllabus_english.md)：課綱版本。
-- [校曆對齊](../../1151_calendar_aligned_course_plan.md)：上課日與特殊行程。
-- [材料與課堂執行](../../18_week_materials_arrival_runbook.md)：課前準備與課堂檢核。
-- [Type B教學設計](../../typeb_course_redesign.md)：課堂活動的設計依據。
+- [18週進度、評量與作品要求](course/18_week_plan.md)：課程進度的主要依據。
+- [中文課綱](course/1151_course_syllabus_draft.md)／[英文課綱](course/1151_course_syllabus_english.md)：課綱版本。
+- [校曆對齊](course/1151_calendar_aligned_course_plan.md)：上課日與特殊行程。
+- [材料與課堂執行](course/18_week_materials_arrival_runbook.md)：課前準備與課堂檢核。
+- [Type B教學設計](course/typeb_course_redesign.md)：課堂活動的設計依據。
 
 ## 備課與程式
 
-- [教材設計與維護來源](course_materials/README.md)：設計框架、教師課卡、評量與任務模板。
+- [教材設計與維護來源](course_materials/README.md)：設計框架、教師課卡、硬體藍圖、遊戲設計、評量與任務模板。
 - [可執行範例](../examples/README.md)：Arduino程式與後端，不與教材來源混放。
 - [生成與驗證工具](../scripts/README.md)：重新產生教材、圖片及檢查一致性。
 

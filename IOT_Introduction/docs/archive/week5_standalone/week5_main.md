@@ -653,4 +653,4 @@ ESP32、線材與電池。
 ## 參考資料
 
 - [ESP32Servo official repository](https://github.com/madhephaestus/ESP32Servo)
-- [Week 2～5硬體教材藍圖](../../../../hardware_course_material_plan.md)
+- [Week 2～5硬體教材藍圖](../../course_materials/hardware_course_material_plan.md)

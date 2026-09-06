@@ -209,4 +209,4 @@ log、異常階段、第一個斷電動作、已嘗試檢查，以及目前電�
 
 - [ESP32Servo official repository](https://github.com/madhephaestus/ESP32Servo)
 - [ESP32-S3-DevKitC-1 User Guide](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s3/esp32-s3-devkitc-1/index.html)
-- [Week 2～5硬體教材藍圖](../../../../hardware_course_material_plan.md)
+- [Week 2～5硬體教材藍圖](../../course_materials/hardware_course_material_plan.md)

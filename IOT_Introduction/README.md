@@ -41,9 +41,9 @@ Week 3把同一批室內光／遮光資料轉為分類文字；Week 4用雙感�
 
 ## 教師與維護資料（不是另一套必讀講義）
 
-- [正式18週計畫](../18_week_plan.md)
-- [紅綠燈遮光挑戰完整設計](../traffic_light_challenge_design.md)
-- [教師課卡與材料任務](../teacher_18_week_materials.md#required-hardware-activities)
+- [正式18週計畫](docs/course/18_week_plan.md)
+- [紅綠燈遮光挑戰完整設計](docs/course_materials/traffic_light_challenge_design.md)
+- [教師課卡與材料任務](docs/course_materials/teacher_18_week_materials.md#required-hardware-activities)
 - [Arduino及Backend範例](examples/README.md)
 - [評分規準](docs/course_materials/rubrics_and_checklists.md)與[紀錄模板](docs/course_materials/student_worksheets.md)
 - [設備圖片](docs/images/hardware/README.md)

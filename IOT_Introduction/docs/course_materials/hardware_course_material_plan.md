@@ -29,4 +29,4 @@ WS2812、MG90S、馬達、車體與網路不是Week 3～7共同實作。
 圖解、完整程式／操作、預期結果、排錯、練習、答案與完成證據。
 Notebook包含PNG／JPEG附件；可重用程式與圖檔維持既有分類，不放入每週資料夾。
 文件、編譯、host、指定板卡與實體測試分開，不因有來源碼就宣稱可直接上電。
-實測狀態查[硬體紀錄](IOT_Introduction/docs/hardware/hardware_state.md)。
+實測狀態查[硬體紀錄](../hardware/hardware_state.md)。

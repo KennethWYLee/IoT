@@ -62,8 +62,8 @@
 
 ## 5. 課堂任務對齊
 
-每週問題、步驟、學生證據與回饋見[教師課卡](teacher_18_week_materials.md)。
-硬體六週以[紅綠燈遮光挑戰設計](traffic_light_challenge_design.md)串接。
+每週問題、步驟、學生證據與回饋見[教師課卡](../course_materials/teacher_18_week_materials.md)。
+硬體六週以[紅綠燈遮光挑戰設計](../course_materials/traffic_light_challenge_design.md)串接。
 先預測、再操作、比較原始結果、解釋差異、修改一個變因，最後保存限制與復原證據。
 Week 3只用室內光／遮光；Week 4雙路品質與事件；Week 5計時；Week 6指針；Week 7規則。
 每週一個Discussion，不靠多次相同操作增加工作量。
