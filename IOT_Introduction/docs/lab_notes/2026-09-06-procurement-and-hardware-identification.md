@@ -1,0 +1,82 @@
+# 2026-09-06 採購規格與器材照片確認
+
+本次是文件整理與照片辨識，不是上電實驗。使用者要求先更新專案與GitHub，
+實物確認留待後續。照片由使用者提供；沒有代理直接操作電路或取得新Serial輸出。
+
+## 決策與單一來源
+
+- 學生Week 2～7材料、每人數量、首次使用週次與中文預算，只在
+  [Week 1材料準備](../../Week_01_Course_Orientation/week1_main.md#purchase-table)維護。
+  既有合格用品可沿用，學生自行安排一次或分批購買；每組1～3人、一台電表，單人組可共用。
+- OLED可選購規格已明列，與現有SSD1306 128×64 I²C的U8g2範例一致；
+  控制器與介面不能用外觀代替。實物位址、腳序、供電與顯示測試仍待確認。
+- 使用者明確確認電池盒四槽、打算用每顆1.2 V電池。供電規劃採四顆AA鎳氫串聯，
+  標稱4.8 V；這不是電表讀值，也不是已確認電池、充電器或接頭均到貨。
+  電池自備，相容鎳氫充電器可共用；電池盒及ESP32不負責充電。
+- 連接材料自行準備，不強制某款2P端子轉12P排針板。既有材料只有在連接牢固、
+  接點絕緣且極性與電壓檢查合格時才能使用；不接受裸線隨意碰觸。
+- ESP32由筆電USB供電，SG90規劃獨立電池電源並共地；不由GPIO、3V3或本板
+  未橋接的5Vin供電，不因此預先要求降壓模組。
+- HW-508的供電、腳位、有源型式與驅動仍待確認，不把「有三根腳」當成可GPIO直驅。
+  清單保留共同用途與數量；新購須有可核對規格，既有者不先要求重買。
+- 紙／布、刻度與固定材料自行處理；車輛相關購物圖僅說明教師額外自製無人車用途。
+  本次不新增學生選配要求，不更改歷史庫存數量及成交金額。
+
+## 照片證據
+
+保留12張有辨識用途的原圖，檔名加日期後綴，不修改或覆蓋原有教材引用圖片。
+重複或較失焦視角不另複製。檔名中的日期代表本次整理日期，不聲稱為相機拍攝日期。
+
+| 使用者來源檔 | Repository原圖 | 可支持的辨識／不能支持的結論 |
+|---|---|---|
+| 175591_0.jpg | [HW-479元件面](../images/hardware/actual/hw479-rgb-led-module-actual-component-side-2026-09-06.jpg) | 單顆LED、HW-479、B／G／R／−與三顆電阻可見；不能證明各色阻值、共同端電氣行為及GPIO電流 |
+| 175583_0.jpg | [HW-508元件面](../images/hardware/actual/hw508-buzzer-module-actual-component-side-2026-09-06.jpg) | HW-508、三針及兩側−／+；上方貼紙不是供電規格 |
+| 175582_0.jpg | [HW-508焊接面](../images/hardware/actual/hw508-buzzer-module-actual-solder-side-2026-09-06.jpg) | 保存焊接面；不能據此認定中間腳是訊號、未接腳或有內建驅動 |
+| 175577.jpg | [SG90拆袋與附件](../images/hardware/actual/sg90-servo-actual-label-connector-accessories-2026-09-06.jpg) | 標籤SG90、三線母接頭、白色舵盤與螺絲；不證明真偽、實際行程或安全工作電壓 |
+| 175571_0.jpg | [電池盒開關與線端](../images/hardware/actual/4aa-battery-holder-actual-switch-and-leads-2026-09-06.jpg) | ON／OFF與紅黑裸線可見；四槽由文字確認，照片未拍到內部；極性尚未量測 |
+| 175585_0.jpg | [八顆燈條正面](../images/hardware/actual/ws2812b-8-led-bar-actual-front-2026-09-06.jpg) | 八顆LED，與單顆四針RGB不同 |
+| 175587_0.jpg | [燈條背面](../images/hardware/actual/ws2812b-8-led-bar-actual-back-2026-09-06.jpg) | WS2812B-8、VCC／GND／IN／OUT；不是HW-479的接線或程式替代品 |
+| 175590_0.jpg | [PIR透鏡面](../images/hardware/actual/pir-motion-sensor-actual-front-2026-09-06.jpg) | 半球透鏡，作被動紅外線動作感測器辨識；不是RGB或蜂鳴器 |
+| 175588_0.jpg | [PIR元件面](../images/hardware/actual/pir-motion-sensor-actual-back-2026-09-06.jpg) | 兩個調整器、跳線與電路板；外形近HC-SR501，但確切型號與腳位尚未確認 |
+| 175573_0.jpg | [降壓板元件面](../images/hardware/actual/buck-converter-display-actual-front-2026-09-06.jpg) | VIN／VOUT正負端、電感與數字顯示；不是OLED，晶片與整板額定值未確認 |
+| 175574_0.jpg | [降壓板背面](../images/hardware/actual/buck-converter-display-actual-back-2026-09-06.jpg) | 原始PCB外觀；不能以箭頭或電容標字決定電壓上限／電流容量 |
+| 175572_0.jpg | [TT馬達側面](../images/hardware/actual/tt-geared-motor-actual-side-2026-09-06.jpg) | 黃色減速箱與直流馬達；不是SG90位置型舵機，減速比與額定值未驗證 |
+
+上述選配器材不加入共同採購。新增辨識結果同步到[硬體狀態](../hardware/hardware_state.md)
+及[圖片目錄](../images/hardware/README.md)。原庫存的訂單名稱不是照片已證明的確切型號。
+
+## 技術依據與適用限制
+
+- [U8g2建構子列表](https://github.com/olikraus/u8g2/wiki/u8g2setupcpp)：SSD1306的
+  128×64 I²C設定與SH1106等控制器分開。支持採購規格與現行程式對應，不證明實物已通過。
+- [TowerPro SG90頁面](https://towerpro.com.tw/product/sg90-7/)列有4.8 V工作規格；
+  不能據此保證照片中任何同名舵機、四顆電池滿電值或負載電流都相同。
+- [Arduino舵機排查](https://support.arduino.cc/hc/en-us/articles/360017053760-Troubleshoot-servo-motors)
+  說明開發板供電可能不足、外部供電與共同接地的必要性。不能把「USB可供ESP32」
+  直接推成「此板任何電源腳都能帶SG90」。
+- [Adafruit可定址LED說明](https://learn.adafruit.com/adafruit-neopixel-uberguide/the-magic-of-neopixels)
+  用來區分WS2812類型的資料控制與普通RGB，不作這片燈條的確切供電保證。
+
+## 驗證紀錄
+
+- 12張原圖複製後已逐檔比對SHA-256，與來源一致，未生成、裁切或重畫。
+- `verify_course_materials.py`：85份Markdown／Notebook結構與本機相對連結通過。
+- `verify_intro_navigation.cjs --render`：12類必備零件、首次使用排序、OLED規格、電池與連接規則、
+  NT$724歷史小計、三種分組電表分攤計算通過；67個明確導覽連結通過。
+- 本機Edge：19次錨點導覽、9張圖片載入、展開圖片區、1200／420像素寬度檢查通過。
+  人工檢視採購表、OLED列、窄螢幕預算及RGB／蜂鳴器圖片預覽；原圖可再放大看標示。
+  這是本機Markdown預覽，不宣稱已測試GitHub線上渲染器。
+- 韌體編譯、主機測試、模擬：本次未執行，沒有修改板卡韌體；只有文件檢查腳本新增回歸檢查。
+- Upload、指定板卡與實體接線測試：本次未執行。
+- 未新增實測電壓、GPIO核准、蜂鳴聲、RGB燈色或舵機行程結果。
+- Week 2～7的Notebook、程式、生成來源與既有圖片保持不變；本機專案規則檔不公開。
+- 已檢閱本次差異並執行`git diff --check`，無空白格式錯誤；確認私人規則檔未被Git追蹤。
+
+## 下次接續
+
+1. 先保持全部斷電，核對HW-508電路／規格及腳位關係，再決定驅動；不猜中間腳。
+2. 確認HW-479共同端、限流與可接受控制電流，再作個別燈色測試。
+3. 確認電池種類、充電狀態、電池盒極性、實際電壓及牢固絕緣連接後，才規劃SG90安全行程與停止測試。
+4. OLED採購可依已公布規格進行；既有實物仍須核對腳序、供電／上拉、位址與顯示。
+
+未收到本次斷電或收納完成回報，不能把檔案已保存當成器材已安全復原。

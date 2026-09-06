@@ -49,19 +49,19 @@ C:\Users\User\Pictures\IoT_Shopee_Reshoots
 | 07 | 常用電阻包：220Ω、330Ω、1kΩ、10kΩ、2.2kΩ、4.7kΩ、100kΩ | 3包 | [訂單圖5](orders/shopee-loyi-maker-05-resistors-storage.png) | 已購、存放學校 | 到校後拍包裝完整標籤或阻值清單，以及各阻值分裝標示 |
 | 08 | KY-018光敏模組 | 3 | [訂單圖4](orders/shopee-aroundtw-04-photoresistor-servo-breadboard.png)；[排針近照](actual/ky018-photoresistor-module-actual-pin-labels.jpg)；[實物元件面](actual/ky018-photoresistor-module-actual-component-side.jpg)；[實物焊接面](actual/ky018-photoresistor-module-actual-solder-side.jpg) | 左側`S`與右側`-`已確認；中間腳待電氣確認 | 中央`A`／`S1`／`R1`只記錄為可見文字，不以照片推定其完整用途，也不當成中間排針標示；保持斷電，以電阻量測確認分壓關係 |
 | 09 | 購買頁稱YS-31的DHT11溫濕度模組 | 3 | [訂單圖3](orders/shopee-aroundtw-03-esp32-sensors-lighting-power.png)；[實物元件面與線](actual/dht11-3pin-module-actual-component-side-with-cable.jpg)；[實物焊接面與線](actual/dht11-3pin-module-actual-solder-side-with-cable.jpg) | 實物已辨識；腳位待確認 | 斷電取下三線接頭，補拍PCB三針旁絲印；另拍線材兩端，不以線色猜腳位 |
-| 10 | 購買頁稱KY-016；實物PCB為`HW-479` RGB LED模組 | 3 | [訂單圖3](orders/shopee-aroundtw-03-esp32-sensors-lighting-power.png)；[實物元件面](actual/hw479-rgb-led-module-actual-component-side.jpg)；[實物焊接面](actual/hw479-rgb-led-module-actual-solder-side.jpg)；[補充失焦焊接面](actual/hw479-rgb-led-module-actual-solder-side-view-02-soft-focus.jpg) | 型號與絲印可辨識；未驗證 | 失焦照片只保留為實物紀錄；通電前仍須確認`B`／`G`／`R`／`-`與共用腳電氣行為 |
-| 11 | 購買頁稱KY-012有源蜂鳴器；實物PCB為`HW-508` | 3 | [訂單圖3](orders/shopee-aroundtw-03-esp32-sensors-lighting-power.png)；[目前實物元件面](actual/hw508-buzzer-module-actual-component-side.jpg) | 補拍優先 | 目前失焦；補拍垂直元件面、焊接面、三針絲印與蜂鳴器標籤，未確認有源／無源前不通電 |
-| 12 | Tower Pro SG90 Micro Servo 9g；購買選項為180度 | 6 | [訂單圖4](orders/shopee-aroundtw-04-photoresistor-servo-breadboard.png)；[實物標籤、插頭與附件](actual/sg90-tower-pro-9g-servo-actual-label-connector-accessories.jpg)；[實物包裝補充視角](actual/sg90-tower-pro-9g-servo-actual-packaging-view-02.jpg) | 外形可用；功能待驗 | 若能拆袋，再拍無反光標籤與三線插頭近照；180度行程只由後續安全實測確認 |
-| 13 | 購買頁稱4AA帶開關電池盒、標示6V | 2 | [訂單圖3](orders/shopee-aroundtw-03-esp32-sensors-lighting-power.png)；[實物盒蓋與紅黑裸線](actual/4aa-battery-holder-actual-cover-and-leads.jpg) | 補拍優先 | 照片未顯示開關；補拍開關側、盒內四槽、紅黑線末端與極性，暫不裝電池 |
-| 14 | LM2596S可調式DC-DC降壓模組 | 3 | [訂單圖1](orders/shopee-aroundtw-01-prototyping-motors-power.png) | 補拍優先 | 已選LM2596S穩壓電源模組；商品／實物正反面、端子與可調電位器 |
+| 10 | KY-016類；HW-479 RGB模組 | 訂單3 | [新元件面](actual/hw479-rgb-led-module-actual-component-side-2026-09-06.jpg)；[原焊接面](actual/hw479-rgb-led-module-actual-solder-side.jpg) | 辨識可用；未驗證 | 不重拍已清楚標示；接續確認限流、共同端、準位與各色電流 |
+| 11 | KY-012類；HW-508蜂鳴器 | 訂單3 | [新元件面](actual/hw508-buzzer-module-actual-component-side-2026-09-06.jpg)；[新焊接面](actual/hw508-buzzer-module-actual-solder-side-2026-09-06.jpg) | 已補正反面；未驗證 | 先核對電路／規格及斷電導通，不由三針推定中間為訊號或GPIO可直接驅動 |
+| 12 | SG90、三線插頭與舵盤螺絲 | 訂單6 | [拆袋實物](actual/sg90-servo-actual-label-connector-accessories-2026-09-06.jpg) | 辨識可用；功能待驗 | 不重複拆袋補拍；下一步確認供電、線序與安全角度，不強制轉滿180度 |
+| 13 | 四槽AA帶開關電池盒 | 訂單2 | [開關與裸線](actual/4aa-battery-holder-actual-switch-and-leads-2026-09-06.jpg)；使用者確認四槽 | 開關已拍；電氣待驗 | 不重拍已可見的開關；四顆1.2 V鎳氫方案尚待實際電壓、極性、牢固絕緣連接檢查 |
+| 14 | 帶數字顯示的降壓模組；訂單稱LM2596S | 訂單3 | [正面](actual/buck-converter-display-actual-front-2026-09-06.jpg)；[背面](actual/buck-converter-display-actual-back-2026-09-06.jpg) | 正反面已拍；型號待核對 | 暫不列共同採購；實際要使用時再查清晶片及整板規格，不把電容標字當整板額定值 |
 | 15 | L298N雙通道馬達驅動板 | 2 | [訂單圖2](orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png) | 補拍優先 | 商品正反面及端子標示圖；實物輸入、輸出、ENA／ENB與跳線帽 |
 | 16 | HC-SR04超音波距離模組 | 3 | [訂單圖2](orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png) | 補拍優先 | 商品／實物正反面，需讀到`VCC`／`Trig`／`Echo`／`GND` |
-| 17 | HC-SR501 PIR人體紅外線模組 | 3 | [訂單圖3](orders/shopee-aroundtw-03-esp32-sensors-lighting-power.png) | 補拍優先 | 商品／實物正反面、三針絲印、兩個旋鈕與觸發跳線 |
+| 17 | PIR感測器；訂單稱HC-SR501 | 訂單3 | [透鏡面](actual/pir-motion-sensor-actual-front-2026-09-06.jpg)；[元件面](actual/pir-motion-sensor-actual-back-2026-09-06.jpg) | 外觀已拍；確切型號與腳位待驗 | 不列共同採購；選用時再確認供電、腳序及跳線，不因近似外形猜接法 |
 | 18 | OLED顯示模組、0.96吋、4針I2C | 5 | [訂單圖2](orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png) | 補拍優先 | 商品／實物正反面，需讀到四針順序與控制晶片／PCB版號 |
-| 19 | 8位WS2812B可定址RGB LED | 2 | [訂單圖3](orders/shopee-aroundtw-03-esp32-sensors-lighting-power.png) | 補拍優先 | 目前縮圖過暗；拍正反面、輸入／輸出方向箭頭與5V／GND／DIN／DOUT |
+| 19 | WS2812B-8可定址RGB燈條 | 訂單2 | [正面](actual/ws2812b-8-led-bar-actual-front-2026-09-06.jpg)；[背面](actual/ws2812b-8-led-bar-actual-back-2026-09-06.jpg) | 標示已拍；功能未驗 | 不是單顆四針HW-479；不列共同採購，選用時另確認供電及訊號相容性 |
 | 20 | MG90S舵機、全金屬齒輪 | 4 | [訂單圖2](orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png) | 補拍建議 | 已選全金屬齒輪MG90；實物標籤、三線插頭、線色與附件 |
 | 21 | A830L萬用電表、含電池 | 1 | [訂單圖1](orders/shopee-aroundtw-01-prototyping-motors-power.png) | 補拍建議 | 商品／實物正面，旋鈕檔位與三個表筆插孔須可讀；另拍表筆 |
-| 22 | TT雙軸馬達、減速比1:120 | 4 | [訂單圖1](orders/shopee-aroundtw-01-prototyping-motors-power.png) | 補拍建議 | 已選1:120；拍兩側軸、接線端子、標籤與實物尺寸參考 |
+| 22 | TT減速直流馬達；訂單稱1:120 | 訂單4 | [側面](actual/tt-geared-motor-actual-side-2026-09-06.jpg) | 外形已拍；規格未驗 | 不列共同採購；選用時再核對減速比、電壓與驅動需求 |
 | 23 | TT馬達橡膠輪胎 | 4 | [訂單圖1](orders/shopee-aroundtw-01-prototyping-motors-power.png) | 低優先 | 實物正面、側面與中心孔，確認能套上TT馬達軸 |
 | 24 | 15 mm金屬萬向球 | 2 | [訂單圖2](orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png) | 補拍建議 | 現有縮圖靠近截圖底部；拍完整底板、球體與安裝孔 |
 | 25 | OLED 0.96吋螢幕支架、不含螢幕 | 2 | [訂單圖1](orders/shopee-aroundtw-01-prototyping-motors-power.png) | 補拍建議 | 商品所有木板片與組裝完成圖，避免與OLED模組混淆 |
@@ -88,8 +88,9 @@ C:\Users\User\Pictures\IoT_Shopee_Reshoots
 為了接續Week 2至Week 5，依序處理編號`06`至`13`。06已找到10顆散裝實物，
 補拍底面並完成斷電通斷量測後才能決定麵包板插法；07已購但在學校，到校後再拍；
 08已有元件面與焊接面，下一張只需補排針絲印近照。
-09、10與12已有可用實物照片，其中09仍需腳位近照，10與12等待實機驗證。11的
-`HW-508`照片失焦，13未拍到開關與盒內，這兩項是目前最優先補拍。
+2026-09-06已補10的清楚元件面、11的正反面、12的拆袋照及13的開關與線端。
+這四項不再重複要求相同照片；先處理實物電路、電壓及安全連接確認，尤其HW-508的
+中間腳與驅動尚不明。新增照片不等於上電驗證，詳見[本次辨識紀錄](../../lab_notes/2026-09-06-procurement-and-hardware-identification.md)。
 
 ![第一批補拍零件外形示意圖：編號06至13](guides/week02-05-hardware-reshoot-reference.png)
 

@@ -65,7 +65,8 @@ Week 4加入DHT11雙感測與蜂鳴器事件；Week 5處理RGB、OLED與計時�
 Week 6驗證SG90外部供電與0～6紙指針；Week 7整合紅綠燈遮光挑戰。
 
 遊戲規則與逐週教學對照集中在[詳細設計](../course_materials/traffic_light_challenge_design.md)。
-OLED增加為共同顯示需求，不另加七段顯示器；確切型號與供電待核准後公布。
+OLED為共同顯示需求，不另加七段顯示器；可選購規格已公布於
+[Week 1材料清單](../../Week_01_Course_Orientation/week1_main.md#purchase-table)，實物上電測試另行確認。
 DHT11有Week 4共同用途，不強制加入遊戲。Week 11以前不接網路。
 所有新接線、驅動與供電仍須指定實機驗證，不把紙上規劃當成可直接上電。
 

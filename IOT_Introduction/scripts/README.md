@@ -130,7 +130,9 @@ corrections, phase handoffs, visual checks and remaining first-time learner tria
 
 `verify_intro_navigation.cjs` checks the explicit section links in the single Week 1 main
 and Week 2/3 notebooks, unique anchors, the Week 1 outline and Chinese purchase list, and selected
-first-use teaching order. It complements the two notebook verifiers, not a replacement
+first-use teaching order. Procurement checks cover 12 part categories, first-use ordering,
+OLED specifications, NiMH/connector policy, the historical subtotal and three meter cost splits.
+It complements the two notebook verifiers, not a replacement
 for a novice reading trial.
 
 ```powershell
@@ -140,8 +142,9 @@ node IOT_Introduction/scripts/verify_intro_navigation.cjs --render
 
 Default mode requires only Node.js. `--render` also requires `marked`, `playwright`, and
 Microsoft Edge; set `NODE_PATH` when using bundled dependencies. It creates ignored
-Week 1 HTML/screenshots in `_outputs/`, clicks local section links, loads the six local
-purchase images plus the game overview (seven images in the single main file), and checks 1200/420px widths. Use the Week 2/3 `--render` commands above
+Week 1 HTML/screenshots in `_outputs/`, clicks local section links, loads all local images,
+expands the photo details, and checks 1200/420px widths. Screenshots also cover the OLED row
+and the actual RGB/buzzer photos. Use the Week 2/3 `--render` commands above
 for those notebooks. These local previews do not test the live GitHub renderer.
 
 ## Week 4 source, diagrams and checks

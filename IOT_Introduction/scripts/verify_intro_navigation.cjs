@@ -48,6 +48,17 @@ assert.equal(Number(statedSubtotal[1]),subtotal,'Displayed subtotal equals all r
 assert.equal(partAmount(parts.find(row=>row[0].includes('杜邦線'))),25*3);
 assert.equal(partAmount(parts.find(row=>row[0].includes('四腳輕觸按鈕'))),2*2);
 const resistor=parts.find(row=>row[0].includes('指定阻值電阻'));
+const firstWeeks=parts.map(row=>{
+ assert.match(row[4],/^Week [2-7]/,'First-use week starts each task description');
+ return Number(row[4].match(/^Week ([2-7])/)[1]);
+});
+assert.deepEqual(firstWeeks,[...firstWeeks].sort((a,b)=>a-b),'Required parts sorted by first use');
+const oledSpec=parts.find(row=>row[0].includes('OLED'))[1];
+for(const term of ['0.96','SSD1306','128×64','四針I²C','3.3 V供電','3.3 V邏輯','排針已焊'])assert(oledSpec.includes(term),`OLED purchasing spec: ${term}`);
+assert(parts.find(row=>row[0].includes('三色發光模組'))[1].includes('不是WS2812B'));
+assert(docs[0].includes('每顆標稱1.2 V')&&docs[0].includes('NiMH')&&docs[0].includes('標稱4.8 V'));
+assert(docs[0].includes('不限定購買「2P端子轉12P排針板」'));
+for(const stale of ['OLED須於核准規格公布後','OLED以外','教師這筆訂單已購5個','尚待教師公布的電池盒安全轉接端子'])assert(!docs[0].includes(stale),`No stale purchasing rule: ${stale}`);
 for(const value of ['220 Ω','330 Ω','1 kΩ','10 kΩ'])assert(resistor[1].includes(value));
 assert(resistor[3].includes('整包估算'),'Resistor package price is not a four-piece quotation');
 const groupSection=docs[0].split('### 每組必備的量測工具\n')[1]?.split('### 學生也須自備')[0];
@@ -100,9 +111,14 @@ async function render(){
    }
    for(const width of [1200,420]){
     await page.setViewportSize({width,height:960});
+    await page.locator('details').evaluateAll(elements=>elements.forEach(e=>e.open=true));
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     for(const focus of ['first-iot-example','course-schedule','purchase-table','purchase-budget','group-measurement-tool','week-2-preclass-setup']){
      await page.locator('#'+focus).evaluate(e=>e.scrollIntoView());
+     await page.screenshot({path:path.join(out,`week1_${focus}_${width}.png`)});
+    }
+    for(const [focus,selector]of [['oled-row','tr:has-text("有機發光顯示器")'],['rgb-photo','img[alt^="HW-479"]'],['buzzer-photo','img[alt^="HW-508"]']]){
+     await page.locator(selector).first().evaluate(e=>e.scrollIntoView({block:'start'}));
      await page.screenshot({path:path.join(out,`week1_${focus}_${width}.png`)});
     }
    }
