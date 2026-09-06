@@ -281,11 +281,11 @@ def main() -> int:
             errors.append(f"{directory.name}: Week 18 must remain blank")
         if number == 1:
             # Single entry: existing English outline plus Chinese procurement.
-            for anchor in ("course-schedule", "assessment", "purchase-table",
+            for anchor in ("course-schedule", "assessment", "purchase-table", "purchase-budget",
                            "group-measurement-tool", "week-2-preclass-setup"):
                 if anchor not in document_anchors(main_path):
                     errors.append(f"{main_path.relative_to(ROOT)}: missing Week 1 #{anchor}")
-            if "每位學生必買的電子基本包" not in main_content:
+            if "### 每人必備零件" not in main_content:
                 errors.append(f"{main_path.relative_to(ROOT)}: missing Chinese purchase list")
 
         if number in OVERVIEW_WEEKS:

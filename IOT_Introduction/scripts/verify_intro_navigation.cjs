@@ -7,7 +7,7 @@ const files=[
  'IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb',
  'IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb'
 ];
-function read(file){const raw=fs.readFileSync(file,'utf8');return file.endsWith('.ipynb')?JSON.parse(raw).cells.map(c=>c.source.join('')).join('\n'):raw;}
+function read(file){const raw=fs.readFileSync(file,'utf8').replace(/\r\n/g,'\n');return file.endsWith('.ipynb')?JSON.parse(raw).cells.map(c=>c.source.join('')).join('\n'):raw;}
 function anchors(text){return [...text.matchAll(/<a id="([^"]+)"><\/a>/g)].map(m=>m[1]);}
 const docs=files.map(f=>read(path.join(root,f)));
 let links=0;
@@ -17,13 +17,50 @@ for(const [i,text]of docs.entries()){
   const [target,fragment]=m[1].split('#');
   if(!fragment||/^[a-z]+:/i.test(target))continue;
   // This verifier checks the explicit anchors introduced for the introductory reading paths.
-  if(!/^(?:w[23]-|first-iot-example|course-schedule|assessment$|final-project|materials$|safety$|records-and-ai|idea-card|week1-evidence|before-week2|group-measurement-tool|delivery-check|architecture-extension|assessment-details)/.test(fragment))continue;
+  if(!/^(?:w[23]-|first-iot-example|course-schedule|assessment$|final-project|materials$|purchase-(?:table|budget)$|safety$|records-and-ai|idea-card|week1-evidence|before-week2|group-measurement-tool|delivery-check|architecture-extension|assessment-details)/.test(fragment))continue;
   const dest=target?path.resolve(path.dirname(path.join(root,files[i])),target):path.join(root,files[i]);
   assert(fs.existsSync(dest),dest);assert(anchors(read(dest)).includes(fragment),`${files[i]}: ${m[1]}`);links++;
  }
 }
-for(const id of ['purchase-table','course-schedule','assessment','group-measurement-tool','week-2-preclass-setup'])assert(anchors(docs[0]).includes(id));
-assert(docs[0].includes('每位學生必買的電子基本包'),'Week 1 contains the Chinese purchase list');
+for(const id of ['purchase-table','purchase-budget','course-schedule','assessment','group-measurement-tool','week-2-preclass-setup'])assert(anchors(docs[0]).includes(id));
+assert(docs[0].includes('## 6. 材料準備'),'Week 1 uses the unified materials heading');
+assert(docs[0].includes('### 每人必備零件'),'Week 1 contains the Chinese required-parts list');
+// Amounts in this table already include each student's quantities; do not multiply again.
+const partsSection=docs[0].split('### 每人必備零件\n')[1]?.split('<a id="purchase-budget">')[0];
+assert(partsSection,'Required-parts section exists');
+const parts=partsSection.split('\n').filter(line=>/^\|.*NT\$/.test(line))
+ .map(line=>line.split('|').slice(1,-1).map(cell=>cell.trim()));
+assert.equal(parts.length,12,'Twelve required part categories, not optional project purchases');
+for(const row of parts){
+ assert.equal(row.length,5,'Required-parts table column count');
+ assert.match(row[4],/Week [2-7](?!\d)/,`${row[0]} needs a Week 2–7 common task`);
+ assert.match(row[3],/^NT\$\d+/,'Known historical budget amount');
+}
+for(const name of ['ESP32-S3','麵包板','杜邦線','指定阻值電阻','四腳輕觸按鈕','光敏電阻模組',
+ '溫濕度模組','三色發光模組','蜂鳴器模組','小型舵機','電池盒','OLED']){
+ assert.equal(parts.filter(row=>row[0].includes(name)).length,1,`${name} occurs once`);
+}
+const partAmount=row=>Number(row[3].match(/^NT\$(\d+)/)[1]);
+const subtotal=parts.reduce((sum,row)=>sum+partAmount(row),0);
+const statedSubtotal=docs[0].match(/上表每人零件參考小計：NT\$(\d+)/);
+assert(statedSubtotal,'Explicit required-parts subtotal');
+assert.equal(Number(statedSubtotal[1]),subtotal,'Displayed subtotal equals all row amounts, including OLED');
+assert.equal(partAmount(parts.find(row=>row[0].includes('杜邦線'))),25*3);
+assert.equal(partAmount(parts.find(row=>row[0].includes('四腳輕觸按鈕'))),2*2);
+const resistor=parts.find(row=>row[0].includes('指定阻值電阻'));
+for(const value of ['220 Ω','330 Ω','1 kΩ','10 kΩ'])assert(resistor[1].includes(value));
+assert(resistor[3].includes('整包估算'),'Resistor package price is not a four-piece quotation');
+const groupSection=docs[0].split('### 每組必備的量測工具\n')[1]?.split('### 學生也須自備')[0];
+assert(groupSection,'Group-tool section exists');
+const meterPrice=Number(groupSection.match(/A830L既有成交參考NT\$(\d+)/)?.[1]);
+assert(Number.isFinite(meterPrice));
+const budgets=[...groupSection.matchAll(/^\| ([123])人 \| NT\$(\d+(?:\.\d+)?) \| NT\$(\d+(?:\.\d+)?) \|$/gm)];
+assert.equal(budgets.length,3,'Budget examples cover 1–3-person groups');
+for(const [,people,share,total]of budgets){
+ assert.equal(Number(share),meterPrice/Number(people),'Meter cost split');
+ assert.equal(Number(total),subtotal+Number(share),'Parts plus meter, not an all-inclusive cost');
+}
+console.log(`PASS procurement: ${parts.length} Week 2–7 required categories, NT$${subtotal} historical parts subtotal, three group-budget calculations.`);
 for(const heading of ['### 教學目標','### 教學內容'])assert(docs[0].includes(heading));
 assert(docs[0].indexOf('### A First IoT Example')<docs[0].indexOf('## 5. Minimum Final Project'));
 assert(docs[0].includes('not a tested'));
@@ -64,7 +101,7 @@ async function render(){
    for(const width of [1200,420]){
     await page.setViewportSize({width,height:960});
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-    for(const focus of ['first-iot-example','course-schedule','purchase-table','group-measurement-tool','week-2-preclass-setup']){
+    for(const focus of ['first-iot-example','course-schedule','purchase-table','purchase-budget','group-measurement-tool','week-2-preclass-setup']){
      await page.locator('#'+focus).evaluate(e=>e.scrollIntoView());
      await page.screenshot({path:path.join(out,`week1_${focus}_${width}.png`)});
     }
