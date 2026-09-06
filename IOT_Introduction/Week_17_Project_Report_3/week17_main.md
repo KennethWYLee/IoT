@@ -1,0 +1,72 @@
+# Week 17：第三次專題報告—期末展示與個人問答
+
+日期：2026-12-30
+
+## Unit Overview
+
+### 教學目標
+
+完成期末專題報告後，學生應能：
+
+1. 展示安全且可重複的實體互動（physical interaction），同時提供行動介面（mobile interface）、後端（backend）、資料庫（database）與通訊（communication）證據。
+2. 追蹤一筆事件（event）與一筆控制命令（control command）經過完整系統的過程，包含最終結果（terminal result）或逾時（timeout）。
+3. 重現一項自動行為（automatic behavior）、故障反應（fault response）與復原（recovery），且不隱藏已知限制。
+4. 根據提交的版本及文件，解釋個人實作決策（implementation decision）、測試證據（test evidence）、人工智慧輔助工作（AI-assisted work）與尚未解決的風險。
+
+### 教學內容
+
+期末專題報告將實體作品（physical artifact）、裝置韌體（device firmware）、網路通訊（network communication）、後端（backend）、持久化資料（persistent data）、結構化紀錄（structured log）與行動操作流程（mobile workflow），整合為可驗證的展示。學生會呈現正常操作與異常復原（recovery），以實體行為和紀錄支持介面呈現的結果，並個別回答架構（architecture）、實作（implementation）、安全、測試與重建（reconstruction）相關問題。
+
+本次報告占學期成績25%。
+所有組別於本週完成一次期末展示與每位組員的個人問答，只計一次第三次報告成績。本週不安排新進度、功能開發或額外實作。教師須依實際組數公布順序與時段，不以縮短為一週為由取消個人問答。
+
+所有組別使用本週第一組展示前、教師公布的相同截止時間已提交的commit或tag。截止後
+只允許修復啟動、網路或設備故障，不得增加評分功能。
+
+## 現場必備
+
+- 安全可運作的實體作品與手機前台。
+- 可重新啟動的 Backend、Database、WebSocket 與 HTTP 或 MQTT。
+- 接線圖、資料流、BOM、資料格式、原始碼及重建步驟。
+- 測試、structured log、已知限制與 AI 使用／驗證紀錄。
+
+## 展示順序
+
+1. 說明使用者、問題與價值。
+2. 完成一次實體互動及一次手機操作。
+3. 顯示即時、歷史、command result 及 log。
+4. 展示自動反應與異常安全復原。
+5. 每位組員回答個人及跨層資料流問題。
+
+## 上台前檢核
+
+- [ ] 電源、線材、帳號、網路與離線備案已確認。
+- [ ] Week 13～15各階段commit可辨識，並指定共同截止前的已驗證展示版本。
+- [ ] 所有組員能解釋完整資料流。
+
+參考：[期末 Rubric](../docs/course_materials/rubrics_and_checklists.md)
+
+<a id="practice-and-reference"></a>
+
+## 準備、紀錄表與延伸參考
+
+<a id="support-上台前現場表"></a>
+
+### 上台前現場表
+
+- [ ] 使用Week 17第一組展示前共同截止時間已提交的展示commit或tag。
+- [ ] 電源、電池、USB線、轉接線、作品固定與絕緣已檢查。
+- [ ] Week 13～15進度commit可辨識，Backend、Database與前台可依步驟重啟。
+- [ ] 手機已登入、充電且關閉非必要通知。
+- [ ] 網路正常版與離線備案都已彩排。
+- [ ] 接線圖、資料流、BOM、API／topic、測試、log與已知限制可隨時開啟。
+- [ ] 每位組員都能說明資料從實體輸入到手機回饋的完整路徑。
+
+<a id="support-展示後保存"></a>
+
+### 展示後保存
+
+保留展示版本commit、現場測試log、展示照片或影片、最後已知限制及後續改進項目。
+共同截止後若因啟動、網路或設備故障修改，另記修改內容與重測結果。
+
+參考：[期末Rubric](../docs/course_materials/rubrics_and_checklists.md)

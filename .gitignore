@@ -7,8 +7,7 @@ _outputs/
 [Cc][Ll][Aa][Uu][Dd][Ee].[Mm][Dd]
 [Pp][Rr][Oo][Jj][Ee][Cc][Tt].[Mm][Dd]
 
-# Personal project, not part of the course repository
-/ESP_Drone/
+# Drone/ and IOT_Introduction/ are versioned together.
 
 # Legacy temporary output names; new outputs belong under _outputs/
 /.codex_tmp*/
