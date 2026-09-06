@@ -132,7 +132,7 @@ const figures=[['week2-program-journey',journey],['week2-memory-budget',memory],
 async function main(){
  const nb=JSON.parse(fs.readFileSync(target,'utf8'));
  const photoKey='week2-a830l-multimeter.jpg';
- const photo=fs.readFileSync(path.join(root,'IOT_Introduction/docs/images/hardware/actual/a830l-multimeter-actual-front.jpg'));
+ const photo=fs.readFileSync(path.join(root,'IOT_Introduction/docs/images/hardware/actual/A830L_1.jpg'));
  const photoCells=nb.cells.filter(c=>c.source.join('').includes(`attachment:${photoKey}`));
  assert.equal(photoCells.length,1);const photoExpected={'image/jpeg':photo.toString('base64')};
  if(check)assert.deepEqual(photoCells[0].attachments?.[photoKey],photoExpected);

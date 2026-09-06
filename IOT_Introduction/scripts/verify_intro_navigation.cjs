@@ -25,6 +25,19 @@ for(const [i,text]of docs.entries()){
 for(const id of ['purchase-table','purchase-budget','course-schedule','assessment','group-measurement-tool','week-2-preclass-setup'])assert(anchors(docs[0]).includes(id));
 assert(docs[0].includes('## 6. 材料準備'),'Week 1 uses the unified materials heading');
 assert(docs[0].includes('### 每人必備零件'),'Week 1 contains the Chinese required-parts list');
+for(const title of ['第一週不要購買','到貨檢查','個人材料準備確認',
+ 'Hardware and Data Safety Responsibilities','Git, Documentation, and AI Responsibilities',
+ '作品構想卡','課程理解與完成證據']){
+ assert(!docs[0].includes(title),`Removed Week 1 section must not return: ${title}`);
+}
+assert(!docs[0].includes('商品外觀參考照片（展開查看；數量以採購表為準）'));
+for(const id of ['delivery-check','personal-purchase-check','safety','records-and-ai',
+ 'idea-card','project-idea-card','week1-evidence','week-1-learning-evidence']){
+ assert(!anchors(docs[0]).includes(id),`Removed anchor: ${id}`);
+ assert(!docs[0].includes(`](#${id})`),`No dangling link to removed section: ${id}`);
+}
+assert.deepEqual([...docs[0].matchAll(/^## (\d+)\. /gm)].map(m=>Number(m[1])),[1,2,3,4,5,6,7]);
+assert(docs[0].includes('## 7. Week 2課前準備（Week 1課後完成）'));
 // Amounts in this table already include each student's quantities; do not multiply again.
 const partsSection=docs[0].split('### 每人必備零件\n')[1]?.split('<a id="purchase-budget">')[0];
 assert(partsSection,'Required-parts section exists');
@@ -117,7 +130,7 @@ async function render(){
      await page.locator('#'+focus).evaluate(e=>e.scrollIntoView());
      await page.screenshot({path:path.join(out,`week1_${focus}_${width}.png`)});
     }
-    for(const [focus,selector]of [['oled-row','tr:has-text("有機發光顯示器")'],['rgb-photo','img[alt^="HW-479"]'],['buzzer-photo','img[alt^="HW-508"]']]){
+    for(const [focus,selector]of [['oled-row','tr:has-text("有機發光顯示器")']]){
      await page.locator(selector).first().evaluate(e=>e.scrollIntoView({block:'start'}));
      await page.screenshot({path:path.join(out,`week1_${focus}_${width}.png`)});
     }

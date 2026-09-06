@@ -45,11 +45,15 @@ OLED的控制器、解析度、位址、供電及訊號電壓仍須確認。沒�
 每次改線都先拔USB。只量低壓電路，不使用電流檔或10A插孔；Ω與通斷只在外部斷電後量。
 
 <!-- cell -->
+
+<!-- hardware-gallery:5 -->
+
+<!-- cell -->
 ## 2. RGB是三個色彩通道，不是三條電源
 
 ### 2.1 先看實物
 
-![HW-479 RGB模組實物元件面；模糊文字不可據此補造腳序](../images/hardware/actual/hw479-rgb-led-module-actual-component-side.jpg)
+![HW-479 RGB模組實物元件面；模糊文字不可據此補造腳序](../images/hardware/actual/RGB_HW479_3.jpg)
 
 透明外殼中有紅（red）、綠（green）、藍（blue）三個發光通道。
 R、G、B各自控制一種顏色，另一個共同接點和三個通道構成回路。

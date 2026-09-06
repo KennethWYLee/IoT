@@ -24,6 +24,7 @@ for(const c of nb.cells){
  assert.equal(c.cell_type,'markdown');assert.equal((s.match(/^```/gm)||[]).length%2,0,'code fence');
  const used=[];
  for(const m of s.matchAll(/!\[[^\]]+\]\(([^)]+)\)/g)){
+  if(!m[1].startsWith('attachment:')){require('./hardware_galleries.cjs').verifyPhotoReference(s,m[1],file);images++;continue;}
   assert(m[1].startsWith('attachment:'));const key=m[1].slice(11);used.push(key);
   const payload=c.attachments?.[key];assert(payload);const [mime,data]=Object.entries(payload)[0];
   assert(['image/png','image/jpeg'].includes(mime));const originals=files.filter(f=>path.basename(f)===key);
@@ -46,7 +47,7 @@ async function render(){
  const {marked}=await import(pathToFileURL(require.resolve('marked')).href),{chromium}=require('playwright');
  const out=path.join(root,`_outputs/week${week}_review`);fs.mkdirSync(out,{recursive:true});
  const esc=s=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
- let body='';for(const c of nb.cells){let s=c.source.join('');for(const [k,p]of Object.entries(c.attachments||{})){const [mime,data]=Object.entries(p)[0];s=s.replaceAll('attachment:'+k,`data:${mime};base64,${data}`);}body+=c.cell_type==='code'?'<pre><code>'+esc(s)+'</code></pre>':marked.parse(s);}
+ let body='';for(const c of nb.cells){let s=require('./hardware_galleries.cjs').inlineLocalPhotos(c.source.join(''),file);for(const [k,p]of Object.entries(c.attachments||{})){const [mime,data]=Object.entries(p)[0];s=s.replaceAll('attachment:'+k,`data:${mime};base64,${data}`);}body+=c.cell_type==='code'?'<pre><code>'+esc(s)+'</code></pre>':marked.parse(s);}
  const html='<!doctype html><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><style>body{font:18px/1.7 "Microsoft JhengHei",sans-serif;color:#183047;margin:24px}main{max-width:1100px;margin:auto}img{max-width:100%;height:auto;display:block;margin:24px auto}table{display:block;overflow:auto;border-collapse:collapse}td,th{border:1px solid #ccd7e1;padding:10px;min-width:85px}pre{overflow:auto;padding:18px;background:#f3f7fb;font:16px/1.55 Consolas,monospace}p,li,code{overflow-wrap:anywhere}h2{margin-top:52px}h3{margin-top:36px}</style><main>'+body+'</main>';
  fs.writeFileSync(path.join(out,'preview.html'),html);
  const browser=await chromium.launch({headless:true,channel:'msedge'});

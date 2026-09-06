@@ -41,6 +41,10 @@ KY相對校正承接Week 3，不重做完整基準流程。不接舵機、外部
 實驗仍在自己的板卡與IDE執行。
 
 <!-- cell -->
+
+<!-- hardware-gallery:4 -->
+
+<!-- cell -->
 <a id="w4-start"></a>
 
 ## 二、課前條件與安全邊界
@@ -164,7 +168,7 @@ Week 3的1 kΩ／10 kΩ分壓已處理電壓與電流，本週不再搭一遍。
 
 ### 4.1 先指認自己的電表
 
-![A830L原始實拍，黑表筆在COM、紅表筆在VΩmA，旋鈕當時為OFF](../images/hardware/actual/a830l-multimeter-actual-front.jpg)
+![A830L原始實拍，黑表筆在COM、紅表筆在VΩmA，旋鈕當時為OFF](../images/hardware/actual/A830L_1.jpg)
 
 這是已有的A830L實拍，不是現在替你確認旋鈕位置。黑色COM插孔是電表參考端，
 與開發板背面的COM USB接頭不是同一種功能；紅表筆用VΩmA或自己型號的VΩ孔，
@@ -354,14 +358,14 @@ DHT11失敗不能被KY的正常數字掩蓋；KY事件也不必假裝DHT11每50 
 
 ### 8.1 藍色格柵、PCB與三根排針
 
-![實體照片：本課DHT11模組正面，既有接頭遮住部分腳位標示](../images/hardware/actual/dht11-3pin-module-actual-component-side-with-cable.jpg)
+![實體照片：本課DHT11模組正面，既有接頭遮住部分腳位標示](../images/hardware/actual/DHT11_1.jpg)
 
 這是本課已取得的**實體照片**，不是接線示意圖。藍色有孔外殼是感測元件；
 下面的PCB（印刷電路板）連接元件、排針及板上其他零件。三根金屬排針是與外部連線的接點。
 「DHT11」是感測器名稱，「YS-31」是採購清單的模組名稱；相似外觀不保證PCB、腳序完全相同。
 LED的存在也不保證它能顯示資料是否正確。
 
-![實體照片：同一DHT11模組背面與接線，不能由線色認定腳位功能](../images/hardware/actual/dht11-3pin-module-actual-solder-side-with-cable.jpg)
+![實體照片：同一DHT11模組背面與接線，不能由線色認定腳位功能](../images/hardware/actual/DHT11_2.jpg)
 
 照片上的接頭遮住部分標示。**不要依本照片推定左、中、右就是VCC、DATA、GND**，
 也不要把既有灰／紫／藍線當成已確認的功能。先在斷電狀態取下接頭、查看兩面絲印，
@@ -717,7 +721,7 @@ KY-018適合觀察遮光變化，DHT11提供溫度與相對濕度。它們量不
 下圖是教師實拍，PCB可辨識為HW-508；購買頁名為KY-012。
 照片偏模糊，不能用圖片補猜腳位，也未證明它與任何品牌KY-012電路完全相同。
 
-![實拍HW-508蜂鳴器，僅作商品辨認，腳序、電壓與控制電流仍需確切profile](../images/hardware/actual/hw508-buzzer-module-actual-component-side.jpg)
+![實拍HW-508蜂鳴器，僅作商品辨認，腳序、電壓與控制電流仍需確切profile](../images/hardware/actual/Buzzer_HW508_3.jpg)
 
 蜂鳴器（buzzer）把電能轉為聲音。有源型（active buzzer）內部有振盪電路，
 在符合規格的驅動條件下發聲；無源型（passive buzzer）通常需要外部交替訊號。

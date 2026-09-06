@@ -25,6 +25,7 @@ let images=0;
 for(const [i,c] of nb.cells.entries()){
   const refs=[...allSources[i].matchAll(/!\[[^\]]*\]\(([^)]+)\)/g)].map(m=>m[1]);
   for(const ref of refs){
+    if(!ref.startsWith('attachment:')){require('./hardware_galleries.cjs').verifyPhotoReference(allSources[i],ref,notebookPath);images++;continue;}
     assert.ok(ref.startsWith('attachment:'),`Image should work offline: ${ref}`);
     const name=ref.slice('attachment:'.length), payload=c.attachments?.[name];
     assert(payload,`Missing ${name}`);
@@ -35,10 +36,10 @@ for(const [i,c] of nb.cells.entries()){
   }
   for(const key of Object.keys(c.attachments||{}))assert.ok(refs.includes(`attachment:${key}`),`Unused image ${key}`);
 }
-assert.equal(images,15);
+assert.equal(images,15+require('./hardware_galleries.cjs').imageCount(3));
 for(const phrase of ['w3-classification','12A.1','12A.9','between_baselines','calibration_missing_or_overlap','各5筆'])assert(all.includes(phrase),phrase);
 assert(!all.includes('本週不建立threshold'));
-console.log('PASS fifteen embedded images and classifier teaching/limitation checks.');
+console.log(`PASS ${images} image references (attachments plus shared gallery) and classifier teaching/limitation checks.`);
 assert(sources[4].indexOf('先分清三個問題')<sources[4].indexOf('I＝V÷R'));
 assert(sources[4].indexOf('1 kΩ＝1000 Ω')<sources[4].indexOf('attachment:week3-current-loop.png'));
 assert(sources[4].includes('同一顆電阻'));
@@ -55,7 +56,7 @@ assert(sources[14].startsWith('### Verify的21%與6%'));
 assert(sources[11].includes('## 十、KY-018分壓'));
 assert.equal(3/1000*1000,3);assert.equal(1.5/1000*1000,1.5);
 assert.equal(0.6*1000,600);
-assert(Buffer.from(nb.cells[5].attachments['week3-a830l-multimeter.jpg']['image/jpeg'],'base64').equals(fs.readFileSync(path.join(root,'IOT_Introduction/docs/images/hardware/actual/a830l-multimeter-actual-front.jpg'))));
+assert(Buffer.from(nb.cells[5].attachments['week3-a830l-multimeter.jpg']['image/jpeg'],'base64').equals(fs.readFileSync(path.join(root,'IOT_Introduction/docs/images/hardware/actual/A830L_1.jpg'))));
 console.log('PASS novice reading order, unit conversion, phase transition and unmodified meter photo.');
 const practice=sources[15].slice(sources[15].indexOf('### 13.7'));
 const rows=practice.split('\n').filter(l=>l.startsWith('| ')).map(l=>l.split('|').slice(1,-1).map(v=>v.trim()));
@@ -114,7 +115,7 @@ async function render(){
   const esc=s=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
   let sections='';
   nb.cells.forEach((c,i)=>{
-    let source=allSources[i];
+    let source=require('./hardware_galleries.cjs').inlineLocalPhotos(allSources[i],notebookPath);
     for(const [name,payload] of Object.entries(c.attachments||{})){
       const [mime,data]=Object.entries(payload)[0];source=source.replaceAll(`attachment:${name}`,`data:${mime};base64,${data}`);
     }
@@ -127,7 +128,7 @@ async function render(){
     const page=await browser.newPage({viewport:{width:1200,height:920}});
     await page.setContent(html);
     await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));
-    assert.equal(await page.locator('img').count(),15);
+    assert.equal(await page.locator('img').count(),images);
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     for(const i of [4,12,14]){await page.locator(`#cell-${i}`).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,`week3_review_cell${i}.png`)});}
     for(const [heading,name] of [
@@ -141,7 +142,7 @@ async function render(){
     }
     await page.setViewportSize({width:420,height:900});
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-    console.log('PASS Edge preview: all 15 images decoded; 1200px and 420px no page overflow (wide tables/code scroll).');
+    console.log(`PASS Edge preview: all ${images} images decoded; 1200px and 420px no page overflow (wide tables/code scroll).`);
     // Inspect actual SVG text boxes, not only successful rasterization.
     for(const name of fs.readdirSync(path.join(root,'IOT_Introduction/docs/images/wiring')).filter(n=>/^week3-.*\.svg$/.test(n))){
       const source=fs.readFileSync(path.join(root,'IOT_Introduction/docs/images/wiring',name),'utf8');

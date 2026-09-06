@@ -16,7 +16,7 @@
 - `IOT_Introduction/scripts/build_week2_figures.cjs`重製原有電表讀值圖；`build_week3_figures.cjs`新增
   單電阻／並聯電壓表圖與LCD量程判讀圖，調整照片附件隨正文位置移動。
 - `IOT_Introduction/docs/images/wiring/`內對應SVG／PNG，以及notebook內同內容PNG附件。
-- `IOT_Introduction/docs/images/hardware/actual/a830l-multimeter-actual-front.jpg`從原有Week 3附件
+- `IOT_Introduction/docs/images/hardware/actual/A830L_1.jpg`從原有Week 3附件
   無損抽出，用於兩週；與原附件逐位元組相同，沒有生成、去背或補繪實物細節。
 - 兩個notebook驗證腳本與`IOT_Introduction/scripts/README.md`同步更新。
 - `2026-08-29-a830l-button-continuity-validation.md`訂正編輯時擅加的歷史讀值單位，

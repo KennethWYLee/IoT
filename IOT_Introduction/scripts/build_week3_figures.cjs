@@ -212,7 +212,7 @@ async function main(){
     else{for(const c of sourceCells)if(c!==destCells[0])delete c.attachments[key];destCells[0].attachments??={};destCells[0].attachments[key]=payload;}
     if(key==='week3-a830l-multimeter.jpg'){
       const original=Buffer.from(payload['image/jpeg'],'base64');
-      const photoPath=path.join(root,'IOT_Introduction/docs/images/hardware/actual/a830l-multimeter-actual-front.jpg');
+      const photoPath=path.join(root,'IOT_Introduction/docs/images/hardware/actual/A830L_1.jpg');
       if(check||fs.existsSync(photoPath))assert(fs.readFileSync(photoPath).equals(original),'Original meter photo changed');
       else fs.writeFileSync(photoPath,original); // Lossless extraction of the existing attachment.
     }
@@ -231,7 +231,7 @@ async function main(){
     console.log(`${check?'PASS':'BUILT'} ${key}`);
   }
   // Embed the original, unmodified label photo so offline/GitHub readers do not depend on a relative image URL.
-  const photoKey='week3-ky018-pin-labels.jpg', photoRelative='../docs/images/hardware/actual/ky018-photoresistor-module-actual-pin-labels.jpg';
+  const photoKey='week3-ky018-pin-labels.jpg', photoRelative='../docs/images/hardware/actual/KY018_1.jpg';
   const photo=fs.readFileSync(path.resolve(path.dirname(notebook),photoRelative));
   const photoCell=nb.cells.find(c=>c.source.join('').includes(`attachment:${photoKey}`));
   const photoExpected={'image/jpeg':photo.toString('base64')};

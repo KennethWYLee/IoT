@@ -8,6 +8,10 @@ Week 2～7為完整備課版（含參考解答）。Week 18只保留空白檔案
 
 Week 1只介紹課程與[正式材料清單](Week_01_Course_Orientation/week1_main.md#purchase-table)，不操作硬體。
 
+Week 1 的[零件照片](Week_01_Course_Orientation/week1_main.md#equipment-photos)依品項展示外觀與不同角度。
+Week 2～7、11～12、14～15的主教材開頭亦有當週器材圖集。離線閱讀請下載完整 repository，
+保留共用圖片資料夾；不必另外開一份器材講義。
+
 ## 18 週導覽
 
 | 週次 | 日期 | 主題 | 主教材（唯一入口） |

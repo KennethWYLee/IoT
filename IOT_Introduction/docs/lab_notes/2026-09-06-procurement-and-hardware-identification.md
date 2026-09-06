@@ -29,18 +29,18 @@
 
 | 使用者來源檔 | Repository原圖 | 可支持的辨識／不能支持的結論 |
 |---|---|---|
-| 175591_0.jpg | [HW-479元件面](../images/hardware/actual/hw479-rgb-led-module-actual-component-side-2026-09-06.jpg) | 單顆LED、HW-479、B／G／R／−與三顆電阻可見；不能證明各色阻值、共同端電氣行為及GPIO電流 |
-| 175583_0.jpg | [HW-508元件面](../images/hardware/actual/hw508-buzzer-module-actual-component-side-2026-09-06.jpg) | HW-508、三針及兩側−／+；上方貼紙不是供電規格 |
-| 175582_0.jpg | [HW-508焊接面](../images/hardware/actual/hw508-buzzer-module-actual-solder-side-2026-09-06.jpg) | 保存焊接面；不能據此認定中間腳是訊號、未接腳或有內建驅動 |
-| 175577.jpg | [SG90拆袋與附件](../images/hardware/actual/sg90-servo-actual-label-connector-accessories-2026-09-06.jpg) | 標籤SG90、三線母接頭、白色舵盤與螺絲；不證明真偽、實際行程或安全工作電壓 |
-| 175571_0.jpg | [電池盒開關與線端](../images/hardware/actual/4aa-battery-holder-actual-switch-and-leads-2026-09-06.jpg) | ON／OFF與紅黑裸線可見；四槽由文字確認，照片未拍到內部；極性尚未量測 |
-| 175585_0.jpg | [八顆燈條正面](../images/hardware/actual/ws2812b-8-led-bar-actual-front-2026-09-06.jpg) | 八顆LED，與單顆四針RGB不同 |
-| 175587_0.jpg | [燈條背面](../images/hardware/actual/ws2812b-8-led-bar-actual-back-2026-09-06.jpg) | WS2812B-8、VCC／GND／IN／OUT；不是HW-479的接線或程式替代品 |
-| 175590_0.jpg | [PIR透鏡面](../images/hardware/actual/pir-motion-sensor-actual-front-2026-09-06.jpg) | 半球透鏡，作被動紅外線動作感測器辨識；不是RGB或蜂鳴器 |
-| 175588_0.jpg | [PIR元件面](../images/hardware/actual/pir-motion-sensor-actual-back-2026-09-06.jpg) | 兩個調整器、跳線與電路板；外形近HC-SR501，但確切型號與腳位尚未確認 |
-| 175573_0.jpg | [降壓板元件面](../images/hardware/actual/buck-converter-display-actual-front-2026-09-06.jpg) | VIN／VOUT正負端、電感與數字顯示；不是OLED，晶片與整板額定值未確認 |
-| 175574_0.jpg | [降壓板背面](../images/hardware/actual/buck-converter-display-actual-back-2026-09-06.jpg) | 原始PCB外觀；不能以箭頭或電容標字決定電壓上限／電流容量 |
-| 175572_0.jpg | [TT馬達側面](../images/hardware/actual/tt-geared-motor-actual-side-2026-09-06.jpg) | 黃色減速箱與直流馬達；不是SG90位置型舵機，減速比與額定值未驗證 |
+| 175591_0.jpg | [HW-479元件面](../images/hardware/actual/RGB_HW479_1.jpg) | 單顆LED、HW-479、B／G／R／−與三顆電阻可見；不能證明各色阻值、共同端電氣行為及GPIO電流 |
+| 175583_0.jpg | [HW-508元件面](../images/hardware/actual/Buzzer_HW508_1.jpg) | HW-508、三針及兩側−／+；上方貼紙不是供電規格 |
+| 175582_0.jpg | [HW-508焊接面](../images/hardware/actual/Buzzer_HW508_2.jpg) | 保存焊接面；不能據此認定中間腳是訊號、未接腳或有內建驅動 |
+| 175577.jpg | [SG90拆袋與附件](../images/hardware/actual/SG90_1.jpg) | 標籤SG90、三線母接頭、白色舵盤與螺絲；不證明真偽、實際行程或安全工作電壓 |
+| 175571_0.jpg | [電池盒開關與線端](../images/hardware/actual/BatteryHolder4AA_1.jpg) | ON／OFF與紅黑裸線可見；四槽由文字確認，照片未拍到內部；極性尚未量測 |
+| 175585_0.jpg | [八顆燈條正面](../images/hardware/actual/WS2812B8_1.jpg) | 八顆LED，與單顆四針RGB不同 |
+| 175587_0.jpg | [燈條背面](../images/hardware/actual/WS2812B8_2.jpg) | WS2812B-8、VCC／GND／IN／OUT；不是HW-479的接線或程式替代品 |
+| 175590_0.jpg | [PIR透鏡面](../images/hardware/actual/PIR_1.jpg) | 半球透鏡，作被動紅外線動作感測器辨識；不是RGB或蜂鳴器 |
+| 175588_0.jpg | [PIR元件面](../images/hardware/actual/PIR_2.jpg) | 兩個調整器、跳線與電路板；外形近HC-SR501，但確切型號與腳位尚未確認 |
+| 175573_0.jpg | [降壓板元件面](../images/hardware/actual/BuckConverter_1.jpg) | VIN／VOUT正負端、電感與數字顯示；不是OLED，晶片與整板額定值未確認 |
+| 175574_0.jpg | [降壓板背面](../images/hardware/actual/BuckConverter_2.jpg) | 原始PCB外觀；不能以箭頭或電容標字決定電壓上限／電流容量 |
+| 175572_0.jpg | [TT馬達側面](../images/hardware/actual/TTMotor_1.jpg) | 黃色減速箱與直流馬達；不是SG90位置型舵機，減速比與額定值未驗證 |
 
 上述選配器材不加入共同採購。新增辨識結果同步到[硬體狀態](../hardware/hardware_state.md)
 及[圖片目錄](../images/hardware/README.md)。原庫存的訂單名稱不是照片已證明的確切型號。

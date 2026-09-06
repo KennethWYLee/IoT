@@ -18,10 +18,10 @@ console.log('PASS three public sketch copies, unpublished GPIO guards, and no in
 let images=0;
 for(const [i,c]of nb.cells.entries()){
  const refs=[...sources[i].matchAll(/!\[[^\]]*\]\(([^)]+)\)/g)].map(m=>m[1]);
- for(const ref of refs){assert(ref.startsWith('attachment:'));const a=c.attachments?.[ref.slice(11)];assert(a,ref);assert(['image/png','image/jpeg'].includes(Object.keys(a)[0]));images++;}
+ for(const ref of refs){if(!ref.startsWith('attachment:')){require('./hardware_galleries.cjs').verifyPhotoReference(sources[i],ref,file);images++;continue;}const a=c.attachments?.[ref.slice(11)];assert(a,ref);assert(['image/png','image/jpeg'].includes(Object.keys(a)[0]));images++;}
  for(const name of Object.keys(c.attachments||{}))assert(refs.includes(`attachment:${name}`),name);
 }
-assert.equal(images,14);
+assert.equal(images,14+require('./hardware_galleries.cjs').imageCount(2));
 const meter=sources.findIndex(s=>/^## 七、萬用/m.test(s)),board=sources.findIndex(s=>/^## 八、麵包板/m.test(s)),gpio=sources.findIndex(s=>/^## 九、按鈕/m.test(s));
 assert(meter<board&&board<gpio);
 for(const p of ['完整備課版（含參考答案）','### 10.7','### 10.8','### 10.9','### 10.10','總數剛好10','模擬教學log','5020','5050','不要求額外穩定時間'])assert(all.includes(p),p);
@@ -46,8 +46,8 @@ assert(sources[19].includes('debounce_10ms_run1.txt'));
 assert.equal(3/1000*1000,3);
 assert.equal(3/10000*1000,0.3);
 const meterPhoto=nb.cells[9].attachments['week2-a830l-multimeter.jpg']['image/jpeg'];
-assert(Buffer.from(meterPhoto,'base64').equals(fs.readFileSync(path.join(root,'IOT_Introduction/docs/images/hardware/actual/a830l-multimeter-actual-front.jpg'))));
-console.log('PASS fourteen raster images, first-use explanations, original photo bytes, examples and calculations.');
+assert(Buffer.from(meterPhoto,'base64').equals(fs.readFileSync(path.join(root,'IOT_Introduction/docs/images/hardware/actual/A830L_1.jpg'))));
+console.log(`PASS ${images} raster references including the opening gallery, first-use explanations, original photo bytes, examples and calculations.`);
 
 // Model the two if conditions of the actual diagnostic sketch, with explicit sampling.
 const diagnostic=code[2].source.join('');
@@ -87,14 +87,14 @@ async function render(){
  const {marked}=await import(pathToFileURL(require.resolve('marked')).href);
  const {chromium}=require('playwright'),out=path.join(root,'_outputs');fs.mkdirSync(out,{recursive:true});
  const esc=s=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
- let content='';nb.cells.forEach((c,i)=>{let s=sources[i];for(const [key,v]of Object.entries(c.attachments||{})){const [mime,data]=Object.entries(v)[0];s=s.replaceAll(`attachment:${key}`,`data:${mime};base64,${data}`);}content+=`<section id="cell-${i}">${c.cell_type==='code'?'<pre><code>'+esc(s)+'</code></pre>':marked.parse(s)}</section>`;});
+ let content='';nb.cells.forEach((c,i)=>{let s=require('./hardware_galleries.cjs').inlineLocalPhotos(sources[i],file);for(const [key,v]of Object.entries(c.attachments||{})){const [mime,data]=Object.entries(v)[0];s=s.replaceAll(`attachment:${key}`,`data:${mime};base64,${data}`);}content+=`<section id="cell-${i}">${c.cell_type==='code'?'<pre><code>'+esc(s)+'</code></pre>':marked.parse(s)}</section>`;});
  const html='<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width"><style>body{font:18px/1.75 "Microsoft JhengHei",sans-serif;color:#183047;margin:24px}main{max-width:1150px;margin:auto}img{display:block;max-width:100%;height:auto;margin:24px auto}table{display:block;overflow:auto;border-collapse:collapse}td,th{border:1px solid #ccd6df;padding:8px;min-width:70px}pre{overflow:auto;background:#f2f6fa;padding:16px;font:16px/1.7 Consolas,monospace}p,li,code{overflow-wrap:anywhere}h2{margin-top:48px}h3{margin-top:32px}</style><main>'+content+'</main>';
  fs.writeFileSync(path.join(out,'week2_review.html'),html);
  const browser=await chromium.launch({headless:true,channel:'msedge'});
  try{
   const page=await browser.newPage({viewport:{width:1280,height:960}});await page.setContent(html);
   await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));
-  assert.equal(await page.locator('img').count(),14);
+  assert.equal(await page.locator('img').count(),images);
   for(const width of [1280,420]){await page.setViewportSize({width,height:960});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));}
   await page.setViewportSize({width:1280,height:960});
   for(const heading of ['先認位置，再讀畫面','把電表數字讀成一句完整的話','先找已知與未知，不先背三條公式','10.7 練習一預期答案：時間從「最後一次變化」起算','10.8 練習二預期答案：逐行連回狀態與計數','10.9 練習三預期答案：等待時間的取捨','10.10 課中判讀的預期回答']){
@@ -106,7 +106,7 @@ async function render(){
    const issues=await page.evaluate(()=>{const s=document.querySelector('svg'),v=s.viewBox.baseVal;return [...s.querySelectorAll('text')].filter(t=>{const b=t.getBBox();return b.x<0||b.y<0||b.x+b.width>v.width||b.y+b.height>v.height;}).map(t=>t.textContent);});
    assert.deepEqual(issues,[],`Outside viewBox: ${name}`);
   }
-  console.log('PASS local Edge render: fourteen decoded images, 1280/420px page widths, SVG text bounds. Manual review still required.');
+  console.log(`PASS local Edge render: ${images} decoded images, 1280/420px page widths, SVG text bounds. Manual review still required.`);
  }finally{await browser.close();}
 }
 async function main(){

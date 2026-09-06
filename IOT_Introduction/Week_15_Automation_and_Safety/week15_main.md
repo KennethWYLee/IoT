@@ -24,6 +24,93 @@
 
 本單元將自動化（automation）與全端物聯網系統（full-stack IoT system）所需的安全及復原能力整合。學生會將已校正的感測輸入轉為具有明確限制的狀態機動作（state-machine action），以遲滯（hysteresis）與重複取樣（repeated sampling）避免門檻附近反覆切換（threshold chatter），並明定實體停止（physical stop）、故障（fault）、手動命令（manual command）及自動行為的優先順序。實作會刻意引入網路及感測故障，同時查驗安全輸出、操作者回饋、資料庫紀錄（database record）與紀錄檔（log）。最後進行乾淨環境重建（clean reconstruction），檢查文件中的軟體版本、環境變數（environment variable）、資料庫初始化（database initialization）、前端資源（frontend asset）、裝置設定檔（device profile）與機密佔位值（secret placeholder），是否足以讓另一個人重現系統。
 
+<!-- hardware-gallery:start -->
+<a id="equipment-photos"></a>
+
+### 本週器材外觀
+
+用光敏資料觸發 RGB 自動反應，測試 START／STOP、故障復原與重建；不新增硬體。另備筆電、USB 資料線、區域網路與手機。
+
+照片下方標示拍攝角度與來源。先辨認零件，再依本週器材表與接線步驟操作；照片本身不是接線指令，也不表示已完成電氣驗證。
+
+[ESP32-S3 開發板](#equipment-esp32s3) · [400 孔麵包板](#equipment-breadboard400) · [杜邦線](#equipment-jumperwire) · [四腳輕觸按鈕](#equipment-pushbutton) · [KY-018 光敏電阻模組](#equipment-ky018) · [HW-479 三色發光二極體模組](#equipment-rgb_hw479)
+
+<a id="equipment-esp32s3"></a>
+
+#### ESP32-S3 開發板（Development Board）
+
+照片中的板卡為 YD-ESP32-S3 Type-A V1.5，搭載 N16R8 模組。正反面白底圖是既有後製展示圖；小字與腳位須核對本人實物及本週接線資料。
+
+| 實物後製展示圖：正面：模組、按鈕與 USB 接頭 | 實物後製展示圖：背面：板身與排針 |
+| --- | --- |
+| ![ESP32-S3 開發板（Development Board）；實物後製展示圖；正面：模組、按鈕與 USB 接頭](../docs/images/hardware/actual/ESP32S3_1.png) | ![ESP32-S3 開發板（Development Board）；實物後製展示圖；背面：板身與排針](../docs/images/hardware/actual/ESP32S3_2.png) |
+
+其他留存角度：[麵包板對孔紀錄；不是建議的實驗安裝方式，右側接線空間不足](../docs/images/hardware/actual/ESP32S3_3.jpg)。
+
+<a id="equipment-breadboard400"></a>
+
+#### 400 孔麵包板（Breadboard）
+
+辨認中央溝槽、a～j 字母與列號。外觀照片不表示所有孔都相通，連通關係依本週圖解與斷電量測確認。
+
+| 實物照片：俯視：中央溝槽、五孔組與側邊電源軌 |
+| --- |
+| ![400 孔麵包板（Breadboard）；實物照片；俯視：中央溝槽、五孔組與側邊電源軌](../docs/images/hardware/actual/Breadboard400_1.jpg) |
+
+<a id="equipment-jumperwire"></a>
+
+#### 杜邦線（Jumper Wire）
+
+露出金屬針的是公頭（Male），有插孔的是母頭（Female）；線色不會自行決定電壓或功能。所需接頭種類依當週器材表，不是每週都用完三種。商品參考卡上的數量與金額是歷史資料，不是學生應買數量或目前售價。
+
+| 實物照片：成排導線與接頭全貌 | 蝦皮商品參考：公對公：兩端皆為金屬針 |
+| --- | --- |
+| ![杜邦線（Jumper Wire）；實物照片；成排導線與接頭全貌](../docs/images/hardware/actual/JumperWire_1.jpg) | ![杜邦線（Jumper Wire）；蝦皮商品參考；公對公：兩端皆為金屬針](../docs/images/hardware/product-cards/JumperWire_MM_1.png) |
+
+| 蝦皮商品參考：公對母：金屬針與插孔各一端 | 蝦皮商品參考：母對母：兩端皆為插孔 |
+| --- | --- |
+| ![杜邦線（Jumper Wire）；蝦皮商品參考；公對母：金屬針與插孔各一端](../docs/images/hardware/product-cards/JumperWire_MF_1.png) | ![杜邦線（Jumper Wire）；蝦皮商品參考；母對母：兩端皆為插孔](../docs/images/hardware/product-cards/JumperWire_FF_1.png) |
+
+<a id="equipment-pushbutton"></a>
+
+#### 四腳輕觸按鈕（Tactile Pushbutton）
+
+上方黑色部分是按壓位置，四支金屬腳用來連接電路。照片不能單獨證明哪一對腳常通；先斷電，依 Week 2 的方法辨認。
+
+| 實物照片：俯視：按鍵與金屬上蓋 | 實物照片：側面：四支接腳 |
+| --- | --- |
+| ![四腳輕觸按鈕（Tactile Pushbutton）；實物照片；俯視：按鍵與金屬上蓋](../docs/images/hardware/actual/Pushbutton_1.jpg) | ![四腳輕觸按鈕（Tactile Pushbutton）；實物照片；側面：四支接腳](../docs/images/hardware/actual/Pushbutton_2.jpg) |
+
+其他留存角度：[歷史接線紀錄：同一組常通接點的量測，不是按下才導通的接法答案](../docs/images/hardware/actual/Pushbutton_3.jpg)。
+
+<a id="equipment-ky018"></a>
+
+#### KY-018 光敏電阻模組（Photoresistor Module）
+
+圓形感光元件、板上固定電阻與三支排針構成模組。S 是訊號標示；元件區的 A、S1、R1 不能直接當成中間排針名稱。接線沿用已確認的 Week 3 紀錄。
+
+| 實物照片：正面近照：感光元件、S 與 − 絲印 | 實物照片：另一元件面角度 |
+| --- | --- |
+| ![KY-018 光敏電阻模組（Photoresistor Module）；實物照片；正面近照：感光元件、S 與 − 絲印](../docs/images/hardware/actual/KY018_1.jpg) | ![KY-018 光敏電阻模組（Photoresistor Module）；實物照片；另一元件面角度](../docs/images/hardware/actual/KY018_2.jpg) |
+
+| 實物照片：焊接面 |
+| --- |
+| ![KY-018 光敏電阻模組（Photoresistor Module）；實物照片；焊接面](../docs/images/hardware/actual/KY018_3.jpg) |
+
+<a id="equipment-rgb_hw479"></a>
+
+#### HW-479 三色發光二極體模組（RGB LED Module）
+
+訂單稱 KY-016；實物 PCB 標示 HW-479，前方可見 B、G、R、− 與板上電阻。共同端、阻值及控制電流仍須核對，不能用八顆燈條取代這個模組。
+
+| 實物照片：正面：單顆 LED 與 B／G／R／− 標示 | 實物照片：焊接面 |
+| --- | --- |
+| ![HW-479 三色發光二極體模組（RGB LED Module）；實物照片；正面：單顆 LED 與 B／G／R／− 標示](../docs/images/hardware/actual/RGB_HW479_1.jpg) | ![HW-479 三色發光二極體模組（RGB LED Module）；實物照片；焊接面](../docs/images/hardware/actual/RGB_HW479_2.jpg) |
+
+其他留存角度：[較早的元件面照片](../docs/images/hardware/actual/RGB_HW479_3.jpg)；[失焦補充照；不供腳位或焊點判讀](../docs/images/hardware/actual/RGB_HW479_4.jpg)。
+
+<!-- hardware-gallery:end -->
+
 ## 二、先定義Automation Policy
 
 **automation（自動反應）**不是「感測值一變就做事」，而是一組可檢查的決策。共同實驗

@@ -114,8 +114,11 @@ async function build(){
    artifact(base+'.svg',markup); artifact(base+'.png',await sharp(Buffer.from(markup)).png().toBuffer());
  }
  let source=fs.readFileSync(sourcePath,'utf8').replace(/\r\n/g,'\n').replace(/^<!-- Week 4 editable[^\n]*-->\n/,'');
+ source=require('./hardware_galleries.cjs').expand(source,sourcePath);
  const cells=[];
  function markdown(s){s=s.trim();if(!s)return;const attachments={};
+   const gallery=require('./hardware_galleries.cjs').rebaseGallery(s,sourcePath,notebookPath);
+   if(gallery!==null){cells.push({cell_type:'markdown',metadata:{},source:(gallery+'\n').match(/.*\n/g)});return;}
    s=s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g,(_,alt,url)=>{const file=path.resolve(path.dirname(sourcePath),url);assert(fs.existsSync(file),file);const name=path.basename(file),mime=file.endsWith('.png')?'image/png':'image/jpeg';assert(/\.(png|jpg|jpeg)$/.test(file));attachments[name]={[mime]:fs.readFileSync(file).toString('base64')};return `![${alt}](attachment:${name})`;});
    // Rebase non-image local links; explicit anchors remain in the same notebook.
    s=s.replace(/(?<!!)\[([^\]]*)\]\(([^)]+)\)/g,(match,label,url)=>{if(/^(https?:|#|attachment:)/.test(url))return match;const [file,anchor]=url.split('#');const relative=path.relative(path.dirname(notebookPath),path.resolve(path.dirname(sourcePath),file)).replaceAll('\\','/');return `[${label}](${relative}${anchor?'#'+anchor:''})`;});

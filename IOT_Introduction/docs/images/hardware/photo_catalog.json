@@ -1,0 +1,550 @@
+{
+  "schemaVersion": 1,
+  "naming": "品項英文代碼_流水號；編號只表示照片，不表示腳位、數量或驗證順序。actual 為實物照，product-cards 與 orders 為商品參考。",
+  "components": {
+    "ESP32S3": {
+      "name": "ESP32-S3 開發板（Development Board）",
+      "note": "照片中的板卡為 YD-ESP32-S3 Type-A V1.5，搭載 N16R8 模組。正反面白底圖是既有後製展示圖；小字與腳位須核對本人實物及本週接線資料。",
+      "photos": [
+        {
+          "file": "actual/ESP32S3_1.png",
+          "legacy": "yd-esp32-s3-type-a-v1-5-n16r8-actual-front-white-background.png",
+          "view": "正面：模組、按鈕與 USB 接頭",
+          "kind": "實物後製展示圖",
+          "sha256": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc"
+        },
+        {
+          "file": "actual/ESP32S3_2.png",
+          "legacy": "yd-esp32-s3-type-a-v1-5-n16r8-actual-back-white-background.png",
+          "view": "背面：板身與排針",
+          "kind": "實物後製展示圖",
+          "sha256": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18"
+        },
+        {
+          "file": "actual/ESP32S3_3.jpg",
+          "legacy": "yd-esp32-s3-on-400-breadboard-b3-j24-fit-check.jpg",
+          "view": "麵包板對孔紀錄；不是建議的實驗安裝方式，右側接線空間不足",
+          "kind": "實物照片",
+          "extra": true,
+          "sha256": "4481b90e0e461037dc2746db280847f86816f149c03a14f06cbbeb5868242558"
+        }
+      ]
+    },
+    "Breadboard400": {
+      "name": "400 孔麵包板（Breadboard）",
+      "note": "辨認中央溝槽、a～j 字母與列號。外觀照片不表示所有孔都相通，連通關係依本週圖解與斷電量測確認。",
+      "photos": [
+        {
+          "file": "actual/Breadboard400_1.jpg",
+          "legacy": "breadboard-400-tie-point-actual-top.jpg",
+          "view": "俯視：中央溝槽、五孔組與側邊電源軌",
+          "kind": "實物照片",
+          "sha256": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a"
+        }
+      ]
+    },
+    "JumperWire": {
+      "name": "杜邦線（Jumper Wire）",
+      "note": "露出金屬針的是公頭（Male），有插孔的是母頭（Female）；線色不會自行決定電壓或功能。所需接頭種類依當週器材表，不是每週都用完三種。商品參考卡上的數量與金額是歷史資料，不是學生應買數量或目前售價。",
+      "photos": [
+        {
+          "file": "actual/JumperWire_1.jpg",
+          "legacy": "jumper-wires-assorted-actual.jpg",
+          "view": "成排導線與接頭全貌",
+          "kind": "實物照片",
+          "sha256": "29c87f712d44ce735c0a5738a3d8973105076c76ae7c6133ba25cea3bf1b4a8e"
+        },
+        {
+          "file": "product-cards/JumperWire_MM_1.png",
+          "legacy": "shopee-jumper-wire-20cm-male-to-male-product-card.png",
+          "view": "公對公：兩端皆為金屬針",
+          "kind": "蝦皮商品參考",
+          "sha256": "f62e97e75489fa96aa0bd7c14f37a23bc0df34919e8da17a8b5a3a80bb46af06"
+        },
+        {
+          "file": "product-cards/JumperWire_MF_1.png",
+          "legacy": "shopee-jumper-wire-20cm-male-to-female-product-card.png",
+          "view": "公對母：金屬針與插孔各一端",
+          "kind": "蝦皮商品參考",
+          "sha256": "9c0a84c513935fc0a2d0d6496f5df83a0b60ff7ba70e7717e882245b975d8f09"
+        },
+        {
+          "file": "product-cards/JumperWire_FF_1.png",
+          "legacy": "shopee-jumper-wire-20cm-female-to-female-product-card.png",
+          "view": "母對母：兩端皆為插孔",
+          "kind": "蝦皮商品參考",
+          "sha256": "9cb3bd156342bc801af4d25560a4563019da1a6c061913c8e745f3f0fd271c52"
+        }
+      ]
+    },
+    "Pushbutton": {
+      "name": "四腳輕觸按鈕（Tactile Pushbutton）",
+      "note": "上方黑色部分是按壓位置，四支金屬腳用來連接電路。照片不能單獨證明哪一對腳常通；先斷電，依 Week 2 的方法辨認。",
+      "photos": [
+        {
+          "file": "actual/Pushbutton_1.jpg",
+          "legacy": "tact-switch-6x6mm-4pin-actual-top.jpg",
+          "view": "俯視：按鍵與金屬上蓋",
+          "kind": "實物照片",
+          "sha256": "e03faca2cf6af8a368fc3e8a3ef0319a6f569955af893b86bf954fa581d42c18"
+        },
+        {
+          "file": "actual/Pushbutton_2.jpg",
+          "legacy": "tact-switch-6x6mm-4pin-actual-side.jpg",
+          "view": "側面：四支接腳",
+          "kind": "實物照片",
+          "sha256": "e1378d7b3b7c2c2c6c60da780f04af16c34381109717bdd908e77e233cb9d2db"
+        },
+        {
+          "file": "actual/Pushbutton_3.jpg",
+          "legacy": "tact-switch-6x6mm-4pin-breadboard-continuity-actual.jpg",
+          "view": "歷史接線紀錄：同一組常通接點的量測，不是按下才導通的接法答案",
+          "kind": "實物照片",
+          "extra": true,
+          "sha256": "0f2d1d097a2c9b534568bcd8da349da658c7772e14dad5206b115176ecb149b1"
+        }
+      ]
+    },
+    "A830L": {
+      "name": "萬用電表（Digital Multimeter）",
+      "note": "此照片為 A830L 示範表。學生的表可能不同；旋鈕刻度、插孔及畫面單位以自己的電表為準，不能只照照片轉到相同方向。",
+      "photos": [
+        {
+          "file": "actual/A830L_1.jpg",
+          "legacy": "a830l-multimeter-actual-front.jpg",
+          "view": "正面：顯示器、旋鈕與表筆插孔",
+          "kind": "實物照片",
+          "sha256": "73b760a0168417746d7a907f2f3a6540d671b012283a6f8e1cb3e795ce054e7d"
+        }
+      ]
+    },
+    "Resistor": {
+      "name": "固定電阻（Resistor）",
+      "note": "共同材料只取 220 Ω、330 Ω、1 kΩ、10 kΩ；合照中的其他阻值不是新增必買項。手寫標示與色環是辨識線索，標示值不等於逐顆實測值。",
+      "photos": [
+        {
+          "file": "actual/Resistor_1.png",
+          "legacy": "resistor-kit-values-actual-overview.png",
+          "view": "不同阻值與手寫分類標示",
+          "kind": "實物照片",
+          "sha256": "155ef7c1267faf15d93b3113922c0f04b4c164ac7f59a43295d7eee5617eefc6"
+        }
+      ]
+    },
+    "KY018": {
+      "name": "KY-018 光敏電阻模組（Photoresistor Module）",
+      "note": "圓形感光元件、板上固定電阻與三支排針構成模組。S 是訊號標示；元件區的 A、S1、R1 不能直接當成中間排針名稱。接線沿用已確認的 Week 3 紀錄。",
+      "photos": [
+        {
+          "file": "actual/KY018_1.jpg",
+          "legacy": "ky018-photoresistor-module-actual-pin-labels.jpg",
+          "view": "正面近照：感光元件、S 與 − 絲印",
+          "kind": "實物照片",
+          "sha256": "2fd4e014413f33071761700cdc45382a48f9f83dfed757769d917d5f18818aa1"
+        },
+        {
+          "file": "actual/KY018_2.jpg",
+          "legacy": "ky018-photoresistor-module-actual-component-side.jpg",
+          "view": "另一元件面角度",
+          "kind": "實物照片",
+          "sha256": "df1e6a94c914ad9d70e95a111fe77c00c9fc05426ba938f3ae3d66d34f483ef5"
+        },
+        {
+          "file": "actual/KY018_3.jpg",
+          "legacy": "ky018-photoresistor-module-actual-solder-side.jpg",
+          "view": "焊接面",
+          "kind": "實物照片",
+          "sha256": "6e6a92d1eed6d64c0f2ae016f67a9c49eb8d97e8fdae96fe060e8422ec38a784"
+        }
+      ]
+    },
+    "DHT11": {
+      "name": "DHT11 溫濕度模組（Temperature and Humidity Module）",
+      "note": "訂單名稱為 YS-31。藍色有孔外殼包住感測器；照片中的連接線不等於已核准線序。三腳名稱、供電與訊號準位確認前不上電。",
+      "photos": [
+        {
+          "file": "actual/DHT11_1.jpg",
+          "legacy": "dht11-3pin-module-actual-component-side-with-cable.jpg",
+          "view": "感測器面與連接線",
+          "kind": "實物照片",
+          "sha256": "f96a2ee9499c6103b681a8828391d8d7cf4039c93f270fc831908dc1f3c9e64d"
+        },
+        {
+          "file": "actual/DHT11_2.jpg",
+          "legacy": "dht11-3pin-module-actual-solder-side-with-cable.jpg",
+          "view": "焊接面與排針連接",
+          "kind": "實物照片",
+          "sha256": "5b70418a2ada22252669a0e9ba146858f45746f7f4b31275bcfe5f427ba0df2c"
+        }
+      ]
+    },
+    "RGB_HW479": {
+      "name": "HW-479 三色發光二極體模組（RGB LED Module）",
+      "note": "訂單稱 KY-016；實物 PCB 標示 HW-479，前方可見 B、G、R、− 與板上電阻。共同端、阻值及控制電流仍須核對，不能用八顆燈條取代這個模組。",
+      "photos": [
+        {
+          "file": "actual/RGB_HW479_1.jpg",
+          "legacy": "hw479-rgb-led-module-actual-component-side-2026-09-06.jpg",
+          "originalUpload": "175591_0.jpg",
+          "view": "正面：單顆 LED 與 B／G／R／− 標示",
+          "kind": "實物照片",
+          "sha256": "f7a91295c78732011c94eb567a67dcb4354f82d3517b6632e2314e4c7748bc17"
+        },
+        {
+          "file": "actual/RGB_HW479_2.jpg",
+          "legacy": "hw479-rgb-led-module-actual-solder-side.jpg",
+          "view": "焊接面",
+          "kind": "實物照片",
+          "sha256": "c0e302eebea955dff427d8410d7cba78c4c47b5ce8065831bed28283a9577a30"
+        },
+        {
+          "file": "actual/RGB_HW479_3.jpg",
+          "legacy": "hw479-rgb-led-module-actual-component-side.jpg",
+          "view": "較早的元件面照片",
+          "kind": "實物照片",
+          "extra": true,
+          "sha256": "33f4855d2e8bf52ee6b1232f7c70c707aec04442644c4ccdc9bdfcc5c65a3f08"
+        },
+        {
+          "file": "actual/RGB_HW479_4.jpg",
+          "legacy": "hw479-rgb-led-module-actual-solder-side-view-02-soft-focus.jpg",
+          "view": "失焦補充照；不供腳位或焊點判讀",
+          "kind": "實物照片",
+          "extra": true,
+          "sha256": "056b653163f2e0239c71a871c0372a14b5aec6e2ba72bed4ecea292abb4f26a8"
+        }
+      ]
+    },
+    "Buzzer_HW508": {
+      "name": "HW-508 蜂鳴器模組（Buzzer Module）",
+      "note": "訂單稱 KY-012；照片可見 HW-508、三針與兩側 −／+。中間腳功能、有源或無源型式、供電及驅動能力未由照片確認，不直接套用其他蜂鳴器接法。",
+      "photos": [
+        {
+          "file": "actual/Buzzer_HW508_1.jpg",
+          "legacy": "hw508-buzzer-module-actual-component-side-2026-09-06.jpg",
+          "originalUpload": "175583_0.jpg",
+          "view": "元件面：圓形蜂鳴器與三支排針",
+          "kind": "實物照片",
+          "sha256": "9f789cc6b4106aa0367f6f9bcc87fbe56e219a2f6aac161367abe465e0f1049a"
+        },
+        {
+          "file": "actual/Buzzer_HW508_2.jpg",
+          "legacy": "hw508-buzzer-module-actual-solder-side-2026-09-06.jpg",
+          "originalUpload": "175582_0.jpg",
+          "view": "焊接面",
+          "kind": "實物照片",
+          "sha256": "800a7e4799fb3997617c5b5e27ba603dbb92d0181f312feedb8e18b4527f3c5e"
+        },
+        {
+          "file": "actual/Buzzer_HW508_3.jpg",
+          "legacy": "hw508-buzzer-module-actual-component-side.jpg",
+          "view": "較早的元件面照片，文字不清",
+          "kind": "實物照片",
+          "extra": true,
+          "sha256": "0c212fbc5dfa87d116d3189c0d1089dc719001ce84d286e9e6373ca88327ca2f"
+        }
+      ]
+    },
+    "SG90": {
+      "name": "SG90 舵機（Servo Motor）",
+      "note": "三線插頭、舵機本體與白色舵盤一起辨認。照片中的品牌與型號標籤不證明真偽、安全行程或供電能力；不得由 GPIO 或 3V3 供應馬達電力。",
+      "photos": [
+        {
+          "file": "actual/SG90_1.jpg",
+          "legacy": "sg90-servo-actual-label-connector-accessories-2026-09-06.jpg",
+          "originalUpload": "175577.jpg",
+          "view": "拆袋全貌：標籤、三線插頭與附件",
+          "kind": "實物照片",
+          "sha256": "1fadf0571536167a5f4e1da7a98dfc8ab3950d4f1bb92b7e7aa8517b2c541d82"
+        },
+        {
+          "file": "actual/SG90_2.jpg",
+          "legacy": "sg90-tower-pro-9g-servo-actual-label-connector-accessories.jpg",
+          "view": "包裝內的標籤、插頭與舵盤",
+          "kind": "實物照片",
+          "sha256": "d0bf5a360a776690fefdbf768949d21496dd2a994dc887d6806cef16e70c5e4d"
+        },
+        {
+          "file": "actual/SG90_3.jpg",
+          "legacy": "sg90-tower-pro-9g-servo-actual-packaging-view-02.jpg",
+          "view": "另一包裝角度",
+          "kind": "實物照片",
+          "sha256": "9b9b2f2172dbcc0fe401fcd7ef5e1796999646726cf7d0b0607ffd3faeacff6f"
+        }
+      ]
+    },
+    "BatteryHolder4AA": {
+      "name": "四槽 AA 帶開關電池盒（Battery Holder）",
+      "note": "照片未展示盒內配置；使用時須確認為四槽串聯。Week 6、7 的方案是四顆標稱 1.2 V 鎳氫電池，電池與可靠且絕緣的連接材料自行準備。紅黑線的極性與負載電壓仍要量測。",
+      "photos": [
+        {
+          "file": "actual/BatteryHolder4AA_1.jpg",
+          "legacy": "4aa-battery-holder-actual-switch-and-leads-2026-09-06.jpg",
+          "originalUpload": "175571_0.jpg",
+          "view": "外殼、ON／OFF 開關與紅黑裸線",
+          "kind": "實物照片",
+          "sha256": "85ac8c26a5792829d4d7f97a6d61887846530e15a8b27fd9509b24d84fecfe09"
+        },
+        {
+          "file": "actual/BatteryHolder4AA_2.jpg",
+          "legacy": "4aa-battery-holder-actual-cover-and-leads.jpg",
+          "view": "另一盒蓋與導線角度",
+          "kind": "實物照片",
+          "sha256": "383bff078fd47f526fa841a7740e57fa2fa62caf24baae597fd3c9f0a6e7504a"
+        }
+      ]
+    },
+    "OLED": {
+      "name": "有機發光二極體顯示模組（OLED Display）",
+      "note": "已有蝦皮 OLED 商品照片：訂單圖 2 倒數第三列，選購項目寫 4 針、0.96 吋。商品照片不等於收到後的實物近照，不能單憑縮圖確認控制器、解析度或實物腳序。學生選購規格以 Week 1 採購表為準。",
+      "photos": [
+        {
+          "file": "orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png",
+          "view": "OLED 在倒數第三列；其他商品與數量不是學生採購要求",
+          "kind": "蝦皮商品參考",
+          "sha256": "257bf803ec5093caba8b090812c6a77d529d5b6fb13381bb7f1a3a5c04cb4759"
+        }
+      ]
+    },
+    "WS2812B8": {
+      "name": "八顆可定址 RGB 燈條（WS2812B-8 LED Bar）",
+      "note": "補充器材照片，不列入本次共同課程器材展示。IN／OUT 是方向線索，並未驗證訊號準位或供電。",
+      "photos": [
+        {
+          "file": "actual/WS2812B8_1.jpg",
+          "legacy": "ws2812b-8-led-bar-actual-front-2026-09-06.jpg",
+          "originalUpload": "175585_0.jpg",
+          "view": "正面八顆 LED",
+          "kind": "實物照片",
+          "sha256": "9c7869adedc0989eaf446b7155fa255eff9364b1f8cbe116f1e1379f26fb1e45"
+        },
+        {
+          "file": "actual/WS2812B8_2.jpg",
+          "legacy": "ws2812b-8-led-bar-actual-back-2026-09-06.jpg",
+          "originalUpload": "175587_0.jpg",
+          "view": "背面型號與 IN／OUT 標示",
+          "kind": "實物照片",
+          "sha256": "92be6fe659817cae287a5ad7249ba4d8b88ce701680dace38cdc3353beac1649"
+        },
+        {
+          "file": "actual/WS2812B8_3.jpg",
+          "originalUpload": "175584_0.jpg",
+          "view": "背面另一角度",
+          "kind": "實物照片",
+          "sha256": "139c6f9d9da7f165a71d52b701484074cb360b7833dcafee9faa32dfef5a84e7"
+        },
+        {
+          "file": "actual/WS2812B8_4.jpg",
+          "originalUpload": "175586_0.jpg",
+          "view": "正面另一角度",
+          "kind": "實物照片",
+          "sha256": "f691ae7be3de6404522313970d8d251be4fc2aee5a2d8d8ec2fd57a2715d4d4f"
+        }
+      ]
+    },
+    "PIR": {
+      "name": "被動紅外線感測模組（PIR Motion Sensor）",
+      "note": "以半球透鏡、調整器與電路板辨識外觀；確切板型與腳序未確認，不列共同採購。",
+      "photos": [
+        {
+          "file": "actual/PIR_1.jpg",
+          "legacy": "pir-motion-sensor-actual-front-2026-09-06.jpg",
+          "originalUpload": "175590_0.jpg",
+          "view": "半球透鏡面",
+          "kind": "實物照片",
+          "sha256": "f54f5fc4d9f1af177721efa8b11ff33c48d66327919ab406b2665d413b568d33"
+        },
+        {
+          "file": "actual/PIR_2.jpg",
+          "legacy": "pir-motion-sensor-actual-back-2026-09-06.jpg",
+          "originalUpload": "175588_0.jpg",
+          "duplicateUploads": ["175588_1.jpg"],
+          "view": "元件面：調整器、電容與跳線",
+          "kind": "實物照片",
+          "sha256": "67dd8808827126067a775892e19fba99febfc0147e5d7f02f016d0de53cad4c0"
+        },
+        {
+          "file": "actual/PIR_3.jpg",
+          "originalUpload": "175589_0.jpg",
+          "view": "側面：透鏡與兩個調整器",
+          "kind": "實物照片",
+          "sha256": "4119aeb10a63ebf8d55d057d3ed0186d335ed49aa85519f02066b62465befda6"
+        }
+      ]
+    },
+    "BuckConverter": {
+      "name": "帶數字顯示的降壓模組（Buck Converter）",
+      "note": "訂單稱 LM2596S，照片不能辨明晶片及整板額定值；數字顯示器不是 OLED。補充器材，不列共同採購。",
+      "photos": [
+        {
+          "file": "actual/BuckConverter_1.jpg",
+          "legacy": "buck-converter-display-actual-front-2026-09-06.jpg",
+          "originalUpload": "175573_0.jpg",
+          "view": "元件面、螺絲端子與數字顯示",
+          "kind": "實物照片",
+          "sha256": "cf47d381fb6ea2e58a5c18841d09fb3fdd63209835f6f6ba41fc3394a3aeb366"
+        },
+        {
+          "file": "actual/BuckConverter_2.jpg",
+          "legacy": "buck-converter-display-actual-back-2026-09-06.jpg",
+          "originalUpload": "175574_0.jpg",
+          "view": "焊接面",
+          "kind": "實物照片",
+          "sha256": "576a3ec227194a853609fb695837546685848a9ca73628c3f34aa6953c41f30e"
+        }
+      ]
+    },
+    "TTMotor": {
+      "name": "TT 減速直流馬達（Geared DC Motor）",
+      "note": "黃色減速箱與直流馬達不是 SG90；照片不能證明減速比或額定值。補充器材，不列共同採購。",
+      "photos": [
+        {
+          "file": "actual/TTMotor_1.jpg",
+          "legacy": "tt-geared-motor-actual-side-2026-09-06.jpg",
+          "originalUpload": "175572_0.jpg",
+          "view": "側面：馬達、減速箱與輸出軸",
+          "kind": "實物照片",
+          "sha256": "ab3ad0c42cea411cde179b4f63b841dad2abda3093ddbf4d96e639b2b5a90b42"
+        }
+      ]
+    }
+  },
+  "weeks": {
+    "1": {
+      "parts": [
+        "ESP32S3",
+        "Breadboard400",
+        "JumperWire",
+        "Pushbutton",
+        "A830L",
+        "Resistor",
+        "KY018",
+        "DHT11",
+        "Buzzer_HW508",
+        "RGB_HW479",
+        "OLED",
+        "SG90",
+        "BatteryHolder4AA"
+      ],
+      "task": "依採購表辨認零件；下列是外觀，不是新增採購數量或接線答案。USB 資料線、筆電、電池、充電器與連接材料依自備用品說明準備。"
+    },
+    "2": {
+      "parts": [
+        "ESP32S3",
+        "Breadboard400",
+        "JumperWire",
+        "Pushbutton",
+        "A830L"
+      ],
+      "task": "認識電表與麵包板，測按鈕通斷，再由 GPIO 讀取按下／放開事件。另備筆電與 USB 資料線。"
+    },
+    "3": {
+      "parts": [
+        "ESP32S3",
+        "Breadboard400",
+        "JumperWire",
+        "A830L",
+        "Resistor",
+        "KY018"
+      ],
+      "task": "量測電壓、使用 1 kΩ／10 kΩ 分壓，再讀取光敏模組的電壓與 ADC。220 Ω／330 Ω 不在本週重做。另備筆電與 USB 資料線。"
+    },
+    "4": {
+      "parts": [
+        "ESP32S3",
+        "Breadboard400",
+        "JumperWire",
+        "A830L",
+        "Resistor",
+        "KY018",
+        "DHT11",
+        "Buzzer_HW508"
+      ],
+      "task": "辨認 220 Ω／330 Ω，加入溫濕度與光敏資料判讀，再用蜂鳴器作有限次提示。DHT 資料腳有母對母線任務。另備筆電與 USB 資料線。"
+    },
+    "5": {
+      "parts": [
+        "ESP32S3",
+        "Breadboard400",
+        "JumperWire",
+        "A830L",
+        "RGB_HW479",
+        "OLED",
+        "KY018"
+      ],
+      "task": "用 RGB 顯示狀態、OLED 顯示非阻塞倒數，最後以 KY-018 比較燈光對感測的影響。另備筆電與 USB 資料線。"
+    },
+    "6": {
+      "parts": [
+        "ESP32S3",
+        "Breadboard400",
+        "JumperWire",
+        "A830L",
+        "SG90",
+        "BatteryHolder4AA",
+        "Pushbutton",
+        "OLED"
+      ],
+      "task": "SG90 指出次數，按鈕作 STOP，最後核對 OLED 顯示。另備筆電、USB 資料線、四顆 AA 鎳氫電池、相容充電器及牢固且絕緣的連接材料；供電核准前不接舵機。"
+    },
+    "7": {
+      "parts": [
+        "ESP32S3",
+        "Breadboard400",
+        "JumperWire",
+        "A830L",
+        "Pushbutton",
+        "KY018",
+        "RGB_HW479",
+        "OLED",
+        "SG90",
+        "BatteryHolder4AA",
+        "Buzzer_HW508"
+      ],
+      "task": "整合兩顆按鈕（Start／Finish）、遮光、燈色、倒數、指針與失敗提示。另備筆電、USB 資料線及 Week 6 已確認的電池和安全連接。DHT11 不參與遊戲計分。"
+    },
+    "11": {
+      "parts": [
+        "ESP32S3",
+        "Breadboard400",
+        "JumperWire",
+        "Pushbutton",
+        "RGB_HW479"
+      ],
+      "task": "以兩顆 START／STOP 按鈕送出事件，RGB 呈現命令結果；另備筆電、USB 資料線、同一區域網路及手機。無須把 Week 7 全套輸出接回。"
+    },
+    "12": {
+      "parts": [
+        "ESP32S3",
+        "Breadboard400",
+        "JumperWire",
+        "Pushbutton",
+        "KY018",
+        "RGB_HW479"
+      ],
+      "task": "沿用兩顆 START／STOP 按鈕，加入光敏資料，透過 MQTT 保存紀錄並核對 RGB 實體結果。另備筆電、USB 資料線、區域網路與手機。"
+    },
+    "14": {
+      "parts": [
+        "ESP32S3",
+        "Breadboard400",
+        "JumperWire",
+        "Pushbutton",
+        "KY018",
+        "RGB_HW479"
+      ],
+      "task": "沿用 Week 12 的輸入與 RGB 輸出，從手機核對監看、權限與命令結果；不新增硬體。另備筆電、USB 資料線、區域網路與手機。"
+    },
+    "15": {
+      "parts": [
+        "ESP32S3",
+        "Breadboard400",
+        "JumperWire",
+        "Pushbutton",
+        "KY018",
+        "RGB_HW479"
+      ],
+      "task": "用光敏資料觸發 RGB 自動反應，測試 START／STOP、故障復原與重建；不新增硬體。另備筆電、USB 資料線、區域網路與手機。"
+    }
+  }
+}

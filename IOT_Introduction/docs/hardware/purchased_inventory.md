@@ -85,7 +85,7 @@
 | 杜邦線 | 20 cm，母對母，40P | 6 排 | NT$25 | NT$150 | 共 240 條，可供模組接線 |
 | 杜邦線 | 20 cm，公對公，40P | 6 排 | NT$25 | NT$150 | 共 240 條，可供麵包板接線 |
 | 400 孔麵包板 | 8.5 x 5.5 cm | 4 | NT$22 | NT$88 | 原型測試；不建議作為移動車最終固定方式 |
-| 常用電阻包 | 220、330、1K、10K、2.2K、4.7K、100K ohm | 3 | NT$60 | NT$180 | 已有[實物照片](../images/hardware/actual/resistor-kit-values-actual-overview.png)；其餘位置與每顆阻值依[硬體狀態](hardware_state.md)核對；可作分壓、限流與量程示範 |
+| 常用電阻包 | 220、330、1K、10K、2.2K、4.7K、100K ohm | 3 | NT$60 | NT$180 | 已有[實物照片](../images/hardware/actual/Resistor_1.png)；其餘位置與每顆阻值依[硬體狀態](hardware_state.md)核對；可作分壓、限流與量程示範 |
 | A830L 萬用電表 | 含電池 | 1 | NT$159 | NT$159 | 量測電壓、極性、共地與通斷 |
 
 小計：NT$877。

@@ -14,8 +14,10 @@ async function main(){
   const base=path.join(root,`IOT_Introduction/docs/images/wiring/week${week}-${name}`);
   artifact(base+'.svg',svg);artifact(base+'.png',await sharp(Buffer.from(svg)).png().toBuffer());
  }
- const source=fs.readFileSync(sourcePath,'utf8').replace(/\r\n/g,'\n'),cells=[];
+ const source=require('./hardware_galleries.cjs').expand(fs.readFileSync(sourcePath,'utf8').replace(/\r\n/g,'\n'),sourcePath),cells=[];
  function markdown(s){s=s.trim();if(!s)return;const attachments={};
+  const gallery=require('./hardware_galleries.cjs').rebaseGallery(s,sourcePath,notebookPath);
+  if(gallery!==null){cells.push({cell_type:'markdown',metadata:{},source:(gallery+'\n').match(/.*\n/g)});return;}
   s=s.replace(/!\[([^\]]+)\]\(([^)]+)\)/g,(_,alt,url)=>{const file=path.resolve(path.dirname(sourcePath),url);assert(/\.(png|jpg|jpeg)$/.test(file));const name=path.basename(file),mime=file.endsWith('.png')?'image/png':'image/jpeg';attachments[name]={[mime]:fs.readFileSync(file).toString('base64')};return `![${alt}](attachment:${name})`;});
   s=s.replace(/(?<!!)\[([^\]]+)\]\(([^)]+)\)/g,(match,label,url)=>{if(/^(https?:|#|attachment:)/.test(url))return match;const [file,anchor]=url.split('#');assert(fs.existsSync(path.resolve(path.dirname(sourcePath),file)),url);return `[${label}](${path.relative(path.dirname(notebookPath),path.resolve(path.dirname(sourcePath),file)).replaceAll('\\','/')}${anchor?'#'+anchor:''})`;});
   const c={cell_type:'markdown',metadata:{},source:(s+'\n').match(/.*\n/g)};if(Object.keys(attachments).length)c.attachments=attachments;cells.push(c);

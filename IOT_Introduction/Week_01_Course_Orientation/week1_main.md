@@ -13,13 +13,11 @@ be mastered in Week 1. This week, explain one possible interaction in everyday l
 identify the roles of its parts, and use the course rules to plan your preparation.
 Protocol names and electrical terms will be taught before their practical use.
 
-[課程大綱](#course-schedule)｜[配分](#assessment)｜[中文採購清單](#purchase-table)｜[每組電表](#group-measurement-tool)｜[到貨檢查](#delivery-check)｜[Week 2課前準備](#week-2-preclass-setup)
+[課程大綱](#course-schedule)｜[配分](#assessment)｜[中文採購清單](#purchase-table)｜[零件照片](#equipment-photos)｜[參考預算](#purchase-budget)｜[每組電表](#group-measurement-tool)｜[Week 2課前準備](#week-2-preclass-setup)
 
 Reading path: [a first IoT example](#first-iot-example) →
 [schedule](#course-schedule) → [assessment](#assessment) →
 [final-project requirements](#final-project) → [materials](#materials) →
-[safety](#safety) → [records and AI](#records-and-ai) →
-[idea card](#idea-card) → [Week 1 evidence](#week1-evidence) →
 [preparation before Week 2](#before-week2).
 
 ## 1. Week 1 Overview
@@ -134,8 +132,8 @@ also different kinds of evidence. Later laboratories teach how to compare them.
 Before using this example to develop your own idea, point out its input, controller,
 output, stored event, and phone action. Explain what would remain unknown if the
 network were disconnected. If a part has no clear job in your idea, return to the user
-need before adding more hardware. The detailed safety, reliability, and documentation
-requirements below still apply to the final project.
+need before adding more hardware. The [final-project requirements](#final-project)
+below still apply.
 
 ## 2. Course Information
 
@@ -156,8 +154,7 @@ system announcement.
 
 The board name in the purchase list does not replace inspection of the delivered PCB
 and module. A matching memory label alone does not establish identical pin positions
-or power connections. The [delivery check](#delivery-check) explains
-what to confirm before using a course wiring example.
+or power connections.
 
 <a id="course-schedule"></a>
 
@@ -248,7 +245,7 @@ replace the student-developed device program, backend, database, or mobile inter
 適用學期：115學年度第1學期<br>
 公布週次：Week 1（2026-09-09）<br>
 準備方式：下表依首次使用週次排序，可一次購齊或分批準備，自行安排到貨時間，
-在首次使用前完成到貨檢查。USB資料線與組內電表從Week 2開始使用。
+於首次使用前備妥。USB資料線與組內電表從Week 2開始使用。
 
 本表是全班共同實驗的正式材料清單。每人必備零件都在Week 2～7有共同操作，
 不是為可能選做的專題預先購買。每位學生準備並保管自己的一套材料；
@@ -291,6 +288,169 @@ OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明�
 三種杜邦線都會有共同操作，不要求一次用完每排40條；每次只分出當週接線所需線材，
 其餘分類保存供後續重建與故障替換。所有接線仍依當週已驗證的完整步驟，不能只看本表
 就先通電。期末作品不必使用所有模組，不因加裝更多零件增加分數。
+
+<!-- hardware-gallery:start -->
+<a id="equipment-photos"></a>
+
+### 採購零件外觀
+
+依採購表辨認零件；下列是外觀，不是新增採購數量或接線答案。USB 資料線、筆電、電池、充電器與連接材料依自備用品說明準備。
+
+照片下方標示拍攝角度與來源。先辨認零件，再依本週器材表與接線步驟操作；照片本身不是接線指令，也不表示已完成電氣驗證。
+
+[ESP32-S3 開發板](#equipment-esp32s3) · [400 孔麵包板](#equipment-breadboard400) · [杜邦線](#equipment-jumperwire) · [四腳輕觸按鈕](#equipment-pushbutton) · [萬用電表](#equipment-a830l) · [固定電阻](#equipment-resistor) · [KY-018 光敏電阻模組](#equipment-ky018) · [DHT11 溫濕度模組](#equipment-dht11) · [HW-508 蜂鳴器模組](#equipment-buzzer_hw508) · [HW-479 三色發光二極體模組](#equipment-rgb_hw479) · [有機發光二極體顯示模組](#equipment-oled) · [SG90 舵機](#equipment-sg90) · [四槽 AA 帶開關電池盒](#equipment-batteryholder4aa)
+
+<a id="equipment-esp32s3"></a>
+
+#### ESP32-S3 開發板（Development Board）
+
+照片中的板卡為 YD-ESP32-S3 Type-A V1.5，搭載 N16R8 模組。正反面白底圖是既有後製展示圖；小字與腳位須核對本人實物及本週接線資料。
+
+| 實物後製展示圖：正面：模組、按鈕與 USB 接頭 | 實物後製展示圖：背面：板身與排針 |
+| --- | --- |
+| ![ESP32-S3 開發板（Development Board）；實物後製展示圖；正面：模組、按鈕與 USB 接頭](../docs/images/hardware/actual/ESP32S3_1.png) | ![ESP32-S3 開發板（Development Board）；實物後製展示圖；背面：板身與排針](../docs/images/hardware/actual/ESP32S3_2.png) |
+
+其他留存角度：[麵包板對孔紀錄；不是建議的實驗安裝方式，右側接線空間不足](../docs/images/hardware/actual/ESP32S3_3.jpg)。
+
+<a id="equipment-breadboard400"></a>
+
+#### 400 孔麵包板（Breadboard）
+
+辨認中央溝槽、a～j 字母與列號。外觀照片不表示所有孔都相通，連通關係依本週圖解與斷電量測確認。
+
+| 實物照片：俯視：中央溝槽、五孔組與側邊電源軌 |
+| --- |
+| ![400 孔麵包板（Breadboard）；實物照片；俯視：中央溝槽、五孔組與側邊電源軌](../docs/images/hardware/actual/Breadboard400_1.jpg) |
+
+<a id="equipment-jumperwire"></a>
+
+#### 杜邦線（Jumper Wire）
+
+露出金屬針的是公頭（Male），有插孔的是母頭（Female）；線色不會自行決定電壓或功能。所需接頭種類依當週器材表，不是每週都用完三種。商品參考卡上的數量與金額是歷史資料，不是學生應買數量或目前售價。
+
+| 實物照片：成排導線與接頭全貌 | 蝦皮商品參考：公對公：兩端皆為金屬針 |
+| --- | --- |
+| ![杜邦線（Jumper Wire）；實物照片；成排導線與接頭全貌](../docs/images/hardware/actual/JumperWire_1.jpg) | ![杜邦線（Jumper Wire）；蝦皮商品參考；公對公：兩端皆為金屬針](../docs/images/hardware/product-cards/JumperWire_MM_1.png) |
+
+| 蝦皮商品參考：公對母：金屬針與插孔各一端 | 蝦皮商品參考：母對母：兩端皆為插孔 |
+| --- | --- |
+| ![杜邦線（Jumper Wire）；蝦皮商品參考；公對母：金屬針與插孔各一端](../docs/images/hardware/product-cards/JumperWire_MF_1.png) | ![杜邦線（Jumper Wire）；蝦皮商品參考；母對母：兩端皆為插孔](../docs/images/hardware/product-cards/JumperWire_FF_1.png) |
+
+<a id="equipment-pushbutton"></a>
+
+#### 四腳輕觸按鈕（Tactile Pushbutton）
+
+上方黑色部分是按壓位置，四支金屬腳用來連接電路。照片不能單獨證明哪一對腳常通；先斷電，依 Week 2 的方法辨認。
+
+| 實物照片：俯視：按鍵與金屬上蓋 | 實物照片：側面：四支接腳 |
+| --- | --- |
+| ![四腳輕觸按鈕（Tactile Pushbutton）；實物照片；俯視：按鍵與金屬上蓋](../docs/images/hardware/actual/Pushbutton_1.jpg) | ![四腳輕觸按鈕（Tactile Pushbutton）；實物照片；側面：四支接腳](../docs/images/hardware/actual/Pushbutton_2.jpg) |
+
+其他留存角度：[歷史接線紀錄：同一組常通接點的量測，不是按下才導通的接法答案](../docs/images/hardware/actual/Pushbutton_3.jpg)。
+
+<a id="equipment-a830l"></a>
+
+#### 萬用電表（Digital Multimeter）
+
+此照片為 A830L 示範表。學生的表可能不同；旋鈕刻度、插孔及畫面單位以自己的電表為準，不能只照照片轉到相同方向。
+
+| 實物照片：正面：顯示器、旋鈕與表筆插孔 |
+| --- |
+| ![萬用電表（Digital Multimeter）；實物照片；正面：顯示器、旋鈕與表筆插孔](../docs/images/hardware/actual/A830L_1.jpg) |
+
+<a id="equipment-resistor"></a>
+
+#### 固定電阻（Resistor）
+
+共同材料只取 220 Ω、330 Ω、1 kΩ、10 kΩ；合照中的其他阻值不是新增必買項。手寫標示與色環是辨識線索，標示值不等於逐顆實測值。
+
+| 實物照片：不同阻值與手寫分類標示 |
+| --- |
+| ![固定電阻（Resistor）；實物照片；不同阻值與手寫分類標示](../docs/images/hardware/actual/Resistor_1.png) |
+
+<a id="equipment-ky018"></a>
+
+#### KY-018 光敏電阻模組（Photoresistor Module）
+
+圓形感光元件、板上固定電阻與三支排針構成模組。S 是訊號標示；元件區的 A、S1、R1 不能直接當成中間排針名稱。接線沿用已確認的 Week 3 紀錄。
+
+| 實物照片：正面近照：感光元件、S 與 − 絲印 | 實物照片：另一元件面角度 |
+| --- | --- |
+| ![KY-018 光敏電阻模組（Photoresistor Module）；實物照片；正面近照：感光元件、S 與 − 絲印](../docs/images/hardware/actual/KY018_1.jpg) | ![KY-018 光敏電阻模組（Photoresistor Module）；實物照片；另一元件面角度](../docs/images/hardware/actual/KY018_2.jpg) |
+
+| 實物照片：焊接面 |
+| --- |
+| ![KY-018 光敏電阻模組（Photoresistor Module）；實物照片；焊接面](../docs/images/hardware/actual/KY018_3.jpg) |
+
+<a id="equipment-dht11"></a>
+
+#### DHT11 溫濕度模組（Temperature and Humidity Module）
+
+訂單名稱為 YS-31。藍色有孔外殼包住感測器；照片中的連接線不等於已核准線序。三腳名稱、供電與訊號準位確認前不上電。
+
+| 實物照片：感測器面與連接線 | 實物照片：焊接面與排針連接 |
+| --- | --- |
+| ![DHT11 溫濕度模組（Temperature and Humidity Module）；實物照片；感測器面與連接線](../docs/images/hardware/actual/DHT11_1.jpg) | ![DHT11 溫濕度模組（Temperature and Humidity Module）；實物照片；焊接面與排針連接](../docs/images/hardware/actual/DHT11_2.jpg) |
+
+<a id="equipment-buzzer_hw508"></a>
+
+#### HW-508 蜂鳴器模組（Buzzer Module）
+
+訂單稱 KY-012；照片可見 HW-508、三針與兩側 −／+。中間腳功能、有源或無源型式、供電及驅動能力未由照片確認，不直接套用其他蜂鳴器接法。
+
+| 實物照片：元件面：圓形蜂鳴器與三支排針 | 實物照片：焊接面 |
+| --- | --- |
+| ![HW-508 蜂鳴器模組（Buzzer Module）；實物照片；元件面：圓形蜂鳴器與三支排針](../docs/images/hardware/actual/Buzzer_HW508_1.jpg) | ![HW-508 蜂鳴器模組（Buzzer Module）；實物照片；焊接面](../docs/images/hardware/actual/Buzzer_HW508_2.jpg) |
+
+其他留存角度：[較早的元件面照片，文字不清](../docs/images/hardware/actual/Buzzer_HW508_3.jpg)。
+
+<a id="equipment-rgb_hw479"></a>
+
+#### HW-479 三色發光二極體模組（RGB LED Module）
+
+訂單稱 KY-016；實物 PCB 標示 HW-479，前方可見 B、G、R、− 與板上電阻。共同端、阻值及控制電流仍須核對，不能用八顆燈條取代這個模組。
+
+| 實物照片：正面：單顆 LED 與 B／G／R／− 標示 | 實物照片：焊接面 |
+| --- | --- |
+| ![HW-479 三色發光二極體模組（RGB LED Module）；實物照片；正面：單顆 LED 與 B／G／R／− 標示](../docs/images/hardware/actual/RGB_HW479_1.jpg) | ![HW-479 三色發光二極體模組（RGB LED Module）；實物照片；焊接面](../docs/images/hardware/actual/RGB_HW479_2.jpg) |
+
+其他留存角度：[較早的元件面照片](../docs/images/hardware/actual/RGB_HW479_3.jpg)；[失焦補充照；不供腳位或焊點判讀](../docs/images/hardware/actual/RGB_HW479_4.jpg)。
+
+<a id="equipment-oled"></a>
+
+#### 有機發光二極體顯示模組（OLED Display）
+
+已有蝦皮 OLED 商品照片：訂單圖 2 倒數第三列，選購項目寫 4 針、0.96 吋。商品照片不等於收到後的實物近照，不能單憑縮圖確認控制器、解析度或實物腳序。學生選購規格以 Week 1 採購表為準。
+
+| 蝦皮商品參考：OLED 在倒數第三列；其他商品與數量不是學生採購要求 |
+| --- |
+| ![有機發光二極體顯示模組（OLED Display）；蝦皮商品參考；OLED 在倒數第三列；其他商品與數量不是學生採購要求](../docs/images/hardware/orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png) |
+
+<a id="equipment-sg90"></a>
+
+#### SG90 舵機（Servo Motor）
+
+三線插頭、舵機本體與白色舵盤一起辨認。照片中的品牌與型號標籤不證明真偽、安全行程或供電能力；不得由 GPIO 或 3V3 供應馬達電力。
+
+| 實物照片：拆袋全貌：標籤、三線插頭與附件 | 實物照片：包裝內的標籤、插頭與舵盤 |
+| --- | --- |
+| ![SG90 舵機（Servo Motor）；實物照片；拆袋全貌：標籤、三線插頭與附件](../docs/images/hardware/actual/SG90_1.jpg) | ![SG90 舵機（Servo Motor）；實物照片；包裝內的標籤、插頭與舵盤](../docs/images/hardware/actual/SG90_2.jpg) |
+
+| 實物照片：另一包裝角度 |
+| --- |
+| ![SG90 舵機（Servo Motor）；實物照片；另一包裝角度](../docs/images/hardware/actual/SG90_3.jpg) |
+
+<a id="equipment-batteryholder4aa"></a>
+
+#### 四槽 AA 帶開關電池盒（Battery Holder）
+
+照片未展示盒內配置；使用時須確認為四槽串聯。Week 6、7 的方案是四顆標稱 1.2 V 鎳氫電池，電池與可靠且絕緣的連接材料自行準備。紅黑線的極性與負載電壓仍要量測。
+
+| 實物照片：外殼、ON／OFF 開關與紅黑裸線 | 實物照片：另一盒蓋與導線角度 |
+| --- | --- |
+| ![四槽 AA 帶開關電池盒（Battery Holder）；實物照片；外殼、ON／OFF 開關與紅黑裸線](../docs/images/hardware/actual/BatteryHolder4AA_1.jpg) | ![四槽 AA 帶開關電池盒（Battery Holder）；實物照片；另一盒蓋與導線角度](../docs/images/hardware/actual/BatteryHolder4AA_2.jpg) |
+
+<!-- hardware-gallery:end -->
 
 <a id="purchase-budget"></a>
 
@@ -357,296 +517,11 @@ AA鎳氫充電電池、相容充電器的使用成本、連接材料、電表與
 Week 6接舵機前仍須確認電壓、極性、接點與安全停止。這個方案不要求預先購買降壓模組。
 外部供電與共地的理由可參考[Arduino舵機供電說明](https://support.arduino.cc/hc/en-us/articles/360017053760-Troubleshoot-servo-motors)。
 
-### 第一週不要購買
-
-WS2812燈條、PIR、HC-SR04、MG90S、TT馬達、L298N、LM2596、
-車輪、底盤與6AA電池盒都不是共同課程必買。Week 8確定專題後，
-再依作品的電壓、電流、驅動方式與安全停止需求決定是否加購。
-
-<details>
-<summary>商品外觀參考照片（展開查看；數量以採購表為準）</summary>
-
-下列購物截圖只用來辨認商品外觀，數量、規格與預算以本檔採購表為準。
-截圖中額外的馬達、輪胎、驅動板等，是教師為自製無人車等個人實作準備的器材，
-不是學生必買。圖片中的價格、庫存與賣場選項可能改變，也不能作接線依據。
-
-圖1中的四腳輕觸按鈕與公對母杜邦線是本課所需種類；萬用電表依每組1台準備。
-OLED支架、TT馬達、輪胎與LM2596不屬共同必買。
-
-![蝦皮購物畫面1：按鈕與公對母杜邦線外觀參考](../docs/images/hardware/orders/shopee-aroundtw-01-prototyping-motors-power.png)
-
-訂單圖2中，本課必買的是母對母杜邦線與OLED。L298N、MG90S、HC-SR04與萬向球不屬於共同必買。
-OLED模組有螢幕與電路板；只有固定支架不等於買到螢幕。選購時核對上表的控制器、
-解析度、介面與電壓，不只比對大小。
-
-![蝦皮訂單圖2：母對母杜邦線參考](../docs/images/hardware/orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png)
-
-訂單圖3中，本課必買的是KY-016、KY-012、公對公杜邦線、DHT11、
-ESP32-S3 N16R8向下44腳及4AA帶開關電池盒。HC-SR501與WS2812不屬於
-第一週必買。
-
-![蝦皮訂單圖3：ESP32、DHT11、RGB、蜂鳴器、公對公杜邦線與電池盒參考](../docs/images/hardware/orders/shopee-aroundtw-03-esp32-sensors-lighting-power.png)
-
-歷史商品頁的選項文字是「樂鑫原廠S3開發板（排針向下－44腳位）」。這是賣場
-標題，不能據此認定整片開發板就是Espressif原廠DevKitC-1。課程已拍照與測試的
-開發板PCB為YD-ESP32-S3 Type-A V1.5，板上的模組為
-ESP32-S3-WROOM-1 N16R8；模組型號與整片開發板型號是兩件事。
-下單前依正式清單確認規格，到貨後另核對板面與背面標示、排針及USB接頭，
-不能只比對N16R8就照抄另一片板的腳位或供電方式。有差異先交由教師確認。
-
-![ESP32-S3 N16R8排針向下44腳位商品頁參考](../docs/images/hardware/products/shopee-esp32-s3-dev-board-n16r8-product-page.png)
-
-訂單圖4中的KY-018、SG90 180度及400孔麵包板都是本課必買。畫面頂端重複
-出現的4AA電池盒不需再增加數量，每人只買一個。
-
-![蝦皮訂單圖4：KY-018、SG90與400孔麵包板參考](../docs/images/hardware/orders/shopee-aroundtw-04-photoresistor-servo-breadboard.png)
-
-訂單圖5中的常用電阻包是取得本課四種指定阻值的一種方式，不要求買同一整包；
-合買分裝後每人仍須有指定阻值與數量。收納盒可以使用家中現有的合格容器，
-不必購買與圖片相同的款式。
-
-![蝦皮訂單圖5：常用電阻包與收納盒參考](../docs/images/hardware/orders/shopee-loyi-maker-05-resistors-storage.png)
-
-以下是RGB與蜂鳴器的**實物照片**，不是接線示意圖。RGB板上可見`HW-479`、
-`B／G／R／−`與三顆電阻；應找這種單顆、四針的RGB模組，不是八顆燈的WS2812B燈條。
-標示較小時可開啟原圖放大辨認；看不清楚的字樣不要猜。
-
-![HW-479單顆四針RGB模組實物，腳位旁有B、G、R與負號標示](../docs/images/hardware/actual/hw479-rgb-led-module-actual-component-side-2026-09-06.jpg)
-
-蜂鳴器板可見`HW-508`、三根排針與兩側`−／+`；照片仍不足以決定中間腳功能或驅動方式，
-請保留未確認項目，不把「有三根腳」直接解讀為「可直接GPIO的訊號模組」。
-
-![HW-508蜂鳴器模組實物，三根排針與兩側正負標記](../docs/images/hardware/actual/hw508-buzzer-module-actual-component-side-2026-09-06.jpg)
-
-</details>
-
-<a id="delivery-check"></a>
-
-### 到貨檢查
-
-1. 不上電，逐項核對名稱、型號、數量與外觀。
-2. ESP32-S3同時核對YD Type-A V1.5電路板與N16R8模組標示，確認已焊向下44腳位。
-3. 杜邦線須同時具有公對公、公對母與母對母三種。
-4. 確認220 Ω、330 Ω、1 kΩ與10 kΩ各至少一顆；合買分裝也保留原阻值標示，不確定色環時先詢問。
-5. OLED核對SSD1306、128×64、四針I²C及3.3 V相容性；RGB確認是單顆四針模組。模組先保留包裝與規格，不依圖片猜接腳；蜂鳴器規格不明先詢問。
-6. 電池盒核對四槽、開關與完整導線；電池核對AA鎳氫1.2 V。採購規格確認不代表已通過供電測試，依Week 6安全步驟檢查後才接舵機。
-7. 將全部器材排開拍照，再放入有姓名或學號標籤的收納盒。
-8. 型號、腳位數或商品選項不同時，在該品項首次使用前提交照片與規格，不直接上電試錯。
-
-標籤與訂單可以協助確認購買品項，不等於已通過電氣測試。拍攝物品辨識照片時，
-只保留需要核對的商品與標示；收件地址、電話及訂單中的私人資訊不要放進公開
-repository。個人姓名與學號的收納標籤、構想卡也不應成為公開教材圖片。
-
-<a id="personal-purchase-check"></a>
-
-### 個人材料準備確認
-
-先查閱本檔的正式規格與到貨檢查方式，再填寫下表。`狀態`可填「已有且符合」、
-「已訂購」、「需補買」或「需教師確認」。證據可以是實物標示照片、訂單規格或
-待確認問題；不要以商品外觀相似作為規格證據。
-
-| 材料群組 | 狀態 | 可查核的規格證據或下一個動作 |
-|---|---|---|
-| ESP32-S3開發板 |  |  |
-| 麵包板、三種杜邦線、電阻與兩顆按鈕 |  |  |
-| KY-018與YS-31 DHT11 |  |  |
-| KY-016、KY-012與SG90 |  |  |
-| OLED是否符合上表已公布規格 |  |  |
-| 4AA電池盒、四顆1.2 V鎳氫電池與相容充電器的使用安排 |  |  |
-| 筆電、充電器與可傳輸資料的USB線 |  |  |
-| 收納盒或密封袋 |  |  |
-| 電池盒連接材料：固定、絕緣與後續檢查安排 |  |  |
-
-完成條件：每一列都有狀態；需要購買的共同材料符合正式規格；尚未驗證的
-模組腳位、驅動及供電連接標示為待確認；沒有把「第一週不要購買」的選配零件加入必買清單。
-
-<a id="safety"></a>
-
-## 7. Hardware and Data Safety Responsibilities
-
-No hardware is operated in Week 1. These terms explain the safety rules that will apply
-when laboratory work begins in Week 2.
-
-First distinguish three pin roles. A **power pin** supplies or receives power within
-its specified limits; VCC is a common supply label, not a universal voltage value.
-**GND (ground)** is the circuit's reference point, commonly treated as 0 V.
-A **signal pin** carries information, such as an input reading or an output-control
-level. **GPIO** means general-purpose input/output: a configurable controller pin.
-These roles are not interchangeable. A printed number may identify a GPIO; it does
-not specify how many volts that pin supplies. Week 2 introduces the actual board
-labels and the distinction between a signal and a power connection.
-
-For every laboratory activity:
-
-1. Disconnect all power before wiring, rewiring, or continuity measurement.
-2. Do not infer VCC, GND, or signal pins from a shopping-page image. Use the labels on
-   the physical device and the course wiring table.
-3. Do not connect a 5 V signal directly to an unprotected ESP32-S3 GPIO pin.
-4. Do not drive a servo, motor, pump, solenoid, or other high-current load directly
-   from a GPIO pin.
-5. External power and ESP32 control signals must use verified common grounding and a
-   safe-stop method.
-6. Disconnect power and stop immediately if there is heat, an unusual smell, abnormal
-   sound, repeated restarting, or a loose connection.
-7. Do not commit Wi-Fi passwords, API keys, tokens, student personal information, or
-   identifiable grade data to Git.
-8. Do not collect identifiable images, audio, or other sensitive personal data without
-   permission.
-
-<a id="records-and-ai"></a>
-
-## 8. Git, Documentation, and AI Responsibilities
-
-**Git** records project versions on a computer. A **commit** saves a revision in
-that local history; it does not automatically send files to GitHub. **GitHub** hosts
-a remote copy of a repository, the project's files and revision history. A **push**
-sends local commits to that remote repository. Arduino **Upload** is different again:
-it writes a compiled program to the development board. The destination matters;
-“saved on my computer,” “available on GitHub,” and “running on the board” are not the
-same state. Practical commands are introduced when used, not required in this lesson.
-The official [Git commit](https://git-scm.com/docs/git-commit) and
-[Git push](https://git-scm.com/docs/git-push) references describe these separate actions.
-
-A **Lab Notebook** is a laboratory record, not a claim that every test succeeded. For
-example, “the program printed an output command” and “the meter measured the output
-voltage” describe different checks. Record what was actually observed, its conditions,
-and what still needs checking. Do not replace a missing measurement with an expected
-number from an example.
-
-- Each team must maintain traceable program versions, wiring diagrams, data flow, a
-  bill of materials, test records, and known limitations.
-- The Lab Notebook records the objective, procedure, result, error, correction, AI use,
-  and next action.
-- Generative AI may assist with an initial program draft, interface, data format, test
-  case, or troubleshooting hypothesis.
-- AI output is not verification evidence. Before submission, students must understand,
-  revise, run, and preserve test evidence for all submitted work.
-- A statement that “AI says it works” cannot replace official specifications, physical
-  inspection, compilation, logs, measurements, or target-hardware testing.
-- Every team member must be able to explain the submitted program, data path, wiring,
-  and safety limitations.
-
-<a id="idea-card"></a>
-
-<a id="project-idea-card"></a>
-
-## 9. 作品構想卡
-
-本表只記錄第一週的初步想法，不是正式題目核准，Week 8第一次報告前可修改。
-
-先閱讀主教材的[桌面狀態指示器案例](#first-iot-example)，再換成自己
-的使用者與情境。案例示範「如何把用途拆成可觀察的互動」，不是限定所有組別
-都做同一種作品，也不是已完成實機驗證的成品。
-
-先比較兩個候選方向，不要從「想買哪個零件」開始。每個方向先找出一條最小但
-完整的互動：使用者或環境產生可觀察輸入，系統判斷後產生可觀察輸出，軟體則
-保存資料或協助操作。
-
-| 比較項目 | 候選方向A | 候選方向B |
-|---|---|---|
-| 使用者或使用情境 |  |  |
-| 可觀察的實體輸入 |  |  |
-| 可觀察的實體輸出 |  |  |
-| 軟體提供的用途 |  |  |
-| 基本材料包能先驗證的片段 |  |  |
-| 最大的技術、安全或範圍風險 |  |  |
-
-選擇的暫定方向：______________________________
-
-選擇理由：____________________________________________________________
-
-若兩個方向都需要尚未核准的馬達、高電流負載、影像或付費服務才能產生最小
-互動，先縮小題目或改用基本材料包可驗證的輸入與輸出。不要在Week 8前為初步
-構想購買選配零件。
-
-| 欄位 | 填寫內容 |
-|---|---|
-| 姓名與學號 |  |
-| 暫定作品名稱 |  |
-| 使用者或使用情境 |  |
-| 一項實體輸入 |  |
-| 一項實體輸出 |  |
-| 軟體要記錄的資料／事件 |  |
-| 手機要顯示、設定或控制什麼 |  |
-| 一項技術、安全或範圍風險 |  |
-
-用五個步驟內寫出一次完整操作：
-
-1. ______________________________
-2. ______________________________
-3. ______________________________
-4. ______________________________
-5. ______________________________
-
-<a id="week1-evidence"></a>
-
-<a id="week-1-learning-evidence"></a>
-
-## 10. 課程理解與完成證據
-
-### 1. 課程規則判讀
-
-閱讀主教材的18週進度、評量與期末作品要求後，逐列寫下決定及依據。不要只寫
-「可以」或「不可以」；依據須指出週次、評量名稱或主教材小節。
-
-| 情境 | 我的決定 | 依據與需要採取的動作 |
-|---|---|---|
-| Week 1想先購買馬達、驅動板及底盤作為共同必備材料 |  |  |
-| Week 10準備攜帶硬體完成新的小組實作 |  |  |
-| Week 9安排需要到校且列入成績的新成果 |  |  |
-| Week 13把目前版本視為不可再修改的最終版本 |  |  |
-| Week 16以專題進度展示取代個人筆試 |  |  |
-| 同一組在Week 17重複展示兩次，想取得兩筆第三次報告成績 |  |  |
-
-判讀結果與主教材衝突時，回到對應的小節找出限制並修正。完成條件是六列都有
-決定、可定位的依據及必要動作。
-
-### 2. 兩條資料路徑
-
-使用作品構想卡選定的暫定方向，填入具體事件名稱，不要只抄元件或系統層名稱。
-若還不清楚Backend、Database或命令的角色，先回到主教材的
-[具體案例與兩條訊息路徑](#first-iot-example)，再填本表。
-
-```text
-實體輸入事件：____________________
-  → ESP32-S3判斷：____________________
-  → 網路送出的事件：____________________
-  → Backend處理：____________________
-  → Database紀錄：____________________
-  → 手機顯示：____________________
-
-手機命令：____________________
-  → Backend記錄與派送：____________________
-  → ESP32-S3接受或拒絕的條件：____________________
-  → 實體輸出或安全狀態：____________________
-  → 回傳的result／timeout紀錄：____________________
-```
-
-這是概念追蹤，不要求Week 1實作。正常完成的紀錄應同時包含正向事件與反向命令，
-並把「命令已送出」和「實體動作已完成」寫成不同狀態。若某一層沒有用途，先
-檢查題目是否真的符合期末作品最低要求，再修改作品構想卡。
-
-### 3. 安全與驗證情境
-
-每一列寫出第一個安全動作及支持它的主教材規則。此處不接線、不上電，也不以
-AI回答或購物頁圖片代替證據。
-
-| 情境 | 第一個安全動作 | 規則或可接受的證據 |
-|---|---|---|
-| 商品圖片看起來相同，因此想直接猜VCC、GND與signal腳位 |  |  |
-| 開發板仍接著USB電源，但需要移動一條杜邦線 |  |  |
-| 想把SG90的電源直接接到ESP32-S3 GPIO |  |  |
-| AI產生的程式宣稱已在開發板上通過 |  |  |
-| 發現Git版本中含有Wi-Fi密碼或API key |  |  |
-
-完成條件：五列都指出在繼續操作前要做的第一件事，並能連回主教材的安全、Git
-或AI責任。無法找到依據時，不自行發明規則，先標記待確認。
-
 <a id="before-week2"></a>
 
 <a id="week-2-preclass-setup"></a>
 
-## 11. Week 2課前準備（Week 1課後完成）
+## 7. Week 2課前準備（Week 1課後完成）
 
 這一節在Week 1課後完成，不在課堂接板或上傳程式。Arduino IDE是撰寫、編譯及
 上傳程式的電腦軟體；ESP32 board package則讓IDE知道如何為ESP32系列建立程式。

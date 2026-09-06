@@ -119,7 +119,7 @@ Final result: BOARD-T01 GPIO5 passed the Week 3 steady-state output test at appr
 
 ## KY-018 identification handoff
 
-- A new, clearer unpowered photo was saved as `IOT_Introduction/docs/images/hardware/actual/ky018-photoresistor-module-actual-pin-labels.jpg`.
+- A new, clearer unpowered photo was saved as `IOT_Introduction/docs/images/hardware/actual/KY018_1.jpg`.
 - With the photoresistor at the top and the three header pins at the bottom, the standalone `S` beside the left pin and standalone `-` beside the right pin are visible.
 - The instructor correctly observed central text `A`, `S1`, and `R1`. These are located among the component pads rather than immediately beside the middle header pin. `R1` conventionally identifies the fixed resistor. The exact purposes of `A` and `S1` are not assigned from the photo alone; none of these central marks is accepted as the middle header-pin label.
 - The exact physical board does not visibly label the middle header pin with `+` in this photo. Although the Joy-IT KY-018 reference documents the functional terminals as Signal, +V, and GND with a fixed 10 kΩ resistor, the course will keep the module unpowered until an off-power resistance check supports the exact-board voltage-divider topology.
