@@ -39,7 +39,24 @@ assert(!sources[24].includes('### 先找已知與未知'));
 assert(sources[9].indexOf('三個量，不是三種說法')<sources[9].indexOf('先找已知與未知'));
 assert(sources[24].includes('w2-ohms-example'));
 assert(sources[9].includes('檔位、兩個測點') || sources[9].includes('五個欄位'));
-assert(sources[9].includes('不能替它們補上Ω'));
+assert(sources[9].includes('只有數字，為什麼不能判讀？'));
+assert(sources[9].includes('沒有檔位、測點與完整畫面'));
+assert(!sources[9].includes('先前曾回報'));
+assert(!sources[4].includes('chip_revision=2'));
+assert(sources[4].includes('#w2-board-details'));
+assert(sources[24].includes('chip_revision=2'));
+assert(sources[24].includes('<a id="w2-board-details"></a>'));
+assert(sources[11].includes('後續Week 3已回報穩態LOW約0 V、HIGH約3.3 V'));
+assert(sources[11].includes('不可把示範板編號直接當成全班固定答案'));
+assert(!sources[11].includes('GPIO4與GPIO5在BOARD-T01所有target test完成前仍是候選值'));
+const wiring=sources[10];
+const tableRows=wiring.split('\n').filter(l=>/^\| [1-4] \|/.test(l));
+const checks=wiring.split('\n').filter(l=>/^[1-4]\. \[ \]/.test(l));
+assert.equal(tableRows.length,4);assert.equal(checks.length,4);
+for(const [i,hole] of ['a22','a27','a20','a29'].entries()){
+ assert(tableRows[i].includes(hole),`wiring table row ${i+1}`);
+ assert(checks[i].includes(hole),`wiring checklist row ${i+1}`);
+}
 assert(sources[10].indexOf('同組測點示例')<sources[10].indexOf('attachment:week2-button-continuity.jpg'));
 assert(sources[10].indexOf('板子當時尚未壓入')<sources[10].indexOf('attachment:week2-board-fit.jpg'));
 assert(sources[19].includes('debounce_10ms_run1.txt'));
@@ -97,7 +114,7 @@ async function render(){
   assert.equal(await page.locator('img').count(),images);
   for(const width of [1280,420]){await page.setViewportSize({width,height:960});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));}
   await page.setViewportSize({width:1280,height:960});
-  for(const heading of ['先認位置，再讀畫面','把電表數字讀成一句完整的話','先找已知與未知，不先背三條公式','10.7 練習一預期答案：時間從「最後一次變化」起算','10.8 練習二預期答案：逐行連回狀態與計數','10.9 練習三預期答案：等待時間的取捨','10.10 課中判讀的預期回答']){
+  for(const heading of ['教學目標','先認位置，再讀畫面','把電表數字讀成一句完整的話','先找已知與未知，不先背三條公式','只有數字，為什麼不能判讀？','步驟 7：完成實驗接線','先讀懂GPIO名稱與數字的對應','從整塊板子讀到晶片參數','10.7 練習一預期答案：時間從「最後一次變化」起算','10.8 練習二預期答案：逐行連回狀態與計數','10.9 練習三預期答案：等待時間的取捨','10.10 課中判讀的預期回答']){
    await page.getByRole('heading',{name:heading,exact:true}).evaluate(e=>e.scrollIntoView({block:'start'}));
    await page.screenshot({path:path.join(out,`week2_review_${heading.slice(0,4)}.png`)});
   }
