@@ -35,6 +35,9 @@
 ## Next action
 ```
 
+最新實物接續點見[2026-09-07 BOARD-T01分項測試與舵機交接](2026-09-07-week7-bringup.md)：
+OLED、兩鍵、RGB與限流短聲已有使用者回報；舵機及負載仍待確認，不從頭重做已完成觀察。
+
 本輪教材驗證見[紅綠燈遮光挑戰課程修訂紀錄](2026-09-06-traffic-light-course-revision.md)。
 最新採購決策與補充照片見[採購與器材辨識紀錄](2026-09-06-procurement-and-hardware-identification.md)，
 該次只有文件及照片確認，未新增實機測試。

@@ -155,6 +155,46 @@ event_type=scan_finished found=1 model_verified=false
 先由模組文件確認控制器與解析度，再選library的對應建構子（constructor）。
 它相當於告訴library「要依哪一種顯示器方式建立物件」，不是讓library自動認硬體。
 
+### 3.4 實物寫SCK、VDD，接法是否不同？
+
+本次到貨照片在器材圖集中，正面標示為GND、VDD、SCK、SDA；
+在這片已核對的四針I2C模組上，VDD是供電端，SCK對應本課所稱的SCL時脈功能。
+不能只因其他模組也寫SCK就判定它一定是I2C，仍要核對模組介面。
+背面排針垂直於電路板且朝後，安裝透明支架時須保留套線空間，不能用支架硬推排針、
+壓住排線或把螺帽鎖到板子彎曲；改裝及套線均先拔USB。
+
+| 連接的兩端 | 杜邦線（jumper wire） | 辨認理由 |
+|---|---|---|
+| OLED排針到麵包板孔：GND、VDD | 公對母 | 母頭套金屬排針，公頭插麵包板 |
+| OLED排針直接到ESP32排針：SDA、SCK | 母對母 | 兩端都是金屬排針，兩端都需要插孔 |
+| 麵包板孔到另一個麵包板孔 | 公對公 | 兩端都要插進孔中 |
+
+所以「都是公對母嗎？」的答案是：看**兩端接點**，不看它們是不是都接OLED。
+若改用麵包板延長訊號，線材組合也會改變，但兩個訊號仍各用獨立的連通列。
+
+### 3.5 上傳成功、序列已連線、畫面可見是三個檢查
+
+BOARD-T01有實體標示`USB`與`COM`的兩個接頭；Windows的`COM7`等名稱則是序列埠編號，
+不是叫人找第三個插孔。這片板的`COM`接頭經CH343提供UART序列；原生USB的序列行為
+另外受USB CDC設定影響。換接頭後重新選Tools → Port，不假定每台電腦都用同一個號碼。
+依據見[板卡廠商文件](https://github.com/vcc-gnd/YD-ESP32-S3)與
+[Espressif USB CDC說明](https://docs.espressif.com/projects/arduino-esp32/en/latest/tutorials/cdc_dfu_flash.html)。
+
+1. `Hash of data verified`支持寫入資料校驗完成，不代表序列監控視窗已連上或OLED已亮。
+2. `Not connected. Select a board and a port...`先查Board與目前Port、接頭及序列設定，
+   不先重接OLED或提高供電。改實體連線前先斷電。
+3. 序列可讀但`no_oled_ack`，才沿四個功能端檢查；`oled_address=0x3C`只增加通訊回應證據。
+4. 目視文字、框線與變動數字，才補上基本顯示證據。`display_write_attempted=true`只是已嘗試傳送。
+
+本次教師實物用U8g2的`U8G2_SSD1315_128X64_NONAME_F_HW_I2C`顯示秒數與光線數字，
+並有0x3C回應；這是特定模組相容性結果，不是掃描器認出了SSD1315。
+下節共同範例仍為SSD1306，不能直接把教師的建構子改成全班答案。
+測試畫面的TIME是**開機經過秒數**，不是本週後段的30秒倒數，也不是遊戲得分。
+
+同日HW-479依R／G／B逐色命令，使用者回報顏色都正確，支持該接法的HIGH有效行為；
+各色電流、長時間與光敏干擾仍未量測。完整接點與證據見
+[BOARD-T01實測交接](../lab_notes/2026-09-07-week7-bringup.md)，不要求重做已取得的三色觀察。
+
 <!-- cell -->
 ## 4. 先顯示固定文字，再接倒數
 

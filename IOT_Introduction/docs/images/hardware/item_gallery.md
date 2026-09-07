@@ -120,10 +120,12 @@
 
 ## 有機發光二極體顯示模組（OLED Display）
 
-已有蝦皮 OLED 商品照片：訂單圖 2 倒數第三列，選購項目寫 4 針、0.96 吋。商品照片不等於收到後的實物近照，不能單憑縮圖確認控制器、解析度或實物腳序。學生選購規格以 Week 1 採購表為準。
+實物正面可見 GND／VDD／SCK／SDA，背面標示 MN096-12864-4G V1.0。BOARD-T01 已有 SSD1315 建構子顯示成功的回報，不等於晶片型號或整批電氣驗證。學生選購規格仍以 Week 1 採購表為準。
 
 | 檔案 | 來源與角度 | 原檔名／上傳名稱 |
 |---|---|---|
+| [OLED_1.jpg](actual/OLED_1.jpg) | 實物照片：正面：螢幕與四個功能標示 | 175826_0.jpg |
+| [OLED_2.jpg](actual/OLED_2.jpg) | 實物照片：背面：板號與垂直於電路板的排針 | 175827_0.jpg |
 | [shopee-aroundtw-02-drivers-servos-sensors-displays.png](orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png) | 蝦皮商品參考：OLED 在倒數第三列；其他商品與數量不是學生採購要求 | 既有訂單截圖 |
 
 ## 八顆可定址 RGB 燈條（WS2812B-8 LED Bar）
@@ -149,10 +151,11 @@
 
 ## 帶數字顯示的降壓模組（Buck Converter）
 
-訂單稱 LM2596S，照片不能辨明晶片及整板額定值；數字顯示器不是 OLED。補充器材，不列共同採購。
+訂單稱 LM2596S，新照片可見 V591 與疑似 LM2596S ADJ 字樣；整板額定值及負載能力未確認。已有空載調整紀錄，數字顯示器不是 OLED。補充器材，不列共同採購。
 
 | 檔案 | 來源與角度 | 原檔名／上傳名稱 |
 |---|---|---|
+| [BuckConverter_3.jpg](actual/BuckConverter_3.jpg) | 實物照片：電池接 VIN、輸出未接負載；IN 指示燈亮、顯示 6.47 | codex-clipboard-858443b4-57bb-42de-b7e5-d7db6a3ad422.jpg |
 | [BuckConverter_1.jpg](actual/BuckConverter_1.jpg) | 實物照片：元件面、螺絲端子與數字顯示 | 175573_0.jpg |
 | [BuckConverter_2.jpg](actual/BuckConverter_2.jpg) | 實物照片：焊接面 | 175574_0.jpg |
 
