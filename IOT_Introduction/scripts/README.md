@@ -10,6 +10,9 @@ and weekly equipment selection. It keeps one main entry per week and uses relati
 image paths for opening galleries, avoiding duplicated full-resolution base64. Week 2/3
 retain their existing cells and operational photo attachments. Week 4–7 authored
 sources contain `<!-- hardware-gallery:N -->`, expanded by their usual builders.
+Optional `weeks.N.intro` and `weeks.N.notes` provide lesson-specific reading depth.
+Week 1 uses short purchasing captions; other weeks retain the detailed component
+notes. These overrides do not change photo selection, provenance or hardware status.
 
 ```powershell
 node IOT_Introduction/scripts/hardware_galleries.cjs

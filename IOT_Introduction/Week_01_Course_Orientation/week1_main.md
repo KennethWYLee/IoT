@@ -3,22 +3,11 @@
 Date: September 9, 2026<br>
 Course: Internet of Things
 
-No hardware is required, connected, or powered on in Week 1, and no program will be
-uploaded. This week establishes the project expectations, the eighteen-week learning
-path, the assessment structure, material responsibilities, and the preparation required
-before Week 2.
-
-The objectives below describe the **end of the course**, not skills that must already
-be mastered in Week 1. This week, explain one possible interaction in everyday language,
-identify the roles of its parts, and use the course rules to plan your preparation.
-Protocol names and electrical terms will be taught before their practical use.
+Week 1 introduces the course, assessment, project direction and materials.
+No hardware is connected or powered on, and no program is uploaded.
+The objectives below are semester-end abilities; practical concepts will be taught step by step.
 
 [課程大綱](#course-schedule)｜[配分](#assessment)｜[中文採購清單](#purchase-table)｜[零件照片](#equipment-photos)｜[參考預算](#purchase-budget)｜[每組電表](#group-measurement-tool)｜[Week 2課前準備](#week-2-preclass-setup)｜[蝦皮購買圖片](#shopee-purchase-images)
-
-Reading path: [a first IoT example](#first-iot-example) →
-[schedule](#course-schedule) → [assessment](#assessment) →
-[final-project requirements](#final-project) → [materials](#materials) →
-[preparation before Week 2](#before-week2).
 
 ## 1. Week 1 Overview
 
@@ -26,20 +15,16 @@ Reading path: [a first IoT example](#first-iot-example) →
 
 完成本課程後，學生應能：
 
-1. 設計全端物聯網系統（full-stack IoT system），整合實體輸入與輸出、ESP32-S3、網路通訊（network communication）、後端（backend）、資料庫（database）與行動介面（mobile interface）。
-2. 依據適當的電壓（voltage）、供電（power supply）、接地（grounding）、訊號（signal）與故障安全（fail-safe）原則，安全地建立及操作嵌入式硬體（embedded hardware）。
-3. 運用超文字傳輸協定（HTTP）、網頁雙向通訊協定（WebSocket）、訊息佇列遙測傳輸協定（MQTT）、結構化資料（structured data）、持久化儲存（persistent storage）與系統紀錄（system log），實作可靠的裝置與軟體之間的資料及命令流程。
-4. 運用可觀察的行為、量測、紀錄、故障證據與可重現的設定說明，測試、排查、記錄並解釋物聯網專題。
+1. 整合 ESP32-S3、實體輸入與輸出、網路、後端（Backend）、資料庫（Database）及手機介面，建立全端物聯網系統（Full-stack IoT System）。
+2. 依供電、接地與訊號規格安全接線，並在故障時停止設備。
+3. 使用 HTTP、WebSocket 與 MQTT 等通訊方式傳送資料與命令，保存及查詢紀錄。
+4. 以量測、測試與紀錄解釋系統行為，排查問題並提供可重建的文件。
 
 ### 教學內容
 
-共同硬體練習是「紅綠燈遮光挑戰」：開始按鈕（Start）啟動倒數，光敏模組（photoresistor module）辨認遮光事件，三色發光模組（RGB LED）提示允許或禁止，有機發光顯示器（OLED）呈現時間與次數，舵機（servo）以紙指針指出有效次數，蜂鳴器（buzzer）提示失敗。這是Week 3～7共同練習，不限定期末題目。
+課程從按鈕、感測器與 ESP32-S3 開始，學習安全接線、量測及程式控制，再整合成「紅綠燈遮光挑戰」：按鈕開始倒數，光敏模組辨認遮光，RGB 提示燈色，OLED 顯示時間，舵機指出次數，蜂鳴器提示失敗。
 
-本課程介紹完整物聯網系統（Internet of Things, IoT）的設計，將實體裝置與具有實際用途的軟體連接起來。學生會學習感測器（sensor）與按鈕（pushbutton）如何提供輸入、ESP32-S3如何解讀輸入，以及發光二極體（LED）、蜂鳴器（buzzer）、舵機（servo）或其他致動器（actuator）如何產生可觀察的實體反應。電氣安全、供電、接地（grounding）、訊號品質（signal quality）、系統狀態（system state）及錯誤復原（error recovery），都是設計過程的必要部分。
-
-課程也涵蓋裝置與其他系統連接所需的通訊及軟體層。學生會透過無線網路（Wi-Fi）連接裝置，以超文字傳輸協定（HTTP）、網頁雙向通訊協定（WebSocket）或訊息佇列遙測傳輸協定（MQTT）交換結構化資料（structured data），開發後端服務（backend service）、將事件（event）存入資料庫（database），並利用紀錄（log）了解操作成功或失敗的原因。適合手機使用的介面會提供即時狀態、歷史資訊及受控命令（command）。
-
-上述部分最後整合為具有明確使用者與用途的全端物聯網專題（full-stack IoT project）。完成的系統應包含有意義的實體互動、可靠的資料流（data flow）、安全行為、錯誤處理（error handling）、測試證據，以及足以讓他人理解並重建系統的文件。
+接著將裝置連上網路，建立後端、資料庫與手機介面，學習資料紀錄、遠端控制及故障處理。期末完成具有明確用途、測試證據與重建文件的作品；題目不限定為共同遊戲。
 
 <a id="first-iot-example"></a>
 <a id="architecture-extension"></a>
@@ -50,34 +35,16 @@ Reading path: [a first IoT example](#first-iot-example) →
 
 *教學功能示意，不是接線圖，也不是已完成實機驗證的成品。*
 
-The common hardware exercise is a traffic-light shade challenge. Press Start, then cover
-and uncover the light sensor while the indicator is green. Each new stable cover adds one;
-a new cover during red subtracts one, down to zero. Holding it covered does not keep scoring.
-The OLED shows time and effective count; a short paper pointer on a servo indicates 0–6.
-Reach six and press Finish before the deadline. Reaching six alone does not stop time,
-and a later red penalty can reduce it again. Failure produces a brief buzzer sound.
-A device fault or manual abort is recorded separately from player failure.
+In the local game, covering and uncovering the sensor during green adds one;
+doing so during red subtracts one. Reach six and press Finish before time runs out.
+Week 7 explains the complete rules. The following example shows what a network adds.
 
-Week 3 teaches classification, Week 4 dual sensors and one-shot events, Week 5 RGB and
-OLED timing, Week 6 the servo pointer and external power, and Week 7 the complete rules.
-DHT11 has a meaningful Week 4 task but is not forced into the game. This preview is not
-a tested device, and game scores are not course grades. No hardware is operated now.
-A final project can use another topic. The desk-indicator example below explains how
-networked software can extend a local physical interaction.
+Consider a desk indicator: press a button to request help, a light changes color,
+and a phone shows which desk needs assistance. A user can acknowledge the request
+from the phone. This is a design example, not a tested device.
 
-Consider a proposed desk indicator: a person presses a button to request help, a light
-changes color, and a phone shows which desk requested help. Later, an authorized user
-can acknowledge the request from the phone. This is a **design example**, not a tested
-device or a complete final-project submission. No wiring or programming is needed now.
-
-The button, development board, and light are **hardware**: physical parts that can be
-touched. **Software** is the set of instructions that decides what those parts do and
-what the phone displays. The ESP32-S3 is the **controller** in this example: its program
-reads the button and decides how to control the light. An **input** supplies information
-to that program; an **output** is a response it controls. Here the input is a button
-press and the output is a visible light. In another project, a **sensor** could provide
-an input by detecting an environmental condition, such as changing light. An
-**actuator** produces a physical response, such as a servo moving an arm.
+按鈕、開發板與燈是硬體（Hardware），程式是控制它們行為的軟體（Software）。
+按鈕提供輸入（Input），ESP32-S3 處理後，以燈光作為輸出（Output）。
 
 The local interaction can be described without any network:
 
@@ -88,11 +55,7 @@ Person presses the button
   → Person checks whether the light actually changed
 ```
 
-That local interaction alone is not the complete connected system required in this
-course. **IoT (Internet of Things)** connects physical devices with networked software
-so that events can be shared and devices can be monitored or controlled. The course
-can use a local network; this does not require a paid cloud service or an Internet-wide
-public website. For the example, the additional parts have distinct jobs:
+物聯網（Internet of Things, IoT）把實體互動連上網路；下列部分讓手機能顯示及回應求助訊息：
 
 | Part | Meaning in this example | What a person could check |
 |---|---|---|
@@ -102,38 +65,14 @@ public website. For the example, the additional parts have distinct jobs:
 | Log | A record of what a program did or encountered, used to trace a problem | Was an event received, or did an operation fail? |
 | Mobile interface, or frontend | The page the user sees and operates on a phone | Does it show a request, an old reading, or a connection problem? |
 
-Now follow two different messages. An **event** reports something that happened;
-a **command** asks the device to do something. Neither word means electrical current.
-
 ```text
-Event: "Desk A requested help"
-  ESP32-S3 → network → backend
-                         ├─ saves the event in the database
-                         └─ sends an update to the phone interface
-
-Command: "Acknowledge Desk A's request"
-  Phone interface → backend checks permission → network → ESP32-S3 checks its state
-    → device accepts and attempts the light change, or rejects the command
-    → device result returns to the backend → recorded result and phone update
+Button press → ESP32-S3 → network → backend → save record and update phone
+Phone response → backend → network → ESP32-S3 → change light
 ```
 
-The arrows describe **information flow**, not a wiring diagram. The database stores
-information; it does not power the light. WebSocket, introduced later, provides the
-backend-to-browser update channel; HTTP and MQTT are communication methods studied
-later for exchanging messages. Their syntax is not a Week 1 requirement.
-
-A phone message saying “sent” proves only that sending was attempted at that stage.
-It does not prove that the device received the command or that the light changed.
-The backend waits for a device result; if none arrives within a defined waiting period,
-it records a **timeout**. A timeout means “no result received in time,” not “the light
-definitely stayed off.” A device report and a person's observation of the light are
-also different kinds of evidence. Later laboratories teach how to compare them.
-
-Before using this example to develop your own idea, point out its input, controller,
-output, stored event, and phone action. Explain what would remain unknown if the
-network were disconnected. If a part has no clear job in your idea, return to the user
-need before adding more hardware. The [final-project requirements](#final-project)
-below still apply.
+These arrows show information flow, not electrical wiring. A sent message does not
+prove that the light changed; later labs compare messages, records and actual behavior.
+Identify this example's input, output and phone action before proposing your own topic.
 
 ## 2. Course Information
 
@@ -151,10 +90,6 @@ below still apply.
 Administrative fields such as credits, course code, required or elective status, and
 the official language of instruction are subject to the final university registration
 system announcement.
-
-The board name in the purchase list does not replace inspection of the delivered PCB
-and module. A matching memory label alone does not establish identical pin positions
-or power connections.
 
 <a id="course-schedule"></a>
 
@@ -196,15 +131,9 @@ or power connections.
 | Project Report 3 (Week 17) | 25% | Complete physical interaction, frontend and backend, data, reliability, testing, documentation, and individual understanding |
 | Total | 100% |  |
 
-Hardware cost, mechanical complexity, and project speed do not directly earn additional
-credit. A project built from basic materials can meet the highest expectations when it
-provides reliable interaction, a complete data flow, a clear mobile workflow, and
-sufficient testing evidence.
-
-The three project reports are checkpoints in one developing project: feasibility in
-Week 8, implementation progress and revision in Week 13, and the final demonstration
-in Week 17. Each group receives only one Project Report 3 grade. The two written
-exams are individual work; a group demonstration does not replace either exam.
+The three reports develop one project: feasibility, progress and revision, then the final
+demonstration. Each group receives one final-report grade; written exams are individual.
+Hardware price, mechanical complexity and speed do not earn extra credit.
 
 <a id="final-project"></a>
 
@@ -247,56 +176,44 @@ replace the student-developed device program, backend, database, or mobile inter
 準備方式：下表依首次使用週次排序，可一次購齊或分批準備，自行安排到貨時間，
 於首次使用前備妥。USB資料線與組內電表從Week 2開始使用。
 
-本表是全班共同實驗的正式材料清單。每人必備零件都在Week 2～7有共同操作，
-不是為可能選做的專題預先購買。每位學生準備並保管自己的一套材料；
-萬用電表依下方分組規則共用。
+每人準備並保管一套 Week 2～7 共同實驗材料；萬用電表依下方分組規則共用。
 
 ### 每人必備零件
 
-「必備」表示上課時每人要有符合規格的零件，不是指定購買某個商品名稱叫「電子基本包」的套件。
-已有合格用品可以繼續使用，只補缺少的品項；下表的數量不是要求重新買一套。
+已有符合規格的零件可沿用，只補缺項，不限定購買整套材料包。
 
 | 品項 | 必須符合的規格 | 每人數量 | 每人參考金額 | 首次使用與Week 2～7共同任務 |
 |---|---|---:|---:|---|
-| ESP32-S3開發板（development board） | YD-ESP32-S3 Type-A V1.5、N16R8、已焊向下44腳排針；不同電路板（PCB）版型先確認相容性，不可直接互套DevKitC-1接線圖 | 1片 | NT$390 | Week 2編譯、上傳、序列監控與按鈕輸入；Week 3～7讀取感測器、控制輸出與整合遊戲 |
-| 麵包板（breadboard） | 400孔免焊麵包板，約8.5×5.5 cm | 1片 | NT$22 | Week 2五孔連通、跨槽隔離與按鈕；Week 3測點、分壓；Week 4～7依接線表重用 |
-| 杜邦線（jumper wire） | 20 cm，公對公／公對母／母對母，各一排40條 | 各1排 | NT$75 | Week 2公對公延伸測點、公對母連接排針與麵包板；Week 4母對母連DHT11資料腳；後續各週重用 |
-| 四腳輕觸按鈕（pushbutton） | 6×6 mm、常開瞬時型 | 2顆 | NT$4 | Week 2按鈕輸入與去抖；Week 6一顆作停止鍵；Week 7兩顆分別作開始（Start）與結束（Finish），同按為中止 |
-| 指定阻值電阻（resistor） | 220 Ω、330 Ω、1 kΩ與10 kΩ；保留原阻值標示 | 4種，各至少1顆 | NT$60（以整包估算） | Week 3用1 kΩ／10 kΩ分壓與交換位置；Week 4用220 Ω／330 Ω辨認、量測與比較量程 |
-| 光敏電阻模組（photoresistor module） | KY-018 | 1個 | NT$10 | Week 3訊號電壓、ADC與遮光分類；Week 4遮光事件；Week 5燈光干擾；Week 7遊戲輸入 |
-| 溫濕度模組（temperature and humidity module） | YS-31 DHT11三針模組，排針已焊；不買未附模組板的裸感測器 | 1個 | NT$25 | Week 4溫濕度讀取、取樣、失敗與恢復，再與光敏及蜂鳴器整合 |
-| 蜂鳴器模組（buzzer） | KY-012有源型類別；HW-508實物的腳位、供電及驅動電流仍待確認。已有者先保留；新購須取得規格，不能僅憑KY編號認定可直接GPIO | 1個 | NT$14 | Week 4新遮光事件的一次短聲與自動關聲；Week 7限時失敗提示 |
-| 三色發光模組（RGB LED） | KY-016／HW-479類，單顆RGB LED、四針、板上有各色限流電阻；不是WS2812B燈條。使用前確認共同端及控制準位 | 1個 | NT$9 | Week 5各色輸出與狀態燈；Week 7綠燈允許遮光、紅燈禁止遮光的規則提示 |
-| 有機發光顯示器（OLED） | 0.96吋、SSD1306控制器、128×64像素、四針I²C介面；模組須支援3.3 V供電與3.3 V邏輯，排針已焊 | 1個 | NT$65（歷史單價） | Week 5畫面、倒數與次數；Week 6指針同步顯示；Week 7倒數、次數、規則與結果 |
-| 小型舵機（servo） | SG90位置型，附舵盤與螺絲；不是360度連續旋轉型。允許電壓、脈寬與安全角度須驗證，不要求轉滿180度 | 1個 | NT$35 | Week 6受限角度、指針定位與安全停止；Week 7指示有效次數 |
-| 電池盒（battery holder） | 四顆AA串聯、帶開關、帶導線；搭配下方自備電池與牢固絕緣的連接材料 | 1個 | NT$15 | Week 6舵機外部供電、極性與共地檢查；Week 7重用同一供電方案 |
+| ESP32-S3開發板（development board） | YD-ESP32-S3 Type-A V1.5、N16R8、已焊向下44腳排針；不同板型先確認相容性 | 1片 | NT$390 | Week 2～7：上傳程式、讀取輸入與控制輸出 |
+| 麵包板（breadboard） | 400孔免焊麵包板，約8.5×5.5 cm | 1片 | NT$22 | Week 2～7：免焊接線與量測 |
+| 杜邦線（jumper wire） | 20 cm，公對公／公對母／母對母，各一排40條 | 各1排 | NT$75 | Week 2～7：連接板卡、零件與測點；母對母從Week 4使用 |
+| 四腳輕觸按鈕（pushbutton） | 6×6 mm、常開瞬時型 | 2顆 | NT$4 | Week 2、6～7：按鈕輸入、停止與遊戲控制 |
+| 指定阻值電阻（resistor） | 220 Ω、330 Ω、1 kΩ與10 kΩ；保留原阻值標示 | 4種，各至少1顆 | NT$60（以整包估算） | Week 3～4：1 kΩ／10 kΩ分壓；220 Ω／330 Ω量測 |
+| 光敏電阻模組（photoresistor module） | KY-018 | 1個 | NT$10 | Week 3～5、7：光線量測、遮光分類與遊戲輸入 |
+| 溫濕度模組（temperature and humidity module） | YS-31 DHT11三針模組，排針已焊；不買裸感測器 | 1個 | NT$25 | Week 4：溫濕度取樣、錯誤處理與雙感測器整合 |
+| 蜂鳴器模組（buzzer） | KY-012有源型（Active Buzzer），三針、附模組板 | 1個 | NT$14 | Week 4、7：遮光事件與遊戲失敗的短聲提示 |
+| 三色發光模組（RGB LED） | KY-016／HW-479類，單顆RGB、四針、附限流電阻；不是WS2812B燈條 | 1個 | NT$9 | Week 5、7：狀態燈與遊戲紅綠燈 |
+| 有機發光顯示器（OLED） | 0.96吋、SSD1306控制器、128×64像素、四針I²C介面；模組須支援3.3 V供電與3.3 V邏輯，排針已焊 | 1個 | NT$65（歷史單價） | Week 5～7：顯示倒數、次數與結果 |
+| 小型舵機（servo） | SG90位置型，附舵盤與螺絲；不是360度連續旋轉型 | 1個 | NT$35 | Week 6～7：用指針指出有效次數 |
+| 電池盒（battery holder） | 四顆AA串聯、帶開關、帶導線；電池與連接材料另備 | 1個 | NT$15 | Week 6～7：舵機外部供電 |
 
-電阻可以沿用現有零件、單買或合買分裝，只要每人取得上述四種阻值各至少一顆。
-NT$60是歷史「常用電阻包」的整包價格，不是四顆電阻的報價；合買分裝時按實際支出分攤。
-包內其他阻值不列Week 2～7共同必備，也不要求為了備齊整包而另外購買。
+電阻可單買或合買分裝，每人備齊四種阻值各至少一顆。NT$60是整包歷史價格，
+不是四顆的報價；不要求購買包內其他阻值。
 
-OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明接腳數量，
-不保證每家模組腳序相同；收到後依實物標示確認電源、接地、時脈（SCL）與資料（SDA）。
-通訊位址（I²C address）在Week 5檢查，不能只憑外觀認定為某個位址。
-目前程式使用SSD1306 128×64的[U8g2設定](https://github.com/olikraus/u8g2/wiki/u8g2setupcpp)，
-不要把外觀相似的SH1106或SPI版本當成相同商品。
+OLED依上表規格選購，不以外觀相似的SH1106或SPI版本替代；腳位與通訊檢查在Week 5進行。
 
-蜂鳴器是目前仍須確認電氣規格的品項：`HW-508`照片不能證明中間腳的用途，
-也不能證明可由GPIO直接驅動。不要因此重買已有模組；新購前先取得商品的供電、
-腳位及驅動資料交由教師核對。清單列出用途與數量，不等於每種模組已通過上電測試。
+蜂鳴器新購前，請提供商品供電與腳位資料供教師確認；不要直接接到GPIO。已有模組可先保留。
 
-三種杜邦線都會有共同操作，不要求一次用完每排40條；每次只分出當週接線所需線材，
-其餘分類保存供後續重建與故障替換。所有接線仍依當週已驗證的完整步驟，不能只看本表
-就先通電。期末作品不必使用所有模組，不因加裝更多零件增加分數。
+三種杜邦線依實驗需要取用，其餘保存。採購表不是接線表，上電須依當週操作步驟。
 
 <!-- hardware-gallery:start -->
 <a id="equipment-photos"></a>
 
 ### 採購零件外觀
 
-依採購表辨認零件；下列是外觀，不是新增採購數量或接線答案。USB 資料線、筆電、電池、充電器與連接材料依自備用品說明準備。
+對照照片辨認零件，所需規格與數量以採購表為準。
 
-照片下方標示拍攝角度與來源。先辨認零件，再依本週器材表與接線步驟操作；照片本身不是接線指令，也不表示已完成電氣驗證。
+照片標示來源與角度，只供外觀辨識，不是接線圖或已驗證證明；商品圖的價格與數量不代表學生需求。Week 1不接線，實作時依當週核准步驟操作。
 
 [ESP32-S3 開發板](#equipment-esp32s3) · [400 孔麵包板](#equipment-breadboard400) · [杜邦線](#equipment-jumperwire) · [四腳輕觸按鈕](#equipment-pushbutton) · [萬用電表](#equipment-a830l) · [固定電阻](#equipment-resistor) · [KY-018 光敏電阻模組](#equipment-ky018) · [DHT11 溫濕度模組](#equipment-dht11) · [HW-508 蜂鳴器模組](#equipment-buzzer_hw508) · [HW-479 三色發光二極體模組](#equipment-rgb_hw479) · [有機發光二極體顯示模組](#equipment-oled) · [SG90 舵機](#equipment-sg90) · [四槽 AA 帶開關電池盒](#equipment-batteryholder4aa)
 
@@ -304,7 +221,7 @@ OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明�
 
 #### ESP32-S3 開發板（Development Board）
 
-照片中的板卡為 YD-ESP32-S3 Type-A V1.5，搭載 N16R8 模組。正反面白底圖是既有後製展示圖；小字與腳位須核對本人實物及本週接線資料。
+主控制板，負責執行程式及連接零件。照片為YD-ESP32-S3 Type-A V1.5；不可直接套用不同板型的接線圖。
 
 | 實物後製展示圖：正面：模組、按鈕與 USB 接頭 | 實物後製展示圖：背面：板身與排針 |
 | --- | --- |
@@ -316,7 +233,7 @@ OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明�
 
 #### 400 孔麵包板（Breadboard）
 
-辨認中央溝槽、a～j 字母與列號。外觀照片不表示所有孔都相通，連通關係依本週圖解與斷電量測確認。
+免焊連接零件；以中央溝槽、字母與列號辨認插孔位置。
 
 | 實物照片：俯視：中央溝槽、五孔組與側邊電源軌 |
 | --- |
@@ -326,7 +243,7 @@ OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明�
 
 #### 杜邦線（Jumper Wire）
 
-露出金屬針的是公頭（Male），有插孔的是母頭（Female）；線色不會自行決定電壓或功能。所需接頭種類依當週器材表，不是每週都用完三種。商品參考卡上的數量與金額是歷史資料，不是學生應買數量或目前售價。
+用來連接零件。金屬針是公頭（Male），插孔是母頭（Female）；三種接頭都要準備。
 
 | 實物照片：成排導線與接頭全貌 | 蝦皮商品參考：公對公：兩端皆為金屬針 |
 | --- | --- |
@@ -340,7 +257,7 @@ OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明�
 
 #### 四腳輕觸按鈕（Tactile Pushbutton）
 
-上方黑色部分是按壓位置，四支金屬腳用來連接電路。照片不能單獨證明哪一對腳常通；先斷電，依 Week 2 的方法辨認。
+黑色頂部是按壓位置，四支金屬腳用來接線；用於輸入、停止及遊戲控制。
 
 | 實物照片：俯視：按鍵與金屬上蓋 | 實物照片：側面：四支接腳 |
 | --- | --- |
@@ -352,7 +269,7 @@ OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明�
 
 #### 萬用電表（Digital Multimeter）
 
-此照片為 A830L 示範表。學生的表可能不同；旋鈕刻度、插孔及畫面單位以自己的電表為準，不能只照照片轉到相同方向。
+量測電阻與電壓、檢查通斷。照片是A830L示範表，操作以自己的電表刻度與插孔為準。
 
 | 實物照片：正面：顯示器、旋鈕與表筆插孔 |
 | --- |
@@ -362,7 +279,7 @@ OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明�
 
 #### 固定電阻（Resistor）
 
-共同材料只取 220 Ω、330 Ω、1 kΩ、10 kΩ；合照中的其他阻值不是新增必買項。手寫標示與色環是辨識線索，標示值不等於逐顆實測值。
+限制電流或組成分壓電路；以色環與原包裝辨認阻值，本課需要的四種阻值見採購表。
 
 | 實物照片：不同阻值與手寫分類標示 |
 | --- |
@@ -372,7 +289,7 @@ OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明�
 
 #### KY-018 光敏電阻模組（Photoresistor Module）
 
-圓形感光元件、板上固定電阻與三支排針構成模組。S 是訊號標示；元件區的 A、S1、R1 不能直接當成中間排針名稱。接線沿用已確認的 Week 3 紀錄。
+頂端圓片感受光線變化，用於遮光辨識。
 
 | 實物照片：正面近照：感光元件、S 與 − 絲印 | 實物照片：另一元件面角度 |
 | --- | --- |
@@ -386,7 +303,7 @@ OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明�
 
 #### DHT11 溫濕度模組（Temperature and Humidity Module）
 
-訂單名稱為 YS-31。藍色有孔外殼包住感測器；照片中的連接線不等於已核准線序。三腳名稱、供電與訊號準位確認前不上電。
+藍色有孔外殼內是溫濕度感測器；照片為YS-31三針模組。
 
 | 實物照片：感測器面與連接線 | 實物照片：焊接面與排針連接 |
 | --- | --- |
@@ -396,7 +313,7 @@ OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明�
 
 #### HW-508 蜂鳴器模組（Buzzer Module）
 
-訂單稱 KY-012；照片可見 HW-508、三針與兩側 −／+。中間腳功能、有源或無源型式、供電及驅動能力未由照片確認，不直接套用其他蜂鳴器接法。
+圓形發聲元件，用於短聲提示。商品名KY-012，照片板號HW-508；腳位與驅動規格仍待核對，不直接接GPIO。
 
 | 實物照片：元件面：圓形蜂鳴器與三支排針 | 實物照片：焊接面 |
 | --- | --- |
@@ -408,7 +325,7 @@ OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明�
 
 #### HW-479 三色發光二極體模組（RGB LED Module）
 
-訂單稱 KY-016；實物 PCB 標示 HW-479，前方可見 B、G、R、− 與板上電阻。共同端、阻值及控制電流仍須核對，不能用八顆燈條取代這個模組。
+單顆LED呈現紅、綠、藍色，用於狀態提示；四針模組，不是八顆燈條。
 
 | 實物照片：正面：單顆 LED 與 B／G／R／− 標示 | 實物照片：焊接面 |
 | --- | --- |
@@ -420,7 +337,7 @@ OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明�
 
 #### 有機發光二極體顯示模組（OLED Display）
 
-已有蝦皮 OLED 商品照片：訂單圖 2 倒數第三列，選購項目寫 4 針、0.96 吋。商品照片不等於收到後的實物近照，不能單憑縮圖確認控制器、解析度或實物腳序。學生選購規格以 Week 1 採購表為準。
+顯示倒數、次數與結果。商品照片在下圖倒數第三列，規格見採購表；尚無到貨近照。
 
 | 蝦皮商品參考：OLED 在倒數第三列；其他商品與數量不是學生採購要求 |
 | --- |
@@ -430,7 +347,7 @@ OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明�
 
 #### SG90 舵機（Servo Motor）
 
-三線插頭、舵機本體與白色舵盤一起辨認。照片中的品牌與型號標籤不證明真偽、安全行程或供電能力；不得由 GPIO 或 3V3 供應馬達電力。
+帶三線接頭的小型舵機，附白色舵盤，用來帶動指針；不可由GPIO或3V3供電。
 
 | 實物照片：拆袋全貌：標籤、三線插頭與附件 | 實物照片：包裝內的標籤、插頭與舵盤 |
 | --- | --- |
@@ -444,7 +361,7 @@ OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明�
 
 #### 四槽 AA 帶開關電池盒（Battery Holder）
 
-照片未展示盒內配置；使用時須確認為四槽串聯。Week 6、7 的方案是四顆標稱 1.2 V 鎳氫電池，電池與可靠且絕緣的連接材料自行準備。紅黑線的極性與負載電壓仍要量測。
+四槽AA串聯電池盒，帶開關與導線；搭配四顆標稱1.2 V鎳氫電池供舵機使用。
 
 | 實物照片：外殼、ON／OFF 開關與紅黑裸線 | 實物照片：另一盒蓋與導線角度 |
 | --- | --- |
@@ -458,17 +375,9 @@ OLED可依上表規格選購，不需等到Week 5才買。「四針」只說明�
 
 **上表每人零件參考小計：NT$724，已包含一個OLED，電表另計。**
 
-計算：390＋22＋75＋4＋60＋10＋25＋14＋9＋65＋35＋15＝724。
-三種杜邦線是NT$25×3＝75；兩顆按鈕是NT$2×2＝4，上表已乘過數量，不要再乘一次。
-
-這些金額沿用[2026年採購紀錄](../docs/hardware/purchased_inventory.md)，只供預算估算，
-不是目前賣場報價；符合上表規格的實際商品價格可能不同。
-不另加七段顯示器或OLED專用支架。
-
-**NT$724不是全部上課成本。** 尚未包含筆電與充電器、USB資料線、收納容器、
-AA鎳氫充電電池、相容充電器的使用成本、連接材料、電表與運費；已有合格用品不必重買。
-這些用品沒有統一報價，不能當成0元。實際支出為「需補買零件的實際金額
-＋電表分攤＋其他需補買用品＋運費」，不是每人固定付NT$724。
+表中金額已包含各項數量，沿用[2026年採購紀錄](../docs/hardware/purchased_inventory.md)，不是目前報價。
+小計未含筆電與充電器、USB資料線、收納、AA電池與相容充電器、連接材料、電表及運費；
+這些項目依實際需補買的用品計算，不能當成0元。
 
 <a id="group-measurement-tool"></a>
 
@@ -489,10 +398,8 @@ AA鎳氫充電電池、相容充電器的使用成本、連接材料、電表與
 | 2人 | NT$79.50 | NT$803.50 |
 | 3人 | NT$53 | NT$777 |
 
-例如三人組：159÷3＝53，每人724＋53＝777，仍未包含其他需補買用品與運費。
-若使用既有合格電表，或1人組與其他組共用，依實際新增支出計算，不套用新購範例。
-實際價格依品牌、功能及賣場為準。購買前應確認具有通斷蜂鳴，
-不能只看到外形相似就下單。
+例如三人組：159÷3＝53，每人724＋53＝777，其他用品與運費另計。
+沿用或跨組共用合格電表者，依實際新增支出計算。
 
 ### 學生也須自備
 
@@ -507,15 +414,11 @@ AA鎳氫充電電池、相容充電器的使用成本、連接材料、電表與
 
 紙／布、指針、刻度及固定用材料自行處理，不列入上方電子零件採購與估價。
 
-連接材料可自行準備，但「隨意固定」不代表合格：裸線靠碰觸、鬆散纏繞或只靠膠帶
-壓住接點都不能代替牢固的電氣連接。絕緣與固定是兩個都要達成的條件，
-並非買某一塊轉接板就自動安全。斜口鉗與剝線鉗不列每人必買，依實際連接方法準備工具。
+電源接點須牢固且絕緣，不可用裸線碰觸、鬆散纏繞或只靠膠帶壓住接點；工具依連接方法準備。
 
 供電分工是「筆電USB供ESP32，電池盒供SG90，兩者共地（common ground）」。
 不能把SG90接到GPIO或3V3取電，也不能把本課YD板未橋接的`5Vin`當成USB的5 V輸出。
-四顆1.2 V的4.8 V是標稱值，不是已量到的值；充電後與舵機動作時可能不同，
-Week 6接舵機前仍須確認電壓、極性、接點與安全停止。這個方案不要求預先購買降壓模組。
-外部供電與共地的理由可參考[Arduino舵機供電說明](https://support.arduino.cc/hc/en-us/articles/360017053760-Troubleshoot-servo-motors)。
+標稱4.8 V不等於實測電壓；Week 6依實物確認供電、接線與安全停止後才使用，不預先要求降壓模組。
 
 <a id="before-week2"></a>
 
@@ -523,15 +426,9 @@ Week 6接舵機前仍須確認電壓、極性、接點與安全停止。這個�
 
 ## 7. Week 2課前準備（Week 1課後完成）
 
-這一節在Week 1課後完成，不在課堂接板或上傳程式。Arduino IDE是撰寫、編譯及
-上傳程式的電腦軟體；ESP32 board package則讓IDE知道如何為ESP32系列建立程式。
-安裝IDE與安裝board package是兩件事，看到IDE視窗不代表ESP32支援已安裝。
-
-逐畫面的安裝與檢查步驟集中在
-[Week 2第四節：軟體與板卡辨識](../Week_02_ESP32_Hardware_Basics/week2_main.ipynb#w2-install)。
-此處列準備順序與須保存的證據；操作時依該節完整步驟完成。遇到不懂的名詞，
-回到對應說明，不靠猜測更改設定。課前先完成安裝部分，實物板卡設定、接線與
-Upload留到Week 2依序操作。
+Week 1課後先安裝Arduino IDE（撰寫與上傳程式的軟體）及ESP32板卡套件（Board Package，讓IDE支援ESP32）；兩者須分別安裝。
+操作畫面見[Week 2第四節](../Week_02_ESP32_Hardware_Basics/week2_main.ipynb#w2-install)。
+課前只完成安裝與資料準備，接板、接線與上傳留到Week 2。
 
 ### 1. 安裝Arduino IDE 2
 
@@ -576,18 +473,13 @@ IOT_Introduction/docs/course_materials/starter_code_snippets.md
 安裝失敗時，回報作業系統版本、卡住的步驟、完整錯誤訊息或截圖，
 以及已經嘗試過的處理方式。
 
-These preparations are completed after class, before Week 2.
-Hardware operation and Upload begin in Week 2; powered voltage measurements follow in Week 3.
-
 <a id="shopee-purchase-images"></a>
 
 ## 8. 老師的蝦皮購買圖片（歷史參考）
 
-以下保留老師提供的 5 張蝦皮購物截圖，來源為環島科技與樂意創客，
-供對照商品外觀、名稱及選購選項；不是收到實物後拍攝的零件照片。
-**學生需要的規格、數量與使用週次，以前面的[中文採購清單](#purchase-table)為準，
-不要照抄截圖中的整筆訂單。** 圖中額外的車輛器材是老師為自製無人車等個人用途準備的，
-不代表學生也要購買。畫面金額是歷史紀錄，不是目前報價；商品圖片也不是接線圖。
+以下是老師提供的環島科技、樂意創客購物截圖。規格與數量以[中文採購清單](#purchase-table)為準，
+不要照抄截圖中的整筆訂單；額外車輛器材供老師自製無人車等個人用途。
+價格是歷史紀錄，不是目前報價；商品圖片不是接線圖。
 
 [圖 1：電表、按鈕與公對母線](#shopee-order-1)｜[圖 2：OLED 與母對母線](#shopee-order-2)｜[圖 3：ESP32 與感測模組](#shopee-order-3)｜[圖 4：光敏、SG90 與麵包板](#shopee-order-4)｜[圖 5：電阻包](#shopee-order-5)
 
@@ -597,9 +489,7 @@ Hardware operation and Upload begin in Week 2; powered voltage measurements foll
 
 ### 圖 1：環島科技——電表、按鈕與公對母杜邦線
 
-可找到 A830L 萬用電表（Digital Multimeter）、四腳輕觸按鈕（Pushbutton）與
-公對母杜邦線（Male-to-Female Jumper Wire）。最上方選項是 OLED 螢幕支架，
-不是 OLED 螢幕本體；按鈕列是當時的購物車紀錄，不表示該列已結帳。
+重點：A830L 電表、四腳按鈕與公對母杜邦線。最上方是支架，不含 OLED 螢幕；按鈕列為購物車紀錄。
 
 ![老師提供的環島科技購物截圖 1：電表、按鈕、公對母杜邦線，並含個人用途的支架、馬達與電源零件](../docs/images/hardware/orders/shopee-aroundtw-01-prototyping-motors-power.png)
 
@@ -607,9 +497,7 @@ Hardware operation and Upload begin in Week 2; powered voltage measurements foll
 
 ### 圖 2：環島科技——OLED 顯示器與母對母杜邦線
 
-倒數第三列是 OLED 顯示器（OLED Display），選項寫「4 針、0.96 吋」；
-這一列才是螢幕，不是圖 1 的支架。同圖另有母對母杜邦線（Female-to-Female Jumper Wire）。
-僅憑商品縮圖不能確認控制器、解析度或實物腳序，仍須核對正式採購規格。
+倒數第三列是「4 針、0.96 吋」OLED 螢幕，不是支架；同圖另有母對母杜邦線。
 
 ![老師提供的環島科技購物截圖 2：倒數第三列為四針 0.96 吋 OLED，另有母對母杜邦線及其他器材](../docs/images/hardware/orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png)
 
@@ -617,10 +505,7 @@ Hardware operation and Upload begin in Week 2; powered voltage measurements foll
 
 ### 圖 3：環島科技——ESP32、感測與發光模組
 
-可找到 ESP32-S3 開發板（Development Board）、DHT11 溫濕度模組（Temperature and Humidity Module）、
-RGB 三色發光模組（RGB LED Module）、蜂鳴器模組（Buzzer Module）、公對公杜邦線（Male-to-Male Jumper Wire）及四槽 AA 電池盒（Battery Holder）。
-單顆四針 RGB 與八顆燈條是不同器材，不能只看都有「RGB」字樣就互相替代。
-商品名稱不取代實物板型與腳位確認；電池種類與供電方案仍依正式清單準備。
+重點：ESP32-S3、DHT11、單顆 RGB、蜂鳴器、公對公杜邦線與四槽 AA 電池盒；八顆燈條不是本課 RGB 模組。
 
 ![老師提供的環島科技購物截圖 3：ESP32-S3、DHT11、RGB、蜂鳴器、公對公杜邦線與四槽 AA 電池盒](../docs/images/hardware/orders/shopee-aroundtw-03-esp32-sensors-lighting-power.png)
 
@@ -628,8 +513,7 @@ RGB 三色發光模組（RGB LED Module）、蜂鳴器模組（Buzzer Module）�
 
 ### 圖 4：環島科技——光敏模組、SG90 與麵包板
 
-可找到 KY-018 光敏電阻模組（Photoresistor Module）、SG90 舵機（Servo Motor）與
-400 孔麵包板（Breadboard）。圖上方的電池盒與圖 3 是相鄰截圖的重疊部分，不是新增購買要求。
+重點：KY-018、SG90 與 400 孔麵包板；上方電池盒是與圖 3 重疊的同一列。
 
 ![老師提供的環島科技購物截圖 4：KY-018 光敏模組、SG90 舵機、400 孔麵包板及重疊的電池盒列](../docs/images/hardware/orders/shopee-aroundtw-04-photoresistor-servo-breadboard.png)
 
@@ -637,8 +521,6 @@ RGB 三色發光模組（RGB LED Module）、蜂鳴器模組（Buzzer Module）�
 
 ### 圖 5：樂意創客——常用電阻包與收納盒
 
-電阻包（Resistor Assortment）中包含本課需要的 220 Ω、330 Ω、1 kΩ 與 10 kΩ，
-也包含其他阻值。可以單買、沿用或合買分裝，只要每人備齊採購表指定的種類與數量；
-不要求每人購買整包，收納盒（Storage Box）也不限定圖中款式。
+電阻包包含本課需要的四種阻值，可依採購表單買或分裝；收納盒不限定圖中款式。
 
 ![老師提供的樂意創客購物截圖 5：常用電阻包與收納盒，包內多種阻值不等於全部必買](../docs/images/hardware/orders/shopee-loyi-maker-05-resistors-storage.png)

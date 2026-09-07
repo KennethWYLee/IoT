@@ -25,11 +25,11 @@ function selectedPhotos(week, id) {
 function gallery(week, document) {
   const lesson = catalog.weeks[week]; assert(lesson);
   let s = `${start}\n<a id="equipment-photos"></a>\n\n### ${Number(week) === 1 ? '採購零件外觀' : '本週器材外觀'}\n\n${lesson.task}\n\n`;
-  s += '照片下方標示拍攝角度與來源。先辨認零件，再依本週器材表與接線步驟操作；照片本身不是接線指令，也不表示已完成電氣驗證。\n\n';
+  s += (lesson.intro ?? '照片下方標示拍攝角度與來源。先辨認零件，再依本週器材表與接線步驟操作；照片本身不是接線指令，也不表示已完成電氣驗證。') + '\n\n';
   s += lesson.parts.map(id => `[${catalog.components[id].name.split('（')[0].trim()}](#equipment-${id.toLowerCase()})`).join(' · ') + '\n\n';
   for (const id of lesson.parts) {
     const part = catalog.components[id];
-    s += `<a id="equipment-${id.toLowerCase()}"></a>\n\n#### ${part.name}\n\n${part.note}\n\n`;
+    s += `<a id="equipment-${id.toLowerCase()}"></a>\n\n#### ${part.name}\n\n${lesson.notes?.[id] ?? part.note}\n\n`;
     const photos = selectedPhotos(week, id);
     for (let i = 0; i < photos.length; i += 2) {
       const row = photos.slice(i, i + 2);
