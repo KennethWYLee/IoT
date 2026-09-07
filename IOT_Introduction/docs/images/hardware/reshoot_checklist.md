@@ -52,8 +52,8 @@ C:\Users\User\Pictures\IoT_Shopee_Reshoots
 | 10 | KY-016類；HW-479 RGB模組 | 訂單3 | [新元件面](actual/RGB_HW479_1.jpg)；[原焊接面](actual/RGB_HW479_2.jpg) | 辨識可用；未驗證 | 不重拍已清楚標示；接續確認限流、共同端、準位與各色電流 |
 | 11 | KY-012類；HW-508蜂鳴器 | 訂單3 | [新元件面](actual/Buzzer_HW508_1.jpg)；[新焊接面](actual/Buzzer_HW508_2.jpg) | 已補正反面；未驗證 | 先核對電路／規格及斷電導通，不由三針推定中間為訊號或GPIO可直接驅動 |
 | 12 | SG90、三線插頭與舵盤螺絲 | 訂單6 | [拆袋實物](actual/SG90_1.jpg) | 辨識可用；功能待驗 | 不重複拆袋補拍；下一步確認供電、線序與安全角度，不強制轉滿180度 |
-| 13 | 四槽AA帶開關電池盒 | 訂單2 | [開關與裸線](actual/BatteryHolder4AA_1.jpg)；使用者確認四槽 | 開關已拍；電氣待驗 | 不重拍已可見的開關；四顆1.2 V鎳氫方案尚待實際電壓、極性、牢固絕緣連接檢查 |
-| 14 | 帶數字顯示的降壓模組；訂單稱LM2596S | 訂單3 | [正面](actual/BuckConverter_1.jpg)；[背面](actual/BuckConverter_2.jpg) | 正反面已拍；型號待核對 | 暫不列共同採購；實際要使用時再查清晶片及整板規格，不把電容標字當整板額定值 |
+| 13 | 四槽AA帶開關電池盒 | 訂單2 | [開關與裸線](actual/BatteryHolder4AA_1.jpg)；使用者確認四槽 | 開關已拍；已有空載紀錄 | 現採四顆1.5 V AA經降壓模組供舵機，負載、極性與牢固絕緣連接仍待確認 |
+| 14 | 帶數字顯示的降壓模組；訂單稱LM2596S | 訂單3 | [正面](actual/BuckConverter_1.jpg)；[背面](actual/BuckConverter_2.jpg)；[空載輸入顯示](actual/BuckConverter_3.jpg) | 正反面已拍；已有空載調整紀錄 | 已列Week 6～7共同供電組，可按組共用；整板啟動及負載能力待驗，不把電容標字當整板額定值 |
 | 15 | L298N雙通道馬達驅動板 | 2 | [訂單圖2](orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png) | 補拍優先 | 商品正反面及端子標示圖；實物輸入、輸出、ENA／ENB與跳線帽 |
 | 16 | HC-SR04超音波距離模組 | 3 | [訂單圖2](orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png) | 補拍優先 | 商品／實物正反面，需讀到`VCC`／`Trig`／`Echo`／`GND` |
 | 17 | PIR感測器；訂單稱HC-SR501 | 訂單3 | [透鏡面](actual/PIR_1.jpg)；[元件面](actual/PIR_2.jpg) | 外觀已拍；確切型號與腳位待驗 | 不列共同採購；選用時再確認供電、腳序及跳線，不因近似外形猜接法 |

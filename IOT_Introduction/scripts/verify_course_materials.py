@@ -285,8 +285,10 @@ def main() -> int:
                            "group-measurement-tool", "week-2-preclass-setup"):
                 if anchor not in document_anchors(main_path):
                     errors.append(f"{main_path.relative_to(ROOT)}: missing Week 1 #{anchor}")
-            if "### 每人必備零件" not in main_content:
+            if "### 每組必備零件" not in main_content:
                 errors.append(f"{main_path.relative_to(ROOT)}: missing Chinese purchase list")
+            if "每人必備零件" in main_content or "每人參考金額" in main_content:
+                errors.append(f"{main_path.relative_to(ROOT)}: obsolete per-student procurement")
 
         if number in OVERVIEW_WEEKS:
             for heading in ("### 教學目標", "### 教學內容"):

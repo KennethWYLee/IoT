@@ -14,7 +14,7 @@
 | OLED | basic-pass，限目前個體 | GND b3、VDD b6、SDA8、SCK9；0x3C與SSD1315建構子有畫面回報；不證明晶片身分、拉高電壓或全班profile |
 | RGB-T01 | basic-pass，限三色觀察 | R15／G16／B17、−e3；使用者回報三色正確、HIGH有效，未量各色電流或光學干擾 |
 | BUZZER-T01 | partially verified | GPIO18經1 kΩ串聯至HW-508+、−c22、中間不接；2000 Hz／200 ms命令後有聲回報，未量電流、真實聲長、Reset瞬態或確認內部型式 |
-| POWER-4AA-T01、降壓板 | partially verified，僅空載 | 實際四顆1.5 V、電池6.6 V；既有V591降壓板OUT4.85 V、電表4.76 V。不是學生1.2 V鎳氫方案，未核准舵機負載 |
+| POWER-4AA-T01、降壓板 | partially verified，僅空載 | 實際四顆1.5 V、電池6.6 V；既有V591降壓板OUT4.85 V、電表4.76 V。後續已核准課程採同類供電架構並按組共用，取代原1.2 V鎳氫規劃；仍未核准舵機負載 |
 | SERVO-T01 | unverified | 只提出GPIO7與獨立第23／24列的斷電候選接法，尚未收到接線完成；未通電、未定位、未測停止 |
 
 目前測試來源已保存於[BOARD-T01診斷程式](../../examples/board_t01_diagnostics/README.md)。
