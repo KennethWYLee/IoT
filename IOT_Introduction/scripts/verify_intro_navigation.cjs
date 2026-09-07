@@ -22,7 +22,7 @@ for(const [i,text]of docs.entries()){
   assert(fs.existsSync(dest),dest);assert(anchors(read(dest)).includes(fragment),`${files[i]}: ${m[1]}`);links++;
  }
 }
-for(const id of ['purchase-table','purchase-budget','course-schedule','assessment','group-measurement-tool','week-2-preclass-setup'])assert(anchors(docs[0]).includes(id));
+for(const id of ['purchase-table','purchase-budget','course-schedule','assessment','group-measurement-tool','week-2-preclass-setup','shopee-purchase-images'])assert(anchors(docs[0]).includes(id));
 assert(docs[0].includes('## 6. 材料準備'),'Week 1 uses the unified materials heading');
 assert(docs[0].includes('### 每人必備零件'),'Week 1 contains the Chinese required-parts list');
 for(const title of ['第一週不要購買','到貨檢查','個人材料準備確認',
@@ -36,8 +36,22 @@ for(const id of ['delivery-check','personal-purchase-check','safety','records-an
  assert(!anchors(docs[0]).includes(id),`Removed anchor: ${id}`);
  assert(!docs[0].includes(`](#${id})`),`No dangling link to removed section: ${id}`);
 }
-assert.deepEqual([...docs[0].matchAll(/^## (\d+)\. /gm)].map(m=>Number(m[1])),[1,2,3,4,5,6,7]);
+assert.deepEqual([...docs[0].matchAll(/^## (\d+)\. /gm)].map(m=>Number(m[1])),[1,2,3,4,5,6,7,8]);
 assert(docs[0].includes('## 7. Week 2課前準備（Week 1課後完成）'));
+const shoppingSection=docs[0].split('<a id="shopee-purchase-images"></a>')[1];
+assert(shoppingSection?.includes('## 8. 老師的蝦皮購買圖片（歷史參考）'));
+assert(!/^## (?!8\.)/m.test(shoppingSection),'Shopping reference remains at the end');
+const orderFiles=[
+ 'shopee-aroundtw-01-prototyping-motors-power.png',
+ 'shopee-aroundtw-02-drivers-servos-sensors-displays.png',
+ 'shopee-aroundtw-03-esp32-sensors-lighting-power.png',
+ 'shopee-aroundtw-04-photoresistor-servo-breadboard.png',
+ 'shopee-loyi-maker-05-resistors-storage.png'
+];
+assert.deepEqual([...shoppingSection.matchAll(/!\[[^\]]+\]\(([^)]+)\)/g)].map(m=>m[1]),
+ orderFiles.map(name=>'../docs/images/hardware/orders/'+name),'Five unchanged original shopping pictures in order');
+for(let i=1;i<=5;i++)assert(anchors(shoppingSection).includes(`shopee-order-${i}`));
+for(const phrase of ['不要照抄截圖中的整筆訂單','自製無人車','不是目前報價','不是接線圖'])assert(shoppingSection.includes(phrase));
 // Amounts in this table already include each student's quantities; do not multiply again.
 const partsSection=docs[0].split('### 每人必備零件\n')[1]?.split('<a id="purchase-budget">')[0];
 assert(partsSection,'Required-parts section exists');
@@ -126,7 +140,7 @@ async function render(){
     await page.setViewportSize({width,height:960});
     await page.locator('details').evaluateAll(elements=>elements.forEach(e=>e.open=true));
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-    for(const focus of ['first-iot-example','course-schedule','purchase-table','purchase-budget','group-measurement-tool','week-2-preclass-setup']){
+    for(const focus of ['first-iot-example','course-schedule','purchase-table','purchase-budget','group-measurement-tool','week-2-preclass-setup','shopee-purchase-images',...orderFiles.map((_,i)=>`shopee-order-${i+1}`)]){
      await page.locator('#'+focus).evaluate(e=>e.scrollIntoView());
      await page.screenshot({path:path.join(out,`week1_${focus}_${width}.png`)});
     }

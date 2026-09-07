@@ -13,7 +13,7 @@ be mastered in Week 1. This week, explain one possible interaction in everyday l
 identify the roles of its parts, and use the course rules to plan your preparation.
 Protocol names and electrical terms will be taught before their practical use.
 
-[課程大綱](#course-schedule)｜[配分](#assessment)｜[中文採購清單](#purchase-table)｜[零件照片](#equipment-photos)｜[參考預算](#purchase-budget)｜[每組電表](#group-measurement-tool)｜[Week 2課前準備](#week-2-preclass-setup)
+[課程大綱](#course-schedule)｜[配分](#assessment)｜[中文採購清單](#purchase-table)｜[零件照片](#equipment-photos)｜[參考預算](#purchase-budget)｜[每組電表](#group-measurement-tool)｜[Week 2課前準備](#week-2-preclass-setup)｜[蝦皮購買圖片](#shopee-purchase-images)
 
 Reading path: [a first IoT example](#first-iot-example) →
 [schedule](#course-schedule) → [assessment](#assessment) →
@@ -578,3 +578,67 @@ IOT_Introduction/docs/course_materials/starter_code_snippets.md
 
 These preparations are completed after class, before Week 2.
 Hardware operation and Upload begin in Week 2; powered voltage measurements follow in Week 3.
+
+<a id="shopee-purchase-images"></a>
+
+## 8. 老師的蝦皮購買圖片（歷史參考）
+
+以下保留老師提供的 5 張蝦皮購物截圖，來源為環島科技與樂意創客，
+供對照商品外觀、名稱及選購選項；不是收到實物後拍攝的零件照片。
+**學生需要的規格、數量與使用週次，以前面的[中文採購清單](#purchase-table)為準，
+不要照抄截圖中的整筆訂單。** 圖中額外的車輛器材是老師為自製無人車等個人用途準備的，
+不代表學生也要購買。畫面金額是歷史紀錄，不是目前報價；商品圖片也不是接線圖。
+
+[圖 1：電表、按鈕與公對母線](#shopee-order-1)｜[圖 2：OLED 與母對母線](#shopee-order-2)｜[圖 3：ESP32 與感測模組](#shopee-order-3)｜[圖 4：光敏、SG90 與麵包板](#shopee-order-4)｜[圖 5：電阻包](#shopee-order-5)
+
+圖片中的小字可點開原圖放大查看。
+
+<a id="shopee-order-1"></a>
+
+### 圖 1：環島科技——電表、按鈕與公對母杜邦線
+
+可找到 A830L 萬用電表（Digital Multimeter）、四腳輕觸按鈕（Pushbutton）與
+公對母杜邦線（Male-to-Female Jumper Wire）。最上方選項是 OLED 螢幕支架，
+不是 OLED 螢幕本體；按鈕列是當時的購物車紀錄，不表示該列已結帳。
+
+![老師提供的環島科技購物截圖 1：電表、按鈕、公對母杜邦線，並含個人用途的支架、馬達與電源零件](../docs/images/hardware/orders/shopee-aroundtw-01-prototyping-motors-power.png)
+
+<a id="shopee-order-2"></a>
+
+### 圖 2：環島科技——OLED 顯示器與母對母杜邦線
+
+倒數第三列是 OLED 顯示器（OLED Display），選項寫「4 針、0.96 吋」；
+這一列才是螢幕，不是圖 1 的支架。同圖另有母對母杜邦線（Female-to-Female Jumper Wire）。
+僅憑商品縮圖不能確認控制器、解析度或實物腳序，仍須核對正式採購規格。
+
+![老師提供的環島科技購物截圖 2：倒數第三列為四針 0.96 吋 OLED，另有母對母杜邦線及其他器材](../docs/images/hardware/orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png)
+
+<a id="shopee-order-3"></a>
+
+### 圖 3：環島科技——ESP32、感測與發光模組
+
+可找到 ESP32-S3 開發板（Development Board）、DHT11 溫濕度模組（Temperature and Humidity Module）、
+RGB 三色發光模組（RGB LED Module）、蜂鳴器模組（Buzzer Module）、公對公杜邦線（Male-to-Male Jumper Wire）及四槽 AA 電池盒（Battery Holder）。
+單顆四針 RGB 與八顆燈條是不同器材，不能只看都有「RGB」字樣就互相替代。
+商品名稱不取代實物板型與腳位確認；電池種類與供電方案仍依正式清單準備。
+
+![老師提供的環島科技購物截圖 3：ESP32-S3、DHT11、RGB、蜂鳴器、公對公杜邦線與四槽 AA 電池盒](../docs/images/hardware/orders/shopee-aroundtw-03-esp32-sensors-lighting-power.png)
+
+<a id="shopee-order-4"></a>
+
+### 圖 4：環島科技——光敏模組、SG90 與麵包板
+
+可找到 KY-018 光敏電阻模組（Photoresistor Module）、SG90 舵機（Servo Motor）與
+400 孔麵包板（Breadboard）。圖上方的電池盒與圖 3 是相鄰截圖的重疊部分，不是新增購買要求。
+
+![老師提供的環島科技購物截圖 4：KY-018 光敏模組、SG90 舵機、400 孔麵包板及重疊的電池盒列](../docs/images/hardware/orders/shopee-aroundtw-04-photoresistor-servo-breadboard.png)
+
+<a id="shopee-order-5"></a>
+
+### 圖 5：樂意創客——常用電阻包與收納盒
+
+電阻包（Resistor Assortment）中包含本課需要的 220 Ω、330 Ω、1 kΩ 與 10 kΩ，
+也包含其他阻值。可以單買、沿用或合買分裝，只要每人備齊採購表指定的種類與數量；
+不要求每人購買整包，收納盒（Storage Box）也不限定圖中款式。
+
+![老師提供的樂意創客購物截圖 5：常用電阻包與收納盒，包內多種阻值不等於全部必買](../docs/images/hardware/orders/shopee-loyi-maker-05-resistors-storage.png)
