@@ -16,6 +16,7 @@ inline uint32_t millis(){return fakeNow;}
 inline void delay(uint32_t n){fakeNow+=n;}
 inline void digitalWrite(int p,int v){assert(p>=0);gpioWrites++;pinLevels[p]=v;}
 inline void pinMode(int p,int){assert(p>=0);gpioModes++;}
+#include "../buzzer_fake.h"
 inline int digitalRead(int p){return pinLevels.count(p)?pinLevels[p]:HIGH;}
 inline void analogReadResolution(int n){assert(n==12);}
 inline void analogSetPinAttenuation(int p,int a){assert(p>=0&&a==ADC_11db);}

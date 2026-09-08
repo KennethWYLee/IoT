@@ -18,7 +18,17 @@ const bool LIGHT_PROFILE_CONFIRMED = false;
 const int PIN_LIGHT = -1;
 // This constructor is ONLY for an approved SSD1306 128x64 I2C module.
 // Other controllers/resolutions need a matching reviewed constructor, not a guess.
+// ACK is not a controller ID. Select after electrical and fixed-screen checks.
+#ifndef OLED_CONTROLLER
+#define OLED_CONTROLLER 1306
+#endif
+#if OLED_CONTROLLER == 1306
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C oled(U8G2_R0, U8X8_PIN_NONE, PIN_SCL, PIN_SDA);
+#elif OLED_CONTROLLER == 1315
+U8G2_SSD1315_128X64_NONAME_F_HW_I2C oled(U8G2_R0, U8X8_PIN_NONE, PIN_SCL, PIN_SDA);
+#else
+#error Unsupported OLED_CONTROLLER: use a verified 1306 or 1315 configuration.
+#endif
 const uint32_t DURATION_MS = 30000;
 const uint32_t PHASE_MS = 3000;
 const uint32_t DISPLAY_INTERVAL_MS = 200;

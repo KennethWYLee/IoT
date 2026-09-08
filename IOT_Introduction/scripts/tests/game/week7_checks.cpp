@@ -13,6 +13,9 @@ namespace g {
 namespace low {
 #include "enabled_low.inc"
 }
+namespace missingResistor {
+#include "missing_resistor.inc"
+}
 int assertions=0;
 #define CHECK(x) do{++assertions;if(!(x)){std::cerr<<"FAIL line "<<__LINE__<<": "<<#x<<'\n';return 1;}}while(0)
 void frame(uint32_t now){
@@ -29,6 +32,7 @@ void lightReset(uint32_t now){
  g::unsettled=true;g::unsettledAt=now;
 }
 int main(){
+ missingResistor::setup();missingResistor::loop();CHECK(!missingResistor::ready&&ledcAttaches==0&&gpioWrites==0);
  blocked::setup();blocked::loop();CHECK(!blocked::ready);
  CHECK(gpioModes==0&&gpioWrites==0&&wireBegins==0&&servoAttaches==0);
  fakeNow=0;g::setup();CHECK(g::ready&&g::state==g::IDLE);CHECK(servoAttaches==0);
@@ -38,7 +42,8 @@ int main(){
  button.update(true,149);CHECK(!button.edge);button.update(true,150);CHECK(button.edge&&button.stable);
  button.update(true,200);CHECK(!button.edge);button.update(false,210);CHECK(!button.released(210));
  button.update(false,240);CHECK(button.released(240)&&!button.edge);
- low::setup();CHECK(low::ready);CHECK(servoAttaches==0);
+ const auto allocations=ledcAttaches;
+ low::setup();CHECK(low::ready);CHECK(servoAttaches==0&&ledcAttaches==allocations);
  CHECK(g::displaySeconds(1)==1&&g::displaySeconds(1499)==2&&g::displaySeconds(0)==0);
  // Startup covered cannot be an event; indoor confirmation arms once.
  lightReset(1000);CHECK(!g::sampleLight(900,1000));CHECK(!g::sampleLight(900,1150));
@@ -120,5 +125,17 @@ int main(){
   g::stepGame(now+1,false,true,false,false);CHECK(g::state==g::FAILED);
   frame(now+40);g::handleCommand('z',now+40);CHECK(g::state==g::IDLE&&!g::prepared&&!g::buzzerOn);
  }
+ if(g::BUZZER_USE_TONE){
+  CHECK(ledcAttaches==1&&lastToneHz==2000);
+  running();g::settle(g::FAILED,"test",10000);CHECK(g::buzzerOn);
+  g::handleCommand('x',10001);CHECK(!g::buzzerOn&&pinLevels[13]==LOW);
+  running();ledcToneGood=false;g::settle(g::FAILED,"test",10000);
+  CHECK(g::state==g::ABORTED&&g::buzzerFault&&!g::buzzerOn&&!g::pointer.attached());
+  CHECK(std::string(g::reason)=="buzzer_failed_restart_required");
+  frame(10050);g::handleCommand('c',10050);g::handleCommand('z',10050);CHECK(g::state==g::ABORTED&&!g::cleared);
+  ledcToneGood=true;g::buzzerFault=false;ledcWriteGood=false;g::silence();
+  CHECK(g::buzzerFault&&!g::buzzerOn&&pinLevels[13]==LOW&&ledcDetaches>0);
+  ledcWriteGood=true;g::buzzerFault=false;ledcAttachGood=false;g::setup();CHECK(!g::ready);
+ }else CHECK(ledcAttaches==0&&ledcTones==0);
  std::cout<<"PASS "<<assertions<<" Week 7 assertions against canonical sketch with stub I/O; no physical test.\n";
 }

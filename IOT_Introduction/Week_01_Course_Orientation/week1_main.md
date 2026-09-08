@@ -202,6 +202,8 @@ replace the student-developed device program, backend, database, or mobile inter
 OLED依上表規格選購，不以外觀相似的SH1106或SPI版本替代；腳位與通訊檢查在Week 5進行。
 
 蜂鳴器新購前，請提供商品供電與腳位資料供教師確認；不要直接接到GPIO。已有模組可先保留。
+教師已有的HW-508及使用SSD1315設定顯示的OLED，不因此要求重買：Week 4提供受限波形選項，
+Week 5～7提供OLED驅動選項。這些只適用核對後的實物，並非所有同名模組都已通過驗證。
 
 三種杜邦線依實驗需要取用，其餘保存。採購表不是接線表，上電須依當週操作步驟。
 

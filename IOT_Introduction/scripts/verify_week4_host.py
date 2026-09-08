@@ -7,6 +7,8 @@ from pathlib import Path
 import os
 import shutil
 import subprocess
+import sys
+from host_compiler import find_vcvars
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "_outputs/week4_host"
@@ -42,12 +44,15 @@ def main():
         for old, new in replacements.items():
             assert source.count(old) == 1
             source = source.replace(old, new)
+        if tag == "dual":
+            tone = source.replace("const bool BUZZER_USE_TONE = false;", "const bool BUZZER_USE_TONE = true;")
+            (OUT / "missing_resistor.inc").write_text(tone, encoding="utf-8")
+            if "--tone" in sys.argv:
+                source = tone.replace("const int BUZZER_SERIES_OHMS = -1;", "const int BUZZER_SERIES_OHMS = 1000;")
         (OUT / f"enabled_{tag}.inc").write_text(source, encoding="utf-8")
     exe = OUT / ("week4_host.exe" if os.name == "nt" else "week4_host")
     if os.name == "nt":
-        vcvars = Path(r"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\Build\vcvars64.bat")
-        if not vcvars.exists():
-            raise SystemExit("NOT RUN: MSVC vcvars64.bat not found; no host pass claimed.")
+        vcvars = find_vcvars()
         args = ["cl", "/nologo", "/std:c++17", "/EHsc", "/utf-8", "/W4", f"/I{TEST}", f"/I{OUT}",
                 str(TEST / "host_checks.cpp"), f"/Fe:{exe}", f"/Fo:{OUT / 'week4_host.obj'}"]
         command = f'call "{vcvars}" >nul && ' + subprocess.list2cmdline(args)

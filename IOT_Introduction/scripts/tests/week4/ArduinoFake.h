@@ -19,6 +19,7 @@ const int HIGH=1, LOW=0, OUTPUT=1;
 static int gpioWrites=0,gpioModes=0,buzzerLevel=LOW;
 void digitalWrite(int pin,int level){assert(pin==6);assert(level==HIGH||level==LOW);gpioWrites++;buzzerLevel=level;}
 void pinMode(int pin,int mode){assert(pin==6&&mode==OUTPUT);gpioModes++;}
+#include "../buzzer_fake.h"
 struct FakeSerial {
   std::string output;
   std::deque<char> input;

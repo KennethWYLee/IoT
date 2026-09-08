@@ -162,8 +162,10 @@ corrections, phase handoffs, visual checks and remaining first-time learner tria
 
 `verify_intro_navigation.cjs` checks the explicit section links in the single Week 1 main
 and Week 2/3 notebooks, unique anchors, the Week 1 outline and Chinese purchase list, and selected
-first-use teaching order. Procurement checks cover 12 part categories, first-use ordering,
-OLED specifications, NiMH/connector policy, the historical subtotal and three meter cost splits.
+first-use teaching order. Procurement checks cover 11 basic part categories, first-use ordering,
+OLED specifications, the current separately priced power set, excluded unpriced supplies,
+and the historical group subtotal split across 1-3 people (rounded to cents).
+Week 3 source comparisons normalize CRLF/LF without ignoring other code differences.
 It also checks removal of the retired Week 1 forms, responsibility sections and photo-details
 block, absence of links to their deleted anchors, and consecutive section numbering.
 It complements the two notebook verifiers, not a replacement
@@ -193,6 +195,7 @@ node IOT_Introduction/scripts/build_week4_materials.cjs
 node IOT_Introduction/scripts/build_week4_materials.cjs --check
 node IOT_Introduction/scripts/verify_week4_notebook.cjs --render
 python IOT_Introduction/scripts/verify_week4_host.py
+python IOT_Introduction/scripts/verify_week4_host.py --tone
 ```
 
 The builder requires `sharp`; render additionally uses `marked`, `playwright` and Edge.
@@ -231,6 +234,31 @@ or validate real modules. The notebook verifier checks source/attachment equalit
 tables, fences and 1200/420px Edge previews. Review diagrams manually too. Arduino build
 uses the general verifier; dependencies include U8g2 2.36.15 and ESP32Servo 3.2.1.
 Week 3 classifier and Week 4 integration assertions also run in `verify_week4_host.py`.
+
+### Buzzer and OLED configuration checks
+
+The host runners locate MSVC through `vswhere` on Windows, rather than assuming a
+particular Visual Studio version. `--tone` tests the HW-508 2000 Hz option with a
+test-only 1 kOhm confirmation. Tests cover the missing-resistor gate, duration,
+mute/abort, LEDC failures and restart requirement. `--oled1315` selects the alternate
+constructor; both displays share a bus stub, so this does not establish chip identity
+or physical compatibility. Neither option publishes GPIO assignments.
+
+```powershell
+python IOT_Introduction/scripts/verify_game_host.py 7 --tone --oled1315
+python IOT_Introduction/scripts/verify_hardware_profiles.py
+```
+
+The second command runs host checks and 14 ESP32-S3 compiles: four blocked public
+sketches and ten enabled test configurations across Weeks 4-7. It uses the installed
+Arduino CLI, core 3.3.11, U8g2 2.36.15, ESP32Servo 3.2.1, DHT 1.4.7 and Adafruit
+Unified Sensor 1.1.15. Install these before running. An optional `--config-file PATH`
+selects a local CLI configuration with isolated libraries without replacing the IDE's
+libraries. The command does not install packages, upload, select a port or move a servo.
+Logs, exact installed versions and incremental compile results go into ignored
+`_outputs/profile_compile/`. Run it again after editing an affected sketch.
+Each case has an archived sketch. Compilation reuses one build directory and puts
+the OLED selection in the sketch, avoiding a full library rebuild for every selection.
 See the [current revision record](../docs/lab_notes/2026-09-06-traffic-light-course-revision.md).
 
 ## `mirror_dokuwiki.py`

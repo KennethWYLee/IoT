@@ -356,7 +356,8 @@ ESP32 core編譯基準為3.3.11。核准後再依profile填GPIO與數值，未�
 
 切外部電源OFF、取出至少一顆電池、拔USB。沿用Week 5核准OLED接線，
 填入其profile、位址、SDA／SCL；`WITH_OLED=true`，確認GPIO互不重複。
-目前程式同樣只適用核准SSD1306 128×64 I2C；其他控制器要先換對建構子並驗證。
+依Week 5固定畫面證據設定`OLED_CONTROLLER`：預設1306；教師SSD1315相容性配置選1315。
+兩者皆為128×64 I2C，位址另填；選項不會核准舵機供電，也不能取代實物顯示檢查。
 重新Verify、Upload與逐路斷電核對後，先確認OLED的DISARMED，再依a流程測0、4、3。
 
 ![同一份count提供OLED與角度命令，實際指針另行觀察](../images/wiring/week6-command-evidence.png)

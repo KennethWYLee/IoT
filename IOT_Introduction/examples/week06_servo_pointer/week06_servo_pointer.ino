@@ -21,7 +21,17 @@ const bool OLED_PROFILE_CONFIRMED = false;
 const int PIN_SDA = -1;
 const int PIN_SCL = -1;
 const int OLED_ADDRESS_7BIT = -1;
+// ACK is not a controller ID. Select after electrical and fixed-screen checks.
+#ifndef OLED_CONTROLLER
+#define OLED_CONTROLLER 1306
+#endif
+#if OLED_CONTROLLER == 1306
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C oled(U8G2_R0, U8X8_PIN_NONE, PIN_SCL, PIN_SDA);
+#elif OLED_CONTROLLER == 1315
+U8G2_SSD1315_128X64_NONAME_F_HW_I2C oled(U8G2_R0, U8X8_PIN_NONE, PIN_SCL, PIN_SDA);
+#else
+#error Unsupported OLED_CONTROLLER: use a verified 1306 or 1315 configuration.
+#endif
 Servo pointer;
 const uint32_t MAX_ARM_MS = 30000;
 const uint32_t COMMAND_SPACING_MS = 1000;

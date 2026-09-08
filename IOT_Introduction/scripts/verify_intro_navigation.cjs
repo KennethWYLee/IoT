@@ -24,7 +24,7 @@ for(const [i,text]of docs.entries()){
 }
 for(const id of ['purchase-table','purchase-budget','course-schedule','assessment','group-measurement-tool','week-2-preclass-setup','shopee-purchase-images'])assert(anchors(docs[0]).includes(id));
 assert(docs[0].includes('## 6. 材料準備'),'Week 1 uses the unified materials heading');
-assert(docs[0].includes('### 每人必備零件'),'Week 1 contains the Chinese required-parts list');
+assert(docs[0].includes('### 每組必備零件'),'Week 1 contains the group required-parts list');
 for(const title of ['第一週不要購買','到貨檢查','個人材料準備確認',
  'Hardware and Data Safety Responsibilities','Git, Documentation, and AI Responsibilities',
  '作品構想卡','課程理解與完成證據']){
@@ -52,24 +52,24 @@ assert.deepEqual([...shoppingSection.matchAll(/!\[[^\]]+\]\(([^)]+)\)/g)].map(m=
  orderFiles.map(name=>'../docs/images/hardware/orders/'+name),'Five unchanged original shopping pictures in order');
 for(let i=1;i<=5;i++)assert(anchors(shoppingSection).includes(`shopee-order-${i}`));
 for(const phrase of ['不要照抄截圖中的整筆訂單','自製無人車','不是目前報價','不是接線圖'])assert(shoppingSection.includes(phrase));
-// Amounts in this table already include each student's quantities; do not multiply again.
-const partsSection=docs[0].split('### 每人必備零件\n')[1]?.split('<a id="purchase-budget">')[0];
+// Row amounts already include each group's quantities; do not multiply again.
+const partsSection=docs[0].split('### 每組必備零件\n')[1]?.split('\n### ')[0];
 assert(partsSection,'Required-parts section exists');
 const parts=partsSection.split('\n').filter(line=>/^\|.*NT\$/.test(line))
  .map(line=>line.split('|').slice(1,-1).map(cell=>cell.trim()));
-assert.equal(parts.length,12,'Twelve required part categories, not optional project purchases');
+assert.equal(parts.length,11,'Eleven basic categories; power is listed separately');
 for(const row of parts){
  assert.equal(row.length,5,'Required-parts table column count');
  assert.match(row[4],/Week [2-7](?!\d)/,`${row[0]} needs a Week 2–7 common task`);
  assert.match(row[3],/^NT\$\d+/,'Known historical budget amount');
 }
 for(const name of ['ESP32-S3','麵包板','杜邦線','指定阻值電阻','四腳輕觸按鈕','光敏電阻模組',
- '溫濕度模組','三色發光模組','蜂鳴器模組','小型舵機','電池盒','OLED']){
+ '溫濕度模組','三色發光模組','蜂鳴器模組','小型舵機','OLED']){
  assert.equal(parts.filter(row=>row[0].includes(name)).length,1,`${name} occurs once`);
 }
 const partAmount=row=>Number(row[3].match(/^NT\$(\d+)/)[1]);
 const subtotal=parts.reduce((sum,row)=>sum+partAmount(row),0);
-const statedSubtotal=docs[0].match(/上表每人零件參考小計：NT\$(\d+)/);
+const statedSubtotal=docs[0].match(/每組基本零件NT\$(\d+)/);
 assert(statedSubtotal,'Explicit required-parts subtotal');
 assert.equal(Number(statedSubtotal[1]),subtotal,'Displayed subtotal equals all row amounts, including OLED');
 assert.equal(partAmount(parts.find(row=>row[0].includes('杜邦線'))),25*3);
@@ -83,8 +83,18 @@ assert.deepEqual(firstWeeks,[...firstWeeks].sort((a,b)=>a-b),'Required parts sor
 const oledSpec=parts.find(row=>row[0].includes('OLED'))[1];
 for(const term of ['0.96','SSD1306','128×64','四針I²C','3.3 V供電','3.3 V邏輯','排針已焊'])assert(oledSpec.includes(term),`OLED purchasing spec: ${term}`);
 assert(parts.find(row=>row[0].includes('三色發光模組'))[1].includes('不是WS2812B'));
-assert(docs[0].includes('每顆標稱1.2 V')&&docs[0].includes('NiMH')&&docs[0].includes('標稱4.8 V'));
-assert(docs[0].includes('不限定購買「2P端子轉12P排針板」'));
+const powerSection=docs[0].split('### 舵機供電組：每組一套，可共同購買\n')[1]?.split('<!-- hardware-gallery:start -->')[0];
+assert(powerSection,'Separate per-group power section exists');
+const powerRows=powerSection.split('\n').filter(line=>/^\|.*(?:NT\$|自備，另計)/.test(line))
+ .map(line=>line.split('|').slice(1,-1).map(cell=>cell.trim()));
+assert.equal(powerRows.length,4);
+for(const row of powerRows)assert.equal(row.length,4);
+const pricedPower=powerRows.filter(row=>/^NT\$/.test(row[3]));
+assert.equal(pricedPower.length,2,'Only holder and converter are priced');
+const powerSubtotal=pricedPower.reduce((sum,row)=>sum+partAmount(row),0);
+assert.equal(Number(docs[0].match(/供電組已計價部分NT\$(\d+)/)?.[1]),powerSubtotal);
+for(const term of ['每顆標稱1.5 V','不混用1.2 V電池','LM2596S','不把電池盒直接接舵機'])assert(powerSection.includes(term));
+assert(docs[0].includes('未含筆電與充電器、USB資料線、收納、AA電池、連接材料及運費'));
 for(const stale of ['OLED須於核准規格公布後','OLED以外','教師這筆訂單已購5個','尚待教師公布的電池盒安全轉接端子'])assert(!docs[0].includes(stale),`No stale purchasing rule: ${stale}`);
 for(const value of ['220 Ω','330 Ω','1 kΩ','10 kΩ'])assert(resistor[1].includes(value));
 assert(resistor[3].includes('整包估算'),'Resistor package price is not a four-piece quotation');
@@ -92,13 +102,15 @@ const groupSection=docs[0].split('### 每組必備的量測工具\n')[1]?.split(
 assert(groupSection,'Group-tool section exists');
 const meterPrice=Number(groupSection.match(/A830L既有成交參考NT\$(\d+)/)?.[1]);
 assert(Number.isFinite(meterPrice));
-const budgets=[...groupSection.matchAll(/^\| ([123])人 \| NT\$(\d+(?:\.\d+)?) \| NT\$(\d+(?:\.\d+)?) \|$/gm)];
+const groupTotal=subtotal+powerSubtotal+meterPrice;
+assert.equal(Number(docs[0].match(/每組參考小計NT\$(\d+)/)?.[1]),groupTotal);
+const budgets=[...groupSection.matchAll(/^\| ([123])人 \| NT\$(\d+(?:\.\d+)?) \| (?:約)?NT\$(\d+(?:\.\d+)?) \|$/gm)];
 assert.equal(budgets.length,3,'Budget examples cover 1–3-person groups');
-for(const [,people,share,total]of budgets){
- assert.equal(Number(share),meterPrice/Number(people),'Meter cost split');
- assert.equal(Number(total),subtotal+Number(share),'Parts plus meter, not an all-inclusive cost');
+for(const [,people,total,share]of budgets){
+ assert.equal(Number(total),groupTotal,'One shared set, not one set per person');
+ assert.equal(Number(share),Math.round(groupTotal/Number(people)*100)/100,'Group cost per person, rounded to cents');
 }
-console.log(`PASS procurement: ${parts.length} Week 2–7 required categories, NT$${subtotal} historical parts subtotal, three group-budget calculations.`);
+console.log(`PASS procurement: ${parts.length} basic categories NT$${subtotal}, priced power NT$${powerSubtotal}, meter NT$${meterPrice}, group subtotal NT$${groupTotal}; three group-budget calculations.`);
 for(const heading of ['### 教學目標','### 教學內容'])assert(docs[0].includes(heading));
 assert(docs[0].indexOf('### A First IoT Example')<docs[0].indexOf('## 5. Minimum Final Project'));
 assert(docs[0].includes('not a tested'));

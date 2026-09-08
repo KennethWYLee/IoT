@@ -4,6 +4,7 @@ import os
 import shutil
 import subprocess
 import sys
+from host_compiler import find_vcvars
 
 ROOT = Path(__file__).resolve().parents[2]
 TEST = ROOT / "IOT_Introduction/scripts/tests/game"
@@ -64,15 +65,20 @@ def main():
         for old, new in replacements.items():
             assert source.count(old) == 1, old
             source = source.replace(old, new)
+        if tag == "game":
+            tone = source.replace("const bool BUZZER_USE_TONE = false;", "const bool BUZZER_USE_TONE = true;")
+            (out / "missing_resistor.inc").write_text(tone, encoding="utf-8")
+            if "--tone" in sys.argv:
+                source = tone.replace("const int BUZZER_SERIES_OHMS = -1;", "const int BUZZER_SERIES_OHMS = 1000;")
         (out / f"enabled_{tag}.inc").write_text(source, encoding="utf-8")
     exe = out / ("checks.exe" if os.name == "nt" else "checks")
     source = TEST / f"week{week}_checks.cpp"
     if os.name == "nt":
-        vcvars = Path(r"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\Build\vcvars64.bat")
-        if not vcvars.exists():
-            raise SystemExit("NOT RUN: MSVC unavailable")
+        vcvars = find_vcvars()
         args = ["cl", "/nologo", "/std:c++17", "/EHsc", "/utf-8", "/W4", f"/I{TEST}", f"/I{out}",
                 str(source), f"/Fe:{exe}", f"/Fo:{out / 'checks.obj'}"]
+        if "--oled1315" in sys.argv:
+            args.append("/DOLED_CONTROLLER=1315")
         command = f'call "{vcvars}" >nul && ' + subprocess.list2cmdline(args)
         result = subprocess.run('cmd /d /s /c "' + command + '"', cwd=out, capture_output=True,
                                 text=True, encoding="utf-8", errors="replace", env={**os.environ, "VSLANG": "1033"})
@@ -80,7 +86,8 @@ def main():
         compiler = shutil.which("g++") or shutil.which("clang++")
         if not compiler:
             raise SystemExit("NOT RUN: C++ compiler unavailable")
-        result = subprocess.run([compiler, "-std=c++17", f"-I{TEST}", f"-I{out}", str(source), "-o", str(exe)],
+        defines = ["-DOLED_CONTROLLER=1315"] if "--oled1315" in sys.argv else []
+        result = subprocess.run([compiler, "-std=c++17", *defines, f"-I{TEST}", f"-I{out}", str(source), "-o", str(exe)],
                                 cwd=out, capture_output=True, text=True, encoding="utf-8")
     print(result.stdout, result.stderr)
     result.check_returncode()

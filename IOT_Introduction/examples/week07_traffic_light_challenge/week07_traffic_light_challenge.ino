@@ -23,6 +23,9 @@ const int OLED_ADDRESS_7BIT = -1;
 const int PIN_SERVO = -1;
 const int PIN_BUZZER = -1;
 const int BUZZER_ON_LEVEL = -1;
+const bool BUZZER_USE_TONE = false;
+const int BUZZER_SERIES_OHMS = -1; // HW-508 tone path requires a verified 1 kOhm resistor.
+const uint32_t BUZZER_HZ = 2000;
 const int SERVO_HZ = -1;
 const int SERVO_MIN_US = -1;
 const int SERVO_MAX_US = -1;
@@ -39,7 +42,17 @@ const uint32_t GAME_MS=30000, COLOR_MS=3000, SAMPLE_MS=50, STABLE_MS=150;
 const uint32_t BUTTON_MS=30, UNSETTLED_LIMIT_MS=2000, SAMPLE_STALE_MS=200;
 const uint32_t DISPLAY_MS=200, LOG_MS=500, BEEP_MS=200, PREPARE_LIMIT_MS=20000;
 const int TARGET=6;
+// ACK is not a controller ID. Select after electrical and fixed-screen checks.
+#ifndef OLED_CONTROLLER
+#define OLED_CONTROLLER 1306
+#endif
+#if OLED_CONTROLLER == 1306
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C oled(U8G2_R0,U8X8_PIN_NONE,PIN_SCL,PIN_SDA);
+#elif OLED_CONTROLLER == 1315
+U8G2_SSD1315_128X64_NONAME_F_HW_I2C oled(U8G2_R0,U8X8_PIN_NONE,PIN_SCL,PIN_SDA);
+#else
+#error Unsupported OLED_CONTROLLER: use a verified 1306 or 1315 configuration.
+#endif
 Servo pointer;
 enum GameState { IDLE, RUNNING, SUCCESS, FAILED, ABORTED };
 enum LightState { UNKNOWN=-1, INDOOR=0, SHADE=1 };
@@ -48,6 +61,7 @@ LightState stable=UNKNOWN,candidate=UNKNOWN;
 bool ready=false,shadeHigh=true,lightSettled=false,eventArmed=false,hadSample=false;
 bool unsettled=true,injectedFault=false,ioFault=false,cleared=false,prepared=false;
 bool greenPhase=false,buzzerOn=false,dirty=true;
+bool buzzerFault=false;
 int lowerThreshold=-1,upperThreshold=-1,lightRaw=-1,count=0,angleCommand=-1;
 uint32_t bootId=0,gameId=0,startedAt=0,frozenRemaining=GAME_MS,candidateAt=0;
 uint32_t unsettledAt=0,lastSample=0,lastDraw=0,lastLog=0,beepAt=0,preparedAt=0;
@@ -82,7 +96,8 @@ bool profileReady(){
  const int size=LESSON_STAGE==2?10:8;
  for(int i=0;i<size;i++){if(pins[i]<0)return false;for(int j=0;j<i;j++)if(pins[i]==pins[j])return false;}
  if(LESSON_STAGE==2 && (!SERVO_AND_POWER_PROFILE_CONFIRMED||!BUZZER_PROFILE_CONFIRMED||
-    (BUZZER_ON_LEVEL!=LOW&&BUZZER_ON_LEVEL!=HIGH)||SERVO_HZ<10||SERVO_HZ>400||
+    (BUZZER_USE_TONE ? BUZZER_SERIES_OHMS!=1000 :
+     (BUZZER_ON_LEVEL!=LOW&&BUZZER_ON_LEVEL!=HIGH))||SERVO_HZ<10||SERVO_HZ>400||
     SERVO_MIN_US<500||SERVO_MAX_US>2500||SERVO_MIN_US>=SERVO_MAX_US||
     SAFE_MIN_ANGLE<0||SAFE_MAX_ANGLE>180||SAFE_MIN_ANGLE>ZERO_ANGLE||
     ZERO_ANGLE>=SIX_ANGLE||SIX_ANGLE>SAFE_MAX_ANGLE))return false;
@@ -99,7 +114,30 @@ bool fresh(uint32_t now){return hadSample&&now-lastSample<=SAMPLE_STALE_MS;}
 bool oledAck(){Wire.beginTransmission(OLED_ADDRESS_7BIT);return Wire.endTransmission()==0;}
 void rgbOff(){const int off=1-RGB_ON_LEVEL;digitalWrite(PIN_RGB_R,off);digitalWrite(PIN_RGB_G,off);digitalWrite(PIN_RGB_B,off);}
 void rgbPhase(){rgbOff();digitalWrite(greenPhase?PIN_RGB_G:PIN_RGB_R,RGB_ON_LEVEL);}
-void silence(){if(LESSON_STAGE==2)digitalWrite(PIN_BUZZER,1-BUZZER_ON_LEVEL);buzzerOn=false;}
+void silence(){
+ if(LESSON_STAGE==2){
+  if(BUZZER_USE_TONE){
+   if(!ledcWrite(PIN_BUZZER,0)){
+    ledcDetach(PIN_BUZZER);digitalWrite(PIN_BUZZER,LOW);pinMode(PIN_BUZZER,OUTPUT);
+    if(!buzzerFault)Serial.println("event_type=buzzer_fault reason=tone_stop_failed restart_required=true");
+    buzzerFault=true;
+   }
+  }else digitalWrite(PIN_BUZZER,1-BUZZER_ON_LEVEL);
+ }
+ buzzerOn=false;
+}
+bool initializeBuzzer(){
+ digitalWrite(PIN_BUZZER,BUZZER_USE_TONE?LOW:1-BUZZER_ON_LEVEL);pinMode(PIN_BUZZER,OUTPUT);
+ if(BUZZER_USE_TONE&&!ledcAttach(PIN_BUZZER,BUZZER_HZ,10))return false;
+ silence();return !buzzerFault;
+}
+bool startBeep(uint32_t now){
+ if(buzzerFault)return false;
+ if(BUZZER_USE_TONE){
+  if(ledcWriteTone(PIN_BUZZER,BUZZER_HZ)==0){buzzerFault=true;silence();return false;}
+ }else digitalWrite(PIN_BUZZER,BUZZER_ON_LEVEL);
+ buzzerOn=true;beepAt=now;return true;
+}
 void detachPointer(){if(LESSON_STAGE==2){if(pointer.attached())pointer.detach();digitalWrite(PIN_SERVO,LOW);}prepared=false;}
 int angleForCount(int n){return ZERO_ANGLE+(SIX_ANGLE-ZERO_ANGLE)*n/TARGET;}
 void logEvent(const char* type,const char* why,uint32_t now,int before){
@@ -121,8 +159,10 @@ void settle(GameState target,const char* why,uint32_t now){
  if(target!=ABORTED&&state!=RUNNING)return;
  frozenRemaining=remainingAt(now);state=target;reason=why;cleared=false;dirty=true;
  rgbOff();silence();detachPointer();
- if(target==FAILED&&LESSON_STAGE==2){digitalWrite(PIN_BUZZER,BUZZER_ON_LEVEL);buzzerOn=true;beepAt=now;}
- logEvent("result",why,now,count);
+ if(target==FAILED&&LESSON_STAGE==2&&!startBeep(now)){
+  state=ABORTED;reason="buzzer_failed_restart_required";
+ }
+ logEvent("result",reason,now,count);
 }
 // Confirm an event only after a classified value remains for STABLE_MS.
 // Middle-band readings keep the displayed previous state, but cannot confirm or rearm.
@@ -149,8 +189,9 @@ bool sampleLight(int raw,uint32_t now){
 bool persistentFault(uint32_t now){return unsettled&&now-unsettledAt>=UNSETTLED_LIMIT_MS;}
 void stepGame(uint32_t now,bool startEdge,bool finishEdge,bool coverEdge,bool abortRequest){
  // One snapshot, fixed priority: abort -> deadline -> color -> score -> finish.
- if(abortRequest||ioFault||(state==RUNNING&&(!fresh(now)||persistentFault(now)))){
-  settle(ABORTED,abortRequest?"manual_or_both_buttons":ioFault?"display_ack_failed":"light_unavailable",now);return;
+ if(abortRequest||ioFault||buzzerFault||(state==RUNNING&&(!fresh(now)||persistentFault(now)))){
+  settle(ABORTED,abortRequest?"manual_or_both_buttons":buzzerFault?"buzzer_failed_restart_required":
+   ioFault?"display_ack_failed":"light_unavailable",now);return;
  }
  if(state==IDLE){
   if(LESSON_STAGE==2&&prepared&&now-preparedAt>=PREPARE_LIMIT_MS){settle(ABORTED,"prepare_timeout",now);return;}
@@ -179,17 +220,17 @@ void handleCommand(char c,uint32_t now){
  if(c=='x'){settle(ABORTED,"manual_abort",now);return;}
  if(c=='f'){injectedFault=true;sampleLight(-1,now);logEvent("fault_injection","software_missing_not_wire_removal",now,count);return;}
  if(c=='r'){injectedFault=false;logEvent("injection_removed","wait_new_stable_sample",now,count);return;}
- if(c=='c'&&state==ABORTED&&bothReleased(now)&&fresh(now)&&lightSettled&&!injectedFault){
+ if(c=='c'&&state==ABORTED&&bothReleased(now)&&fresh(now)&&lightSettled&&!injectedFault&&!buzzerFault){
   ioFault=!oledAck();cleared=!ioFault;logEvent("clear",cleared?"reset_required":"display_still_unresponsive",now,count);return;
  }
- if(c=='z'&&terminal()&&bothReleased(now)&&fresh(now)&&lightSettled&&!injectedFault&&!ioFault&&
+ if(c=='z'&&terminal()&&bothReleased(now)&&fresh(now)&&lightSettled&&!injectedFault&&!ioFault&&!buzzerFault&&
     (state!=ABORTED||cleared)){
   silence();detachPointer();state=IDLE;count=0;angleCommand=-1;frozenRemaining=GAME_MS;
   cleared=false;reason="reset_idle_not_started";dirty=true;logEvent("reset",reason,now,0);return;
  }
  // Operator must have external servo power OFF and the approved power sequence.
  if(c=='a'&&LESSON_STAGE==2&&state==IDLE&&!prepared&&bothReleased(now)&&fresh(now)&&lightSettled&&
-    stable==INDOOR&&!ioFault&&!injectedFault){
+    stable==INDOOR&&!ioFault&&!injectedFault&&!buzzerFault){
   pointer.setPeriodHertz(SERVO_HZ);pointer.attach(PIN_SERVO,SERVO_MIN_US,SERVO_MAX_US);
   if(!pointer.attached()){settle(ABORTED,"attach_failed",now);return;}
   prepared=true;preparedAt=now;count=0;writePointer(now);dirty=true;
@@ -219,7 +260,9 @@ void setup(){
  startButton.changedAt=finishButton.changedAt=millis();
  analogReadResolution(12);analogSetPinAttenuation(PIN_LIGHT,ADC_11db);
  if(LESSON_STAGE==2){digitalWrite(PIN_SERVO,LOW);pinMode(PIN_SERVO,OUTPUT);
-  digitalWrite(PIN_BUZZER,1-BUZZER_ON_LEVEL);pinMode(PIN_BUZZER,OUTPUT);}
+  if(!initializeBuzzer()){
+   ready=false;Serial.println("week=7 status=blocked reason=buzzer_init_failed");return;
+  }}
  if(!Wire.begin(PIN_SDA,PIN_SCL,100000)){ioFault=true;settle(ABORTED,"i2c_begin_failed",millis());}
  else {Wire.setTimeOut(20);if(!oledAck()){ioFault=true;settle(ABORTED,"display_ack_failed",millis());}
   else{oled.setI2CAddress(OLED_ADDRESS_7BIT*2);oled.setBusClock(100000);oled.begin();Wire.setTimeOut(20);}}

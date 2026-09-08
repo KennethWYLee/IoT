@@ -9,6 +9,9 @@ const int PIN_BUZZER_CONTROL = -1;
 const bool SENSOR_PROFILES_CONFIRMED = false;
 const bool BUZZER_PROFILE_CONFIRMED = false;
 const int BUZZER_ON_LEVEL = -1; // Set HIGH or LOW only from the approved driver profile.
+const bool BUZZER_USE_TONE = false;
+const int BUZZER_SERIES_OHMS = -1; // HW-508 tone path requires a verified 1 kOhm resistor.
+const uint32_t BUZZER_HZ = 2000;
 const int INDOOR_MIN = -1;
 const int INDOOR_MAX = -1;
 const int SHADE_MIN = -1;
@@ -25,6 +28,7 @@ bool ready = false, shadeHigher = true;
 int threshold = -1;
 bool injectDht = false, injectLight = false;
 bool muted = false, beepActive = false;
+bool buzzerFault = false;
 uint32_t beepStarted = 0, lastLight = 0, lastDht = 0, lastPrint = 0;
 uint32_t lightSample = 0, dhtSample = 0, coverEvents = 0;
 int lightRaw = -1;
@@ -54,12 +58,40 @@ bool profileReady() {
   return SENSOR_PROFILES_CONFIRMED && BUZZER_PROFILE_CONFIRMED &&
          PIN_LIGHT >= 0 && PIN_DHT >= 0 && PIN_BUZZER_CONTROL >= 0 &&
          PIN_LIGHT != PIN_DHT && PIN_LIGHT != PIN_BUZZER_CONTROL && PIN_DHT != PIN_BUZZER_CONTROL &&
-         (BUZZER_ON_LEVEL == HIGH || BUZZER_ON_LEVEL == LOW);
+         (BUZZER_USE_TONE ? BUZZER_SERIES_OHMS == 1000 :
+          (BUZZER_ON_LEVEL == HIGH || BUZZER_ON_LEVEL == LOW));
 }
 
 void silence() {
-  digitalWrite(PIN_BUZZER_CONTROL, BUZZER_ON_LEVEL == HIGH ? LOW : HIGH);
+  if (BUZZER_USE_TONE) {
+    if (!ledcWrite(PIN_BUZZER_CONTROL, 0)) {
+      ledcDetach(PIN_BUZZER_CONTROL);
+      digitalWrite(PIN_BUZZER_CONTROL, LOW); pinMode(PIN_BUZZER_CONTROL, OUTPUT);
+      if (!buzzerFault) Serial.println("event_type=buzzer_fault reason=tone_stop_failed restart_required=true");
+      buzzerFault = true; muted = true;
+    }
+  } else digitalWrite(PIN_BUZZER_CONTROL, BUZZER_ON_LEVEL == HIGH ? LOW : HIGH);
   beepActive = false;
+}
+
+bool initializeBuzzer() {
+  digitalWrite(PIN_BUZZER_CONTROL, BUZZER_USE_TONE ? LOW : 1-BUZZER_ON_LEVEL);
+  pinMode(PIN_BUZZER_CONTROL, OUTPUT);
+  if (BUZZER_USE_TONE && !ledcAttach(PIN_BUZZER_CONTROL, BUZZER_HZ, 10)) return false;
+  silence();
+  return !buzzerFault;
+}
+
+void startBeep(uint32_t now) {
+  if (buzzerFault) return;
+  if (BUZZER_USE_TONE) {
+    if (ledcWriteTone(PIN_BUZZER_CONTROL, BUZZER_HZ) == 0) {
+      buzzerFault = true; muted = true; silence();
+      Serial.println("event_type=buzzer_fault reason=tone_start_failed restart_required=true");
+      return;
+    }
+  } else digitalWrite(PIN_BUZZER_CONTROL, BUZZER_ON_LEVEL);
+  beepActive = true; beepStarted = now;
 }
 
 void serviceBeep(uint32_t now) {
@@ -95,8 +127,7 @@ void readLight(uint32_t now) {
   Serial.printf("device_id=%s event_type=cover_event count=%lu uptime_ms=%lu buzzer_command=%s\n",
                 DEVICE_ID, (unsigned long)coverEvents, (unsigned long)now, muted ? "muted" : "on");
   if (!muted) {
-    digitalWrite(PIN_BUZZER_CONTROL, BUZZER_ON_LEVEL);
-    beepActive = true; beepStarted = now;
+    startBeep(now);
   }
 }
 
@@ -133,8 +164,9 @@ void setup() {
     Serial.println("week=4 status=blocked reason=profile_or_calibration_missing"); return;
   }
   // The approved module must also remain quiet before setup and during reset.
-  digitalWrite(PIN_BUZZER_CONTROL, BUZZER_ON_LEVEL == HIGH ? LOW : HIGH);
-  pinMode(PIN_BUZZER_CONTROL, OUTPUT);
+  if (!initializeBuzzer()) {
+    Serial.println("week=4 status=blocked reason=buzzer_init_failed"); return;
+  }
   analogReadResolution(12); analogSetPinAttenuation(PIN_LIGHT, ADC_11db);
   dht.begin();
   lastLight = lastDht = lastPrint = millis(); ready = true;
@@ -153,9 +185,9 @@ void loop() {
     if (c=='f' || c=='r') { injectDht=c=='f'; previousDhtValid=false; haveDht=false; dhtValid=false; temperatureC=humidityPct=NAN; lastDht=now; }
     if (c=='k' || c=='r') { injectLight=c=='k'; lightRaw=-1; lightValid=false; resetLightState(); silence(); }
     if (c=='q') { muted=true; silence(); }
-    if (c=='u') muted=false; // Does not replay a previous event.
+    if (c=='u' && !buzzerFault) muted=false; // Does not replay a previous event.
     if (c!='\n' && c!='\r' && c!=' ') {
-      const bool known=c=='f'||c=='k'||c=='r'||c=='q'||c=='u';
+      const bool known=c=='f'||c=='k'||c=='r'||c=='q'||(c=='u'&&!buzzerFault);
       Serial.printf("device_id=%s event_type=command status=%s command=%c uptime_ms=%lu\n", DEVICE_ID, known?"accepted":"rejected", c, (unsigned long)now);
     }
   }

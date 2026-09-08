@@ -13,6 +13,9 @@ namespace blockedDual {
 namespace dual {
 #include "enabled_dual.inc"
 }
+namespace missingResistor {
+#include "missing_resistor.inc"
+}
 namespace blockedKy {
 #include "public_ky.inc"
 }
@@ -31,6 +34,8 @@ bool has(const char* s){return Serial.output.find(s)!=std::string::npos;}
 void baselines(int a,int b){std::fill_n(ky::indoor,10,a);std::fill_n(ky::shade,10,b);ky::indoorReady=ky::shadeReady=true;ky::updateCalibration();}
 void reading(float c,float rh,unsigned long when,const char* expected){Serial.clear();dh::reportReading(c,rh,when,false);expect(has(expected),expected);}
 int main(){
+  missingResistor::setup();missingResistor::loop();
+  expect(!missingResistor::ready&&gpioWrites==0&&ledcAttaches==0,"missing tone resistor blocks all outputs");
   // On Windows, unsigned long has the same 32-bit wrap behavior as ESP32 millis.
   blockedKy::setup();blockedKy::loop();blockedDht::setup();blockedDht::loop();
   expect(has("gpio_profile_missing")&&has("module_or_gpio_profile_missing"),"public gates announce blocked");
@@ -116,5 +121,18 @@ int main(){
   fakeNow+=2500;fakeC=NAN;before=dhtReads;dual::loop();expect(dhtReads==before+2&&!dual::dhtValid&&has("reason=read_failed"),"dual resumed hardware can still fail");
   fakeNow+=2500;fakeC=26;fakeRh=55;dual::loop();expect(dual::dhtValid&&dual::haveDht,"dual actual path recovers on finite data");
   light(1200,fakeNow+50);expect(!dual::lightValid,"outside calibration span excluded from event control");
+  if(dual::BUZZER_USE_TONE){
+    expect(ledcAttaches==1&&lastToneHz==2000,"one PWM allocation for repeated 2000Hz beeps");
+    dual::startBeep(fakeNow);expect(dual::beepActive,"tone started");
+    Serial.command('q');dual::loop();expect(!dual::beepActive&&buzzerLevel==LOW,"mute stops tone immediately");
+    ledcToneGood=false;dual::muted=false;dual::startBeep(fakeNow);
+    expect(dual::buzzerFault&&dual::muted&&!dual::beepActive&&has("tone_start_failed"),"tone failure latched and logged");
+    const int tones=ledcTones;Serial.command('u');dual::loop();dual::startBeep(fakeNow);
+    expect(dual::muted&&ledcTones==tones,"unmute cannot recover failed PWM");
+    ledcToneGood=true;dual::buzzerFault=false;ledcWriteGood=false;dual::silence();
+    expect(dual::buzzerFault&&!dual::beepActive&&buzzerLevel==LOW&&ledcDetaches>0,"stop failure detaches PWM and drives LOW");
+    ledcWriteGood=true;dual::buzzerFault=false;ledcAttachGood=false;dual::ready=false;dual::setup();
+    expect(!dual::ready&&has("buzzer_init_failed"),"failed PWM allocation blocks startup");
+  }else expect(ledcAttaches==0&&ledcTones==0,"active mode never allocates PWM");
   std::cout<<"PASS Week 4 actual dual sketch: gating, candidates, edges, mute, pulse, independent faults/recovery; "<<checks<<" total assertions.\n";
 }

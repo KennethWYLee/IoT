@@ -15,7 +15,8 @@ assert.deepEqual(fs.readdirSync(path.dirname(notebookPath)),['week3_main.ipynb']
 const sketches=nb.cells.filter(c=>c.cell_type==='code');
 assert.equal(sketches.length,3);
 for(const [i,name] of ['week03_gpio_voltage_cycle','week03_ky018_raw','week03_light_classifier'].entries()){
-  assert.equal(sketches[i].source.join('').trim(),fs.readFileSync(path.join(root,`IOT_Introduction/examples/${name}/${name}.ino`),'utf8').trim());
+  const normalize=text=>text.replace(/\r\n/g,'\n').trim();
+  assert.equal(normalize(sketches[i].source.join('')),normalize(fs.readFileSync(path.join(root,`IOT_Introduction/examples/${name}/${name}.ino`),'utf8')));
   assert.match(sketches[i].source.join(''),/const int PIN_\w+ = -1;/);
   assert.equal(sketches[i].execution_count,null);
   assert.deepEqual(sketches[i].outputs,[]);
