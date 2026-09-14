@@ -75,6 +75,9 @@ R、G、B各自控制一種顏色，另一個共同接點和三個通道構成�
 
 ### 2.2 斷電接RGB：依功能，不背照片左右
 
+先讀表、認出每個端點；第一次接入ESP32的動作在第2.3節完成裸板Upload之後執行。
+以下是到時候要逐項核對的接線步驟，現在不先把舊韌體通電到新模組。
+
 1. 拔除USB，移除與本週無關的模組。ESP32不硬擠進麵包板，排針以母頭接出。
 2. 依核准profile，把RGB共同端接指定的GND或3V3節點；兩者不能互換試錯。
 3. R、G、B分別以母對母線連到三個核准GPIO。兩端都是排針所以使用母頭；
@@ -96,6 +99,24 @@ R、G、B各自控制一種顏色，另一個共同接點和三個通道構成�
 先停止、拔USB，再沿線查功能；不要只把畫面文字改成綠來掩蓋錯接。
 
 <!-- cell -->
+### 2.3 RGB三色與全關
+
+1. 先保持外部零件未接ESP32；若已接上，先拔USB再取下模組與ESP32之間的連線。
+2. 開啟[完整程式](../../examples/week05_rgb_oled_timer/week05_rgb_oled_timer.ino)，設`LESSON_STAGE=1`，只填RGB必要profile。
+   此階段只啟動RGB；OLED旗標可維持false，未核准腳位維持−1。
+3. 在Arduino IDE選`Sketch → Include Library → Manage Libraries…`，搜尋`U8g2`，
+   確認作者Oliver Kraus，選版本2.36.15並安裝；若已裝相同版本不重裝。
+   RGB階段雖不啟動OLED，完整程式仍需這個函式庫才能編譯。
+4. 只接裸板USB，依Week 2已確認的Board／Port按Verify及Upload。
+   完成後拔USB，按本節接線表接RGB、查線，才重新插USB。
+5. 開Serial Monitor，設115200 baud。依序在訊息欄輸入`o`、`r`、`g`、`b`、`o`並送出。
+   每次只送一個字元，Newline可保留，程式忽略換行。
+
+預期是全關、紅、綠、藍、全關；log如`requested=g visual_verified=false`。
+`false`提醒程式沒有相機確認實物。把目視顏色記在自己的證據欄，不能把原log改成true冒充程式量到。
+不亮或兩色相反，先拔USB查共同端、限流、接線與有效準位，不在帶電狀態換線。
+
+
 ## 3. OLED的四種功能：供電與通訊分開看
 
 OLED的像素會發光。控制器（controller）負責把收到的指令變成畫面。
@@ -245,6 +266,15 @@ BOARD-T01有實體標示`USB`與`COM`的兩個接頭；Windows的`COM7`等名稱
 | ABORTED | 已中止 | 查Serial的reason，不能只說「完成」 |
 
 <!-- cell -->
+### 4.1 OLED固定畫面
+
+拔USB、移除RGB與OLED連線。設定階段2及OLED profile與掃描取得且符合文件的位址。
+只接裸板USB完成Verify、Upload，再拔USB、只接核准OLED並查線後上電。
+先確認IDLE與TIME 30 s，不應自己倒數。
+輸入`4`、`3`，DEMO應對應變化。`s`在階段2會被拒絕，這不是接線壞了。
+畫面歪斜、缺行、亂碼時先保存照片、拔USB，核對控制器／解析度／建構子，不能只反覆換位址。
+
+
 ## 5. 30秒不是「印30次」
 
 `millis()`取得開機後的毫秒數。1秒（s）=1000毫秒（ms），
@@ -315,30 +345,15 @@ Verify的`Sketch uses`是編譯後程式需要的Flash空間，相對於目前�
 但這兩個百分比不能證明OLED接線或畫面正確。
 
 <!-- cell -->
-## 7. 分階段實作：先單獨，後整合
+## 7. 把已確認的RGB與OLED整合成倒數
 
-### 7.1 RGB三色與全關
+已完成第2.3節三色與第4.1節固定畫面，才進行以下整合。若其中一項未通過，先留在該階段，不一次換兩種設定。
 
-依第2節斷電接好核准RGB，程式設階段1，只填RGB必要profile。
-依第3.3節的Verify、裸板Upload、斷電接線與上電步驟執行，Serial設115200 baud。
-依序在訊息欄輸入`o`、`r`、`g`、`b`、`o`並送出。
-每次只送一個字元，Newline可保留，程式忽略換行。
+### 7.1 RGB與OLED倒數
 
-預期是全關、紅、綠、藍、全關；log如`requested=g visual_verified=false`。
-`false`提醒程式沒有相機確認實物。把目視顏色記在自己的證據欄，不能把原log改成true冒充程式量到。
-不亮或兩色相反，先拔USB查共同端、限流、接線與有效準位，不在帶電狀態換線。
-
-### 7.2 OLED固定畫面
-
-拔USB、移除RGB，只保留核准OLED接線。設定階段2及OLED profile與掃描取得且符合文件的位址。
-Verify、Upload後再按斷電接線順序上電。先確認IDLE與TIME 30 s，不應自己倒數。
-輸入`4`、`3`，DEMO應對應變化。`s`在階段2會被拒絕，這不是接線壞了。
-畫面歪斜、缺行、亂碼時先保存照片、拔USB，核對控制器／解析度／建構子，不能只反覆換位址。
-
-### 7.3 RGB與OLED倒數
-
-1. USB拔除，把已分別核准的RGB與OLED合併。共同GND與3V3功能保持一致，GPIO不得重複。
-2. 設階段3；重新核對全部profile，Verify並Upload。初始IDLE、RGB全關、30秒未開始。
+1. USB拔除，先移除模組與ESP32之間的連線。設階段3，重新核對全部profile，裸板Verify並Upload。
+2. 再拔USB，把已分別核准的RGB與OLED合併。共同GND與3V3功能保持一致，GPIO不得重複。
+   查線後上電；初始IDLE、RGB全關、30秒未開始。
 3. 輸入`s`。第一段綠燈，約3秒後紅燈，約6秒後再綠，直到30秒到期。
 4. 對照螢幕規則文字、實物顏色及`phase`。到期EXPIRED、RGB全關、剩餘0。
 5. 送`s`不能直接再開始；先`z`回IDLE，再新的`s`才算新一輪。
@@ -363,7 +378,7 @@ event_type=view_snapshot demo_count=3 rgb_requested=GREEN visual_verified=false
 | uptime_ms | 此筆開機後11500毫秒，不是日期，也不是剩餘時間 |
 | demo_count | 人工示例次數，和KY遮光次數無關 |
 
-### 7.4 安全故障與恢復
+### 7.2 安全故障與恢復
 
 保持線路不變，在進行中送`f`。這是**軟體注入**的顯示失敗：不拔帶電SDA，
 不短接匯流排。應ABORTED、關RGB、Serial顯示`injected_display_failure`與io_ok=false。

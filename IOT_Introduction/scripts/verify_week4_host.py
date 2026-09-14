@@ -45,11 +45,28 @@ def main():
             assert source.count(old) == 1
             source = source.replace(old, new)
         if tag == "dual":
+            # Stages 1/2 deliberately leave the buzzer unconfigured and unconnected.
+            sensor_only = (ROOT / f"IOT_Introduction/examples/{name}/{name}.ino").read_text(encoding="utf-8")
+            for old, new in replacements.items():
+                if "BUZZER" not in old:
+                    sensor_only = sensor_only.replace(old, new)
+            for stage in (1, 2):
+                staged = sensor_only.replace("LESSON_STAGE = 3", f"LESSON_STAGE = {stage}")
+                if stage == 1:
+                    for key in ("INDOOR_MIN", "INDOOR_MAX", "SHADE_MIN", "SHADE_MAX"):
+                        for old, new in replacements.items():
+                            if key in old:
+                                staged = staged.replace(new, old)
+                (OUT / f"stage{stage}_dual.inc").write_text(staged, encoding="utf-8")
             tone = source.replace("const bool BUZZER_USE_TONE = false;", "const bool BUZZER_USE_TONE = true;")
             (OUT / "missing_resistor.inc").write_text(tone, encoding="utf-8")
             if "--tone" in sys.argv:
                 source = tone.replace("const int BUZZER_SERIES_OHMS = -1;", "const int BUZZER_SERIES_OHMS = 1000;")
         (OUT / f"enabled_{tag}.inc").write_text(source, encoding="utf-8")
+    button = (ROOT / "IOT_Introduction/examples/week02_button_input/week02_button_input.ino").read_text(encoding="utf-8")
+    button = button.replace("PIN_BUTTON = -1", "PIN_BUTTON = 5").replace("PIN_TEST_OUTPUT = -1", "PIN_TEST_OUTPUT = 6")
+    (OUT / "button_events.inc").write_text(button, encoding="utf-8")
+    (OUT / "button_raw.inc").write_text(button.replace("OBSERVE_RAW_ONLY = false", "OBSERVE_RAW_ONLY = true"), encoding="utf-8")
     exe = OUT / ("week4_host.exe" if os.name == "nt" else "week4_host")
     if os.name == "nt":
         vcvars = find_vcvars()

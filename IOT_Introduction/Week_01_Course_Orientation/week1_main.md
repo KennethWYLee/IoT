@@ -11,6 +11,19 @@ The objectives below are semester-end abilities; practical concepts will be taug
 
 ## 1. Week 1 Overview
 
+### 先看會做出的互動，再認識零件
+
+![紅綠燈遮光挑戰功能示意：感測、按鈕、規則與顯示輸出；非實物接線圖](../docs/images/wiring/week7-system.png)
+
+*這是共同作品的功能示意，不是接線圖，也不是已完成實機驗證的成品。Week 1不接電操作。*
+
+按開始，OLED顯示倒數；綠燈時遮光再放開，次數加一；紅燈的新遮光扣一。
+達到六次仍要在期限前按結束。舵機指針顯示有效次數，失敗以短聲提示。
+
+先沿圖找三件事：哪個零件接收動作、程式決定什麼、哪個零件讓人看見或聽見結果。
+Week 2～6逐項建立能力，Week 7整合完整規則，不要求第一週就讀懂全部接線。
+了解用途後，再依[中文採購清單](#purchase-table)準備每組一套；課程與評量如下。
+
 ### 教學目標
 
 完成本課程後，學生應能：
@@ -30,10 +43,6 @@ The objectives below are semester-end abilities; practical concepts will be taug
 <a id="architecture-extension"></a>
 
 ### A First IoT Example: A Local Game and a Connected Device
-
-![紅綠燈遮光挑戰功能示意：感測、按鈕、規則與顯示輸出；非實物接線圖](../docs/images/wiring/week7-system.png)
-
-*教學功能示意，不是接線圖，也不是已完成實機驗證的成品。*
 
 In the local game, covering and uncovering the sensor during green adds one;
 doing so during red subtracts one. Reach six and press Finish before time runs out.

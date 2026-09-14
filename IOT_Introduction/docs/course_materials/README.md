@@ -12,6 +12,7 @@
 | 可選用的任務及紀錄格式 | [學生任務單](student_worksheets.md) |
 | 共用程式骨架 | [程式片段](starter_code_snippets.md) |
 | 遊戲規則與跨週設計 | [紅綠燈遮光挑戰](traffic_light_challenge_design.md) |
+| Week 1～7操作分段與本輪驗證 | [2026-09-14漸進實作修訂](../lab_notes/2026-09-14-progressive-lessons.md) |
 | Week 3分類新增來源 | [week3_classification.source.md](week3_classification.source.md) |
 | Week 4～7文字維護來源 | [Week 4](week4_main.source.md)／[Week 5](week5_main.source.md)／[Week 6](week6_main.source.md)／[Week 7](week7_main.source.md) |
 

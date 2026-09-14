@@ -11,7 +11,8 @@ for(const week of Object.keys(g.catalog.weeks).map(Number)) {
  const text=nb?nb.cells.map(c=>c.source.join('')).join('\n'):fs.readFileSync(file,'utf8');
  const gallery=text.match(/<!-- hardware-gallery:start -->[\s\S]+?<!-- hardware-gallery:end -->/g);
  assert.equal(gallery?.length,1,file);
- assert.equal(gallery[0],g.gallery(week,file));
+ // Markdown checkouts may use CRLF; compare content without changing image bytes.
+ assert.equal(gallery[0].replace(/\r\n/g,'\n'),g.gallery(week,file).replace(/\r\n/g,'\n'));
  const refs=[...gallery[0].matchAll(/!\[[^\]]+\]\(([^)]+)\)/g)];
  assert.equal(refs.length,g.imageCount(week));
  refs.forEach(m=>g.verifyPhotoReference(gallery[0],m[1],file));

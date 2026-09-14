@@ -15,10 +15,12 @@ static unsigned long fakeNow=0;
 static int adcCalls=0, adcConfigCalls=0, adcValue=300;
 static int dhtBegins=0, dhtReads=0;
 static float fakeC=25, fakeRh=50;
-const int HIGH=1, LOW=0, OUTPUT=1;
+const int HIGH=1, LOW=0, OUTPUT=1, INPUT_PULLUP=2;
+static int buttonLevel=HIGH;
+int digitalRead(int pin){assert(pin==5);return buttonLevel;}
 static int gpioWrites=0,gpioModes=0,buzzerLevel=LOW;
 void digitalWrite(int pin,int level){assert(pin==6);assert(level==HIGH||level==LOW);gpioWrites++;buzzerLevel=level;}
-void pinMode(int pin,int mode){assert(pin==6&&mode==OUTPUT);gpioModes++;}
+void pinMode(int pin,int mode){assert((pin==6&&mode==OUTPUT)||(pin==5&&mode==INPUT_PULLUP));gpioModes++;}
 #include "../buzzer_fake.h"
 struct FakeSerial {
   std::string output;

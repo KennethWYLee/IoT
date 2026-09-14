@@ -2,6 +2,9 @@
 const int PIN_BUTTON = -1;
 const int PIN_TEST_OUTPUT = -1;
 const char *GROUP_ID = "CHANGE_ME";
+// First observe the input without accepting events; then switch to false.
+const bool OBSERVE_RAW_ONLY = false;
+unsigned long lastRawPrintMs = 0;
 
 bool experimentReady = false;
 bool stablePressed = false;
@@ -42,6 +45,15 @@ void loop() {
   if (!experimentReady) return;
   bool rawPressed = digitalRead(PIN_BUTTON) == LOW;
   unsigned long now = millis();
+
+  if (OBSERVE_RAW_ONLY) {
+    // Output stays LOW. Periodic snapshots do not count physical presses.
+    if (now - lastRawPrintMs >= 100) {
+      lastRawPrintMs = now;
+      Serial.printf("mode=raw input=%s time_ms=%lu\n", rawPressed ? "LOW" : "HIGH", now);
+    }
+    return;
+  }
 
   if (rawPressed != lastRawPressed) {
     lastRawPressed = rawPressed;

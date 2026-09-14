@@ -42,6 +42,11 @@ def main():
                 run.check_returncode()
                 enabled = (ROOT / f"_outputs/week{week}_host/enabled_{fixture}.inc").read_text(encoding="utf-8")
                 cases.append((tag, enabled, oled))
+    for stage in (1, 2):
+        source = (ROOT / f"_outputs/week4_host/stage{stage}_dual.inc").read_text(encoding="utf-8")
+        cases.append((f"week4_sensors_stage{stage}", source, 1306))
+    source = (ROOT / "_outputs/week4_host/button_raw.inc").read_text(encoding="utf-8")
+    cases.append(("week2_raw_observation", source, 1306))
     versions = {}
     for kind in ("core", "lib"):
         versions[kind] = subprocess.check_output(cli + [kind, "list"], text=True, encoding="utf-8")

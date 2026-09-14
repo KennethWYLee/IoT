@@ -13,6 +13,18 @@ namespace blockedDual {
 namespace dual {
 #include "enabled_dual.inc"
 }
+namespace dualReadings {
+#include "stage1_dual.inc"
+}
+namespace dualEvents {
+#include "stage2_dual.inc"
+}
+namespace buttonRaw {
+#include "button_raw.inc"
+}
+namespace buttonEvents {
+#include "button_events.inc"
+}
 namespace missingResistor {
 #include "missing_resistor.inc"
 }
@@ -135,4 +147,33 @@ int main(){
     expect(!dual::ready&&has("buzzer_init_failed"),"failed PWM allocation blocks startup");
   }else expect(ledcAttaches==0&&ledcTones==0,"active mode never allocates PWM");
   std::cout<<"PASS Week 4 actual dual sketch: gating, candidates, edges, mute, pulse, independent faults/recovery; "<<checks<<" total assertions.\n";
+  Serial.clear();fakeNow=0;
+  const int writesBeforeStages=gpioWrites, modesBeforeStages=gpioModes, pwmBeforeStages=ledcAttaches;
+  dualReadings::setup();expect(dualReadings::ready&&dualReadings::threshold==-1,"stage1 needs no calibration/buzzer profile");
+  adcValue=310;fakeNow+=2500;dualReadings::loop();
+  expect(dualReadings::lightValid&&dualReadings::dhtValid&&has("state=UNKNOWN")&&has("event_count=0"),"stage1 reads both without classification");
+  Serial.command('k');dualReadings::loop();fakeNow+=50;dualReadings::loop();
+  expect(!dualReadings::lightValid&&!dualReadings::armed,"stage1 injected missing clears input");
+  Serial.command('q');dualReadings::loop();Serial.command('u');dualReadings::loop();
+  dualReadings::startBeep(fakeNow);expect(!dualReadings::beepActive,"stage1 cannot beep even through direct call");
+  dualEvents::setup();expect(dualEvents::ready&&dualEvents::threshold==610,"stage2 accepts calibrated sensors without buzzer");
+  auto eventReading=[](int v,unsigned long t){adcValue=v;fakeNow=t;dualEvents::readLight(t);};
+  eventReading(310,10000);eventReading(310,10150);eventReading(910,10200);eventReading(910,10350);eventReading(910,11000);
+  expect(dualEvents::coverEvents==1&&!dualEvents::beepActive&&has("buzzer_command=disabled"),"stage2 emits one held-cover event without sound");
+  eventReading(0,11100);expect(!dualEvents::lightValid&&!dualEvents::armed,"stage2 invalid resets and safely silences absent buzzer");
+  expect(gpioWrites==writesBeforeStages&&gpioModes==modesBeforeStages&&ledcAttaches==pwmBeforeStages,"sensor-only stages make zero buzzer GPIO/PWM calls");
+  Serial.clear();fakeNow=0;buttonLevel=LOW;buttonRaw::setup();
+  expect(!buttonRaw::experimentReady&&has("release_button_then_reset"),"raw mode also blocks held-at-boot button");
+  buttonLevel=HIGH;buttonRaw::setup();const int rawWrites=gpioWrites;
+  buttonRaw::loop();expect(has("mode=raw input=HIGH"),"raw button release snapshot");
+  Serial.clear();buttonLevel=LOW;fakeNow+=99;buttonRaw::loop();expect(!has("mode=raw"),"raw snapshot waits 100ms");
+  fakeNow++;buttonRaw::loop();fakeNow+=100;buttonRaw::loop();
+  expect(has("mode=raw input=LOW")&&!has("event=button_changed")&&gpioWrites==rawWrites&&buzzerLevel==LOW,"raw button never accepts events or raises output");
+  buttonLevel=HIGH;fakeNow+=100;buttonRaw::loop();expect(has("mode=raw input=HIGH"),"raw button release returns HIGH");
+  Serial.clear();buttonEvents::setup();buttonLevel=LOW;buttonEvents::loop();fakeNow+=29;buttonEvents::loop();
+  expect(!has("event=button_changed"),"accepted mode still waits debounce");
+  fakeNow++;buttonEvents::loop();expect(has("pressed=true")&&buzzerLevel==HIGH,"accepted mode changes after 30ms");
+  Serial.clear();fakeNow+=1000;buttonEvents::loop();expect(!has("event=button_changed"),"accepted mode does not repeat held event");
+  buttonLevel=HIGH;buttonEvents::loop();fakeNow+=30;buttonEvents::loop();expect(has("pressed=false")&&buzzerLevel==LOW,"accepted release recorded once");
+  std::cout<<"PASS staged Week 2/4 canonical firmware with host stubs; "<<checks<<" total assertions; no physical verification.\n";
 }

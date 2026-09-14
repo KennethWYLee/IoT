@@ -14,6 +14,10 @@ for(const [i,name]of ['week04_dht11_quality','week04_dual_sensor_alarm'].entries
  assert.match(code[i].source.join(''),/const int PIN_\w+ = -1;/);assert.equal(code[i].execution_count,null);assert.deepEqual(code[i].outputs,[]);
 }
 const anchorIds=new Set([...all.matchAll(/<a id="([^"]+)"/g)].map(m=>m[1]));let images=0,links=0;
+assert(all.indexOf('## 五、DHT11')<all.indexOf('## 十、承接Week 3'));
+assert(all.indexOf('### 12A.4A 階段1')<all.indexOf('### 12A.5A 階段2'));
+assert(all.indexOf('### 12A.5A 階段2')<all.indexOf('### 12A.5B 先辨認蜂鳴器'));
+for(const term of ['LESSON_STAGE=1','LESSON_STAGE改為2','LESSON_STAGE=3','buzzer_command=disabled','教師先完成同批規格'])assert(all.includes(term),term);
 for(const c of nb.cells){
  const s=c.source.join(''),used=[];
  for(const m of s.matchAll(/!\[[^\]]+\]\(([^)]+)\)/g)){
@@ -61,7 +65,7 @@ async function render(){
   await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));
   assert.equal(await page.locator('img').count(),images);
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-  for(const [name,prefix]of [['4.1A','range'],['6.1','ky-event'],['9.3','dht-wiring'],['10.3','library'],['12A.3','dual-wiring'],['12A.6','integrated-test'],['13.4','discussion']]){
+  for(const [name,prefix]of [['4.1A','range'],['11.1','ky-event'],['6.3','dht-wiring'],['7.3','library'],['12A.3','dual-wiring'],['12A.4A','dual-readings'],['12A.6','integrated-test'],['13.4','discussion']]){
    await page.getByRole('heading').filter({hasText:new RegExp('^'+name.replace('.','\\.'))}).first().evaluate(el=>el.scrollIntoView({block:'start'}));
    await page.screenshot({path:path.join(out,prefix+'.png')});
   }

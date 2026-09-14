@@ -207,12 +207,14 @@ This is a local notebook-style preview, not a live GitHub-rendering claim.
 
 The host runner uses MSVC on this Windows setup (or g++/clang++ elsewhere), generates
 fixtures under `_outputs/week4_host/`, and executes the actual new sketch logic with
-stubbed I/O. Enabled fixtures change only pin/gate constants for testing; they do not
+stubbed I/O. Enabled fixtures select lesson modes and pin/gate constants for testing; they do not
 publish a GPIO profile. Checks include blocked defaults, timing, two calibration
 directions, overlap, endpoints, invalidation, DHT quality rules, injection and recovery.
 No serial port, board, physical sensor or upload is involved. Arduino compilation is a
 separate check using `verify_markdown_arduino.py` or its existing extraction/CLI functions.
-See [the Week 4 record](../docs/lab_notes/2026-09-05-week4-material-review.md) for actual results.
+Additional fixtures exercise Week 4 sensor-only stages 1/2 with no buzzer I/O and
+Week 2 raw snapshots versus accepted button events, including held-at-boot blocking.
+See [the progressive lesson record](../docs/lab_notes/2026-09-14-progressive-lessons.md) for current results.
 
 ## Week 5–7 source, diagrams and checks
 
@@ -229,7 +231,7 @@ python IOT_Introduction/scripts/verify_game_host.py 5
 ```
 
 The host runner executes the actual public sketch with explicit fake I/O and test-only
-profiles. Current assertions: Week 5 = 45, Week 6 = 40, Week 7 = 90. This does not upload
+profiles. Current default assertions: Week 5 = 45, Week 6 = 40, Week 7 = 92. This does not upload
 or validate real modules. The notebook verifier checks source/attachment equality, links,
 tables, fences and 1200/420px Edge previews. Review diagrams manually too. Arduino build
 uses the general verifier; dependencies include U8g2 2.36.15 and ESP32Servo 3.2.1.
@@ -249,8 +251,9 @@ python IOT_Introduction/scripts/verify_game_host.py 7 --tone --oled1315
 python IOT_Introduction/scripts/verify_hardware_profiles.py
 ```
 
-The second command runs host checks and 14 ESP32-S3 compiles: four blocked public
-sketches and ten enabled test configurations across Weeks 4-7. It uses the installed
+The second command runs host checks and 17 ESP32-S3 compiles: four blocked public
+sketches, ten enabled configurations across Weeks 4-7, two Week 4 sensor-only stages,
+and Week 2 raw observation mode. It uses the installed
 Arduino CLI, core 3.3.11, U8g2 2.36.15, ESP32Servo 3.2.1, DHT 1.4.7 and Adafruit
 Unified Sensor 1.1.15. Install these before running. An optional `--config-file PATH`
 selects a local CLI configuration with isolated libraries without replacing the IDE's

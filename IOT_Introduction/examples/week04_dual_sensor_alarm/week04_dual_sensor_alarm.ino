@@ -3,6 +3,8 @@
 #include <math.h>
 
 // Published defaults are deliberately blocked. No inferred module pin order.
+// 1: dual readings only; 2: stable cover events; 3: add the approved buzzer.
+const int LESSON_STAGE = 3;
 const int PIN_LIGHT = -1;
 const int PIN_DHT = -1;
 const int PIN_BUZZER_CONTROL = -1;
@@ -55,14 +57,17 @@ bool configureCalibration() {
 }
 
 bool profileReady() {
-  return SENSOR_PROFILES_CONFIRMED && BUZZER_PROFILE_CONFIRMED &&
-         PIN_LIGHT >= 0 && PIN_DHT >= 0 && PIN_BUZZER_CONTROL >= 0 &&
-         PIN_LIGHT != PIN_DHT && PIN_LIGHT != PIN_BUZZER_CONTROL && PIN_DHT != PIN_BUZZER_CONTROL &&
+  if (LESSON_STAGE < 1 || LESSON_STAGE > 3 || !SENSOR_PROFILES_CONFIRMED ||
+      PIN_LIGHT < 0 || PIN_DHT < 0 || PIN_LIGHT == PIN_DHT) return false;
+  if (LESSON_STAGE < 3) return true; // Unconnected buzzer is never accessed.
+  return BUZZER_PROFILE_CONFIRMED && PIN_BUZZER_CONTROL >= 0 &&
+         PIN_LIGHT != PIN_BUZZER_CONTROL && PIN_DHT != PIN_BUZZER_CONTROL &&
          (BUZZER_USE_TONE ? BUZZER_SERIES_OHMS == 1000 :
           (BUZZER_ON_LEVEL == HIGH || BUZZER_ON_LEVEL == LOW));
 }
 
 void silence() {
+  if (LESSON_STAGE < 3) { beepActive = false; return; }
   if (BUZZER_USE_TONE) {
     if (!ledcWrite(PIN_BUZZER_CONTROL, 0)) {
       ledcDetach(PIN_BUZZER_CONTROL);
@@ -75,6 +80,7 @@ void silence() {
 }
 
 bool initializeBuzzer() {
+  if (LESSON_STAGE < 3) return true;
   digitalWrite(PIN_BUZZER_CONTROL, BUZZER_USE_TONE ? LOW : 1-BUZZER_ON_LEVEL);
   pinMode(PIN_BUZZER_CONTROL, OUTPUT);
   if (BUZZER_USE_TONE && !ledcAttach(PIN_BUZZER_CONTROL, BUZZER_HZ, 10)) return false;
@@ -83,7 +89,7 @@ bool initializeBuzzer() {
 }
 
 void startBeep(uint32_t now) {
-  if (buzzerFault) return;
+  if (LESSON_STAGE < 3 || buzzerFault) return;
   if (BUZZER_USE_TONE) {
     if (ledcWriteTone(PIN_BUZZER_CONTROL, BUZZER_HZ) == 0) {
       buzzerFault = true; muted = true; silence();
@@ -109,6 +115,12 @@ void resetLightState() {
 void readLight(uint32_t now) {
   ++lightSample;
   lightRaw = injectLight ? -1 : analogRead(PIN_LIGHT);
+  if (LESSON_STAGE == 1) {
+    // Range check only: this stage makes no indoor/shade or event claim.
+    lightValid = !injectLight && lightRaw > 0 && lightRaw < 4095;
+    resetLightState();
+    return;
+  }
   // Controller policy is stricter than Week 3's candidate label: outside observed span is rejected.
   lightValid = !injectLight && lightRaw > 0 && lightRaw < 4095 &&
                lightRaw >= min(INDOOR_MIN, SHADE_MIN) && lightRaw <= max(INDOOR_MAX, SHADE_MAX);
@@ -125,7 +137,8 @@ void readLight(uint32_t now) {
   armed = false;
   ++coverEvents;
   Serial.printf("device_id=%s event_type=cover_event count=%lu uptime_ms=%lu buzzer_command=%s\n",
-                DEVICE_ID, (unsigned long)coverEvents, (unsigned long)now, muted ? "muted" : "on");
+                DEVICE_ID, (unsigned long)coverEvents, (unsigned long)now,
+                LESSON_STAGE < 3 ? "disabled" : muted ? "muted" : "on");
   if (!muted) {
     startBeep(now);
   }
@@ -160,7 +173,7 @@ void readDht(uint32_t now) {
 
 void setup() {
   Serial.begin(115200); delay(500);
-  if (!profileReady() || !configureCalibration()) {
+  if (!profileReady() || (LESSON_STAGE >= 2 && !configureCalibration())) {
     Serial.println("week=4 status=blocked reason=profile_or_calibration_missing"); return;
   }
   // The approved module must also remain quiet before setup and during reset.
@@ -170,6 +183,7 @@ void setup() {
   analogReadResolution(12); analogSetPinAttenuation(PIN_LIGHT, ADC_11db);
   dht.begin();
   lastLight = lastDht = lastPrint = millis(); ready = true;
+  Serial.printf("lesson_stage=%d buzzer_enabled=%s\n", LESSON_STAGE, LESSON_STAGE == 3 ? "true" : "false");
   Serial.printf("week=4 status=ready device_id=%s threshold=%d light_interval_ms=%lu dht_interval_ms=%lu stable_ms=%lu beep_ms=%lu\n",
                 DEVICE_ID, threshold, (unsigned long)LIGHT_INTERVAL_MS, (unsigned long)DHT_INTERVAL_MS,
                 (unsigned long)STABLE_MS, (unsigned long)BEEP_MS);

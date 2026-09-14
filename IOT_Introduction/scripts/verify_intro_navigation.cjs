@@ -116,7 +116,8 @@ assert(docs[0].indexOf('### A First IoT Example')<docs[0].indexOf('## 5. Minimum
 assert(docs[0].includes('not a tested'));
 assert(docs[0].includes('不是已完成實機驗證的成品'));
 assert.equal((docs[1].match(/#### 先找已知與未知/g)||[]).length,1);
-assert(docs[1].indexOf('#### 先找已知與未知')<docs[1].indexOf('## 八、麵包板'));
+assert(docs[1].indexOf('#### 先找已知與未知')>docs[1].indexOf('## 十二、完成檢核'));
+assert(docs[0].indexOf('### 先看會做出的互動')<docs[0].indexOf('### 教學目標'));
 assert(docs[1].includes('[依課程profile完成GPIO與GND接線](#w2-wiring)'));
 assert(docs[2].includes('[F2. KY-018原始值](#w3-adc-concept)'));
 assert(docs[2].indexOf('## 九、實驗四')<docs[2].indexOf('const int PIN_TEST_OUTPUT'));
