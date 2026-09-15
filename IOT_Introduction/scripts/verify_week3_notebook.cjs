@@ -11,7 +11,7 @@ const allSources=nb.cells.map(c=>c.source.join('')), all=allSources.join('\n');
 const sources=nb.cells.filter(c=>c.metadata?.maintenance_source!=='week3_classification.source.md').map(c=>c.source.join(''));
 assert.equal(sources.length,20);
 assert.equal(nb.cells.length,23);
-assert.deepEqual(fs.readdirSync(path.dirname(notebookPath)),['week3_main.ipynb']);
+assert.deepEqual(fs.readdirSync(path.dirname(notebookPath)).sort(),['week3_main.ipynb','week3_main.pdf']);
 const sketches=nb.cells.filter(c=>c.cell_type==='code');
 assert.equal(sketches.length,3);
 for(const [i,name] of ['week03_gpio_voltage_cycle','week03_ky018_raw','week03_light_classifier'].entries()){

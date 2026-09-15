@@ -6,7 +6,7 @@ const root=path.resolve(__dirname, '../..');
 const file=path.join(root,'IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb');
 const nb=JSON.parse(fs.readFileSync(file,'utf8')),all=nb.cells.map(c=>c.source.join('')).join('\n');
 assert.equal(nb.nbformat,4);assert.equal(nb.nbformat_minor,5);
-assert.deepEqual(fs.readdirSync(path.dirname(file)),['week4_main.ipynb']);
+assert.deepEqual(fs.readdirSync(path.dirname(file)).sort(),['week4_main.ipynb','week4_main.pdf']);
 assert.equal(new Set(nb.cells.map(c=>c.id)).size,nb.cells.length);
 const code=nb.cells.filter(c=>c.cell_type==='code');assert.equal(code.length,2);
 for(const [i,name]of ['week04_dht11_quality','week04_dual_sensor_alarm'].entries()){

@@ -261,7 +261,7 @@ def main() -> int:
         number = week_number(directory)
         files = sorted(path.name for path in directory.iterdir() if path.is_file())
         expected = (
-            [f"week{number}_main.ipynb"]
+            [f"week{number}_main.ipynb", f"week{number}_main.pdf"]
             if number in {2, 3, 4, 5, 6, 7}
             else [f"week{number}_main.md"]
         )
@@ -274,7 +274,7 @@ def main() -> int:
         main_lines = len(main_content.splitlines())
         summaries.append(
             f"Week {number:02d}: main={main_lines} lines"
-            + (", single notebook" if main_path.suffix == ".ipynb" else ", single Markdown")
+            + (", notebook and PDF" if main_path.suffix == ".ipynb" else ", single Markdown")
         )
 
         if number == 18 and main_content.strip():

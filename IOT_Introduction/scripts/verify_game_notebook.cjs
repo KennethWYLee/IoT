@@ -7,7 +7,7 @@ assert(dirs[week]);
 const file=path.join(root,`IOT_Introduction/${dirs[week]}/week${week}_main.ipynb`);
 const nb=JSON.parse(fs.readFileSync(file,'utf8'));
 assert.equal(nb.nbformat,4);assert.equal(nb.nbformat_minor,5);
-assert.deepEqual(fs.readdirSync(path.dirname(file)),[`week${week}_main.ipynb`]);
+assert.deepEqual(fs.readdirSync(path.dirname(file)).sort(),[`week${week}_main.ipynb`,`week${week}_main.pdf`]);
 assert.equal(nb.metadata.course_edition,'complete-preparation-with-reference-answers');
 assert.equal(new Set(nb.cells.map(c=>c.id)).size,nb.cells.length);
 const all=nb.cells.map(c=>c.source.join('')).join('\n');let images=0,sketches=0,links=0;

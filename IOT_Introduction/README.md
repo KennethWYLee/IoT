@@ -4,7 +4,7 @@
 
 每週只開一份主教材，不必另外找support。Week 2～7使用Notebook，其他週使用Markdown；
 必要說明、準備事項、表格、操作與延伸均在當週同一份文件。
-Week 2～7為完整備課版（含參考解答）。Week 18只保留空白檔案。
+Week 2～7為完整備課版（含參考解答），各附同名PDF供離線閱讀與列印；PDF是同一份教材的匯出，不是另一套講義。Week 18只保留空白檔案。
 
 Week 1只介紹課程與[正式材料清單](Week_01_Course_Orientation/week1_main.md#purchase-table)，不操作硬體。
 
@@ -17,12 +17,12 @@ Week 2～7、11～12、14～15的主教材開頭亦有當週器材圖集。離�
 | 週次 | 日期 | 主題 | 主教材（唯一入口） |
 |---:|---|---|---|
 | 1 | 2026-09-09 | 課程大綱、配分與中文採購清單 | [開啟 Week 1](Week_01_Course_Orientation/week1_main.md) |
-| 2 | 2026-09-16 | ESP32-S3、開發環境與按鈕去抖 | [開啟 Week 2](Week_02_ESP32_Hardware_Basics/week2_main.ipynb) |
-| 3 | 2026-09-23 | 電氣量測、ADC與室內／遮光分類 | [開啟 Week 3](Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb) |
-| 4 | 2026-09-30 | 電阻量程、DHT11、雙感測器與蜂鳴提示 | [開啟 Week 4](Week_04_Sensors_and_Data_Quality/week4_main.ipynb) |
-| 5 | 2026-10-07 | RGB、OLED與非阻塞倒數 | [開啟 Week 5](Week_05_RGB_OLED_Countdown/week5_main.ipynb) |
-| 6 | 2026-10-14 | SG90計數指針、供電與安全 | [開啟 Week 6](Week_06_Servo_Pointer/week6_main.ipynb) |
-| 7 | 2026-10-21 | 紅綠燈遮光挑戰：完整本機遊戲 | [開啟 Week 7](Week_07_Traffic_Light_Challenge/week7_main.ipynb) |
+| 2 | 2026-09-16 | ESP32-S3、開發環境與按鈕去抖 | [Notebook](Week_02_ESP32_Hardware_Basics/week2_main.ipynb)／[PDF](Week_02_ESP32_Hardware_Basics/week2_main.pdf) |
+| 3 | 2026-09-23 | 電氣量測、ADC與室內／遮光分類 | [Notebook](Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb)／[PDF](Week_03_Electrical_Measurement_and_ADC/week3_main.pdf) |
+| 4 | 2026-09-30 | 電阻量程、DHT11、雙感測器與蜂鳴提示 | [Notebook](Week_04_Sensors_and_Data_Quality/week4_main.ipynb)／[PDF](Week_04_Sensors_and_Data_Quality/week4_main.pdf) |
+| 5 | 2026-10-07 | RGB、OLED與非阻塞倒數 | [Notebook](Week_05_RGB_OLED_Countdown/week5_main.ipynb)／[PDF](Week_05_RGB_OLED_Countdown/week5_main.pdf) |
+| 6 | 2026-10-14 | SG90計數指針、供電與安全 | [Notebook](Week_06_Servo_Pointer/week6_main.ipynb)／[PDF](Week_06_Servo_Pointer/week6_main.pdf) |
+| 7 | 2026-10-21 | 紅綠燈遮光挑戰：完整本機遊戲 | [Notebook](Week_07_Traffic_Light_Challenge/week7_main.ipynb)／[PDF](Week_07_Traffic_Light_Challenge/week7_main.pdf) |
 | 8 | 2026-10-28 | 第一次專題報告：題目與可行性 | [開啟 Week 8](Week_08_Project_Report_1/week8_main.md) |
 | 9 | 2026-11-04 | 教師出國／選讀，不收新成果 | [開啟 Week 9](Week_09_Self_Study/week9_main.md) |
 | 10 | 2026-11-11 | 第一次個人筆試：Week 2～7 | [開啟 Week 10](Week_10_Individual_Written_Exam/week10_main.md) |
