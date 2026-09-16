@@ -4,6 +4,8 @@ const path = require('node:path');
 module.exports = ({page, escape, svg, text, line, dot, marker, block, arrow, photo}) => {
   const code = fs.readFileSync(path.join(__dirname, 'counter_two_buttons/counter_two_buttons.ino'), 'utf8').trim();
   const split = code.indexOf('\nvoid loop()');
+  const solution = fs.readFileSync(path.join(__dirname, 'counter_exercise_solution/counter_exercise_solution.ino'), 'utf8');
+  const answer = solution.slice(solution.indexOf('void printCount('), solution.indexOf('\nvoid setup()')).trim();
   function wiring() {
     const xs = [172,200,228,256,284,358,386,414,442,470];
     let s = '<rect x="145" y="8" width="358" height="363" fill="#fafafa" stroke="#839399"/><rect x="305" y="10" width="32" height="357" fill="#e6e9eb"/>';
@@ -63,7 +65,7 @@ module.exports = ({page, escape, svg, text, line, dot, marker, block, arrow, pho
       <li>開 <b>Tools → Serial Monitor</b>，選 <b>115200</b>。不按 BOOT，短按一次板上 <b>RST</b>，應看到下面這一行。</li></ol>
       <pre>event=start count=0</pre>
       <p><b>start</b> 表示程式剛開始；<b>count=0</b> 表示目前數字是 0。這是預期文字，不是本次硬體實測。</p>
-      <p>這支程式沒有持續洗出文字：沒有按鈕操作時，畫面不增加是正常的。看不到起始文字，先回第 31 頁排查，不靠接線嘗試解決上傳問題。</p>
+      <p>這支程式沒有持續洗出文字：沒有按鈕操作時，畫面不增加是正常的。看不到起始文字，先回第 33 頁排查，不靠接線嘗試解決上傳問題。</p>
       <aside class="safety">看到起始文字後，再關閉 Monitor、拔 USB，確認 PWR 熄滅。這個順序先把兩腳改為輸入，避免把按鈕接到舊程式的輸出腳。此時先照做，程式原理在做出數字後講。</aside>
       <p class="next">下一頁：USB 保持拔除，放第二顆按鈕，先用電表確認方向。</p>
     `),
@@ -144,6 +146,38 @@ event=minus count=1</pre>
       <pre class="counter-code" style="line-height:1.3">${escape(code.slice(split).trim())}</pre>
       <p class="sources">官方原理依據：<a href="https://docs.arduino.cc/built-in-examples/digital/StateChangeDetection/">Arduino State Change Detection</a>、<a href="https://docs.arduino.cc/built-in-examples/digital/Debounce/">Arduino Debounce</a>、<a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html">Espressif GPIO</a>。本例另訂兩鍵需放開、0～99 上下限規則；不能照搬官方 UNO 範例的 5V 接線。</p>
       <p class="note">本計數器已做軟體檢查；雙按鈕新接法仍須實物核對與上機驗證。範例畫面不是本次硬體測試結果。</p>
+    `),
+    page(31,'練習題 · 先做，再翻頁','最多五人的小房間','把剛才的計數器改成人數紀錄；沿用原接線，不新增零件。',`
+      <div class="goal"><b>情境：</b>房間最多容納 5 人。加鍵模擬一人進入，減鍵模擬一人離開。這是手動計數，不會偵測真人或控制門鎖。</div>
+      <h2>請修改原計數器，完成兩件事</h2>
+      <ol class="steps compact"><li>人數只能在 <b>0～5</b> 之間。0 人時按減鍵仍是 0；5 人時按加鍵仍是 5。</li><li>保留原本每筆 <b>event=… count=…</b> 紀錄。每次印完紀錄，如果目前是 5 人，下一行再印 <b>FULL</b>，表示已滿。不到 5 人時，不新增這行。</li></ol>
+      <p>保留長按一次、兩鍵放開才接受下次、RST 歸零的規則。<b>不改 GPIO 或接線。</b>可參考既有範例與講義，先自己修改再翻頁核對。</p>
+      <p><b>先填預測，再測試：</b>前四列依序操作，每次按半秒、放開半秒。最後一列重新按 RST 後再測。</p>
+      <table class="settings"><thead><tr><th>操作</th><th>預測人數／有無新 FULL</th><th>實際結果</th></tr></thead><tbody>
+      <tr><td>RST，兩鍵放開一秒；按減鍵</td><td>________／________</td><td>________</td></tr>
+      <tr><td>依序按加鍵五次</td><td>________／________</td><td>________</td></tr>
+      <tr><td>再按第六次加鍵</td><td>________／________</td><td>________</td></tr>
+      <tr><td>按減鍵一次</td><td>________／________</td><td>________</td></tr>
+      <tr><td>RST 後放開一秒，長按加鍵兩秒</td><td>________／________</td><td>________</td></tr></tbody></table>
+      <p class="question"><b>再回答：</b>已經顯示過 FULL，減成 4 人後，舊的 FULL 還留在視窗中，代表現在仍然滿了嗎？應該看哪筆紀錄？</p>
+      <aside class="safety">上傳修改版前，沿用第 23 頁：斷電拆開發板外接線，再只接 USB 上傳。完成後再斷電，依第 25 頁恢復四條線。不要帶電改線。</aside>
+      <p class="next">完成程式、預測與實測紀錄後再翻頁。下一頁就是參考解答。</p>
+    `),
+    page(32,'參考解答 · 對照上一頁','上限改成五，滿了再印 FULL','只需修改上限與印出紀錄的函式，其餘計數與接線不變。',`
+      <p><b>修改一：</b>把原本那行換成 <code>const int MAX_COUNT = 5;</code>，不要另加第二個同名設定。</p>
+      <p><b>修改二：</b>用下列內容取代原本整個 <code>printCount()</code>：</p>
+      <pre>${escape(answer)}</pre>
+      <p><code>==</code> 是比較兩邊是否相等，不會修改 count；<code>=</code> 是把右邊的數值存回左邊。兩者用途不同。</p>
+      <table class="settings"><thead><tr><th>上一頁的測試</th><th>答案：數字與新訊息</th></tr></thead><tbody>
+      <tr><td>0 人時按減鍵</td><td>0；minimum，不新增 FULL</td></tr><tr><td>加鍵五次</td><td>1、2、3、4、5；第五次新增 FULL</td></tr><tr><td>第六次加鍵</td><td>維持 5；maximum，仍新增 FULL</td></tr><tr><td>減鍵一次</td><td>4；minus，不新增 FULL</td></tr><tr><td>重新 RST 後長按加鍵</td><td>只到 1；不新增 FULL</td></tr></tbody></table>
+      <h2>第五次加鍵、第六次加鍵、減鍵的預期紀錄</h2>
+      <pre>event=plus count=5
+FULL
+event=maximum count=5
+FULL
+event=minus count=4</pre>
+      <p><b>觀念題：</b>舊 FULL 是過去的紀錄，不是現在的狀態。看最新的 <b>count=4</b>，現在沒有滿。程式不會自動刪除舊訊息。</p>
+      <p class="sources">以上為參考答案與程式預期輸出，不是實機結果。完整解答另附 counter_exercise_solution.ino；仍需照題目自行觀察與留下紀錄。</p>
     `)
   ];
 };

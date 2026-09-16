@@ -152,11 +152,21 @@
     },
     {
       "page": 31,
-      "characters": 821,
+      "characters": 754,
       "text_outside_page": []
     },
     {
       "page": 32,
+      "characters": 793,
+      "text_outside_page": []
+    },
+    {
+      "page": 33,
+      "characters": 821,
+      "text_outside_page": []
+    },
+    {
+      "page": 34,
       "characters": 783,
       "text_outside_page": []
     }
@@ -165,7 +175,7 @@
     "IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.pdf": true,
     "IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb": true
   },
-  "pdf_sha256": "8828ee9d8d014bc375d23d040482f7bac335ae8cc6025f793981cfd82b5c5581",
+  "pdf_sha256": "3f1f18c81f25638c796581c423d389ec82dde5aab8b37c8a7342180a8a9eafc7",
   "visual_review": "Recorded separately in the redesign review after inspecting Poppler renders.",
   "hardware_tested": false,
   "student_trial_completed": false,

@@ -35,7 +35,7 @@ page(9,'從頭開始 · 插 USB','把 ESP32 接到電腦','使用可以傳資料
   <ol class="steps"><li>板子沒有杜邦線、按鈕、電池或其他模組。把板子翻過來，找到印字 <b>COM</b> 的接頭。</li><li>先看電腦軟體的 <b>Tools → Port</b> 清單。Port 是電腦用來識別連接裝置的通訊埠；現在沒有清單也沒關係。</li><li>把 USB 線一端插電腦，另一端插板子的 <b>COM</b> 接頭。先只接這一塊板。</li><li>把板子正面朝上放回乾燥、不導電的桌面，等 Windows 辨識，再重開 <b>Tools → Port</b>。</li></ol>
   <p><b>記下新增的名稱：</b>COM________。例如 COM8 只是某次電腦分配的號碼，不是全班都選 COM8。</p>
   <aside class="note">板背的 <b>COM</b> 是接頭標示；電腦上的 <b>COM8</b> 之類是軟體名稱。PWR 燈亮只表示板上有供電，還不能證明資料線或程式傳輸正常。</aside>
-  <p class="next">下一頁：選板型與剛才新增的 Port。若沒有新增 Port，先看第 31 頁，不先亂選。</p>
+  <p class="next">下一頁：選板型與剛才新增的 Port。若沒有新增 Port，先看第 33 頁，不先亂選。</p>
 `),
 page(10,'從頭開始 · 選板子與連接','選 ESP32S3 Dev Module','這個選單告訴軟體「程式要給哪一種板子」。另一個 Port 選單則指定連哪一塊。',`
   ${shot('arduino-select.png',85,'Arduino 官方選單截圖，為 macOS／其他板型示例。只看下方 Select other board and port 的入口；不選圖中的 UNO、Nano 或 Bluetooth。')}
@@ -61,7 +61,7 @@ page(12,'從頭開始 · 第一次上傳','把 Hello 程式放進 ESP32','「上
   <pre>${escape(hello)}</pre>
   ${shot('arduino-upload.png',60,'Arduino 官方工具列截圖。左上方勾勾是 Verify；右箭頭是 Upload。圖中 UNO 不是本課板型，本課仍選 ESP32S3 Dev Module。')}
   <p>按左上方<b>右箭頭 Upload</b>，先等程式檢查，再等傳輸；中途不拔 USB。若跳出另存視窗，先完成儲存。</p>
-  <p class="question"><b>做完應看到：</b>IDE 顯示 <b>Done uploading</b> 或上傳完成。只有「編譯成功」不等於已傳進板子。錯誤時看第 31 頁。</p>
+  <p class="question"><b>做完應看到：</b>IDE 顯示 <b>Done uploading</b> 或上傳完成。只有「編譯成功」不等於已傳進板子。錯誤時看第 33 頁。</p>
   <p class="next">下一頁：打開訊息視窗，看板子有沒有送回 Hello。</p>
   ${source(arduinoBase+'getting-started/ide-v2-uploading-a-sketch/','Arduino 上傳教學')}
 `),

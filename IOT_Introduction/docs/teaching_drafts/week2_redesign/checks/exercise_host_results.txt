@@ -1,0 +1,17 @@
+PASS worksheet sequence and exact FULL placement
+event=start count=0
+event=minimum count=0
+event=plus count=1
+event=plus count=2
+event=plus count=3
+event=plus count=4
+event=plus count=5
+FULL
+event=maximum count=5
+FULL
+event=minus count=4
+PASS restart and long hold
+PASS held fifth press prints FULL only once
+PASS overlap rule unchanged
+PASS simulated bounce
+5 exercise software test groups passed; no physical test.

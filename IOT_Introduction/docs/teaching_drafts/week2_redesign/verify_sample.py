@@ -40,11 +40,17 @@ button = '\n'.join((root / 'button_follow_along/button_follow_along.ino').read_t
 assert parser.blocks[0].strip() == hello
 assert parser.blocks[2].strip() == button
 counter = (root / 'counter_two_buttons/counter_two_buttons.ino').read_text(encoding='utf-8').strip()
-assert '\n\n'.join(block.strip() for block in parser.blocks[-2:]) == counter
+assert '\n\n'.join(block.strip() for block in parser.blocks[-4:-2]) == counter
+solution = (root / 'counter_exercise_solution/counter_exercise_solution.ino').read_text(encoding='utf-8')
+answer = solution[solution.index('void printCount('):solution.index('\nvoid setup()')].strip()
+assert parser.blocks[-2].strip() == answer
 
 pdf = root / 'Week2_main_layout_sample.pdf'
 doc = fitz.open(pdf)
-assert len(doc) == 32, len(doc)
+assert len(doc) == 34, len(doc)
+assert '最多五人的小房間' in doc[30].get_text()
+assert '上限改成五' in doc[31].get_text()
+assert 'void printCount' not in doc[30].get_text()
 page_checks = []
 for number, page in enumerate(doc, 1):
     content = page.get_text()

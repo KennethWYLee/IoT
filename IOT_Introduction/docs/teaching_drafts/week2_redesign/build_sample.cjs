@@ -77,7 +77,7 @@ function buttonBoard(wires=0) {
   s+=text(333,299,'按鈕四腳：e27、f27、e29、f29',19,'text-anchor="middle"');
   return svg(s,316);
 }
-const footer = n => `<footer><span>Week 2 · 從零開始操作的樣稿 · 待教師確認</span><span>${n} / 32</span></footer>`;
+const footer = n => `<footer><span>Week 2 · 從零開始操作的樣稿 · 待教師確認</span><span>${n} / 34</span></footer>`;
 const page = (n, tag, title, lead, body) => `<section class="page"><header><span>ESP32-S3 硬體基礎</span><span>${tag}</span></header><main><h1>${title}</h1><p class="lead">${lead}</p>${body}</main>${footer(n)}</section>`;
 const pages = [
 page(1,'本段的目的','按一下按鈕，電腦怎麼知道？','先看懂線怎麼接通，再看程式怎麼讀。',`
@@ -190,7 +190,7 @@ page(21,'做完再講 · 延伸輸出先不接','紀錄與輸出，是兩條不�
   <p class="sources">原理核對：<a href="https://www.fluke.com/en/learn/blog/digital-multimeters/how-to-test-for-continuity">Fluke 通斷測試</a>；<a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html">Espressif GPIO</a>。預期結果為教學推演，非本次實測。</p>
 `),
 ...require('./counter_project.cjs')({page,escape,svg,text,line,dot,marker,block,arrow,photo}),
-page(31,'需要時才看 · 不打斷正常操作','停在哪一步，就處理那一步','不要同時換線、換板型、換程式。一次只改一件事，才知道問題在哪裡。',`
+page(33,'需要時才看 · 不打斷正常操作','停在哪一步，就處理那一步','不要同時換線、換板型、換程式。一次只改一件事，才知道問題在哪裡。',`
   <table class="troubleshooting"><thead><tr><th>現在遇到什麼</th><th>先一起做這些</th></tr></thead><tbody>
   <tr><td>不能安裝 IDE</td><td>確認下載的是 Windows 64-bit .exe。學校電腦要求管理權限時，交由管理人員處理，不繞過限制。</td></tr>
   <tr><td>找不到 esp32／安裝失敗</td><td>回第 7 頁核對網址與網路；第 8 頁選 Espressif Systems。保存錯誤文字，不反覆亂換版本。</td></tr>
@@ -203,7 +203,7 @@ page(31,'需要時才看 · 不打斷正常操作','停在哪一步，就處理�
   <p class="safety">改實體接線前拔 USB、移除其他電源。板子異常發熱、有異味或冒煙，立即停止供電，不繼續測試。</p>
   <p class="sources">驅動程式官方來源：<a href="https://www.wch.cn/downloads/CH343SER_EXE.html">WCH CH343SER</a>。無權限或裝置身分不明時，先由教師與管理人員一起確認，不盲目安裝。</p>
 `),
-page(32,'參考資料 · 不必課堂逐項閱讀','操作依據與圖片來源','這份包含從零操作、按鈕紀錄與計數器；不是整堂 Week 2 的全部內容。',`
+page(34,'參考資料 · 不必課堂逐項閱讀','操作依據與圖片來源','這份包含從零操作、按鈕紀錄與計數器；不是整堂 Week 2 的全部內容。',`
   <h2>Arduino 官方文件與截圖</h2><ul>
   <li><a href="https://docs.arduino.cc/software/ide-v2/tutorials/getting-started/ide-v2-downloading-and-installing/">Downloading and installing the Arduino IDE 2</a>：安裝總覽，作者 Karl Söderby。</li>
   <li><a href="https://docs.arduino.cc/software/ide-v2/tutorials/getting-started/ide-v2-uploading-a-sketch/">How to upload a sketch with the Arduino IDE 2</a>：選單、上傳按鈕，作者 Karl Söderby、Jacob Hylén。</li>

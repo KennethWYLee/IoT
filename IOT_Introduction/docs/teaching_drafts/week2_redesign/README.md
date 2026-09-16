@@ -1,6 +1,6 @@
 # Week 2 重新設計樣稿
 
-更新：2026-09-16。這是教師正在審閱的 **32 頁樣稿**，不是已核准取代正式主教材的版本。
+更新：2026-09-16。這是教師正在審閱的 **34 頁樣稿**，不是已核准取代正式主教材的版本。
 
 ## 先開這些
 
@@ -8,6 +8,7 @@
 - [第一次 Hello 程式](hello_first/hello_first.ino)
 - [單按鈕程式](button_follow_along/button_follow_along.ino)
 - [雙按鈕計數器程式](counter_two_buttons/counter_two_buttons.ino)
+- [五人人數計數器參考解答](counter_exercise_solution/counter_exercise_solution.ino)（先做第 31 頁再看）
 - [設計決定、沿革與檢查紀錄](Week2_redesign_review.md)
 
 教師決定採同步帶做，先得到可觀察的結果，再解釋原理。不能假設學生已安裝 IDE、上傳過 Serial 範例或知道 GPIO 如何接線。
@@ -18,7 +19,9 @@
 | 6–14 | 從安裝 Arduino IDE 到 Hello、Hi 與資訊流 |
 | 15–21 | 上傳單按鈕程式、斷電接線、觀察文字，再講上拉與資訊流 |
 | 22–30 | 雙按鈕加減計數器、完整接線、電流圖、規則測試與程式 |
-| 31–32 | 故障排查、官方來源與圖片出處 |
+| 31 | 練習題：最多五人的小房間 |
+| 32 | 上一頁練習的參考解答，含程式、測試答案與紀錄判讀 |
+| 33–34 | 故障排查、官方來源與圖片出處 |
 
 ## 使用前的限制
 
@@ -30,7 +33,7 @@
 
 ## 重新產生與檢查
 
-維護 `build_sample.cjs`、`beginner_setup.cjs`、`counter_project.cjs` 與三份 `.ino`；不要直接改 PDF。程式自動嵌入講義，避免不同步。
+維護 `build_sample.cjs`、`beginner_setup.cjs`、`counter_project.cjs` 與四份 `.ino`；不要直接改 PDF。程式自動嵌入講義，避免不同步。第 31 頁只放題目，第 32 頁放解答，依教師要求維持相鄰頁；這份備課版不是隱藏答案的考試卷。
 
 需要 Node.js、Playwright、Microsoft Edge；Python 需要 PyMuPDF、Pillow。可使用已配置的相依套件，或在本資料夾安裝 `npm install --no-save --package-lock=false playwright`。沒有自動安裝或更新另一台電腦的環境。
 
@@ -46,6 +49,8 @@ python make_review_sheets.py
 PDF、完整原始碼及已完成的檢查證據受 Git 追蹤；HTML、`tmp/`、編譯產物與圖片檢查縮圖不提交。`original_hashes.json` 是本次原 main 基準；原 main 未來經核准更新後，需要重新確認基準，不可盲目更新雜湊來消除失敗。
 
 `run_counter_host_test.ps1` 需要 Windows、Visual Studio 2022 Community C++ 工具與 Windows SDK；其他安裝位置需調整工具路徑。它直接編譯並執行同一份 `.ino`，只替換硬體 I/O 與時間；不是實機測試。
+
+新增練習解答測試：`./run_counter_host_test.ps1 -TestName exercise_host_test`。五組測試核對題目完整操作、FULL 出現位置、長按、兩鍵重疊與彈跳；[結果](checks/exercise_host_results.txt)不代替實機證據。解答在同一 Arduino 設定編譯成功：283879 bytes，全域變數 22452 bytes。
 
 Arduino 編譯使用 esp32 core 3.3.11 與以下 FQBN：
 

@@ -248,15 +248,29 @@
     {
       "page": 31,
       "overflow": false,
-      "lastBottom": 34470.484375,
+      "lastBottom": 34671.09375,
       "footerTop": 34745.84375,
-      "gap": 275.359375
+      "gap": 74.75
     },
     {
       "page": 32,
       "overflow": false,
-      "lastBottom": 35611.765625,
+      "lastBottom": 35807.171875,
       "footerTop": 35868.359375,
+      "gap": 61.1875
+    },
+    {
+      "page": 33,
+      "overflow": false,
+      "lastBottom": 36715.515625,
+      "footerTop": 36990.875,
+      "gap": 275.359375
+    },
+    {
+      "page": 34,
+      "overflow": false,
+      "lastBottom": 37856.796875,
+      "footerTop": 38113.390625,
       "gap": 256.59375
     }
   ]
