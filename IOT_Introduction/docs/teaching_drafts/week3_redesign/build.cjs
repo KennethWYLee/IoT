@@ -20,7 +20,7 @@ const course = path.resolve(__dirname, '../../..');
 const tmp = path.join(__dirname, 'tmp');
 fs.mkdirSync(tmp, { recursive: true });
 const esc = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
-const hash = data => crypto.createHash('sha256').update(data).digest('hex');
+const hash = data => crypto.createHash('sha256').update(typeof data === 'string' ? data.replace(/\r\n/g,'\n') : data).digest('hex');
 const actual = path.join(course, 'docs/images/hardware/actual');
 const colors = {ink:'#263b40', teal:'#246e73', red:'#b34839', black:'#263b40', gold:'#96662b'};
 const text = (x,y,s,size=19,anchor='start') => `<text x="${x}" y="${y}" font-size="${size}" text-anchor="${anchor}">${esc(s)}</text>`;
@@ -78,6 +78,7 @@ function divider(swap=false) {
 }
 
 const diagrams = {
+ cumulative:()=>flow(['按鈕 → GPIO5：何時開始取樣','KY S → GPIO4 ADC：當次 raw','ESP32 → USB／UART → Monitor：批次與時間']),
  overview:()=>flow(['電表量電壓','遮住光敏模組，看電壓改變','ESP32 讀數字，程式印出判斷']),
  power:()=>nodes([[3,'GND → a3','e3 → 黑筆'],[6,'3V3 → a6','e6 → 紅筆']]),
  voltage:()=>svg(box(15,35,170,70,'3V3／e6')+box(465,35,170,70,'GND／e3')+box(227,25,195,92,'直流電壓表')+line(185,69,227,69,colors.red)+line(422,69,465,69,colors.black)+text(201,135,'紅筆',19,'middle')+text(444,135,'黑筆',19,'middle')+text(325,195,'顯示例：約 +3.3 V；兩端不可用普通線直接互接。',19,'middle'),220),
@@ -100,10 +101,10 @@ const parts = [...input.matchAll(/<!-- page: ([\w]+) \| (.*?) -->\s*([\s\S]*?)(?
 if(!parts.length) throw Error('No pages');
 const pageNumbers = Object.fromEntries(parts.map((m,i)=>[m[1],i+1]));
 const pages = parts.map(m=>({id:m[1],tag:m[2],body:m[3]}));
-const sketchNames=['week03_gpio_voltage_cycle','week03_ky018_raw','week03_light_classifier'];
+const sketchNames=['week03_gpio_voltage_cycle','week03_ky018_raw','week03_light_classifier','button_light_capture'];
 const inputs = [];
 for(const name of sketchNames) {
-  const p=path.join(course,'examples',name,name+'.ino');
+  const p=name.startsWith('button_') ? path.join(__dirname,name,name+'.ino') : path.join(course,'examples',name,name+'.ino');
   const source=fs.readFileSync(p,'utf8');
   inputs.push({path:path.relative(course,p).replaceAll('\\','/'),sha256:hash(source)});
   const lines=source.trimEnd().split(/\r?\n/);
@@ -115,6 +116,13 @@ for(const name of sketchNames) {
     group.push(lines[i]);cost+=c;
   }
   if(group.length) chunks.push({start,lines:group});
+  // Keep the final program page useful rather than leaving a closing brace alone.
+  if(chunks.length>1) {
+    const tail=chunks.at(-1),prev=chunks.at(-2);
+    const visualCost=items=>items.reduce((n,l)=>n+Math.max(1,Math.ceil(l.length/78)),0);
+    while(visualCost(tail.lines)<12&&prev.lines.length>12)tail.lines.unshift(prev.lines.pop());
+    tail.start=prev.start+prev.lines.length;
+  }
   chunks.forEach((chunk,i)=>pages.push({id:name+'-'+i,tag:'完整程式 · '+(i+1)+' / '+chunks.length,html:`<h2 class="code-title">${esc(name)}</h2><p class="lead">第 ${chunk.start}～${chunk.start+chunk.lines.length-1} 行。所有分頁合起來才是完整程式。</p><pre class="fullcode">${esc(chunk.lines.join('\n'))}</pre><p class="next">${i+1<chunks.length?'下一頁接續同一支程式，不另開草稿。':'這支程式到此結束。原始檔保留未確認腳位的保護值；不要把編譯成功當成實機通過。'}</p>`}));
 }
 const photoInputs=new Map();
@@ -177,7 +185,7 @@ fs.writeFileSync(path.join(__dirname,'week3_main.html'),html);
   if(bad.length||audit.images.some(i=>!i.loaded))throw Error(JSON.stringify({bad,images:audit.images}));
   const pdf=path.join(__dirname,'week3_main.pdf');
   await tab.pdf({path:pdf,format:'A4',printBackground:true,preferCSSPageSize:true});
-  const manifest={pages:pages.map((p,i)=>({number:i+1,id:p.id})),sourceSha256:hash(input),builderSha256:hash(fs.readFileSync(__filename)),sketches:inputs,photos:[...photoInputs].map(([name,sha256])=>({name,sha256})),pdfSha256:hash(fs.readFileSync(pdf))};
+  const manifest={textHashLineEndings:'LF',pages:pages.map((p,i)=>({number:i+1,id:p.id})),sourceSha256:hash(input),builderSha256:hash(fs.readFileSync(__filename,'utf8')),sketches:inputs,photos:[...photoInputs].map(([name,sha256])=>({name,sha256})),pdfSha256:hash(fs.readFileSync(pdf))};
   fs.writeFileSync(path.join(__dirname,'build_manifest.json'),JSON.stringify(manifest,null,2)+'\n');
   console.log(JSON.stringify({pages:pages.length,minimumGap:Math.min(...audit.pages.map(p=>p.gap)),pdf}));
  }finally{await browser.close();}

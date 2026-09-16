@@ -20,7 +20,7 @@ const course = path.resolve(__dirname, '../../..');
 const tmp = path.join(__dirname, 'tmp');
 fs.mkdirSync(tmp, { recursive: true });
 const esc = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
-const hash = data => crypto.createHash('sha256').update(data).digest('hex');
+const hash = data => crypto.createHash('sha256').update(typeof data === 'string' ? data.replace(/\r\n/g,'\n') : data).digest('hex');
 const actual = path.join(course, 'docs/images/hardware/actual');
 const colors = {ink:'#263b40', teal:'#246e73', red:'#b34839', black:'#263b40', gold:'#96662b'};
 const text = (x,y,s,size=19,anchor='start') => `<text x="${x}" y="${y}" font-size="${size}" text-anchor="${anchor}">${esc(s)}</text>`;
@@ -53,6 +53,7 @@ function nodes(rows) {
 
 
 const diagrams = {
+ cumulative:()=>flow(['DHT → 定時讀取 → RAM 保留最近結果與時間','按鈕 → GPIO5 → 讀 KY 當次 raw','合成一行紀錄 → USB／UART → Monitor']),
  overview:()=>flow(['DHT11 → 溫度、濕度與讀取狀態','加回 KY → 保留不同時間的兩筆資料','穩定放開 → 穩定遮光 → 記一次事件','確認蜂鳴器接法後 → 短叫一次']),
  resistor:()=>svg(
    text(325,24,'外部斷電，測試區不接 ESP32',20,'middle')+
@@ -106,10 +107,10 @@ const parts = [...input.matchAll(/<!-- page: ([\w]+) \| (.*?) -->\s*([\s\S]*?)(?
 if(!parts.length) throw Error('No pages');
 const pageNumbers = Object.fromEntries(parts.map((m,i)=>[m[1],i+1]));
 const pages = parts.map(m=>({id:m[1],tag:m[2],body:m[3]}));
-const sketchNames=['week04_dht11_quality','week04_dual_sensor_alarm'];
+const sketchNames=['week04_dht11_quality','week04_dual_sensor_alarm','button_environment_log'];
 const inputs = [];
 for(const name of sketchNames) {
-  const p=path.join(course,'examples',name,name+'.ino');
+  const p=name.startsWith('button_') ? path.join(__dirname,name,name+'.ino') : path.join(course,'examples',name,name+'.ino');
   const source=fs.readFileSync(p,'utf8');
   inputs.push({path:path.relative(course,p).replaceAll('\\','/'),sha256:hash(source)});
   const lines=source.trimEnd().split(/\r?\n/);
@@ -189,7 +190,7 @@ fs.writeFileSync(path.join(__dirname,'week4_main.html'),html);
   if(bad.length||audit.images.some(i=>!i.loaded))throw Error(JSON.stringify({bad,images:audit.images}));
   const pdf=path.join(__dirname,'week4_main.pdf');
   await tab.pdf({path:pdf,format:'A4',printBackground:true,preferCSSPageSize:true});
-  const manifest={pages:pages.map((p,i)=>({number:i+1,id:p.id})),sourceSha256:hash(input),builderSha256:hash(fs.readFileSync(__filename)),sketches:inputs,photos:[...photoInputs].map(([name,sha256])=>({name,sha256})),pdfSha256:hash(fs.readFileSync(pdf))};
+  const manifest={textHashLineEndings:'LF',pages:pages.map((p,i)=>({number:i+1,id:p.id})),sourceSha256:hash(input),builderSha256:hash(fs.readFileSync(__filename,'utf8')),sketches:inputs,photos:[...photoInputs].map(([name,sha256])=>({name,sha256})),pdfSha256:hash(fs.readFileSync(pdf))};
   fs.writeFileSync(path.join(__dirname,'build_manifest.json'),JSON.stringify(manifest,null,2)+'\n');
   console.log(JSON.stringify({pages:pages.length,minimumGap:Math.min(...audit.pages.map(p=>p.gap)),pdf}));
  }finally{await browser.close();}

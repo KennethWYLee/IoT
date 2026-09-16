@@ -579,6 +579,120 @@ Week 3 已練過保留原值與品質原因。今天也要留下 raw，遇到這
 
 只答「程式成功」不夠。說明你看到的是哪個欄位、哪次操作，以及有沒有觀察到實際動作。
 
+<!-- page: combinegoal | 加入前幾週零件：一起做 -->
+## 做一個按鈕式環境紀錄器
+> 沿用 Week 3 的「按一下才記錄」，這次把溫濕度也放進同一行。
+
+| 已教過的零件 | 本例用途 |
+|---|---|
+| Week 2 按鈕 | 決定何時建立一筆紀錄 |
+| Week 3 KY-018 | 按下時取得光線 raw |
+| Week 4 DHT11 | 定時讀取，提供最近一次溫濕度與時間 |
+
+例如把紙盒當展示櫃模型，在「盒蓋開啟」「盒蓋關閉」時各按一次，旁邊寫下操作條件。這不是保存食品的安全監控器。
+
+先預測：剛按完又按一次，溫濕度會不會每次都是新量的？答案要看時間欄，不是看溫度有沒有變。
+
+這是替代重複操作的延伸活動，約留 20–30 分鐘；不額外新增繳交或分數。蜂鳴器先移除，集中理解資料從哪裡來。
+
+<!-- page: combinewire | 一起做：先換程式再接線 -->
+## 三個訊號，不能共用一個 GPIO
+
+先拔 USB、拆除外接線，開啟 [完整環境紀錄程式](button_environment_log/button_environment_log.ino)。確認下列設定後只接 USB 上傳，再拔 USB 接線。
+
+| 功能 | 接線與程式設定 |
+|---|---|
+| GND | 板 GND → a3；KY − → b3；DHT GND → c3；按鈕 B 端 → e3 |
+| 3V3 | 板 3V3 → a6；KY 電源 → b6；DHT VCC → c6 |
+| KY 訊號 | S → a15；c15 → `PIN_LIGHT`，本稿確認後用 GPIO4 |
+| 按鈕訊號 | A 端 → `PIN_BUTTON`，本稿確認後用 GPIO5 |
+| DHT 訊號 | DATA → `PIN_DHT`，填前面已驗證且不同於 4／5 的腳位 |
+
+**按鈕 A／B 必須是 Week 2 驗證過「放開不通、按下才通」的兩組端子。**共地不是把三條訊號接在一起。
+
+保留 `REQUIRE_VALID_DHT = false`，只在本組腳位、模組腳序、3.3 V 供電及訊號確認後，才把 `PROFILE_CONFIRMED` 改 true。不知道 DHT 腳位時回看本組前段紀錄，不猜 6 或 7。
+
+<!-- page: combinetry | 一起做：同一行，兩個時間 -->
+## 先等三秒，再按一下
+
+接 USB，Monitor 選 115200。放開按鈕至少 0.1 秒，等出現 `event=dht_attempt`，再按住半秒。
+
+以下為分行顯示的**教學假資料**，實際輸出在同一行：
+
+```text
+event=record attempt=1 record=1 raw=420 endpoint=0
+temperature_c=25.0 humidity_pct=50.0 dht_valid=1
+light_uptime_ms=3500 dht_read_finished_ms=3025 dht_age_ms=475
+```
+
+| 接著操作 | 觀察 |
+|---|---|
+| 按住兩秒 | 不應一直新增 record |
+| 放開，再按 | attempt 和 record 各加一 |
+| 在下一次 DHT 讀取前再次按 | 光線新讀；DHT 仍可能是上一筆，age 變大 |
+| Reset 後很快按 | 尚未讀 DHT 時，溫濕度為 nan、valid=0、age=NA |
+
+本例每 2.5 秒嘗試 DHT，讀取可能短暫占用程式。非常短的按壓可能漏掉，不能當成精準計次儀器。資料不會自動寫入硬碟，保存 Monitor 紀錄才留下證據。
+
+<!-- page: combineexplain | 做完再講：按鈕不是量測指令 -->
+## 一筆紀錄，不代表同時測量
+
+{{diagram:cumulative}}
+
+按下時，程式立刻讀 KY，並附上最近一次 DHT 讀取結果。這樣不必每按一次就要求 DHT 重新讀。
+
+```text
+按鈕電流：3.3 V → 內部上拉電阻 → GPIO5 → 按鈕 → GND
+模組供電：3V3 → KY／DHT 各自的電路 → GND → 板上電源
+資訊：KY S → ADC；DHT DATA ↔ 程式庫 → RAM 中最近結果
+```
+
+`dht_age_ms` 是距離最近一次讀取完成多久，不是感測器內部精準取樣時間。`dht_valid=1` 只表示這次通過程式的基本數值檢查，不表示經過儀器校準。
+
+若本次 DHT 失敗，就保留失敗；程式不把上一次成功的 25°C 偽裝成本次新資料。
+
+<!-- page: buildexercise | 動手改造：先不要翻頁 -->
+## 沒有可用溫濕度，就先不收錄
+> 接線不變；成功紀錄與失敗嘗試都要看得見。
+
+修改同一支程式，使「還沒有 DHT 結果」或「最新 DHT 結果無效」時，按鈕只印 `event=skipped`，不增加 record。
+
+1. 找 `REQUIRE_VALID_DHT`，推測該改什麼。
+2. 上傳後 Reset，放開穩定，再於第一筆 DHT 前按一次。
+3. 等到有效 DHT 結果後，再放開並按一次。
+4. 預測兩次操作後的 attempt 與 record，保留實際紀錄。
+5. 若 raw=4095 而 DHT 有效，這個改動會不會自動擋住？
+
+不要為了造出失敗拔帶電的 DATA。先用開機等待時間測「尚未讀到」；DHT 失敗分支可以用提供的主機測試驗證，與實測分開記錄。
+
+**下一頁緊接參考解答。**
+
+<!-- page: buildanswer | 上一頁的參考解答 -->
+## 不收錄，但仍留下跳過原因
+
+```cpp
+const bool REQUIRE_VALID_DHT = true;
+```
+
+取代完整程式中的同名設定。完整程式已具備這個判斷：
+
+```cpp
+if (REQUIRE_VALID_DHT && (!haveDht || !dhtValid)) {
+  Serial.printf("event=skipped attempt=%lu reason=dht_unavailable\n",
+                (unsigned long)attempt);
+  return;
+}
+```
+
+| 測試條件 | 應有結果 |
+|---|---|
+| 尚未讀 DHT，按一次 | attempt=1；skipped；record 仍為 0 |
+| 之後有效，再按一次 | attempt=2、record=1 |
+| 最新 DHT 失敗再按 | 再增加 attempt，不增加 record |
+| DHT 有效，但 raw=4095 | 仍收錄，endpoint=1；本次只改 DHT 規則 |
+
+「DHT 可用」不是「整筆都可靠」。不要把這個選項說成自動排除所有問題。若實物一直沒有有效 DHT，先完成失敗紀錄與排錯，不能把 valid 手動改成 1。
+
 <!-- page: finish | 今天留下什麼 -->
 ## 保留一段能重現的操作紀錄
 > 不另外增加一份重複報告，把資料放進原本的課堂筆記。

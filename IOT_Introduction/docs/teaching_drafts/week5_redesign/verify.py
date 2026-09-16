@@ -12,7 +12,13 @@ COURSE = HERE.parents[2]
 TMP = HERE / "tmp"
 TMP.mkdir(exist_ok=True)
 manifest = json.loads((HERE / "build_manifest.json").read_text(encoding="utf-8"))
-sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+def sha(p):
+    data = p.read_bytes()
+    if p.suffix in (".md", ".cjs", ".ino"):
+        data = data.replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
+
+assert manifest["textHashLineEndings"] == "LF"
 assert sha(HERE / "week5_main.md") == manifest["sourceSha256"]
 assert sha(HERE / "build.cjs") == manifest["builderSha256"]
 assert sha(HERE / "week5_main.pdf") == manifest["pdfSha256"]
@@ -50,6 +56,7 @@ doc = fitz.open(HERE / "week5_main.pdf")
 assert len(doc) == len(manifest["pages"])
 ids = {p["id"]: p["number"] for p in manifest["pages"]}
 assert ids["answer"] == ids["exercise"] + 1
+assert ids["buildanswer"] == ids["buildexercise"] + 1
 all_text = "\n".join(p.get_text() for p in doc)
 assert "\ufffd" not in all_text
 assert "{{" not in all_text
@@ -112,6 +119,8 @@ result = {
     "pages": len(doc),
     "exercise_page": ids["exercise"],
     "answer_page": ids["answer"],
+    "hands_on_exercise_page": ids["buildexercise"],
+    "hands_on_answer_page": ids["buildanswer"],
     "source_hashes": "pass",
     "complete_embedded_programs_match_canonical_sources": "pass",
     "page_dimensions_text_and_placeholders": "pass",

@@ -20,7 +20,7 @@ const course = path.resolve(__dirname, '../../..');
 const tmp = path.join(__dirname, 'tmp');
 fs.mkdirSync(tmp, { recursive: true });
 const esc = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
-const hash = data => crypto.createHash('sha256').update(data).digest('hex');
+const hash = data => crypto.createHash('sha256').update(typeof data === 'string' ? data.replace(/\r\n/g,'\n') : data).digest('hex');
 const actual = path.join(course, 'docs/images/hardware/actual');
 const colors = {ink:'#263b40', teal:'#246e73', red:'#b34839', black:'#263b40', gold:'#96662b'};
 const text = (x,y,s,size=19,anchor='start') => `<text x="${x}" y="${y}" font-size="${size}" text-anchor="${anchor}">${esc(s)}</text>`;
@@ -37,6 +37,7 @@ function flow(labels) {
 
 
 const diagrams = {
+ cumulative:()=>flow(['按鈕 → GPIO4／5 → 調整、開始或中止','millis 時間差 → 剩餘毫秒 → 顯示秒數','I2C → OLED；USB／UART → Serial 紀錄']),
  overview:()=>flow(['RGB：o 全關 → r 紅 → g 綠 → b 藍','OLED：掃描回應 → 固定文字 → 改示例數字','整合：s 開始倒數 → x 中止 → z 重新準備']),
  rgbwire:()=>svg(
    ['R','G','B'].map((c,i)=>box(20,20+65*i,225,42,'對應 GPIO '+c)+box(420,20+65*i,210,42,'模組 '+c)+line(245,41+65*i,420,41+65*i)).join('')+
@@ -97,10 +98,10 @@ const parts = [...input.matchAll(/<!-- page: ([\w]+) \| (.*?) -->\s*([\s\S]*?)(?
 if(!parts.length) throw Error('No pages');
 const pageNumbers = Object.fromEntries(parts.map((m,i)=>[m[1],i+1]));
 const pages = parts.map(m=>({id:m[1],tag:m[2],body:m[3]}));
-const sketchNames=['week05_i2c_check','week05_rgb_oled_timer'];
+const sketchNames=['week05_i2c_check','week05_rgb_oled_timer','button_oled_timer'];
 const inputs = [];
 for(const name of sketchNames) {
-  const p=path.join(course,'examples',name,name+'.ino');
+  const p=name.startsWith('button_') ? path.join(__dirname,name,name+'.ino') : path.join(course,'examples',name,name+'.ino');
   const source=fs.readFileSync(p,'utf8');
   inputs.push({path:path.relative(course,p).replaceAll('\\','/'),sha256:hash(source)});
   const lines=source.trimEnd().split(/\r?\n/);
@@ -187,7 +188,7 @@ fs.writeFileSync(path.join(__dirname,'week5_main.html'),html);
   if(bad.length||audit.images.some(i=>!i.loaded))throw Error(JSON.stringify({bad,images:audit.images}));
   const pdf=path.join(__dirname,'week5_main.pdf');
   await tab.pdf({path:pdf,format:'A4',printBackground:true,preferCSSPageSize:true});
-  const manifest={pages:pages.map((p,i)=>({number:i+1,id:p.id})),sourceSha256:hash(input),builderSha256:hash(fs.readFileSync(__filename)),sketches:inputs,photos:[...photoInputs].map(([name,sha256])=>({name,sha256})),pdfSha256:hash(fs.readFileSync(pdf))};
+  const manifest={textHashLineEndings:'LF',pages:pages.map((p,i)=>({number:i+1,id:p.id})),sourceSha256:hash(input),builderSha256:hash(fs.readFileSync(__filename,'utf8')),sketches:inputs,photos:[...photoInputs].map(([name,sha256])=>({name,sha256})),pdfSha256:hash(fs.readFileSync(pdf))};
   fs.writeFileSync(path.join(__dirname,'build_manifest.json'),JSON.stringify(manifest,null,2)+'\n');
   console.log(JSON.stringify({pages:pages.length,minimumGap:Math.min(...audit.pages.map(p=>p.gap)),pdf}));
  }finally{await browser.close();}

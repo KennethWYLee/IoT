@@ -1,4 +1,5 @@
 {
+  "textHashLineEndings": "LF",
   "pages": [
     {
       "number": 1,
@@ -126,71 +127,115 @@
     },
     {
       "number": 32,
-      "id": "finish"
+      "id": "combinegoal"
     },
     {
       "number": 33,
-      "id": "trouble"
+      "id": "combinewire"
     },
     {
       "number": 34,
-      "id": "codeguide"
+      "id": "combinetry"
     },
     {
       "number": 35,
-      "id": "sources"
+      "id": "combineexplain"
     },
     {
       "number": 36,
-      "id": "week05_i2c_check-0"
+      "id": "buildexercise"
     },
     {
       "number": 37,
-      "id": "week05_i2c_check-1"
+      "id": "buildanswer"
     },
     {
       "number": 38,
-      "id": "week05_rgb_oled_timer-0"
+      "id": "finish"
     },
     {
       "number": 39,
-      "id": "week05_rgb_oled_timer-1"
+      "id": "trouble"
     },
     {
       "number": 40,
-      "id": "week05_rgb_oled_timer-2"
+      "id": "codeguide"
     },
     {
       "number": 41,
-      "id": "week05_rgb_oled_timer-3"
+      "id": "sources"
     },
     {
       "number": 42,
-      "id": "week05_rgb_oled_timer-4"
+      "id": "week05_i2c_check-0"
     },
     {
       "number": 43,
-      "id": "week05_rgb_oled_timer-5"
+      "id": "week05_i2c_check-1"
     },
     {
       "number": 44,
-      "id": "week05_rgb_oled_timer-6"
+      "id": "week05_rgb_oled_timer-0"
     },
     {
       "number": 45,
+      "id": "week05_rgb_oled_timer-1"
+    },
+    {
+      "number": 46,
+      "id": "week05_rgb_oled_timer-2"
+    },
+    {
+      "number": 47,
+      "id": "week05_rgb_oled_timer-3"
+    },
+    {
+      "number": 48,
+      "id": "week05_rgb_oled_timer-4"
+    },
+    {
+      "number": 49,
+      "id": "week05_rgb_oled_timer-5"
+    },
+    {
+      "number": 50,
+      "id": "week05_rgb_oled_timer-6"
+    },
+    {
+      "number": 51,
       "id": "week05_rgb_oled_timer-7"
+    },
+    {
+      "number": 52,
+      "id": "button_oled_timer-0"
+    },
+    {
+      "number": 53,
+      "id": "button_oled_timer-1"
+    },
+    {
+      "number": 54,
+      "id": "button_oled_timer-2"
+    },
+    {
+      "number": 55,
+      "id": "button_oled_timer-3"
     }
   ],
-  "sourceSha256": "d3c0f1cfd9f9f5d19e4c985abe4b56a5e8e7bba9ce4b0665d6d87cda26eb259b",
-  "builderSha256": "ec418932e3a0c137605fe56c49e706d53044b9c4d94ff72260a2931a5a8e1243",
+  "sourceSha256": "2b918dd66a28cb264b3c7f10c72226abb4f1bcc50c190240e5dd18b1e1b6ac20",
+  "builderSha256": "ad507dbbb305d50d1e0eef77a0f751cee7b474aa6304963465448dec316a29d1",
   "sketches": [
     {
       "path": "examples/week05_i2c_check/week05_i2c_check.ino",
-      "sha256": "f64f0f58b3d05d965d56926b5abf716f917e9539f74579e1cd36caaf7745286d"
+      "sha256": "2e3eb0723e40855b4ee194d14b7472d2bab234b762cf842ff100e1d7f07dce51"
     },
     {
       "path": "examples/week05_rgb_oled_timer/week05_rgb_oled_timer.ino",
-      "sha256": "9437ebe04f456d063f22081d6c42d5704d157f13c44f1ad1757b4391a9631a70"
+      "sha256": "70848a449ddc66189984c5b79fceeacef22472a3b9cbdcc531bb46f8bfd98063"
+    },
+    {
+      "path": "docs/teaching_drafts/week5_redesign/button_oled_timer/button_oled_timer.ino",
+      "sha256": "e9c5d9f2f57747b3569b99393535aceeda69ab88a524d046902dc2ad5d4b1fef"
     }
   ],
   "photos": [
@@ -203,5 +248,5 @@
       "sha256": "bd4167fe88992265fb826498ad01bec7d27f328be07b0ee192718ba194bfb14c"
     }
   ],
-  "pdfSha256": "a68eb0c44782d6ae52198328d96eec00f5392201965504f6735f1a7bc198e84e"
+  "pdfSha256": "5efa7e30f3e4e96bc23418f6933062484ddcc005a94032babcbda614b072a6b0"
 }
