@@ -1,0 +1,215 @@
+{
+  "pages": [
+    {
+      "number": 1,
+      "id": "start"
+    },
+    {
+      "number": 2,
+      "id": "materials"
+    },
+    {
+      "number": 3,
+      "id": "resistorwire"
+    },
+    {
+      "number": 4,
+      "id": "resistobserve"
+    },
+    {
+      "number": 5,
+      "id": "resistorwhy"
+    },
+    {
+      "number": 6,
+      "id": "dhtphoto"
+    },
+    {
+      "number": 7,
+      "id": "ide"
+    },
+    {
+      "number": 8,
+      "id": "library"
+    },
+    {
+      "number": 9,
+      "id": "dhtsettings"
+    },
+    {
+      "number": 10,
+      "id": "dhtwire"
+    },
+    {
+      "number": 11,
+      "id": "dhtstart"
+    },
+    {
+      "number": 12,
+      "id": "dhtmeaning"
+    },
+    {
+      "number": 13,
+      "id": "dhtflow"
+    },
+    {
+      "number": 14,
+      "id": "failure"
+    },
+    {
+      "number": 15,
+      "id": "quality"
+    },
+    {
+      "number": 16,
+      "id": "qualityquestion"
+    },
+    {
+      "number": 17,
+      "id": "qualityanswer"
+    },
+    {
+      "number": 18,
+      "id": "dualwire"
+    },
+    {
+      "number": 19,
+      "id": "dualsetup"
+    },
+    {
+      "number": 20,
+      "id": "dualobserve"
+    },
+    {
+      "number": 21,
+      "id": "age"
+    },
+    {
+      "number": 22,
+      "id": "classify"
+    },
+    {
+      "number": 23,
+      "id": "event"
+    },
+    {
+      "number": 24,
+      "id": "stable"
+    },
+    {
+      "number": 25,
+      "id": "limits"
+    },
+    {
+      "number": 26,
+      "id": "dualfailure"
+    },
+    {
+      "number": 27,
+      "id": "buzzer"
+    },
+    {
+      "number": 28,
+      "id": "buzzersetup"
+    },
+    {
+      "number": 29,
+      "id": "mute"
+    },
+    {
+      "number": 30,
+      "id": "exercise"
+    },
+    {
+      "number": 31,
+      "id": "answer"
+    },
+    {
+      "number": 32,
+      "id": "finish"
+    },
+    {
+      "number": 33,
+      "id": "trouble"
+    },
+    {
+      "number": 34,
+      "id": "color"
+    },
+    {
+      "number": 35,
+      "id": "sources"
+    },
+    {
+      "number": 36,
+      "id": "week04_dht11_quality-0"
+    },
+    {
+      "number": 37,
+      "id": "week04_dht11_quality-1"
+    },
+    {
+      "number": 38,
+      "id": "week04_dht11_quality-2"
+    },
+    {
+      "number": 39,
+      "id": "week04_dht11_quality-3"
+    },
+    {
+      "number": 40,
+      "id": "week04_dual_sensor_alarm-0"
+    },
+    {
+      "number": 41,
+      "id": "week04_dual_sensor_alarm-1"
+    },
+    {
+      "number": 42,
+      "id": "week04_dual_sensor_alarm-2"
+    },
+    {
+      "number": 43,
+      "id": "week04_dual_sensor_alarm-3"
+    },
+    {
+      "number": 44,
+      "id": "week04_dual_sensor_alarm-4"
+    },
+    {
+      "number": 45,
+      "id": "week04_dual_sensor_alarm-5"
+    },
+    {
+      "number": 46,
+      "id": "week04_dual_sensor_alarm-6"
+    },
+    {
+      "number": 47,
+      "id": "week04_dual_sensor_alarm-7"
+    }
+  ],
+  "sourceSha256": "3cfa3546873e76ac28b5f16c3780fa68e5c925cbe3286f075b8948d9103f9cd3",
+  "builderSha256": "a579a4b595fb4581786d7729f3e268513cea37d53823f106c7e38852dc71f81f",
+  "sketches": [
+    {
+      "path": "examples/week04_dht11_quality/week04_dht11_quality.ino",
+      "sha256": "60d6be25d6cc597ba491766eafc6daee0092ecb73093a8e2be3a239e4e3db0b1"
+    },
+    {
+      "path": "examples/week04_dual_sensor_alarm/week04_dual_sensor_alarm.ino",
+      "sha256": "97888bafba05d9a1256737a245fed5ac52624a06ad4992114a5f80c99aee5644"
+    }
+  ],
+  "photos": [
+    {
+      "name": "DHT11_1.jpg",
+      "sha256": "f96a2ee9499c6103b681a8828391d8d7cf4039c93f270fc831908dc1f3c9e64d"
+    },
+    {
+      "name": "Buzzer_HW508_3.jpg",
+      "sha256": "0c212fbc5dfa87d116d3189c0d1089dc719001ce84d286e9e6373ca88327ca2f"
+    }
+  ],
+  "pdfSha256": "d2286070fd3fff93b8701f125acb149b0bc8851b81dd8190bb26af3a9b488c49"
+}

@@ -1,0 +1,207 @@
+{
+  "pages": [
+    {
+      "number": 1,
+      "id": "start"
+    },
+    {
+      "number": 2,
+      "id": "prepare"
+    },
+    {
+      "number": 3,
+      "id": "settings"
+    },
+    {
+      "number": 4,
+      "id": "rgbphoto"
+    },
+    {
+      "number": 5,
+      "id": "ide"
+    },
+    {
+      "number": 6,
+      "id": "rgbsetup"
+    },
+    {
+      "number": 7,
+      "id": "rgbwire"
+    },
+    {
+      "number": 8,
+      "id": "rgbtest"
+    },
+    {
+      "number": 9,
+      "id": "rgbwhy"
+    },
+    {
+      "number": 10,
+      "id": "oledphoto"
+    },
+    {
+      "number": 11,
+      "id": "scanprepare"
+    },
+    {
+      "number": 12,
+      "id": "oledwire"
+    },
+    {
+      "number": 13,
+      "id": "scanresult"
+    },
+    {
+      "number": 14,
+      "id": "i2cwhy"
+    },
+    {
+      "number": 15,
+      "id": "oledsetup"
+    },
+    {
+      "number": 16,
+      "id": "oledtest"
+    },
+    {
+      "number": 17,
+      "id": "buffer"
+    },
+    {
+      "number": 18,
+      "id": "combined"
+    },
+    {
+      "number": 19,
+      "id": "countdown"
+    },
+    {
+      "number": 20,
+      "id": "abort"
+    },
+    {
+      "number": 21,
+      "id": "time"
+    },
+    {
+      "number": 22,
+      "id": "rounding"
+    },
+    {
+      "number": 23,
+      "id": "log"
+    },
+    {
+      "number": 24,
+      "id": "slow"
+    },
+    {
+      "number": 25,
+      "id": "delay"
+    },
+    {
+      "number": 26,
+      "id": "fault"
+    },
+    {
+      "number": 27,
+      "id": "recover"
+    },
+    {
+      "number": 28,
+      "id": "lightwire"
+    },
+    {
+      "number": 29,
+      "id": "lighttest"
+    },
+    {
+      "number": 30,
+      "id": "exercise"
+    },
+    {
+      "number": 31,
+      "id": "answer"
+    },
+    {
+      "number": 32,
+      "id": "finish"
+    },
+    {
+      "number": 33,
+      "id": "trouble"
+    },
+    {
+      "number": 34,
+      "id": "codeguide"
+    },
+    {
+      "number": 35,
+      "id": "sources"
+    },
+    {
+      "number": 36,
+      "id": "week05_i2c_check-0"
+    },
+    {
+      "number": 37,
+      "id": "week05_i2c_check-1"
+    },
+    {
+      "number": 38,
+      "id": "week05_rgb_oled_timer-0"
+    },
+    {
+      "number": 39,
+      "id": "week05_rgb_oled_timer-1"
+    },
+    {
+      "number": 40,
+      "id": "week05_rgb_oled_timer-2"
+    },
+    {
+      "number": 41,
+      "id": "week05_rgb_oled_timer-3"
+    },
+    {
+      "number": 42,
+      "id": "week05_rgb_oled_timer-4"
+    },
+    {
+      "number": 43,
+      "id": "week05_rgb_oled_timer-5"
+    },
+    {
+      "number": 44,
+      "id": "week05_rgb_oled_timer-6"
+    },
+    {
+      "number": 45,
+      "id": "week05_rgb_oled_timer-7"
+    }
+  ],
+  "sourceSha256": "d3c0f1cfd9f9f5d19e4c985abe4b56a5e8e7bba9ce4b0665d6d87cda26eb259b",
+  "builderSha256": "ec418932e3a0c137605fe56c49e706d53044b9c4d94ff72260a2931a5a8e1243",
+  "sketches": [
+    {
+      "path": "examples/week05_i2c_check/week05_i2c_check.ino",
+      "sha256": "f64f0f58b3d05d965d56926b5abf716f917e9539f74579e1cd36caaf7745286d"
+    },
+    {
+      "path": "examples/week05_rgb_oled_timer/week05_rgb_oled_timer.ino",
+      "sha256": "9437ebe04f456d063f22081d6c42d5704d157f13c44f1ad1757b4391a9631a70"
+    }
+  ],
+  "photos": [
+    {
+      "name": "RGB_HW479_3.jpg",
+      "sha256": "33f4855d2e8bf52ee6b1232f7c70c707aec04442644c4ccdc9bdfcc5c65a3f08"
+    },
+    {
+      "name": "OLED_1.jpg",
+      "sha256": "bd4167fe88992265fb826498ad01bec7d27f328be07b0ee192718ba194bfb14c"
+    }
+  ],
+  "pdfSha256": "a68eb0c44782d6ae52198328d96eec00f5392201965504f6735f1a7bc198e84e"
+}

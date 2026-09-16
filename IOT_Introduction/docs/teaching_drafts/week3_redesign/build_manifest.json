@@ -1,0 +1,211 @@
+{
+  "pages": [
+    {
+      "number": 1,
+      "id": "start"
+    },
+    {
+      "number": 2,
+      "id": "prepare"
+    },
+    {
+      "number": 3,
+      "id": "board"
+    },
+    {
+      "number": 4,
+      "id": "meter"
+    },
+    {
+      "number": 5,
+      "id": "powerwire"
+    },
+    {
+      "number": 6,
+      "id": "firstvoltage"
+    },
+    {
+      "number": 7,
+      "id": "voltagemeaning"
+    },
+    {
+      "number": 8,
+      "id": "upload"
+    },
+    {
+      "number": 9,
+      "id": "gpiowire"
+    },
+    {
+      "number": 10,
+      "id": "gpiotest"
+    },
+    {
+      "number": 11,
+      "id": "gpioexplain"
+    },
+    {
+      "number": 12,
+      "id": "kyidentify"
+    },
+    {
+      "number": 13,
+      "id": "kyresistance"
+    },
+    {
+      "number": 14,
+      "id": "kyresistmeaning"
+    },
+    {
+      "number": 15,
+      "id": "kywire"
+    },
+    {
+      "number": 16,
+      "id": "kyvoltage"
+    },
+    {
+      "number": 17,
+      "id": "adcupload"
+    },
+    {
+      "number": 18,
+      "id": "adcwire"
+    },
+    {
+      "number": 19,
+      "id": "sample"
+    },
+    {
+      "number": 20,
+      "id": "adcmeaning"
+    },
+    {
+      "number": 21,
+      "id": "ranges"
+    },
+    {
+      "number": 22,
+      "id": "classifyupload"
+    },
+    {
+      "number": 23,
+      "id": "validation"
+    },
+    {
+      "number": 24,
+      "id": "quality"
+    },
+    {
+      "number": 25,
+      "id": "resistor"
+    },
+    {
+      "number": 26,
+      "id": "dividera"
+    },
+    {
+      "number": 27,
+      "id": "dividerameasure"
+    },
+    {
+      "number": 28,
+      "id": "dividerb"
+    },
+    {
+      "number": 29,
+      "id": "current"
+    },
+    {
+      "number": 30,
+      "id": "exercise"
+    },
+    {
+      "number": 31,
+      "id": "answer"
+    },
+    {
+      "number": 32,
+      "id": "finish"
+    },
+    {
+      "number": 33,
+      "id": "troubleshoot"
+    },
+    {
+      "number": 34,
+      "id": "units"
+    },
+    {
+      "number": 35,
+      "id": "memory"
+    },
+    {
+      "number": 36,
+      "id": "sources"
+    },
+    {
+      "number": 37,
+      "id": "week03_gpio_voltage_cycle-0"
+    },
+    {
+      "number": 38,
+      "id": "week03_gpio_voltage_cycle-1"
+    },
+    {
+      "number": 39,
+      "id": "week03_ky018_raw-0"
+    },
+    {
+      "number": 40,
+      "id": "week03_ky018_raw-1"
+    },
+    {
+      "number": 41,
+      "id": "week03_light_classifier-0"
+    },
+    {
+      "number": 42,
+      "id": "week03_light_classifier-1"
+    },
+    {
+      "number": 43,
+      "id": "week03_light_classifier-2"
+    }
+  ],
+  "sourceSha256": "bfecc51bcbc316ad76a3ea02ae3702fe9810fda5b0d8fb8363383165953a4d58",
+  "builderSha256": "7a933c28919d1ceed5954d93dbe94bf246a9b29c21087018c0c7bf9eef8e5859",
+  "sketches": [
+    {
+      "path": "examples/week03_gpio_voltage_cycle/week03_gpio_voltage_cycle.ino",
+      "sha256": "624f894b168501687169502207527bcfc1a6cd38f2eb0704095bfed7f803ba2b"
+    },
+    {
+      "path": "examples/week03_ky018_raw/week03_ky018_raw.ino",
+      "sha256": "246f150c499f6f14221aa2ce67649979fa62dfcd547fc4ca7fad5c104673830c"
+    },
+    {
+      "path": "examples/week03_light_classifier/week03_light_classifier.ino",
+      "sha256": "fed39d0ca82613c37fa4333cad1c71ab11755dfb7aa228691adfff94d40ba3d4"
+    }
+  ],
+  "photos": [
+    {
+      "name": "ESP32S3_1.png",
+      "sha256": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc"
+    },
+    {
+      "name": "A830L_1.jpg",
+      "sha256": "73b760a0168417746d7a907f2f3a6540d671b012283a6f8e1cb3e795ce054e7d"
+    },
+    {
+      "name": "KY018_1.jpg",
+      "sha256": "2fd4e014413f33071761700cdc45382a48f9f83dfed757769d917d5f18818aa1"
+    },
+    {
+      "name": "Resistor_1.png",
+      "sha256": "155ef7c1267faf15d93b3113922c0f04b4c164ac7f59a43295d7eee5617eefc6"
+    }
+  ],
+  "pdfSha256": "85e3c76653b886c6dcdb79e7f0ac5536a108d53a264cf6315dda86cff6993b7a"
+}

@@ -1,0 +1,21 @@
+# Week 3 主教材重設稿
+
+依 2026-09-16 教師要求，沿用 Week 2 重設稿的教學方式：全班同步操作，先看到結果，再解釋原理。這是完整重設稿，不是只改前幾頁的版面樣本。
+
+- 維護來源：`week3_main.md`、`build.cjs`；程式直接引用既有三份公開 `.ino`，不另維護複本。
+- 閱讀成品：本目錄 `week3_main.pdf`，含練習題及緊接下一頁的解答。
+- 原 `Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb` 與 PDF 保留，尚未切換為本稿。Week 2 與 QA 不修改。
+- 教師檢查、內容對照、建置及驗證限制見 `review.md`。
+- 本稿不是新的實機通過紀錄。GPIO4 ADC 仍沒有全班已核准紀錄；教師必須在課前完成板型與適用腳位確認。課堂不安排逐組等待教師核准。
+
+## 重建
+
+在已安裝 Node、Playwright 及 Edge 的 Windows 執行：
+
+```powershell
+$env:NODE_PATH='C:\Users\User\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules'
+node IOT_Introduction/docs/teaching_drafts/week3_redesign/build.cjs
+python IOT_Introduction/docs/teaching_drafts/week3_redesign/verify.py
+```
+
+輸出包含 PDF、忽略追蹤的 HTML、`tmp/layout_check.json` 及逐頁檢查圖。編譯、文件檢查與實機測試分開記錄；建置不會連接或寫入開發板。
