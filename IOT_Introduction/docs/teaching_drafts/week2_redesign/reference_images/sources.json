@@ -1,0 +1,65 @@
+[
+  {
+    "name": "arduino-install.png",
+    "url": "https://raw.githubusercontent.com/arduino/docs-content/main/content/software/ide-v2/tutorials/getting-started/01.ide-v2-downloading-and-installing/assets/downloading-and-installing-img02.png",
+    "credit": "Arduino / Karl Soderby",
+    "sourcePage": "https://docs.arduino.cc/software/ide-v2/tutorials/getting-started/ide-v2-downloading-and-installing/",
+    "downloadedAt": "2026-09-16T08:16:00.442Z",
+    "sha256": "bc694a45609e8b273d1850dc14d48ea7d6e572a8020b65ab00a8b93d130b1127",
+    "altered": false
+  },
+  {
+    "name": "arduino-upload.png",
+    "url": "https://raw.githubusercontent.com/arduino/docs-content/main/content/software/ide-v2/tutorials/getting-started/02.ide-v2-uploading-a-sketch/assets/uploading-a-sketch-img01.png",
+    "credit": "Arduino / Karl Soderby and Jacob Hylen",
+    "sourcePage": "https://docs.arduino.cc/software/ide-v2/tutorials/getting-started/ide-v2-uploading-a-sketch/",
+    "downloadedAt": "2026-09-16T08:16:00.899Z",
+    "sha256": "0c129e9ac59f85525b7e5b35dfa33ffc455e0db8189c061d22ade4fc67b03893",
+    "altered": false
+  },
+  {
+    "name": "arduino-select.png",
+    "url": "https://raw.githubusercontent.com/arduino/docs-content/main/content/software/ide-v2/tutorials/getting-started/02.ide-v2-uploading-a-sketch/assets/uploading-a-sketch-img03.png",
+    "credit": "Arduino / Karl Soderby and Jacob Hylen",
+    "sourcePage": "https://docs.arduino.cc/software/ide-v2/tutorials/getting-started/ide-v2-uploading-a-sketch/",
+    "downloadedAt": "2026-09-16T08:16:01.257Z",
+    "sha256": "ce4b05288a5dd87b52bf8c68a1ea7d68d52a2df7212cbff901624948c9bdc9e7",
+    "altered": false
+  },
+  {
+    "name": "arduino-monitor.png",
+    "url": "https://raw.githubusercontent.com/arduino/docs-content/main/content/software/ide-v2/tutorials/ide-v2-serial-monitor/assets/serial-monitor-img03.png",
+    "credit": "Arduino / Karl Soderby",
+    "sourcePage": "https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/",
+    "downloadedAt": "2026-09-16T08:16:01.559Z",
+    "sha256": "c4fcfb20f5f07af65c170bb0a98f960ba5a5115ca13472eb97826b33e76f2a73",
+    "altered": false
+  },
+  {
+    "name": "esp-preferences.webp",
+    "url": "https://developer.espressif.com/blog/2025/10/arduino-get-started/arduino-preferences_hu_136fd0fc34e5a193.webp",
+    "credit": "Espressif / Jan Prochazka",
+    "sourcePage": "https://developer.espressif.com/blog/2025/10/arduino-get-started/",
+    "downloadedAt": "2026-09-16T08:16:02.987Z",
+    "sha256": "46b20a2189313e586dddac79daa9e73a30297cd20ac4b8898070153a9831ec19",
+    "altered": false
+  },
+  {
+    "name": "esp-url.webp",
+    "url": "https://developer.espressif.com/blog/2025/10/arduino-get-started/arduino-url_hu_3ddb3ec3d456564.webp",
+    "credit": "Espressif / Jan Prochazka",
+    "sourcePage": "https://developer.espressif.com/blog/2025/10/arduino-get-started/",
+    "downloadedAt": "2026-09-16T08:16:03.844Z",
+    "sha256": "3b94796ada276806d04cd51eab13afcd0d076f3e987632b406a5e4518bcd5e31",
+    "altered": false
+  },
+  {
+    "name": "esp-install.webp",
+    "url": "https://developer.espressif.com/blog/2025/10/arduino-get-started/arduino-install_hu_b76097e8be93d94d.webp",
+    "credit": "Espressif / Jan Prochazka",
+    "sourcePage": "https://developer.espressif.com/blog/2025/10/arduino-get-started/",
+    "downloadedAt": "2026-09-16T08:16:04.532Z",
+    "sha256": "60e8128fdb6729b5ee680f21cf798d65017169667c6a6fc5a6af8bbdfc5c9979",
+    "altered": false
+  }
+]

@@ -1,0 +1,175 @@
+{
+  "pages": [
+    {
+      "page": 1,
+      "characters": 373,
+      "text_outside_page": []
+    },
+    {
+      "page": 2,
+      "characters": 466,
+      "text_outside_page": []
+    },
+    {
+      "page": 3,
+      "characters": 547,
+      "text_outside_page": []
+    },
+    {
+      "page": 4,
+      "characters": 502,
+      "text_outside_page": []
+    },
+    {
+      "page": 5,
+      "characters": 441,
+      "text_outside_page": []
+    },
+    {
+      "page": 6,
+      "characters": 644,
+      "text_outside_page": []
+    },
+    {
+      "page": 7,
+      "characters": 551,
+      "text_outside_page": []
+    },
+    {
+      "page": 8,
+      "characters": 563,
+      "text_outside_page": []
+    },
+    {
+      "page": 9,
+      "characters": 522,
+      "text_outside_page": []
+    },
+    {
+      "page": 10,
+      "characters": 613,
+      "text_outside_page": []
+    },
+    {
+      "page": 11,
+      "characters": 744,
+      "text_outside_page": []
+    },
+    {
+      "page": 12,
+      "characters": 627,
+      "text_outside_page": []
+    },
+    {
+      "page": 13,
+      "characters": 587,
+      "text_outside_page": []
+    },
+    {
+      "page": 14,
+      "characters": 549,
+      "text_outside_page": []
+    },
+    {
+      "page": 15,
+      "characters": 812,
+      "text_outside_page": []
+    },
+    {
+      "page": 16,
+      "characters": 483,
+      "text_outside_page": []
+    },
+    {
+      "page": 17,
+      "characters": 384,
+      "text_outside_page": []
+    },
+    {
+      "page": 18,
+      "characters": 528,
+      "text_outside_page": []
+    },
+    {
+      "page": 19,
+      "characters": 576,
+      "text_outside_page": []
+    },
+    {
+      "page": 20,
+      "characters": 591,
+      "text_outside_page": []
+    },
+    {
+      "page": 21,
+      "characters": 609,
+      "text_outside_page": []
+    },
+    {
+      "page": 22,
+      "characters": 489,
+      "text_outside_page": []
+    },
+    {
+      "page": 23,
+      "characters": 704,
+      "text_outside_page": []
+    },
+    {
+      "page": 24,
+      "characters": 441,
+      "text_outside_page": []
+    },
+    {
+      "page": 25,
+      "characters": 544,
+      "text_outside_page": []
+    },
+    {
+      "page": 26,
+      "characters": 600,
+      "text_outside_page": []
+    },
+    {
+      "page": 27,
+      "characters": 638,
+      "text_outside_page": []
+    },
+    {
+      "page": 28,
+      "characters": 760,
+      "text_outside_page": []
+    },
+    {
+      "page": 29,
+      "characters": 867,
+      "text_outside_page": []
+    },
+    {
+      "page": 30,
+      "characters": 1090,
+      "text_outside_page": []
+    },
+    {
+      "page": 31,
+      "characters": 821,
+      "text_outside_page": []
+    },
+    {
+      "page": 32,
+      "characters": 783,
+      "text_outside_page": []
+    }
+  ],
+  "originals_unchanged": {
+    "IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.pdf": true,
+    "IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb": true
+  },
+  "pdf_sha256": "8828ee9d8d014bc375d23d040482f7bac335ae8cc6025f793981cfd82b5c5581",
+  "visual_review": "Recorded separately in the redesign review after inspecting Poppler renders.",
+  "hardware_tested": false,
+  "student_trial_completed": false,
+  "published": false,
+  "code_in_html_matches_sketches": true,
+  "removed_assumed_prior_serial_setup": true
+}

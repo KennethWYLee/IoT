@@ -1,0 +1,12 @@
+PASS documented sequence and exact log
+PASS long hold counts once and release rearms
+PASS minimum, maximum and recovery
+PASS simulated press and release bounce
+PASS below-threshold pulse and 40 ms acceptance boundary
+PASS held button during startup is ignored
+PASS overlapping presses and full release recovery
+PASS staggered overlap before acceptance
+PASS 1000 complete plus-minus cycles
+PASS unsigned millis wraparound
+PASS restart resets count
+11 software test groups passed; no physical device tested.
