@@ -1,0 +1,204 @@
+{
+  "textHashLineEndings": "LF",
+  "pages": [
+    {
+      "number": 1,
+      "id": "start"
+    },
+    {
+      "number": 2,
+      "id": "rules"
+    },
+    {
+      "number": 3,
+      "id": "route"
+    },
+    {
+      "number": 4,
+      "id": "roles"
+    },
+    {
+      "number": 5,
+      "id": "rails"
+    },
+    {
+      "number": 6,
+      "id": "buttons"
+    },
+    {
+      "number": 7,
+      "id": "light"
+    },
+    {
+      "number": 8,
+      "id": "rgb"
+    },
+    {
+      "number": 9,
+      "id": "oled"
+    },
+    {
+      "number": 10,
+      "id": "settings"
+    },
+    {
+      "number": 11,
+      "id": "upload"
+    },
+    {
+      "number": 12,
+      "id": "firstgame"
+    },
+    {
+      "number": 13,
+      "id": "hold"
+    },
+    {
+      "number": 14,
+      "id": "finish"
+    },
+    {
+      "number": 15,
+      "id": "clock"
+    },
+    {
+      "number": 16,
+      "id": "events"
+    },
+    {
+      "number": 17,
+      "id": "thresholds"
+    },
+    {
+      "number": 18,
+      "id": "priority"
+    },
+    {
+      "number": 19,
+      "id": "states"
+    },
+    {
+      "number": 20,
+      "id": "logs"
+    },
+    {
+      "number": 21,
+      "id": "faults"
+    },
+    {
+      "number": 22,
+      "id": "exercise"
+    },
+    {
+      "number": 23,
+      "id": "answer"
+    },
+    {
+      "number": 24,
+      "id": "extra"
+    },
+    {
+      "number": 25,
+      "id": "stage2"
+    },
+    {
+      "number": 26,
+      "id": "layout"
+    },
+    {
+      "number": 27,
+      "id": "slower"
+    },
+    {
+      "number": 28,
+      "id": "comparison"
+    },
+    {
+      "number": 29,
+      "id": "buildexercise"
+    },
+    {
+      "number": 30,
+      "id": "buildanswer"
+    },
+    {
+      "number": 31,
+      "id": "troubleshooting"
+    },
+    {
+      "number": 32,
+      "id": "finishrecord"
+    },
+    {
+      "number": 33,
+      "id": "sources"
+    },
+    {
+      "number": 34,
+      "id": "week07_traffic_light_challenge-0"
+    },
+    {
+      "number": 35,
+      "id": "week07_traffic_light_challenge-1"
+    },
+    {
+      "number": 36,
+      "id": "week07_traffic_light_challenge-2"
+    },
+    {
+      "number": 37,
+      "id": "week07_traffic_light_challenge-3"
+    },
+    {
+      "number": 38,
+      "id": "week07_traffic_light_challenge-4"
+    },
+    {
+      "number": 39,
+      "id": "week07_traffic_light_challenge-5"
+    },
+    {
+      "number": 40,
+      "id": "week07_traffic_light_challenge-6"
+    },
+    {
+      "number": 41,
+      "id": "week07_traffic_light_challenge-7"
+    },
+    {
+      "number": 42,
+      "id": "week07_traffic_light_challenge-8"
+    },
+    {
+      "number": 43,
+      "id": "week07_traffic_light_challenge-9"
+    },
+    {
+      "number": 44,
+      "id": "week07_traffic_light_challenge-10"
+    },
+    {
+      "number": 45,
+      "id": "week07_traffic_light_challenge-11"
+    }
+  ],
+  "sourceSha256": "04e3de9351b49a2e8764ca527334cd591a93f1f8122123b8d330081ada8088af",
+  "builderSha256": "288f2fa6d72248b6b849193c59361be61009cb42db9fa10894fa802285acc0a9",
+  "sketches": [
+    {
+      "path": "examples/week07_traffic_light_challenge/week07_traffic_light_challenge.ino",
+      "sha256": "986e62c61d75f6aea0c3fe8f1381ca8540a60dd4a94be762c7a2f55e3d3582b0"
+    }
+  ],
+  "photos": [
+    {
+      "name": "KY018_2.jpg",
+      "sha256": "df1e6a94c914ad9d70e95a111fe77c00c9fc05426ba938f3ae3d66d34f483ef5"
+    },
+    {
+      "name": "RGB_HW479_3.jpg",
+      "sha256": "33f4855d2e8bf52ee6b1232f7c70c707aec04442644c4ccdc9bdfcc5c65a3f08"
+    }
+  ],
+  "pdfSha256": "d854a3545144af2d7a31ae90a3303a5a0cdcd8d737389b812b7c5d1959ea3b42"
+}

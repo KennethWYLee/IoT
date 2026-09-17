@@ -4,7 +4,7 @@
 
 - [IoT課程：18週教材](IOT_Introduction/README.md)
 - [Week 1：課程大綱與中文採購清單](IOT_Introduction/Week_01_Course_Orientation/week1_main.md)
-- [Week 2 重新設計樣稿：從零操作與雙按鈕計數器（待確認）](IOT_Introduction/docs/teaching_drafts/week2_redesign/README.md)
+- [Week 2–7 重設稿與逐頁檢查（操作缺口待修正）](IOT_Introduction/docs/teaching_drafts/README.md)
 - [Drone：無人機專題](Drone/README.md)
 
 每週只有一份主教材。Week 2～7為完整備課版（含參考解答）；

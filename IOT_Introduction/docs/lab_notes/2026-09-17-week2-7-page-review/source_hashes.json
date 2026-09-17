@@ -1,0 +1,41 @@
+{
+  "date": "2026-09-17",
+  "sources": [
+    {
+      "week": 2,
+      "source": "IOT_Introduction/docs/teaching_drafts/week2_redesign/Week2_main_layout_sample.pdf",
+      "sha256": "3f1f18c81f25638c796581c423d389ec82dde5aab8b37c8a7342180a8a9eafc7",
+      "pages": 34
+    },
+    {
+      "week": 3,
+      "source": "IOT_Introduction/docs/teaching_drafts/week3_redesign/week3_main.pdf",
+      "sha256": "f0e1685f2d30cccc1eff370503fac06c9487c1a8300a8056592c0abf9fb22713",
+      "pages": 52
+    },
+    {
+      "week": 4,
+      "source": "IOT_Introduction/docs/teaching_drafts/week4_redesign/week4_main.pdf",
+      "sha256": "b2a4ba0a10c722702f31261237d8495ab0e37e07ec02a42d995a91115a79be0d",
+      "pages": 56
+    },
+    {
+      "week": 5,
+      "source": "IOT_Introduction/docs/teaching_drafts/week5_redesign/week5_main.pdf",
+      "sha256": "5efa7e30f3e4e96bc23418f6933062484ddcc005a94032babcbda614b072a6b0",
+      "pages": 55
+    },
+    {
+      "week": 6,
+      "source": "IOT_Introduction/docs/teaching_drafts/week6_redesign/week6_main.pdf",
+      "sha256": "8f199a00d3b3d2d1617b2c87cd583ad76286570299a7125c1c2874e6a2c43f6e",
+      "pages": 46
+    },
+    {
+      "week": 7,
+      "source": "IOT_Introduction/docs/teaching_drafts/week7_redesign/week7_main.pdf",
+      "sha256": "d854a3545144af2d7a31ae90a3303a5a0cdcd8d737389b812b7c5d1959ea3b42",
+      "pages": 45
+    }
+  ]
+}

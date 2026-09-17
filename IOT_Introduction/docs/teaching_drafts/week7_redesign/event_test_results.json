@@ -1,0 +1,39 @@
+{
+  "source_sha256": "986e62c61d75f6aea0c3fe8f1381ca8540a60dd4a94be762c7a2f55e3d3582b0",
+  "results": [
+    {
+      "period_ms": 3000,
+      "oled_controller": 1306,
+      "output": "period_ms=3000 confirmed_event_times_ms=1000,2000,4000,7000,10000,13000 counts=1,2,1,2,1,2 finish_ms=14000 result=FAILED\nPASS 48 assertions; host fake I/O, not physical gameplay."
+    },
+    {
+      "period_ms": 3000,
+      "oled_controller": 1315,
+      "output": "period_ms=3000 confirmed_event_times_ms=1000,2000,4000,7000,10000,13000 counts=1,2,1,2,1,2 finish_ms=14000 result=FAILED\nPASS 48 assertions; host fake I/O, not physical gameplay."
+    },
+    {
+      "period_ms": 5000,
+      "oled_controller": 1306,
+      "output": "period_ms=5000 confirmed_event_times_ms=1000,2000,4000,7000,10000,13000 counts=1,2,3,2,3,4 finish_ms=14000 result=FAILED\nPASS 48 assertions; host fake I/O, not physical gameplay."
+    },
+    {
+      "period_ms": 5000,
+      "oled_controller": 1315,
+      "output": "period_ms=5000 confirmed_event_times_ms=1000,2000,4000,7000,10000,13000 counts=1,2,3,2,3,4 finish_ms=14000 result=FAILED\nPASS 48 assertions; host fake I/O, not physical gameplay."
+    },
+    {
+      "period_ms": 1500,
+      "oled_controller": 1306,
+      "output": "period_ms=1500 confirmed_event_times_ms=1000,2000,4000,7000,10000,13000 counts=1,0,1,2,3,4 finish_ms=14000 result=FAILED\nPASS 48 assertions; host fake I/O, not physical gameplay."
+    },
+    {
+      "period_ms": 1500,
+      "oled_controller": 1315,
+      "output": "period_ms=1500 confirmed_event_times_ms=1000,2000,4000,7000,10000,13000 counts=1,0,1,2,3,4 finish_ms=14000 result=FAILED\nPASS 48 assertions; host fake I/O, not physical gameplay."
+    }
+  ],
+  "test_sha256": "d41b3373b2a6ace5fe014559c803b1e078f7d802a150a673506212e77883f080",
+  "runner_sha256": "df0178aee885253d25fd6c25b2ae0bf446061be2a0be76788a922f43096b8183",
+  "physical_test": "not performed",
+  "fixture": "test GPIO and calibration only; not approved physical wiring"
+}
