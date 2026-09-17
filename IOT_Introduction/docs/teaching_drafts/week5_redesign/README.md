@@ -2,9 +2,9 @@
 
 依 2026-09-16 教師要求，沿用 Week 2 的同步帶做方式：先觀察結果，再解釋原理。完成一個可中止、可重新準備的 RGB／OLED 倒數器，不新增遮光計分、舵機、電池或雲端要求。
 
-- 閱讀成品：[week5_main.pdf](week5_main.pdf)，55 頁。p32–37 新增雙按鈕 OLED 倒數器；p36 改五秒一格、p37 緊接解答。p42 起為完整程式。
+- 閱讀成品：[week5_main.pdf](week5_main.pdf)，56 頁。p33–38 為雙按鈕 OLED 倒數器；p37 改五秒一格、p38 緊接解答。p43 起為完整程式。已補開檔步驟、按鈕孔位並區分兩版收尾命令。
 - 維護來源：`week5_main.md`、`build.cjs`。兩支既有 `.ino` 加上本目錄 `button_oled_timer/button_oled_timer.ino`，附錄直接嵌入，不另維護副本。
-- p30 是六題練習，p31 緊接完整解答；本稿含答案，不用作未公開考卷。
+- p31 是六題練習，p32 緊接完整解答；本稿含答案，不用作未公開考卷。
 - 原正式 `Week_05_RGB_OLED_Countdown/week5_main.ipynb`／PDF、`docs/course_materials/week5_main.source.md` 及 canonical 程式未改動。尚未切換正式出口。
 - 先前三週重設稿已隨 869418b 推送。本次新增舊零件整合活動也獲教師授權提交並推送；實際版本以 Git 歷史為準。入口在上層 README。
 - 課前硬體待辦、120 分鐘安排、內容對照與檢查結果見 [review.md](review.md)。沒有新實機通過紀錄。

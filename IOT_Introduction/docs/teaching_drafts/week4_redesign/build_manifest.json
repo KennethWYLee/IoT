@@ -7,226 +7,234 @@
     },
     {
       "number": 2,
-      "id": "materials"
+      "id": "files"
     },
     {
       "number": 3,
-      "id": "resistorwire"
+      "id": "materials"
     },
     {
       "number": 4,
-      "id": "resistobserve"
+      "id": "resistorwire"
     },
     {
       "number": 5,
-      "id": "resistorwhy"
+      "id": "resistobserve"
     },
     {
       "number": 6,
-      "id": "dhtphoto"
+      "id": "resistorwhy"
     },
     {
       "number": 7,
-      "id": "ide"
+      "id": "dhtphoto"
     },
     {
       "number": 8,
-      "id": "library"
+      "id": "ide"
     },
     {
       "number": 9,
-      "id": "dhtsettings"
+      "id": "library"
     },
     {
       "number": 10,
-      "id": "dhtwire"
+      "id": "dhtsettings"
     },
     {
       "number": 11,
-      "id": "dhtstart"
+      "id": "dhtwire"
     },
     {
       "number": 12,
-      "id": "dhtmeaning"
+      "id": "dhtstart"
     },
     {
       "number": 13,
-      "id": "dhtflow"
+      "id": "dhtmeaning"
     },
     {
       "number": 14,
-      "id": "failure"
+      "id": "dhtflow"
     },
     {
       "number": 15,
-      "id": "quality"
+      "id": "failure"
     },
     {
       "number": 16,
-      "id": "qualityquestion"
+      "id": "quality"
     },
     {
       "number": 17,
-      "id": "qualityanswer"
+      "id": "qualityquestion"
     },
     {
       "number": 18,
-      "id": "dualwire"
+      "id": "qualityanswer"
     },
     {
       "number": 19,
-      "id": "dualsetup"
+      "id": "dualwire"
     },
     {
       "number": 20,
-      "id": "dualobserve"
+      "id": "dualsetup"
     },
     {
       "number": 21,
-      "id": "age"
+      "id": "dualobserve"
     },
     {
       "number": 22,
-      "id": "classify"
+      "id": "age"
     },
     {
       "number": 23,
-      "id": "event"
+      "id": "classify"
     },
     {
       "number": 24,
-      "id": "stable"
+      "id": "event"
     },
     {
       "number": 25,
-      "id": "limits"
+      "id": "stable"
     },
     {
       "number": 26,
-      "id": "dualfailure"
+      "id": "limits"
     },
     {
       "number": 27,
-      "id": "buzzer"
+      "id": "dualfailure"
     },
     {
       "number": 28,
-      "id": "buzzersetup"
+      "id": "buzzer"
     },
     {
       "number": 29,
-      "id": "mute"
+      "id": "buzzerwire"
     },
     {
       "number": 30,
-      "id": "exercise"
+      "id": "buzzersetup"
     },
     {
       "number": 31,
-      "id": "answer"
+      "id": "mute"
     },
     {
       "number": 32,
-      "id": "combinegoal"
+      "id": "exercise"
     },
     {
       "number": 33,
-      "id": "combinewire"
+      "id": "answer"
     },
     {
       "number": 34,
-      "id": "combinetry"
+      "id": "combinegoal"
     },
     {
       "number": 35,
-      "id": "combineexplain"
+      "id": "combinewire"
     },
     {
       "number": 36,
-      "id": "buildexercise"
+      "id": "combinetry"
     },
     {
       "number": 37,
-      "id": "buildanswer"
+      "id": "combineexplain"
     },
     {
       "number": 38,
-      "id": "finish"
+      "id": "buildexercise"
     },
     {
       "number": 39,
-      "id": "trouble"
+      "id": "buildanswer"
     },
     {
       "number": 40,
-      "id": "color"
+      "id": "finish"
     },
     {
       "number": 41,
-      "id": "sources"
+      "id": "trouble"
     },
     {
       "number": 42,
-      "id": "week04_dht11_quality-0"
+      "id": "color"
     },
     {
       "number": 43,
-      "id": "week04_dht11_quality-1"
+      "id": "sources"
     },
     {
       "number": 44,
-      "id": "week04_dht11_quality-2"
+      "id": "week04_dht11_quality-0"
     },
     {
       "number": 45,
-      "id": "week04_dht11_quality-3"
+      "id": "week04_dht11_quality-1"
     },
     {
       "number": 46,
-      "id": "week04_dual_sensor_alarm-0"
+      "id": "week04_dht11_quality-2"
     },
     {
       "number": 47,
-      "id": "week04_dual_sensor_alarm-1"
+      "id": "week04_dht11_quality-3"
     },
     {
       "number": 48,
-      "id": "week04_dual_sensor_alarm-2"
+      "id": "week04_dual_sensor_alarm-0"
     },
     {
       "number": 49,
-      "id": "week04_dual_sensor_alarm-3"
+      "id": "week04_dual_sensor_alarm-1"
     },
     {
       "number": 50,
-      "id": "week04_dual_sensor_alarm-4"
+      "id": "week04_dual_sensor_alarm-2"
     },
     {
       "number": 51,
-      "id": "week04_dual_sensor_alarm-5"
+      "id": "week04_dual_sensor_alarm-3"
     },
     {
       "number": 52,
-      "id": "week04_dual_sensor_alarm-6"
+      "id": "week04_dual_sensor_alarm-4"
     },
     {
       "number": 53,
-      "id": "week04_dual_sensor_alarm-7"
+      "id": "week04_dual_sensor_alarm-5"
     },
     {
       "number": 54,
-      "id": "button_environment_log-0"
+      "id": "week04_dual_sensor_alarm-6"
     },
     {
       "number": 55,
-      "id": "button_environment_log-1"
+      "id": "week04_dual_sensor_alarm-7"
     },
     {
       "number": 56,
+      "id": "button_environment_log-0"
+    },
+    {
+      "number": 57,
+      "id": "button_environment_log-1"
+    },
+    {
+      "number": 58,
       "id": "button_environment_log-2"
     }
   ],
-  "sourceSha256": "32bc0f244f5043d3571295391a3ea360ffc0a7e95580181fa934e7efe92bf2a4",
+  "sourceSha256": "32a3d27583986d6240fa0911171cac94cd8a907d9599f357c6ff949c9660ab20",
   "builderSha256": "80b234799c4e8514acaff8b2e7994b2e6be27793c19d09fe693acc9ab461b421",
   "sketches": [
     {
@@ -252,5 +260,5 @@
       "sha256": "0c212fbc5dfa87d116d3189c0d1089dc719001ce84d286e9e6373ca88327ca2f"
     }
   ],
-  "pdfSha256": "b2a4ba0a10c722702f31261237d8495ab0e37e07ec02a42d995a91115a79be0d"
+  "pdfSha256": "c0a71167a8cc6be4ee4cffeaa418d37eb49e26baf2af3e9091e9d0bf08fc5577"
 }

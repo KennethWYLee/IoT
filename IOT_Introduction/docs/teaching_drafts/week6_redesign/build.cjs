@@ -58,7 +58,7 @@ const diagrams = {
   line(530,70,530,167,colors.black)+line(530,167,445,167,colors.black)+
   text(120,115,'紅筆',19,'middle')+text(530,115,'黑筆',19,'middle')+
   text(325,235,'電表並聯跨兩端；不是串成供電線。',19,'middle'),257),
- stopwire:()=>flow(['STOP GPIO → a20；b20 → 按鈕第一組','按鈕另一組 → b25；c25 → c3','ESP32 GND → a3；同組 a3／c3 相通']),
+ stopwire:()=>flow(['STOP GPIO → a27 → 按鈕 e27','按下接通 e27 與 e29 → a29 → c3','c3 與 a3 相通 → ESP32 GND']),
  pullup:()=>flow(['晶片內部 3.3 V → 上拉電阻','GPIO 輸入節點 → 按鈕（按下才接通）','GND → 板上電源回路']),
  power:()=>svg(
   box(10,10,240,44,'電池正／負 → VIN')+arrow(130,54,130,93)+

@@ -7,187 +7,199 @@
     },
     {
       "number": 2,
-      "id": "route"
+      "id": "files"
     },
     {
       "number": 3,
-      "id": "preview"
+      "id": "route"
     },
     {
       "number": 4,
-      "id": "explainpreview"
+      "id": "preview"
     },
     {
       "number": 5,
-      "id": "identify"
+      "id": "explainpreview"
     },
     {
       "number": 6,
-      "id": "wires"
+      "id": "identify"
     },
     {
       "number": 7,
-      "id": "powersetup"
+      "id": "wires"
     },
     {
       "number": 8,
-      "id": "meter"
+      "id": "powersetup"
     },
     {
       "number": 9,
-      "id": "readings"
+      "id": "meter"
     },
     {
       "number": 10,
-      "id": "configuration"
+      "id": "readings"
     },
     {
       "number": 11,
-      "id": "stopwire"
+      "id": "configuration"
     },
     {
       "number": 12,
-      "id": "stopreason"
-    },
-    {
-      "number": 13,
       "id": "loadcode"
     },
     {
+      "number": 13,
+      "id": "codefields"
+    },
+    {
       "number": 14,
-      "id": "finalwire"
+      "id": "stopwire"
     },
     {
       "number": 15,
-      "id": "stoptest"
+      "id": "stopreason"
     },
     {
       "number": 16,
-      "id": "firstmove"
+      "id": "finalwire"
     },
     {
       "number": 17,
-      "id": "observe"
+      "id": "stoptest"
     },
     {
       "number": 18,
-      "id": "pulses"
+      "id": "firstmove"
     },
     {
       "number": 19,
-      "id": "common"
+      "id": "observe"
     },
     {
       "number": 20,
-      "id": "fixture"
+      "id": "pulses"
     },
     {
       "number": 21,
-      "id": "oled"
+      "id": "common"
     },
     {
       "number": 22,
-      "id": "sharedcount"
+      "id": "fixture"
     },
     {
       "number": 23,
-      "id": "stopping"
+      "id": "oledsettings"
     },
     {
       "number": 24,
-      "id": "faults"
+      "id": "oled"
     },
     {
       "number": 25,
-      "id": "exercise"
+      "id": "sharedcount"
     },
     {
       "number": 26,
-      "id": "answer"
+      "id": "stopping"
     },
     {
       "number": 27,
-      "id": "extension"
+      "id": "faults"
     },
     {
       "number": 28,
-      "id": "extensionrun"
+      "id": "exercise"
     },
     {
       "number": 29,
-      "id": "extensioncode"
+      "id": "answer"
     },
     {
       "number": 30,
-      "id": "buildexercise"
+      "id": "extension"
     },
     {
       "number": 31,
-      "id": "buildanswer"
+      "id": "extensionrun"
     },
     {
       "number": 32,
-      "id": "finish"
+      "id": "extensioncode"
     },
     {
       "number": 33,
-      "id": "sources"
+      "id": "buildexercise"
     },
     {
       "number": 34,
-      "id": "count_preview-0"
+      "id": "buildanswer"
     },
     {
       "number": 35,
-      "id": "week06_servo_pointer-0"
+      "id": "finish"
     },
     {
       "number": 36,
-      "id": "week06_servo_pointer-1"
+      "id": "sources"
     },
     {
       "number": 37,
-      "id": "week06_servo_pointer-2"
+      "id": "count_preview-0"
     },
     {
       "number": 38,
-      "id": "week06_servo_pointer-3"
+      "id": "week06_servo_pointer-0"
     },
     {
       "number": 39,
-      "id": "week06_servo_pointer-4"
+      "id": "week06_servo_pointer-1"
     },
     {
       "number": 40,
-      "id": "week06_servo_pointer-5"
+      "id": "week06_servo_pointer-2"
     },
     {
       "number": 41,
-      "id": "serial_pointer_counter-0"
+      "id": "week06_servo_pointer-3"
     },
     {
       "number": 42,
-      "id": "serial_pointer_counter-1"
+      "id": "week06_servo_pointer-4"
     },
     {
       "number": 43,
-      "id": "serial_pointer_counter-2"
+      "id": "week06_servo_pointer-5"
     },
     {
       "number": 44,
-      "id": "serial_pointer_counter-3"
+      "id": "serial_pointer_counter-0"
     },
     {
       "number": 45,
-      "id": "serial_pointer_counter-4"
+      "id": "serial_pointer_counter-1"
     },
     {
       "number": 46,
+      "id": "serial_pointer_counter-2"
+    },
+    {
+      "number": 47,
+      "id": "serial_pointer_counter-3"
+    },
+    {
+      "number": 48,
+      "id": "serial_pointer_counter-4"
+    },
+    {
+      "number": 49,
       "id": "serial_pointer_counter-5"
     }
   ],
-  "sourceSha256": "c9623754f41e944410c3887878caa62e54699bfdbcf82fff75a45c8fd7874003",
-  "builderSha256": "6a5cc99b288267a2ee1a69f87fab3d2f3725c2c8cff631a233813019da7649dc",
+  "sourceSha256": "cc7fb776a12e1df37c826f1fddc21b3d919f5bb223c26b98551604c1cf70f59e",
+  "builderSha256": "622d7741d288aae36dad090c6e2ca1d9f0b6e5cb2a46c2b138b86ada767fb83c",
   "sketches": [
     {
       "path": "docs/teaching_drafts/week6_redesign/count_preview/count_preview.ino",
@@ -216,5 +228,5 @@
       "sha256": "1fadf0571536167a5f4e1da7a98dfc8ab3950d4f1bb92b7e7aa8517b2c541d82"
     }
   ],
-  "pdfSha256": "8f199a00d3b3d2d1617b2c87cd583ad76286570299a7125c1c2874e6a2c43f6e"
+  "pdfSha256": "b161cbfe01cfad8ca523e310a2ceef1e0f62d6acf304a5f5aa0f4eece50e3322"
 }

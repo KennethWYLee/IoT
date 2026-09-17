@@ -49,11 +49,11 @@ const diagrams = {
   text(325,129,'3V3：a6，分接已確認的低功率模組',19,'middle')+
   text(325,238,'兩列分開；不把 3V3 直接接到 GND。',19,'middle'),263),
  buttons:()=>svg(
-  box(10,10,200,46,'START GPIO')+box(245,10,160,46,'a20／b20')+box(450,10,190,46,'按鈕第一組')+
+  box(10,10,200,46,'GPIO5：Start')+box(245,10,160,46,'a27／e27')+box(450,10,190,46,'開始鍵')+
   line(210,33,245,33)+line(405,33,450,33)+
-  box(10,97,200,46,'FINISH GPIO')+box(245,97,160,46,'a25／b25')+box(450,97,190,46,'按鈕第一組')+
+  box(10,97,200,46,'GPIO6：Finish')+box(245,97,160,46,'a21／e21')+box(450,97,190,46,'結束鍵')+
   line(210,120,245,120)+line(405,120,450,120)+
-  text(325,205,'各按鈕另一組 → 共地端子 → d3／a3 → GND',19,'middle')+
+  text(325,205,'e29 與 e23 → 分接線 → d3／a3 → GND',19,'middle')+
   text(325,248,'一鍵一條 GPIO；不是把兩個輸入短在一起。',18,'middle'),270),
  screen:()=>svg('<rect x="130" y="8" width="390" height="206" rx="3" fill="#172d30"/>'+
   ['RUNNING','TIME 24 s  2/6','GREEN: COVER','STAGE1: NO SERVO/BEEP'].map((t,n)=>

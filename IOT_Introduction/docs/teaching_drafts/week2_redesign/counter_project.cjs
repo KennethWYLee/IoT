@@ -60,7 +60,8 @@ module.exports = ({page, escape, svg, text, line, dot, marker, block, arrow, pho
     page(23,'一起做 · 先換程式','先讓板子準備好讀兩顆按鈕','這次 GPIO4 和 GPIO5 都讀按鈕；GPIO5 不再用作 TPO 輸出。',`
       <ol class="steps"><li>關閉 Serial Monitor，拔 USB，移除其他電源。PWR 熄滅後，把開發板上的杜邦線全部拔下；按鈕可留在麵包板上。</li>
       <li>開發板單獨放桌上，只接板背標示 <b>COM</b> 的 USB 接頭。</li>
-      <li>在 Arduino IDE 點 <b>File → Open（檔案 → 開啟）</b>，開啟隨講義提供的 <b>counter_two_buttons.ino</b>。若沒有檔案，可把第 29、30 頁程式依序貼進同一個新草稿，存成 counter_two_buttons。</li>
+      <li>有教師的 IoT 資料夾就沿用；否則開<a href="https://github.com/KennethWYLee/IoT">課程 GitHub</a>，按 <b>Code → Download ZIP</b>，下載後右鍵「全部解壓縮」。</li>
+      <li>在資料夾依序開 <b>IOT_Introduction → docs → teaching_drafts → week2_redesign → counter_two_buttons</b>。IDE 選 <b>檔案 → 開啟</b>，開裡面的 <b>counter_two_buttons.ino</b>，不用抄第 29、30 頁。</li>
       <li>依第 10–11 頁選板型、Port 與選項。按右箭頭 <b>Upload</b>，等到上傳完成。</li>
       <li>開 <b>Tools → Serial Monitor</b>，選 <b>115200</b>。不按 BOOT，短按一次板上 <b>RST</b>，應看到下面這一行。</li></ol>
       <pre>event=start count=0</pre>

@@ -7,210 +7,218 @@
     },
     {
       "number": 2,
-      "id": "prepare"
+      "id": "files"
     },
     {
       "number": 3,
-      "id": "board"
+      "id": "prepare"
     },
     {
       "number": 4,
-      "id": "meter"
+      "id": "board"
     },
     {
       "number": 5,
-      "id": "powerwire"
+      "id": "meter"
     },
     {
       "number": 6,
-      "id": "firstvoltage"
+      "id": "powerwire"
     },
     {
       "number": 7,
-      "id": "voltagemeaning"
+      "id": "firstvoltage"
     },
     {
       "number": 8,
-      "id": "upload"
+      "id": "voltagemeaning"
     },
     {
       "number": 9,
-      "id": "gpiowire"
+      "id": "upload"
     },
     {
       "number": 10,
-      "id": "gpiotest"
+      "id": "gpiowire"
     },
     {
       "number": 11,
-      "id": "gpioexplain"
+      "id": "gpiotest"
     },
     {
       "number": 12,
-      "id": "kyidentify"
+      "id": "gpioexplain"
     },
     {
       "number": 13,
-      "id": "kyresistance"
+      "id": "kyidentify"
     },
     {
       "number": 14,
-      "id": "kyresistmeaning"
+      "id": "kyresistance"
     },
     {
       "number": 15,
-      "id": "kywire"
+      "id": "kyresistmeaning"
     },
     {
       "number": 16,
-      "id": "kyvoltage"
+      "id": "kywire"
     },
     {
       "number": 17,
-      "id": "adcupload"
+      "id": "kyvoltage"
     },
     {
       "number": 18,
-      "id": "adcwire"
+      "id": "adcupload"
     },
     {
       "number": 19,
-      "id": "sample"
+      "id": "adcwire"
     },
     {
       "number": 20,
-      "id": "adcmeaning"
+      "id": "savelog"
     },
     {
       "number": 21,
-      "id": "ranges"
+      "id": "sample"
     },
     {
       "number": 22,
-      "id": "classifyupload"
+      "id": "adcmeaning"
     },
     {
       "number": 23,
-      "id": "validation"
+      "id": "ranges"
     },
     {
       "number": 24,
-      "id": "quality"
+      "id": "classifyupload"
     },
     {
       "number": 25,
-      "id": "resistor"
+      "id": "validation"
     },
     {
       "number": 26,
-      "id": "dividera"
+      "id": "quality"
     },
     {
       "number": 27,
-      "id": "dividerameasure"
+      "id": "resistor"
     },
     {
       "number": 28,
-      "id": "dividerb"
+      "id": "dividera"
     },
     {
       "number": 29,
-      "id": "current"
+      "id": "dividerameasure"
     },
     {
       "number": 30,
-      "id": "exercise"
+      "id": "dividerb"
     },
     {
       "number": 31,
-      "id": "answer"
+      "id": "current"
     },
     {
       "number": 32,
-      "id": "combinegoal"
+      "id": "exercise"
     },
     {
       "number": 33,
-      "id": "combinewire"
+      "id": "answer"
     },
     {
       "number": 34,
-      "id": "combinetry"
+      "id": "combinegoal"
     },
     {
       "number": 35,
-      "id": "combineexplain"
+      "id": "combinewire"
     },
     {
       "number": 36,
-      "id": "buildexercise"
+      "id": "combinetry"
     },
     {
       "number": 37,
-      "id": "buildanswer"
+      "id": "combineexplain"
     },
     {
       "number": 38,
-      "id": "finish"
+      "id": "buildexercise"
     },
     {
       "number": 39,
-      "id": "troubleshoot"
+      "id": "buildanswer"
     },
     {
       "number": 40,
-      "id": "units"
+      "id": "finish"
     },
     {
       "number": 41,
-      "id": "memory"
+      "id": "troubleshoot"
     },
     {
       "number": 42,
-      "id": "sources"
+      "id": "units"
     },
     {
       "number": 43,
-      "id": "week03_gpio_voltage_cycle-0"
+      "id": "memory"
     },
     {
       "number": 44,
-      "id": "week03_gpio_voltage_cycle-1"
+      "id": "sources"
     },
     {
       "number": 45,
-      "id": "week03_ky018_raw-0"
+      "id": "week03_gpio_voltage_cycle-0"
     },
     {
       "number": 46,
-      "id": "week03_ky018_raw-1"
+      "id": "week03_gpio_voltage_cycle-1"
     },
     {
       "number": 47,
-      "id": "week03_light_classifier-0"
+      "id": "week03_ky018_raw-0"
     },
     {
       "number": 48,
-      "id": "week03_light_classifier-1"
+      "id": "week03_ky018_raw-1"
     },
     {
       "number": 49,
-      "id": "week03_light_classifier-2"
+      "id": "week03_light_classifier-0"
     },
     {
       "number": 50,
-      "id": "button_light_capture-0"
+      "id": "week03_light_classifier-1"
     },
     {
       "number": 51,
-      "id": "button_light_capture-1"
+      "id": "week03_light_classifier-2"
     },
     {
       "number": 52,
+      "id": "button_light_capture-0"
+    },
+    {
+      "number": 53,
+      "id": "button_light_capture-1"
+    },
+    {
+      "number": 54,
       "id": "button_light_capture-2"
     }
   ],
-  "sourceSha256": "76a50a7caf0d9487b51ee37bf590df5b49fdbaa214107a01223e2974df74f901",
+  "sourceSha256": "fed73443216f0ecd42f2e4eba1fdba8baa0fd18bc3c5182253b61591ef030a2a",
   "builderSha256": "087064cf45768e61d2304a6889abba02af9b15f4bc37187ba747389b657ee6f6",
   "sketches": [
     {
@@ -248,5 +256,5 @@
       "sha256": "155ef7c1267faf15d93b3113922c0f04b4c164ac7f59a43295d7eee5617eefc6"
     }
   ],
-  "pdfSha256": "f0e1685f2d30cccc1eff370503fac06c9487c1a8300a8056592c0abf9fb22713"
+  "pdfSha256": "026616fcedfe75f3e13e29859e9d45f777af0249afb5a523dffdca0f184769dd"
 }
