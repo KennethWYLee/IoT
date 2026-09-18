@@ -1,5 +1,45 @@
 # IoT Scripts
 
+## Network lesson sketch exports
+
+Weeks 11, 12 and 15 now include directly openable Arduino folders. The maintained
+sources remain the complete sketches in the Week 11/12 Markdown appendices and
+the seven Week 15 modification blocks. The exporter uses the existing compile
+assembler, so students need not manually assemble the Week 15 program.
+
+```powershell
+python IOT_Introduction/scripts/export_network_sketches.py
+python IOT_Introduction/scripts/export_network_sketches.py --check
+```
+
+Commit generated `.ino` and placeholder `secrets.example.h` files with their
+sources when publication is authorized. Never generate or publish real secrets.
+Export verification is not compilation, network testing, or a physical test.
+
+## Network lesson PDF exports
+
+Weeks 11, 12, 14 and 15 have same-name PDFs beside the maintained Markdown.
+From the repository root, run:
+
+```powershell
+node IOT_Introduction/scripts/export_network_pdfs.cjs
+node IOT_Introduction/scripts/export_network_pdfs.cjs --check
+python -X utf8 IOT_Introduction/scripts/verify_network_pdfs.py
+```
+
+Export uses Node.js, `marked`, `playwright`, Microsoft Edge and Microsoft JhengHei
+(or a reviewed Traditional Chinese font). Set `NODE_PATH` to the installed package
+directory if needed; `BROWSER_CHANNEL` selects another installed Chromium browser.
+The Node-only `--check` compares Markdown, image, exporter and PDF hashes against
+`docs/network_pdf_manifest.json`. Text hashes normalize CRLF/LF across computers.
+The Python verifier requires PyMuPDF and Pillow. It checks page bounds, text and
+links, renders every page, and creates contact sheets and `checks.json` under the
+ignored `_outputs/network_pdfs/review/` directory. Inspect those images and selected
+full-size Poppler renders before publication; automated bounds checks alone are not
+a layout review. Short command blocks stay together; long code appendices may span
+pages. No sketches, services or devices are executed by PDF export or verification.
+Commit PDFs and the manifest with their source changes when authorized.
+
 ## Notebook PDF exports
 
 Every tracked notebook has a same-name PDF next to it. PDFs preserve the saved

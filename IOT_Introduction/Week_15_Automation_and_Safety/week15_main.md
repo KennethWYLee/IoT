@@ -7,6 +7,29 @@
 連續取樣、最大動作時間及斷線策略；最後以故障注入驗證安全復原，並由另一人從乾淨
 資料夾依文件重建系統。
 
+## 先從可運作的整份程式開始
+
+本週讓光線觸發 RGB 變色，再確認 STOP 與故障處理仍能停止自動反應。
+不新增馬達或舵機。先用完整程式完成一次操作，再閱讀它如何修改 Week 12 程式。
+
+1. 保留上次成功的 Week 12 個人程式。另開
+   [week15_automation_device.ino](../examples/week15_automation_device/week15_automation_device.ino)，
+   在 IDE **另存新檔**為 `week15_automation_practice`。
+2. 依 Week 12 的方式建立 `secrets.h`，填本次 Wi-Fi 與 broker 帳密；保持 `DRY_RUN=true`。
+   個人機密不放入教材或提交 Git。
+3. 用 Ctrl+F 逐一核對：`DEVICE_ID`、`PIN_START`、`PIN_STOP`、`PIN_LIGHT`、
+   `PIN_RGB_R`、`PIN_RGB_G`、`PIN_RGB_B`、`RGB_ON_LEVEL`、`LIGHT_VALID_MIN`、`LIGHT_VALID_MAX`。
+   這些值來自已成功的 Week 12 設定，不因換檔案就自動帶過來。
+4. 再找 `DARK_WHEN_RAW_LESS`、`DARK_ENTER_RAW`、`LIGHT_EXIT_RAW`。
+   依第二、三節及本人的有效光線紀錄設定；沒有校正資料時只能先編譯，不猜門檻上電。
+5. 依 [Week 12 啟動步驟](../Week_12_MQTT_Database_and_Logs/week12_main.md#mqtt-startup)
+   啟動 broker、後端與 bridge；已有密碼檔不要重建。A、D、E 都保持執行。
+6. 第五節的七段修改已包含在完整程式中，**不要再貼一次**。直接做第六節的編譯、接線確認與操作。
+   看到結果後，再回讀第四、五節解釋 STOP 優先與自動判斷。
+
+本週 `auto_on` 等命令不在手機預設選單；[下面有逐步送出方式](#send-automation-command)，
+不是要學生先寫新介面才能測試。
+
 ## 一、Unit Overview
 
 ### 教學目標
@@ -166,8 +189,9 @@ disable並受最大動作時間限制，不能只改畫面顏色。
 
 ## 五、由Week 12程式加入Automation
 
-先保存可運作的Week 12 baseline及commit。以下是對Week 12完整程式的精確修改；片段的
-插入或替換位置均有標示。保持`DRY_RUN=true`先編譯，profile未填時不得啟用硬體。
+第一次操作使用本章開頭的完整程式，直接跳到第六節。本節留作成功後的程式閱讀，
+或另存 Week 12 副本後練習逐段修改；兩種方式擇一，不要把修改片段重貼進 Week 15 完整程式。
+以下片段的插入或替換位置均有標示。保持 `DRY_RUN=true` 先編譯，profile 未填時不得啟用硬體。
 
 ### 5.1 在設定常數後加入profile與runtime變數
 
@@ -421,6 +445,27 @@ evaluateAutomation();
 
 ## 六、分階段驗證Automation
 
+<a id="send-automation-command"></a>
+
+### 命令要在哪裡送
+
+先讀這段了解按鈕位置，等 6.3 的指定步驟才送命令，現在不要先啟動自動反應。
+
+1. 筆電瀏覽器開 `http://127.0.0.1:8000/docs`，找到綠色 **POST /api/commands** 並展開。
+2. 按 **Try it out**。在 `x-iot-key` 欄位（HTTP 標頭 `X-IoT-Key`）輸入 D 後端視窗設定的同一個臨時 key，勿截圖。
+3. 把 Request body 換成以下內容，其中 `device_id` 改成自己的 `.ino` 裝置代號：
+
+```json
+{"device_id":"replace-with-team-device-id","command":"auto_on","parameters":{}}
+```
+
+4. 到 6.3 要求送 `auto_on` 時才按 **Execute**。看到 `201`、`command_id`、`requested`，
+   只代表後端已收件。回手機 **Recent commands** 找同一個 ID，等 `done` 或實際錯誤結果。
+5. 後面要送 `auto_off`、`test_sensor_fault`、`clear_sensor_fault_test` 或 `reset` 時，
+   只改 JSON 的 `command` 字串，再按 Execute。一次等前一筆結果出現才送下一筆。
+6. `403` 先查 key；`422` 查 JSON／裝置代號；`timeout` 查 A、D、E 及 ESP32 連線，
+   不用重按 Execute 掩蓋問題。這些測試只用於本課低功率 RGB，不操作高功率負載。
+
 ### 6.1 Dry run與compile
 
 1. `DRY_RUN=true`、硬體profile保留實際填值或placeholder。
@@ -540,14 +585,18 @@ git status --short
 ### 9.3 Backend reconstruction
 
 ```powershell
-Set-Location .\examples\course_backend
+Set-Location .\IOT_Introduction\examples\course_backend
+Test-Path .\app.py
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-python -m pytest -q
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pytest -q
 $env:IOT_OPERATOR_KEY="a-new-local-rebuild-key"
-python -m uvicorn app:app --host 127.0.0.1 --port 8000
+.\.venv\Scripts\python.exe -m uvicorn app:app --host 127.0.0.1 --port 8000
 ```
+
+第二行必須為 `True` 才執行後面命令。這一段只讓新筆電本機重建，不要求手機能連上。
+若稍後測手機，先完成本機測試並 Ctrl+C，再依 Week 11 的可信任 LAN 設定重啟，
+不能用 `127.0.0.1` 的本機綁定位址直接要求另一台裝置連線。
 
 新database應由程式建立；不要複製原`runtime/iot_course.db`。Host test通過後開
 `http://127.0.0.1:8000`，檢查manifest、service worker與API。這仍不等於LAN／target test。

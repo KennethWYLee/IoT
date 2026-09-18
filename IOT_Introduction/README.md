@@ -4,6 +4,11 @@
 
 2026-09-17：Week 2–7 另有[最新重設稿、操作修正與待確認事項](docs/teaching_drafts/README.md)。已補操作說明缺漏，但 DHT 與舵機仍有實物條件待確認；尚未替換下方正式週目錄。另一台電腦接續修訂請從該入口開始，不把兩版當成相同內容，未推送的修正也不會自動出現在另一台。
 
+2026-09-18：Week 11、12、14、15 的 Markdown 已完成第一輪自行操作步驟修正，
+補終端機分工、可直接開啟的完整程式、網頁篩選與命令操作；
+見[修正與檢查範圍](docs/lab_notes/2026-09-18-network-lessons-self-study.md)。
+報告、筆試與評分要求未改；這四週已附同名 PDF，尚未完成全流程學生跟做驗證。
+
 每週只開一份主教材，不必另外找support。Week 2～7使用Notebook，其他週使用Markdown；
 必要說明、準備事項、表格、操作與延伸均在當週同一份文件。
 Week 2～7為完整備課版（含參考解答），各附同名PDF供離線閱讀與列印；PDF是同一份教材的匯出，不是另一套講義。Week 18只保留空白檔案。
@@ -28,11 +33,11 @@ Week 2～7、11～12、14～15的主教材開頭亦有當週器材圖集。離�
 | 8 | 2026-10-28 | 第一次專題報告：題目與可行性 | [開啟 Week 8](Week_08_Project_Report_1/week8_main.md) |
 | 9 | 2026-11-04 | 教師出國／選讀，不收新成果 | [開啟 Week 9](Week_09_Self_Study/week9_main.md) |
 | 10 | 2026-11-11 | 第一次個人筆試：Week 2～7 | [開啟 Week 10](Week_10_Individual_Written_Exam/week10_main.md) |
-| 11 | 2026-11-18 | Wi-Fi、HTTP、JSON、Backend與WebSocket | [開啟 Week 11](Week_11_HTTP_WebSocket_Backend/week11_main.md) |
-| 12 | 2026-11-25 | MQTT多裝置、資料庫、歷史與log | [開啟 Week 12](Week_12_MQTT_Database_and_Logs/week12_main.md) |
+| 11 | 2026-11-18 | Wi-Fi、HTTP、JSON、Backend與WebSocket | [Markdown](Week_11_HTTP_WebSocket_Backend/week11_main.md)／[PDF](Week_11_HTTP_WebSocket_Backend/week11_main.pdf) |
+| 12 | 2026-11-25 | MQTT多裝置、資料庫、歷史與log | [Markdown](Week_12_MQTT_Database_and_Logs/week12_main.md)／[PDF](Week_12_MQTT_Database_and_Logs/week12_main.pdf) |
 | 13 | 2026-12-02 | 第二次專題報告：進度與修正 | [開啟 Week 13](Week_13_Project_Report_2/week13_main.md) |
-| 14 | 2026-12-09 | 手機前台、權限與PWA條件 | [開啟 Week 14](Week_14_Mobile_PWA/week14_main.md) |
-| 15 | 2026-12-16 | 自動反應、安全、故障復原與重建 | [開啟 Week 15](Week_15_Automation_and_Safety/week15_main.md) |
+| 14 | 2026-12-09 | 手機前台、權限與PWA條件 | [Markdown](Week_14_Mobile_PWA/week14_main.md)／[PDF](Week_14_Mobile_PWA/week14_main.pdf) |
+| 15 | 2026-12-16 | 自動反應、安全、故障復原與重建 | [Markdown](Week_15_Automation_and_Safety/week15_main.md)／[PDF](Week_15_Automation_and_Safety/week15_main.pdf) |
 | 16 | 2026-12-23 | 第二次個人筆試：Week 11、12、14、15 | [開啟 Week 16](Week_16_Integrated_Framework_Exam/week16_main.md) |
 | 17 | 2026-12-30 | 第三次專題報告：期末展示與個人問答 | [開啟 Week 17](Week_17_Project_Report_3/week17_main.md) |
 | 18 | 2027-01-06 | 校定期末考週，保留空白 | [空白保留檔](Week_18_Reserved/week18_main.md) |

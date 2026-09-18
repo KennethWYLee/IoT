@@ -36,6 +36,15 @@ notebook中的程式能與已驗證來源交叉核對。
 | Week 5 | RGB、OLED及非阻塞倒數；分階段啟用 | [week05_rgb_oled_timer](week05_rgb_oled_timer/week05_rgb_oled_timer.ino) |
 | Week 6 | SG90受限0～6計數指針、STOP、timeout及解除準備 | [week06_servo_pointer](week06_servo_pointer/week06_servo_pointer.ino) |
 | Week 7 | 分階段紅綠燈遮光遊戲、同輪優先序、Finish與故障鎖定 | [week07_traffic_light_challenge](week07_traffic_light_challenge/week07_traffic_light_challenge.ino) |
+| Week 11 | HTTP 事件、手機命令與低功率 RGB；預設 dry run | [week11_http_device](week11_http_device/week11_http_device.ino) |
+| Week 12 | MQTT 事件、光敏資料與命令；預設 dry run | [week12_mqtt_device](week12_mqtt_device/week12_mqtt_device.ino) |
+| Week 15 | Week 12 加上自動反應的完整程式，不必先拼七段程式 | [week15_automation_device](week15_automation_device/week15_automation_device.ino) |
+
+Week 11／12／15 的 `.ino` 與 `secrets.example.h` 由教材 Markdown 匯出；維護來源仍是
+Week 11／12 完整程式附錄與 Week 15 七段修改，不手動編輯這些生成檔。
+執行 `python IOT_Introduction/scripts/export_network_sketches.py` 更新，
+加 `--check` 可只檢查一致性。學生開檔後先另存個人練習，再填自己的設定與 `secrets.h`。
+匯出器不產生實際 `secrets.h`，也不操作硬體。
 
 Arduino IDE若建立`sketch_日期`預設名稱，應先使用**File → Save As**改為符合本規則
 的名稱，再納入Git。

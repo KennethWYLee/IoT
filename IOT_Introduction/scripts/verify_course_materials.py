@@ -265,6 +265,8 @@ def main() -> int:
             if number in {2, 3, 4, 5, 6, 7}
             else [f"week{number}_main.md"]
         )
+        if number in {11, 12, 14, 15}:
+            expected.append(f"week{number}_main.pdf")
         if files != expected:
             errors.append(f"{directory.name}: expected only {expected}, found {files}")
             continue
@@ -274,7 +276,9 @@ def main() -> int:
         main_lines = len(main_content.splitlines())
         summaries.append(
             f"Week {number:02d}: main={main_lines} lines"
-            + (", notebook and PDF" if main_path.suffix == ".ipynb" else ", single Markdown")
+            + (", notebook and PDF" if main_path.suffix == ".ipynb"
+               else ", Markdown and PDF" if number in {11, 12, 14, 15}
+               else ", single Markdown")
         )
 
         if number == 18 and main_content.strip():

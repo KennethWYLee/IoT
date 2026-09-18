@@ -7,6 +7,20 @@ ESP32以自己的`device_id`組成topic，發布KY-018遙測、事件與online�
 只訂閱自己的命令。Backend透過MQTT bridge把資料寫入原有SQLite並更新手機畫面，
 手機命令也能經broker送到正確裝置，再以相同`command_id`回報結果。
 
+## 本週先做出什麼
+
+先在筆電的兩個視窗間傳一則訊息，再讓 ESP32 使用相同方式傳資料。
+手機頁面仍沿用 Week 11，最後確認關掉網頁後，資料還留在資料庫。
+
+```text
+先練筆電：發布視窗 C → 訊息轉送程式 A → 訂閱視窗 B
+再接裝置：ESP32 → 同一個 A → 轉接程式 E → 後端 D → 資料庫／手機
+```
+
+A 是 MQTT broker，負責按主題轉送訊息；E 是本課的 bridge，負責把 MQTT 訊息送進既有後端。
+兩者不是同一個程式。第一次先做第四、五節，看到正確訊息後再讀第六節原理。
+第七節直接開完整程式；完成第八節單一裝置後，才做多裝置及資料庫查詢。
+
 ## 一、Unit Overview
 
 ### 教學目標
@@ -159,10 +173,31 @@ broker成功作為前置條件。
    憑證更新、細部授權、rate limiting與監控。
 5. 控制命令不使用retained message，避免新連線裝置執行過期命令。
 
+<a id="mqtt-startup"></a>
+
 ## 四、安裝並驗證本機Broker
 
 課前依[Eclipse Mosquitto官方下載頁](https://mosquitto.org/download/)安裝Windows x64
 版本。安裝位置與版本記於[Week 12支援資料](#support-一課前軟體與版本紀錄)。
+
+### 先準備視窗，不急著接 ESP32
+
+本段 ESP32 先拔 USB。開五個 PowerShell 分頁或視窗，依序當作 A、B、C、D、E；
+以下每段都會標示使用哪一個。命令執行後若停留顯示 log，通常是正在等訊息，不是當掉。
+不要把下一個程式的命令貼進仍在執行的視窗。
+
+| 視窗 | 用途 | 下一步是否保持執行 |
+|---|---|---|
+| A | broker，轉送 MQTT 訊息 | 是，除非要換設定 |
+| B | 訂閱，顯示收到的訊息 | 是，除非要換主題或帳密 |
+| C | 發布一則測試訊息 | 送完即回到提示符號 |
+| D | Week 11 的後端 | 是 |
+| E | MQTT 與後端的轉接程式 | 是 |
+
+在 A 執行 `Test-Path 'C:\Program Files\mosquitto\mosquitto.exe'`，應為 `True`。
+若為 `False`，先在檔案總管找到實際安裝位置，再替換本節命令的路徑。
+若啟動顯示連接埠已占用，先查看是不是上一個實驗的 broker；不要重複啟動或任意結束不明程序。
+若是安裝時已啟動的 Windows 服務，須由有權限管理該服務的人處理後再繼續。
 
 ### 4.1 只限本機的host test
 
@@ -192,7 +227,21 @@ test，不證明LAN、ESP32或帳密設定。
 
 ### 4.2 建立有帳密的LAN設定
 
-在不提交Git的資料夾中建立密碼檔；輸入密碼時PowerShell不顯示字元：
+先在 B 按 **Ctrl+C** 停止訂閱，再在 A 按 **Ctrl+C** 停止舊 broker。
+在 A 逐行執行，建立位於個人本機、不在課程 Git 資料夾內的練習目錄：
+
+```powershell
+$mqttWork = Join-Path $env:LOCALAPPDATA 'IoTCourse\mqtt-practice'
+New-Item -ItemType Directory -Force -Path $mqttWork
+Set-Location -LiteralPath $mqttWork
+Get-Location
+Test-Path .\course-passwords
+```
+
+最後一行若為 `True`，表示已有密碼檔，不要再次用 `-c` 蓋掉。
+第一次為 `False` 才執行下列命令；密碼需輸入兩次，輸入時不顯示字元是正常現象：
+
+`-c` 會覆寫既有檔案，依 [Mosquitto 官方命令說明](https://mosquitto.org/man/mosquitto_passwd-1.html)。
 
 ```powershell
 & "C:\Program Files\mosquitto\mosquitto_passwd.exe" -c .\course-passwords iotstudent
@@ -200,6 +249,10 @@ test，不證明LAN、ESP32或帳密設定。
 
 建立`course-mosquitto.conf`，把`password_file`換成剛才檔案的完整實際路徑，路徑
 使用正斜線：
+
+在 A 輸入 `(Resolve-Path .\course-passwords).Path`，取得路徑；不要開啟或截圖密碼檔內容。
+再輸入 `notepad .\course-mosquitto.conf`，同意建立新檔，貼入下列五行，
+修改 `password_file` 後按 **Ctrl+S** 並關閉記事本。不要存成 `.conf.txt`。
 
 ```text
 listener 1883
@@ -209,13 +262,15 @@ persistence false
 log_type all
 ```
 
-停止先前broker，再啟動LAN設定：
+回到 A，先用 `Test-Path .\course-mosquitto.conf` 確認為 `True`，再啟動 LAN 設定：
 
 ```powershell
 & "C:\Program Files\mosquitto\mosquitto.exe" -c .\course-mosquitto.conf -v
 ```
 
-Windows Firewall只允許private network。以`ipconfig`取得筆電LAN IPv4，再測試帳密：
+Windows Firewall 只允許本次可信任的 private network，不關閉防火牆。
+在 B 用 `ipconfig` 取得筆電 LAN IPv4，再執行下列訂閱命令；
+把 `<筆電LAN-IP>` 改成實際數字、不留尖括號，密碼也替換成剛設定的值：
 
 ```powershell
 & "C:\Program Files\mosquitto\mosquitto_sub.exe" `
@@ -225,34 +280,51 @@ Windows Firewall只允許private network。以`ipconfig`取得筆電LAN IPv4，�
 
 不要截圖或提交含`-P`的命令。支援資料只記驗證結果，不抄密碼。
 
+此時 ESP32 還沒上線，B 沒有新訊息是正常的，不能只靠空白畫面判斷登入成功。
+在 C 執行下列命令，替換成與 B 相同的筆電 IP 與密碼：
+
+```powershell
+& "C:\Program Files\mosquitto\mosquitto_pub.exe" `
+  -h <筆電LAN-IP> -p 1883 -u iotstudent -P '<temporary-password>' `
+  -t "course/host-test/presence" -m 'online'
+```
+
+B 應顯示 `course/host-test/presence online`。
+這是文字連線測試，不是裝置的正式 presence JSON，也不要加 `-r` 留存它。
+
 ## 五、啟動Backend與MQTT Bridge
 
 Bridge訂閱裝置telemetry、event、presence與ack，驗證JSON及topic中的device ID一致後，
 送入Week 11 Backend；它也查詢Backend的`requested`命令，發布到該裝置的commands
 topic，而且不retain。
 
-PowerShell視窗D進入`IOT_Introduction/examples/course_backend`：
+在檔案總管找到 `IOT_Introduction/examples/course_backend`，從該資料夾開啟 D 與 E。
+兩個視窗都先執行 `Test-Path .\app.py` 與 `Test-Path .\.venv\Scripts\python.exe`，
+都應為 `True`；缺 `.venv` 時回到 Week 11 第五節安裝，不在錯誤資料夾重建環境。
+
+PowerShell 視窗 D 啟動後端。直接呼叫 `.venv` 裡的 Python，不需要啟用腳本：
 
 ```powershell
-.\.venv\Scripts\Activate.ps1
 $env:IOT_OPERATOR_KEY="replace-with-your-temporary-classroom-key"
-python -m uvicorn app:app --host 0.0.0.0 --port 8000
+.\.venv\Scripts\python.exe -m uvicorn app:app --host 0.0.0.0 --port 8000
 ```
 
 PowerShell視窗E同樣進入該資料夾：
 
 ```powershell
-.\.venv\Scripts\Activate.ps1
 $env:MQTT_HOST="<筆電LAN-IP>"
 $env:MQTT_PORT="1883"
 $env:MQTT_USERNAME="iotstudent"
 $env:MQTT_PASSWORD="<temporary-password>"
 $env:IOT_API_BASE_URL="http://127.0.0.1:8000"
-python mqtt_bridge.py
+.\.venv\Scripts\python.exe mqtt_bridge.py
 ```
 
 正常看到`mqtt_connected`。不合法topic、無效JSON或device ID不一致會產生
 `mqtt_message_rejected`，不寫入database。
+
+若 E 顯示連不上 broker，先查 A 與 MQTT 帳密；若 MQTT 已連上但資料轉送失敗，
+先查 D。A、D、E 三個視窗必須同時保持執行。關掉 E 不等於關掉 A。
 
 ## 六、QoS、Retained Message與Last Will
 
@@ -273,10 +345,17 @@ Will payload是在MQTT連線建立時準備，不是在斷線瞬間重新讀取�
 
 ## 七、建立ESP32 MQTT程式
 
+在檔案總管開 `IOT_Introduction/examples/week12_mqtt_device`，
+用 Arduino IDE 開[完整程式](../examples/week12_mqtt_device/week12_mqtt_device.ino)，
+另存為個人 `week12_mqtt_practice`。不要把 Week 11 的 `.ino` 清空再貼新程式，保留上週可用版本。
+
 Arduino IDE選擇**Tools → Manage Libraries**，搜尋`PubSubClient`，確認作者Nick
 O'Leary並安裝課程驗證版本`2.8.0`。保留ArduinoJson。
 
 ### 7.1 `secrets.h`
+
+在 IDE 分頁右側選單選 **New Tab**，建立 `secrets.h`，貼入下列內容並替換字串。
+這次新增 broker 帳密；不能只沿用 Week 11 的 API 位址。
 
 ```cpp
 #pragma once
@@ -290,334 +369,14 @@ const char MQTT_PASSWORD[] = "replace-with-broker-password";
 
 `MQTT_HOST`只填筆電LAN IPv4，不加`http://`。本檔不得提交Git。
 
-### 7.2 完整主程式
+### 7.2 設定已開啟的完整程式
 
 程式預設`DRY_RUN=true`及profile未填。先編譯，再抄入Week 3、5、7自己的實測值。
 
-```cpp
-#include <Arduino.h>
-#include <ArduinoJson.h>
-#include <PubSubClient.h>
-#include <WiFi.h>
-#include "secrets.h"
+在 `.ino` 用 **Ctrl+F** 找 `DEVICE_ID`，填入與手機使用的同一個裝置代號。
+先保留 `DRY_RUN=true` 與 `-1` 腳位設定，按 **Ctrl+S** 後直接做第八節。
+[完整程式附錄](#complete-mqtt-sketch)留到看到結果後閱讀，不必複製它才能開始。
 
-const char DEVICE_ID[] = "replace-with-team-device-id";
-const bool DRY_RUN = true;
-const int PIN_START = -1;
-const int PIN_STOP = -1;
-const int PIN_LIGHT = -1;
-const int PIN_RGB_R = -1;
-const int PIN_RGB_G = -1;
-const int PIN_RGB_B = -1;
-const int RGB_ON_LEVEL = -1;
-const int LIGHT_VALID_MIN = -1;
-const int LIGHT_VALID_MAX = -1;
-
-enum class DeviceState { IDLE, ACTIVE, ERROR_STATE };
-DeviceState state = DeviceState::IDLE;
-WiFiClient wifiClient;
-PubSubClient mqttClient(wifiClient);
-
-String topicTelemetry, topicEvents, topicPresence, topicCommands, topicAcks;
-bool startLastRaw = false, stopLastRaw = false;
-bool startStablePressed = false, stopStablePressed = false;
-unsigned long startChangedAt = 0, stopChangedAt = 0;
-unsigned long lastWifiAttemptAt = 0, lastMqttAttemptAt = 0, lastTelemetryAt = 0;
-const unsigned long DEBOUNCE_MS = 35;
-const unsigned long WIFI_RETRY_MS = 10000;
-const unsigned long MQTT_RETRY_MS = 5000;
-const unsigned long TELEMETRY_MS = 2000;
-
-struct ProcessedCommand {
-  String id;
-  String result;
-  String message;
-};
-const int PROCESSED_COMMAND_CAPACITY = 8;
-ProcessedCommand processedCommands[PROCESSED_COMMAND_CAPACITY];
-int nextProcessedCommand = 0;
-
-const char *stateName() {
-  switch (state) {
-    case DeviceState::IDLE: return "idle";
-    case DeviceState::ACTIVE: return "active";
-    case DeviceState::ERROR_STATE: return "error";
-  }
-  return "unknown";
-}
-
-bool identifierReady(const char *value) {
-  size_t length = strlen(value);
-  if (length == 0 || length > 80 || String(value).startsWith("replace-")) return false;
-  for (size_t index = 0; index < length; index++) {
-    char character = value[index];
-    bool allowed = isAlphaNumeric(character) || character == '.' ||
-                   character == '_' || character == '-';
-    if (!allowed) return false;
-  }
-  return isAlphaNumeric(value[0]);
-}
-
-bool allPinsUnique(const int *pins, size_t count) {
-  for (size_t left = 0; left < count; left++)
-    for (size_t right = left + 1; right < count; right++)
-      if (pins[left] == pins[right]) return false;
-  return true;
-}
-
-bool profileReady() {
-  const int pins[] = {
-    PIN_START, PIN_STOP, PIN_LIGHT, PIN_RGB_R, PIN_RGB_G, PIN_RGB_B
-  };
-  bool pinsReady = PIN_START >= 0 && PIN_STOP >= 0 && PIN_LIGHT >= 0 &&
-                   PIN_RGB_R >= 0 && PIN_RGB_G >= 0 && PIN_RGB_B >= 0;
-  bool range = LIGHT_VALID_MIN >= 0 && LIGHT_VALID_MAX <= 4095 &&
-               LIGHT_VALID_MAX > LIGHT_VALID_MIN;
-  bool level = RGB_ON_LEVEL == HIGH || RGB_ON_LEVEL == LOW;
-  return pinsReady && allPinsUnique(pins, 6) && range && level;
-}
-
-int rgbOffLevel() { return RGB_ON_LEVEL == HIGH ? LOW : HIGH; }
-
-void setRgb(bool red, bool green, bool blue) {
-  if (DRY_RUN || !profileReady()) return;
-  digitalWrite(PIN_RGB_R, red ? RGB_ON_LEVEL : rgbOffLevel());
-  digitalWrite(PIN_RGB_G, green ? RGB_ON_LEVEL : rgbOffLevel());
-  digitalWrite(PIN_RGB_B, blue ? RGB_ON_LEVEL : rgbOffLevel());
-}
-
-void enterState(DeviceState next, const char *reason) {
-  state = next;
-  if (state == DeviceState::IDLE) setRgb(false, false, true);
-  if (state == DeviceState::ACTIVE) setRgb(false, true, false);
-  if (state == DeviceState::ERROR_STATE) setRgb(true, false, false);
-  Serial.printf("state=%s reason=%s\n", stateName(), reason);
-}
-
-void buildTopics() {
-  String root = "course/" + String(DEVICE_ID) + "/";
-  topicTelemetry = root + "telemetry";
-  topicEvents = root + "events";
-  topicPresence = root + "presence";
-  topicCommands = root + "commands";
-  topicAcks = root + "acks";
-}
-
-bool publishJson(const String &topic, JsonDocument &document, bool retained = false) {
-  if (!mqttClient.connected()) return false;
-  String payload;
-  serializeJson(document, payload);
-  bool sent = mqttClient.publish(topic.c_str(), payload.c_str(), retained);
-  Serial.printf("mqtt=publish topic=%s sent=%s payload=%s\n",
-                topic.c_str(), sent ? "true" : "false", payload.c_str());
-  return sent;
-}
-
-void publishPresence(const char *value) {
-  JsonDocument doc;
-  doc["device_id"] = DEVICE_ID; doc["event_type"] = "presence";
-  doc["value"] = value; doc["unit"] = "status"; doc["state"] = stateName();
-  doc["valid"] = true; doc["reason"] = "mqtt_session"; doc["uptime_ms"] = millis();
-  publishJson(topicPresence, doc, true);
-}
-
-void publishEvent(const char *type, int value, const char *unit,
-                  bool valid, const char *reason) {
-  JsonDocument doc;
-  doc["device_id"] = DEVICE_ID; doc["event_type"] = type;
-  doc["value"] = value; doc["unit"] = unit; doc["state"] = stateName();
-  doc["valid"] = valid; doc["reason"] = reason; doc["uptime_ms"] = millis();
-  publishJson(topicEvents, doc);
-}
-
-void publishAck(const String &id, const char *result, const char *message) {
-  JsonDocument doc;
-  doc["device_id"] = DEVICE_ID; doc["command_id"] = id;
-  doc["result"] = result; doc["message"] = message;
-  publishJson(topicAcks, doc);
-}
-
-int findProcessedCommand(const String &id) {
-  for (int index = 0; index < PROCESSED_COMMAND_CAPACITY; index++) {
-    if (processedCommands[index].id == id) return index;
-  }
-  return -1;
-}
-
-void finishCommand(const String &id, const char *result, const char *message) {
-  processedCommands[nextProcessedCommand] = {id, result, message};
-  nextProcessedCommand = (nextProcessedCommand + 1) % PROCESSED_COMMAND_CAPACITY;
-  publishAck(id, result, message);
-}
-
-void executeCommand(const String &id, const String &command) {
-  int previousIndex = findProcessedCommand(id);
-  if (previousIndex >= 0) {
-    publishAck(id, processedCommands[previousIndex].result.c_str(),
-               processedCommands[previousIndex].message.c_str());
-    return;
-  }
-  publishAck(id, "accepted", "received by device");
-  if (command == "stop") {
-    enterState(DeviceState::ERROR_STATE, "remote_stop");
-    finishCommand(id, "done", "safe output applied");
-  } else if (command == "start" && state != DeviceState::ERROR_STATE) {
-    enterState(DeviceState::ACTIVE, "remote_start");
-    finishCommand(id, "done", "active output applied");
-  } else if (command == "start") {
-    finishCommand(id, "rejected", "reset required after error");
-  } else if (command == "reset") {
-    if (!DRY_RUN && stopStablePressed) {
-      finishCommand(id, "rejected", "release physical stop before reset");
-    } else {
-      enterState(DeviceState::IDLE, "remote_reset");
-      finishCommand(id, "done", "idle output applied");
-    }
-  } else {
-    finishCommand(id, "rejected", "unknown command");
-  }
-}
-
-void onMqttMessage(char *topic, byte *payload, unsigned int length) {
-  if (String(topic) != topicCommands) return;
-  if (length == 0 || length >= 768) {
-    Serial.printf("mqtt=reject reason=payload_length length=%u\n", length); return;
-  }
-  char buffer[768];
-  memcpy(buffer, payload, length); buffer[length] = '\0';
-  JsonDocument doc;
-  DeserializationError error = deserializeJson(doc, buffer);
-  if (error) {
-    Serial.printf("mqtt=reject reason=json detail=%s\n", error.c_str()); return;
-  }
-  String target = doc["device_id"] | "";
-  String id = doc["command_id"] | "";
-  String command = doc["command"] | "";
-  if (target != DEVICE_ID || id.length() == 0 || command.length() == 0) {
-    Serial.println("mqtt=reject reason=identity_or_field"); return;
-  }
-  executeCommand(id, command);
-}
-
-void requestWifi() {
-  if (WiFi.status() == WL_CONNECTED) return;
-  unsigned long now = millis();
-  if (lastWifiAttemptAt && now - lastWifiAttemptAt < WIFI_RETRY_MS) return;
-  lastWifiAttemptAt = now; WiFi.disconnect(); WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-  Serial.println("wifi=connecting");
-}
-
-void requestMqtt() {
-  if (WiFi.status() != WL_CONNECTED || mqttClient.connected()) return;
-  unsigned long now = millis();
-  if (lastMqttAttemptAt && now - lastMqttAttemptAt < MQTT_RETRY_MS) return;
-  lastMqttAttemptAt = now;
-
-  JsonDocument willDoc;
-  willDoc["device_id"] = DEVICE_ID; willDoc["event_type"] = "presence";
-  willDoc["value"] = "offline"; willDoc["unit"] = "status";
-  willDoc["state"] = stateName(); willDoc["valid"] = true;
-  willDoc["reason"] = "last_will";
-  String willPayload; serializeJson(willDoc, willPayload);
-
-  bool connected = mqttClient.connect(
-    DEVICE_ID, MQTT_USERNAME, MQTT_PASSWORD,
-    topicPresence.c_str(), 1, true, willPayload.c_str());
-  Serial.printf("mqtt=connect connected=%s state=%d\n",
-                connected ? "true" : "false", mqttClient.state());
-  if (connected) {
-    mqttClient.subscribe(topicCommands.c_str(), 1);
-    publishPresence("online");
-  }
-}
-
-bool pressedEvent(int pin, bool &lastRaw, bool &stablePressed,
-                  unsigned long &changedAt) {
-  bool pressed = digitalRead(pin) == LOW;
-  unsigned long now = millis();
-  if (pressed != lastRaw) {
-    lastRaw = pressed;
-    changedAt = now;
-  }
-  if (now - changedAt >= DEBOUNCE_MS && pressed != stablePressed) {
-    stablePressed = pressed;
-    return stablePressed;
-  }
-  return false;
-}
-
-void readPhysicalInputs() {
-  if (DRY_RUN || !profileReady()) return;
-  bool stopPressedEvent =
-    pressedEvent(PIN_STOP, stopLastRaw, stopStablePressed, stopChangedAt);
-  bool startPressedEvent =
-    pressedEvent(PIN_START, startLastRaw, startStablePressed, startChangedAt);
-  if (stopStablePressed) {
-    if (stopPressedEvent || state != DeviceState::ERROR_STATE) {
-      enterState(DeviceState::ERROR_STATE, "physical_stop");
-      publishEvent("stop_pressed", 1, "pressed", true, "physical_input");
-    }
-    return;
-  }
-  if (startPressedEvent) {
-    if (state == DeviceState::ERROR_STATE)
-      publishEvent("start_rejected", 1, "pressed", false, "reset_required");
-    else {
-      enterState(DeviceState::ACTIVE, "physical_start");
-      publishEvent("start_pressed", 1, "pressed", true, "physical_input");
-    }
-  }
-}
-
-void publishTelemetryIfDue() {
-  if (DRY_RUN || !profileReady() || !mqttClient.connected()) return;
-  unsigned long now = millis();
-  if (now - lastTelemetryAt < TELEMETRY_MS) return;
-  lastTelemetryAt = now;
-  int raw = analogRead(PIN_LIGHT);
-  bool valid = raw >= LIGHT_VALID_MIN && raw <= LIGHT_VALID_MAX;
-  JsonDocument doc;
-  doc["device_id"] = DEVICE_ID; doc["event_type"] = "light_sample";
-  doc["value"] = raw; doc["unit"] = "adc_raw"; doc["state"] = stateName();
-  doc["valid"] = valid;
-  doc["reason"] = valid ? "within_profile" : "out_of_profile";
-  doc["uptime_ms"] = now;
-  publishJson(topicTelemetry, doc);
-}
-
-void setup() {
-  Serial.begin(115200); delay(500); buildTopics();
-  if (!identifierReady(DEVICE_ID)) {
-    Serial.println("fatal=device_id_missing_or_invalid"); return;
-  }
-  if (!DRY_RUN && !profileReady()) {
-    Serial.println("fatal=hardware_profile_incomplete"); return;
-  }
-  if (!DRY_RUN) {
-    pinMode(PIN_START, INPUT_PULLUP); pinMode(PIN_STOP, INPUT_PULLUP);
-    pinMode(PIN_RGB_R, OUTPUT); pinMode(PIN_RGB_G, OUTPUT); pinMode(PIN_RGB_B, OUTPUT);
-    enterState(DeviceState::IDLE, "boot");
-  }
-  WiFi.mode(WIFI_STA);
-  mqttClient.setServer(MQTT_HOST, MQTT_PORT);
-  mqttClient.setCallback(onMqttMessage);
-  mqttClient.setBufferSize(768);
-  mqttClient.setKeepAlive(20);
-  mqttClient.setSocketTimeout(1);
-  requestWifi();
-  Serial.printf("week=12 device=%s topic=%s mode=%s\n",
-                DEVICE_ID, topicCommands.c_str(), DRY_RUN ? "dry_run" : "hardware");
-}
-
-void loop() {
-  readPhysicalInputs();  // broker離線時也先處理本機STOP
-  requestWifi();
-  requestMqtt();
-  if (mqttClient.connected()) mqttClient.loop();
-  publishTelemetryIfDue();
-  delay(5);
-}
-```
 
 ## 八、分階段驗證單一裝置
 
@@ -771,7 +530,10 @@ SQLite資料仍存在。**log（日誌）**按執行順序記錄程式行為，�
 
 ## DB 四、啟動可觀察的Backend
 
-PowerShell進入`IOT_Introduction/examples/course_backend`。先確認資料檔路徑：
+沿用 D 的 `IOT_Introduction/examples/course_backend` 資料夾。
+先拔 ESP32 USB，暫停產生資料；在 E 按 **Ctrl+C** 暫停轉接，在 D 按 **Ctrl+C** 停止後端。
+A 保持執行。不要在舊後端仍占用 8000 時啟動第二個後端。
+在 D 確認資料檔路徑：
 
 ```powershell
 Get-Location
@@ -782,11 +544,15 @@ Test-Path .\runtime\iot_course.db
 畫面輸出同時保存成log：
 
 ```powershell
-.\.venv\Scripts\Activate.ps1
+New-Item -ItemType Directory -Force -Path .\runtime
 $env:IOT_OPERATOR_KEY="replace-with-your-temporary-classroom-key"
-python -m uvicorn app:app --host 0.0.0.0 --port 8000 2>&1 |
+.\.venv\Scripts\python.exe -m uvicorn app:app --host 0.0.0.0 --port 8000 2>&1 |
   Tee-Object -FilePath .\runtime\week12_backend.log
 ```
+
+看見 Uvicorn 啟動後，在原 E 視窗重跑 `.\.venv\Scripts\python.exe mqtt_bridge.py`。
+確認 `mqtt_connected`，才接回已確認安全接線的 ESP32。手機重新填同一個臨時 key 及
+Device ID，按 **套用並重新整理**。如果 E 是新視窗，須先重填第五節四個 MQTT 變數與 API 位址。
 
 **structured log（結構化日誌）**是一行一個具有固定欄位的JSON object，例如：
 
@@ -1608,3 +1374,334 @@ migration host test；不得以重新啟動最新版database取代。
 - [Backend執行與驗證](../examples/course_backend/README.md)
 - [Backend host tests](../examples/course_backend/tests/test_api.py)
 - [Week 12 MQTT主教材](week12_main.md)
+
+<a id="complete-mqtt-sketch"></a>
+
+## 附錄：完整 MQTT 程式
+
+這裡供完成操作後閱讀；第一次請依第七節開啟範例檔，不需手動複製這段。
+
+```cpp
+#include <Arduino.h>
+#include <ArduinoJson.h>
+#include <PubSubClient.h>
+#include <WiFi.h>
+#include "secrets.h"
+
+const char DEVICE_ID[] = "replace-with-team-device-id";
+const bool DRY_RUN = true;
+const int PIN_START = -1;
+const int PIN_STOP = -1;
+const int PIN_LIGHT = -1;
+const int PIN_RGB_R = -1;
+const int PIN_RGB_G = -1;
+const int PIN_RGB_B = -1;
+const int RGB_ON_LEVEL = -1;
+const int LIGHT_VALID_MIN = -1;
+const int LIGHT_VALID_MAX = -1;
+
+enum class DeviceState { IDLE, ACTIVE, ERROR_STATE };
+DeviceState state = DeviceState::IDLE;
+WiFiClient wifiClient;
+PubSubClient mqttClient(wifiClient);
+
+String topicTelemetry, topicEvents, topicPresence, topicCommands, topicAcks;
+bool startLastRaw = false, stopLastRaw = false;
+bool startStablePressed = false, stopStablePressed = false;
+unsigned long startChangedAt = 0, stopChangedAt = 0;
+unsigned long lastWifiAttemptAt = 0, lastMqttAttemptAt = 0, lastTelemetryAt = 0;
+const unsigned long DEBOUNCE_MS = 35;
+const unsigned long WIFI_RETRY_MS = 10000;
+const unsigned long MQTT_RETRY_MS = 5000;
+const unsigned long TELEMETRY_MS = 2000;
+
+struct ProcessedCommand {
+  String id;
+  String result;
+  String message;
+};
+const int PROCESSED_COMMAND_CAPACITY = 8;
+ProcessedCommand processedCommands[PROCESSED_COMMAND_CAPACITY];
+int nextProcessedCommand = 0;
+
+const char *stateName() {
+  switch (state) {
+    case DeviceState::IDLE: return "idle";
+    case DeviceState::ACTIVE: return "active";
+    case DeviceState::ERROR_STATE: return "error";
+  }
+  return "unknown";
+}
+
+bool identifierReady(const char *value) {
+  size_t length = strlen(value);
+  if (length == 0 || length > 80 || String(value).startsWith("replace-")) return false;
+  for (size_t index = 0; index < length; index++) {
+    char character = value[index];
+    bool allowed = isAlphaNumeric(character) || character == '.' ||
+                   character == '_' || character == '-';
+    if (!allowed) return false;
+  }
+  return isAlphaNumeric(value[0]);
+}
+
+bool allPinsUnique(const int *pins, size_t count) {
+  for (size_t left = 0; left < count; left++)
+    for (size_t right = left + 1; right < count; right++)
+      if (pins[left] == pins[right]) return false;
+  return true;
+}
+
+bool profileReady() {
+  const int pins[] = {
+    PIN_START, PIN_STOP, PIN_LIGHT, PIN_RGB_R, PIN_RGB_G, PIN_RGB_B
+  };
+  bool pinsReady = PIN_START >= 0 && PIN_STOP >= 0 && PIN_LIGHT >= 0 &&
+                   PIN_RGB_R >= 0 && PIN_RGB_G >= 0 && PIN_RGB_B >= 0;
+  bool range = LIGHT_VALID_MIN >= 0 && LIGHT_VALID_MAX <= 4095 &&
+               LIGHT_VALID_MAX > LIGHT_VALID_MIN;
+  bool level = RGB_ON_LEVEL == HIGH || RGB_ON_LEVEL == LOW;
+  return pinsReady && allPinsUnique(pins, 6) && range && level;
+}
+
+int rgbOffLevel() { return RGB_ON_LEVEL == HIGH ? LOW : HIGH; }
+
+void setRgb(bool red, bool green, bool blue) {
+  if (DRY_RUN || !profileReady()) return;
+  digitalWrite(PIN_RGB_R, red ? RGB_ON_LEVEL : rgbOffLevel());
+  digitalWrite(PIN_RGB_G, green ? RGB_ON_LEVEL : rgbOffLevel());
+  digitalWrite(PIN_RGB_B, blue ? RGB_ON_LEVEL : rgbOffLevel());
+}
+
+void enterState(DeviceState next, const char *reason) {
+  state = next;
+  if (state == DeviceState::IDLE) setRgb(false, false, true);
+  if (state == DeviceState::ACTIVE) setRgb(false, true, false);
+  if (state == DeviceState::ERROR_STATE) setRgb(true, false, false);
+  Serial.printf("state=%s reason=%s\n", stateName(), reason);
+}
+
+void buildTopics() {
+  String root = "course/" + String(DEVICE_ID) + "/";
+  topicTelemetry = root + "telemetry";
+  topicEvents = root + "events";
+  topicPresence = root + "presence";
+  topicCommands = root + "commands";
+  topicAcks = root + "acks";
+}
+
+bool publishJson(const String &topic, JsonDocument &document, bool retained = false) {
+  if (!mqttClient.connected()) return false;
+  String payload;
+  serializeJson(document, payload);
+  bool sent = mqttClient.publish(topic.c_str(), payload.c_str(), retained);
+  Serial.printf("mqtt=publish topic=%s sent=%s payload=%s\n",
+                topic.c_str(), sent ? "true" : "false", payload.c_str());
+  return sent;
+}
+
+void publishPresence(const char *value) {
+  JsonDocument doc;
+  doc["device_id"] = DEVICE_ID; doc["event_type"] = "presence";
+  doc["value"] = value; doc["unit"] = "status"; doc["state"] = stateName();
+  doc["valid"] = true; doc["reason"] = "mqtt_session"; doc["uptime_ms"] = millis();
+  publishJson(topicPresence, doc, true);
+}
+
+void publishEvent(const char *type, int value, const char *unit,
+                  bool valid, const char *reason) {
+  JsonDocument doc;
+  doc["device_id"] = DEVICE_ID; doc["event_type"] = type;
+  doc["value"] = value; doc["unit"] = unit; doc["state"] = stateName();
+  doc["valid"] = valid; doc["reason"] = reason; doc["uptime_ms"] = millis();
+  publishJson(topicEvents, doc);
+}
+
+void publishAck(const String &id, const char *result, const char *message) {
+  JsonDocument doc;
+  doc["device_id"] = DEVICE_ID; doc["command_id"] = id;
+  doc["result"] = result; doc["message"] = message;
+  publishJson(topicAcks, doc);
+}
+
+int findProcessedCommand(const String &id) {
+  for (int index = 0; index < PROCESSED_COMMAND_CAPACITY; index++) {
+    if (processedCommands[index].id == id) return index;
+  }
+  return -1;
+}
+
+void finishCommand(const String &id, const char *result, const char *message) {
+  processedCommands[nextProcessedCommand] = {id, result, message};
+  nextProcessedCommand = (nextProcessedCommand + 1) % PROCESSED_COMMAND_CAPACITY;
+  publishAck(id, result, message);
+}
+
+void executeCommand(const String &id, const String &command) {
+  int previousIndex = findProcessedCommand(id);
+  if (previousIndex >= 0) {
+    publishAck(id, processedCommands[previousIndex].result.c_str(),
+               processedCommands[previousIndex].message.c_str());
+    return;
+  }
+  publishAck(id, "accepted", "received by device");
+  if (command == "stop") {
+    enterState(DeviceState::ERROR_STATE, "remote_stop");
+    finishCommand(id, "done", "safe output applied");
+  } else if (command == "start" && state != DeviceState::ERROR_STATE) {
+    enterState(DeviceState::ACTIVE, "remote_start");
+    finishCommand(id, "done", "active output applied");
+  } else if (command == "start") {
+    finishCommand(id, "rejected", "reset required after error");
+  } else if (command == "reset") {
+    if (!DRY_RUN && stopStablePressed) {
+      finishCommand(id, "rejected", "release physical stop before reset");
+    } else {
+      enterState(DeviceState::IDLE, "remote_reset");
+      finishCommand(id, "done", "idle output applied");
+    }
+  } else {
+    finishCommand(id, "rejected", "unknown command");
+  }
+}
+
+void onMqttMessage(char *topic, byte *payload, unsigned int length) {
+  if (String(topic) != topicCommands) return;
+  if (length == 0 || length >= 768) {
+    Serial.printf("mqtt=reject reason=payload_length length=%u\n", length); return;
+  }
+  char buffer[768];
+  memcpy(buffer, payload, length); buffer[length] = '\0';
+  JsonDocument doc;
+  DeserializationError error = deserializeJson(doc, buffer);
+  if (error) {
+    Serial.printf("mqtt=reject reason=json detail=%s\n", error.c_str()); return;
+  }
+  String target = doc["device_id"] | "";
+  String id = doc["command_id"] | "";
+  String command = doc["command"] | "";
+  if (target != DEVICE_ID || id.length() == 0 || command.length() == 0) {
+    Serial.println("mqtt=reject reason=identity_or_field"); return;
+  }
+  executeCommand(id, command);
+}
+
+void requestWifi() {
+  if (WiFi.status() == WL_CONNECTED) return;
+  unsigned long now = millis();
+  if (lastWifiAttemptAt && now - lastWifiAttemptAt < WIFI_RETRY_MS) return;
+  lastWifiAttemptAt = now; WiFi.disconnect(); WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.println("wifi=connecting");
+}
+
+void requestMqtt() {
+  if (WiFi.status() != WL_CONNECTED || mqttClient.connected()) return;
+  unsigned long now = millis();
+  if (lastMqttAttemptAt && now - lastMqttAttemptAt < MQTT_RETRY_MS) return;
+  lastMqttAttemptAt = now;
+
+  JsonDocument willDoc;
+  willDoc["device_id"] = DEVICE_ID; willDoc["event_type"] = "presence";
+  willDoc["value"] = "offline"; willDoc["unit"] = "status";
+  willDoc["state"] = stateName(); willDoc["valid"] = true;
+  willDoc["reason"] = "last_will";
+  String willPayload; serializeJson(willDoc, willPayload);
+
+  bool connected = mqttClient.connect(
+    DEVICE_ID, MQTT_USERNAME, MQTT_PASSWORD,
+    topicPresence.c_str(), 1, true, willPayload.c_str());
+  Serial.printf("mqtt=connect connected=%s state=%d\n",
+                connected ? "true" : "false", mqttClient.state());
+  if (connected) {
+    mqttClient.subscribe(topicCommands.c_str(), 1);
+    publishPresence("online");
+  }
+}
+
+bool pressedEvent(int pin, bool &lastRaw, bool &stablePressed,
+                  unsigned long &changedAt) {
+  bool pressed = digitalRead(pin) == LOW;
+  unsigned long now = millis();
+  if (pressed != lastRaw) {
+    lastRaw = pressed;
+    changedAt = now;
+  }
+  if (now - changedAt >= DEBOUNCE_MS && pressed != stablePressed) {
+    stablePressed = pressed;
+    return stablePressed;
+  }
+  return false;
+}
+
+void readPhysicalInputs() {
+  if (DRY_RUN || !profileReady()) return;
+  bool stopPressedEvent =
+    pressedEvent(PIN_STOP, stopLastRaw, stopStablePressed, stopChangedAt);
+  bool startPressedEvent =
+    pressedEvent(PIN_START, startLastRaw, startStablePressed, startChangedAt);
+  if (stopStablePressed) {
+    if (stopPressedEvent || state != DeviceState::ERROR_STATE) {
+      enterState(DeviceState::ERROR_STATE, "physical_stop");
+      publishEvent("stop_pressed", 1, "pressed", true, "physical_input");
+    }
+    return;
+  }
+  if (startPressedEvent) {
+    if (state == DeviceState::ERROR_STATE)
+      publishEvent("start_rejected", 1, "pressed", false, "reset_required");
+    else {
+      enterState(DeviceState::ACTIVE, "physical_start");
+      publishEvent("start_pressed", 1, "pressed", true, "physical_input");
+    }
+  }
+}
+
+void publishTelemetryIfDue() {
+  if (DRY_RUN || !profileReady() || !mqttClient.connected()) return;
+  unsigned long now = millis();
+  if (now - lastTelemetryAt < TELEMETRY_MS) return;
+  lastTelemetryAt = now;
+  int raw = analogRead(PIN_LIGHT);
+  bool valid = raw >= LIGHT_VALID_MIN && raw <= LIGHT_VALID_MAX;
+  JsonDocument doc;
+  doc["device_id"] = DEVICE_ID; doc["event_type"] = "light_sample";
+  doc["value"] = raw; doc["unit"] = "adc_raw"; doc["state"] = stateName();
+  doc["valid"] = valid;
+  doc["reason"] = valid ? "within_profile" : "out_of_profile";
+  doc["uptime_ms"] = now;
+  publishJson(topicTelemetry, doc);
+}
+
+void setup() {
+  Serial.begin(115200); delay(500); buildTopics();
+  if (!identifierReady(DEVICE_ID)) {
+    Serial.println("fatal=device_id_missing_or_invalid"); return;
+  }
+  if (!DRY_RUN && !profileReady()) {
+    Serial.println("fatal=hardware_profile_incomplete"); return;
+  }
+  if (!DRY_RUN) {
+    pinMode(PIN_START, INPUT_PULLUP); pinMode(PIN_STOP, INPUT_PULLUP);
+    pinMode(PIN_RGB_R, OUTPUT); pinMode(PIN_RGB_G, OUTPUT); pinMode(PIN_RGB_B, OUTPUT);
+    enterState(DeviceState::IDLE, "boot");
+  }
+  WiFi.mode(WIFI_STA);
+  mqttClient.setServer(MQTT_HOST, MQTT_PORT);
+  mqttClient.setCallback(onMqttMessage);
+  mqttClient.setBufferSize(768);
+  mqttClient.setKeepAlive(20);
+  mqttClient.setSocketTimeout(1);
+  requestWifi();
+  Serial.printf("week=12 device=%s topic=%s mode=%s\n",
+                DEVICE_ID, topicCommands.c_str(), DRY_RUN ? "dry_run" : "hardware");
+}
+
+void loop() {
+  readPhysicalInputs();  // broker離線時也先處理本機STOP
+  requestWifi();
+  requestMqtt();
+  if (mqttClient.connected()) mqttClient.loop();
+  publishTelemetryIfDue();
+  delay(5);
+}
+```

@@ -9,6 +9,23 @@ START或STOP後，事件會送到筆電Backend、寫入SQLite，並由WebSocket�
 
 本週採低功率網路示範：只沿用Week 7的按鈕與Week 5的RGB，不遠端控制整套遊戲。第二顆按鈕在本週改作持續有效的STOP，不是遊戲的Finish送出。韌體使用idle／active／error狀態；它們不是將Week 7所有遊戲結果直接改名。共同事件欄位保留device_id、event_type、state、value、unit、valid、reason與uptime_ms；遊戲專屬欄位若日後上傳，必須另外明訂schema映射。
 
+## 先完成一個可以看見結果的操作
+
+本週先讓筆電網頁收到一筆資料，再讓 ESP32 傳資料，最後用手機控制 RGB。
+第一次閱讀依下表前進，不必先讀懂完整程式；每一步看見指定結果後才往下走。
+
+| 順序 | 到哪裡操作 | 看到什麼才繼續 |
+|---|---|---|
+| 1 | 第二、三節：準備器材、網路與軟體 | 能開啟課程資料夾；ESP32 暫不接其他零件 |
+| 2 | 第四節：找筆電 IP | 找到目前 Wi-Fi 的 IPv4；此時還不用找 ESP32 IP |
+| 3 | 第五節：筆電後端與測試事件 | 網頁 Device ID 設為 `host-test` 後看見事件 |
+| 4 | 第七節：開啟程式、填連線設定、上傳 | Serial 的 `test-event` 得到 `201` |
+| 5 | 第八節：手機開網頁 | 不按重新整理也能看見同一筆新事件 |
+| 6 | 第九、十節：接回已確認的按鈕與 RGB | 實體反應、手機紀錄與同一個命令 ID 對得上 |
+
+完成第 3 步後再讀第六節的 JSON；完成手機操作後，再讀完整程式附錄。
+失敗時留在原步驟排查，不同時修改 IP、接線與程式。
+
 ## 一、Unit Overview
 
 ### 教學目標
@@ -137,7 +154,10 @@ ESP32事件 → HTTP POST → FastAPI Backend → SQLite
 3. 已依[Python與Git課前準備](#support-課前安裝python與git)
    確認Git與Python命令可顯示版本；版本記錄於
    [Week 11支援資料](#support-一課前環境與器材確認)。
-4. 本機repository已同步，且`IOT_Introduction/examples/course_backend`存在。
+4. 已取得本課程資料夾。沒有資料夾時，開[課程 GitHub](https://github.com/KennethWYLee/IoT)，
+   按 **Code → Download ZIP**，下載後右鍵 **全部解壓縮**，不要在 ZIP 裡直接操作。
+   在解壓後資料夾找到 `IOT_Introduction/examples/course_backend`；有 `app.py` 與
+   `requirements.txt` 才是本週要使用的位置。
 
 ## 三、安全與網路責任
 
@@ -193,8 +213,8 @@ ipconfig
 4. 記錄`IPv4 Address`，再填入支援資料的網路身分表。
 5. 若無法判斷，暫時關閉VPN後重新執行`ipconfig`，但不要任意停用學校管理的安全軟體。
 
-完成條件：能指出「Backend主機IP」與「ESP32取得的IP」是兩個不同位址，並能說明
-手機為何不能使用`127.0.0.1`連筆電。
+現在只記下筆電 IPv4。ESP32 的 IP 要等第七節連上 Wi-Fi 後才會出現，不用在這裡等待。
+手機稍後使用筆電 IPv4，不使用手機自己的 `127.0.0.1`。
 
 ## 五、啟動並單獨驗證Backend
 
@@ -204,7 +224,14 @@ ipconfig
 2. 進入`IOT_Introduction/examples/course_backend`。
 3. 在資料夾空白處按右鍵選擇**Open in Terminal**；若選單不同，也可先開PowerShell
    再以`cd`進入該資料夾。
-4. 逐行執行：
+4. 先執行下列兩行，結果都應為 `True`。若有 `False`，回到第 2 步，不要繼續安裝。
+
+```powershell
+Test-Path .\app.py
+Test-Path .\requirements.txt
+```
+
+5. 把這個視窗當作「後端視窗」，逐行執行：
 
 ```powershell
 python -m venv .venv
@@ -249,7 +276,8 @@ Windows Firewall若詢問是否允許Python接收連線，只勾選本週可信�
 
 ### 5.3 先用筆電製造一筆host test事件
 
-另開一個PowerShell視窗，在不連ESP32的狀態執行：
+後端視窗維持執行，不要在顯示 log 的地方貼下一段命令。另開一個 PowerShell 視窗，
+當作「測試視窗」，在不連 ESP32 的狀態執行以下整段；這段 HTTP 測試不要求特定資料夾。
 
 ```powershell
 $eventBody = @{
@@ -271,7 +299,9 @@ Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/events `
 一筆新事件。**HTTP response（HTTP回應）**是server處理後傳回的狀態與資料。
 正常應看到事件`id`與`recorded_at`，Backend終端機也應出現JSON格式log。
 
-開啟`http://127.0.0.1:8000`，確認Events表中出現`host-test`。這一步只證明：
+開啟 `http://127.0.0.1:8000`。把頁面上方 **Device ID** 的預設 `demo-device`
+改成 **`host-test`**，按 **套用並重新整理**，在 **Recent events** 找到 `button_pressed`。
+若保持預設 ID，這筆資料會被篩掉；不要因此重接硬體。這一步只證明：
 
 - Python程式可啟動；
 - HTTP API可接收正確資料；
@@ -318,9 +348,19 @@ requested → accepted → done
 
 ## 七、建立ESP32網路程式
 
+先在檔案總管開啟 `IOT_Introduction → examples → week11_http_device`，
+用 Arduino IDE 的 **檔案 → 開啟** 選 `week11_http_device.ino`。
+完整程式已在[這個資料夾](../examples/week11_http_device/week11_http_device.ino)，不用抄長程式。
+用 **檔案 → 另存新檔** 存成個人練習 `week11_http_practice`，避免改到共同範例。
+
+先拔 USB、移除板上的杜邦線與外部電源，再只接板背 COM 的 USB 資料線。
+在 IDE 選 **Tools → Manage Libraries**，搜尋 `ArduinoJson`，
+選課程既有編譯紀錄使用的 **7.4.3** 並按 Install。這是版本基準，不代表實物測試通過。
+
 ### 7.1 建立不提交Git的`secrets.h`
 
-在Arduino sketch中新增分頁，命名為`secrets.h`，填入實際Wi-Fi與筆電IP：
+在 IDE 程式分頁右側選單選 **新增分頁（New Tab）**，命名 `secrets.h`；
+不要把這段貼到 `.ino` 最後面。填入實際 Wi-Fi 與筆電 IP，保留字串兩側的雙引號：
 
 ```cpp
 #pragma once
@@ -333,372 +373,15 @@ const char API_BASE_URL[] = "http://192.168.1.23:8000";
 最後一行只能換成筆電的LAN IPv4，不加結尾`/`。先確認sketch所在資料夾不在Git追蹤
 範圍；若要保存程式到repository，只提交`secrets.example.h`，不要提交`secrets.h`。
 
-### 7.2 貼上完整主程式
+### 7.2 確認主程式設定
 
 以下程式預設`DRY_RUN=true`及所有GPIO為`-1`，因此不會驅動硬體。先完成編譯與網路
 測試，再依已核准的按鈕與RGB實測profile逐項填值；不得從其他同學或網路照片猜GPIO。
 
-```cpp
-#include <Arduino.h>
-#include <ArduinoJson.h>
-#include <HTTPClient.h>
-#include <WiFi.h>
-#include "secrets.h"
+切回 `.ino` 分頁，用 **Ctrl+F** 搜尋 `DEVICE_ID`，把字串改成自己的不含個資裝置代號。
+搜尋 `DRY_RUN`，保持 `true`；GPIO 與 `RGB_ON_LEVEL` 暫時保留 `-1`。按 **Ctrl+S**。
+接著直接做 7.3，不必先逐行理解[完整程式附錄](#complete-http-sketch)。
 
-const char DEVICE_ID[] = "replace-with-team-device-id";
-
-// 只可抄入本人Week 7已驗證的profile。
-const bool DRY_RUN = true;
-const int PIN_START = -1;
-const int PIN_STOP = -1;
-const int PIN_RGB_R = -1;
-const int PIN_RGB_G = -1;
-const int PIN_RGB_B = -1;
-const int RGB_ON_LEVEL = -1;  // 經實測後填HIGH或LOW
-
-enum class DeviceState { IDLE, ACTIVE, ERROR_STATE };
-DeviceState state = DeviceState::IDLE;
-
-bool startLastRaw = false;
-bool stopLastRaw = false;
-bool startStablePressed = false;
-bool stopStablePressed = false;
-unsigned long startChangedAt = 0;
-unsigned long stopChangedAt = 0;
-unsigned long lastPollAt = 0;
-unsigned long lastWifiAttemptAt = 0;
-
-struct ProcessedCommand {
-  String id;
-  String result;
-  String message;
-};
-const int PROCESSED_COMMAND_CAPACITY = 8;
-ProcessedCommand processedCommands[PROCESSED_COMMAND_CAPACITY];
-int nextProcessedCommand = 0;
-
-const unsigned long DEBOUNCE_MS = 35;
-const unsigned long COMMAND_POLL_MS = 750;
-const unsigned long WIFI_RETRY_MS = 10000;
-
-const char *stateName() {
-  switch (state) {
-    case DeviceState::IDLE: return "idle";
-    case DeviceState::ACTIVE: return "active";
-    case DeviceState::ERROR_STATE: return "error";
-  }
-  return "unknown";
-}
-
-bool identifierReady(const char *value) {
-  size_t length = strlen(value);
-  if (length == 0 || length > 80 || String(value).startsWith("replace-")) return false;
-  for (size_t index = 0; index < length; index++) {
-    char character = value[index];
-    bool allowed = isAlphaNumeric(character) || character == '.' ||
-                   character == '_' || character == '-';
-    if (!allowed) return false;
-  }
-  return isAlphaNumeric(value[0]);
-}
-
-bool allPinsUnique(const int *pins, size_t count) {
-  for (size_t left = 0; left < count; left++)
-    for (size_t right = left + 1; right < count; right++)
-      if (pins[left] == pins[right]) return false;
-  return true;
-}
-
-bool profileReady() {
-  const int pins[] = {PIN_START, PIN_STOP, PIN_RGB_R, PIN_RGB_G, PIN_RGB_B};
-  bool pinsReady = PIN_START >= 0 && PIN_STOP >= 0 &&
-                   PIN_RGB_R >= 0 && PIN_RGB_G >= 0 && PIN_RGB_B >= 0;
-  bool levelReady = RGB_ON_LEVEL == HIGH || RGB_ON_LEVEL == LOW;
-  return pinsReady && allPinsUnique(pins, 5) && levelReady;
-}
-
-int rgbOffLevel() {
-  return RGB_ON_LEVEL == HIGH ? LOW : HIGH;
-}
-
-void setRgb(bool red, bool green, bool blue) {
-  if (DRY_RUN || !profileReady()) return;
-  digitalWrite(PIN_RGB_R, red ? RGB_ON_LEVEL : rgbOffLevel());
-  digitalWrite(PIN_RGB_G, green ? RGB_ON_LEVEL : rgbOffLevel());
-  digitalWrite(PIN_RGB_B, blue ? RGB_ON_LEVEL : rgbOffLevel());
-}
-
-void applySafeOutput() {
-  if (state == DeviceState::IDLE) setRgb(false, false, true);
-  if (state == DeviceState::ACTIVE) setRgb(false, true, false);
-  if (state == DeviceState::ERROR_STATE) setRgb(true, false, false);
-}
-
-void enterState(DeviceState next, const char *reason) {
-  state = next;
-  applySafeOutput();
-  Serial.printf("state=%s reason=%s\n", stateName(), reason);
-}
-
-bool wifiReady() {
-  return WiFi.status() == WL_CONNECTED;
-}
-
-void requestWifiConnection() {
-  if (wifiReady()) return;
-  unsigned long now = millis();
-  if (now - lastWifiAttemptAt < WIFI_RETRY_MS && lastWifiAttemptAt != 0) return;
-  lastWifiAttemptAt = now;
-  Serial.printf("wifi=connecting ssid=%s\n", WIFI_SSID);
-  WiFi.disconnect();
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-}
-
-int postJson(const String &path, const String &body) {
-  if (!wifiReady()) return -1000;
-  WiFiClient networkClient;
-  HTTPClient http;
-  String url = String(API_BASE_URL) + path;
-  if (!http.begin(networkClient, url)) return -1001;
-  http.setTimeout(1500);
-  http.addHeader("Content-Type", "application/json");
-  int statusCode = http.POST(body);
-  String response = http.getString();
-  Serial.printf("http=POST path=%s status=%d response=%s\n",
-                path.c_str(), statusCode, response.c_str());
-  http.end();
-  return statusCode;
-}
-
-bool postEvent(const char *eventType, int value, const char *unit,
-               bool valid, const char *reason) {
-  JsonDocument document;
-  document["device_id"] = DEVICE_ID;
-  document["event_type"] = eventType;
-  document["value"] = value;
-  document["unit"] = unit;
-  document["state"] = stateName();
-  document["valid"] = valid;
-  document["reason"] = reason;
-  document["uptime_ms"] = millis();
-  String body;
-  serializeJson(document, body);
-  int code = postJson("/api/events", body);
-  return code == 201;
-}
-
-bool postCommandResult(const String &commandId, const char *result,
-                       const char *message) {
-  JsonDocument document;
-  document["result"] = result;
-  document["message"] = message;
-  String body;
-  serializeJson(document, body);
-  String path = "/api/commands/" + commandId + "/result";
-  int code = postJson(path, body);
-  return code == 200;
-}
-
-bool pressedEvent(int pin, bool &lastRawPressed, bool &stablePressed,
-                  unsigned long &changedAt) {
-  bool rawPressed = digitalRead(pin) == LOW;  // INPUT_PULLUP：按下時為LOW
-  unsigned long now = millis();
-  if (rawPressed != lastRawPressed) {
-    lastRawPressed = rawPressed;
-    changedAt = now;
-  }
-  if (now - changedAt >= DEBOUNCE_MS && rawPressed != stablePressed) {
-    stablePressed = rawPressed;
-    return stablePressed;
-  }
-  return false;
-}
-
-int findProcessedCommand(const String &commandId) {
-  for (int index = 0; index < PROCESSED_COMMAND_CAPACITY; index++) {
-    if (processedCommands[index].id == commandId) return index;
-  }
-  return -1;
-}
-
-void rememberTerminalResult(const String &commandId, const char *result,
-                            const char *message) {
-  processedCommands[nextProcessedCommand] = {commandId, result, message};
-  nextProcessedCommand = (nextProcessedCommand + 1) % PROCESSED_COMMAND_CAPACITY;
-}
-
-void finishCommand(const String &commandId, const char *result,
-                   const char *message) {
-  rememberTerminalResult(commandId, result, message);
-  postCommandResult(commandId, result, message);
-}
-
-void executeCommand(const String &commandId, const String &command) {
-  int previousIndex = findProcessedCommand(commandId);
-  if (previousIndex >= 0) {
-    postCommandResult(commandId,
-                      processedCommands[previousIndex].result.c_str(),
-                      processedCommands[previousIndex].message.c_str());
-    return;
-  }
-  postCommandResult(commandId, "accepted", "received by device");
-
-  if (command == "stop") {
-    enterState(DeviceState::ERROR_STATE, "remote_stop");
-    postEvent("remote_stop", 1, "command", true, "command_executed");
-    finishCommand(commandId, "done", "safe output applied");
-    return;
-  }
-
-  if (command == "start") {
-    if (state == DeviceState::ERROR_STATE) {
-      finishCommand(commandId, "rejected", "reset required after error");
-      return;
-    }
-    enterState(DeviceState::ACTIVE, "remote_start");
-    postEvent("remote_start", 1, "command", true, "command_executed");
-    finishCommand(commandId, "done", "active output applied");
-    return;
-  }
-
-  if (command == "reset") {
-    if (!DRY_RUN && stopStablePressed) {
-      finishCommand(commandId, "rejected", "release physical stop before reset");
-      return;
-    }
-    enterState(DeviceState::IDLE, "remote_reset");
-    postEvent("remote_reset", 1, "command", true, "command_executed");
-    finishCommand(commandId, "done", "idle output applied");
-    return;
-  }
-
-  finishCommand(commandId, "rejected", "unknown command");
-}
-
-void pollCommand() {
-  if (!wifiReady()) return;
-  unsigned long now = millis();
-  if (now - lastPollAt < COMMAND_POLL_MS) return;
-  lastPollAt = now;
-
-  WiFiClient networkClient;
-  HTTPClient http;
-  String path = "/api/devices/" + String(DEVICE_ID) + "/commands/next";
-  String url = String(API_BASE_URL) + path;
-  if (!http.begin(networkClient, url)) return;
-  http.setTimeout(1200);
-  int statusCode = http.GET();
-
-  if (statusCode == 204) {
-    http.end();
-    return;
-  }
-  if (statusCode != 200) {
-    Serial.printf("http=GET path=%s status=%d\n", path.c_str(), statusCode);
-    http.end();
-    return;
-  }
-
-  String response = http.getString();
-  http.end();
-  JsonDocument document;
-  DeserializationError error = deserializeJson(document, response);
-  if (error) {
-    Serial.printf("command=parse_error detail=%s\n", error.c_str());
-    return;
-  }
-  String commandId = document["command_id"] | "";
-  String command = document["command"] | "";
-  if (commandId.length() == 0 || command.length() == 0) {
-    Serial.println("command=invalid reason=missing_field");
-    return;
-  }
-  executeCommand(commandId, command);
-}
-
-void readPhysicalInputs() {
-  if (DRY_RUN || !profileReady()) return;
-  bool stopPressedEvent =
-    pressedEvent(PIN_STOP, stopLastRaw, stopStablePressed, stopChangedAt);
-  bool startPressedEvent =
-    pressedEvent(PIN_START, startLastRaw, startStablePressed, startChangedAt);
-  // STOP是持續條件；按住時即使收到remote reset，也必須維持ERROR。
-  if (stopStablePressed) {
-    if (stopPressedEvent || state != DeviceState::ERROR_STATE) {
-      enterState(DeviceState::ERROR_STATE, "physical_stop");
-      postEvent("stop_pressed", 1, "pressed", true, "physical_input");
-    }
-    return;
-  }
-  if (startPressedEvent) {
-    if (state == DeviceState::ERROR_STATE) {
-      postEvent("start_rejected", 1, "pressed", false, "reset_required");
-    } else {
-      enterState(DeviceState::ACTIVE, "physical_start");
-      postEvent("start_pressed", 1, "pressed", true, "physical_input");
-    }
-  }
-}
-
-void readSerialTestCommand() {
-  if (!Serial.available()) return;
-  String command = Serial.readStringUntil('\n');
-  command.trim();
-  if (command == "test-event") {
-    postEvent("serial_test", 1, "test", true, "manual_host_path_test");
-  } else if (command == "status") {
-    Serial.printf("device=%s state=%s wifi=%s ip=%s mode=%s\n",
-                  DEVICE_ID, stateName(), wifiReady() ? "connected" : "offline",
-                  WiFi.localIP().toString().c_str(), DRY_RUN ? "dry_run" : "hardware");
-  } else {
-    Serial.printf("serial=unknown value=%s\n", command.c_str());
-  }
-}
-
-void setup() {
-  Serial.begin(115200);
-  Serial.setTimeout(50);
-  delay(500);
-
-  if (!identifierReady(DEVICE_ID)) {
-    Serial.println("fatal=device_id_missing_or_invalid");
-    return;
-  }
-  if (!DRY_RUN && !profileReady()) {
-    Serial.println("fatal=hardware_profile_incomplete");
-    return;
-  }
-  if (!DRY_RUN) {
-    pinMode(PIN_START, INPUT_PULLUP);
-    pinMode(PIN_STOP, INPUT_PULLUP);
-    pinMode(PIN_RGB_R, OUTPUT);
-    pinMode(PIN_RGB_G, OUTPUT);
-    pinMode(PIN_RGB_B, OUTPUT);
-    applySafeOutput();
-  }
-
-  WiFi.mode(WIFI_STA);
-  requestWifiConnection();
-  Serial.printf("week=11 device=%s mode=%s state=%s\n",
-                DEVICE_ID, DRY_RUN ? "dry_run" : "hardware", stateName());
-}
-
-void loop() {
-  readPhysicalInputs();       // 每次loop先讀本機輸入；Backend成功不是STOP前置條件
-  requestWifiConnection();
-  pollCommand();
-  readSerialTestCommand();
-
-  static wl_status_t previousStatus = WL_NO_SHIELD;
-  wl_status_t currentStatus = WiFi.status();
-  if (currentStatus != previousStatus) {
-    previousStatus = currentStatus;
-    Serial.printf("wifi_status=%d ip=%s\n", currentStatus,
-                  WiFi.localIP().toString().c_str());
-  }
-  delay(5);
-}
-```
 
 ### 7.3 編譯、Upload與第一個網路事件
 
@@ -731,10 +414,15 @@ void loop() {
 
 1. 手機與筆電連到同一個可信任Wi-Fi；先暫停手機行動數據，避免手機繞到其他網路。
 2. 手機瀏覽器輸入`http://<筆電LAN IPv4>:8000`。
+   例如 IPv4 是 `192.168.1.23`，輸入 `http://192.168.1.23:8000`，不保留尖括號。
+   將頁面 **Device ID** 改成 `.ino` 中的 `DEVICE_ID`，按 **套用並重新整理**；
+   不再使用上一段的 `host-test`。
 3. 頁面頂端應由`connecting`變成`connected`。
 4. ESP32 Serial Monitor再輸入`test-event`。
 5. 不重新整理手機頁面，確認Events立即新增資料。
-6. 關閉Backend，觀察頁面變成disconnected或offline；重新啟動後等待自動重連。
+6. 回到後端視窗按 **Ctrl+C**，觀察頁面變成 disconnected 或 offline。
+   在同一視窗重新執行第五節的 Uvicorn 命令，等待頁面恢復 connected。
+   若已關閉整個視窗，須重新進入後端資料夾並設定 operator key；環境變數不會跟著新視窗出現。
 
 這個步驟驗證的是`ESP32 → HTTP → Backend → WebSocket → 手機`。FastAPI的WebSocket
 介面原理可參考[FastAPI官方WebSocket文件](https://fastapi.tiangolo.com/advanced/websockets/)。
@@ -747,7 +435,8 @@ void loop() {
 2. 依本週接線表及已核准profile重建START、STOP、KY-016 RGB與共地；不接SG90、蜂鳴器、
    電池盒或其他負載。
 3. 從ESP32沿線檢查到模組，再從模組反向檢查回ESP32。確認沒有5V進入GPIO。
-4. 把程式的四組GPIO、`RGB_ON_LEVEL`改成自己的實測profile，再把
+4. 把 `PIN_START`、`PIN_STOP`、`PIN_RGB_R`、`PIN_RGB_G`、`PIN_RGB_B` 與
+   `RGB_ON_LEVEL` 改成自己的實測 profile，再把
    `DRY_RUN=false`。
 5. Verify成功後才Upload。接回USB時手指不要壓住任何按鈕。
 6. 開機正常為IDLE，RGB顯示profile定義的藍色；若顏色相反，立即拔USB並回查
@@ -1138,3 +827,371 @@ Backend的`recorded_at`由伺服器產生，ESP32提供`uptime_ms`。連續按ST
 
 官方文件用來確認API行為；本課的欄位名稱、命令狀態與安全限制則以本教材和課程
 Backend為準。
+
+<a id="complete-http-sketch"></a>
+
+## 附錄：完整 HTTP 程式
+
+這裡供完成操作後閱讀；第一次請依第七節開啟範例檔，不需手動複製這段。
+
+```cpp
+#include <Arduino.h>
+#include <ArduinoJson.h>
+#include <HTTPClient.h>
+#include <WiFi.h>
+#include "secrets.h"
+
+const char DEVICE_ID[] = "replace-with-team-device-id";
+
+// 只可抄入本人Week 7已驗證的profile。
+const bool DRY_RUN = true;
+const int PIN_START = -1;
+const int PIN_STOP = -1;
+const int PIN_RGB_R = -1;
+const int PIN_RGB_G = -1;
+const int PIN_RGB_B = -1;
+const int RGB_ON_LEVEL = -1;  // 經實測後填HIGH或LOW
+
+enum class DeviceState { IDLE, ACTIVE, ERROR_STATE };
+DeviceState state = DeviceState::IDLE;
+
+bool startLastRaw = false;
+bool stopLastRaw = false;
+bool startStablePressed = false;
+bool stopStablePressed = false;
+unsigned long startChangedAt = 0;
+unsigned long stopChangedAt = 0;
+unsigned long lastPollAt = 0;
+unsigned long lastWifiAttemptAt = 0;
+
+struct ProcessedCommand {
+  String id;
+  String result;
+  String message;
+};
+const int PROCESSED_COMMAND_CAPACITY = 8;
+ProcessedCommand processedCommands[PROCESSED_COMMAND_CAPACITY];
+int nextProcessedCommand = 0;
+
+const unsigned long DEBOUNCE_MS = 35;
+const unsigned long COMMAND_POLL_MS = 750;
+const unsigned long WIFI_RETRY_MS = 10000;
+
+const char *stateName() {
+  switch (state) {
+    case DeviceState::IDLE: return "idle";
+    case DeviceState::ACTIVE: return "active";
+    case DeviceState::ERROR_STATE: return "error";
+  }
+  return "unknown";
+}
+
+bool identifierReady(const char *value) {
+  size_t length = strlen(value);
+  if (length == 0 || length > 80 || String(value).startsWith("replace-")) return false;
+  for (size_t index = 0; index < length; index++) {
+    char character = value[index];
+    bool allowed = isAlphaNumeric(character) || character == '.' ||
+                   character == '_' || character == '-';
+    if (!allowed) return false;
+  }
+  return isAlphaNumeric(value[0]);
+}
+
+bool allPinsUnique(const int *pins, size_t count) {
+  for (size_t left = 0; left < count; left++)
+    for (size_t right = left + 1; right < count; right++)
+      if (pins[left] == pins[right]) return false;
+  return true;
+}
+
+bool profileReady() {
+  const int pins[] = {PIN_START, PIN_STOP, PIN_RGB_R, PIN_RGB_G, PIN_RGB_B};
+  bool pinsReady = PIN_START >= 0 && PIN_STOP >= 0 &&
+                   PIN_RGB_R >= 0 && PIN_RGB_G >= 0 && PIN_RGB_B >= 0;
+  bool levelReady = RGB_ON_LEVEL == HIGH || RGB_ON_LEVEL == LOW;
+  return pinsReady && allPinsUnique(pins, 5) && levelReady;
+}
+
+int rgbOffLevel() {
+  return RGB_ON_LEVEL == HIGH ? LOW : HIGH;
+}
+
+void setRgb(bool red, bool green, bool blue) {
+  if (DRY_RUN || !profileReady()) return;
+  digitalWrite(PIN_RGB_R, red ? RGB_ON_LEVEL : rgbOffLevel());
+  digitalWrite(PIN_RGB_G, green ? RGB_ON_LEVEL : rgbOffLevel());
+  digitalWrite(PIN_RGB_B, blue ? RGB_ON_LEVEL : rgbOffLevel());
+}
+
+void applySafeOutput() {
+  if (state == DeviceState::IDLE) setRgb(false, false, true);
+  if (state == DeviceState::ACTIVE) setRgb(false, true, false);
+  if (state == DeviceState::ERROR_STATE) setRgb(true, false, false);
+}
+
+void enterState(DeviceState next, const char *reason) {
+  state = next;
+  applySafeOutput();
+  Serial.printf("state=%s reason=%s\n", stateName(), reason);
+}
+
+bool wifiReady() {
+  return WiFi.status() == WL_CONNECTED;
+}
+
+void requestWifiConnection() {
+  if (wifiReady()) return;
+  unsigned long now = millis();
+  if (now - lastWifiAttemptAt < WIFI_RETRY_MS && lastWifiAttemptAt != 0) return;
+  lastWifiAttemptAt = now;
+  Serial.printf("wifi=connecting ssid=%s\n", WIFI_SSID);
+  WiFi.disconnect();
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+}
+
+int postJson(const String &path, const String &body) {
+  if (!wifiReady()) return -1000;
+  WiFiClient networkClient;
+  HTTPClient http;
+  String url = String(API_BASE_URL) + path;
+  if (!http.begin(networkClient, url)) return -1001;
+  http.setTimeout(1500);
+  http.addHeader("Content-Type", "application/json");
+  int statusCode = http.POST(body);
+  String response = http.getString();
+  Serial.printf("http=POST path=%s status=%d response=%s\n",
+                path.c_str(), statusCode, response.c_str());
+  http.end();
+  return statusCode;
+}
+
+bool postEvent(const char *eventType, int value, const char *unit,
+               bool valid, const char *reason) {
+  JsonDocument document;
+  document["device_id"] = DEVICE_ID;
+  document["event_type"] = eventType;
+  document["value"] = value;
+  document["unit"] = unit;
+  document["state"] = stateName();
+  document["valid"] = valid;
+  document["reason"] = reason;
+  document["uptime_ms"] = millis();
+  String body;
+  serializeJson(document, body);
+  int code = postJson("/api/events", body);
+  return code == 201;
+}
+
+bool postCommandResult(const String &commandId, const char *result,
+                       const char *message) {
+  JsonDocument document;
+  document["result"] = result;
+  document["message"] = message;
+  String body;
+  serializeJson(document, body);
+  String path = "/api/commands/" + commandId + "/result";
+  int code = postJson(path, body);
+  return code == 200;
+}
+
+bool pressedEvent(int pin, bool &lastRawPressed, bool &stablePressed,
+                  unsigned long &changedAt) {
+  bool rawPressed = digitalRead(pin) == LOW;  // INPUT_PULLUP：按下時為LOW
+  unsigned long now = millis();
+  if (rawPressed != lastRawPressed) {
+    lastRawPressed = rawPressed;
+    changedAt = now;
+  }
+  if (now - changedAt >= DEBOUNCE_MS && rawPressed != stablePressed) {
+    stablePressed = rawPressed;
+    return stablePressed;
+  }
+  return false;
+}
+
+int findProcessedCommand(const String &commandId) {
+  for (int index = 0; index < PROCESSED_COMMAND_CAPACITY; index++) {
+    if (processedCommands[index].id == commandId) return index;
+  }
+  return -1;
+}
+
+void rememberTerminalResult(const String &commandId, const char *result,
+                            const char *message) {
+  processedCommands[nextProcessedCommand] = {commandId, result, message};
+  nextProcessedCommand = (nextProcessedCommand + 1) % PROCESSED_COMMAND_CAPACITY;
+}
+
+void finishCommand(const String &commandId, const char *result,
+                   const char *message) {
+  rememberTerminalResult(commandId, result, message);
+  postCommandResult(commandId, result, message);
+}
+
+void executeCommand(const String &commandId, const String &command) {
+  int previousIndex = findProcessedCommand(commandId);
+  if (previousIndex >= 0) {
+    postCommandResult(commandId,
+                      processedCommands[previousIndex].result.c_str(),
+                      processedCommands[previousIndex].message.c_str());
+    return;
+  }
+  postCommandResult(commandId, "accepted", "received by device");
+
+  if (command == "stop") {
+    enterState(DeviceState::ERROR_STATE, "remote_stop");
+    postEvent("remote_stop", 1, "command", true, "command_executed");
+    finishCommand(commandId, "done", "safe output applied");
+    return;
+  }
+
+  if (command == "start") {
+    if (state == DeviceState::ERROR_STATE) {
+      finishCommand(commandId, "rejected", "reset required after error");
+      return;
+    }
+    enterState(DeviceState::ACTIVE, "remote_start");
+    postEvent("remote_start", 1, "command", true, "command_executed");
+    finishCommand(commandId, "done", "active output applied");
+    return;
+  }
+
+  if (command == "reset") {
+    if (!DRY_RUN && stopStablePressed) {
+      finishCommand(commandId, "rejected", "release physical stop before reset");
+      return;
+    }
+    enterState(DeviceState::IDLE, "remote_reset");
+    postEvent("remote_reset", 1, "command", true, "command_executed");
+    finishCommand(commandId, "done", "idle output applied");
+    return;
+  }
+
+  finishCommand(commandId, "rejected", "unknown command");
+}
+
+void pollCommand() {
+  if (!wifiReady()) return;
+  unsigned long now = millis();
+  if (now - lastPollAt < COMMAND_POLL_MS) return;
+  lastPollAt = now;
+
+  WiFiClient networkClient;
+  HTTPClient http;
+  String path = "/api/devices/" + String(DEVICE_ID) + "/commands/next";
+  String url = String(API_BASE_URL) + path;
+  if (!http.begin(networkClient, url)) return;
+  http.setTimeout(1200);
+  int statusCode = http.GET();
+
+  if (statusCode == 204) {
+    http.end();
+    return;
+  }
+  if (statusCode != 200) {
+    Serial.printf("http=GET path=%s status=%d\n", path.c_str(), statusCode);
+    http.end();
+    return;
+  }
+
+  String response = http.getString();
+  http.end();
+  JsonDocument document;
+  DeserializationError error = deserializeJson(document, response);
+  if (error) {
+    Serial.printf("command=parse_error detail=%s\n", error.c_str());
+    return;
+  }
+  String commandId = document["command_id"] | "";
+  String command = document["command"] | "";
+  if (commandId.length() == 0 || command.length() == 0) {
+    Serial.println("command=invalid reason=missing_field");
+    return;
+  }
+  executeCommand(commandId, command);
+}
+
+void readPhysicalInputs() {
+  if (DRY_RUN || !profileReady()) return;
+  bool stopPressedEvent =
+    pressedEvent(PIN_STOP, stopLastRaw, stopStablePressed, stopChangedAt);
+  bool startPressedEvent =
+    pressedEvent(PIN_START, startLastRaw, startStablePressed, startChangedAt);
+  // STOP是持續條件；按住時即使收到remote reset，也必須維持ERROR。
+  if (stopStablePressed) {
+    if (stopPressedEvent || state != DeviceState::ERROR_STATE) {
+      enterState(DeviceState::ERROR_STATE, "physical_stop");
+      postEvent("stop_pressed", 1, "pressed", true, "physical_input");
+    }
+    return;
+  }
+  if (startPressedEvent) {
+    if (state == DeviceState::ERROR_STATE) {
+      postEvent("start_rejected", 1, "pressed", false, "reset_required");
+    } else {
+      enterState(DeviceState::ACTIVE, "physical_start");
+      postEvent("start_pressed", 1, "pressed", true, "physical_input");
+    }
+  }
+}
+
+void readSerialTestCommand() {
+  if (!Serial.available()) return;
+  String command = Serial.readStringUntil('\n');
+  command.trim();
+  if (command == "test-event") {
+    postEvent("serial_test", 1, "test", true, "manual_host_path_test");
+  } else if (command == "status") {
+    Serial.printf("device=%s state=%s wifi=%s ip=%s mode=%s\n",
+                  DEVICE_ID, stateName(), wifiReady() ? "connected" : "offline",
+                  WiFi.localIP().toString().c_str(), DRY_RUN ? "dry_run" : "hardware");
+  } else {
+    Serial.printf("serial=unknown value=%s\n", command.c_str());
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+  Serial.setTimeout(50);
+  delay(500);
+
+  if (!identifierReady(DEVICE_ID)) {
+    Serial.println("fatal=device_id_missing_or_invalid");
+    return;
+  }
+  if (!DRY_RUN && !profileReady()) {
+    Serial.println("fatal=hardware_profile_incomplete");
+    return;
+  }
+  if (!DRY_RUN) {
+    pinMode(PIN_START, INPUT_PULLUP);
+    pinMode(PIN_STOP, INPUT_PULLUP);
+    pinMode(PIN_RGB_R, OUTPUT);
+    pinMode(PIN_RGB_G, OUTPUT);
+    pinMode(PIN_RGB_B, OUTPUT);
+    applySafeOutput();
+  }
+
+  WiFi.mode(WIFI_STA);
+  requestWifiConnection();
+  Serial.printf("week=11 device=%s mode=%s state=%s\n",
+                DEVICE_ID, DRY_RUN ? "dry_run" : "hardware", stateName());
+}
+
+void loop() {
+  readPhysicalInputs();       // 每次loop先讀本機輸入；Backend成功不是STOP前置條件
+  requestWifiConnection();
+  pollCommand();
+  readSerialTestCommand();
+
+  static wl_status_t previousStatus = WL_NO_SHIELD;
+  wl_status_t currentStatus = WiFi.status();
+  if (currentStatus != previousStatus) {
+    previousStatus = currentStatus;
+    Serial.printf("wifi_status=%d ip=%s\n", currentStatus,
+                  WiFi.localIP().toString().c_str());
+  }
+  delay(5);
+}
+```

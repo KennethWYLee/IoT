@@ -1,0 +1,99 @@
+{
+  "format": 1,
+  "browser": "153.0.4234.46",
+  "documents": [
+    {
+      "source": "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md",
+      "pdf": "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.pdf",
+      "pdf_sha256": "0beb5ed2595ce121713af8857bdb414095609ca781966e60ad50fed9bc399260",
+      "inputs": {
+        "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md": "1b6b32cd0e8776f5939b68a684aa158454eddea44d934f9765109aab5dddfb20",
+        "IOT_Introduction/scripts/export_network_pdfs.cjs": "4ba2fb24bdab112504dd8110555f5c6a88de6d8d0ad4b3afeb3e4eb5b5c77376",
+        "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
+        "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
+        "IOT_Introduction/docs/images/hardware/actual/Breadboard400_1.jpg": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a",
+        "IOT_Introduction/docs/images/hardware/actual/JumperWire_1.jpg": "29c87f712d44ce735c0a5738a3d8973105076c76ae7c6133ba25cea3bf1b4a8e",
+        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_MM_1.png": "f62e97e75489fa96aa0bd7c14f37a23bc0df34919e8da17a8b5a3a80bb46af06",
+        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_MF_1.png": "9c0a84c513935fc0a2d0d6496f5df83a0b60ff7ba70e7717e882245b975d8f09",
+        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_FF_1.png": "9cb3bd156342bc801af4d25560a4563019da1a6c061913c8e745f3f0fd271c52",
+        "IOT_Introduction/docs/images/hardware/actual/Pushbutton_1.jpg": "e03faca2cf6af8a368fc3e8a3ef0319a6f569955af893b86bf954fa581d42c18",
+        "IOT_Introduction/docs/images/hardware/actual/Pushbutton_2.jpg": "e1378d7b3b7c2c2c6c60da780f04af16c34381109717bdd908e77e233cb9d2db",
+        "IOT_Introduction/docs/images/hardware/actual/RGB_HW479_1.jpg": "f7a91295c78732011c94eb567a67dcb4354f82d3517b6632e2314e4c7748bc17",
+        "IOT_Introduction/docs/images/hardware/actual/RGB_HW479_2.jpg": "c0e302eebea955dff427d8410d7cba78c4c47b5ce8065831bed28283a9577a30"
+      },
+      "images": 11
+    },
+    {
+      "source": "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md",
+      "pdf": "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.pdf",
+      "pdf_sha256": "79db9d12c6d8edc43785149daadf232db0e1f42eb570aea3efb24494afdee328",
+      "inputs": {
+        "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md": "57f6f2f700755f38cb372654bc24a30abb301545af8fbccd38b8a57d96644de8",
+        "IOT_Introduction/scripts/export_network_pdfs.cjs": "4ba2fb24bdab112504dd8110555f5c6a88de6d8d0ad4b3afeb3e4eb5b5c77376",
+        "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
+        "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
+        "IOT_Introduction/docs/images/hardware/actual/Breadboard400_1.jpg": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a",
+        "IOT_Introduction/docs/images/hardware/actual/JumperWire_1.jpg": "29c87f712d44ce735c0a5738a3d8973105076c76ae7c6133ba25cea3bf1b4a8e",
+        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_MM_1.png": "f62e97e75489fa96aa0bd7c14f37a23bc0df34919e8da17a8b5a3a80bb46af06",
+        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_MF_1.png": "9c0a84c513935fc0a2d0d6496f5df83a0b60ff7ba70e7717e882245b975d8f09",
+        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_FF_1.png": "9cb3bd156342bc801af4d25560a4563019da1a6c061913c8e745f3f0fd271c52",
+        "IOT_Introduction/docs/images/hardware/actual/Pushbutton_1.jpg": "e03faca2cf6af8a368fc3e8a3ef0319a6f569955af893b86bf954fa581d42c18",
+        "IOT_Introduction/docs/images/hardware/actual/Pushbutton_2.jpg": "e1378d7b3b7c2c2c6c60da780f04af16c34381109717bdd908e77e233cb9d2db",
+        "IOT_Introduction/docs/images/hardware/actual/KY018_1.jpg": "2fd4e014413f33071761700cdc45382a48f9f83dfed757769d917d5f18818aa1",
+        "IOT_Introduction/docs/images/hardware/actual/KY018_2.jpg": "df1e6a94c914ad9d70e95a111fe77c00c9fc05426ba938f3ae3d66d34f483ef5",
+        "IOT_Introduction/docs/images/hardware/actual/KY018_3.jpg": "6e6a92d1eed6d64c0f2ae016f67a9c49eb8d97e8fdae96fe060e8422ec38a784",
+        "IOT_Introduction/docs/images/hardware/actual/RGB_HW479_1.jpg": "f7a91295c78732011c94eb567a67dcb4354f82d3517b6632e2314e4c7748bc17",
+        "IOT_Introduction/docs/images/hardware/actual/RGB_HW479_2.jpg": "c0e302eebea955dff427d8410d7cba78c4c47b5ce8065831bed28283a9577a30"
+      },
+      "images": 14
+    },
+    {
+      "source": "IOT_Introduction/Week_14_Mobile_PWA/week14_main.md",
+      "pdf": "IOT_Introduction/Week_14_Mobile_PWA/week14_main.pdf",
+      "pdf_sha256": "0b46e8e1571b459d4bd7379f9d0532d4295e4d1a7b54a9dc3d2b6789b57e2117",
+      "inputs": {
+        "IOT_Introduction/Week_14_Mobile_PWA/week14_main.md": "db7c206b8ded01a837afb182367fc411389ef50514469c7f12cf2f383eb8f17a",
+        "IOT_Introduction/scripts/export_network_pdfs.cjs": "4ba2fb24bdab112504dd8110555f5c6a88de6d8d0ad4b3afeb3e4eb5b5c77376",
+        "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
+        "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
+        "IOT_Introduction/docs/images/hardware/actual/Breadboard400_1.jpg": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a",
+        "IOT_Introduction/docs/images/hardware/actual/JumperWire_1.jpg": "29c87f712d44ce735c0a5738a3d8973105076c76ae7c6133ba25cea3bf1b4a8e",
+        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_MM_1.png": "f62e97e75489fa96aa0bd7c14f37a23bc0df34919e8da17a8b5a3a80bb46af06",
+        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_MF_1.png": "9c0a84c513935fc0a2d0d6496f5df83a0b60ff7ba70e7717e882245b975d8f09",
+        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_FF_1.png": "9cb3bd156342bc801af4d25560a4563019da1a6c061913c8e745f3f0fd271c52",
+        "IOT_Introduction/docs/images/hardware/actual/Pushbutton_1.jpg": "e03faca2cf6af8a368fc3e8a3ef0319a6f569955af893b86bf954fa581d42c18",
+        "IOT_Introduction/docs/images/hardware/actual/Pushbutton_2.jpg": "e1378d7b3b7c2c2c6c60da780f04af16c34381109717bdd908e77e233cb9d2db",
+        "IOT_Introduction/docs/images/hardware/actual/KY018_1.jpg": "2fd4e014413f33071761700cdc45382a48f9f83dfed757769d917d5f18818aa1",
+        "IOT_Introduction/docs/images/hardware/actual/KY018_2.jpg": "df1e6a94c914ad9d70e95a111fe77c00c9fc05426ba938f3ae3d66d34f483ef5",
+        "IOT_Introduction/docs/images/hardware/actual/KY018_3.jpg": "6e6a92d1eed6d64c0f2ae016f67a9c49eb8d97e8fdae96fe060e8422ec38a784",
+        "IOT_Introduction/docs/images/hardware/actual/RGB_HW479_1.jpg": "f7a91295c78732011c94eb567a67dcb4354f82d3517b6632e2314e4c7748bc17",
+        "IOT_Introduction/docs/images/hardware/actual/RGB_HW479_2.jpg": "c0e302eebea955dff427d8410d7cba78c4c47b5ce8065831bed28283a9577a30"
+      },
+      "images": 14
+    },
+    {
+      "source": "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.md",
+      "pdf": "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.pdf",
+      "pdf_sha256": "a6ee50187419cf806ac3c9a6ba78f55ca3b13003d6a198dbbdc697cdb834ed42",
+      "inputs": {
+        "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.md": "0bfe220f79afbf675ad99fe4d1f513178de61cce61dddb3de3212fe1b15b316f",
+        "IOT_Introduction/scripts/export_network_pdfs.cjs": "4ba2fb24bdab112504dd8110555f5c6a88de6d8d0ad4b3afeb3e4eb5b5c77376",
+        "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
+        "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
+        "IOT_Introduction/docs/images/hardware/actual/Breadboard400_1.jpg": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a",
+        "IOT_Introduction/docs/images/hardware/actual/JumperWire_1.jpg": "29c87f712d44ce735c0a5738a3d8973105076c76ae7c6133ba25cea3bf1b4a8e",
+        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_MM_1.png": "f62e97e75489fa96aa0bd7c14f37a23bc0df34919e8da17a8b5a3a80bb46af06",
+        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_MF_1.png": "9c0a84c513935fc0a2d0d6496f5df83a0b60ff7ba70e7717e882245b975d8f09",
+        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_FF_1.png": "9cb3bd156342bc801af4d25560a4563019da1a6c061913c8e745f3f0fd271c52",
+        "IOT_Introduction/docs/images/hardware/actual/Pushbutton_1.jpg": "e03faca2cf6af8a368fc3e8a3ef0319a6f569955af893b86bf954fa581d42c18",
+        "IOT_Introduction/docs/images/hardware/actual/Pushbutton_2.jpg": "e1378d7b3b7c2c2c6c60da780f04af16c34381109717bdd908e77e233cb9d2db",
+        "IOT_Introduction/docs/images/hardware/actual/KY018_1.jpg": "2fd4e014413f33071761700cdc45382a48f9f83dfed757769d917d5f18818aa1",
+        "IOT_Introduction/docs/images/hardware/actual/KY018_2.jpg": "df1e6a94c914ad9d70e95a111fe77c00c9fc05426ba938f3ae3d66d34f483ef5",
+        "IOT_Introduction/docs/images/hardware/actual/KY018_3.jpg": "6e6a92d1eed6d64c0f2ae016f67a9c49eb8d97e8fdae96fe060e8422ec38a784",
+        "IOT_Introduction/docs/images/hardware/actual/RGB_HW479_1.jpg": "f7a91295c78732011c94eb567a67dcb4354f82d3517b6632e2314e4c7748bc17",
+        "IOT_Introduction/docs/images/hardware/actual/RGB_HW479_2.jpg": "c0e302eebea955dff427d8410d7cba78c4c47b5ce8065831bed28283a9577a30"
+      },
+      "images": 14
+    }
+  ]
+}

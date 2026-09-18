@@ -6,6 +6,19 @@
 學生會在真實手機上驗證版面與操作狀態，區分viewer與operator權限，完成一筆可追蹤的
 實體命令，並分別判定Responsive Web與PWA條件是否真的成立。
 
+## 本週先做一次看得見的修改
+
+先啟動上週已成功的系統，在手機看到自己的裝置，再改一行網頁標題並確認手機也更新。
+這能先確認「改哪個檔案、怎樣看到結果」，之後才讀 HTML、CSS、JavaScript 的原理。
+
+| 順序 | 動作 | 應看到的結果 |
+|---|---|---|
+| 1 | 第三節：重新啟動同一套系統 | 手機 connected，Device ID 對應自己的資料 |
+| 2 | 第三節最後：修改一行標題 | 手機重新整理後顯示新標題 |
+| 3 | 第四至七節：理解並測試畫面 | 能區分新資料、歷史資料、等待、失敗與離線 |
+| 4 | 第八節：測試權限 | 無 key 不能送命令，正確 key 才能建立命令 |
+| 5 | 第九節：檢查 PWA 條件 | 分清手機網頁與實際可安裝 PWA，不以檔案存在代替測試 |
+
 ## 一、Unit Overview
 
 ### 教學目標
@@ -131,25 +144,50 @@ Week 12 MQTT或Week 11 HTTP路徑。只有下列完整路徑先正常，才開�
 
 ## 三、啟動基準系統
 
-PowerShell進入`IOT_Introduction/examples/course_backend`：
+先決定本次只使用哪一條路徑：板上是 Week 11 HTTP 程式，或 Week 12 MQTT 程式。
+不要同時換韌體與修改前台；先重現上次成功結果。
+
+在檔案總管開 `IOT_Introduction/examples/course_backend`，從此處開 PowerShell 作為後端視窗。
+先執行 `Test-Path .\app.py` 與 `Test-Path .\.venv\Scripts\python.exe`，兩個都應為 `True`。
+若舊後端仍在執行，先在它的視窗按 **Ctrl+C**，不要再啟動第二個占用 8000 的服務。
+替換臨時 key 後執行：
 
 ```powershell
-.\.venv\Scripts\Activate.ps1
 $env:IOT_OPERATOR_KEY="replace-with-your-temporary-classroom-key"
 $env:IOT_COMMAND_TIMEOUT_SECONDS="20"
-python -m uvicorn app:app --host 0.0.0.0 --port 8000
+.\.venv\Scripts\python.exe -m uvicorn app:app --host 0.0.0.0 --port 8000
 ```
 
-若使用MQTT，再啟動broker與`mqtt_bridge.py`。ESP32先保持IDLE且RGB為安全顏色。筆電開
-`http://127.0.0.1:8000`，手機開`http://<筆電LAN-IP>:8000`。
+若使用 MQTT，照 [Week 12 第四、五節](../Week_12_MQTT_Database_and_Logs/week12_main.md#mqtt-startup)
+啟動 A 的 broker 與 E 的 bridge；D 就是這裡已啟動的後端，不要重開。
+已有密碼檔時跳過建立密碼檔，使用原本設定。新 E 視窗仍須重新填 MQTT 環境變數。
+若使用 HTTP，不啟動 broker 或 bridge。
+
+ESP32 先保持 IDLE 且 RGB 為安全顏色。筆電開 `http://127.0.0.1:8000`，
+手機開 `http://<筆電LAN-IP>:8000`，以實際 IP 取代尖括號內容。
+把頁面 **Device ID** 改成板上 `.ino` 的裝置代號，按 **套用並重新整理**。
+先留空 Operator key，看見資料後才做控制；歷史資料不代表裝置現在連線。
 
 Backend命令deadline預設20秒。**timeout（逾時）**表示裝置在deadline前沒有完成，
 不是「命令稍後一定會成功」。發生timeout後，不自動重送可能造成危險或重複的動作。
 
+### 先改一行標題，確認你改的是正在使用的頁面
+
+1. 保持後端執行。在檔案總管開 `static` 資料夾，把 `index.html` 複製為
+   `index.before-week14.html` 作本機備份；不要改到 `app.py`。
+2. 用文字編輯器開 `index.html`，不是雙擊用瀏覽器開。按 **Ctrl+F** 搜尋
+   `<h1>IoT Course Console</h1>`，把中間文字改為 `我的 IoT 控制台`，保留兩側標籤。
+3. 按 **Ctrl+S**。回到手機原本 `http://筆電IP:8000` 網址，重新整理一次，應看到新標題。
+   這次是網頁檔案修改，所以需要重新整理；不要與事件經 WebSocket 自動更新混在一起。
+4. 沒變時依序查：是否儲存正確檔案、網址是否仍是正在執行的筆電、後端是否還在執行。
+   不使用 `file://` 開檔取代伺服器網址。後端離線時可能看到快取舊頁，先恢復連線。
+5. 成功後才讀第四節。要撤回這次文字修改，就把同一個 `<h1>` 的內容改回原文字並儲存。
+
 ## 四、閱讀前台的HTML、CSS與JavaScript
 
-本週基準頁面為[static/index.html](../examples/course_backend/static/index.html)。先另建
-Git branch保存自己的修改，且不要修改`app.py`的權限規則來讓畫面看似成功。
+本週基準頁面為[static/index.html](../examples/course_backend/static/index.html)。沿用剛才的
+本機備份，已有 Git 操作習慣者也可另建分支保存自己的修改；不把建立分支當成開始練習的前置障礙。
+不要修改 `app.py` 的權限規則來讓畫面看似成功。
 
 ### 4.1 HTML：結構與可辨認控制
 
