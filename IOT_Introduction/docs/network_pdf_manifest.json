@@ -1,14 +1,14 @@
 {
   "format": 1,
-  "browser": "153.0.4234.46",
+  "browser": "153.0.4234.48",
   "documents": [
     {
       "source": "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md",
       "pdf": "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.pdf",
-      "pdf_sha256": "0beb5ed2595ce121713af8857bdb414095609ca781966e60ad50fed9bc399260",
+      "pdf_sha256": "1d890a9de0c706ff7bf4edc3494ba079e403828a374679a836ae611c334bfe52",
       "inputs": {
-        "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md": "1b6b32cd0e8776f5939b68a684aa158454eddea44d934f9765109aab5dddfb20",
-        "IOT_Introduction/scripts/export_network_pdfs.cjs": "4ba2fb24bdab112504dd8110555f5c6a88de6d8d0ad4b3afeb3e4eb5b5c77376",
+        "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md": "853741fa9b6f0b9cf75584fb7bf4d2220a2bfc5e3aef249545f2f81a143a2827",
+        "IOT_Introduction/scripts/export_network_pdfs.cjs": "c4c6dc1087e47ea970119ea11eccef769346a5916a6e07ecd3fabce95d448c82",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
         "IOT_Introduction/docs/images/hardware/actual/Breadboard400_1.jpg": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a",
@@ -26,10 +26,10 @@
     {
       "source": "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md",
       "pdf": "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.pdf",
-      "pdf_sha256": "79db9d12c6d8edc43785149daadf232db0e1f42eb570aea3efb24494afdee328",
+      "pdf_sha256": "0d68ecebd15e9c0d2ed3017a3fdc2d16c2ecdedd13abb1417cd8e05876cc5954",
       "inputs": {
-        "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md": "57f6f2f700755f38cb372654bc24a30abb301545af8fbccd38b8a57d96644de8",
-        "IOT_Introduction/scripts/export_network_pdfs.cjs": "4ba2fb24bdab112504dd8110555f5c6a88de6d8d0ad4b3afeb3e4eb5b5c77376",
+        "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md": "bae48b42441b67f56b9a2503ed9bc805782095478792c73caf7d7ce750a77285",
+        "IOT_Introduction/scripts/export_network_pdfs.cjs": "c4c6dc1087e47ea970119ea11eccef769346a5916a6e07ecd3fabce95d448c82",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
         "IOT_Introduction/docs/images/hardware/actual/Breadboard400_1.jpg": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a",
@@ -50,10 +50,10 @@
     {
       "source": "IOT_Introduction/Week_14_Mobile_PWA/week14_main.md",
       "pdf": "IOT_Introduction/Week_14_Mobile_PWA/week14_main.pdf",
-      "pdf_sha256": "0b46e8e1571b459d4bd7379f9d0532d4295e4d1a7b54a9dc3d2b6789b57e2117",
+      "pdf_sha256": "47dab78baaf70603297b6131ca930f0d17fd6e9e919f209f618c1470c1a23c40",
       "inputs": {
-        "IOT_Introduction/Week_14_Mobile_PWA/week14_main.md": "db7c206b8ded01a837afb182367fc411389ef50514469c7f12cf2f383eb8f17a",
-        "IOT_Introduction/scripts/export_network_pdfs.cjs": "4ba2fb24bdab112504dd8110555f5c6a88de6d8d0ad4b3afeb3e4eb5b5c77376",
+        "IOT_Introduction/Week_14_Mobile_PWA/week14_main.md": "64effabcb20eaf29457f8b1c4df4e0f90109f46d62486290949aa7b07e23ff9d",
+        "IOT_Introduction/scripts/export_network_pdfs.cjs": "c4c6dc1087e47ea970119ea11eccef769346a5916a6e07ecd3fabce95d448c82",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
         "IOT_Introduction/docs/images/hardware/actual/Breadboard400_1.jpg": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a",
@@ -74,10 +74,10 @@
     {
       "source": "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.md",
       "pdf": "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.pdf",
-      "pdf_sha256": "a6ee50187419cf806ac3c9a6ba78f55ca3b13003d6a198dbbdc697cdb834ed42",
+      "pdf_sha256": "a258ba416487098c1afa9eb1d9982c65d83a3e9f48bdaa25a0e7d5861b682399",
       "inputs": {
-        "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.md": "0bfe220f79afbf675ad99fe4d1f513178de61cce61dddb3de3212fe1b15b316f",
-        "IOT_Introduction/scripts/export_network_pdfs.cjs": "4ba2fb24bdab112504dd8110555f5c6a88de6d8d0ad4b3afeb3e4eb5b5c77376",
+        "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.md": "25918c118fd272fe62bbd2f24ca37985aec366f6c79237e9f5aff80e35eedb48",
+        "IOT_Introduction/scripts/export_network_pdfs.cjs": "c4c6dc1087e47ea970119ea11eccef769346a5916a6e07ecd3fabce95d448c82",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
         "IOT_Introduction/docs/images/hardware/actual/Breadboard400_1.jpg": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a",

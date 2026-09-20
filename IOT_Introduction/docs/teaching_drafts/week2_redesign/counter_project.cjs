@@ -62,7 +62,7 @@ module.exports = ({page, escape, svg, text, line, dot, marker, block, arrow, pho
       <li>開發板單獨放桌上，只接板背標示 <b>COM</b> 的 USB 接頭。</li>
       <li>有教師的 IoT 資料夾就沿用；否則開<a href="https://github.com/KennethWYLee/IoT">課程 GitHub</a>，按 <b>Code → Download ZIP</b>，下載後右鍵「全部解壓縮」。</li>
       <li>在資料夾依序開 <b>IOT_Introduction → docs → teaching_drafts → week2_redesign → counter_two_buttons</b>。IDE 選 <b>檔案 → 開啟</b>，開裡面的 <b>counter_two_buttons.ino</b>，不用抄第 29、30 頁。</li>
-      <li>依第 10–11 頁選板型、Port 與選項。按右箭頭 <b>Upload</b>，等到上傳完成。</li>
+      <li>先選 <b>檔案 → 另存新檔</b>，存成自己的 counter_practice。依第 10–11 頁選板型、Port 與選項，按 <b>Upload</b> 等上傳完成。</li>
       <li>開 <b>Tools → Serial Monitor</b>，選 <b>115200</b>。不按 BOOT，短按一次板上 <b>RST</b>，應看到下面這一行。</li></ol>
       <pre>event=start count=0</pre>
       <p><b>start</b> 表示程式剛開始；<b>count=0</b> 表示目前數字是 0。這是預期文字，不是本次硬體實測。</p>
@@ -131,7 +131,7 @@ event=minus count=1</pre>
       <tr><td>數字不是 0 時按 RST</td><td>start，回到 0</td><td>________</td></tr>
       <tr><td>啟動時按住加鍵，再放開；之後再按</td><td>啟動不計數，重新按才加到 1</td><td>________</td></tr></tbody></table>
       <h2>不用按 99 次，也能測上限</h2>
-      <p>USB 拔除後，先拔下開發板所有杜邦線，再只接 USB。把程式 <code>MAX_COUNT = 99</code> 改為 <code>MAX_COUNT = 3</code> 並上傳。斷電後照第 25 頁恢復四條線；每次放開後再按，第四次加鍵應顯示 <b>maximum count=3</b>。這是測上限規則，不是宣稱實測到 99。</p>
+      <p>拔 USB、拔下板上所有杜邦線，再只接 USB。把 <code>MAX_COUNT = 99</code> 改成 <code>MAX_COUNT = 3</code> 並上傳。拔 USB 後照第 25 頁恢復四線，再接 USB、開 Monitor 選 115200。放開兩鍵、按 RST，從 0 逐次加；第四次應為 <b>maximum count=3</b>。這是測上限規則，不是實測到 99。</p>
       <h2>兩鍵一起按，不能拿來加減相抵</h2>
       <p>程式讀到兩鍵都按下，就等待兩鍵都放開。若第一顆早已被接受，原本那一次不會撤銷；本例不是精密的同時按壓辨識器。請測試「一起放開後，下一次單鍵能否正常計數」。</p>
       <p class="question"><b>想一想：</b>重新開啟電腦的 Monitor，一定會讓 count 歸零嗎？不一定；只有 ESP32 真的重新啟動才會。看有沒有新的 <code>event=start</code>，不能只看電腦視窗開關。</p>

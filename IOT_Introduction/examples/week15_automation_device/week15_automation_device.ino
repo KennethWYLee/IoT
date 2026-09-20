@@ -362,6 +362,10 @@ void evaluateAutomation() {
   latestSensorValid = !simulatedSensorFault &&
                       latestLightRaw >= LIGHT_VALID_MIN &&
                       latestLightRaw <= LIGHT_VALID_MAX;
+  Serial.printf("action=automation_sample uptime_ms=%lu raw=%d valid=%s "
+                "state=%s auto=%s dark_before=%d light_before=%d\n",
+                now, latestLightRaw, latestSensorValid ? "true" : "false",
+                stateName(), autoMode ? "true" : "false", darkCount, lightCount);
   if (!latestSensorValid) {
     if (state != DeviceState::ERROR_STATE) {
       enterSafetyError(simulatedSensorFault ? "simulated_sensor_invalid" :
@@ -451,7 +455,7 @@ void setup() {
   mqttClient.setKeepAlive(20);
   mqttClient.setSocketTimeout(1);
   requestWifi();
-  Serial.printf("week=12 device=%s topic=%s mode=%s\n",
+  Serial.printf("week=15 device=%s topic=%s mode=%s\n",
                 DEVICE_ID, topicCommands.c_str(), DRY_RUN ? "dry_run" : "hardware");
 }
 

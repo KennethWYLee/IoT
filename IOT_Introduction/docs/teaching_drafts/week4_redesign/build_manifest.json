@@ -234,8 +234,8 @@
       "id": "button_environment_log-2"
     }
   ],
-  "sourceSha256": "32a3d27583986d6240fa0911171cac94cd8a907d9599f357c6ff949c9660ab20",
-  "builderSha256": "80b234799c4e8514acaff8b2e7994b2e6be27793c19d09fe693acc9ab461b421",
+  "sourceSha256": "a14f9f5e7214104735de84abbe56b83423fb63192c5d9d977c506397785d59ce",
+  "builderSha256": "eb115cf54e98d9e80e9bb621e5ac673c6798e1f5dc29c732d617421374c76b9f",
   "sketches": [
     {
       "path": "examples/week04_dht11_quality/week04_dht11_quality.ino",
@@ -260,5 +260,5 @@
       "sha256": "0c212fbc5dfa87d116d3189c0d1089dc719001ce84d286e9e6373ca88327ca2f"
     }
   ],
-  "pdfSha256": "c0a71167a8cc6be4ee4cffeaa418d37eb49e26baf2af3e9091e9d0bf08fc5577"
+  "pdfSha256": "85a98db2d0ed1243096927b8a509937ecec7e7fc371efec2d869e13de0203e5b"
 }

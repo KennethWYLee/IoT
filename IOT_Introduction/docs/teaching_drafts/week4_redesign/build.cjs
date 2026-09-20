@@ -145,9 +145,15 @@ function render(body) {
       : `<img style="height:${height}mm" alt="${esc(caption)}" src="${uri}"/>`;
     return `<figure class="photo">${media}<figcaption>${esc(caption)}</figcaption></figure>`;
   });
-  return marked.parse(body).replace(/href="(\.\.\/\.\.\/\.\.\/examples\/[^\"]+)"/g,(_,link)=>{
-    if(!fs.existsSync(path.resolve(__dirname,link)))throw Error('Missing example '+link);
-    return 'href="https://github.com/KennethWYLee/IoT/blob/main/IOT_Introduction/'+link.slice(9)+'"';
+  return marked.parse(body).replace(/href="([^"]+)"/g,(_,link)=>{
+    if (/^(https?:|mailto:|data:|#)/i.test(link)) return 'href="'+link+'"';
+    const [file, anchor] = link.split('#');
+    const target = path.resolve(__dirname, decodeURIComponent(file));
+    const repo = path.resolve(__dirname, '../../../..');
+    const relative = path.relative(repo, target);
+    if (relative.startsWith('..') || !fs.existsSync(target)) throw Error('Missing course file '+link);
+    const url = relative.split(path.sep).map(encodeURIComponent).join('/');
+    return 'href="https://github.com/KennethWYLee/IoT/blob/main/'+url+(anchor?'#'+anchor:'')+'"';
   });
 }
 const css=`

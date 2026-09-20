@@ -750,6 +750,6 @@ Verify 的 `Sketch uses` 比例對照的是設定的應用程式分割區，不�
 | 用時間差安排工作 | [Arduino Blink Without Delay](https://docs.arduino.cc/built-in-examples/digital/BlinkWithoutDelay/) |
 | 本批 YD 板型與接頭 | [YD-ESP32-S3 廠商文件](https://github.com/vcc-gnd/YD-ESP32-S3) |
 
-完整程式依序是 **I2C 掃描器**、**RGB／OLED 倒數器**。每支跨頁程式要合起來才完整，建議開啟本週提供的原始檔，不從 PDF 複製換行後的程式。
+完整程式依序是 **I2C 掃描器**、**RGB／OLED 倒數器**、**按鈕 OLED 倒數器**。每支跨頁程式要合起來才完整，建議開啟本週提供的原始檔，不從 PDF 複製換行後的程式。
 
 圖片中的接線功能與畫面示意，不代替實物核對。文件、編譯、電腦替代測試與硬體通過，是不同的證據。

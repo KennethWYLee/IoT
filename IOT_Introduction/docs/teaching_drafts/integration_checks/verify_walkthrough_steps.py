@@ -73,6 +73,8 @@ for week, pins, ground_wires in [
     (5, [('GPIO4', 'a27'), ('GPIO5', 'a21')], [('a29', 'c3'), ('a23', 'e3')]),
     (6, [('STOP', 'a27')], [('a29', 'c3')]),
     (7, [('GPIO5', 'a27'), ('GPIO6', 'a21')], [('a29', 'd3'), ('b29', 'a23')]),
+    (11, [('PIN_START', 'a27'), ('PIN_STOP', 'a21')], [('a29', 'c3'), ('a23', 'd3')]),
+    (12, [('PIN_START', 'a27'), ('PIN_STOP', 'a21')], [('a29', 'c3'), ('a23', 'd3')]),
 ]:
     wires = [('GND', 'a3'), ('3V3', 'a6')] + pins + ground_wires
     endpoints = [p for wire in wires for p in wire if re.fullmatch(r'[a-j]\d+', p)]
@@ -87,4 +89,13 @@ for week, pins, ground_wires in [
 oled = connected([('3V3', 'a6'), ('OLED_VDD', 'b6'), ('GND', 'a3'), ('OLED_GND', 'b3')])
 assert oled('OLED_VDD', '3V3') and oled('OLED_GND', 'GND')
 assert not oled('OLED_VDD', 'GND')
+
+# The KY-018 signal is not a wire to either rail; its resistors are not modeled.
+ky = connected([('3V3', 'a6'), ('KY_MIDDLE', 'b6'), ('GND', 'a3'),
+                ('RGB_MINUS', 'b3'), ('KY_MINUS', 'e3'), ('KY_S', 'a15'),
+                ('PIN_LIGHT', 'c15')])
+assert ky('KY_MIDDLE', '3V3') and ky('KY_MINUS', 'GND')
+assert ky('KY_S', 'PIN_LIGHT') and not ky('KY_S', '3V3')
+assert not ky('3V3', 'GND')
+print('Weeks 11/12: explicit button returns and KY wiring are distinct; component ratings are not tested.')
 print('PASS: file paths, instruction order, exercise adjacency, command/mode distinctions and ideal wiring.')

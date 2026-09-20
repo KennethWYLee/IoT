@@ -1,0 +1,2589 @@
+{
+  "review_date": "2026-09-20",
+  "base_commit": "39757bc1971276f3bc7a360a281935f4d5d39180",
+  "status": "local revised sources and rendered PDFs; no publication; hardware untested",
+  "method": "Source and PDF reading order plus every rendered page in contact sheets; 16 pages additionally inspected with Poppler.",
+  "total_pages": 415,
+  "documents": [
+    {
+      "week": 2,
+      "pdf": "IOT_Introduction\\docs\\teaching_drafts\\week2_redesign\\Week2_main_layout_sample.pdf",
+      "pdf_sha256": "7a67e7ac3660d80432707ec0dae4c69bf61ebf512e4774b0ee34337c8555f465",
+      "page_count": 34,
+      "limitation": "本次未做實體接線或學生試讀；既有板卡紀錄不代表所有學生板卡。",
+      "pages": [
+        {
+          "page": 1,
+          "text_sha256": "14e8e93ff9139508450af806b82bb82239b2158e6627e321e7a9a24b638dcf0c",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 2,
+          "text_sha256": "5ab841437df767cd65702aceda23ff2d0ae724db99c8c6354ccec75210f3fcbe",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 3,
+          "text_sha256": "7510479679029f21f78faf571f05dce2a94688cc750146ab2332db8cbe0f8805",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 4,
+          "text_sha256": "cf08d26f9038e01be5fce65c3be2ac1eee709671e3b710d0dab21d634f0fd87f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 5,
+          "text_sha256": "4dc4b725266f04a207702e91ae04ffb7323d9aa8673b7ecc92cde940b36dc4b1",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 6,
+          "text_sha256": "da338fc9dd7ff683920c35e4669f36be6fad9309933509a40a171c6ea60a68ee",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 7,
+          "text_sha256": "85896ed4314b21d3b4460d899ff75c8e9505c9ad8dd4425a3121ad4d3563236f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 8,
+          "text_sha256": "04a4b4396522312a41fbbf6fefe138c4a9710c82be7fe5be541a1c24a886a49a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 9,
+          "text_sha256": "3676c574ae2a96198c4957275a69404e3950231ec3a5468cf5f5a669ad26d623",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 10,
+          "text_sha256": "d4ee234b427402d4efee8fa25221eb0e25a105878ea28d89261fe6656a5ddd33",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 11,
+          "text_sha256": "8967eecd55a60384b4f3dc6aef71e35b1c4677e1cc59b5cc2b52043db88ee740",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 12,
+          "text_sha256": "7ce2977e3609a23d4fba2fc614a85fe7204e63e1a0bbbc8b36292ca49f705081",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 13,
+          "text_sha256": "a36cb9a1da960539afb697b8ede40c89b36c5ba3b0d2a2c0b169f9837a895cb7",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 14,
+          "text_sha256": "f519165d1b922c95bae5360dbc204297e694a3453e68987c0ae45112fa5825a5",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 15,
+          "text_sha256": "05bbc2aa05bef1515cb0456e6aa7a151ba6c83fc9b8007f6edb81f1beb3bc57f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 16,
+          "text_sha256": "8a3c7a1e80bd0607af1906242a472993a32cf8e086c6d2d33f2d3780e7dc7d07",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 17,
+          "text_sha256": "964b4331433a9d10ac5f288e7f8e73d8ec01bb64c374d78430dfb5b33e260c0b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 18,
+          "text_sha256": "4603c1e9b3b8d43f232e4424fd28e9766f2a75da1fb2112cad7be0f2f89fd288",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 19,
+          "text_sha256": "b0ab6c158d2be9f1f3e318cffc43891ed9a7bc5aadb1b081b65a358495d80788",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 20,
+          "text_sha256": "2058e50b1f07790b18a6174dcbf2ae5a3b4abcfb8f326732707360b79895f925",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 21,
+          "text_sha256": "8a0fbe1e5e42c5b8ece466f768238c2032cdb71a6254387751937299c7d2f18c",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 22,
+          "text_sha256": "2e7aac51cfce1db8a5fe15eb9ccfca52f07232d42377ec27f16d696e8b85587a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 23,
+          "text_sha256": "19d8790a88fe269d6caf06d1cace17959569269932b0ad53e7078b38fc24f8df",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 24,
+          "text_sha256": "da26e74407d1074ac98fcd511761ca7ad16e5e7efb528ec61fbb47a8155b03af",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 25,
+          "text_sha256": "3e08573053abd3c55319b6043fe043f58bd2040f96696a6e9f59f34ee2d916b1",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 26,
+          "text_sha256": "1880e696fd1fd37f2204252ec77de62bd1752021e8944200082106c013c2d7bb",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 27,
+          "text_sha256": "e358eabd254324b895352db0c4354377eb8fb52b83f0c12beed8c63a5bab7255",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 28,
+          "text_sha256": "ea05a0fc08e8a812ff4bf9d01f35b73847cfdd0b86c1ee2c3d7e86539f0d626b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 29,
+          "text_sha256": "a13da8cc05c1d0a6fee07438747b83136182657ee65ffe04a310a95c31ebf925",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 30,
+          "text_sha256": "75eb8851c04608c23e2c276d9f2f25d44f5ebf688a39507ac1e491ff969d7026",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 31,
+          "text_sha256": "1799d3202284afcd3761e15fe4d32788ff2409a171a1422f94d436c5cc92c448",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 32,
+          "text_sha256": "41aabcac1fc49230c5013110949883d859fae98a26e01e675315e957342920f6",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 33,
+          "text_sha256": "f9163650b5fd8686297b074605281bec2d7c53f3dab2242c38038cd47da49c0b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 34,
+          "text_sha256": "cf6af90e36bcaff95552c84f69e438052fc191754ef20fd63a486a2454d6d4d8",
+          "reviewed": true,
+          "additional_poppler_review": false
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "pdf": "IOT_Introduction\\docs\\teaching_drafts\\week3_redesign\\week3_main.pdf",
+      "pdf_sha256": "01d08fba9b064e45f3915d27c61c2f2116d071481182e9bb14a20440fe0e2fbb",
+      "page_count": 54,
+      "limitation": "每組仍須量測模組電位、光線方向及有效範圍；示意數字不是設定值。",
+      "pages": [
+        {
+          "page": 1,
+          "text_sha256": "1b728ed0d8adc501c7885ab8c5b78a7eb3e2e11c0fd949de97d40566ba85eb4f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 2,
+          "text_sha256": "2fcae06f0fe9f043d0d87cf97f80ea20c7473fce70601e1cbdf22e0490e44548",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 3,
+          "text_sha256": "673ae7c8be323c081b4d2a46e3c3e86d080485ae0ff33639b6c96f016c4c6f27",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 4,
+          "text_sha256": "3c072ef4d03ad29ecec71c98986cd7892dbd375d4ac987852d392c5459afab19",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 5,
+          "text_sha256": "500c613e1fc9bb757b5635de0b8b01622f23e59f19e323b98b3204f6c0363131",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 6,
+          "text_sha256": "9f752405d81349c9723e879c88bd991c7e50e1ec09c6791c1d01c2a87d75f616",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 7,
+          "text_sha256": "947370ce0defd8f4f5acaf0047afc9b2f7b937985823d7afb671a8342de2304d",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 8,
+          "text_sha256": "a22b73fb812cef00f9549a9c42e884cfd293d90a81b8552afd960079554481ff",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 9,
+          "text_sha256": "2184a91a109086efc5772d33d7829145a1d5085fd00eaebd832653c408250931",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 10,
+          "text_sha256": "2ff5b7bb77af57a6adc08e1c229adf9ecab1a957c3865b6a7d5465efdc5bdd45",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 11,
+          "text_sha256": "256dc0375b32b34fca56b4ad63abd0d34bcc7f0faf6854bb65676ef0fe35e4f8",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 12,
+          "text_sha256": "e611d22d83a8513faf10d8ea52091889152768646b9d4ed64bd75b28b0042c17",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 13,
+          "text_sha256": "6e66ad68cd7e613511b08663f6fba63f687dc84dc898be98804db35a16595a03",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 14,
+          "text_sha256": "b7e2bd6cd22c2dec4464dbecb7cd594a0719a9b960e4002820a12fa60fc20a05",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 15,
+          "text_sha256": "b5678b012da18e4aec1070463414b44745e8f00e1f40c8480b73f3671ab2353a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 16,
+          "text_sha256": "e4854144bb5313e038ae37e00d47579e65a16542312cade280c684175dc93c7c",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 17,
+          "text_sha256": "6de366f62c2c0ede94034104807b9ca6b7e9d4bb9a70aa194e0d7a5b19fec4e7",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 18,
+          "text_sha256": "e02bbab05ff464848614a7b07711608f010e674309449bf774de98ea0548f21e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 19,
+          "text_sha256": "e4bdd64eaef615b3db87b486c0cb85940ba543206dcbf737a1b4f9fd17371bff",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 20,
+          "text_sha256": "479f3980013fab51dcd7327ecc6b2de01a7a00cda0313f7dc8509d89cd18f7ad",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 21,
+          "text_sha256": "fbc9d8c72d5f7dad8c88dfad5e1b57e1cfb4f92abe0334e46e9adb08c0abea6b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 22,
+          "text_sha256": "0f6c0bd487f9c6e09d4c8a2dcb9aa0426e72b7c656f8e5ebb912b7a7cf854e29",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 23,
+          "text_sha256": "f3ce19a1149f447f1a9f64fe3bf675308b2302fcebb375dbad96b406f727a0a2",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 24,
+          "text_sha256": "86ed439a8daa0bff36efd729de07dee08e18ba74d484c1c775e27d1ba54fbfd3",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 25,
+          "text_sha256": "aa93b9437cbb80b3aa56f5808f889e92d43369e62e4513abc182c63a368e856f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 26,
+          "text_sha256": "540a6a1989485e1c6e337541c5484545e188677e1570dd6c8f21bb67c56a5b00",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 27,
+          "text_sha256": "df97bd1ba2f8bd08a8a5ce384d3913df8c093cceec894bbcacdb1c00dbb22d90",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 28,
+          "text_sha256": "56b94716237b598d13829aa8b268a949b7cf0468fdfbe4a125a3936b7f464552",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 29,
+          "text_sha256": "c98fd9bb2b03e12be4b2910688665d85ae27e58f7d6879a83377371eacbeb32d",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 30,
+          "text_sha256": "baa8c3e1cb95e54dff84b9023bc83ca855490afad8f89e5c477f11b0cb65cc92",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 31,
+          "text_sha256": "b11bf3954a92a0051951da8d63f7e6314db03dee76b5d40627decab135cf9841",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 32,
+          "text_sha256": "f91745a266874358b259d49b1a72dbc0786121654bebb17bad56a17ca0a7c102",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 33,
+          "text_sha256": "dc2e4313df7331064b79f1179a5b26d3a5e34fccaa81ae5a37f942748d82db0e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 34,
+          "text_sha256": "71751e0e70d57d83030e17e86d7a8dd1f231d5a1f33aaa332ce11b6cf108247e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 35,
+          "text_sha256": "669ec6ac509fefefe0373689582c11c246a68c9f1f891c95f7363b4eded61460",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 36,
+          "text_sha256": "804fbd9605195378c98fbe78fff8e16b83df100cf4b91507f151f57e43581649",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 37,
+          "text_sha256": "6110fbb4443533e4e79bcab6da29a7b7b00b10264dc19266ea6516bb73d8b4fd",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 38,
+          "text_sha256": "a1840874058997b328be804afdc073609e3bfad2769f4139a9bf661a6373b238",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 39,
+          "text_sha256": "d31200f0786b0ade11bace2850a3275d04ff24898cfe93e8befba64c96b3a1f0",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 40,
+          "text_sha256": "d718d1879a54a7ec9820b2a2992918428512f4dc34c20e713b41e7ba82a8f3e9",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 41,
+          "text_sha256": "19844a62aff2947ed87365ce0849964361d52a4e288eb867677bc4920a1124bd",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 42,
+          "text_sha256": "f40a10f94fbaa0f788d21de2acfbeb91a62a4ade76b168e3afd57ce03d433d08",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 43,
+          "text_sha256": "64c36f1e89b200373cbcfd1f93efe2d7c27a072881fa422a9b21d9102ef839c8",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 44,
+          "text_sha256": "2273b9861c06fb0804769338fc4084997ce24259b06c761bbfa97ccb990cdb70",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 45,
+          "text_sha256": "343b63b9e1aa4a5a6a7ab39a8a757765e508f9499e2e1c5ff4724f6d7af7eebd",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 46,
+          "text_sha256": "d33d0085025cf7cf847baf203639580bfe5dad58a08aba3c6e55ef26dd12a9cc",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 47,
+          "text_sha256": "84937485ed3c48496384ed39cd156b96e2b9fc535c545d864665db39c01cb8e3",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 48,
+          "text_sha256": "806cd701a23c0e34760a2afcfcc173b92cbd8ab3666e2aa07ba943786f9ac515",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 49,
+          "text_sha256": "e690055b6b4765491feb9e971c11437dfc18745590e7e94ef3dbca81ed5905e8",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 50,
+          "text_sha256": "fd572d17dc7683b441163eac6e7f6de03e9f800bb4fe6697b3d24c99e8ca6dd6",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 51,
+          "text_sha256": "1864bc70339890beab61adecbb7466ecccd70d3d10f08592b50f980d00aa8f9a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 52,
+          "text_sha256": "b6017b8c0ab32fbce1b14833f59a3d810409aae0a62bd2b26ff21cc21db6ca79",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 53,
+          "text_sha256": "69796b001d65c79088c57163c4e5c7459719442f571940ac198d5e741677a554",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 54,
+          "text_sha256": "461c61525486858d8d89a530c4c10ed2fa83709df8b89e929cd5ceb6da2f9b9f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "pdf": "IOT_Introduction\\docs\\teaching_drafts\\week4_redesign\\week4_main.pdf",
+      "pdf_sha256": "85a98db2d0ed1243096927b8a509937ecec7e7fc371efec2d869e13de0203e5b",
+      "page_count": 58,
+      "limitation": "DHT 實際三針腳序、3.3 V 供電與 DATA 電位未完成確認；蜂鳴器電流／停止仍待測。",
+      "pages": [
+        {
+          "page": 1,
+          "text_sha256": "e09c910c98e220b092155cfab82f578e734083fb40a152c7ddbdeba414f8d056",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 2,
+          "text_sha256": "c6649deb52f756ee5100f1bbb57aafff5c54aca4fda9712c044c48fae82e3941",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 3,
+          "text_sha256": "0e1ccf204071293438e856fa7e20af70339876a4e84abc35525896c2d299480b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 4,
+          "text_sha256": "af049186c02abd386d95162121968311276150ef6a7a8b3c0d20c3135a7522ec",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 5,
+          "text_sha256": "0614bd4027a2607d58762bdf72bbed5724038295bca39fff5e29a252cec7cef9",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 6,
+          "text_sha256": "570881d002df2ef415f3fdd67eb74066301eee4175834111edb4e29014e06829",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 7,
+          "text_sha256": "b03679aafe0441874cc262691c2fa1c27e55a0f76f6fae71c2bd68b1b9d57953",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 8,
+          "text_sha256": "8eb7ce13e0f6950abf3d643380da23463ea96efdf48d52648b9ef7d8fa58b22d",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 9,
+          "text_sha256": "9683b247283ab41e589184ae64bf7019dc9f5f749b9b60f92994868d2b46f510",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 10,
+          "text_sha256": "c844e8151e692e40edaaa807487fb19d4bfa03d7db6aaa418df87e51c14d363b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 11,
+          "text_sha256": "0ec5ad5e03c1837f39f3d81f049f5ce4272b9c4fe6063abe99af924c4190871e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 12,
+          "text_sha256": "f46bb8b8bd6d7bb084b9ef0f5a4306998b601cba61b1aee19776e6d36b9c33b8",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 13,
+          "text_sha256": "b28c5c149669b6eaeb5f025d9f3496c3660851e15c79f6ce7609dbdffbc4ed04",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 14,
+          "text_sha256": "40972d19c07a2cdc3231079aa965bacee4601c3ecb48034287ef3202cdd8e2dc",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 15,
+          "text_sha256": "2f50f91f62de902cd9d21d76fedd5eb7a48b992a5c1a1652e21a13cdd3bc0d80",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 16,
+          "text_sha256": "5a971627681dcba1ba86a992a91c889467f852142be9767b4bdd8ab769cddf98",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 17,
+          "text_sha256": "cea75bcd7233e84d2fcb2dcd96c80c798cdca538d119ef5c3b07911394bd8eda",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 18,
+          "text_sha256": "5b75c2c1375b541bcddfea67fc5ebd08a92e78b30e210eed71357c2c32b74a25",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 19,
+          "text_sha256": "66319606c787430bc6d43da62ffa2d5ba3a608dedc7fb3b470668c522e0c421f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 20,
+          "text_sha256": "2ab8881d82336575e0c3848cbfdc4a55fd74ade580d93669de765455d7bee2c2",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 21,
+          "text_sha256": "a0e669ae4778071a5ddc35039e2e410b54058df1cc0d66df4e74a079c3dee8a5",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 22,
+          "text_sha256": "3a1b4cc2617e555973c725475110873d783404ff351a313d60e9b41f2060d3c2",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 23,
+          "text_sha256": "d9333834ff16d187197a97f0338af59b761d71ea98641940d794d65149b5bbc0",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 24,
+          "text_sha256": "340fb0277ceee6c4b1a741ee77c4d1786f7b7a7b0acbdeeab17ee51f801e86a6",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 25,
+          "text_sha256": "b45763da051007776efccd98730a1e3bef1e74316813921ce1bf23a98af48580",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 26,
+          "text_sha256": "25fe91bca730d6103ef6a875176365f49a782bbaa062bc55825f019b509f2844",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 27,
+          "text_sha256": "e66182b6bc07e8de0f96ebae461c915fe981db36ff827280f69deaf3f678d844",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 28,
+          "text_sha256": "5e293ddb02259fffdb7b2f8b797c23cb8166b1fbaed77748017cf30a6c5d13a2",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 29,
+          "text_sha256": "6000abfc57564a57d93e09298dce7f7879884acd3e7ebf8ce8657963def81543",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 30,
+          "text_sha256": "59bcf4a52c55f09a10c0800c1ec1cf32eb44356a13d1345562a40db7aeb15e89",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 31,
+          "text_sha256": "d9441df29999ca38441f183e3ab70c74890d2c88b0abb10e9421cce6bfbffd3f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 32,
+          "text_sha256": "80abb74952b0f7b68cfde533d296f0ec70171a5d8ee9415b1c3c406138aa8b96",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 33,
+          "text_sha256": "a3f883a48c422ed4de967c5b10df0a01abc729aed658b4ae7a6f03dc83fc630a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 34,
+          "text_sha256": "04457aca40b443471ebd2916f312ee09be3757d488307383ee6d54902176bc62",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 35,
+          "text_sha256": "025e687f7bd426129540e1b8369f39a0d5a98b978167f91a0578b1a847f2b10d",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 36,
+          "text_sha256": "090502d65bdce7bae0469ac146973f0b4fcf2b530eb6eddb3c9653453e5b043a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 37,
+          "text_sha256": "99d435323d8edd1d20d4c6186f867b137a5233d96f4ef9befeaa88a64f885622",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 38,
+          "text_sha256": "e7ad1c76ff83715df5b671fc83daded3a6c8def299d40e40c48852d878da040e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 39,
+          "text_sha256": "2f1c8ad73f76220faf9649af24272d9011f4c63297f96f93d5b805a7bfda939a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 40,
+          "text_sha256": "97b9f214746cf848621fe70faed4200f66126188584e7c26f1968ef0c729faa7",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 41,
+          "text_sha256": "02b87cbfbaccdfea1ecc221e93f2e614c59abac3f91f71ba253fc3984e51f740",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 42,
+          "text_sha256": "e13b474d57a05181890f472fa9a7ce74f8d00d016549cce606a5cb3312669592",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 43,
+          "text_sha256": "ec231b6a4697f99b3ff9f8ef6314d1d4eca9985cbb607cad392c0888508b9167",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 44,
+          "text_sha256": "4b535ba18c2db2b9889e2dbae382f4f7eb4101ae317bbcb1f75a6cd3b6251196",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 45,
+          "text_sha256": "5a7832cf88645100c437df8072f36dd4376486b33a88865ed2f768e82e78528f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 46,
+          "text_sha256": "c94011be22aa7aa1d89bdc943c8515f7cf12ff17ce4a3a0d07ed8db050a648f9",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 47,
+          "text_sha256": "fac955dfca5b2d3d637b541fececd70678f99db5baf7d3d78f28cf1601d35cd4",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 48,
+          "text_sha256": "7ed368a6021afd2a9d1aed15a2867f75dc74647df6a4cdeeaf93965717709cbe",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 49,
+          "text_sha256": "6a56439838245f23a6b222d4f0e90c3369d1172d9429b00559426dc5b4c931c3",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 50,
+          "text_sha256": "2932c0f089c062e3a0a3507db6a71af93f706536e3703345f1fe802dd475958d",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 51,
+          "text_sha256": "7b13665ef31ed9096c8a6e7220a242c9f38347dec93a0a14d03181076d2ce7c6",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 52,
+          "text_sha256": "3a436759d30eb39191b4ec106599fcc3492e0229e9a1211b7af1510484cc287d",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 53,
+          "text_sha256": "2d1c0ac2421b480dc8c6b7bdf5f9675678e2704d7fafa57658775f04867ac07c",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 54,
+          "text_sha256": "d7e24922b669640eed19aeb47d57e291a2f5a562c5ded3ae53950768e799e2b5",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 55,
+          "text_sha256": "96f0c44e54cba1ca3f7558e6c1a62baedf1240033cdb454f390b47401de3d024",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 56,
+          "text_sha256": "d08ed57d4b9029419b97ae618603bac4642a72d68b50ad004bbad15f3462fd2b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 57,
+          "text_sha256": "a286769f2718f29fd33826a000abc88dbeb123384baca6bd893b4ef8ddf5aece",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 58,
+          "text_sha256": "ba12054b6ffab3923cf3a72d8588c3fe74cf4fb6ff9483ec61c55e37fd19ed4f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "pdf": "IOT_Introduction\\docs\\teaching_drafts\\week5_redesign\\week5_main.pdf",
+      "pdf_sha256": "3b362d5ff60fdf7906d9e750e5c92bfc9677a3ab83d334a96c318f1ca643df77",
+      "page_count": 56,
+      "limitation": "OLED 控制器相容、拉高電位及 RGB 限流須依實物確認；ACK 不等於控制器身分。",
+      "pages": [
+        {
+          "page": 1,
+          "text_sha256": "02aebb7b76b7e465b4edc78143b585aa30144ecd4995dd59c4552c288269a4a7",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 2,
+          "text_sha256": "e97c43f440aad77e379a1dadc33a6517266d75f8b5fad5c960064630aabc592a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 3,
+          "text_sha256": "0cb3638e035bc5a58f15f3512fc33735d18df8c3df4b196fb880df082f9f83ab",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 4,
+          "text_sha256": "fc80cfc4ac9efe29b32ff1f113d8172b380c1a7e2f408ebc8e19ad5bf43e9349",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 5,
+          "text_sha256": "2e89e47a9dd6c91f277380375e9b6e88773317c0163f98a3324c8edb4fe0856c",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 6,
+          "text_sha256": "0a80d3db51376d0e1c3a10d4148651eac6132abf575adeefc6a2b3a92e88cc41",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 7,
+          "text_sha256": "93cfe7cf78b5a8909c62450732925025cc59a33331eb12ba123293a4814e57a0",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 8,
+          "text_sha256": "6edbc5aac020373e83119ef9c9ef5b7daad87ec9a6ac1163df45fb5296b261b7",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 9,
+          "text_sha256": "23cffeca438bab7da5a79a7754451ee114eda0c6f0ab4d5e4001fa31cf27ce01",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 10,
+          "text_sha256": "c0c159711cf4b44c53b14431de8a00714233b50e9ae3b373e3c9f6ac4690385f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 11,
+          "text_sha256": "0d8f99324d7e2dfa555ce2f1de063426338445d1165782fe13bc213fec044721",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 12,
+          "text_sha256": "5c69a147485bcb578963431948238c19900d55636671e1f106d743e103446286",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 13,
+          "text_sha256": "fcdcf6a3874a450be3e9d88cd532769d42fbcd0d8aa6b4059b5ca4f7a2a18f4e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 14,
+          "text_sha256": "0bedc078bab937fbf1a55a0427cd44a131c943e35768045975e9d91637173250",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 15,
+          "text_sha256": "78bbdd9933615ccc50f716e48dbab54e04c518db262de3a3b28a342ed1da611a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 16,
+          "text_sha256": "1ae1537d6e37ac38a7a992cee33210b4eef11d03f702ec127e82e026671c9f3e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 17,
+          "text_sha256": "923fc7e0f6944c1ad09ac689593b69462747b185dd2fccdb4b35c68f7ebeb03a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 18,
+          "text_sha256": "79d25797b85a076280e1684b283bd7e1aad2afcaaa058c652ed6093042c2ba62",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 19,
+          "text_sha256": "f4d1949713f6155614d19c8306631947631d694d84c740d74e870e4519d25848",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 20,
+          "text_sha256": "8eae0a4184599cd4b4ed914fcd323dc83c717016e6139c7a2efc15b453d1b1d0",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 21,
+          "text_sha256": "88b1c58d097ee948b033c13413200af3bb38e030291f25c1bc1f875a9e7974bf",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 22,
+          "text_sha256": "27ba3de21b35378b9ab3fd73d9bc4a20b94b300654633e8a30810e132c3f864a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 23,
+          "text_sha256": "54803325d426a78bafe8528d049c34d59484f94d573b68ae4041a100acfa5fed",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 24,
+          "text_sha256": "cf0ecddb9fe4a858622e267bf768513b2cbc2820dcc134c5350237ed3056f4f1",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 25,
+          "text_sha256": "737e6267893917fc76cf7de650bce8bb60bcef3830611c2e0c32ca2cf0b40b60",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 26,
+          "text_sha256": "1ff23967cd3551e964189a39458382c4bba90ef0473d35cb5a659ac007cea3b6",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 27,
+          "text_sha256": "5593492ec17e117998d7e5d4e75a90b3aa12c645f0f6dd071dc983f96e9e965e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 28,
+          "text_sha256": "943613da9d028796e21d9b03a2cda949c68bc390dcb88ccfc17d1efb5c6d86f8",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 29,
+          "text_sha256": "282884a4def69d70e9fce5acc7a3d8ea12e90cc37f19af38e77a8798f7783e2c",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 30,
+          "text_sha256": "5108f9981fdf56930e2a9acb0e317e88e55b777a9e9a9e776c7421d707d58489",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 31,
+          "text_sha256": "c376749d7a2bbf1e3f91b2f5250891d36708a4555dc7231914ee100928111d47",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 32,
+          "text_sha256": "d67ec324d01381c749ceb57a0d1816352522e1a76256212be4448c63e69169d2",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 33,
+          "text_sha256": "c5654e98e16f1eef12309684b8e060f4b01124b8d3138a28235b998aca3f9adb",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 34,
+          "text_sha256": "07a575f77faa16dab09e2ad63d6d0c2dcdc6f8502a81fae59df47411a68d38ba",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 35,
+          "text_sha256": "85a94af8460cfadd3ccf9cbecb178cc65c253fbb9b9e17a28ae38e15ef66827e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 36,
+          "text_sha256": "d735758a39bac2a1dab9c2f886a2c565b592e0c08709396d6b5d5106f83d7f61",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 37,
+          "text_sha256": "42f0e65a41a66ffc1e2593d3b8c189a2f74babadd04489dcddf824772d25c3ed",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 38,
+          "text_sha256": "8da0672bb6ae3298c3911d26e67f2e25b553729c22c26154eeeb2c667d18ca45",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 39,
+          "text_sha256": "28292b3a9f640c7b1b0fd800e6ab91d8fa1c424b71879d8f2914baf060745e38",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 40,
+          "text_sha256": "9da7612ace564c680fb3715b1449e8d80cec645fa230fdf79a4a333010782a15",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 41,
+          "text_sha256": "9b2032f70d779ea0f5cf6b307f56effa448f62e6904c4da810afaa3ecda654ab",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 42,
+          "text_sha256": "7a7bae038d8a4af8210a48d6bc290f5cc0cf38d6137917c9bb64f314ca2158cd",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 43,
+          "text_sha256": "21bcddc8d0601107337f62172e00c6f38317509326238574a5554dda7ad7eb75",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 44,
+          "text_sha256": "597104fbaa39066724e0eb9656fa29b4f25ff70fafb5a6e98d101177bd971630",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 45,
+          "text_sha256": "514c6cec21b7e33529a654b5a3beccb23c4581a08d76c58eec91f97f4734241a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 46,
+          "text_sha256": "1dbd65c4f9c494eea2477e86411907f9321ec1a760fa9c2912c323bfdb87f537",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 47,
+          "text_sha256": "caea6d6ed0e50f4d7075172952b713d9cff172f267cb022366e80224076be699",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 48,
+          "text_sha256": "eedc29a92a5e5701898086afae13446c421a88b8894850ecacf364e604b2f03b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 49,
+          "text_sha256": "59e65de4dbe030821de4f34e5279d4eb112592e46752af423aa2de2666af2b76",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 50,
+          "text_sha256": "744ddc00eba41b247c2c344de8943888e89d4d98b9d7034c75cdcf475e702d60",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 51,
+          "text_sha256": "cefd921769401f3eb73d73484323f09708a5435811f2e205cb92b55b9b52db03",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 52,
+          "text_sha256": "1bf65589afb8838627e42d84f30d589047c1bb5cbc853c2590522775ce2b88e1",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 53,
+          "text_sha256": "5c12e29317ac8adcc4311ec7411d897201296a72b71bc5eedeb672711aeff866",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 54,
+          "text_sha256": "34f13820b04d30c0e24831f3876f582f5979dbb6edc54682954ab46e3063a476",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 55,
+          "text_sha256": "8b036a83bf9f52a13351d1a8828451b74104fa25f2d16e31ea8584a23edffbea",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 56,
+          "text_sha256": "7e2f54557211cb0aff3c3f7b52e848796de221473559094a6c4008fe16060a7f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "pdf": "IOT_Introduction\\docs\\teaching_drafts\\week6_redesign\\week6_main.pdf",
+      "pdf_sha256": "d0840275ddb807dd5526fe0fc331848e00be52fd0b8495fad487f670e0159b7e",
+      "page_count": 49,
+      "limitation": "SG90 端子匹配、帶載供電、脈寬、角度、啟動與 STOP 行為未核准；不可據主機測試通電。",
+      "pages": [
+        {
+          "page": 1,
+          "text_sha256": "190246998aa1efefc01c5feb65430fc5ee816b90eeb0b0cf21711fe13436c5aa",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 2,
+          "text_sha256": "9626c40bb14007e9475168f4e81c7062bf0973537f557bfde4f230c6775688c3",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 3,
+          "text_sha256": "68180ddf00dbc65053b4b7ab76137b484b06767e8bd57bff355e7d3f78f33746",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 4,
+          "text_sha256": "f518cb2a2471e888a1572fe4ed8bc6a154b6ef0e3be5746d6128f5dc26b0e85e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 5,
+          "text_sha256": "50e1b10fe363f4d66f5410bb3efa039b5d279f9252b7538c33b6c4e8bc06afbe",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 6,
+          "text_sha256": "ea3b6f967c3f5188bc542181b195ab2ebe7810c5b8dc85992c43ee8272a5d4e7",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 7,
+          "text_sha256": "c7ba138fcf68dc95934722ae81840b22f3cc9b949e096426cd213c800c5f3397",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 8,
+          "text_sha256": "fb0ca02fdcd45234d3ee5bbef28fd47a1f3f1e8b51e12c99b8a2fb7912b251be",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 9,
+          "text_sha256": "b21181e985ec51f74012709413429cd0c1ff34710f8eb8b4b12eee9bd6ea8e30",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 10,
+          "text_sha256": "ab73b7b4151d96d42ce31f3c08ad2dbb6e1cbd373513fd4acb729b2adce97bbc",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 11,
+          "text_sha256": "da6c624b9425d66a750f951d127c16cbb0a3a15b997ea9a67dff6e1a05db39d3",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 12,
+          "text_sha256": "9f5ae4f08a15a6602beac6b8d118403e36533262419f8fdf35bf0e16969e8a4a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 13,
+          "text_sha256": "1825a23fe8edabf50b8630996df7d2ddf6a6edc3492677341aaa96da79d49322",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 14,
+          "text_sha256": "42a6aaf67ebfdc5998ed9c4a77e6d8de9704d2638c66784ac34ebe90d9cfb5b9",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 15,
+          "text_sha256": "01fa5c82965d758959649a3be2200e35a63bf70090e1a767e40e56935f5781f2",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 16,
+          "text_sha256": "c7f4b1b12dacc03c19998fa5cec6a5ecdaa6e6b5bb297ca45db7f6632f50a971",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 17,
+          "text_sha256": "f416b77125b7ec7ac549fb9e886a9334e00297d443e88c1dd1224075577903cd",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 18,
+          "text_sha256": "581823a7c405fb088cc196b6e0ace3db24afc83413be0ed7afecf19169a0e0b6",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 19,
+          "text_sha256": "25cf5feadfcd5c8151e604231bece008ed00b1e7f944aef12482f432d3889935",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 20,
+          "text_sha256": "6c88a3e78d5ef2ac2465bf0ffface6c4831733b7ea51456677a263403895abc1",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 21,
+          "text_sha256": "e6fe3e0eaa0521e4cdda4408db5c8191b16eeed6e83483f9af1c906671c6cd87",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 22,
+          "text_sha256": "922d66f8674640d996fab8705e4ce67867ecf8a4bba2649a08bafd406e8144cf",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 23,
+          "text_sha256": "fbf3ed455360219d784e652788bc4fc47e1e4e60311331f25be5812abc1d634f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 24,
+          "text_sha256": "c177bb812dcebb5fcef8147f2bdcfcaf0beae86d641b07209adc840cf75fd9b5",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 25,
+          "text_sha256": "f3288dc9288812e9b1a1428541f26ae715f096a3844b64ab9ebac0bd9c4e46f2",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 26,
+          "text_sha256": "36d2fec6229a7a22a7361cddc9c76018373b626023d597efca30319c21a48bb9",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 27,
+          "text_sha256": "3246d56c0760c65815da8f05a59d143c9dd346c0d5a9c3480321fdd425e2ee3f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 28,
+          "text_sha256": "ac2f05fd623346354b26cc84ec65fef1b3088d0bda29b9e3f93d2939a54a27c3",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 29,
+          "text_sha256": "e0f668ae9f08d71af4911eed9b59fd3fbbef0aea75ba815bd01d363de2e0aeb2",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 30,
+          "text_sha256": "bec1227f2b3c612ca456a481dcc37c1ae16024e18c1374c7ea9f02af205e0544",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 31,
+          "text_sha256": "53f0bf5731c8155406aa382b1539143bda07d70ebe34fc0caa2fa6a1e74fe6a0",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 32,
+          "text_sha256": "69fc6cc86c7a7ac1cc9b35bee10849e373043cda5befa5f64e1fdb8577a1d9f1",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 33,
+          "text_sha256": "186188a12de9825a50e89ef9dbcd8a669284b61c112b5c0e8d9cb0e723356afe",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 34,
+          "text_sha256": "228fa41dd6a85073f04ce396e951c466446489e23572af0c5638dcae8205ef5b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 35,
+          "text_sha256": "6e606ee6a6dfd75ea56f61cbedc0fc814b51997cb0c0a80073fdf951717badc0",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 36,
+          "text_sha256": "92c26a9916d0a3012979bb15faaaae959c121376b27e45be979fb27bb8ac513f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 37,
+          "text_sha256": "e5d5c06565b32a0d21fe77b25c149ae872693e145af9ed252c112c0658fd5374",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 38,
+          "text_sha256": "a70559bcb1ce3bf330cad28ef682d0fc0271a9aaf71d696fd4db009c38ef5480",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 39,
+          "text_sha256": "8003c64651fe74392d34709a67298ef38dc627a67d6c26d4437afc42e367d2ce",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 40,
+          "text_sha256": "08a97c9f4775000532613fe52322c0c92ec9578d4af82b04eabc94e533a2c736",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 41,
+          "text_sha256": "9243707e9528363a8b9aace050d2e30d8a500caa3252b0220cc671e734856e8a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 42,
+          "text_sha256": "32b63dde414c9b58d45fe3189639a18ea3816d73c23c5027b81092a0b95a5f6a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 43,
+          "text_sha256": "9796bbe6bc512d5182de2f95c3d1f20cca6185b00f8e144e78d938f15be6ab00",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 44,
+          "text_sha256": "fa2cb7a665a7e10ad34a0b9efb7998aac04c96674469e9af1627be9e45039337",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 45,
+          "text_sha256": "ab0739def26166038df35ab3f35b4e6503b7f6a21a4f83c042f7f492caf250e6",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 46,
+          "text_sha256": "29c0e8b33050e0a463844895e525935292e3ef4a147f672d75e9f3fa1eecaa3f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 47,
+          "text_sha256": "70229b5c71f41da87fd2334010146cba90f0bd697312e8fe0608166fdfcd1cc1",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 48,
+          "text_sha256": "ee7dd4878bb91eabbf9172a7e895ea1e7e825556644d285eaa23b7d68ddba5e5",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 49,
+          "text_sha256": "adb4b34755a8185f938480e0ae2109e780cc3a34c4cdb9271de5112e26f4e7d1",
+          "reviewed": true,
+          "additional_poppler_review": false
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "pdf": "IOT_Introduction\\docs\\teaching_drafts\\week7_redesign\\week7_main.pdf",
+      "pdf_sha256": "f2cd738007ed08fd0c3ab0734cd247ea09b6dd3ece0c6b37442dee72101433da",
+      "page_count": 48,
+      "limitation": "低功率整合仍待各組確認；舵機／蜂鳴器第二階段沿用未核准限制。",
+      "pages": [
+        {
+          "page": 1,
+          "text_sha256": "31696c7cf6ee8b932f19a3a46b156e356cc1e71069e4eac640ae206210b25861",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 2,
+          "text_sha256": "dc206231fde77e79f2de014347eed0e9b964138c6bfdc6c2216a97be65c0c08e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 3,
+          "text_sha256": "9fd217740616d2f743e93e875372366eacf1a1144547a9cb587f7d54b4cb92ff",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 4,
+          "text_sha256": "af6cbf3c9e7ce191129c694da01996aeba1d320e5c1203d6c971f1003bfd6fdc",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 5,
+          "text_sha256": "b71dcf8321c94039ed4364d9c6bc731a239581197bf18db7ec31b53d0d4f835f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 6,
+          "text_sha256": "efc1c6a07d9b070b45a050179912db5a6cc10a54e87f1c0b8f8da1e7bb05a983",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 7,
+          "text_sha256": "e6a4111b7069b3da422ef12b1a463619b70436ced12b4bcf0821ea19963b26cf",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 8,
+          "text_sha256": "e5c1e9a9e69bba39f6f352ad917b9b69b1e13de75805cdd658de313df77c23dc",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 9,
+          "text_sha256": "44da7e6c51cb9df362acb8568ffe53d42c66a9f654d938fbdf5d366301fd281b",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 10,
+          "text_sha256": "097ae118c97724283110ec5679c8606711841964839fd337ec48611bab7d556f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 11,
+          "text_sha256": "5a4af71e623984fbb4522f150464c6c965dc37e1c8fb75a517b852697671b951",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 12,
+          "text_sha256": "349cfc8a02ba05121f7e0e9607d447519d8603e1f29daa3653963dea6bd75f89",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 13,
+          "text_sha256": "0bdc66819cf97d7d651fdc15cf9a95e392ea799d533054760530090581e61cf1",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 14,
+          "text_sha256": "ce024f1bfcbe524e7acc9de4cb028f6ab654364e6e9f4d4af1eb910eb98ded37",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 15,
+          "text_sha256": "dab070c1d9db9b75401074e9dbe31413da3dc7add6af1c7d80adb06c2c21abbe",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 16,
+          "text_sha256": "d70a99166ff78620100eee1801241111319c34b379822444f443fa40a815b834",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 17,
+          "text_sha256": "0a4245ac975ec030bbf438373cf39a3c50d1dfffe1afa8be587d8d256811ad49",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 18,
+          "text_sha256": "fb1db59089cf098339a38320775cdc684d8a280bb1e83173837b0e71b98811b8",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 19,
+          "text_sha256": "1c8ef0f4a2e2e505a71dde82fec891e334f0634f2acd42bfc0a07297b195de7c",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 20,
+          "text_sha256": "b86aed5197af36dd7a36616eed572d3c2454e709d51046d9a0096644b10a29de",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 21,
+          "text_sha256": "ba48668748e551c723eca54c2a7be3d87d873f1a90e1581dd312fac79f446b6f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 22,
+          "text_sha256": "8c9f99b509d5642e55555a4ea5d53dc9451b2b6dd92fa50a8642bdf730b495b3",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 23,
+          "text_sha256": "7a69a6bfae561c87ebd5ad320d6c78c2e4c7b18cf66019e11ecc38aecf89cc49",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 24,
+          "text_sha256": "a62224b35ed9a83019c465ebecd939abd7f72e4446d56f9066b92fcea72a423a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 25,
+          "text_sha256": "e472b2e81b48be7c2b12be018ddd5741be51c6407946f26d890254ff1a5ad5be",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 26,
+          "text_sha256": "47406d939e4460df66a962db24539a1aa9a93d9f8d8da4a6b0e03ee24fe42629",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 27,
+          "text_sha256": "5717d1fe01639cca9a37cf1e0067f75337b1b184474f2f5d9f8d5386b203a93e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 28,
+          "text_sha256": "7042dcd43d2812f888ff587eeed9bf88a9e50db15038a980b76dac6a9bc6da15",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 29,
+          "text_sha256": "2db17aa2b59d3b133bef1435398918ba5d538ef97585991b305c58bd096b5fb1",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 30,
+          "text_sha256": "51164ec8767685d6ed9769f1ca7b16086985a43951817a6cb4f1287edfd34d63",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 31,
+          "text_sha256": "87059bc000b8d4bfc583d6fc2a1d842384d49972a9a31c582fdd8fd70fa90aed",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 32,
+          "text_sha256": "44c4daaff4192a6e844aa3e99a2f7514a777167cdab5d09b29d3b016d876ef9d",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 33,
+          "text_sha256": "64f8cd3b01dd5ac18f1a1179ee4038f0b6bddc4d3393805f0c55449131640007",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 34,
+          "text_sha256": "1983160a4902079184257a5b38b8cb30ef71d4fa156a79423c7fcd7c34375e68",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 35,
+          "text_sha256": "d3411b81a0c5f19500d44bc5997c73ebb1b42ed41a253fdf41509c559095d719",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 36,
+          "text_sha256": "b22e5b2f8dfb73b5fd8b9679d2cfa178f265fa0ee73945920fb0cd2cf921a176",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 37,
+          "text_sha256": "dd781cdc97e5b81f1d77a09d52345b009f95ae7d3fa1c8b70d91b247411ea065",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 38,
+          "text_sha256": "51c6ac213781f56123933fe75742d0ce52f71495da152f799969b00b6bf278b0",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 39,
+          "text_sha256": "7ae91654509aff9394cde66f31c24d57e2b9fa81f9ece8dae47c1ac67f812d44",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 40,
+          "text_sha256": "a1dcd4fbe64970f2e2862bb30e02e459afbbb05532911bc1513c4562dfe23ab1",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 41,
+          "text_sha256": "b3b38336d4c469dfceb63a4bf0fce2520b0cdac9c6cf311615116dcd3c00120b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 42,
+          "text_sha256": "45b41be8546d0ea7bc55234386a272aac08cc125c87dfb1214faedd58f917d93",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 43,
+          "text_sha256": "5279e16c734f87ca61dfe47d489362e5588ef344eb30425a533ae69443287ffc",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 44,
+          "text_sha256": "c63f5807c4ae42d9a1920cbadcbab67371273858b8f6f00097648abc4e410950",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 45,
+          "text_sha256": "4f4d68447c4155cf13bd274042b9f90376014f6b297b63b4d943f42932901156",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 46,
+          "text_sha256": "e53584e6187edb46126f9c7d316ccc81fdd819917b119a9426ef24e30584316b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 47,
+          "text_sha256": "11e71317cffa756c788e84c26fe84845158102931e55e7c999534adef71d5aa2",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 48,
+          "text_sha256": "f091f9181cc24ec85d70317972f48b071b3b6d8336453e72ef48b0a5fd54a397",
+          "reviewed": true,
+          "additional_poppler_review": false
+        }
+      ]
+    },
+    {
+      "week": 11,
+      "pdf": "IOT_Introduction\\Week_11_HTTP_WebSocket_Backend\\week11_main.pdf",
+      "pdf_sha256": "1d890a9de0c706ff7bf4edc3494ba079e403828a374679a836ae611c334bfe52",
+      "page_count": 29,
+      "limitation": "編譯／API 測試不是 ESP32-LAN-手機實測；STOP 最長延遲及實體 RGB 尚待驗證。",
+      "pages": [
+        {
+          "page": 1,
+          "text_sha256": "9c7526c96c8053aea22d63befcd22588c2b97fdef981df14a0c7b958c0b98e7e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 2,
+          "text_sha256": "29d3aeab40ac72b59ea53969f66ad2f04ff5be7c1d4facba62f6c9089091712e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 3,
+          "text_sha256": "e0549341fe211154bec69dbcbfb91723017c4e566c17ce4ee963fc6e1fe11574",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 4,
+          "text_sha256": "57e9e4e8dd208b0c903fdd1dc1178c7fd74c2c1337380454f26b7576b4dc3839",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 5,
+          "text_sha256": "9b60cc2be95a18f5d592a1cd73ba6754cb693a27d1ed16da02ec94a3afee56ba",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 6,
+          "text_sha256": "66cdfd6ce46cdd79c28c0e22c49becf0089486d9d6ea2a2fd435e645fde60915",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 7,
+          "text_sha256": "45227998b8d1b309949a8546cefa1ceeeb49817e5fe30310dfb3d65bdb11196a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 8,
+          "text_sha256": "ba5217bfde297d8b836689a017bd6b891f378d3efa0dfabc7ede9b65f42cbb2c",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 9,
+          "text_sha256": "19ccf90d3b009e6e9242834d550c72912a8b075bdd319ba9a7cb93a72bd964b0",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 10,
+          "text_sha256": "50972c8f491c5736e11c57a5fd620f6f5dc72bf36c9c80433bba9e735e4af888",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 11,
+          "text_sha256": "4e1ed21c16f927792a3c5f19da16dc5c4596253b924568875d891b5213d9a685",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 12,
+          "text_sha256": "5dc8302bb62476a83b7ff2913969a79af7027caf836bf7c7a9677e96c78a15f0",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 13,
+          "text_sha256": "84c4edaad1665158213276ee7cec8ec72f027bdec794ee8cf0a6e1ad0cc48e16",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 14,
+          "text_sha256": "95cc04a043ce2c1e414ebaef4616c636512d0618d2f82b0c18a9aca33f147c65",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 15,
+          "text_sha256": "075e208ebd74f5efcfc98654ee4457a89080ea618173fb64eda098a827714fd0",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 16,
+          "text_sha256": "a3c8d56ef1ebbcc554feafc5b994422a9edd415936d140e04d40f00d60ee243b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 17,
+          "text_sha256": "9cbf0bf3064fa74d07c05721a29f271d1c61b3cea14e097491a6d608c4e19407",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 18,
+          "text_sha256": "96ab94feeb3a39a937f4489c3feb34654d7d9e04d7c271ed0bb3846d17347f8b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 19,
+          "text_sha256": "2477ef2e7b62764f8abfbae7d909fd9dffbd0ccba5ed41f454b52527584745cf",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 20,
+          "text_sha256": "45d8de64f6797cc7f7f248f1ede6955fdb5ed74c58fee366421945d99162c10e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 21,
+          "text_sha256": "d1486ad08a30768cf2cf644a9a68f9e01c5108f6da4f8eeb8f36c0251ee8f0f7",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 22,
+          "text_sha256": "55a9d79d4de9f31c2676d34ac0bf14db0eed95730bfe4ec1923f224955aba0a6",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 23,
+          "text_sha256": "0ee4d3123cc2e4b32747e86129149c44d8b9f1bef2ea3bcdacbd8596c89d7d2a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 24,
+          "text_sha256": "0f2d611a35cd6415136a6cd652ae4f52be4d797e2914205a903425804a925f1c",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 25,
+          "text_sha256": "43ab5ae049064dc78bce3b49b375546d555dcae70a08e2ec050a92eea27a85a3",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 26,
+          "text_sha256": "ef10b35456a8c6bcb854105cc9d796d88b4dfc542b53704cf3d88f2ebd60f0be",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 27,
+          "text_sha256": "b55bb94d58411f378c7c8782731497a629909a4bb20c3d4b273acd9cd8d79a01",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 28,
+          "text_sha256": "cb2b5d51712a79c74eae5434a42dd17df15520592e0605805aa265e1648d04a7",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 29,
+          "text_sha256": "ad128bc2b81d907e92e298e6b931b9ae25c4fa82f2c2fcd9a72969c5421cfb7d",
+          "reviewed": true,
+          "additional_poppler_review": false
+        }
+      ]
+    },
+    {
+      "week": 12,
+      "pdf": "IOT_Introduction\\Week_12_MQTT_Database_and_Logs\\week12_main.pdf",
+      "pdf_sha256": "0d68ecebd15e9c0d2ed3017a3fdc2d16c2ecdedd13abb1417cd8e05876cc5954",
+      "page_count": 41,
+      "limitation": "未運作真實 broker 或多板連線；PowerShell JSON 作法有官方依據，仍需實際安裝環境驗證。",
+      "pages": [
+        {
+          "page": 1,
+          "text_sha256": "0107be59af2d816cf535f3a290e875f3f6f99db24d45403d57826735e99176ac",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 2,
+          "text_sha256": "fc9c9ba11229a60a7e00963c95cc6cb3857c701e6e40168be8ce1c91e7aa73c1",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 3,
+          "text_sha256": "e87638549db700339cff18d006b6471e038b1326da47dcc758c4ca416d063272",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 4,
+          "text_sha256": "7d893b40f141121e446fb1eb5cb52c24b42842cb678fcb8064fef83a8e7c2206",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 5,
+          "text_sha256": "de72d1c1206078b25207548027b95a19b62d9678a16e1205e58cb05afec1dc87",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 6,
+          "text_sha256": "f005e1e0e584da9f5fe1ee0d4508d950682a5e6316b11c3f1caf33768f154e8a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 7,
+          "text_sha256": "665d72891cbf3b3cf4d32bff071eabd912219d0ef8c251fd6e481a0618b2589b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 8,
+          "text_sha256": "332cfab8b10cf696f75f2ab92f846cd809c4e54950435c1f3aa7b3883217e1c2",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 9,
+          "text_sha256": "c33dd6b3cb14f0ffbbe0e5148758c668b2f2c3f8d1d0621e0606694896988b7c",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 10,
+          "text_sha256": "067f4e672a58dabf7395b044920d6eadb50273c40ab2898daa23d15010ae2c9f",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 11,
+          "text_sha256": "5de731b8e3eed43a5c4feae07ceac63f972a690c76309ced317b3fa38011c633",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 12,
+          "text_sha256": "b140c4b6a78f749111c4f731a012e241e7eabfb2c276c5dbbe48a395c07b5276",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 13,
+          "text_sha256": "34f97834c6117542aa4bcc30df8cb72058888aa7c6a122d19d733ee73c1b2829",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 14,
+          "text_sha256": "6e56289d6e4fa654b92f085435599700c66b5c533e37c9601cc6480d35513883",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 15,
+          "text_sha256": "b73031903f3120c11834e742c18f63ad17f960f48ed2219a47dc566ea6f5c3db",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 16,
+          "text_sha256": "e9e1f7e52fbd30a90f7ba9751d8f4f7b72f9d8106a78cb446f4b0ee9402ea77c",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 17,
+          "text_sha256": "7761b328d55b5e0c92f1bf24227b8c56231908a449f8fb8932d9089d9a7e0d3d",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 18,
+          "text_sha256": "aa392c72443d084a1c4d7079036d183ebc28459123515f5eeb9848282e1dd2a1",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 19,
+          "text_sha256": "71f3097398b13b559964f16a13ab01609baa2c8e9ab931a4372b4a288163abd4",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 20,
+          "text_sha256": "e5c7a850b891c418854d01d33e421c1a43ba1fe15777033e8316a3fdcc5b7cb3",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 21,
+          "text_sha256": "074cdc473bd8a3c0e7dfe3d686cad4e932d0b8d15ae85700950481668f388ac0",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 22,
+          "text_sha256": "2540b31f63a62f4d0690a8bdb5b89c5b1662bd3d3b1ffa0ae2e0f2672a5f0ec0",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 23,
+          "text_sha256": "dacd2cefcc0c06248f9a58acb56403132a7e8de732ce53e230a360fdafef3ce1",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 24,
+          "text_sha256": "60e7decbc34a2a23ecec71dffe7ed1f08fdf791b365cebffafe987d9c08fa054",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 25,
+          "text_sha256": "d97246b9f40361775a7c93c3323d443ee197365bb994fb4ccaef848f1698716a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 26,
+          "text_sha256": "7f77d9aa555cb18ae2928dd4141e48f21e1ddebcc75a144c5baf96a3b2715d0e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 27,
+          "text_sha256": "84308bb07034ed5b0ba460c987b4ddae1c9ff851a52a2a65ff4fa9591c6fecf9",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 28,
+          "text_sha256": "873d5aa4e03990c7af78f608e286a3bdc5380f9b4bfc88de993f7b5b78e86a3a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 29,
+          "text_sha256": "b7e2dd308a71c4e871e7cb6d94a1660b53a813427a3a1a4015dc1a9e131d7977",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 30,
+          "text_sha256": "7623fa70e23fca6b19963958669de3958a9f38f9f435f8f1d3ff2042f4265f91",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 31,
+          "text_sha256": "d97c3ee4049c37f7fe3da8596a6207c63d4e94f14497a465596f1c820196737a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 32,
+          "text_sha256": "cf4bcf1ca26092c6da1587dcc88100d09e68c089335c04280ef0f26daf620fba",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 33,
+          "text_sha256": "bcc74cdc1af8fac5b9b909f9b8ab7aff71f03fd509dd5951c832ee477d3f6e73",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 34,
+          "text_sha256": "c496a8dffb8e5bc16343b3ecba00d107e574cffbcd1cf97f855a10403fb2f873",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 35,
+          "text_sha256": "77c651595ae04b0075516b45cbc583abedbfa991dce2184aab82c2cc476145b0",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 36,
+          "text_sha256": "5d0437c1626b496de4f59e5220418a17aa00f71bfef21f448dac8d88bbcd302e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 37,
+          "text_sha256": "cf9e440bc15d14e51d3bc05a9efdfaca4e454d3544567c0bcc9f3fc684644c64",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 38,
+          "text_sha256": "a963e71a783377fa68ea4d56b67d72a3db5293ca052dbe67846f21bf7bea4a5b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 39,
+          "text_sha256": "cfb2dd8d49a39f3018bfd6f5c288241f429c6a295b882b6c18b4842645a6ed70",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 40,
+          "text_sha256": "738ea9b9417052e2788c829b9a264ec3f499fb13459a8d9b4ecb6b59c8673675",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 41,
+          "text_sha256": "ef8611a9f4a49e5a95112f60c9d5924bfbde9ae88f11b22fa0c0f124eb49ab66",
+          "reviewed": true,
+          "additional_poppler_review": false
+        }
+      ]
+    },
+    {
+      "week": 14,
+      "pdf": "IOT_Introduction\\Week_14_Mobile_PWA\\week14_main.pdf",
+      "pdf_sha256": "47dab78baaf70603297b6131ca930f0d17fd6e9e919f209f618c1470c1a23c40",
+      "page_count": 20,
+      "limitation": "僅 localhost 合成 GET 與瀏覽器手機尺寸；未驗證真手機、校園 LAN、HTTPS 安裝或即時 WS。",
+      "pages": [
+        {
+          "page": 1,
+          "text_sha256": "666d40e8e1bd9ae18f7d0a0f8f9530ca2e28f9a143ba0a931ecf895fffd5aaf6",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 2,
+          "text_sha256": "74e34ee037ae1835fc5571bdce696725e01573dd21f6360c71e90fdeae3e5a56",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 3,
+          "text_sha256": "053aaf661a0e460f1b721af0a6a3d0dd9feed1f7a3af6adf5a76d8fdbdb6cb5e",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 4,
+          "text_sha256": "1e5363caa8173837158b8290b4a2c70e809d22532ecc929df33a2c3b6104793a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 5,
+          "text_sha256": "3180256c6b8d3425bc1ec6d20480059e497f77738c6fbc5e1af664e533224cfa",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 6,
+          "text_sha256": "9fc42c546fe5d71127f70d739303d0ae768d8631a2bd69894c8ac23381478d4a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 7,
+          "text_sha256": "6b4ac5912bfa467705495c89159b489753b24961f18dedf8da53e26a21140e3b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 8,
+          "text_sha256": "6592efca3fe667d7d4a7da246f437536956e5e81094a5ade2386baa878ecea85",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 9,
+          "text_sha256": "ab81de61d6e91ab2deb032b385976b23903b72f6fff257e61f01b4592cf15cb2",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 10,
+          "text_sha256": "fdb7a4e7861b7bd4bb073d7b0fef71cf235583e5755101db613caec63b477f65",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 11,
+          "text_sha256": "e56c3ebb36186fa55e7ec18268d0fff07b59784649297f782b4ace5b93b1c65c",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 12,
+          "text_sha256": "795af141ffdb1a79d9fa423fae9e8686c80caf37c30f953469e5c7933eaa4845",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 13,
+          "text_sha256": "1d973c3738f68b677ebbd9b487f2a7c13c8a1e62cbc81363d205dca10dad4c87",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 14,
+          "text_sha256": "68e3fdd7a9537a0aa14d236fb1485ae0c6e87cf235fd7c57c0fb21f798a2c702",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 15,
+          "text_sha256": "4b56d99f112bd7e9c76e008256bf1cec6c1380df209da8fd45e13bdc836fceb1",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 16,
+          "text_sha256": "39273883c3b5efd8fefa6d2f15b9f3dbb97cd420a030ef00d65d5691f16c7b5c",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 17,
+          "text_sha256": "4b4411a97537eb595704887b4f05cb15b592fe3b79072f96ad87fb8385dbdfb5",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 18,
+          "text_sha256": "99656a5d1e4b7b33291feb1e6d003cd15ed6f5089cda65ac7a5ae75739388333",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 19,
+          "text_sha256": "3b6bc6f5795272ecc487343e4deb0874eda5f2c304bab2fe6f1bd474f0dc1bde",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 20,
+          "text_sha256": "ed3addd376879da0c35d63e5cef8142b10d39e1f9d2663b5659ce3b6e18754bb",
+          "reviewed": true,
+          "additional_poppler_review": false
+        }
+      ]
+    },
+    {
+      "week": 15,
+      "pdf": "IOT_Introduction\\Week_15_Automation_and_Safety\\week15_main.pdf",
+      "pdf_sha256": "a258ba416487098c1afa9eb1d9982c65d83a3e9f48bdaa25a0e7d5861b682399",
+      "page_count": 26,
+      "limitation": "新增 log 已編譯；門檻、三次取樣、網路阻塞延遲與實體安全停止仍待低功率裝置確認。",
+      "pages": [
+        {
+          "page": 1,
+          "text_sha256": "eb6b14b41785feabc1fb53ab7af008127ac9bb87b641f0ee31608cdaeb48e438",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 2,
+          "text_sha256": "ebdbe2596431efe798fc2686b9ef67f54ae1cf61dfc35e9629b09285ee1b35f3",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 3,
+          "text_sha256": "5bb0e87a92800e0c18b3ca5e3856462478968a7b126a3c3a7914ef01e620fa4c",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 4,
+          "text_sha256": "62fbcd1de5e5415923ed558b433984871b62a1f7d4079d0668eee66a2d21afb7",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 5,
+          "text_sha256": "924d520834da52e3cf91dbff753b65ae4f50d704019dc51431c833748ceced70",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 6,
+          "text_sha256": "6537b288a172fac7e168b584b4cd51cc658518920699b80f9cdf62d0a3a66f88",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 7,
+          "text_sha256": "efbf2862dcf8d67989b13a9d37eb5919437fbb9154d2fb08a1c6ce025b792aad",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 8,
+          "text_sha256": "f4be2dece8558cd583a8f9424aa84408ae67b0a9381ec09736ae75673ac2fd25",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 9,
+          "text_sha256": "b87046ae15a143596516cfc54302d9339848cb4284c568453f5e56056f188ac2",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 10,
+          "text_sha256": "299c0f68b383af0ca3867fcc39c740998f9c67c8e4a05179a960d247a282ac88",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 11,
+          "text_sha256": "e2ea931093110bea0440b6d3c8588d66393e17d7a0ba4cc544ae0e4b1326a067",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 12,
+          "text_sha256": "6a42e0c29b989da6611ef86594488cfe525d6b2a34b0a18cebd80e6266f77135",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 13,
+          "text_sha256": "47d7ccc56fde70d0972bcdb853398ac1e7bba1156ba4f356dffbe26a51062289",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 14,
+          "text_sha256": "eeb4d2d93eb9de823f6522d935c9e0cc70a4a26141986db26c9d780e32b73f1d",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 15,
+          "text_sha256": "78c21a7994d21c68575111c23f99ac337607e8d689efa84ef16eca93c2ce484b",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 16,
+          "text_sha256": "4759c0b76e23b1721f7f2408f03742113792a292bc48158c678aa94b8820f437",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 17,
+          "text_sha256": "1c3e4bc8981ae5ad7e2dbc9d8e50896ccef8a6968fee2489198d1ddc4a8e9670",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 18,
+          "text_sha256": "5bbc5e673519a54e37fcf8fcab9ec12851f848b85ebe333e321b8abead0aaaef",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 19,
+          "text_sha256": "460d5fdfc7f70c574a236d206478e0f67b0806cddf4e146516d47425ca60b66a",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 20,
+          "text_sha256": "f5e142d62ee871de556e8f8fc2d7aefd944b97896900b47f80a50ce884a5b105",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 21,
+          "text_sha256": "fcaec432f8266be2f838a038bd35d958deeb41b40d543d7434a4c5eaae4e034f",
+          "reviewed": true,
+          "additional_poppler_review": true
+        },
+        {
+          "page": 22,
+          "text_sha256": "2eb17a6efe03bc1634a485d6f97b93c2c53996f91833fa55c6e01a881f0b62d9",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 23,
+          "text_sha256": "6a573e1c2f7449beb4dfdb31fe83d2e392d88c7f1dc1114fbdc151a1a5d8e3f2",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 24,
+          "text_sha256": "525d96e6cccc9944f0394d30f58b626796dfbbd8c9d1cf0a43f0043d94a7cdc6",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 25,
+          "text_sha256": "1b37d6d014872982eaeb74fec670add17d10843088595c60df0037e2cfec12cd",
+          "reviewed": true,
+          "additional_poppler_review": false
+        },
+        {
+          "page": 26,
+          "text_sha256": "1c271740a8fee331a9d1882f3146e215c0f64c1e625828b0e871e6d6688c1042",
+          "reviewed": true,
+          "additional_poppler_review": false
+        }
+      ]
+    }
+  ]
+}

@@ -199,7 +199,7 @@
     }
   ],
   "sourceSha256": "cc7fb776a12e1df37c826f1fddc21b3d919f5bb223c26b98551604c1cf70f59e",
-  "builderSha256": "622d7741d288aae36dad090c6e2ca1d9f0b6e5cb2a46c2b138b86ada767fb83c",
+  "builderSha256": "5f2b5cfb1dd8c2ccad4e3df1b1a9a475b2ff5b538cb209c67f8d398b4ffee32c",
   "sketches": [
     {
       "path": "docs/teaching_drafts/week6_redesign/count_preview/count_preview.ino",
@@ -228,5 +228,5 @@
       "sha256": "1fadf0571536167a5f4e1da7a98dfc8ab3950d4f1bb92b7e7aa8517b2c541d82"
     }
   ],
-  "pdfSha256": "b161cbfe01cfad8ca523e310a2ceef1e0f62d6acf304a5f5aa0f4eece50e3322"
+  "pdfSha256": "d0840275ddb807dd5526fe0fc331848e00be52fd0b8495fad487f670e0159b7e"
 }

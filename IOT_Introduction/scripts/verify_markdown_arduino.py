@@ -152,6 +152,7 @@ def build_week15_sketch() -> str:
     loop = source[loop_start:loop_end]
     loop = loop.replace("  readPhysicalInputs();", "  readPhysicalInputs();\n  " + blocks[6], 1)
     source = source[:loop_start] + loop + source[loop_end:]
+    source = source.replace('Serial.printf("week=12 device=', 'Serial.printf("week=15 device=', 1)
     return source
 
 

@@ -226,8 +226,8 @@
       "id": "button_oled_timer-3"
     }
   ],
-  "sourceSha256": "0de965b94c7d66307c9dbb9a7298888d042f6a12c59128cf052d423aa78ae779",
-  "builderSha256": "ad507dbbb305d50d1e0eef77a0f751cee7b474aa6304963465448dec316a29d1",
+  "sourceSha256": "128286926c324c3fe2af8950e406db42ec0a000a2cbeb151b2be3206df73b8f9",
+  "builderSha256": "59879f7608fa378fe7aab06a78d5c334ebbd010d1849bcec330231c6b904c4dc",
   "sketches": [
     {
       "path": "examples/week05_i2c_check/week05_i2c_check.ino",
@@ -252,5 +252,5 @@
       "sha256": "bd4167fe88992265fb826498ad01bec7d27f328be07b0ee192718ba194bfb14c"
     }
   ],
-  "pdfSha256": "23ce17cfcdaf7ff1c25ae0946a810b2c9dc47d75f5bc7d1e750af7b68bc587ec"
+  "pdfSha256": "3b362d5ff60fdf7906d9e750e5c92bfc9677a3ab83d334a96c318f1ca643df77"
 }

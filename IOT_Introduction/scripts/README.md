@@ -1,5 +1,29 @@
 # IoT Scripts
 
+## Current practical lesson sources
+
+For the current Week 2-7 practical lessons, use the maintained sources and builders
+listed in [the teaching-draft index](../docs/teaching_drafts/README.md). Those PDFs
+are the current step-by-step edition; the notebook commands below maintain the
+older formal edition and must not be used to overwrite the current lesson sources.
+Weeks 11, 12, 14 and 15 use their weekly Markdown and the network exporter below.
+
+`review_lesson_pages.py --render` inventories these ten PDFs, extracts per-page text
+and link information, and renders every page and contact sheets into the ignored
+`_outputs/lesson_review/` folder. It does not mark pages as reviewed or run devices.
+Human visual inspection and instruction review must be recorded separately.
+
+The [2026-09-20 review record](../docs/lab_notes/2026-09-20-practical-page-review/README.md)
+lists all reviewed pages, changes, test results and remaining physical checks.
+
+`node IOT_Introduction/scripts/verify_mobile_shell.cjs` checks the existing mobile
+page in headless Edge at desktop and phone-sized viewports and reloads its cached
+shell offline. It uses an ephemeral localhost static server with empty synthetic
+GET responses, rejects WebSocket upgrades, and blocks/counts non-GET requests.
+It does not connect to the course database, broker or devices. Screenshots and
+results go under `_outputs/lesson_review/mobile_shell/`. This is not a real-phone
+installation, HTTPS/LAN or live WebSocket test.
+
 ## Network lesson sketch exports
 
 Weeks 11, 12 and 15 now include directly openable Arduino folders. The maintained

@@ -168,7 +168,7 @@ ESP32 先保持 IDLE 且 RGB 為安全顏色。筆電開 `http://127.0.0.1:8000`
 把頁面 **Device ID** 改成板上 `.ino` 的裝置代號，按 **套用並重新整理**。
 先留空 Operator key，看見資料後才做控制；歷史資料不代表裝置現在連線。
 
-Backend命令deadline預設20秒。**timeout（逾時）**表示裝置在deadline前沒有完成，
+Backend命令deadline預設20秒。**timeout（逾時）** 表示裝置在deadline前沒有完成，
 不是「命令稍後一定會成功」。發生timeout後，不自動重送可能造成危險或重複的動作。
 
 ### 先改一行標題，確認你改的是正在使用的頁面
@@ -202,7 +202,7 @@ Backend命令deadline預設20秒。**timeout（逾時）**表示裝置在deadlin
 
 ### 4.2 CSS：Responsive Web
 
-**Responsive Web Design（響應式網頁設計）**使同一份內容依viewport寬度重新排列。基準
+**Responsive Web Design（響應式網頁設計）** 使同一份內容依viewport寬度重新排列。基準
 CSS先定義一般版面，再以`@media (max-width: 680px)`調整窄螢幕。`@media`內隱藏
 table header，並使用cell的`data-label`呈現欄名，避免手機只能左右拖曳大型表格。
 
@@ -291,8 +291,8 @@ live update；重新整理後仍存在，表示historical API／database可讀�
 
 ## 八、Viewer與Operator Permissions
 
-**authentication（身分驗證）**判斷請求者是誰或是否持有credential；**authorization
-（授權）**判斷是否允許執行動作。本週簡化原型使用operator key授權建立命令。
+**authentication（身分驗證）** 判斷請求者是誰或是否持有credential；**authorization
+（授權）** 判斷是否允許執行動作。本週簡化原型使用operator key授權建立命令。
 
 ### Viewer
 
@@ -330,9 +330,13 @@ live update；重新整理後仍存在，表示historical API／database可讀�
 ### 9.1 筆電localhost觀察
 
 1. 用筆電開`http://127.0.0.1:8000`。
-2. 開Developer Tools的Application區，檢查Manifest與Service Workers。
+2. 在筆電 Chrome／Edge 按 **F12**（或 Ctrl+Shift+I）開開發者工具。
+   頂部選 **Application**；看不到就按 `»` 展開更多分頁。左側依序選 **Manifest**、
+   **Service Workers**。這不是 Arduino IDE，也不是手機設定頁。
 3. 重新整理，確認shell檔可由service worker cache取得；`/api/`資料不可由舊cache冒充最新值。
-4. 停止Backend後再次整理，若shell可開，也必須清楚顯示API失敗／offline。
+4. 看到 service worker 已啟用後，停止Backend，再重新整理。
+   若只有頁面框架可開，也必須顯示 API 失敗／offline；框架不是最新裝置資料。
+   完成後在原後端視窗重跑第三節啟動命令，再重新整理確認恢復。
 
 ### 9.2 手機LAN HTTP限制
 

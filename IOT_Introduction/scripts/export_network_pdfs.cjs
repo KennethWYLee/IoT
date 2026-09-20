@@ -30,6 +30,8 @@ h1,h2,h3,h4,h5,h6 { break-after:avoid; }
 h2.appendix { break-before:page; }
 p { margin:2.5mm 0; orphans:3; widows:3; }
 ul,ol { padding-left:6mm; margin:3mm 0; }
+ul.short-list,ol.short-list { break-inside:avoid; }
+p:has(+ ul.short-list),p:has(+ ol.short-list),p:has(+ pre.short-code) { break-after:avoid; }
 li { margin:1mm 0; orphans:2; widows:2; }
 a { color:#125c69; text-decoration:underline; overflow-wrap:anywhere; }
 img { display:block; max-width:100%; max-height:100mm; width:auto; height:auto; margin:3mm auto; object-fit:contain; break-inside:avoid; }
@@ -105,10 +107,29 @@ async function main() {
         await page.evaluate(() => document.fonts.ready);
         await page.waitForFunction(() => [...document.images].every(i => i.complete && i.naturalWidth > 0));
         const layout = await page.evaluate(() => {
+          // Keep invisible Markdown anchors with their heading during pagination.
+          for (const anchor of document.querySelectorAll('a[id]:not([href])')) {
+            if (anchor.textContent.trim()) continue;
+            const parent = anchor.parentElement;
+            const holder = parent.tagName === 'P' && !parent.textContent.trim() ? parent : anchor;
+            const next = holder.nextElementSibling;
+            if (next && /^H[1-6]$/.test(next.tagName)) {
+              next.prepend(anchor);
+              if (holder !== anchor) holder.remove();
+            }
+          }
           for (const pre of document.querySelectorAll('pre')) {
             if (pre.getBoundingClientRect().height <= 300) pre.classList.add('short-code');
           }
-          const used = new Set([...document.querySelectorAll('[id]')].map(e => e.id));
+          for (const list of document.querySelectorAll('ul,ol')) {
+            if (list.getBoundingClientRect().height <= 400) list.classList.add('short-list');
+          }
+          const prose = document.body.cloneNode(true);
+          prose.querySelectorAll('pre,code').forEach(e => e.remove());
+          const literalBold = prose.textContent.includes('**');
+          const ids = [...document.querySelectorAll('[id]')].map(e => e.id);
+          const duplicateIds = ids.filter((id, index) => ids.indexOf(id) !== index);
+          const used = new Set(ids);
           for (const h of document.querySelectorAll('h1,h2,h3,h4,h5,h6')) {
             if (h.tagName === 'H2' && h.textContent.startsWith('附錄')) h.classList.add('appendix');
             if (h.id) continue;
@@ -120,10 +141,12 @@ async function main() {
           const badLinks = [...document.querySelectorAll('a[href^="#"]')].filter(a => !document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)))).map(a=>a.getAttribute('href'));
           const overflow = [...document.querySelectorAll('pre,table,img,p,li')].filter(e=>e.scrollWidth>e.clientWidth+2).map(e=>e.tagName);
           document.title = document.querySelector('h1').textContent;
-          return {badLinks,overflow,images:document.images.length};
+          return {badLinks,overflow,duplicateIds,literalBold,images:document.images.length};
         });
         assert.deepEqual(layout.badLinks, [], `${name}: broken anchors`);
+        assert.deepEqual(layout.duplicateIds, [], `${name}: duplicate anchors`);
         assert.deepEqual(layout.overflow, [], `${name}: horizontal overflow`);
+        assert.equal(layout.literalBold, false, `${name}: unparsed Markdown bold markers`);
         assert.equal(layout.images, imageCount);
         const pdf = name.replace(/\.md$/, '.pdf');
         await page.pdf({path:path.join(root,pdf), preferCSSPageSize:true, printBackground:true,

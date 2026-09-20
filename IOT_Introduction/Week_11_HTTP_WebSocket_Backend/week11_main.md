@@ -57,7 +57,7 @@ ESP32事件 → HTTP POST → FastAPI Backend → SQLite
 手機畫面 ← WebSocket ← 結果POST ← ESP32判斷與安全輸出
 ```
 
-本週的**Backend（後端）**是在筆電上執行、負責接收資料、驗證請求、保存資料與
+本週的**Backend（後端）** 是在筆電上執行、負責接收資料、驗證請求、保存資料與
 管理命令的程式。手機不是直接控制ESP32；所有事件與命令都經過Backend，才能留下
 可追蹤紀錄。
 
@@ -182,10 +182,10 @@ request阻塞的停止與斷電路徑，並實測最壞停止時間。
 
 ### 4.1 IP、port與URL
 
-**IP address（IP位址）**用來辨認LAN中的一台裝置。筆電可能顯示多個位址；本週要找
+**IP address（IP位址）** 用來辨認LAN中的一台裝置。筆電可能顯示多個位址；本週要找
 與手機、ESP32位於同一個Wi-Fi網路的IPv4，例如`192.168.x.x`或`10.x.x.x`。
 
-**port（連接埠）**用來辨認同一台電腦上的特定服務。本週Backend使用`8000`。
+**port（連接埠）** 用來辨認同一台電腦上的特定服務。本週Backend使用`8000`。
 以下URL（Uniform Resource Locator，資源位址）可拆成：
 
 ```text
@@ -239,7 +239,7 @@ python -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-**virtual environment（虛擬環境）**是專屬於此範例的Python套件空間，資料夾名稱為
+**virtual environment（虛擬環境）** 是專屬於此範例的Python套件空間，資料夾名稱為
 `.venv`。它避免本課套件和其他專案互相影響；`.venv`不提交Git。
 
 正常結果：命令列前方可能出現`(.venv)`，安裝最後沒有紅色`ERROR`。若PowerShell
@@ -251,7 +251,7 @@ python -m pip install -r requirements.txt
 
 ### 5.2 設定operator key並啟動服務
 
-**operator key（操作權限金鑰）**是Backend用來判斷某個瀏覽器是否能建立控制命令的
+**operator key（操作權限金鑰）** 是Backend用來判斷某個瀏覽器是否能建立控制命令的
 臨時字串。本週只把它設定在目前PowerShell process（程序）的環境變數，不寫入檔案。
 本週手機LAN網址使用HTTP，傳輸本身沒有TLS加密，因此這個臨時key不能當作正式系統的
 帳號安全。只在教師核准的隔離課堂網路與低功率輸出中使用，下課停止Backend後立即作廢；
@@ -295,8 +295,8 @@ Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/events `
   -ContentType application/json -Body $eventBody
 ```
 
-**HTTP request（HTTP請求）**是client送給server的動作。本例使用`POST`，表示送出
-一筆新事件。**HTTP response（HTTP回應）**是server處理後傳回的狀態與資料。
+**HTTP request（HTTP請求）** 是client送給server的動作。本例使用`POST`，表示送出
+一筆新事件。**HTTP response（HTTP回應）** 是server處理後傳回的狀態與資料。
 正常應看到事件`id`與`recorded_at`，Backend終端機也應出現JSON格式log。
 
 開啟 `http://127.0.0.1:8000`。把頁面上方 **Device ID** 的預設 `demo-device`
@@ -313,7 +313,7 @@ Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/events `
 
 ## 六、理解JSON事件與命令狀態
 
-**JSON（JavaScript Object Notation）**以欄位名稱和值表示結構化資料。它不是任意句子；
+**JSON（JavaScript Object Notation）** 以欄位名稱和值表示結構化資料。它不是任意句子；
 欄位拼字、型別與括號都必須符合介面約定。一筆裝置事件如下：
 
 ```json
@@ -359,7 +359,7 @@ requested → accepted → done
 
 ### 7.1 建立不提交Git的`secrets.h`
 
-在 IDE 程式分頁右側選單選 **新增分頁（New Tab）**，命名 `secrets.h`；
+在 IDE 程式分頁右側選單選 **新增分頁（New Tab）** ，命名 `secrets.h`；
 不要把這段貼到 `.ino` 最後面。填入實際 Wi-Fi 與筆電 IP，保留字串兩側的雙引號：
 
 ```cpp
@@ -393,6 +393,9 @@ const char API_BASE_URL[] = "http://192.168.1.23:8000";
 6. 在Serial Monitor輸入`status`，確認`wifi=connected`且API位址屬同一LAN。
 7. 輸入`test-event`。正常應看到HTTP status`201`；手機或筆電Events表新增
    `serial_test`。
+
+筆電網頁前一段仍可能選著 `host-test`。先將 **Device ID** 改成這支 `.ino` 的
+`DEVICE_ID`，按 **套用並重新整理**，才查看 `serial_test`；否則新事件會被篩掉。
 
 常見HTTP status code（狀態碼）：
 
@@ -431,6 +434,24 @@ const char API_BASE_URL[] = "http://192.168.1.23:8000";
 
 只有Week 7按鈕／Week 5 RGB profile與本週接線檢查完成時才進行：
 
+以下沿用相符 T01 的孔位；不同器材使用自己的已確認 GPIO，不能照抄候選腳位。
+Start 四腳為 e27、f27、e29、f29；STOP 為 e21、f21、e23、f23。
+板子放麵包板旁，USB 拔除後重建：
+
+| 起點 | 終點／程式設定 |
+|---|---|
+| ESP32 GND | a3 |
+| Start 的回地端 a29 | c3 |
+| STOP 的回地端 a23 | d3 |
+| Start 訊號 a27 | 已確認的 `PIN_START`；T01 為 GPIO5 |
+| STOP 訊號 a21 | 已確認的 `PIN_STOP`；T01 為 GPIO6 |
+| 相符 HW-479 的共同端 − | b3 |
+| RGB R／G／B | 各自的 `PIN_RGB_R/G/B`；T01 為 15／16／17 |
+
+板端用公對母線，RGB 三條訊號可用母對母線。兩顆按鈕斷電時各量 b27 對 b29、
+b21 對 b23：放開不通、按下才通。本段沒有 OLED、KY 或 3V3 供電線；
+RGB 仍須沿用 Week 5 已確認的限流及準位，不把三路接成同一列。
+
 1. 拔除USB。
 2. 依本週接線表及已核准profile重建START、STOP、KY-016 RGB與共地；不接SG90、蜂鳴器、
    電池盒或其他負載。
@@ -438,7 +459,8 @@ const char API_BASE_URL[] = "http://192.168.1.23:8000";
 4. 把 `PIN_START`、`PIN_STOP`、`PIN_RGB_R`、`PIN_RGB_G`、`PIN_RGB_B` 與
    `RGB_ON_LEVEL` 改成自己的實測 profile，再把
    `DRY_RUN=false`。
-5. Verify成功後才Upload。接回USB時手指不要壓住任何按鈕。
+5. 拍照保留接法，拔下板端所有杜邦線，只接 USB 後 Verify、Upload。
+   完成後拔 USB，依表恢復接線，再接 USB、開 Monitor 選 115200；手指不要壓住按鈕。
 6. 開機正常為IDLE，RGB顯示profile定義的藍色；若顏色相反，立即拔USB並回查
    ON level，不要以交換隨機GPIO掩蓋問題。
 7. 按START一次：Serial應顯示`state=active`、RGB變綠、HTTP status為`201`，
@@ -453,7 +475,8 @@ const char API_BASE_URL[] = "http://192.168.1.23:8000";
 1. Backend啟動時使用的operator key填入手機頁面；key只留在目前頁面的記憶體，
    不要截圖或貼到通訊軟體。
 2. Device ID填成程式中的`DEVICE_ID`，逐字相同。
-3. 裝置先保持IDLE，按手機`start`。
+3. 上節 STOP 測試會留下 ERROR。放開 STOP，先從手機選 `reset` 並送出，等同一筆
+   命令 `done`、Serial 顯示 `idle`、RGB 藍色，再選 `start` 送出。
 4. 在Commands區找到新產生的`command_id`，記錄它。
 5. ESP32下一次poll取得命令後先回`accepted`，執行安全輸出後再回`done`。
 6. 確認RGB變綠，手機上同一個`command_id`最後為`done`。
@@ -482,8 +505,10 @@ exactly-once保證；同一次開機中舊ID被第9筆等新紀錄擠出後也�
 
 ### 故障B：錯誤筆電IP
 
-先拔USB，將`API_BASE_URL`最後一段改成LAN中不存在的位址，Upload後輸入
-`test-event`。應看不到`201`。完成觀察後立刻還原正確IP再Upload，不在帶電狀態改線。
+先拔 USB、移除板端杜邦線，再把 `API_BASE_URL` 暫改為
+`http://127.0.0.1:8000`。這是 ESP32 自己的位址，不會把測試事件送往 LAN 其他人的電腦。
+只接 USB 上傳、開 Monitor 115200，輸入 `test-event`，應看不到 `201`。
+還原筆電 IP 並上傳後，拔 USB、依第九節恢復接線，再重測一筆正常事件。
 
 ### 故障C：Backend停止
 
@@ -494,8 +519,15 @@ Backend後，先按住STOP並送reset；命令必須rejected且RGB保持紅色�
 
 ### 故障D：錯誤命令
 
-用Backend的`/docs`頁或PowerShell建立一筆`blink-forever`命令。ESP32應回
-`rejected`與`unknown command`，不能因未知輸入進入ACTIVE。
+筆電開 `http://127.0.0.1:8000/docs`，展開 **POST /api/commands → Try it out**。
+在 `x-iot-key` 填本次臨時 key；Request body 改為下列內容，替換裝置代號後按 Execute：
+
+```json
+{"device_id":"replace-with-team-device-id","command":"blink-forever","parameters":{}}
+```
+
+先看 `201` 與 `command_id`，再回手機查同 ID 最終為 `rejected`、訊息 `unknown command`。
+RGB 不得因未知命令變綠。`403` 先查 key，`422` 先查 JSON，不連按 Execute。截圖避開 key。
 
 完成每項故障後都要恢復baseline並重新驗證一筆正常事件。症狀、第一個安全檢查與
 復原方式記錄於支援資料，不使用「網路壞了」作為結論。
@@ -565,7 +597,7 @@ Upload與執行。不得同時改`event_type`、`state`與`unit`。
 
 在Windows開始功能表搜尋Python與Git；在PowerShell分別執行`python --version`與`git --version`。若找不到，依[Python Windows官方文件](https://docs.python.org/3/using/windows.html)與[Git官方下載](https://git-scm.com/downloads)安裝，重新開啟PowerShell再測。記錄實際版本與路徑；不要在原本正常的環境同時升級多個套件。無安裝權限時先回報教師，不繞過學校安全設定。
 
-執行`git status`確認自己的修改，再依主教材進入`IOT_Introduction/examples/course_backend`建立虛擬環境。虛擬環境（virtual environment）是本專案專用的Python套件位置，不是另一台電腦。命令出現版本號表示可啟動，不代表Backend或硬體測試完成。
+以 Git clone 取得資料夾者，執行`git status`確認修改；Download ZIP 沒有 Git 歷史，跳過 Git 檢查即可。再依主教材進入`IOT_Introduction/examples/course_backend`建立虛擬環境。它是本專案專用的套件位置，不是另一台電腦。版本號只表示可啟動，不代表Backend或硬體測試完成。
 
 <a id="support-一課前環境與器材確認"></a>
 
@@ -577,7 +609,7 @@ Upload與執行。不得同時改`event_type`、`state`與`unit`。
 
 | 項目 | 檢查方法 | 實際結果 | 可開始條件 |
 |---|---|---|---|
-| 本機repository | `git status`、`git pull --ff-only` |  | 無未處理衝突；可看到Week 11與Backend |
+| 本機課程資料夾 | clone 用 `git status`；ZIP 核對版本及檔名 |  | 可看到本週同版本教材與 Backend；不在操作途中換版本 |
 | Python | PowerShell執行`python --version` |  | 可啟動且版本已記錄 |
 | Git | PowerShell執行`git --version` |  | 可執行Git命令 |
 | Arduino IDE | 開啟IDE並讀取About／版本畫面 |  | Week 7相同環境可用 |
@@ -627,18 +659,21 @@ package與library。
 
 #### 提交前秘密掃描
 
-在repository根目錄執行下列檢查前，先把搜尋字串替換成**自己密碼的一小段獨特片段**；
-不要把完整密碼貼入終端截圖：
+只在有 Git 歷史的 repository 根目錄執行下列唯讀檢查。不要把密碼或其片段
+打進搜尋命令，避免留在 shell 歷史；檢查期間也不要錄影或截圖秘密：
 
 ```powershell
 git status --short
 git diff --cached --name-only
-rg -n "replace-with-wifi|replace-with-your-temporary" .
+git ls-files -- "*secrets.h" "*course-passwords*"
+git diff --cached
 ```
 
 另外人工確認：
 
-- `secrets.h`沒有被`git status`列出。
+- `git ls-files` 沒列出秘密檔；`git diff --cached` 逐項閱讀，沒有真實帳密。
+- `git status` 沒列出檔案，不代表它從未被追蹤。以上檢查也不涵蓋舊歷史、截圖及錄影。
+- 使用 ZIP 或只在個人練習資料夾操作時，分享前人工移除 `secrets.h`、密碼檔與私人紀錄，保留 example 檔。
 - 螢幕錄影沒有拍到PowerShell中的operator key。
 - 手機頁面截圖裁掉key輸入欄。
 - `DEVICE_ID`不含姓名、學號、電子郵件或手機號碼。
@@ -819,14 +854,14 @@ Backend的`recorded_at`由伺服器產生，ESP32提供`uptime_ms`。連續按ST
 
 ### 八、官方與repository參考
 
+官方文件用來確認API行為；本課的欄位名稱、命令狀態與安全限制則以本教材和課程
+Backend為準。
+
 - [Espressif Arduino Wi-Fi API](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html)
 - [FastAPI WebSocket官方文件](https://fastapi.tiangolo.com/advanced/websockets/)
 - [課程Backend完整執行說明](../examples/course_backend/README.md)
 - [課程Backend程式](../examples/course_backend/app.py)
-- [Week 7按鈕與整合經驗](../Week_07_Traffic_Light_Challenge/week7_main.ipynb)（本週將Finish改作STOP，不沿用遊戲送出規則）
-
-官方文件用來確認API行為；本課的欄位名稱、命令狀態與安全限制則以本教材和課程
-Backend為準。
+- [Week 7按鈕與整合經驗](../docs/teaching_drafts/week7_redesign/week7_main.md)（本週將Finish改作STOP，不沿用遊戲送出規則）
 
 <a id="complete-http-sketch"></a>
 

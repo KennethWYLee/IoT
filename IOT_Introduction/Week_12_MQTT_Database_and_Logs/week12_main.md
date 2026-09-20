@@ -132,7 +132,7 @@ A 是 MQTT broker，負責按主題轉送訊息；E 是本課的 bridge，負責
 
 ## 二、從Week 11架構加入Broker
 
-**MQTT broker（訊息代理伺服器）**接收publisher送來的訊息，再依topic轉給所有符合的
+**MQTT broker（訊息代理伺服器）** 接收publisher送來的訊息，再依topic轉給所有符合的
 subscriber。publisher不必知道subscriber的IP；兩者只要能連到broker並使用相同topic。
 
 ```text
@@ -144,7 +144,7 @@ ESP32-B ─publish─┼→ MQTT Broker → Backend bridge → FastAPI → SQLit
 ESP32-A ←subscribe┘
 ```
 
-**topic（主題）**是broker用來路由訊息的階層名稱；**payload（承載資料）**是topic內實際
+**topic（主題）** 是broker用來路由訊息的階層名稱；**payload（承載資料）** 是topic內實際
 傳送的內容，本課使用JSON。topic決定「送到哪一類接收者」，payload說明「這筆訊息的
 欄位和值」。本課固定topic tree：
 
@@ -217,13 +217,16 @@ PowerShell視窗A：
 PowerShell視窗C發布：
 
 ```powershell
-& "C:\Program Files\mosquitto\mosquitto_pub.exe" `
+$payload = '{"device_id":"host-test","event_type":"broker_test","value":1}'
+$payload | & "C:\Program Files\mosquitto\mosquitto_pub.exe" `
   -h 127.0.0.1 -t "course/host-test/events" `
-  -m '{"device_id":"host-test","event_type":"broker_test","value":1}'
+  -s
 ```
 
 正常結果：B立即顯示topic與JSON，A顯示publisher與subscriber。這只證明broker host
 test，不證明LAN、ESP32或帳密設定。
+
+`-s` 從管線讀取整段文字；如此 JSON 的雙引號不會因不同 PowerShell 原生命令傳參方式消失。
 
 ### 4.2 建立有帳密的LAN設定
 
@@ -328,15 +331,15 @@ $env:IOT_API_BASE_URL="http://127.0.0.1:8000"
 
 ## 六、QoS、Retained Message與Last Will
 
-**QoS（Quality of Service）**表示MQTT傳遞保證。本週PubSubClient發布使用QoS 0，
+**QoS（Quality of Service）** 表示MQTT傳遞保證。本週PubSubClient發布使用QoS 0，
 訂閱可要求QoS 1；bridge發布命令使用QoS 1。QoS 1可能重送，所以仍須以
 `command_id`避免重複動作。PubSubClient發布限制與buffer設定見
 [官方repository](https://github.com/knolleary/pubsubclient)。
 
-**retained message（保留訊息）**是broker替topic保存的最後一筆資料，新subscriber
+**retained message（保留訊息）** 是broker替topic保存的最後一筆資料，新subscriber
 一訂閱就會收到。它適合presence，不適合一次性控制命令。
 
-**Last Will（遺囑訊息）**由client連線時預先交給broker。若ESP32未正常告別就斷線，
+**Last Will（遺囑訊息）** 由client連線時預先交給broker。若ESP32未正常告別就斷線，
 broker代為發布offline。online與意外offline都retain，監看者才可立即看到最後狀態。
 Will payload是在MQTT連線建立時準備，不是在斷線瞬間重新讀取裝置狀態。因此
 `value=offline`可作為broker觀察到非正常離線的presence證據，但Will內的`state`
@@ -382,6 +385,9 @@ const char MQTT_PASSWORD[] = "replace-with-broker-password";
 
 ### 階段1：編譯與連線，不驅動GPIO
 
+先拔 USB、移除全部板端杜邦線及外部電源；只接板背 COM 的 USB。
+Arduino IDE 選 Week 11 同一板型與實際 Port，A、D、E 保持執行。
+
 1. 保持`DRY_RUN=true`、GPIO為`-1`，替換`DEVICE_ID`及`secrets.h`。
 2. Verify後Upload，開啟115200 Serial Monitor。
 3. 正常依序看到`wifi=connecting`、`mqtt=connect connected=true`及本裝置topic。
@@ -391,9 +397,20 @@ const char MQTT_PASSWORD[] = "replace-with-broker-password";
 
 ### 階段2：啟用實體profile
 
-1. 拔USB，依Week 3、5、7接線表接KY-018、START、STOP與RGB。
-2. 填入自己的GPIO、RGB ON level與KY-018有效raw範圍，改`DRY_RUN=false`。
-3. Verify成功後Upload，再訂閱本裝置全部訊息：
+先沿用 Week 11 第九節的 START、STOP、RGB 接法，USB 拔除時只新增：
+
+| 新增線路 | 程式設定 |
+|---|---|
+| 板 3V3 → a6；已確認 KY 中間電源腳 → b6 | 本批使用 3.3 V，不改接 5Vin |
+| KY − → e3 | 與原有 a3 板 GND 同組，其他地線不移動 |
+| KY S → a15；c15 → 已確認 ADC GPIO | `PIN_LIGHT`；T01 為 GPIO4 |
+
+1. 拍照保存此接法，再移除板端所有杜邦線，只接 USB。
+2. 把 `PIN_START`、`PIN_STOP`、`PIN_RGB_R`、`PIN_RGB_G`、`PIN_RGB_B`、`RGB_ON_LEVEL`
+   填回 Week 11 值；`PIN_LIGHT` 依上表。`LIGHT_VALID_MIN/MAX` 分別採同輪兩種光線
+   基準的最小／最大值，涵蓋兩種條件；不能只填未遮光那一小段。改 `DRY_RUN=false`。
+3. Verify、Upload 後拔 USB，依兩張表恢復接線，再接 USB、開 Monitor 選 115200。
+   在 B 按 Ctrl+C 停掉原訂閱，再用下列命令訂閱本裝置，替換 IP、密碼及 `<your-device-id>`：
 
 ```powershell
 & "C:\Program Files\mosquitto\mosquitto_sub.exe" `
@@ -403,6 +420,10 @@ const char MQTT_PASSWORD[] = "replace-with-broker-password";
 
 4. 每兩秒應看到`light_sample`；按START／STOP應看到events。關閉broker後按STOP，
    RGB仍須在實測上限內變紅，且不等待broker恢復。
+
+做完離線觀察，在 A 回原 MQTT 練習目錄，重新執行第四節的 `-c .\course-mosquitto.conf -v`
+啟動命令；等 ESP32、B、E 重新連上。手機送 `reset`、等 `done` 與 idle，才做階段3。
+若 B 或 E 已退出，重跑它們原來的命令；新視窗要重填環境變數，不重建密碼檔。
 
 `mqttClient.connect()`本身仍可能阻塞到`setSocketTimeout(1)`設定的約1秒；因此本實驗只能
 證明低功率RGB範例的本機STOP不依賴broker，不能把它描述為硬即時緊急停止。量測broker
@@ -437,7 +458,7 @@ const char MQTT_PASSWORD[] = "replace-with-broker-password";
 ## 十、Retain、重複命令與故障注入
 
 1. A已online後才新開subscriber訂閱A presence；若立即收到online，retained生效。
-2. 裝置離線時發布一個**不加`-r`**的命令，重新上線後不得執行。
+2. 裝置離線時發布一個 **不加 `-r`** 的命令，重新上線後不得執行。
 3. 將相同安全命令payload與`command_id`發布兩次；第二次不得重做狀態轉換。
 4. 發布缺右大括號的malformed JSON；Serial顯示JSON reject，RGB不變。
 5. Topic填A、payload device ID填B；A拒絕執行。
@@ -449,6 +470,39 @@ const char MQTT_PASSWORD[] = "replace-with-broker-password";
 9. 只停止bridge；broker仍看得到資料，但Backend與手機不更新。
 
 每次只注入一個錯誤，恢復baseline後再做下一項。
+
+### 手動發布命令的方法
+
+這段只對自己組的低功率 RGB 裝置操作。先完成手機命令測試，再於 **C 視窗**執行。
+先在 E 按 Ctrl+C 暫停 bridge，避免手動測試 ID 的 ack 被誤當成資料庫命令；A 與 B 保持執行。
+
+```powershell
+$device = "replace-with-your-device-id"
+$testId = [guid]::NewGuid().ToString()
+$commandBody = @{
+  device_id = $device
+  command_id = $testId
+  command = "reset"
+  parameters = @{}
+} | ConvertTo-Json -Compress
+$commandBody | & "C:\Program Files\mosquitto\mosquitto_pub.exe" `
+  -h <筆電LAN-IP> -u iotstudent -P '<temporary-password>' `
+  -t "course/$device/commands" -s
+```
+
+先替換裝置代號、IP、密碼；不加 `-r`。B 應收到同一 ID 的 accepted 與 done／rejected，
+並以 Serial、RGB 核對；這個自行產生的測試 ID **不會出現在手機 Commands 資料表**。
+重複測試只重跑最後四行發布命令，不重建 `$testId`。
+
+| 原有故障測試 | C 中改哪裡 | 從哪裡看結果 |
+|---|---|---|
+| 格式錯誤 | `$commandBody = '{"device_id":'`，再發布 | Serial 的 JSON reject；不是要求 broker 拒絕 |
+| 目標不符 | 重建 body，裡面 ID 改另一個代號；topic 仍用自己 ID | Serial 顯示 `mqtt=reject reason=identity_or_field`，RGB 不變 |
+| 未知命令 | 重建 body，command 改 `spin_forever`，使用新 `$testId` | B 的 rejected 與原因 |
+| 離線命令不重播 | 拔自己 ESP32 USB，發布一次新 ID 的 reset，再接 USB | 重連後不出現該 ID 的執行紀錄 |
+
+每項做完重建正常 body；測完在 E 重跑 bridge，從手機以新命令 reset，確認資料庫路徑恢復。
+不用任意 ID 覆寫資料庫，也不截圖含密碼的命令。新視窗沒有 `$device` 等變數，須重做本段設定。
 
 ## 十一、練習
 
@@ -500,8 +554,8 @@ SQLite Database：資料以哪些table、column與row保存
 Structured log：程式在何時做了什麼判斷與處理
 ```
 
-**Database（資料庫）**保存結構化row（列）。關閉瀏覽器或重新啟動Backend後，已提交的
-SQLite資料仍存在。**log（日誌）**按執行順序記錄程式行為，用來理解請求為何成功、
+**Database（資料庫）** 保存結構化row（列）。關閉瀏覽器或重新啟動Backend後，已提交的
+SQLite資料仍存在。**log（日誌）** 按執行順序記錄程式行為，用來理解請求為何成功、
 被拒絕或失敗；log不一定等於正式歷史資料，也不能取代database schema。
 
 以下範例使用**SQLite**：database存在單一檔案`runtime/iot_course.db`，適合本機課堂
@@ -554,7 +608,7 @@ $env:IOT_OPERATOR_KEY="replace-with-your-temporary-classroom-key"
 確認 `mqtt_connected`，才接回已確認安全接線的 ESP32。手機重新填同一個臨時 key 及
 Device ID，按 **套用並重新整理**。如果 E 是新視窗，須先重填第五節四個 MQTT 變數與 API 位址。
 
-**structured log（結構化日誌）**是一行一個具有固定欄位的JSON object，例如：
+**structured log（結構化日誌）** 是一行一個具有固定欄位的JSON object，例如：
 
 ```json
 {"timestamp":"2026-11-25T02:10:00+00:00","action":"event_created","event_id":21,"device_id":"team03-device01","event_type":"light_sample","valid":true,"reason":"within_profile"}
@@ -581,18 +635,23 @@ Device ID，按 **套用並重新整理**。如果 E 是新視窗，須先重填
 
 ## DB 六、讀取SQLite Schema
 
-**schema（綱要）**定義table、column、資料型態與限制。**table（資料表）**保存同類資料；
-**row**是一筆資料；**column（欄位）**表示每筆資料的某個屬性。
+**schema（綱要）** 定義table、column、資料型態與限制。**table（資料表）** 保存同類資料；
+**row**是一筆資料；**column（欄位）** 表示每筆資料的某個屬性。
 
-保持Backend執行，另開PowerShell進入相同資料夾：
+保持 A、B、D、E 執行，C 已發布完訊息，可用來查資料。在檔案總管從
+`IOT_Introduction/examples/course_backend` 開新的查詢視窗，或將 C 切到此目錄。
+後面的 DB 命令都在這個查詢視窗執行，不貼進 D 的 log 畫面。
 
 ```powershell
-.\.venv\Scripts\Activate.ps1
-python inspect_db.py schema
+Test-Path .\inspect_db.py
+.\.venv\Scripts\python.exe inspect_db.py schema
 ```
 
 `inspect_db.py`以read-only mode開啟database，不修改row。輸出應包含`events`與
 `commands`兩個table。
+
+第一行須為 True；直接呼叫 `.venv` 的 Python，不受 PowerShell 啟用腳本限制。
+後續 `<your-device-id>` 要換成本組代號，連尖括號一起移除；例如 `--device team03-device01`。
 
 ### DB 6.1 Events table
 
@@ -610,7 +669,7 @@ python inspect_db.py schema
 | `device_timestamp` | 裝置提供且含timezone offset的ISO 8601時間，可為null | 只有裝置真的校時才使用 |
 | `recorded_at` | Backend收到時的UTC時間 | 歷史範圍查詢基準 |
 
-**primary key（主鍵）**是table中唯一辨認row的欄位。`id`不是感測值，也不是裝置ID。
+**primary key（主鍵）** 是table中唯一辨認row的欄位。`id`不是感測值，也不是裝置ID。
 **nullable**表示欄位可為空；例如未做可靠校時時，`device_timestamp`保持null比填入假日期
 更正確。已校時的裝置也必須附`Z`或`+08:00`等timezone offset；沒有offset時Backend回422。
 建立event時，client送出的JSON欄位名是`timestamp`；Backend驗證後，在API response與
@@ -626,7 +685,7 @@ SQLite中使用`device_timestamp`保存它。這個欄位名稱轉換不能和Ba
 
 ### DB 6.3 Index
 
-**index（索引）**是database為常用查詢建立的搜尋結構。本範例對device/time、
+**index（索引）** 是database為常用查詢建立的搜尋結構。本範例對device/time、
 event type/time及command device/status建立index。index加速查詢，但會占空間並增加寫入
 成本；不因「可能有用」就替每個column建立index。
 
@@ -635,20 +694,20 @@ event type/time及command device/status建立index。index加速查詢，但會�
 讀取最近十筆事件：
 
 ```powershell
-python inspect_db.py events --limit 10
+.\.venv\Scripts\python.exe inspect_db.py events --limit 10
 ```
 
 只看自己的裝置與KY-018：
 
 ```powershell
-python inspect_db.py events --device <your-device-id> --type light_sample --limit 20
+.\.venv\Scripts\python.exe inspect_db.py events --device <your-device-id> --type light_sample --limit 20
 ```
 
 讀命令及只看被拒絕的命令：
 
 ```powershell
-python inspect_db.py commands --device <your-device-id> --limit 20
-python inspect_db.py commands --device <your-device-id> --status rejected --limit 20
+.\.venv\Scripts\python.exe inspect_db.py commands --device <your-device-id> --limit 20
+.\.venv\Scripts\python.exe inspect_db.py commands --device <your-device-id> --status rejected --limit 20
 ```
 
 完成條件：從一筆row指出「誰、發生什麼、值與單位、是否有效、原因、裝置相對時間、
@@ -709,7 +768,7 @@ Invoke-RestMethod "$base/api/stats?device_id=$device" | ConvertTo-Json -Depth 6
 也可直接執行read-only summary：
 
 ```powershell
-python inspect_db.py summary
+.\.venv\Scripts\python.exe inspect_db.py summary
 ```
 
 ### DB 9.2 不能混淆的三種「無效」
@@ -802,13 +861,13 @@ $afterCreate.event_count
 
 ## DB 十一、Schema Migration的基本判斷
 
-**migration（資料庫遷移）**是在保留既有資料的前提下調整schema。本範例`init_db()`先
+**migration（資料庫遷移）** 是在保留既有資料的前提下調整schema。本範例`init_db()`先
 `CREATE TABLE IF NOT EXISTS`，再以`ensure_column()`檢查舊database是否缺少新column；
 重複啟動不應重複新增相同column，這稱為idempotent（重複執行仍得到相同結構結果）。
 
 本週不直接修改正式database schema。完成下列read-only觀察：
 
-1. 執行`python inspect_db.py schema`保存第一次輸出。
+1. 執行`.\.venv\Scripts\python.exe inspect_db.py schema`保存第一次輸出。
 2. 正常停止並重新啟動Backend。
 3. 再執行schema，確認column沒有重複、既有event row仍可查詢。
 4. 記錄「重新啟動驗證」；不能把它誤稱成完整migration test，因為沒有建立舊版fixture。
@@ -846,7 +905,9 @@ $afterCreate.event_count
 - [ ] Database與log不含password、key、token或不必要個資。
 - [ ] Host query與physical data來源分別標示，未做的測試不宣稱通過。
 
-結束時以`Ctrl+C`正常停止bridge與Backend，不在Backend執行時搬移database。`runtime`
+結束先放開 STOP 並送 reset，確認安全狀態、拔 ESP32 USB；在 E、B、D、A 依序按
+`Ctrl+C` 停止 bridge、訂閱、Backend、broker。下次依第四、五節重開，不重新安裝或覆寫密碼檔。
+不在Backend執行時搬移database。`runtime`
 資料不提交Git；只提交遮蔽秘密的schema、query、統計及重建紀錄。詳細表格與延伸題見
 [Week 12支援資料](#practice-and-reference)。
 
@@ -1100,13 +1161,12 @@ stale」的規則，並區分stale與broker明確發布offline。
 ### 十一、參考資料
 
 - [Eclipse Mosquitto官方下載](https://mosquitto.org/download/)
+- [Mosquitto發布工具：`-s`從標準輸入讀取訊息](https://mosquitto.org/man/mosquitto_pub-1.html)
 - [PubSubClient官方repository與限制](https://github.com/knolleary/pubsubclient)
 - [課程MQTT bridge](../examples/course_backend/mqtt_bridge.py)
 - [課程Backend執行說明](../examples/course_backend/README.md)
 - [Week 11主教材](../Week_11_HTTP_WebSocket_Backend/week11_main.md)
 
-
-<a id="database"></a>
 
 <a id="support-db-一資料與時間來源表"></a>
 
@@ -1276,7 +1336,7 @@ timeout：
 | Count比預期多 | 查time range與取樣率 | dataset | 已知開始／結束 | 不直接刪row |
 | Count比預期少 | 看device／bridge log | transport | 每次POST／forward成功 | 定位缺失層次 |
 | `valid`都是null | 查舊資料或sender schema | data quality | 新資料明確true/false | 不把null算false |
-| Command停requested | 查device routing | command flow | 有accepted／terminal | 回Week 11／10追蹤 |
+| Command停requested | 查device routing | command flow | 有accepted／terminal | 回Week 11及本週命令流程追蹤 |
 | Log找不到command ID | 確認本次log檔與程序 | observability | 同一執行期間 | 不拼湊不同run |
 | Log出現秘密 | 立即停止分享 | data protection | 只記denied原因 | 清除／重設秘密並修log |
 

@@ -136,7 +136,7 @@
 
 ## 二、先定義Automation Policy
 
-**automation（自動反應）**不是「感測值一變就做事」，而是一組可檢查的決策。共同實驗
+**automation（自動反應）** 不是「感測值一變就做事」，而是一組可檢查的決策。共同實驗
 使用KY-018判斷環境進入較暗條件，RGB由IDLE藍色進入ACTIVE綠色；恢復較亮、超過最大
 時間、感測無效、網路長時間中斷或STOP時，回到IDLE或ERROR安全狀態。
 
@@ -159,7 +159,7 @@
 
 ## 三、Hysteresis與連續取樣
 
-單一threshold附近的noise可能使state快速來回。**hysteresis（遲滯）**使用兩個不同門檻：
+單一threshold附近的noise可能使state快速來回。**hysteresis（遲滯）** 使用兩個不同門檻：
 
 - `DARK_ENTER_RAW`：進入dark條件的門檻。
 - `LIGHT_EXIT_RAW`：離開dark條件的門檻。
@@ -167,6 +167,11 @@
 若「越暗raw越小」，enter值必須小於exit值；若「越暗raw越大」，enter值必須大於exit值。
 此外連續三筆符合才轉換，避免單一偶發值觸發。這不是任意平均；sample count與兩門檻都
 必須寫進policy與log。
+
+例如同輪假資料為暗 300～320、亮 900～920，可示範 enter=513、exit=706，
+方向為 `DARK_WHEN_RAW_LESS=true`。IDLE 連續三筆不大於 513 才開始；ACTIVE
+連續三筆不小於 706 才回待機；600 位於兩門檻之間，不觸發轉換。
+這些數字只用來讀懂規則，實際設定取本組兩段基準之間的不同值，並落在有效範圍內。
 
 ## 四、安全優先順序
 
@@ -183,7 +188,7 @@
 ```
 
 高優先動作不可被低優先動作同一loop覆蓋。例如STOP使state進ERROR後，sensor仍然dark也
-不得立刻回ACTIVE。**safe state（安全狀態）**是故障時輸出應進入的明確狀態；共同RGB
+不得立刻回ACTIVE。**safe state（安全狀態）** 是故障時輸出應進入的明確狀態；共同RGB
 實驗為紅色ERROR。學生專題若使用舵機或馬達，安全狀態還須停止PWM／detach／driver
 disable並受最大動作時間限制，不能只改畫面顏色。
 
@@ -302,6 +307,10 @@ void evaluateAutomation() {
   latestSensorValid = !simulatedSensorFault &&
                       latestLightRaw >= LIGHT_VALID_MIN &&
                       latestLightRaw <= LIGHT_VALID_MAX;
+  Serial.printf("action=automation_sample uptime_ms=%lu raw=%d valid=%s "
+                "state=%s auto=%s dark_before=%d light_before=%d\n",
+                now, latestLightRaw, latestSensorValid ? "true" : "false",
+                stateName(), autoMode ? "true" : "false", darkCount, lightCount);
   if (!latestSensorValid) {
     if (state != DeviceState::ERROR_STATE) {
       enterSafetyError(simulatedSensorFault ? "simulated_sensor_invalid" :
@@ -443,6 +452,9 @@ evaluateAutomation();
 完整loop順序應保持physical input在network reconnect與automation之上；不得用無限`while`
 重連broker。
 
+另外在 `setup()` 的啟動訊息把 `week=12` 改成 `week=15`；只改這段文字，
+方便確認上傳的是哪一週，不改 topic。完整程式已包含此修改。
+
 ## 六、分階段驗證Automation
 
 <a id="send-automation-command"></a>
@@ -475,14 +487,15 @@ evaluateAutomation();
 
 ### 6.2 上電前檢查
 
-1. 拔USB，只接KY-018、START、STOP、RGB；不接SG90／蜂鳴器／4AA。
+1. 拔USB，只保留 Week 12 第八節已確認的 KY-018、START、STOP、RGB 接法；不接SG90／蜂鳴器／4AA。
 2. 核對Week 3有效範圍、dark方向、enter與exit門檻。
 3. 確認profile logic：raw越暗越小時enter < exit；越暗越大時enter > exit。
 4. 從ESP32沿線到模組、再反向檢查；接回USB前確認3V3、GND與signal。
 
 ### 6.3 Baseline sequence
 
-1. 改`DRY_RUN=false`，Verify後Upload；開機應IDLE、auto off。
+1. 改`DRY_RUN=false`，拍照後拔下所有板端杜邦線，只接 USB 後 Verify、Upload。
+   完成後拔 USB、依 Week 12 接線表恢復，接 USB 並開 Monitor 選 115200；開機應IDLE、auto off。
 2. 先取得一筆有效KY-018 sample，確保`latestSensorValid=true`。
 3. 送`auto_on`，ack為done但state仍IDLE，表示只是armed。
 4. 使環境符合dark-enter；前兩筆不動作，連續第三筆後進ACTIVE。
@@ -493,6 +506,11 @@ evaluateAutomation();
 9. 送`test_sensor_fault`，確認進ERROR且reason為`simulated_sensor_invalid`；再送
    `clear_sensor_fault_test`，等下一筆sample使`latestSensorValid=true`後才送reset。
    這一步驗證可重現的程式故障路徑，不宣稱實體訊號線已故障。
+
+觀察 Serial 的 `action=automation_sample`，這是每次自動判斷讀到的資料，不是每兩秒
+發布的 telemetry。`dark_before`／`light_before` 是**處理這筆之前**的連續筆數；
+例如符合暗條件的三行依次為 0、1、2，第三行之後才出現狀態轉換。
+先讀完本段再測一輪，ACTIVE 最長只有 10 秒；到期後照步驟8復原，不邊倒數邊翻頁。
 
 ## 七、衝突與優先順序測試
 
@@ -556,7 +574,7 @@ Week 12的RAM cache只涵蓋最近8筆且會在重啟後消失。本項測試先
 
 ## 九、Clean Reconstruction
 
-**clean reconstruction（乾淨重建）**由沒有使用原開發環境的人，在新資料夾中依repository
+**clean reconstruction（乾淨重建）** 由沒有使用原開發環境的人，在新資料夾中依repository
 文件建立可運作系統。它驗證文件與依賴，不是把原電腦`.venv`、runtime database與secrets
 整包複製。
 
@@ -756,7 +774,7 @@ NETWORK_GRACE_MS：
 | Physical STOP |  |  | ERROR |  |  |  |  |  |  |
 | Sensor invalid（程式注入） |  | `test_sensor_fault` | ERROR |  |  |  |  | 清除測試旗標、取得新有效sample、reset |  |
 | Sensor invalid（核准實體測試，如有） |  |  | ERROR |  |  |  |  |  |  |
-| Broker unavailable |  |  | ERROR after grace |  |  |  |  |  |  |
+| Broker unavailable |  |  | ERROR；核對是 ACTIVE 超時或離線寬限期先到 |  |  |  |  |  |  |
 | Backend unavailable |  |  | 依policy |  |  |  |  |  |  |
 | Active timeout |  |  | ERROR |  |  |  |  |  |  |
 | Malformed command |  |  | state unchanged |  |  |  |  |  |  |

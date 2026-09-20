@@ -219,7 +219,7 @@
     }
   ],
   "sourceSha256": "fed73443216f0ecd42f2e4eba1fdba8baa0fd18bc3c5182253b61591ef030a2a",
-  "builderSha256": "087064cf45768e61d2304a6889abba02af9b15f4bc37187ba747389b657ee6f6",
+  "builderSha256": "2a89827120cb20e07f5c9bc730beff0576410ad2bb3eeee0b6d40aab90c43609",
   "sketches": [
     {
       "path": "examples/week03_gpio_voltage_cycle/week03_gpio_voltage_cycle.ino",
@@ -256,5 +256,5 @@
       "sha256": "155ef7c1267faf15d93b3113922c0f04b4c164ac7f59a43295d7eee5617eefc6"
     }
   ],
-  "pdfSha256": "026616fcedfe75f3e13e29859e9d45f777af0249afb5a523dffdca0f184769dd"
+  "pdfSha256": "01d08fba9b064e45f3915d27c61c2f2116d071481182e9bb14a20440fe0e2fbb"
 }
