@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[2]
 COURSE = ROOT / "IOT_Introduction"
 TARGETS = {
-    2: "docs/teaching_drafts/week2_redesign/Week2_main_layout_sample.pdf",
+    2: "Week_02_ESP32_Hardware_Basics/week2_main.pdf",
     **{n: f"docs/teaching_drafts/week{n}_redesign/week{n}_main.pdf" for n in range(3, 8)},
     11: "Week_11_HTTP_WebSocket_Backend/week11_main.pdf",
     12: "Week_12_MQTT_Database_and_Logs/week12_main.pdf",

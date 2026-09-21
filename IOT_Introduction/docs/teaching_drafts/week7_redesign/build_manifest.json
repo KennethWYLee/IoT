@@ -131,71 +131,75 @@
     },
     {
       "number": 33,
-      "id": "buildanswer"
+      "id": "buildresults"
     },
     {
       "number": 34,
-      "id": "troubleshooting"
+      "id": "buildanswer"
     },
     {
       "number": 35,
-      "id": "finishrecord"
+      "id": "troubleshooting"
     },
     {
       "number": 36,
-      "id": "sources"
+      "id": "finishrecord"
     },
     {
       "number": 37,
-      "id": "week07_traffic_light_challenge-0"
+      "id": "sources"
     },
     {
       "number": 38,
-      "id": "week07_traffic_light_challenge-1"
+      "id": "week07_traffic_light_challenge-0"
     },
     {
       "number": 39,
-      "id": "week07_traffic_light_challenge-2"
+      "id": "week07_traffic_light_challenge-1"
     },
     {
       "number": 40,
-      "id": "week07_traffic_light_challenge-3"
+      "id": "week07_traffic_light_challenge-2"
     },
     {
       "number": 41,
-      "id": "week07_traffic_light_challenge-4"
+      "id": "week07_traffic_light_challenge-3"
     },
     {
       "number": 42,
-      "id": "week07_traffic_light_challenge-5"
+      "id": "week07_traffic_light_challenge-4"
     },
     {
       "number": 43,
-      "id": "week07_traffic_light_challenge-6"
+      "id": "week07_traffic_light_challenge-5"
     },
     {
       "number": 44,
-      "id": "week07_traffic_light_challenge-7"
+      "id": "week07_traffic_light_challenge-6"
     },
     {
       "number": 45,
-      "id": "week07_traffic_light_challenge-8"
+      "id": "week07_traffic_light_challenge-7"
     },
     {
       "number": 46,
-      "id": "week07_traffic_light_challenge-9"
+      "id": "week07_traffic_light_challenge-8"
     },
     {
       "number": 47,
-      "id": "week07_traffic_light_challenge-10"
+      "id": "week07_traffic_light_challenge-9"
     },
     {
       "number": 48,
+      "id": "week07_traffic_light_challenge-10"
+    },
+    {
+      "number": 49,
       "id": "week07_traffic_light_challenge-11"
     }
   ],
-  "sourceSha256": "beca798e122fa3183d152e17cc2e4c8acea27d1fd6374c388ff7a4f46128d69a",
-  "builderSha256": "543ebd539143314fd50d6eb753bc76c99b7353430486f3fb913131b4eb75ce12",
+  "sourceSha256": "42d4bbf567238d278447670bf8fa90fd5be83edcf72bbbf3383142aff9557207",
+  "builderSha256": "9f1ec7f62e7df76d6f861fa29da251c277ffd21527f0dca04080b6775a186a37",
   "sketches": [
     {
       "path": "examples/week07_traffic_light_challenge/week07_traffic_light_challenge.ino",
@@ -212,5 +216,5 @@
       "sha256": "33f4855d2e8bf52ee6b1232f7c70c707aec04442644c4ccdc9bdfcc5c65a3f08"
     }
   ],
-  "pdfSha256": "f2cd738007ed08fd0c3ab0734cd247ea09b6dd3ece0c6b37442dee72101433da"
+  "pdfSha256": "2d795fd59ec1372ba265c2b5d4da642ab6a8cc9ec1d565defcf65335cea00ed9"
 }

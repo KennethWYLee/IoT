@@ -7,7 +7,7 @@
 ## 範圍與版本
 
 - 起點：`6a3a7f5`，已將前一階段Week 3圖說與完整答案推送到origin/main。
-- 本次主教材：[week2_main.ipynb](../../Week_02_ESP32_Hardware_Basics/week2_main.ipynb)。
+- 本次主教材：[當時的 week2_main.ipynb 封存快照](../archive/week2_before_layout_promotion/week2_main.ipynb.json)（2026-09-21 移位，內容未改）。
   當週仍只有此一本notebook；完整解答依教師明確授權放在第10.7～10.10節，
   開頭標示「完整備課版（含參考答案）」，不是無答案學生版。
 - 不把Week 3的電壓、散裝電阻、光敏或ADC實作移回Week 2，不另加Discussion主題。

@@ -7,7 +7,7 @@
 - [Week 2–7 重設稿、操作修正與待確認事項](IOT_Introduction/docs/teaching_drafts/README.md)
 - [Drone：無人機專題](Drone/README.md)
 
-每週只有一份主教材。Week 2～7為完整備課版（含參考解答）；
+每週只有一份主教材。Week 2 使用排版後的 PDF，房間題解答另放尚未發布的本機補充；Week 3～7為完整備課版（含參考解答）；
 無人機研究與課程的必買材料、必做進度分開。
 
 ## 檔案分類

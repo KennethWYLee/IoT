@@ -7,10 +7,10 @@
 連續取樣、最大動作時間及斷線策略；最後以故障注入驗證安全復原，並由另一人從乾淨
 資料夾依文件重建系統。
 
-## 先從可運作的整份程式開始
+## 光線觸發 RGB，STOP 可中止自動反應
 
 本週讓光線觸發 RGB 變色，再確認 STOP 與故障處理仍能停止自動反應。
-不新增馬達或舵機。先用完整程式完成一次操作，再閱讀它如何修改 Week 12 程式。
+只使用已確認的按鈕、KY-018 與 RGB，不新增馬達或舵機。
 
 1. 保留上次成功的 Week 12 個人程式。另開
    [week15_automation_device.ino](../examples/week15_automation_device/week15_automation_device.ino)，
@@ -24,11 +24,11 @@
    依第二、三節及本人的有效光線紀錄設定；沒有校正資料時只能先編譯，不猜門檻上電。
 5. 依 [Week 12 啟動步驟](../Week_12_MQTT_Database_and_Logs/week12_main.md#mqtt-startup)
    啟動 broker、後端與 bridge；已有密碼檔不要重建。A、D、E 都保持執行。
-6. 第五節的七段修改已包含在完整程式中，**不要再貼一次**。直接做第六節的編譯、接線確認與操作。
-   看到結果後，再回讀第四、五節解釋 STOP 優先與自動判斷。
+6. 第五節的七段修改已包含在完整程式中，**不要再貼一次**。
+   編譯、接線確認及操作步驟見第六節。
 
 本週 `auto_on` 等命令不在手機預設選單；[下面有逐步送出方式](#send-automation-command)，
-不是要學生先寫新介面才能測試。
+透過後端 API 建立命令，沿用相同權限與 command_id 追蹤。
 
 ## 一、Unit Overview
 
@@ -194,8 +194,8 @@ disable並受最大動作時間限制，不能只改畫面顏色。
 
 ## 五、由Week 12程式加入Automation
 
-第一次操作使用本章開頭的完整程式，直接跳到第六節。本節留作成功後的程式閱讀，
-或另存 Week 12 副本後練習逐段修改；兩種方式擇一，不要把修改片段重貼進 Week 15 完整程式。
+本節逐項列出自動反應需要的程式修改。使用 Week 15 完整程式時，這些內容已包含，
+不要重貼；若從 Week 12 的副本修改，才依標示位置加入或替換。
 以下片段的插入或替換位置均有標示。保持 `DRY_RUN=true` 先編譯，profile 未填時不得啟用硬體。
 
 ### 5.1 在設定常數後加入profile與runtime變數
@@ -647,6 +647,44 @@ $env:IOT_OPERATOR_KEY="a-new-local-rebuild-key"
 
 在共同policy上改一項：sample count、最大ACTIVE時間或network grace。先預測安全與使用
 體驗的trade-off，再測baseline與一個fault。一次只改一項。
+
+#### 預期結果：連續四筆有效資料才切換
+
+光線連續四筆符合門檻才切換燈色；中途不符合就重新累積。
+假設 auto 已啟用、IDLE、資料均有效，且無其他故障；暗是 raw≤513、亮是 raw≥706。
+這些門檻是教學假資料，不能抄成實物設定。
+
+| 依序讀入 raw | 三筆條件的 state | 四筆條件的預期 state |
+|---:|---|---|
+| 300 | IDLE | IDLE |
+| 310 | IDLE | IDLE |
+| 305 | ACTIVE | IDLE |
+| 315 | ACTIVE | ACTIVE |
+| 900 | ACTIVE | ACTIVE |
+| 910 | ACTIVE | ACTIVE |
+| 905 | IDLE | ACTIVE |
+| 915 | IDLE | IDLE |
+
+另測一次本機 STOP：不論是否已累積四筆，下一次本機輸入處理仍須進 ERROR、
+關閉 auto；不等待再收四筆。測試結果須註明紙上、主機或實物來源。
+
+<div style="break-before: page"></div>
+
+#### 練習1參考做法
+
+1. 開啟 `week15_automation_device.ino`，另存為 `automation_four_samples`，
+   保留本機 secrets.h 與本組已確認設定。
+2. Ctrl+F 搜尋 `REQUIRED_CONSECUTIVE_SAMPLES`，把宣告的 3 改成 4，
+   不修改其他使用這個名稱的判斷式。
+3. 搜尋兩個事件原因字串，把 `three_dark_samples` 改為 `four_dark_samples`，
+   `three_light_samples` 改為 `four_light_samples`，讓 log 的文字符合四筆條件。
+4. 取樣間隔、兩個門檻、有效範圍、最長動作時間與 STOP 程式均不改。
+   Verify 後按第六節的斷電、接線核對及上傳步驟測試。
+5. 用相同條件比較兩次紀錄。實物 raw 與間隔可能不同，不能拿假資料表冒充實測。
+
+四筆條件比三筆多等一筆符合的資料。若剛好每 500 ms 取一次，從第一筆到第三筆為
+1000 ms，到第四筆為 1500 ms；這不是從手開始遮光算起的精確反應時間。
+STOP 與故障的優先順序不變，不能把累積取樣的等待套到停止處理。
 
 ### 練習2：專題優先順序
 

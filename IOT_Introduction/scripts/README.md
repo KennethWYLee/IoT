@@ -8,6 +8,25 @@ are the current step-by-step edition; the notebook commands below maintain the
 older formal edition and must not be used to overwrite the current lesson sources.
 Weeks 11, 12, 14 and 15 use their weekly Markdown and the network exporter below.
 
+2026-09-21 update: Week 2 has now replaced its formal PDF. Its old notebook is archived
+as a byte-identical `.ipynb.json` snapshot and is not an export input. Build the current
+36-page main with:
+
+```powershell
+node IOT_Introduction/docs/teaching_drafts/week2_redesign/build_sample.cjs
+python -X utf8 IOT_Introduction/docs/teaching_drafts/week2_redesign/verify_sample.py
+```
+
+The formal main PDF is in `Week_02_ESP32_Hardware_Basics/`. The old layout-sample path is
+an identical generated alias, not a separate edition. The counter code is on main pages
+31-32, followed by the room exercise and expected results on pages 33-34. Its answer
+is on local supplement page 23; the supplement and its sources are not part of this
+publication. Course checks do not require a supplement, but check its matching build
+output if a local supplement exists. The legacy Week 2
+figure builder stops instead of restoring the old notebook; `verify_week2_notebook.cjs`
+delegates to the current PDF/source verifier. Historical `--compile`/`--render` options
+are not forwarded; use the current builder and host-test commands in the Week 2 README.
+
 `review_lesson_pages.py --render` inventories these ten PDFs, extracts per-page text
 and link information, and renders every page and contact sheets into the ignored
 `_outputs/lesson_review/` folder. It does not mark pages as reviewed or run devices.
@@ -66,7 +85,7 @@ Commit PDFs and the manifest with their source changes when authorized.
 
 ## Notebook PDF exports
 
-Every tracked notebook has a same-name PDF next to it. PDFs preserve the saved
+Every current notebook has a same-name PDF next to it. Archived JSON snapshots are excluded. PDFs preserve the saved
 content, images, code and reference answers; they do not execute cells or test hardware.
 Edit the maintained lesson source and rebuild its notebook first, then run:
 

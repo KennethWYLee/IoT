@@ -471,7 +471,7 @@ Week 6先辨認IN／OUT並量測、調整輸出，再確認舵機負載電壓、
 ## 7. Week 2課前準備（Week 1課後完成）
 
 Week 1課後先安裝Arduino IDE（撰寫與上傳程式的軟體）及ESP32板卡套件（Board Package，讓IDE支援ESP32）；兩者須分別安裝。
-操作畫面見[Week 2第四節](../Week_02_ESP32_Hardware_Basics/week2_main.ipynb#w2-install)。
+操作畫面見[Week 2 主教材第 6–13 頁](../Week_02_ESP32_Hardware_Basics/week2_main.pdf#page=6)。
 課前只完成安裝與資料準備，接板、接線與上傳留到Week 2。
 
 ### 1. 安裝Arduino IDE 2
@@ -496,7 +496,7 @@ Week 1課後先安裝Arduino IDE（撰寫與上傳程式的軟體）及ESP32板�
 解壓縮後確認能找到：
 
 ```text
-IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb
+IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.pdf
 IOT_Introduction/docs/course_materials/starter_code_snippets.md
 ```
 

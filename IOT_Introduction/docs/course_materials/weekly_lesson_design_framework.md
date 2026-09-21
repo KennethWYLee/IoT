@@ -3,7 +3,7 @@
 更新日期：2026-09-06。
 
 本文件供教材維護者用來產生、修訂與驗收每週教材。以目前
-[Week 2主教材](../../Week_02_ESP32_Hardware_Basics/week2_main.ipynb)與
+[Week 2主教材](../../Week_02_ESP32_Hardware_Basics/week2_main.pdf)與
 [Week 3主教材](../../Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb)
 的初學者問答、操作修訂及[聯合檢查紀錄](../lab_notes/2026-09-05-week2-week3-beginner-review.md)
 為設計參照，不把它們當成所有內容均已實機驗證或所有學生均已試讀通過的樣板。

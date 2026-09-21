@@ -18,7 +18,7 @@ const relative = file => path.relative(root, file).replaceAll('\\', '/');
 
 function notebooks() {
   return [...new Set(execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { cwd: root })
-    .toString('utf8').split('\0').filter(name => name.endsWith('.ipynb')))].sort();
+    .toString('utf8').split('\0').filter(name => name.endsWith('.ipynb') && fs.existsSync(path.join(root, name))))].sort();
 }
 
 function localFile(url, notebook) {

@@ -3,6 +3,12 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const {pathToFileURL}=require('node:url');
 const root=path.resolve(__dirname, '../..');
+if (!fs.existsSync(path.join(root,'IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb'))) {
+ console.log('Week 2 uses the layout PDF. Running the current PDF/source verifier; legacy --render/--compile options are not forwarded.');
+ const result=require('node:child_process').spawnSync('python',['-X','utf8',path.join(root,'IOT_Introduction/docs/teaching_drafts/week2_redesign/verify_sample.py')],{stdio:'inherit'});
+ if(result.error)throw result.error;
+ process.exit(result.status ?? 1);
+}
 const file=path.join(root,'IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb');
 const nb=JSON.parse(fs.readFileSync(file,'utf8')),sources=nb.cells.map(c=>Array.isArray(c.source)?c.source.join(''):c.source),all=sources.join('\n');
 assert.equal(nb.cells.length,25);

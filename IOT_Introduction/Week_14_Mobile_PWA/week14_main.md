@@ -6,10 +6,10 @@
 學生會在真實手機上驗證版面與操作狀態，區分viewer與operator權限，完成一筆可追蹤的
 實體命令，並分別判定Responsive Web與PWA條件是否真的成立。
 
-## 本週先做一次看得見的修改
+## 在手機查看裝置、歷史資料與命令結果
 
 先啟動上週已成功的系統，在手機看到自己的裝置，再改一行網頁標題並確認手機也更新。
-這能先確認「改哪個檔案、怎樣看到結果」，之後才讀 HTML、CSS、JavaScript 的原理。
+標題來自筆電的 index.html；裝置資料則由 API 與 WebSocket 更新，兩者的更新方式不同。
 
 | 順序 | 動作 | 應看到的結果 |
 |---|---|---|
@@ -181,7 +181,7 @@ Backend命令deadline預設20秒。**timeout（逾時）** 表示裝置在deadli
    這次是網頁檔案修改，所以需要重新整理；不要與事件經 WebSocket 自動更新混在一起。
 4. 沒變時依序查：是否儲存正確檔案、網址是否仍是正在執行的筆電、後端是否還在執行。
    不使用 `file://` 開檔取代伺服器網址。後端離線時可能看到快取舊頁，先恢復連線。
-5. 成功後才讀第四節。要撤回這次文字修改，就把同一個 `<h1>` 的內容改回原文字並儲存。
+5. 要撤回這次文字修改，就把同一個 `<h1>` 的內容改回原文字並儲存，再重新整理手機。
 
 ## 四、閱讀前台的HTML、CSS與JavaScript
 
@@ -375,6 +375,39 @@ live update；重新整理後仍存在，表示historical API／database可讀�
 
 為`start`加入清楚確認，內容要包含target device及動作；`stop`不可被確認dialog延遲。
 完成後測試取消不建立命令、確認才建立命令、STOP仍可立即送出。
+
+| 操作 | 預期結果 |
+|---|---|
+| 選 start，按 Send | 確認視窗顯示裝置代號及 start，尚未建立 command |
+| 按取消 | 不新增 command，RGB 不因這次取消而改變 |
+| 再送 start，按確定 | 建立一筆 command；依同一 ID 追蹤裝置結果 |
+| 選 stop，按 Send | 不出現確認視窗，直接送請求；仍需等待裝置回報 |
+
+「直接送」不表示零網路延遲，也不能取代本機 STOP 或斷電。
+
+<div style="break-before: page"></div>
+
+#### 練習2參考做法
+
+1. 備份並用文字編輯器開啟 `static/index.html`。
+2. Ctrl+F 搜尋 `#command-form`，找到 submit 事件處理函式。
+3. 在檢查 deviceId、operatorKey、network、wsConnected 的 return 那一行之後，
+   且在 `ui.sendButton.disabled = true;` **之前**，加入：
+
+```javascript
+if (command === 'start') {
+  const confirmed = window.confirm(
+    '裝置：' + deviceId + '\n動作：start\n確定送出？'
+  );
+  if (!confirmed) return;
+}
+```
+
+4. 儲存，重新整理手機頁面，再填本次臨時 key。依表測取消、確認及 stop，
+   對照 Commands 中新增的 ID；不要只看彈出視窗。
+
+取消時在送出 HTTP 前 return，因此不建立命令；stop 不符合這個 if 條件，不會被確認視窗攔住。
+原有後端權限、錯誤顯示及裝置拒絕條件均保留，按確定不代表硬體已成功。
 
 ### 練習3：一個歷史filter
 

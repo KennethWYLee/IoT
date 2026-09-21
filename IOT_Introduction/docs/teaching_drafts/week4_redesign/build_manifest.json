@@ -155,87 +155,91 @@
     },
     {
       "number": 39,
-      "id": "buildanswer"
+      "id": "buildresults"
     },
     {
       "number": 40,
-      "id": "finish"
+      "id": "buildanswer"
     },
     {
       "number": 41,
-      "id": "trouble"
+      "id": "finish"
     },
     {
       "number": 42,
-      "id": "color"
+      "id": "trouble"
     },
     {
       "number": 43,
-      "id": "sources"
+      "id": "color"
     },
     {
       "number": 44,
-      "id": "week04_dht11_quality-0"
+      "id": "sources"
     },
     {
       "number": 45,
-      "id": "week04_dht11_quality-1"
+      "id": "week04_dht11_quality-0"
     },
     {
       "number": 46,
-      "id": "week04_dht11_quality-2"
+      "id": "week04_dht11_quality-1"
     },
     {
       "number": 47,
-      "id": "week04_dht11_quality-3"
+      "id": "week04_dht11_quality-2"
     },
     {
       "number": 48,
-      "id": "week04_dual_sensor_alarm-0"
+      "id": "week04_dht11_quality-3"
     },
     {
       "number": 49,
-      "id": "week04_dual_sensor_alarm-1"
+      "id": "week04_dual_sensor_alarm-0"
     },
     {
       "number": 50,
-      "id": "week04_dual_sensor_alarm-2"
+      "id": "week04_dual_sensor_alarm-1"
     },
     {
       "number": 51,
-      "id": "week04_dual_sensor_alarm-3"
+      "id": "week04_dual_sensor_alarm-2"
     },
     {
       "number": 52,
-      "id": "week04_dual_sensor_alarm-4"
+      "id": "week04_dual_sensor_alarm-3"
     },
     {
       "number": 53,
-      "id": "week04_dual_sensor_alarm-5"
+      "id": "week04_dual_sensor_alarm-4"
     },
     {
       "number": 54,
-      "id": "week04_dual_sensor_alarm-6"
+      "id": "week04_dual_sensor_alarm-5"
     },
     {
       "number": 55,
-      "id": "week04_dual_sensor_alarm-7"
+      "id": "week04_dual_sensor_alarm-6"
     },
     {
       "number": 56,
-      "id": "button_environment_log-0"
+      "id": "week04_dual_sensor_alarm-7"
     },
     {
       "number": 57,
-      "id": "button_environment_log-1"
+      "id": "button_environment_log-0"
     },
     {
       "number": 58,
+      "id": "button_environment_log-1"
+    },
+    {
+      "number": 59,
       "id": "button_environment_log-2"
     }
   ],
-  "sourceSha256": "a14f9f5e7214104735de84abbe56b83423fb63192c5d9d977c506397785d59ce",
-  "builderSha256": "eb115cf54e98d9e80e9bb621e5ac673c6798e1f5dc29c732d617421374c76b9f",
+  "sourceSha256": "78b32f93bf7a89f10253ec93ae327865875c3c3711b6f9cad033484289d921b3",
+  "builderSha256": "7f49f1a42546a246b27e2dd0615aa2b54ff96d57244ce9bf2e66a7c54cc4de8e",
   "sketches": [
     {
       "path": "examples/week04_dht11_quality/week04_dht11_quality.ino",
@@ -260,5 +264,5 @@
       "sha256": "0c212fbc5dfa87d116d3189c0d1089dc719001ce84d286e9e6373ca88327ca2f"
     }
   ],
-  "pdfSha256": "85a98db2d0ed1243096927b8a509937ecec7e7fc371efec2d869e13de0203e5b"
+  "pdfSha256": "80ce82b4e40f4c18570772a5dc967be9fa14ea1b278e77f2714367c2417aadd8"
 }

@@ -9,10 +9,10 @@ START或STOP後，事件會送到筆電Backend、寫入SQLite，並由WebSocket�
 
 本週採低功率網路示範：只沿用Week 7的按鈕與Week 5的RGB，不遠端控制整套遊戲。第二顆按鈕在本週改作持續有效的STOP，不是遊戲的Finish送出。韌體使用idle／active／error狀態；它們不是將Week 7所有遊戲結果直接改名。共同事件欄位保留device_id、event_type、state、value、unit、valid、reason與uptime_ms；遊戲專屬欄位若日後上傳，必須另外明訂schema映射。
 
-## 先完成一個可以看見結果的操作
+## 用手機查看事件、操作 RGB
 
-本週先讓筆電網頁收到一筆資料，再讓 ESP32 傳資料，最後用手機控制 RGB。
-第一次閱讀依下表前進，不必先讀懂完整程式；每一步看見指定結果後才往下走。
+按下實體按鈕，手機出現事件；手機送出命令，ESP32 改變燈色並回報結果。
+下表列出各段使用的設備、操作位置與預期結果。
 
 | 順序 | 到哪裡操作 | 看到什麼才繼續 |
 |---|---|---|
@@ -23,7 +23,6 @@ START或STOP後，事件會送到筆電Backend、寫入SQLite，並由WebSocket�
 | 5 | 第八節：手機開網頁 | 不按重新整理也能看見同一筆新事件 |
 | 6 | 第九、十節：接回已確認的按鈕與 RGB | 實體反應、手機紀錄與同一個命令 ID 對得上 |
 
-完成第 3 步後再讀第六節的 JSON；完成手機操作後，再讀完整程式附錄。
 失敗時留在原步驟排查，不同時修改 IP、接線與程式。
 
 ## 一、Unit Overview
@@ -297,7 +296,7 @@ Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/events `
 
 **HTTP request（HTTP請求）** 是client送給server的動作。本例使用`POST`，表示送出
 一筆新事件。**HTTP response（HTTP回應）** 是server處理後傳回的狀態與資料。
-正常應看到事件`id`與`recorded_at`，Backend終端機也應出現JSON格式log。
+預期回應包含事件`id`與`recorded_at`，Backend終端機也應出現JSON格式log。
 
 開啟 `http://127.0.0.1:8000`。把頁面上方 **Device ID** 的預設 `demo-device`
 改成 **`host-test`**，按 **套用並重新整理**，在 **Recent events** 找到 `button_pressed`。
@@ -380,7 +379,7 @@ const char API_BASE_URL[] = "http://192.168.1.23:8000";
 
 切回 `.ino` 分頁，用 **Ctrl+F** 搜尋 `DEVICE_ID`，把字串改成自己的不含個資裝置代號。
 搜尋 `DRY_RUN`，保持 `true`；GPIO 與 `RGB_ON_LEVEL` 暫時保留 `-1`。按 **Ctrl+S**。
-接著直接做 7.3，不必先逐行理解[完整程式附錄](#complete-http-sketch)。
+完整內容可查[完整程式附錄](#complete-http-sketch)；編譯與上傳使用 IDE 中已開啟的 .ino。
 
 
 ### 7.3 編譯、Upload與第一個網路事件
@@ -536,17 +535,43 @@ RGB 不得因未知命令變綠。`403` 先查 key，`422` 先查 JSON，不連�
 
 ### 練習1：事件欄位的可觀察差異
 
-將`serial_test`的`reason`改成另一個明確值，先預測手機哪一欄會改變，再Verify、
-Upload與執行。不得同時改`event_type`、`state`與`unit`。
+作品情境：同一片裝置的測試事件，需要標出這次是從課堂練習發送。
+把 `serial_test` 的 `reason` 設為 `classroom_test`，不得同時改 event_type、state 與 unit。
+
+#### 練習1預期結果：測試事件的 reason
+
+| 操作 | 預期結果 |
+|---|---|
+| 網頁選擇 .ino 的 DEVICE_ID | 顯示這片裝置的事件，不是 host-test |
+| Serial 輸入 test-event | HTTP status=201 |
+| 不刷新手機頁面 | 新增 serial_test，reason=classroom_test |
+| 再發一次 | 再新增一筆；事件 id 與時間可以不同 |
+
+對照的是 reason 的意思，不要求兩筆事件的 id、recorded_at、uptime_ms 相同。
 
 完成條件：提供修改前後兩筆JSON，能指出唯一改變的欄位及Backend仍接受的原因。
+
+<div style="break-before: page"></div>
+
+#### 練習1參考做法
+
+1. 開啟本週的 `week11_http_device.ino`，另存為 `http_reason_practice`，保留本機 secrets.h。
+2. Ctrl+F 找到 `manual_host_path_test`，只把這段字串換成 `classroom_test`。
+   不修改 `serial_test`、狀態或數值；保留字串雙引號。
+3. 儲存。依 7.3 的板型與 Port 設定，以及第九節的斷電、移除板端接線、裸板上傳流程更新。
+   上傳後拔 USB，再恢復本次已確認接線。
+4. Monitor 選 115200，等 Wi-Fi 連線。輸入 `test-event`，對照 HTTP 201 與手機同一筆事件。
+5. 沒出現時先查 Device ID 篩選及後端是否仍執行；不要同時改 Wi-Fi、腳位與接線。
+
+reason 是文字欄位，這個值符合既有介面；事件種類與資料型別未改。這只驗證事件標記及傳輸，不證明新的實體動作。
 
 ### 練習2：命令拒絕規則
 
 保留ERROR狀態下拒絕`start`的規則，再新增一個明確且安全的拒絕條件，例如
-`DEVICE_ID`未替換時拒絕所有遠端命令。先寫出狀態與預期結果，再修改程式。
+已為 ACTIVE 時再次收到 start，回 rejected 並維持原狀。先寫出狀態與預期結果，再修改程式。
+DEVICE_ID 必須有效，裝置才會進入命令處理；不能用未填 ID 測試 accepted → rejected。
 
-完成條件：一筆命令以同一`command_id`呈現`accepted → rejected`，且RGB沒有進入綠色。
+完成條件：一筆命令以同一`command_id`呈現`accepted → rejected`，且 RGB 不因這筆被拒絕的命令改變原狀。
 
 ### 練習3：WebSocket與重新整理比較
 
@@ -867,7 +892,7 @@ Backend為準。
 
 ## 附錄：完整 HTTP 程式
 
-這裡供完成操作後閱讀；第一次請依第七節開啟範例檔，不需手動複製這段。
+完整原始檔見第七節的範例連結；附錄分頁不代表不同程式。
 
 ```cpp
 #include <Arduino.h>

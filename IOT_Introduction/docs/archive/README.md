@@ -5,6 +5,7 @@
 
 | 資料 | 用途與限制 |
 |---|---|
+| [Week 2 正式替換前的版本](week2_before_layout_promotion/README.md) | 保留舊 notebook／PDF，以及移走房間題解答前的 layout sample；不是現行授課入口 |
 | [早期入門QA](iot_beginner_qa.md) | 舊版概念整理；不取代目前Week 2～4的詳細教學與指定板卡說明 |
 | [早期圖解QA HTML](iot_beginner_visual_qa.html)／[PDF](iot_beginner_visual_qa.pdf) | 相同圖解講義的可閱讀格式，保留來源及成品，不重複列為必讀教材 |
 | [舊Week 4致動器原稿](week4_actuators/README.md) | 歷史致動器設計參照；現行Week 6另有受限指針教材，未經重新核對不可當作已發布或已實機驗證的教材 |

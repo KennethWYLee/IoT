@@ -113,7 +113,7 @@ for(const name of sketchNames) {
     while(visualCost(tail.lines)<12&&prev.lines.length>12)tail.lines.unshift(prev.lines.pop());
     tail.start=prev.start+prev.lines.length;
   }
-  chunks.forEach((chunk,i)=>pages.push({id:name+'-'+i,tag:'完整程式 · '+(i+1)+' / '+chunks.length,html:`<h2 class="code-title">${esc(name)}</h2><p class="lead">第 ${chunk.start}～${chunk.start+chunk.lines.length-1} 行。所有分頁合起來才是完整程式。</p><pre class="fullcode">${esc(chunk.lines.join('\n'))}</pre><p class="next">${i+1<chunks.length?'下一頁接續同一支程式，不另開草稿。':'這支程式到此結束。原始檔保留未確認腳位的保護值；不要把編譯成功當成實機通過。'}</p>`}));
+  chunks.forEach((chunk,i)=>pages.push({id:name+'-'+i,tag:'完整程式 · '+(i+1)+' / '+chunks.length,html:`<h2 class="code-title">${esc(name)}</h2><p class="lead">第 ${chunk.start}～${chunk.start+chunk.lines.length-1} 行。</p><pre class="fullcode">${esc(chunk.lines.join('\n'))}</pre><p class="next">${i+1<chunks.length?'程式續頁；完整檔案見檔案準備表。':'完整程式結束。未確認的腳位與供電設定保持停用。'}</p>`}));
 }
 const photoInputs=new Map();
 function render(body) {
@@ -162,7 +162,7 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:10.5pt/1.5 Consolas,"Micros
 footer{position:absolute;bottom:9mm;left:17mm;right:17mm;display:flex;justify-content:space-between;color:#617277;font-size:8.5pt}a{color:#1c666e;text-decoration:underline}.lead{font-size:12pt;color:#51676d}.code-title{font-size:17pt;overflow-wrap:anywhere}.fullcode{font-size:10pt;line-height:1.45}.next{border-top:1px solid #acc1c3;padding-top:3mm;font-size:11pt}
 @media screen{.page{margin:8mm auto;box-shadow:0 1px 6px #aaa}}
 `;
-const html='<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>Week 6 舵機紙指針與加減計數 - 完整重設稿</title><style>'+css+'</style></head><body>'+pages.map((p,i)=>`<section id="${p.id}" class="page"><header><span>Week 6 · 舵機紙指針與加減計數</span><span>${esc(p.tag)}</span></header><main>${p.html||render(p.body)}</main><footer><span>一起操作 → 看到結果 → 解釋原理 · 重設稿</span><span>${i+1} / ${pages.length}</span></footer></section>`).join('')+'</body></html>';
+const html='<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>Week 6 舵機紙指針與加減計數</title><style>'+css+'</style></head><body>'+pages.map((p,i)=>`<section id="${p.id}" class="page"><header><span>Week 6 · 舵機紙指針與加減計數</span><span>${esc(p.tag)}</span></header><main>${p.html||render(p.body)}</main><footer><span>Week 6 · 舵機紙指針與加減計數</span><span>${i+1} / ${pages.length}</span></footer></section>`).join('')+'</body></html>';
 fs.writeFileSync(path.join(__dirname,'week6_main.html'),html);
 (async()=>{
  const browser=await chromium.launch({channel:'msedge',headless:true});

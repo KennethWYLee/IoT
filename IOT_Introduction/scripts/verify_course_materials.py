@@ -5,6 +5,7 @@ from __future__ import annotations
 import base64
 import binascii
 import json
+import hashlib
 import re
 import subprocess
 import sys
@@ -260,6 +261,29 @@ def main() -> int:
     for directory in week_directories:
         number = week_number(directory)
         files = sorted(path.name for path in directory.iterdir() if path.is_file())
+        if number == 2:
+            expected = ["week2_main.pdf"]
+            local_supplement = directory / "Week2補充.pdf"
+            if local_supplement.exists():
+                expected = sorted([*expected, local_supplement.name])
+            if files != expected:
+                errors.append(f"{directory.name}: expected only {expected}, found {files}")
+            manifest_path = COURSE / "docs/teaching_drafts/week2_redesign/checks/published_main.json"
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            pdf = ROOT / manifest["pdf"]
+            if hashlib.sha256(pdf.read_bytes()).hexdigest() != manifest["pdf_sha256"]:
+                errors.append("Week 2 PDF differs from its layout build manifest")
+            for name, expected_hash in manifest["inputs"].items():
+                source = ROOT / name
+                data = source.read_text(encoding="utf-8").replace("\r\n", "\n").encode("utf-8") if source.suffix in {".cjs", ".ino"} else source.read_bytes()
+                if hashlib.sha256(data).hexdigest() != expected_hash:
+                    errors.append(f"Week 2 layout source changed: {name}")
+            supplement = COURSE / "docs/teaching_drafts/week2_oled_supplement/Week2補充.pdf"
+            if local_supplement.exists():
+                if not supplement.exists() or local_supplement.read_bytes() != supplement.read_bytes():
+                    errors.append("Week 2 local supplement differs from its build output")
+            summaries.append(f"Week 02: layout-built PDF ({manifest['pages']} pages); supplement optional")
+            continue
         expected = (
             [f"week{number}_main.ipynb", f"week{number}_main.pdf"]
             if number in {2, 3, 4, 5, 6, 7}

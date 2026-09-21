@@ -14,7 +14,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 MQTT_WEEK = ROOT / "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md"
 SOURCES = (
-    ROOT / "IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb",
+    ROOT / "IOT_Introduction/docs/teaching_drafts/week2_redesign/hello_first/hello_first.ino",
+    ROOT / "IOT_Introduction/docs/teaching_drafts/week2_redesign/button_follow_along/button_follow_along.ino",
+    ROOT / "IOT_Introduction/docs/teaching_drafts/week2_redesign/counter_two_buttons/counter_two_buttons.ino",
+    ROOT / "IOT_Introduction/docs/teaching_drafts/week2_redesign/counter_exercise_solution/counter_exercise_solution.ino",
     ROOT / "IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb",
     ROOT / "IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb",
     ROOT / "IOT_Introduction/docs/archive/week4_actuators/week4_main.md",
@@ -58,6 +61,8 @@ def find_cli() -> str:
 
 
 def source_content(document: Path) -> str:
+    if document.suffix.lower() == ".ino":
+        return "```cpp\n" + document.read_text(encoding="utf-8").rstrip() + "\n```\n"
     if document.suffix.lower() != ".ipynb":
         return document.read_text(encoding="utf-8")
     notebook = json.loads(document.read_text(encoding="utf-8"))

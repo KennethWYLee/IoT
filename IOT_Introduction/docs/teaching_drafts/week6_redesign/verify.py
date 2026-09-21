@@ -56,7 +56,8 @@ doc = fitz.open(HERE / "week6_main.pdf")
 assert len(doc) == len(manifest["pages"])
 ids = {p["id"]: p["number"] for p in manifest["pages"]}
 assert ids["answer"] == ids["exercise"] + 1
-assert ids["buildanswer"] == ids["buildexercise"] + 1
+assert ids["buildresults"] == ids["buildexercise"] + 1
+assert ids["buildanswer"] == ids["buildresults"] + 1
 all_text = "\n".join(p.get_text() for p in doc)
 assert "\ufffd" not in all_text
 assert "{{" not in all_text
@@ -110,6 +111,7 @@ result = {
     "exercise_page": ids["exercise"],
     "answer_page": ids["answer"],
     "hands_on_exercise_page": ids["buildexercise"],
+    "hands_on_expected_results_page": ids["buildresults"],
     "hands_on_answer_page": ids["buildanswer"],
     "source_hashes": "pass",
     "complete_embedded_programs_match_canonical_sources": "pass",

@@ -2,16 +2,16 @@
 
 課程名稱：IoT玩具與互動硬體設計。每週三13:30–16:15，2026-09-09至2027-01-06。
 
-2026-09-17：Week 2–7 另有[最新重設稿、操作修正與待確認事項](docs/teaching_drafts/README.md)。已補操作說明缺漏，但 DHT 與舵機仍有實物條件待確認；尚未替換下方正式週目錄。另一台電腦接續修訂請從該入口開始，不把兩版當成相同內容，未推送的修正也不會自動出現在另一台。
+2026-09-21：Week 2 已以 layout sample 的內容取代正式 PDF，房間題解答移至本機 Week2 補充第 23 頁；補充教材本次不發布。舊 notebook／PDF 已封存；Week 3–7 仍從[最新重設稿與待確認事項](docs/teaching_drafts/README.md)進入，尚未替換各週正式目錄。DHT 與舵機的實物限制保留，未推送的修正不會自動出現在另一台電腦。
 
 2026-09-18：Week 11、12、14、15 的 Markdown 已完成第一輪自行操作步驟修正，
 補終端機分工、可直接開啟的完整程式、網頁篩選與命令操作；
 見[修正與檢查範圍](docs/lab_notes/2026-09-18-network-lessons-self-study.md)。
 報告、筆試與評分要求未改；這四週已附同名 PDF，尚未完成全流程學生跟做驗證。
 
-每週只開一份主教材，不必另外找support。Week 2～7使用Notebook，其他週使用Markdown；
+每週只開一份主教材。Week 2 使用 PDF，Week 3～7保留 Notebook 出口，其他週使用Markdown；
 必要說明、準備事項、表格、操作與延伸均在當週同一份文件。
-Week 2～7為完整備課版（含參考解答），各附同名PDF供離線閱讀與列印；PDF是同一份教材的匯出，不是另一套講義。Week 18只保留空白檔案。
+Week 2 的房間題解答與 OLED 延伸另放本機補充 PDF，尚未發布；Week 3～7為完整備課版（含參考解答），各附同名PDF供離線閱讀與列印。Week 18只保留空白檔案。
 
 Week 1只介紹課程與[正式材料清單](Week_01_Course_Orientation/week1_main.md#purchase-table)，不操作硬體。
 
@@ -24,7 +24,7 @@ Week 2～7、11～12、14～15的主教材開頭亦有當週器材圖集。離�
 | 週次 | 日期 | 主題 | 主教材（唯一入口） |
 |---:|---|---|---|
 | 1 | 2026-09-09 | 課程大綱、配分與中文採購清單 | [開啟 Week 1](Week_01_Course_Orientation/week1_main.md) |
-| 2 | 2026-09-16 | ESP32-S3、開發環境與按鈕去抖 | [Notebook](Week_02_ESP32_Hardware_Basics/week2_main.ipynb)／[PDF](Week_02_ESP32_Hardware_Basics/week2_main.pdf) |
+| 2 | 2026-09-16 | ESP32-S3、開發環境與按鈕去抖 | [主教材 PDF](Week_02_ESP32_Hardware_Basics/week2_main.pdf) |
 | 3 | 2026-09-23 | 電氣量測、ADC與室內／遮光分類 | [Notebook](Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb)／[PDF](Week_03_Electrical_Measurement_and_ADC/week3_main.pdf) |
 | 4 | 2026-09-30 | 電阻量程、DHT11、雙感測器與蜂鳴提示 | [Notebook](Week_04_Sensors_and_Data_Quality/week4_main.ipynb)／[PDF](Week_04_Sensors_and_Data_Quality/week4_main.pdf) |
 | 5 | 2026-10-07 | RGB、OLED與非阻塞倒數 | [Notebook](Week_05_RGB_OLED_Countdown/week5_main.ipynb)／[PDF](Week_05_RGB_OLED_Countdown/week5_main.pdf) |

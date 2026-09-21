@@ -1,34 +1,14 @@
 {
   "format": 1,
-  "browser": "153.0.4234.32",
+  "browser": "153.0.4234.48",
   "documents": [
-    {
-      "notebook": "IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb",
-      "pdf": "IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.pdf",
-      "pdf_sha256": "10ad1e98366d99f4807fcac41d3c609d2d2642ffbc75cc73d96d746ea149237b",
-      "inputs": {
-        "IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb": "57b369883eb1f42adcdd9bae6d04db793847acce241c21b85699dfe533c756f1",
-        "IOT_Introduction/scripts/export_notebook_pdfs.cjs": "2247f2538232533e9a0310687ea3a22a4bb0d10faf09dfa4173ec815e50d7cfa",
-        "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
-        "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
-        "IOT_Introduction/docs/images/hardware/actual/Breadboard400_1.jpg": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a",
-        "IOT_Introduction/docs/images/hardware/actual/JumperWire_1.jpg": "29c87f712d44ce735c0a5738a3d8973105076c76ae7c6133ba25cea3bf1b4a8e",
-        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_MM_1.png": "f62e97e75489fa96aa0bd7c14f37a23bc0df34919e8da17a8b5a3a80bb46af06",
-        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_MF_1.png": "9c0a84c513935fc0a2d0d6496f5df83a0b60ff7ba70e7717e882245b975d8f09",
-        "IOT_Introduction/docs/images/hardware/actual/Pushbutton_1.jpg": "e03faca2cf6af8a368fc3e8a3ef0319a6f569955af893b86bf954fa581d42c18",
-        "IOT_Introduction/docs/images/hardware/actual/Pushbutton_2.jpg": "e1378d7b3b7c2c2c6c60da780f04af16c34381109717bdd908e77e233cb9d2db",
-        "IOT_Introduction/docs/images/hardware/actual/A830L_1.jpg": "73b760a0168417746d7a907f2f3a6540d671b012283a6f8e1cb3e795ce054e7d"
-      },
-      "cells": 25,
-      "images": 23
-    },
     {
       "notebook": "IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb",
       "pdf": "IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.pdf",
-      "pdf_sha256": "98e337c3291141e23e8075d1c0e4a6a9074b2dcfbb1014023d07fc5737c27640",
+      "pdf_sha256": "b4994d6be474e20081e20ed5289833cafd52095d2aaa562f256521257eed9cfd",
       "inputs": {
-        "IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb": "3319f7fb2505151902ff5d978b7d641761757421cdae2c842c7fc8576342b2de",
-        "IOT_Introduction/scripts/export_notebook_pdfs.cjs": "2247f2538232533e9a0310687ea3a22a4bb0d10faf09dfa4173ec815e50d7cfa",
+        "IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb": "77d6ba7452be2bbbef0579440838b1a445a1644e231ec114b2b874f7114d123f",
+        "IOT_Introduction/scripts/export_notebook_pdfs.cjs": "9afcfe5d7ea5b19b0b0098150c99e09102cae0273916ec61b356c650507ba41d",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
         "IOT_Introduction/docs/images/hardware/actual/Breadboard400_1.jpg": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a",
@@ -47,10 +27,10 @@
     {
       "notebook": "IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb",
       "pdf": "IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.pdf",
-      "pdf_sha256": "a62443a3026584a3a3aed79fdf3834cc2d2618d90e19688e90e717f5b40b5240",
+      "pdf_sha256": "a1656864cc6c6f0034d4a0988dc21ec7d449dda116d6a3e01de8417d3d46df81",
       "inputs": {
         "IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb": "847dbcec93451ccee4dbac4056c2eb40545c14747fc9a626bffa37ce06975f9a",
-        "IOT_Introduction/scripts/export_notebook_pdfs.cjs": "2247f2538232533e9a0310687ea3a22a4bb0d10faf09dfa4173ec815e50d7cfa",
+        "IOT_Introduction/scripts/export_notebook_pdfs.cjs": "9afcfe5d7ea5b19b0b0098150c99e09102cae0273916ec61b356c650507ba41d",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
         "IOT_Introduction/docs/images/hardware/actual/Breadboard400_1.jpg": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a",
@@ -74,10 +54,10 @@
     {
       "notebook": "IOT_Introduction/Week_05_RGB_OLED_Countdown/week5_main.ipynb",
       "pdf": "IOT_Introduction/Week_05_RGB_OLED_Countdown/week5_main.pdf",
-      "pdf_sha256": "91cf925ffacbee25458341f8b3ae565784827e9bd0dd3ef221e0821240959087",
+      "pdf_sha256": "1b290d1e43a1428b0394d0ced910cb67275c150d0ecd27d6c04697391199c4c2",
       "inputs": {
         "IOT_Introduction/Week_05_RGB_OLED_Countdown/week5_main.ipynb": "594000ebaa97b0ec80bc9ff7985fef7baf9951e21e77fc93bf0e62ca6e8ccd9d",
-        "IOT_Introduction/scripts/export_notebook_pdfs.cjs": "2247f2538232533e9a0310687ea3a22a4bb0d10faf09dfa4173ec815e50d7cfa",
+        "IOT_Introduction/scripts/export_notebook_pdfs.cjs": "9afcfe5d7ea5b19b0b0098150c99e09102cae0273916ec61b356c650507ba41d",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
         "IOT_Introduction/docs/images/hardware/actual/Breadboard400_1.jpg": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a",
@@ -101,10 +81,10 @@
     {
       "notebook": "IOT_Introduction/Week_06_Servo_Pointer/week6_main.ipynb",
       "pdf": "IOT_Introduction/Week_06_Servo_Pointer/week6_main.pdf",
-      "pdf_sha256": "a9595fc6fe78c614f3499fecbd9c9b399315cfb3ee5fa7703f230d66c7ce6eb4",
+      "pdf_sha256": "a8a488ea998a77b399ebab268acc69543eca8fe6409ef746b454e82ba57a7e84",
       "inputs": {
         "IOT_Introduction/Week_06_Servo_Pointer/week6_main.ipynb": "2e816011d7e18a3af3e1f45809830bcdeb9f817af8aaa241d187476c41de7b4b",
-        "IOT_Introduction/scripts/export_notebook_pdfs.cjs": "2247f2538232533e9a0310687ea3a22a4bb0d10faf09dfa4173ec815e50d7cfa",
+        "IOT_Introduction/scripts/export_notebook_pdfs.cjs": "9afcfe5d7ea5b19b0b0098150c99e09102cae0273916ec61b356c650507ba41d",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
         "IOT_Introduction/docs/images/hardware/actual/Breadboard400_1.jpg": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a",
@@ -133,10 +113,10 @@
     {
       "notebook": "IOT_Introduction/Week_07_Traffic_Light_Challenge/week7_main.ipynb",
       "pdf": "IOT_Introduction/Week_07_Traffic_Light_Challenge/week7_main.pdf",
-      "pdf_sha256": "458e6e00698a5d87d0c6e7e7edefa46524270895c0d9de8bd50624411a7bab29",
+      "pdf_sha256": "d488b9a279bc0eb1af36a9ac29ec264266fe3cf216b2fca58c30145be28f5f90",
       "inputs": {
         "IOT_Introduction/Week_07_Traffic_Light_Challenge/week7_main.ipynb": "0a91e19e0b505e36149d08b4bf9da0466bc33b90f36411472c94f4952a11233e",
-        "IOT_Introduction/scripts/export_notebook_pdfs.cjs": "2247f2538232533e9a0310687ea3a22a4bb0d10faf09dfa4173ec815e50d7cfa",
+        "IOT_Introduction/scripts/export_notebook_pdfs.cjs": "9afcfe5d7ea5b19b0b0098150c99e09102cae0273916ec61b356c650507ba41d",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
         "IOT_Introduction/docs/images/hardware/actual/Breadboard400_1.jpg": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a",

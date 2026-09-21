@@ -4,6 +4,7 @@ const fs = require('node:fs'), path = require('node:path'), assert = require('no
 const sharp = require('sharp');
 const root = path.resolve(__dirname, '../..');
 const target = path.join(root, 'IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb');
+if (!fs.existsSync(target)) throw new Error('Week 2 notebook is archived. Use docs/teaching_drafts/week2_redesign/build_sample.cjs; do not restore the archived notebook over the current lesson.');
 const dir = path.join(root, 'IOT_Introduction/docs/images/wiring');
 const check = process.argv.includes('--check');
 const ink='#183047', muted='#53667a', blue='#1765ad', red='#ad2944', green='#087768';

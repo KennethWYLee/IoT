@@ -135,71 +135,75 @@
     },
     {
       "number": 34,
-      "id": "buildanswer"
+      "id": "buildresults"
     },
     {
       "number": 35,
-      "id": "finish"
+      "id": "buildanswer"
     },
     {
       "number": 36,
-      "id": "sources"
+      "id": "finish"
     },
     {
       "number": 37,
-      "id": "count_preview-0"
+      "id": "sources"
     },
     {
       "number": 38,
-      "id": "week06_servo_pointer-0"
+      "id": "count_preview-0"
     },
     {
       "number": 39,
-      "id": "week06_servo_pointer-1"
+      "id": "week06_servo_pointer-0"
     },
     {
       "number": 40,
-      "id": "week06_servo_pointer-2"
+      "id": "week06_servo_pointer-1"
     },
     {
       "number": 41,
-      "id": "week06_servo_pointer-3"
+      "id": "week06_servo_pointer-2"
     },
     {
       "number": 42,
-      "id": "week06_servo_pointer-4"
+      "id": "week06_servo_pointer-3"
     },
     {
       "number": 43,
-      "id": "week06_servo_pointer-5"
+      "id": "week06_servo_pointer-4"
     },
     {
       "number": 44,
-      "id": "serial_pointer_counter-0"
+      "id": "week06_servo_pointer-5"
     },
     {
       "number": 45,
-      "id": "serial_pointer_counter-1"
+      "id": "serial_pointer_counter-0"
     },
     {
       "number": 46,
-      "id": "serial_pointer_counter-2"
+      "id": "serial_pointer_counter-1"
     },
     {
       "number": 47,
-      "id": "serial_pointer_counter-3"
+      "id": "serial_pointer_counter-2"
     },
     {
       "number": 48,
-      "id": "serial_pointer_counter-4"
+      "id": "serial_pointer_counter-3"
     },
     {
       "number": 49,
+      "id": "serial_pointer_counter-4"
+    },
+    {
+      "number": 50,
       "id": "serial_pointer_counter-5"
     }
   ],
-  "sourceSha256": "cc7fb776a12e1df37c826f1fddc21b3d919f5bb223c26b98551604c1cf70f59e",
-  "builderSha256": "5f2b5cfb1dd8c2ccad4e3df1b1a9a475b2ff5b538cb209c67f8d398b4ffee32c",
+  "sourceSha256": "d59f0fa23c2f46e44fb8f626b5ba6223d425c4cfb8183d13e1d1e3c73f691850",
+  "builderSha256": "67de231fd900469c7644c4e51e9cdb2f71bca796e405f5545d0afa072c5a918c",
   "sketches": [
     {
       "path": "docs/teaching_drafts/week6_redesign/count_preview/count_preview.ino",
@@ -228,5 +232,5 @@
       "sha256": "1fadf0571536167a5f4e1da7a98dfc8ab3950d4f1bb92b7e7aa8517b2c541d82"
     }
   ],
-  "pdfSha256": "d0840275ddb807dd5526fe0fc331848e00be52fd0b8495fad487f670e0159b7e"
+  "pdfSha256": "6b58b9d7c55c5c5df9098943aead8475c9daad2dabae1f8167a98100c253537c"
 }

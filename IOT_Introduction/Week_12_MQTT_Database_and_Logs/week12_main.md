@@ -7,7 +7,7 @@ ESP32以自己的`device_id`組成topic，發布KY-018遙測、事件與online�
 只訂閱自己的命令。Backend透過MQTT bridge把資料寫入原有SQLite並更新手機畫面，
 手機命令也能經broker送到正確裝置，再以相同`command_id`回報結果。
 
-## 本週先做出什麼
+## 按裝置代號傳送訊息並保存資料
 
 先在筆電的兩個視窗間傳一則訊息，再讓 ESP32 使用相同方式傳資料。
 手機頁面仍沿用 Week 11，最後確認關掉網頁後，資料還留在資料庫。
@@ -18,8 +18,7 @@ ESP32以自己的`device_id`組成topic，發布KY-018遙測、事件與online�
 ```
 
 A 是 MQTT broker，負責按主題轉送訊息；E 是本課的 bridge，負責把 MQTT 訊息送進既有後端。
-兩者不是同一個程式。第一次先做第四、五節，看到正確訊息後再讀第六節原理。
-第七節直接開完整程式；完成第八節單一裝置後，才做多裝置及資料庫查詢。
+兩者不是同一個程式。單一裝置完成傳送、回覆與保存後，多裝置測試才有可比較的結果。
 
 ## 一、Unit Overview
 
@@ -223,8 +222,14 @@ $payload | & "C:\Program Files\mosquitto\mosquitto_pub.exe" `
   -s
 ```
 
-正常結果：B立即顯示topic與JSON，A顯示publisher與subscriber。這只證明broker host
-test，不證明LAN、ESP32或帳密設定。
+預期 B 顯示以下一行；A 顯示發布者及訂閱者連線：
+
+```text
+course/host-test/events {"device_id":"host-test","event_type":"broker_test","value":1}
+```
+
+這只證明筆電內的 broker 訊息轉送，不證明 LAN、ESP32 或帳密設定。若 B 沒字，
+先核對 B 與 C 的 topic 是否完全相同，以及 A 是否仍執行。
 
 `-s` 從管線讀取整段文字；如此 JSON 的雙引號不會因不同 PowerShell 原生命令傳參方式消失。
 
@@ -378,7 +383,7 @@ const char MQTT_PASSWORD[] = "replace-with-broker-password";
 
 在 `.ino` 用 **Ctrl+F** 找 `DEVICE_ID`，填入與手機使用的同一個裝置代號。
 先保留 `DRY_RUN=true` 與 `-1` 腳位設定，按 **Ctrl+S** 後直接做第八節。
-[完整程式附錄](#complete-mqtt-sketch)留到看到結果後閱讀，不必複製它才能開始。
+[完整程式附錄](#complete-mqtt-sketch)與已開啟的範例檔對應；上傳使用 IDE 中的完整 .ino。
 
 
 ## 八、分階段驗證單一裝置
@@ -510,6 +515,31 @@ $commandBody | & "C:\Program Files\mosquitto\mosquitto_pub.exe" `
 
 比較`course/+/telemetry`、`course/<自己的ID>/#`與`course/#`的範圍。先寫預測，
 不使用可能接收其他系統資料的`#`單獨訂閱。
+
+情境：自己的裝置代號為 team03-device01，只監看本課資料。以下是主題配對的預期，
+不是要求發送命令到其他組裝置。
+
+| 發布主題 | course/+/telemetry | course/team03-device01/# | course/# |
+|---|---|---|---|
+| course/team03-device01/telemetry | 收到 | 收到 | 收到 |
+| course/team03-device01/events | 不收到 | 收到 | 收到 |
+| course/team04-device01/telemetry | 收到 | 不收到 | 收到 |
+| course/team04-device01/ack | 不收到 | 不收到 | 收到 |
+
+<div style="break-before: page"></div>
+
+#### 練習1參考做法
+
+1. 保持 broker A 執行。B 按 Ctrl+C 停止訂閱，使用本週已成功的訂閱命令，
+   只替換 `-t` 後面的篩選字串；host、port 與已確認帳密不變。
+2. 依次使用表頭三個篩選字串，每次只測一個，保存 B 收到的 topic。
+   帳密只留在本機，不出現在紀錄截圖。
+3. 以本組正常 telemetry／events 核對前兩列。其他組兩列須由同意測試的組別發布，
+   或只做紙上主題配對；不自行對別人的裝置送 command。
+
+`+` 配對一層名稱，所以第一欄可收到不同裝置的 telemetry，但不收 events 或 ack。
+`#` 配對該位置以下的層次；放在自己的代號後只看自己的各類訊息，放在 course 後則涵蓋本課各裝置。
+是否收到歷史 retained 訊息仍取決於該 topic 的 retained 設定；配對表本身不表示裝置正在連線。
 
 ### 練習2：Presence原因
 

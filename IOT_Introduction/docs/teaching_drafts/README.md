@@ -1,10 +1,14 @@
 # Week 2–7 主教材重設稿入口
 
-2026-09-16：教師採用「全班一起操作，看到結果後再解釋原理」，並要求依 Week 2 重設 Week 3、4、5。下列為目前重設稿，**尚未取代各週正式目錄的 notebook／PDF**；另一台電腦請從這裡開啟，不把舊出口誤認成新版。
+本次發布範圍：教師授權提交所有 main 教材與必要維護來源；Week2 補充 PDF、補充程式、私有 QA 與本機執行資料不發布。詳見[主教材發布紀錄](../lab_notes/2026-09-21-main-publication.md)。以下修訂紀錄中的「未發布」描述各輪修訂完成當時的狀態；實際提交以 Git 歷史為準。
+
+2026-09-16 起採用「全班一起操作，看到結果後再解釋原理」。2026-09-21 後續教師要求：**Week 2 已取代正式 PDF；Week 3–7 尚未取代各週正式目錄的 notebook／PDF**。Week 2 正式主教材為 36 頁，房間題解答在 Week2 補充第 23 頁；下列入口已更新。
+
+2026-09-21：依 [Week 2 修正準則](week2_redesign/revision_guidelines.md)，修正下列 Week 3–7 與現行 Week 11、12、14、15 實作教材。保留主題、週次、評分與報告要求，移除教學節奏旁白與版本比較，補齊練習的情境、預期結果及後續參考做法。九份 PDF 已重新產生；本輪未 commit、push 或上傳雲端，Week 2 既有修改不動。[本輪修改、閱讀入口與驗證限制](../lab_notes/2026-09-21-other-weeks-revision/README.md)為最新補充，以下較早紀錄的發布授權不代表本輪已發布。
 
 | 週次 | 閱讀 PDF | 維護及檢查 |
 |---|---|---|
-| Week 2 | [從頭操作與雙按鈕計數器](week2_redesign/Week2_main_layout_sample.pdf) | [README](week2_redesign/README.md) |
+| Week 2 | [正式主教材](../../Week_02_ESP32_Hardware_Basics/week2_main.pdf)（補充另留本機，尚未發布） | [README](week2_redesign/README.md) |
 | Week 3 | [電表、光敏與 ADC](week3_redesign/week3_main.pdf) | [README](week3_redesign/README.md)、[檢查紀錄](week3_redesign/review.md) |
 | Week 4 | [環境紀錄、失敗與遮光提醒](week4_redesign/week4_main.pdf) | [README](week4_redesign/README.md)、[檢查紀錄](week4_redesign/review.md) |
 | Week 5 | [RGB、OLED 與倒數](week5_redesign/week5_main.pdf) | [README](week5_redesign/README.md)、[檢查紀錄](week5_redesign/review.md) |
@@ -25,7 +29,7 @@
 
 ## 使用及跨電腦交接
 
-教師最新決定：每週可加入前一週或更早已教過的零件，設計更多變化；不必只使用當週新零件。Week 3–5 已各增加一個跨週整合範例、完整程式與動手改造題，題目下一頁即解答；教師已授權將這輪新增提交並推送，實際版本以 Git 歷史為準。不增加採購、評分或強制繳交要求。
+教師決定：每週可加入前一週或更早已教過的零件，設計更多變化；不必只使用當週新零件。Week 3–5 已各增加一個跨週整合範例、完整程式與動手改造題；2026-09-21 起，動手改造題依序為題目、預期結果、解答，概念題仍是題目下一頁接解答。早前新增範例曾獲提交與推送授權，實際版本以 Git 歷史為準；本輪尚未發布。不增加採購、評分或強制繳交要求。
 
 | 週次 | 累積使用的零件 | 動手改造 |
 |---|---|---|
