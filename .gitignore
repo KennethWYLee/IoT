@@ -21,6 +21,11 @@ _outputs/
 secrets.h
 config.local.h
 
+# Unpublished Week 2 supplements; keep sources and PDFs local until approved.
+/IOT_Introduction/Week_02_ESP32_Hardware_Basics/Week2補充.pdf
+/IOT_Introduction/docs/teaching_drafts/week2_oled_supplement/
+/IOT_Introduction/docs/teaching_drafts/week2_redesign/room_answer.cjs
+
 # Local development caches
 node_modules/
 .venv/
