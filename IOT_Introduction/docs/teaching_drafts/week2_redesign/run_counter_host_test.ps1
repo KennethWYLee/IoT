@@ -7,7 +7,10 @@ $sdk = 'C:\Program Files (x86)\Windows Kits\10'
 $version = Get-ChildItem -LiteralPath "$sdk\Include" -Directory | Where-Object { Test-Path -LiteralPath "$($_.FullName)\ucrt" } | Sort-Object Name -Descending | Select-Object -First 1
 $env:INCLUDE = "$($vc.FullName)\include;$($version.FullName)\ucrt;$($version.FullName)\shared;$($version.FullName)\um"
 $env:LIB = "$($vc.FullName)\lib\x64;$sdk\Lib\$($version.Name)\ucrt\x64;$sdk\Lib\$($version.Name)\um\x64"
-& "$($vc.FullName)\bin\Hostx64\x64\cl.exe" /nologo /EHsc /std:c++17 /W4 "$PSScriptRoot\$TestName.cpp" "/Fo$PSScriptRoot\tmp\$TestName.obj" "/Fe$PSScriptRoot\tmp\$TestName.exe"
+$SourceFile = "$PSScriptRoot\$TestName.cpp"
+if ($TestName -eq 'exercise_host_test') { $SourceFile = "$PSScriptRoot\..\week2_oled_supplement\room_host_test.cpp" }
+if (-not (Test-Path -LiteralPath $SourceFile)) { throw 'This optional test requires the local Week 2 supplement.' }
+& "$($vc.FullName)\bin\Hostx64\x64\cl.exe" /nologo /utf-8 /EHsc /std:c++17 /W4 $SourceFile "/Fo$PSScriptRoot\tmp\$TestName.obj" "/Fe$PSScriptRoot\tmp\$TestName.exe"
 if ($LASTEXITCODE -ne 0) { throw 'Host compile failed' }
 $ResultName = $TestName -replace '_test$', '_results'
 & "$PSScriptRoot\tmp\$TestName.exe" | Tee-Object -FilePath "$PSScriptRoot\tmp\$ResultName.txt"

@@ -16,8 +16,7 @@ MQTT_WEEK = ROOT / "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.
 SOURCES = (
     ROOT / "IOT_Introduction/docs/teaching_drafts/week2_redesign/hello_first/hello_first.ino",
     ROOT / "IOT_Introduction/docs/teaching_drafts/week2_redesign/button_follow_along/button_follow_along.ino",
-    ROOT / "IOT_Introduction/docs/teaching_drafts/week2_redesign/counter_two_buttons/counter_two_buttons.ino",
-    ROOT / "IOT_Introduction/docs/teaching_drafts/week2_redesign/counter_exercise_solution/counter_exercise_solution.ino",
+    ROOT / "IOT_Introduction/docs/teaching_drafts/week2_redesign/counter_practice/counter_practice.ino",
     ROOT / "IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb",
     ROOT / "IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.ipynb",
     ROOT / "IOT_Introduction/docs/archive/week4_actuators/week4_main.md",

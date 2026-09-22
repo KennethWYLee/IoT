@@ -42,7 +42,7 @@
     },
     {
       "page": 9,
-      "characters": 501,
+      "characters": 519,
       "text_outside_page": []
     },
     {
@@ -57,7 +57,7 @@
     },
     {
       "page": 12,
-      "characters": 589,
+      "characters": 607,
       "text_outside_page": []
     },
     {
@@ -102,81 +102,76 @@
     },
     {
       "page": 21,
-      "characters": 636,
+      "characters": 651,
       "text_outside_page": []
     },
     {
       "page": 22,
-      "characters": 626,
+      "characters": 617,
       "text_outside_page": []
     },
     {
       "page": 23,
-      "characters": 623,
+      "characters": 613,
       "text_outside_page": []
     },
     {
       "page": 24,
-      "characters": 466,
+      "characters": 623,
       "text_outside_page": []
     },
     {
       "page": 25,
-      "characters": 752,
+      "characters": 308,
       "text_outside_page": []
     },
     {
       "page": 26,
-      "characters": 409,
+      "characters": 727,
       "text_outside_page": []
     },
     {
       "page": 27,
-      "characters": 510,
+      "characters": 409,
       "text_outside_page": []
     },
     {
       "page": 28,
-      "characters": 507,
+      "characters": 510,
       "text_outside_page": []
     },
     {
       "page": 29,
-      "characters": 597,
+      "characters": 352,
       "text_outside_page": []
     },
     {
       "page": 30,
-      "characters": 553,
+      "characters": 960,
       "text_outside_page": []
     },
     {
       "page": 31,
-      "characters": 883,
+      "characters": 425,
       "text_outside_page": []
     },
     {
       "page": 32,
-      "characters": 1058,
+      "characters": 530,
       "text_outside_page": []
     },
     {
       "page": 33,
-      "characters": 505,
+      "characters": 566,
       "text_outside_page": []
     },
     {
       "page": 34,
-      "characters": 647,
+      "characters": 554,
       "text_outside_page": []
     },
     {
       "page": 35,
-      "characters": 799,
-      "text_outside_page": []
-    },
-    {
-      "page": 36,
       "characters": 762,
       "text_outside_page": []
     }
@@ -185,21 +180,15 @@
     "IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.pdf": true,
     "IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb": true
   },
-  "pdf_sha256": "b798669f9745086def3e4313221cd980198bc508b83c48862468d7d2aa69cc69",
-  "visual_review": "Recorded separately in the redesign review after inspecting Poppler renders.",
+  "pdf_sha256": "6c39c0282183bde848174fad8fef45c54481d5a8fb38efddd0bb2a90e7a4c6c0",
+  "code_in_html_matches_sketches": true,
+  "counter_has_no_custom_bounds": true,
+  "minimal_counter_then_information_and_current_then_exercises": true,
+  "room_capacity_20_and_repeat_conflict_requirements_checked": true,
+  "room_solution_not_in_main": true,
+  "unaffected_pages_preserved": true,
   "hardware_tested": false,
   "student_trial_completed": false,
   "published": false,
-  "code_in_html_matches_sketches": true,
-  "removed_assumed_prior_serial_setup": true,
-  "pullup_voltage_and_message_explanation_checked": true,
-  "student_lesson_has_no_tpo_or_old_lesson_reference": true,
-  "ohms_law_example_and_shifted_page_references_checked": true,
-  "counter_code_pages31_32_precedes_room_exercise_pages33_34": true,
-  "room_scenario_and_results_preserved_answer_removed": true,
-  "official_main_matches_layout_alias_and_current_sources": true,
-  "all_retained_pages_match_reviewed_layout_except_order_and_page_references": true,
-  "lesson_pacing_narration_removed": true,
-  "student_text_has_no_original_or_revised_program_comparisons": true,
-  "room_exercise_pages_are_self_contained_without_counter_99_comparison": true
+  "visual_review": "See dated lab note for Poppler render inspection."
 }

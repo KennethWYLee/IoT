@@ -7,7 +7,7 @@ const root = path.resolve(__dirname, '../../../..');
 const official = path.join(root, 'IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.pdf');
 const inputs = new Set(['build_sample.cjs', 'beginner_setup.cjs', 'ohms_law_pages.cjs', 'counter_project.cjs',
   'hello_first/hello_first.ino', 'button_follow_along/button_follow_along.ino',
-  'counter_two_buttons/counter_two_buttons.ino'].map(name => path.join(__dirname, name)));
+  'counter_practice/counter_practice.ino'].map(name => path.join(__dirname, name)));
 const digest = file => crypto.createHash('sha256').update(/\.(cjs|ino)$/.test(file)
   ? fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n') : fs.readFileSync(file)).digest('hex');
 const asset = file => { inputs.add(file); return fs.readFileSync(file).toString('base64'); };
@@ -94,7 +94,7 @@ function buttonBoard(wires=0) {
   s+=text(333,299,'按鈕四腳：e27、f27、e29、f29',19,'text-anchor="middle"');
   return svg(s,316);
 }
-const footer = n => `<footer><span>Week 2 · 按鈕與計數器</span><span>${n} / 36</span></footer>`;
+const footer = n => `<footer><span>Week 2 · 按鈕與計數器</span><span>${n} / 35</span></footer>`;
 const page = (n, tag, title, lead, body) => `<section class="page"><header><span>ESP32-S3 硬體基礎</span><span>${tag}</span></header><main><h1>${title}</h1><p class="lead">${lead}</p>${body}</main>${footer(n)}</section>`;
 const pages = [
 page(1,'按鈕與電腦訊息','按一下按鈕，電腦怎麼知道？','按鈕改變電路的連接，ESP32 讀取狀態，再把文字傳回電腦。',`
@@ -188,7 +188,7 @@ page(20,'電壓與電流','按下會接通，為什麼讀到 LOW？','這個接�
   <p>HIGH／LOW 是電壓的高低，不是電流的強弱。</p>
 `),
 ...require('./ohms_law_pages.cjs')({page,svg,text,line,dot,marker,block,arrow}),
-page(23,'GPIO 與訊息','LOW 怎麼變成電腦上的 pressed？','程式依照 GPIO4 的讀值，選擇傳回 pressed 或 released。',`
+page(24,'GPIO 與訊息','LOW 怎麼變成電腦上的 pressed？','程式依照 GPIO4 的讀值，選擇傳回 pressed 或 released。',`
   <figure class="diagram">${flow()}<figcaption>按下時的資訊流。箭頭表示處理與傳送順序，不是電流路徑，也不是要新增的杜邦線。</figcaption></figure>
   <h2>文字是程式選的，不是按鈕自己送出的</h2>
   <p>第 15 頁的 <code>digitalRead(BUTTON_PIN)</code> 先讀 GPIO4，存進 <code>value</code>（暫存讀值的名字）。<br><code>if (value == LOW)</code> 再問：「讀值是不是 LOW？」是就印 <code>pressed</code>；不是就印 <code>released</code>。</p>
@@ -198,20 +198,7 @@ page(23,'GPIO 與訊息','LOW 怎麼變成電腦上的 pressed？','程式依照
   <p class="sources">原理核對：<a href="https://www.fluke.com/en/learn/blog/digital-multimeters/how-to-test-for-continuity">Fluke 通斷測試</a>；<a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html">Espressif GPIO</a>。預期結果為教學推演，非本次實測。</p>
 `),
 ...require('./counter_project.cjs')({page,escape,svg,text,line,dot,marker,block,arrow,photo}),
-page(35,'故障排查','停在哪一步，就處理那一步','不要同時換線、換板型、換程式。一次只改一件事，才知道問題在哪裡。',`
-  <table class="troubleshooting"><thead><tr><th>現在遇到什麼</th><th>先一起做這些</th></tr></thead><tbody>
-  <tr><td>不能安裝 IDE</td><td>確認下載的是 Windows 64-bit .exe。學校電腦要求管理權限時，交由管理人員處理，不繞過限制。</td></tr>
-  <tr><td>找不到 esp32／安裝失敗</td><td>回第 7 頁核對網址與網路；第 8 頁選 Espressif Systems。保存錯誤文字，不反覆亂換版本。</td></tr>
-  <tr><td>沒有新增 COM</td><td>板子先不接杜邦線。換已確認可傳資料的 USB 線，插板背 COM 接頭、直接接電腦。比較拔掉／插回前後清單。</td></tr>
-  <tr><td>有供電，仍沒有 COM</td><td>在 Windows 開始鈕按右鍵 → 裝置管理員，看「連接埠（COM 和 LPT）」或未知裝置。圖示板使用 CH343；需要驅動時只用 WCH 官方 CH343SER，不隨便裝別型號。</td></tr>
-  <tr><td>上傳失敗</td><td>先關閉所有 Serial Monitor，核對第 10–11 頁的板型／Port／選項。等待其他程式釋放連接埠，再重試一次並保存錯誤文字。</td></tr>
-  <tr><td>卡在 Connecting，無法連上</td><td>僅對圖示板，無外接線時：重試 Upload，在 Connecting 時按住 BOOT、點一下 RST；開始 Writing 後放開 BOOT。上傳完成後必要時點一下 RST 啟動。這不是每次必做。</td></tr>
-  <tr><td>沒有 Hello／是亂碼</td><td>確認正在看 Serial Monitor 而非 Output；速度選 115200。確認已上傳新程式，而不是只按勾勾編譯；USB 接頭是 COM。</td></tr>
-  </tbody></table>
-  <p class="safety">改實體接線前拔 USB、移除其他電源。板子異常發熱、有異味或冒煙，立即停止供電，不繼續測試。</p>
-  <p class="sources">驅動程式官方來源：<a href="https://www.wch.cn/downloads/CH343SER_EXE.html">WCH CH343SER</a>。無權限或裝置身分不明時，先由教師與管理人員一起確認，不盲目安裝。</p>
-`),
-page(36,'參考資料','操作依據與圖片來源','Arduino IDE 操作、ESP32 GPIO 與通斷測試的文件來源。',`
+page(35,'參考資料','操作依據與圖片來源','Arduino IDE 操作、ESP32 GPIO 與通斷測試的文件來源。',`
   <h2>Arduino 官方文件與截圖</h2><ul>
   <li><a href="https://docs.arduino.cc/software/ide-v2/tutorials/getting-started/ide-v2-downloading-and-installing/">Downloading and installing the Arduino IDE 2</a>：安裝總覽，作者 Karl Söderby。</li>
   <li><a href="https://docs.arduino.cc/software/ide-v2/tutorials/getting-started/ide-v2-uploading-a-sketch/">How to upload a sketch with the Arduino IDE 2</a>：選單、上傳按鈕，作者 Karl Söderby、Jacob Hylén。</li>
