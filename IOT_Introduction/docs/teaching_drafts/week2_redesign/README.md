@@ -1,6 +1,13 @@
 # Week 2 正式主教材維護來源
 
-2026-09-22 最新批註：`counter_practice` 只讀兩鍵、加減並印出數字，完整程式一頁。基礎教學聚焦資訊流、電流與加減原理；長按、RST、雙鍵、loop、計時與上下限移到練習。主教材 35 頁，第 21–22 頁以中文標出電壓比較位置，第 23 頁新增電阻換成導線的放開／按下對照圖，第 33–34 頁整合「活動入場人數登記」題目、預期結果與觀察問題；補充第 23 頁為觀察題解答，第 24–30 頁為 20 人登記解答。[最新修正紀錄](../../lab_notes/2026-09-22-voltage-exercise-clarity.md)。[前次基礎範例修正](../../lab_notes/2026-09-22-counter-minimal-basics.md)。[本輪修正與驗證](../../lab_notes/2026-09-22-counter-room-progression.md)。先前命名與註解修訂見[歷史紀錄](../../lab_notes/2026-09-22-counter-practice-comments.md)。
+2026-09-22 本輪：Main 保留基本程式與原理，延伸題答案另放本機 week2Ans。
+新增兩張「只改一處」反例對照圖，相關接線只作圖上推演；不新增實物實測。
+目前頁次以 PDF 頁尾與產生器清單為準，下方舊頁碼保留沿革意義。
+[本輪修改、驗證與限制](../../lab_notes/2026-09-22-weekly-main-answers.md)。本輪尚未提交或上傳。
+
+
+
+2026-09-22 最新批註：`counter_practice` 只讀兩鍵、加減並印出數字，完整程式一頁。基礎教學聚焦資訊流、電流與加減原理；長按、RST、雙鍵、loop、計時與上下限移到練習。主教材 35 頁，第 21–22 頁以中文標出電壓比較位置，第 23 頁新增電阻換成導線的放開／按下對照圖，第 33–34 頁整合「活動入場人數登記」題目、預期結果與觀察問題；week2Ans.pdf 第 1 頁為觀察題解答，第 2–8 頁為 20 人登記解答；OLED 內容移到 Week 5。[最新修正紀錄](../../lab_notes/2026-09-22-voltage-exercise-clarity.md)。[前次基礎範例修正](../../lab_notes/2026-09-22-counter-minimal-basics.md)。[本輪修正與驗證](../../lab_notes/2026-09-22-counter-room-progression.md)。先前命名與註解修訂見[歷史紀錄](../../lab_notes/2026-09-22-counter-practice-comments.md)。
 
 後續發布授權：本次只提交主教材、必要來源與維護紀錄；補充 PDF／補充程式及私有 QA 留本機。[發布範圍與檢查](../../lab_notes/2026-09-21-main-publication.md)。下文「尚未提交」為修訂完成當時的紀錄，實際提交以 Git 歷史為準。
 
@@ -14,12 +21,12 @@
 
 - [2026-09-21 教材修正準則](revision_guidelines.md)（後續修訂先讀；整理今天決定與延續要求）
 - [正式主教材 PDF](../../../Week_02_ESP32_Hardware_Basics/week2_main.pdf)
-- 補充 PDF：OLED 與房間題解答只留本機，依教師要求本次不發布。
+- 本機解答：`Week_02_ESP32_Hardware_Basics/week2Ans.pdf`，8 頁；OLED 已移到 `week5_oled_supplement/week5_OLED.pdf`，不再放在 Week 2。兩份均未發布。
 - `Week2_main_layout_sample.pdf` 留作舊批註入口的相同內容副本，由 builder 同步，不再獨立編修。
 - [第一次 Hello 程式](hello_first/hello_first.ino)
 - [單按鈕程式](button_follow_along/button_follow_along.ino)
 - [雙按鈕計數器程式 counter_practice.ino](counter_practice/counter_practice.ino)
-- 20 人房間參考解答：本機補充的 `room_counter/room_counter.ino`，不隨主教材發布。
+- 20 人房間參考解答：本機 `week2_answers/room_counter/room_counter.ino`，不隨主教材發布。
 - [設計決定、沿革與檢查紀錄](Week2_redesign_review.md)
 
 教師決定採同步帶做，先得到可觀察的結果，再解釋原理。不能假設學生已安裝 IDE、上傳過 Serial 範例或知道 GPIO 如何接線。
@@ -42,8 +49,8 @@
 | 33 | 活動入場人數登記：0～20、長按、雙鍵與重啟規則 |
 | 34 | 預期結果、負數與 loop 等觀察問題 |
 | 35 | 參考資料 |
-| 補充 23 | 觀察問題解答 |
-| 補充 24–30 | 入場登記實作步驟、原理、完整程式與驗證 |
+| week2Ans 1 | 觀察問題解答 |
+| week2Ans 2–8 | 入場登記實作步驟、原理、完整程式與驗證 |
 
 ## 使用前的限制
 
@@ -55,7 +62,7 @@
 
 ## 重新產生與檢查
 
-維護 `build_sample.cjs`、`beginner_setup.cjs`、`ohms_law_pages.cjs`、`counter_project.cjs` 與三份主教材 `.ino`；不要直接改 PDF。`room_answer.cjs` 與本機補充的 `room_counter.ino` 只供補充教材使用，主教材不載入房間題解答。程式由 `.ino` 自動嵌入，避免不同步。答案雖不在主教材，仍隨補充提供，不是保密考卷。
+維護 `build_sample.cjs`、`beginner_setup.cjs`、`ohms_law_pages.cjs`、`counter_project.cjs` 與三份主教材 `.ino`；不要直接改 PDF。本機 `../week2_answers/room_answer.cjs` 與 `room_counter/room_counter.ino` 只供 week2Ans 使用，主教材不載入房間題解答。程式由 `.ino` 自動嵌入，避免不同步。答案雖不在主教材，仍隨 week2Ans 提供，不是保密考卷。
 
 需要 Node.js、Playwright、Microsoft Edge；Python 需要 PyMuPDF、Pillow。可使用已配置的相依套件，或在本資料夾安裝 `npm install --no-save --package-lock=false playwright`。沒有自動安裝或更新另一台電腦的環境。
 
@@ -72,7 +79,7 @@ PDF、完整原始碼及已完成的檢查證據可納入 Git；HTML、`tmp/`、
 
 `run_counter_host_test.ps1` 需要 Windows、Visual Studio 2022 Community C++ 工具與 Windows SDK；其他安裝位置需調整工具路徑。它直接編譯並執行同一份 `.ino`，只替換硬體 I/O 與時間；不是實機測試。
 
-新增練習解答測試：`./run_counter_host_test.ps1 -TestName exercise_host_test`。五組測試核對題目完整操作、FULL 出現位置、長按、兩鍵重疊與彈跳；[結果](checks/exercise_host_results.txt)不代替實機證據。解答在同一 Arduino 設定編譯成功：283879 bytes，全域變數 22452 bytes。
+本機 week2Ans 練習解答測試：`./run_counter_host_test.ps1 -TestName exercise_host_test`。九組主機測試核對短按、長按、0～20 上下限、雙鍵暫停、彈跳、時間回繞與重啟；[結果](checks/exercise_host_results.txt)不代替實機證據。解答在同一 Arduino 設定編譯成功：283879 bytes，全域變數 22452 bytes。
 
 Arduino 編譯使用 esp32 core 3.3.11 與以下 FQBN：
 

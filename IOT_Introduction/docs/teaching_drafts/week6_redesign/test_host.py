@@ -52,15 +52,8 @@ def build_run(cpp, defines, label):
     return run.stdout.strip()
 
 results = []
-for step in (1,2):
+for step in (1,):
     public = source
-    if step == 2:
-        old = "c=char('0'+count+(c=='+'?1:-1));"
-        assert public.count(old) == 1
-        public = public.replace(old,"int next = count + (c == '+' ? 2 : -2);\n"
-                                "    if (next > 6) next = 6;\n"
-                                "    if (next < 0) next = 0;\n"
-                                "    c = char('0' + next);")
     enabled = public
     for old,new in replacements.items():
         assert enabled.count(old) == 1, old

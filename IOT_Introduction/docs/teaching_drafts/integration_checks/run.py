@@ -12,8 +12,11 @@ sys.path.insert(0, str(COURSE / "scripts"))
 from host_compiler import find_vcvars
 
 names = {3: "button_light_capture", 4: "button_environment_log", 5: "button_oled_timer"}
+selected = int(sys.argv[sys.argv.index("--week") + 1]) if "--week" in sys.argv else None
 results = []
 for week, name in names.items():
+    if selected is not None and week != selected:
+        continue
     original = (HERE.parent / f"week{week}_redesign" / name / f"{name}.ino").read_text(encoding="utf-8")
     settings = {
         "const bool PROFILE_CONFIRMED = false;": "const bool PROFILE_CONFIRMED = true;",
@@ -24,23 +27,13 @@ for week, name in names.items():
         "const int PIN_SDA = -1, PIN_SCL = -1;": "const int PIN_SDA = 8, PIN_SCL = 9;",
         "const int OLED_ADDRESS = -1;": "const int OLED_ADDRESS = 0x3c;",
     }
-    solution = {
-        3: {"const int SAMPLES_PER_PRESS = 1;": "const int SAMPLES_PER_PRESS = 3;"},
-        4: {"const bool REQUIRE_VALID_DHT = false;": "const bool REQUIRE_VALID_DHT = true;"},
-        5: {"const uint32_t STEP_SECONDS = 10;": "const uint32_t STEP_SECONDS = 5;",
-            "const uint32_t MAX_SECONDS = 60;": "const uint32_t MAX_SECONDS = 30;"},
-    }[week]
-    for variant in ["blocked", "base", "solution"] + (["oled1315"] if week == 5 else []):
+    for variant in ["blocked", "base"] + (["oled1315"] if week == 5 else []):
         source = original
         if variant != "blocked":
             for old, new in settings.items():
                 if old in source:
                     assert source.count(old) == 1
                     source = source.replace(old, new)
-        if variant == "solution":
-            for old, new in solution.items():
-                assert source.count(old) == 1
-                source = source.replace(old, new)
         out = HERE / "tmp" / f"week{week}_{variant}"
         out.mkdir(parents=True, exist_ok=True)
         (out / "sketch.inc").write_text(source, encoding="utf-8")

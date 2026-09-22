@@ -8,24 +8,22 @@ are the current step-by-step edition; the notebook commands below maintain the
 older formal edition and must not be used to overwrite the current lesson sources.
 Weeks 11, 12, 14 and 15 use their weekly Markdown and the network exporter below.
 
-2026-09-21 update: Week 2 has now replaced its formal PDF. Its old notebook is archived
-as a byte-identical `.ipynb.json` snapshot and is not an export input. Build the current
-36-page main with:
+The current Week2 builder also updates its formal PDF. Week3-7 builders keep
+basic sketches embedded in Main; `--answers` builds a local ignored answer directory.
+Keep the answer directory off public Git. Example:
 
 ```powershell
-node IOT_Introduction/docs/teaching_drafts/week2_redesign/build_sample.cjs
-python -X utf8 IOT_Introduction/docs/teaching_drafts/week2_redesign/verify_sample.py
+node IOT_Introduction/docs/teaching_drafts/week4_redesign/build.cjs
+node IOT_Introduction/docs/teaching_drafts/week4_redesign/build.cjs --answers
+python -X utf8 IOT_Introduction/scripts/verify_redesign.py 4 --render
+python -X utf8 IOT_Introduction/scripts/verify_redesign.py 4 --answers --render
 ```
 
-The formal main PDF is in `Week_02_ESP32_Hardware_Basics/`. The old layout-sample path is
-an identical generated alias, not a separate edition. The counter code is on main pages
-31-32, followed by the room exercise and expected results on pages 33-34. Its answer
-is on local supplement page 23; the supplement and its sources are not part of this
-publication. Course checks do not require a supplement, but check its matching build
-output if a local supplement exists. The legacy Week 2
-figure builder stops instead of restoring the old notebook; `verify_week2_notebook.cjs`
-delegates to the current PDF/source verifier. Historical `--compile`/`--render` options
-are not forwarded; use the current builder and host-test commands in the Week 2 README.
+Week2 uses `week2_redesign/build_sample.cjs` and `verify_sample.py`.
+Its private answer builder is `week2_answers/build_answers.cjs`.
+The Week2 counter's complete basic code remains in Main; extension answers remain separate.
+Current sources and verification scope are recorded in
+[the weekly revision record](../docs/lab_notes/2026-09-22-weekly-main-answers.md).
 
 `review_lesson_pages.py --render` inventories these ten PDFs, extracts per-page text
 and link information, and renders every page and contact sheets into the ignored
@@ -75,7 +73,9 @@ Export uses Node.js, `marked`, `playwright`, Microsoft Edge and Microsoft JhengH
 directory if needed; `BROWSER_CHANNEL` selects another installed Chromium browser.
 The Node-only `--check` compares Markdown, image, exporter and PDF hashes against
 `docs/network_pdf_manifest.json`. Text hashes normalize CRLF/LF across computers.
-The Python verifier requires PyMuPDF and Pillow. It checks page bounds, text and
+Use `--answers 11` (or 12, 14, 15) with both the exporter and verifier to build/check a local answer PDF.
+The Week15 complete-sketch marker embeds the generated basic sketch in its Main PDF and records its hash.
+The Python verifier requires PyMuPDF, Pillow and Poppler. It checks page bounds, text and
 links, renders every page, and creates contact sheets and `checks.json` under the
 ignored `_outputs/network_pdfs/review/` directory. Inspect those images and selected
 full-size Poppler renders before publication; automated bounds checks alone are not

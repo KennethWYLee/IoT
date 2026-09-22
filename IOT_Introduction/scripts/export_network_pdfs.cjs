@@ -5,9 +5,13 @@ const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
 
 const root = path.resolve(__dirname, '../..');
-const scratch = path.join(root, '_outputs/network_pdfs');
-const manifestPath = path.join(root, 'IOT_Introduction/docs/network_pdf_manifest.json');
-const lessons = [
+const answerIndex = process.argv.indexOf('--answers');
+const answerWeek = answerIndex >= 0 ? Number(process.argv[answerIndex+1]) : null;
+if(answerWeek !== null && ![11,12,14,15].includes(answerWeek))throw Error('Use --answers 11, 12, 14 or 15');
+const answerDir = answerWeek ? path.join(root,'IOT_Introduction/docs/teaching_drafts/week'+answerWeek+'_answers') : null;
+const scratch = answerDir ? path.join(answerDir,'tmp') : path.join(root, '_outputs/network_pdfs');
+const manifestPath = answerDir ? path.join(answerDir,'network_pdf_manifest.json') : path.join(root, 'IOT_Introduction/docs/network_pdf_manifest.json');
+const lessons = answerDir ? [path.relative(root,path.join(answerDir,'week'+answerWeek+'Ans.md')).replaceAll('\\','/')] : [
   [11, 'Week_11_HTTP_WebSocket_Backend'],
   [12, 'Week_12_MQTT_Database_and_Logs'],
   [14, 'Week_14_Mobile_PWA'],
@@ -93,12 +97,20 @@ async function main() {
         let href = token.href;
         if (!/^(https?:|mailto:|#)/i.test(href)) {
           const target = resolveLocal(href, file);
+          assert(answerDir || !/week\d+_answers/.test(target), 'Private answer link in Main');
           const anchor = href.includes('#') ? href.slice(href.indexOf('#')) : '';
           href = 'https://github.com/KennethWYLee/IoT/blob/main/' + relative(target).split('/').map(encodeURIComponent).join('/') + anchor;
         }
         return `<a href="${escape(href)}">${this.parser.parseInline(token.tokens)}</a>`;
       };
-      const html = `<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><style>${style}</style></head><body>${marked.parse(fs.readFileSync(file,'utf8'),{renderer})}</body></html>`;
+      let markdown = fs.readFileSync(file,'utf8');
+      markdown = markdown.replace(/<!-- complete-sketch: ([a-z0-9_]+) -->/g, (_, sketch) => {
+        const ino = path.join(root,'IOT_Introduction/examples',sketch,sketch+'.ino');
+        assert(fs.existsSync(ino), 'Missing complete sketch: '+sketch);
+        inputs[relative(ino)] = digest(ino);
+        return '\n\x60\x60\x60cpp\n'+fs.readFileSync(ino,'utf8')+'\n\x60\x60\x60\n';
+      });
+      const html = `<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><style>${style}</style></head><body>${marked.parse(markdown,{renderer})}</body></html>`;
       const page = await browser.newPage({viewport:{width:680,height:990}});
       try {
         await page.route('**/*', route => route.abort());

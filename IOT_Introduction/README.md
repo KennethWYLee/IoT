@@ -2,16 +2,17 @@
 
 課程名稱：IoT玩具與互動硬體設計。每週三13:30–16:15，2026-09-09至2027-01-06。
 
-2026-09-21：Week 2 已以 layout sample 的內容取代正式 PDF，房間題解答移至本機 Week2 補充第 23 頁；補充教材本次不發布。舊 notebook／PDF 已封存；Week 3–7 仍從[最新重設稿與待確認事項](docs/teaching_drafts/README.md)進入，尚未替換各週正式目錄。DHT 與舵機的實物限制保留，未推送的修正不會自動出現在另一台電腦。
+2026-09-22：本輪依 Week2 的做法整理實作週。Main 保留完整基本操作、程式與原理；
+延伸練習答案獨立在本機 Ans。Week2–7、11、12、14、15 各補兩個「只改一處」的反例圖，
+區分電流、訊號、軟體紀錄與實物結果。危險接法僅圖上推演，不實作。
 
-2026-09-18：Week 11、12、14、15 的 Markdown 已完成第一輪自行操作步驟修正，
-補終端機分工、可直接開啟的完整程式、網頁篩選與命令操作；
-見[修正與檢查範圍](docs/lab_notes/2026-09-18-network-lessons-self-study.md)。
-報告、筆試與評分要求未改；這四週已附同名 PDF，尚未完成全流程學生跟做驗證。
+Week2 使用正式目錄 PDF；Week3–7 使用下表重設稿 PDF，不再把舊 Notebook 當成閱讀入口。
+Week11、12、14、15 使用每週 Markdown 與同名 PDF。原週目錄的 Week3–7 Notebook／PDF
+保留歷史內容，不用舊匯出器覆蓋本輪稿件。報告、筆試、配分與週次安排沒有修改。
 
-每週只開一份主教材。Week 2 使用 PDF，Week 3～7保留 Notebook 出口，其他週使用Markdown；
-必要說明、準備事項、表格、操作與延伸均在當週同一份文件。
-Week 2 的房間題解答與 OLED 延伸另放本機補充 PDF，尚未發布；Week 3～7為完整備課版（含參考解答），各附同名PDF供離線閱讀與列印。Week 18只保留空白檔案。
+答案暫留本機 `docs/teaching_drafts/weekN_answers/`；Week2 另有正式目錄同內容副本。
+OLED 維持 Week5。私有 QA、答案、執行資料均不發布。本輪尚未 commit、push 或上傳。
+詳見[本輪修改與驗證紀錄](docs/lab_notes/2026-09-22-weekly-main-answers.md)。
 
 Week 1只介紹課程與[正式材料清單](Week_01_Course_Orientation/week1_main.md#purchase-table)，不操作硬體。
 
@@ -25,11 +26,11 @@ Week 2～7、11～12、14～15的主教材開頭亦有當週器材圖集。離�
 |---:|---|---|---|
 | 1 | 2026-09-09 | 課程大綱、配分與中文採購清單 | [開啟 Week 1](Week_01_Course_Orientation/week1_main.md) |
 | 2 | 2026-09-16 | ESP32-S3、開發環境與按鈕去抖 | [主教材 PDF](Week_02_ESP32_Hardware_Basics/week2_main.pdf) |
-| 3 | 2026-09-23 | 電氣量測、ADC與室內／遮光分類 | [Notebook](Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb)／[PDF](Week_03_Electrical_Measurement_and_ADC/week3_main.pdf) |
-| 4 | 2026-09-30 | 電阻量程、DHT11、雙感測器與蜂鳴提示 | [Notebook](Week_04_Sensors_and_Data_Quality/week4_main.ipynb)／[PDF](Week_04_Sensors_and_Data_Quality/week4_main.pdf) |
-| 5 | 2026-10-07 | RGB、OLED與非阻塞倒數 | [Notebook](Week_05_RGB_OLED_Countdown/week5_main.ipynb)／[PDF](Week_05_RGB_OLED_Countdown/week5_main.pdf) |
-| 6 | 2026-10-14 | SG90計數指針、供電與安全 | [Notebook](Week_06_Servo_Pointer/week6_main.ipynb)／[PDF](Week_06_Servo_Pointer/week6_main.pdf) |
-| 7 | 2026-10-21 | 紅綠燈遮光挑戰：完整本機遊戲 | [Notebook](Week_07_Traffic_Light_Challenge/week7_main.ipynb)／[PDF](Week_07_Traffic_Light_Challenge/week7_main.pdf) |
+| 3 | 2026-09-23 | 電氣量測、ADC與室內／遮光分類 | [主教材 PDF](docs/teaching_drafts/week3_redesign/week3_main.pdf) |
+| 4 | 2026-09-30 | 電阻量程、DHT11、雙感測器與蜂鳴提示 | [主教材 PDF](docs/teaching_drafts/week4_redesign/week4_main.pdf) |
+| 5 | 2026-10-07 | RGB、OLED與非阻塞倒數 | [主教材 PDF](docs/teaching_drafts/week5_redesign/week5_main.pdf) |
+| 6 | 2026-10-14 | SG90計數指針、供電與安全 | [主教材 PDF](docs/teaching_drafts/week6_redesign/week6_main.pdf) |
+| 7 | 2026-10-21 | 紅綠燈遮光挑戰：完整本機遊戲 | [主教材 PDF](docs/teaching_drafts/week7_redesign/week7_main.pdf) |
 | 8 | 2026-10-28 | 第一次專題報告：題目與可行性 | [開啟 Week 8](Week_08_Project_Report_1/week8_main.md) |
 | 9 | 2026-11-04 | 教師出國／選讀，不收新成果 | [開啟 Week 9](Week_09_Self_Study/week9_main.md) |
 | 10 | 2026-11-11 | 第一次個人筆試：Week 2～7 | [開啟 Week 10](Week_10_Individual_Written_Exam/week10_main.md) |

@@ -25,7 +25,7 @@ START或STOP後，事件會送到筆電Backend、寫入SQLite，並由WebSocket�
 
 失敗時留在原步驟排查，不同時修改 IP、接線與程式。
 
-## 一、Unit Overview
+## 一、本週內容
 
 ### 教學目標
 
@@ -469,6 +469,27 @@ RGB 仍須沿用 Week 5 已確認的限流及準位，不把三路接成同一�
 
 若STOP只在Backend開啟時才有效，表示安全邏輯放錯位置，本階段不算完成。
 
+### 剛才的資訊與電流走哪裡
+
+```text
+資訊：
+按鈕 → GPIO 輸入 → ESP32 程式 → Wi-Fi／HTTP → 後端
+                                                   ├→ SQLite 保存事件
+                                                   └→ WebSocket → 手機更新
+
+命令：
+手機 → HTTP 建立 command_id → 後端等待
+ESP32 定時查詢 → 執行或拒絕 → 回報同一 command_id → 手機更新
+
+按鈕按下的電流：
+板內 3.3 V → 晶片內上拉電阻 → START 或 STOP GPIO → 按鈕 → GND
+RGB 點亮的電流（已確認共陰接法）：
+輸出 GPIO → 該色限流電阻與 LED → 共同 GND → 板上電源回路
+```
+
+Wi-Fi 與 HTTP 傳的是資料，不是給 RGB 供電。收到 HTTP 201 只表示後端接受這筆資料；
+程式回報 done 也不是光學感測器量到燈亮，仍要目視核對。
+
 ## 十、手機命令與command_id追蹤
 
 1. Backend啟動時使用的operator key填入手機頁面；key只留在目前頁面的記憶體，
@@ -531,9 +552,38 @@ RGB 不得因未知命令變綠。`403` 先查 key，`422` 先查 JSON，不連�
 完成每項故障後都要恢復baseline並重新驗證一筆正常事件。症狀、第一個安全檢查與
 復原方式記錄於支援資料，不使用「網路壞了」作為結論。
 
+<div style="break-before:page"></div>
+
+## 只斷 WebSocket，資料就消失嗎？
+
+事件資訊流示意；僅作圖上推演，不停止正在使用的服務或取消真實系統的安全檢查。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="只斷 WebSocket，資料就消失嗎？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">ESP32 事件</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><path d="M134,62 L139,66 L134,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">HTTP 後端</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><path d="M264,62 L269,66 L264,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">資料庫</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><path d="M394,62 L399,66 L394,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">WebSocket</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><path d="M524,62 L529,66 L524,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">網頁更新</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">ESP32 事件</text><line x1="121" y1="193" x2="139" y2="193" stroke="#246e73" stroke-width="2" /><path d="M134,189 L139,193 L134,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="198" font-size="16" text-anchor="middle">HTTP 後端</text><line x1="251" y1="193" x2="269" y2="193" stroke="#246e73" stroke-width="2" /><path d="M264,189 L269,193 L264,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="198" font-size="16" text-anchor="middle">資料庫</text><line x1="381" y1="193" x2="399" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" stroke-dasharray="5 4"/><text x="455" y="198" font-size="16" text-anchor="middle">連線中斷</text><line x1="511" y1="193" x2="529" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">網頁更新</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
+
+**想一想：** 後端與 HTTP 仍工作，資料庫寫入成功，只假設網頁 WebSocket 斷線。新的事件還會進資料庫嗎？
+
+**原理提示：** 會，依題目條件資料已保存；中斷的是即時通知，不是裝置供電或資料庫寫入。
+
+只改圖中標記處，其餘條件保持相同。請指出哪一段仍工作，以及目前證據不能說明什麼。
+
+
+<div style="break-before:page"></div>
+
+## 裝置完成了，少了回報呢？
+
+命令與結果示意；僅作圖上推演，不停止正在使用的服務或取消真實系統的安全檢查。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="裝置完成了，少了回報呢？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">建立 command</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><path d="M134,62 L139,66 L134,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">裝置執行</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><path d="M264,62 L269,66 L264,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">結果回報</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><path d="M394,62 L399,66 L394,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">後端紀錄</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><path d="M524,62 L529,66 L524,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">手機顯示</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">建立 command</text><line x1="121" y1="193" x2="139" y2="193" stroke="#246e73" stroke-width="2" /><path d="M134,189 L139,193 L134,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="198" font-size="16" text-anchor="middle">裝置執行</text><line x1="251" y1="193" x2="269" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="269" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" stroke-dasharray="5 4"/><text x="325" y="198" font-size="16" text-anchor="middle">回報遺失</text><line x1="381" y1="193" x2="399" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="198" font-size="16" text-anchor="middle">後端紀錄</text><line x1="511" y1="193" x2="529" y2="193" stroke="#246e73" stroke-width="2" /><path d="M524,189 L529,193 L524,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">手機顯示</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
+
+**想一想：** 假設裝置真的已完成動作，但結果訊息遺失。手機的 timeout 可以解讀為「實物一定沒動」嗎？
+
+**原理提示：** 不能。timeout 表示期限內未確認結果；不是實物沒有動作的證據。
+
+只改圖中標記處，其餘條件保持相同。請指出哪一段仍工作，以及目前證據不能說明什麼。
+
 ## 十二、練習
 
-### 練習1：事件欄位的可觀察差異
+### 練習1：確認欄位修改的傳輸結果
 
 作品情境：同一片裝置的測試事件，需要標出這次是從課堂練習發送。
 把 `serial_test` 的 `reason` 設為 `classroom_test`，不得同時改 event_type、state 與 unit。
@@ -551,24 +601,19 @@ RGB 不得因未知命令變綠。`403` 先查 key，`422` 先查 JSON，不連�
 
 完成條件：提供修改前後兩筆JSON，能指出唯一改變的欄位及Backend仍接受的原因。
 
-<div style="break-before: page"></div>
-
-#### 練習1參考做法
-
-1. 開啟本週的 `week11_http_device.ino`，另存為 `http_reason_practice`，保留本機 secrets.h。
-2. Ctrl+F 找到 `manual_host_path_test`，只把這段字串換成 `classroom_test`。
-   不修改 `serial_test`、狀態或數值；保留字串雙引號。
-3. 儲存。依 7.3 的板型與 Port 設定，以及第九節的斷電、移除板端接線、裸板上傳流程更新。
-   上傳後拔 USB，再恢復本次已確認接線。
-4. Monitor 選 115200，等 Wi-Fi 連線。輸入 `test-event`，對照 HTTP 201 與手機同一筆事件。
-5. 沒出現時先查 Device ID 篩選及後端是否仍執行；不要同時改 Wi-Fi、腳位與接線。
-
-reason 是文字欄位，這個值符合既有介面；事件種類與資料型別未改。這只驗證事件標記及傳輸，不證明新的實體動作。
-
 ### 練習2：命令拒絕規則
 
-保留ERROR狀態下拒絕`start`的規則，再新增一個明確且安全的拒絕條件，例如
-已為 ACTIVE 時再次收到 start，回 rejected 並維持原狀。先寫出狀態與預期結果，再修改程式。
+保留 ERROR 拒絕 start、STOP 及重複命令 ID 的既有規則。自行加入：已為 ACTIVE 時，新 ID 的 start 回 rejected，維持原狀且不新增 remote_start 事件。
+
+| 操作 | 預期結果 |
+|---|---|
+| IDLE 收到新 start | accepted → done，進 ACTIVE |
+| ACTIVE 收到另一個新 ID 的 start | accepted → rejected，原因表示已啟動，RGB 不變 |
+| 重送仍在快取內的同一 ID | 重送原結果，不重新執行 |
+| ERROR 收到 start | 仍 rejected，必須先排除原因與 reset |
+| STOP 按住時送 reset | 仍 rejected，不解除停止 |
+
+不要用「每個 start 都拒絕」完成題目。測試前先記下狀態；拒絕後要能用原本 stop、reset 恢復。
 DEVICE_ID 必須有效，裝置才會進入命令處理；不能用未填 ID 測試 accepted → rejected。
 
 完成條件：一筆命令以同一`command_id`呈現`accepted → rejected`，且 RGB 不因這筆被拒絕的命令改變原狀。
@@ -611,6 +656,7 @@ DEVICE_ID 必須有效，裝置才會進入命令處理；不能用未填 ID 測
 結束前先把RGB恢復IDLE，再於Backend終端機按`Ctrl+C`。拔除USB後拆線，ESP32、
 按鈕、RGB與杜邦線分別收好。完整故障表、紀錄表與延伸挑戰見
 [Week 11支援資料](#practice-and-reference)。
+
 
 <a id="practice-and-reference"></a>
 

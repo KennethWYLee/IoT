@@ -12,6 +12,7 @@
 
 Serial 命令、OLED 文字與實物燈號要能對上同一次操作。
 
+
 <!-- page: files | 先把程式準備在電腦裡 -->
 ## 不用從 PDF 一頁一頁抄程式
 
@@ -33,6 +34,7 @@ Serial 命令、OLED 文字與實物燈號要能對上同一次操作。
 
 <aside>若下載內容和講義列出的檔名不一致，先取得相符的課程資料夾，不猜替代檔。開啟檔案時，ESP32 的 USB 與外部電源保持拔除。</aside>
 
+
 <!-- page: prepare | 整理器材 -->
 ## 先拿 RGB 和 OLED
 > 其他模組先移開，避免舊接線被新程式控制。
@@ -44,6 +46,7 @@ Serial 命令、OLED 文字與實物燈號要能對上同一次操作。
 | 四針 I2C OLED | 顯示文字與倒數 |
 | 麵包板、母對母及公對母線 | 連接訊號與電源 |
 | 電表、原接線紀錄 | 課前核對與低壓排查 |
+| 兩顆已辨認的按鈕 | 後段控制調整與開始／中止 |
 | KY-018 與上週基準 | 最後才做光線干擾比較 |
 
 1. 外接電源關閉、USB 拔除，確認 PWR 熄滅。
@@ -52,6 +55,7 @@ Serial 命令、OLED 文字與實物燈號要能對上同一次操作。
 4. 今天不用電流檔或 10A 孔；通斷與 Ω 只在外部斷電時量。
 
 <aside class="safety">課前需確認本批 RGB 的限流、各色電流與有效準位，以及 OLED 供電、SDA／SCL 電位及適用驅動。資料尚未確認，就先做程式與紙上判讀，不試接未知腳位。</aside>
+
 
 <!-- page: settings | 今天的接線依據 -->
 ## 先把自己這組的腳位寫清楚
@@ -72,6 +76,7 @@ GPIO4 與 GPIO15 不同；麵包板的**第 15 列**也不是 GPIO15。之後每
 
 <aside>照片與既有回報尚未補足各色電流及 OLED 拉高電壓。教師先完成課前查核，課堂不安排每組排隊等核准；未確認項目保持斷電。</aside>
 
+
 <!-- page: rgbphoto | 認出 RGB -->
 ## 同一個外殼，三種顏色
 > R 是紅，G 是綠，B 是藍。
@@ -86,6 +91,7 @@ GPIO4 與 GPIO15 不同；麵包板的**第 15 列**也不是 GPIO15。之後每
 
 <aside>先認零件，不先通電。板上看得到電阻，不代表任何電壓與 GPIO 電流都適用。</aside>
 
+
 <!-- page: ide | 開啟完整程式 -->
 ## 先讓電腦準備好
 > 模組都先不接 ESP32，板子只接 USB。
@@ -99,6 +105,7 @@ GPIO4 與 GPIO15 不同；麵包板的**第 15 列**也不是 GPIO15。之後每
 程式的 `LESSON_STAGE=0` 會阻擋輸出；RGB 單獨測試使用 1，並需填好已確認的 RGB 設定。
 
 <aside>COM 接頭是板上的插孔；COM8 等名稱是電腦的埠號。每台電腦可能不同，不照抄教師號碼。</aside>
+
 
 <!-- page: rgbsetup | 第一輪只開燈 -->
 ## 先選 1，只填 RGB 設定
@@ -120,6 +127,7 @@ GPIO4 與 GPIO15 不同；麵包板的**第 15 列**也不是 GPIO15。之後每
 
 若看到 `U8g2lib.h` 找不到，回程式庫管理員檢查安裝，先不要改接線。
 
+
 <!-- page: rgbwire | 接四條線 -->
 ## 每種顏色有自己的 GPIO
 > 以下示範已確認共同端接 GND 的模組。
@@ -139,6 +147,7 @@ USB 拔除，OLED 還沒接。依第 {{page:settings}} 頁本組表接線：
 雖然模組有四腳，另需一條 GND 到麵包板的線，所以這張表共五條。a3～e3 內部相通，R／G／B 不放在同一五孔列。
 
 <aside class="safety">本批共同端與限流路徑確認後才用這張圖。不同的共陽模組不能把共同端任意改接 GND；不靠換電源試錯。</aside>
+
 
 <!-- page: rgbtest | 送出命令 -->
 ## 依序輸入 o、r、g、b、o
@@ -164,6 +173,10 @@ event_type=rgb_test requested=g visual_verified=false
 
 送 r 卻亮綠，就拔 USB 後查 R／G 路徑。不要只把程式文字改成綠，掩蓋錯接。
 
+
+<!-- page: timercode | 完整基本程式 -->
+{{program:week05_rgb_oled_timer}}
+
 <!-- page: rgbwhy | 原理 -->
 ## 燈亮，是因為形成了電流回路
 > 這張是已確認共陰模式的簡化圖，不是另一張排針順序圖。
@@ -183,6 +196,19 @@ event_type=rgb_test requested=g visual_verified=false
 
 共陰模式通常 HIGH 亮；共陽模式可能 LOW 才亮。這就是程式要另存 `RGB_ON_LEVEL` 的原因。
 
+
+<!-- page: flowcase1 | 只改一處，想想結果 -->
+## 限流電阻改成導線，亮度不是唯一變化
+> 單一 LED 支路示意；僅作圖上推演，保持現有實物接線不動。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="限流電阻改成導線，亮度不是唯一變化" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="79" y="71" font-size="16" text-anchor="middle">已確認輸出</text><line x1="149" y1="66" x2="172" y2="66" stroke="#246e73" stroke-width="2" /><rect x="172" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="242" y="71" font-size="16" text-anchor="middle">限流電阻</text><line x1="312" y1="66" x2="335" y2="66" stroke="#246e73" stroke-width="2" /><rect x="335" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="405" y="71" font-size="16" text-anchor="middle">LED</text><line x1="475" y1="66" x2="498" y2="66" stroke="#246e73" stroke-width="2" /><rect x="498" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="568" y="71" font-size="16" text-anchor="middle">返回端</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="79" y="198" font-size="16" text-anchor="middle">已確認輸出</text><line x1="149" y1="193" x2="172" y2="193" stroke="#246e73" stroke-width="2" /><rect x="172" y="170" width="140" height="46" rx="3" fill="#fff1de" stroke="#a65136" /><text x="242" y="198" font-size="16" text-anchor="middle">改成導線</text><line x1="312" y1="193" x2="335" y2="193" stroke="#246e73" stroke-width="2" /><rect x="335" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="405" y="198" font-size="16" text-anchor="middle">LED</text><line x1="475" y1="193" x2="498" y2="193" stroke="#246e73" stroke-width="2" /><rect x="498" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="568" y="198" font-size="16" text-anchor="middle">返回端</text><text x="10" y="261" font-size="16">線表示電路連接；不是實物腳序或完整接線圖。</text></svg>
+
+**想一想：** 假設這是已確認 LED 支路唯一的限流電阻，把它換成導線。能用「會更亮」當作安全結論嗎？
+
+**原理提示：** 低阻抗路徑可能讓電流超出 LED 或 GPIO 限制；可能損壞，不是正常的調亮方法。
+
+只有標記處改變，其餘供電、程式與環境條件沿用正常情境。不可把未知結果直接寫成 0、LOW 或「一定停止」。
+
 <!-- page: oledphoto | 換成小螢幕 -->
 ## OLED 的四腳，各做不同的事
 > 先拔 USB，暫時拆開 RGB 和 ESP32 的連線。
@@ -199,6 +225,7 @@ event_type=rgb_test requested=g visual_verified=false
 別的模組寫 SCK，不一定代表 I2C。七針 SPI 螢幕也不能套用本週四針圖。
 
 安裝支架要留出背面套杜邦線的空間；不要硬推排針或把螺帽鎖到板子彎曲。
+
 
 <!-- page: scanprepare | 先找裝置回應 -->
 ## 先上傳掃描程式
@@ -218,6 +245,7 @@ event_type=rgb_test requested=g visual_verified=false
 
 `0x` 是十六進位數字的寫法，這裡表示通訊位址，不是腳位編號。
 
+
 <!-- page: oledwire | 先只接 OLED -->
 ## 兩條供電線，兩條通訊線
 
@@ -235,6 +263,7 @@ USB 拔除。模組已確認適用 3.3 V 供電，SDA／SCL 電位也須相容�
 這次不用 5Vin。模組宣稱可接 5 V 電源，也不代表訊號可安全接 ESP32；不可自行改高電壓。
 
 逐條追線：供電不能和訊號互換，SDA／SCL 不共用一個 GPIO。確認無錯接再接 USB。
+
 
 <!-- page: scanresult | 看結果 -->
 ## 掃到 0x3C，不等於認出型號
@@ -260,6 +289,10 @@ ACK 是對方的確認回應，像點名時回答「有」。它不告訴你控�
 
 `found=1` 是一個有回應的位址，不必然代表恰好一片正常螢幕。
 
+
+<!-- page: scancode | 完整基本程式 -->
+{{program:week05_i2c_check}}
+
 <!-- page: i2cwhy | 原理 -->
 ## 螢幕怎麼收到文字？
 > 供電讓它工作，通訊讓它知道要畫什麼。
@@ -273,6 +306,7 @@ ESP32 在這條 I2C 通訊上主動開始傳送；SDA 傳資料，SCL 配合時�
 所以接上電源不會自動出現「Hello」。要有正確介面、位址、控制器設定與程式送出的畫面。
 
 同一位址可能用在不同控制器上，SSD1306、SSD1315、SH1106 不能只靠掃描結果混用設定。
+
 
 <!-- page: oledsetup | 回到主程式 -->
 ## 第二輪只顯示文字
@@ -295,6 +329,7 @@ T01 的 1315 曾有顯示回報，是相容配置證據，不是掃描器鑑定�
 
 完整程式仍需 U8g2。若安裝過同版本，不必再次安裝。
 
+
 <!-- page: oledtest | 看結果 -->
 ## 先讓 3 變 4，再回到 3
 > 這一輪還不能開始倒數。
@@ -311,6 +346,7 @@ T01 的 1315 曾有顯示回報，是相容配置證據，不是掃描器鑑定�
 IDLE 是待機；TIME 30 s 是準備的總時長，還沒開始走。NOT RUNNING 是未進行中。NOT SCORE 提醒這個數字**不是實際得分**。
 
 如果畫面不完整，保存照片後拔 USB，核對驅動、解析度與位址。ACK 有回應仍可能畫錯。
+
 
 <!-- page: buffer | 原理 -->
 ## 程式先畫在記憶體，再送到螢幕
@@ -330,6 +366,18 @@ IDLE 是待機；TIME 30 s 是準備的總時長，還沒開始走。NOT RUNNING
 
 這只算像素資料，不是整支程式的全部 RAM。螢幕先使用英文字與數字；中文字另需適用字型與實機排版，不直接換中文字就當完成。
 
+
+<!-- page: flowcase2 | 只改一處，想想結果 -->
+## RAM 已畫好，OLED 為什麼沒變？
+> 資訊處理示意；僅作圖上推演，保持現有實物接線不動。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="RAM 已畫好，OLED 為什麼沒變？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">剩餘秒數</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><path d="M134,62 L139,66 L134,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">畫到 RAM</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><path d="M264,62 L269,66 L264,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">sendBuffer</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><path d="M394,62 L399,66 L394,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">I²C</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><path d="M524,62 L529,66 L524,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">OLED 畫面</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">剩餘秒數</text><line x1="121" y1="193" x2="139" y2="193" stroke="#246e73" stroke-width="2" /><path d="M134,189 L139,193 L134,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="198" font-size="16" text-anchor="middle">畫到 RAM</text><line x1="251" y1="193" x2="269" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="269" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" stroke-dasharray="5 4"/><text x="325" y="198" font-size="16" text-anchor="middle">不送 buffer</text><line x1="381" y1="193" x2="399" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="198" font-size="16" text-anchor="middle">I²C</text><line x1="511" y1="193" x2="529" y2="193" stroke="#246e73" stroke-width="2" /><path d="M524,189 L529,193 L524,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">OLED 畫面</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
+
+**想一想：** 只略過送出整張畫面的 sendBuffer()，計時與 Monitor 都照常。螢幕上的舊數字能代表程式停止了嗎？
+
+**原理提示：** 新內容只在 ESP32 的畫面暫存區；OLED 可能仍顯示上次送出的畫面。
+
+只有標記處改變，其餘供電、程式與環境條件沿用正常情境。不可把未知結果直接寫成 0、LOW 或「一定停止」。
 <!-- page: combined | 組成倒數器 -->
 ## 第三輪把燈和螢幕合起來
 > RGB 三色與 OLED 固定文字都正常後，再做整合。
@@ -351,6 +399,7 @@ IDLE 是待機；TIME 30 s 是準備的總時長，還沒開始走。NOT RUNNING
 
 不要把「共用 GND」誤解成所有訊號接同一列。
 
+
 <!-- page: countdown | 完成第一輪 -->
 ## 送 s，等它自己到期
 > 先不按其他命令，觀察一個完整的 30 秒。
@@ -369,6 +418,7 @@ IDLE 是待機；TIME 30 s 是準備的總時長，還沒開始走。NOT RUNNING
 
 保存一輪的開始、換色與到期紀錄，以及實物照片。不要把每一次螢幕刷新當成一秒。
 
+
 <!-- page: abort | 中途停下來 -->
 ## x 是中止，z 是重新準備
 
@@ -383,6 +433,7 @@ IDLE 是待機；TIME 30 s 是準備的總時長，還沒開始走。NOT RUNNING
 中止不是暫停後續跑。z 會準備新一輪，不接著剩下的秒數走。
 
 <aside class="safety">x 是軟體命令，不是切斷電源。發熱、異味、持續重啟或需要換線時，直接拔 USB，不靠送 x 代替斷電。</aside>
+
 
 <!-- page: time | 原理 -->
 ## 30 秒不是「畫面減 30 次」
@@ -400,6 +451,7 @@ IDLE 是待機；TIME 30 s 是準備的總時長，還沒開始走。NOT RUNNING
 開始時刻、目前時刻是時鐘上的位置；經過時間和剩餘時間是長度。1 秒 = 1000 毫秒。
 
 程式每次用時間差重算，就算畫面少更新幾次，也不會因此補回幾秒。若已過 30 秒，剩餘值為 0，不顯示負數。
+
 
 <!-- page: rounding | 看看顯示怎麼取整 -->
 ## 還有 1 毫秒，畫面也可能寫 1 秒
@@ -422,6 +474,7 @@ IDLE 是待機；TIME 30 s 是準備的總時長，還沒開始走。NOT RUNNING
 畫面還可能是上一張舊圖。因此，不能拿螢幕仍顯示 1，主張時鐘已到期後還能繼續。
 
 若直到經過 31200 ms 才再次檢查，仍應到期、剩 0；但已晚了 1200 ms，不能宣稱精準在第 30 秒停止。
+
 
 <!-- page: log | 用同一筆紀錄對照 -->
 ## 程式的狀態，和你看到的畫面
@@ -446,6 +499,7 @@ io_ok=true reason=serial_start uptime_ms=11500
 
 選取完整輸出，複製到課堂筆記再存檔。Serial Monitor 不會自動替你保存紀錄。
 
+
 <!-- page: slow | 刻意讓畫面慢一點 -->
 ## 只把刷新間隔 200 改成 1500
 > 保持總時長 30000、換色間隔 3000 不變。
@@ -465,6 +519,7 @@ io_ok=true reason=serial_start uptime_ms=11500
 
 這是刻意改程式，不是硬體突然壞了。紀錄能比較軟體判定；沒有外部時間參考，不能宣稱已驗證時鐘的絕對精度。
 
+
 <!-- page: delay | 原理 -->
 ## 程式不必為了等一秒停住
 
@@ -477,6 +532,7 @@ io_ok=true reason=serial_start uptime_ms=11500
 但 I2C 傳一張圖仍要花時間。程式傳完重新讀時鐘、再次判斷到期，不能保證零延遲。
 
 程式的 20 ms 匯流排逾時設定，也不是整張圖、整個中止流程一定在 20 ms 內完成的保證。
+
 
 <!-- page: fault | 模擬顯示失敗 -->
 ## 送 f，不要拔帶電訊號線
@@ -494,6 +550,7 @@ io_ok=true reason=serial_start uptime_ms=11500
 
 <aside>這是軟體故障注入，不是真正拔線測試。通過只支持這條錯誤處理流程，不代表所有螢幕故障都能被偵測。</aside>
 
+
 <!-- page: recover | 確認再開始 -->
 ## c 只重新檢查，不自動續跑
 
@@ -510,6 +567,7 @@ io_ok=true reason=serial_start uptime_ms=11500
 即使 ACK 恢復，玻璃破裂、缺像素或畫面錯亂也可能還在。必須目視，不能用一個 true 當作全部恢復。
 
 記下 f、z 被拒絕、c 結果、目視恢復與新一輪。不要刪除失敗紀錄只留最後成功。
+
 
 <!-- page: lightwire | 最後接回上週的 KY -->
 ## 確認自己的燈不會誤導感測器
@@ -531,6 +589,7 @@ USB 拔除。保留 RGB／OLED 功能接法，新增：
 
 第 15 列的 S 訊號不能和控制 RGB 的 GPIO15 混在一起。
 
+
 <!-- page: lighttest | 比較燈光干擾 -->
 ## 不遮光，只換燈色
 > KY 位置、方向、桌面照明與 OLED 畫面保持不變。
@@ -550,6 +609,7 @@ USB 拔除。保留 RGB／OLED 功能接法，新增：
 
 沒有跨門檻，只支持這次布局。數字一變也不等於短路；它可能是光學影響，仍需排除其他原因。有發熱或重啟就先斷電，不為湊數據繼續供電。
 
+
 <!-- page: exercise | 最後練習：先自己判斷 -->
 ## 看得到倒數，就表示它算對了嗎？
 > 以下都是教學假資料；答案須指出使用的數字、欄位或觀察。
@@ -562,19 +622,6 @@ USB 拔除。保留 RGB／OLED 功能接法，新增：
 6. 玩家沒有遮光，換紅燈時 raw 跨過分界，同時畫面少一秒，能算一次遮光得分嗎？
 
 
-<!-- page: answer | 參考解答 -->
-## 畫面、時間與實物要分開驗證
-
-| 題目 | 答案與理由 |
-|---|---|
-| 1 | 經過 1500 ms；剩 28500 ms；向上取整顯示 29 秒。 |
-| 2 | 經過 2.1 秒，剩 27.9 秒，取整也是 28。錯誤方法內部卻當成剩 28 秒，差 0.1 秒。一次畫面相同不能證明算法等價。 |
-| 3 | 不能。顯示 1 包含只剩 1 ms，也可能是舊畫面；到期以時間差判定。 |
-| 4 | 先 x 中止並保存紀錄。可能畫面落後或接線／文字錯，需比對時間與路徑；改線先拔 USB。不能憑單張照片確定原因。 |
-| 5 | 不可以。ACK 不證明像素與畫面正常，先保持中止、確認顯示恢復。 |
-| 6 | 不能。可能是 RGB 光學干擾，時間顯示改變也不是手勢證據；而本週程式根本沒有遮光計分。 |
-
-刷新比較那一頁也應得到：200 → 1500 ms 只改畫面間隔，不應把 30 秒變成 225 秒；仍要保留實際紀錄，不把預期抄成實測。
 
 <!-- page: combinegoal | 加入前幾週零件：一起做 -->
 ## 把倒數器變成能直接按的作品
@@ -587,11 +634,12 @@ USB 拔除。保留 RGB／OLED 功能接法，新增：
 | OLED | 顯示待機、倒數、中止或到期 |
 | Serial | 留下調整、開始、中止、到期與顯示故障紀錄 |
 
-先做桌上十秒倒數器，再改成五秒一格。按鈕規則沿用 Week 2：長按只接受一次，放開後才能再按。
+先完成可調整、開始與中止的桌上倒數器。這次加入 Week 3 的按壓辨識：狀態維持 40 ms 才接受，長按只接受一次，放開後才能再按。
 
 本例只保留按鈕與 OLED。RGB、KY、DHT 都先移除，避免 GPIO4／5 用途衝突，也不增加用電。整合不是把所有零件一次接滿。
 
 OLED 的位址、驅動與畫面已確認正常，才能沿用到按鈕倒數器。
+
 
 <!-- page: combinewire | 兩個按鈕都不是輸出 -->
 ## OLED 不變，換上兩顆按鈕
@@ -610,6 +658,7 @@ T01 歷史設定為 SDA8、SCL9、0x3C、1315 相容配置，**不是其他 OLED
 
 沿用 Week 2 孔位：調整鍵四腳插 **e27、f27、e29、f29**；開始鍵插 **e21、f21、e23、f23**。斷電量 b27 對 b29、b21 對 b23，各為放開不通、按下才通。不同就先核對方向，不硬扳腳。原檔 −1／false 會阻擋啟動。
 
+
 <!-- page: combinetry | 離開鍵盤操作 -->
 ## 調整、開始、中止，再開始
 
@@ -625,9 +674,13 @@ T01 歷史設定為 SDA8、SCL9、0x3C、1315 相容配置，**不是其他 OLED
 | 放著到期 | DONE、0 秒；只記一次 expired |
 | 待機調至 60 秒，再調一次 | 回 10 秒 |
 
-兩鍵同時按住不接受新動作；已先接受的單鍵動作不會撤回，和 Week 2 一樣不是精密的同時判定。
+兩鍵同時按住不接受新動作；已先接受的單鍵動作不會撤回；這不是精密的同時判定。
 
 此程式沒有前段的 s／x／f／c 指令。顯示通訊失敗會停止，保持 FAULT；保存紀錄、斷電排查，恢復後 Reset 才重來。
+
+
+<!-- page: button_code | 完整基本程式 -->
+{{program:button_oled_timer}}
 
 <!-- page: combineexplain | 輸入換了，計時不變 -->
 ## 按鈕是命令，時間仍用 millis
@@ -648,63 +701,46 @@ GPIO4／5 都只讀按鈕，不供應螢幕電力。SDA／SCL 是另一組不同
 
 ACK 仍不代表畫面一定正常。畫面和 log 不一致時先中止、保存紀錄，再排查；本例不是醫療、安全或精密計時裝置。
 
+
+
 <!-- page: buildexercise | 動手練習 -->
-## 改成五秒一格的小計時器
-> 沿用同一套接線，不加零件。
+## 可以暫停的桌上倒數器
+> 接線沿用兩顆按鈕與 OLED；不新增零件。
 
-要求：開機 5 秒；每按調整鍵加 5 秒；最大 30 秒，再按回 5 秒。開始／中止、長按一次與同按處理保持不變。
+把計時器改成每次調整 5 秒，範圍 5～30 秒，到 30 秒再調回 5 秒。接著加入真正的「暫停、續跑」，不是每按一次都重新計時。
 
-這個作品用來進行短時間練習。使用者只靠兩顆按鈕設定時間和開始倒數，不用電腦鍵盤輸入命令。
+| 目前狀態 | 調整鍵 | 開始／暫停鍵 |
+|---|---|---|
+| IDLE／DONE | 增加 5 秒並回 IDLE | 依選定時長開始 |
+| RUNNING | 不接受，不改時長 | 凍結剩餘時間，進入 PAUSED |
+| PAUSED | 不接受，不改時長 | 從凍結的剩餘時間續跑 |
+| FAULT | 不接受 | 不接受，保持故障 |
 
-| 作品規則 | 要完成的行為 |
-|---|---|
-| 調整鍵 | 待機時每次增加五秒，到三十秒後回五秒 |
-| 開始／中止鍵 | 開始倒數；進行中再按就中止 |
-| 中止後重新開始 | 從設定的總時長重來，不接續剩餘時間 |
-| 長按／同時按 | 長按只接受一次；兩鍵同按不接受新動作 |
+按住不重複觸發；兩鍵同時按下不接受新操作。到期只印一次 expired。OLED 顯示 PAUSED 和凍結的剩餘秒數；Serial 分別留下 pause、resume、ignored、expired 紀錄。
 
-使用 `button_oled_timer.ino`。OLED、按鈕接線與故障處理不變；保存 adjust、start、stop、expired 紀錄，並對照畫面。
+Reset 準備新一輪，回 IDLE、5 秒。通訊故障仍停止並保持 FAULT，不得用續跑繞過故障。
 
 <!-- page: buildresults | 預期結果 -->
-## 調整六次，回到五秒
+## 暫停五秒，不消耗倒數時間
+> 以下時間是假設按壓已被程式接受的時刻；不是接點剛碰到的時刻。
 
-開機後兩鍵放開，每次按半秒、放開半秒。以下八步連續操作，尚未開始倒數。
-
-| 操作順序 | OLED 預期結果 |
+| 操作 | 預期 |
 |---|---|
-| 1. 開機 | IDLE、TIME 5 s |
-| 2. 第一次按調整鍵 | IDLE、TIME 10 s |
-| 3. 第二次按 | IDLE、TIME 15 s |
-| 4. 第三次按 | IDLE、TIME 20 s |
-| 5. 第四次按 | IDLE、TIME 25 s |
-| 6. 第五次按 | IDLE、TIME 30 s |
-| 7. 第六次按 | IDLE、TIME 5 s |
-| 8. 放開再按兩次 | 依序 10、15 秒 |
+| Reset 後按一次調整 | IDLE，10 秒 |
+| 開始後經過 3200 ms，再暫停 | PAUSED，剩 6800 ms，畫面 7 秒 |
+| 等待 5000 ms | 仍 PAUSED、6800 ms，畫面仍 7 秒 |
+| 暫停時按調整 | 不接受，仍是原本的 10 秒設定 |
+| 放開再按開始／暫停 | RUNNING，從 6800 ms 續跑 |
+| 續跑後經過 6800 ms | DONE、0；只印一次 expired |
+| DONE 後再開始 | 從完整 10 秒開始，不是 0 秒 |
 
-接著按開始鍵，應為 RUNNING、從 15 秒倒數。約五秒後再按開始鍵，應為 STOPPED，剩餘時間凍結；放開再按，重新從 **15 秒**開始。
-
-進行中按調整鍵，設定不變，log 出現 `ignored_while_running`。放著到期應為 DONE、0 秒，只新增一次 `expired`。
-
-<!-- page: buildanswer | 參考解答 -->
-## 改兩個設定，保留操作規則
-
-```cpp
-const uint32_t STEP_SECONDS = 5;
-const uint32_t MAX_SECONDS = 30;
+```text
+event=pause state=PAUSED duration_s=10 remaining_ms=6800
+event=resume state=RUNNING duration_s=10 remaining_ms=6800
+event=expired state=DONE duration_s=10 remaining_ms=0
 ```
 
-在 IDE 開啟 `button_oled_timer.ino`，另存為 `five_second_timer`。Ctrl+F 找到兩個同名設定並取代，儲存、Verify、Upload。接線不變；要移線仍先拔 USB。起始值取自 STEP_SECONDS，不另修改其他數字。
-
-| 測試 | 應有結果 |
-|---|---|
-| 開機 | IDLE、5 秒 |
-| 連按六次調整鍵 | 10、15、20、25、30、5 秒 |
-| 設成 15 秒，中止後再開始 | 重新從完整 15 秒開始；不是暫停續跑 |
-| 進行中按調整鍵 | ignored_while_running；設定維持 15 秒 |
-| 長按任一鍵 | 一次操作，須放開才能再接受 |
-| 到期後持續等待 | 維持 DONE、0 秒，不一直重印 expired |
-
-這是手動操作的作品，**不代表自動偵測或雲端 IoT 已完成**。本週先做好硬體操作與 log，後續再讓手機或伺服器使用相同操作規則。
+另測長按、同時按、30 秒再調整，以及顯示故障後不能續跑。實際按壓時刻不必剛好 3200 ms，以自己 log 的毫秒數核對；精確邊界用主機測試。
 
 <!-- page: finish | 今天留下什麼 -->
 ## 留下能對照的三種證據
@@ -725,6 +761,7 @@ const uint32_t MAX_SECONDS = 30;
 
 下一週可沿用已確認的顯示與狀態，增加其他輸出。這週的成功不代表舵機或外部供電已完成測試。
 
+
 <!-- page: trouble | 有問題先看這裡 -->
 ## 一次只查一件事
 
@@ -741,6 +778,7 @@ const uint32_t MAX_SECONDS = 30;
 | 發熱、異味、重啟 | 立即拔 USB，停止本次實驗再排查 |
 
 求助時附上：程式設定、完整訊息、接線照片、最後一個命令。不要只說「螢幕不能用」。
+
 
 <!-- page: codeguide | 補充：找得到程式的哪一段 -->
 ## 依功能查找程式
@@ -759,7 +797,8 @@ Wire 掃描用 7 位址，例如 0x3C。主程式傳給 U8g2 時才乘 2，這�
 
 Verify 的 `Sketch uses` 比例對照的是設定的應用程式分割區，不是整片 16 MB Flash；`Global variables use` 也不是執行時所有 RAM、堆疊與 PSRAM 用量。
 
-這些編譯數字不能證明接線或畫面正常。後面三支完整程式包含按鈕延伸，保留未確認時的阻擋設定，依課堂設定再使用。
+這些編譯數字不能證明接線或畫面正常。三支完整程式分別在第 {{page:timercode}}、{{page:scancode}}、{{page:button_code}} 頁，保留未確認時的阻擋設定，依課堂設定再使用。
+
 
 <!-- page: sources | 需要時回查 -->
 ## 官方資料與完整程式

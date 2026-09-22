@@ -30,7 +30,7 @@
 本週 `auto_on` 等命令不在手機預設選單；[下面有逐步送出方式](#send-automation-command)，
 透過後端 API 建立命令，沿用相同權限與 command_id 追蹤。
 
-## 一、Unit Overview
+## 一、本週內容
 
 ### 教學目標
 
@@ -641,50 +641,72 @@ $env:IOT_OPERATOR_KEY="a-new-local-rebuild-key"
 重建失敗時記第一個缺漏、實際錯誤、文件修正與重新測試；不能由原作者直接接手操作後
 宣稱文件完整。
 
+
+<div style="break-before:page"></div>
+
+## 沒有遲滯，邊界附近會怎麼切換？
+
+感測到動作示意；僅作圖上推演，不停止正在使用的服務或取消真實系統的安全檢查。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="沒有遲滯，邊界附近會怎麼切換？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="79" y="71" font-size="16" text-anchor="middle">raw 來回波動</text><line x1="149" y1="66" x2="172" y2="66" stroke="#246e73" stroke-width="2" /><path d="M167,62 L172,66 L167,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="172" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="242" y="71" font-size="16" text-anchor="middle">兩個門檻</text><line x1="312" y1="66" x2="335" y2="66" stroke="#246e73" stroke-width="2" /><path d="M330,62 L335,66 L330,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="335" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="405" y="71" font-size="16" text-anchor="middle">狀態保持</text><line x1="475" y1="66" x2="498" y2="66" stroke="#246e73" stroke-width="2" /><path d="M493,62 L498,66 L493,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="498" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="568" y="71" font-size="16" text-anchor="middle">RGB 輸出</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="79" y="198" font-size="16" text-anchor="middle">raw 來回波動</text><line x1="149" y1="193" x2="172" y2="193" stroke="#246e73" stroke-width="2" /><path d="M167,189 L172,193 L167,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="172" y="170" width="140" height="46" rx="3" fill="#fff1de" stroke="#a65136" /><text x="242" y="198" font-size="16" text-anchor="middle">同一門檻</text><line x1="312" y1="193" x2="335" y2="193" stroke="#246e73" stroke-width="2" /><path d="M330,189 L335,193 L330,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="335" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="405" y="198" font-size="16" text-anchor="middle">較易反覆切換</text><line x1="475" y1="193" x2="498" y2="193" stroke="#246e73" stroke-width="2" /><path d="M493,189 L498,193 L493,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="498" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="568" y="198" font-size="16" text-anchor="middle">RGB 輸出</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
+
+**想一想：** 每次取樣間隔相同，三筆確認也保留，只把進入／離開改成同一門檻 600。連續三筆 599，再三筆 601，會怎樣？
+
+**原理提示：** 單一門檻可每三筆就切換；分開門檻時，這些中間值可保持原狀態。
+
+只改圖中標記處，其餘條件保持相同。請指出哪一段仍工作，以及目前證據不能說明什麼。
+
+
+<div style="break-before:page"></div>
+
+## 只改 state，忘了更新輸出呢？
+
+程式狀態與輸出示意；僅作圖上推演，不停止正在使用的服務或取消真實系統的安全檢查。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="只改 state，忘了更新輸出呢？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">STOP 成立</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><path d="M134,62 L139,66 L134,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">進入 ERROR</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><path d="M264,62 L269,66 L264,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">安全輸出函式</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><path d="M394,62 L399,66 L394,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">RGB 改變</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><path d="M524,62 L529,66 L524,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">紀錄與觀察</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">STOP 成立</text><line x1="121" y1="193" x2="139" y2="193" stroke="#246e73" stroke-width="2" /><path d="M134,189 L139,193 L134,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="198" font-size="16" text-anchor="middle">只改 state</text><line x1="251" y1="193" x2="269" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="269" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" stroke-dasharray="5 4"/><text x="325" y="198" font-size="16" text-anchor="middle">沒更新輸出</text><line x1="381" y1="193" x2="399" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="198" font-size="16" text-anchor="middle">RGB 保持舊值</text><line x1="511" y1="193" x2="529" y2="193" stroke="#246e73" stroke-width="2" /><path d="M524,189 L529,193 L524,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">只看 ERROR 字</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
+
+**想一想：** 只把 state 改為 ERROR 並印字，不執行相應輸出。看到 ERROR 能證明實體已安全嗎？
+
+**原理提示：** 不能。變數、紀錄與輸出是不同步驟；少了輸出命令，腳位可能仍保持舊值。
+
+只改圖中標記處，其餘條件保持相同。請指出哪一段仍工作，以及目前證據不能說明什麼。
+
 ## 十、練習
 
-### 練習1：改變policy而非只改threshold
+### 練習1：啟動與停止使用不同的確認次數
 
-在共同policy上改一項：sample count、最大ACTIVE時間或network grace。先預測安全與使用
-體驗的trade-off，再測baseline與一個fault。一次只改一項。
+將自動反應改成：IDLE 連續四筆符合暗門檻才進 ACTIVE；
+ACTIVE 連續兩筆符合亮門檻就回 IDLE。
+兩種累積次數要分開，不符合目前條件的一筆就清除該次累積。
+無效資料不是重新計數而已，仍須進 ERROR、關閉 auto。
+STOP、最大 ACTIVE 時間及網路安全限制沿用基本程式，不延長等待。
 
-#### 預期結果：連續四筆有效資料才切換
+事件 reason 要能分辨四筆暗啟動與兩筆亮停止，不能沿用 three 的文字。
 
-光線連續四筆符合門檻才切換燈色；中途不符合就重新累積。
+#### 預期結果
+
 假設 auto 已啟用、IDLE、資料均有效，且無其他故障；暗是 raw≤513、亮是 raw≥706。
-這些門檻是教學假資料，不能抄成實物設定。
+這些門檻是教學假資料，不能抄成實物設定。相鄰樣本間隔 500 ms。
 
-| 依序讀入 raw | 三筆條件的 state | 四筆條件的預期 state |
+| 依序讀入 raw | 預期 state | 目前連續次數 |
 |---:|---|---|
-| 300 | IDLE | IDLE |
-| 310 | IDLE | IDLE |
-| 305 | ACTIVE | IDLE |
-| 315 | ACTIVE | ACTIVE |
-| 900 | ACTIVE | ACTIVE |
-| 910 | ACTIVE | ACTIVE |
-| 905 | IDLE | ACTIVE |
-| 915 | IDLE | IDLE |
+| 300 | IDLE | 暗 1 |
+| 310 | IDLE | 暗 2 |
+| 600 | IDLE | 暗 0 |
+| 300 | IDLE | 暗 1 |
+| 310 | IDLE | 暗 2 |
+| 305 | IDLE | 暗 3 |
+| 315 | ACTIVE | 切換後清除累積 |
+| 900 | ACTIVE | 亮 1 |
+| 600 | ACTIVE | 亮 0 |
+| 910 | ACTIVE | 亮 1 |
+| 915 | IDLE | 切換後清除累積 |
 
-另測一次本機 STOP：不論是否已累積四筆，下一次本機輸入處理仍須進 ERROR、
-關閉 auto；不等待再收四筆。測試結果須註明紙上、主機或實物來源。
+另做兩項測試：
+- 累積暗 3 筆後收到無效資料：ERROR、auto=false，不啟動。
+- 累積中按本機 STOP：確認按壓成立後進 ERROR，不等待下一個光線樣本。
 
-<div style="break-before: page"></div>
-
-#### 練習1參考做法
-
-1. 開啟 `week15_automation_device.ino`，另存為 `automation_four_samples`，
-   保留本機 secrets.h 與本組已確認設定。
-2. Ctrl+F 搜尋 `REQUIRED_CONSECUTIVE_SAMPLES`，把宣告的 3 改成 4，
-   不修改其他使用這個名稱的判斷式。
-3. 搜尋兩個事件原因字串，把 `three_dark_samples` 改為 `four_dark_samples`，
-   `three_light_samples` 改為 `four_light_samples`，讓 log 的文字符合四筆條件。
-4. 取樣間隔、兩個門檻、有效範圍、最長動作時間與 STOP 程式均不改。
-   Verify 後按第六節的斷電、接線核對及上傳步驟測試。
-5. 用相同條件比較兩次紀錄。實物 raw 與間隔可能不同，不能拿假資料表冒充實測。
-
-四筆條件比三筆多等一筆符合的資料。若剛好每 500 ms 取一次，從第一筆到第三筆為
-1000 ms，到第四筆為 1500 ms；這不是從手開始遮光算起的精確反應時間。
-STOP 與故障的優先順序不變，不能把累積取樣的等待套到停止處理。
+測試結果須註明紙上、主機或實物來源；不要用短路或拔動帶電接線製造故障。
 
 ### 練習2：專題優先順序
 
@@ -716,6 +738,14 @@ mobile evidence、exact commit clean reconstruction及文件修正紀錄。
 結束時停用auto mode、使裝置回IDLE，再停止bridge、Backend與broker並拔USB。保留原始
 baseline及重建folder供檢查，不使用破壞性命令清除。完整policy、fault、recovery與重建
 表格見[Week 15支援資料](#practice-and-reference)。
+
+## 完整基本程式
+
+檔名：week15_automation_device.ino。這是第五節所列修改合併後的完整基本程式。
+secrets.h 仍使用 Week12 已建立的個人設定；下方範例保留安全佔位值。
+校正值與接線尚未確認時保持 DRY_RUN=true，不啟用實體輸出。
+
+<!-- complete-sketch: week15_automation_device -->
 
 <a id="practice-and-reference"></a>
 

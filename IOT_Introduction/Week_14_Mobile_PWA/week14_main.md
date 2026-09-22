@@ -19,7 +19,7 @@
 | 4 | 第八節：測試權限 | 無 key 不能送命令，正確 key 才能建立命令 |
 | 5 | 第九節：檢查 PWA 條件 | 分清手機網頁與實際可安裝 PWA，不以檔案存在代替測試 |
 
-## 一、Unit Overview
+## 一、本週內容
 
 ### 教學目標
 
@@ -354,7 +354,7 @@ live update；重新整理後仍存在，表示historical API／database可讀�
 
 ## 十、真實命令端到端驗收
 
-1. ESP32為IDLE，手機顯示WebSocket connected及最近成功更新時間。
+1. 使用真實手機驗收，不以電腦預覽代替。ESP32為IDLE，手機顯示WebSocket connected及最近成功更新時間。
 2. Operator對正確device送`start`。
 3. 記錄`command_id`與requested time。
 4. ESP32回accepted，RGB變綠，再回done。
@@ -362,52 +362,59 @@ live update；重新整理後仍存在，表示historical API／database可讀�
 6. 送`stop`，RGB進ERROR安全輸出並回done。
 7. 停止Backend，按實體STOP仍生效；前台只顯示offline／stale，不能顯示新done。
 
-核心驗收至少在一支真實手機完成；只用desktop responsive preview不能取代phone test。
+
+
+<div style="break-before:page"></div>
+
+## 快取留著，離線就能送新命令嗎？
+
+手機資訊流示意；僅作圖上推演，不停止正在使用的服務或取消真實系統的安全檢查。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="快取留著，離線就能送新命令嗎？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">頁面操作</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><path d="M134,62 L139,66 L134,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">網路連線</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><path d="M264,62 L269,66 L264,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">後端 API</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><path d="M394,62 L399,66 L394,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">裝置</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><path d="M524,62 L529,66 L524,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">新結果</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">頁面仍可開</text><line x1="121" y1="193" x2="139" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="139" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" stroke-dasharray="5 4"/><text x="195" y="198" font-size="16" text-anchor="middle">手機離線</text><line x1="251" y1="193" x2="269" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="269" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="198" font-size="16" text-anchor="middle">後端 API</text><line x1="381" y1="193" x2="399" y2="193" stroke="#246e73" stroke-width="2" /><path d="M394,189 L399,193 L394,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="198" font-size="16" text-anchor="middle">裝置</text><line x1="511" y1="193" x2="529" y2="193" stroke="#246e73" stroke-width="2" /><path d="M524,189 L529,193 L524,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">新結果</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
+
+**想一想：** localhost 已快取頁面框架，只斷網而不清快取。畫面能打開，能證明新命令已送達嗎？
+
+**原理提示：** 不能。頁面資源可以是舊快取，新 API 請求與裝置回報仍需要可用的通訊。
+
+只改圖中標記處，其餘條件保持相同。請指出哪一段仍工作，以及目前證據不能說明什麼。
+
+
+<div style="break-before:page"></div>
+
+## 只藏起按鈕，能代替後端授權嗎？
+
+命令授權示意；僅作圖上推演，不停止正在使用的服務或取消真實系統的安全檢查。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="只藏起按鈕，能代替後端授權嗎？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">同一 API 請求</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><path d="M134,62 L139,66 L134,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">缺少合法 key</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><path d="M264,62 L269,66 L264,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">後端檢查</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><path d="M394,62 L399,66 L394,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">拒絕請求</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><path d="M524,62 L529,66 L524,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">不建立命令</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">同一 API 請求</text><line x1="121" y1="193" x2="139" y2="193" stroke="#246e73" stroke-width="2" /><path d="M134,189 L139,193 L134,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="198" font-size="16" text-anchor="middle">缺少合法 key</text><line x1="251" y1="193" x2="269" y2="193" stroke="#246e73" stroke-width="2" /><path d="M264,189 L269,193 L264,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" /><text x="325" y="198" font-size="16" text-anchor="middle">略過後端檢查</text><line x1="381" y1="193" x2="399" y2="193" stroke="#246e73" stroke-width="2" /><path d="M394,189 L399,193 L394,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="198" font-size="16" text-anchor="middle">請求可通過</text><line x1="511" y1="193" x2="529" y2="193" stroke="#246e73" stroke-width="2" /><path d="M524,189 L529,193 L524,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">建立命令</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
+
+**想一想：** 兩次都隱藏 Send，送出同一筆缺少合法 key、其餘欄位正確的 API 請求。只取消後端授權檢查，結果有何不同？
+
+**原理提示：** 不能依靠隱藏按鈕。前台控制只是操作介面，後端才必須拒絕未授權請求。
+
+只改圖中標記處，其餘條件保持相同。請指出哪一段仍工作，以及目前證據不能說明什麼。
 
 ## 十一、練習
 
 ### 練習1：狀態文字而非只有顏色
 
-檢查connected、offline、pending、done、rejected、timeout是否都有文字。選一個只靠顏色的
-地方改成「文字＋顏色」，並在灰階或降低螢幕亮度後重新辨認。
+檢查connected、offline、pending、done、rejected、timeout是否都有文字。已有文字的狀態可改成具體中文描述；只靠顏色的
+地方補上文字，並在灰階或降低螢幕亮度後重新辨認。
 
 ### 練習2：危險操作確認
 
-為`start`加入清楚確認，內容要包含target device及動作；`stop`不可被確認dialog延遲。
-完成後測試取消不建立命令、確認才建立命令、STOP仍可立即送出。
+為`start`加入清楚確認，內容要包含target device及動作；`stop`不可被確認動作延遲。使用頁面內的確認區，不使用會暫停頁面操作的 `window.confirm()`。
+完成後測試取消不建立命令、確認只建立一筆命令、STOP仍可送出。
+確認區顯示的 device ID 必須與最後送出的相同；修改裝置欄位後必須重新確認。
+確認尚未完成時送出 STOP，必須取消待確認的 START，避免稍後又啟動。
 
 | 操作 | 預期結果 |
 |---|---|
-| 選 start，按 Send | 確認視窗顯示裝置代號及 start，尚未建立 command |
+| 選 start，按 Send | 頁面確認區顯示裝置代號及 start，尚未建立 command |
 | 按取消 | 不新增 command，RGB 不因這次取消而改變 |
 | 再送 start，按確定 | 建立一筆 command；依同一 ID 追蹤裝置結果 |
-| 選 stop，按 Send | 不出現確認視窗，直接送請求；仍需等待裝置回報 |
+| 選 stop，按 Send | 不出現頁面確認區，直接送請求；仍需等待裝置回報 |
 
 「直接送」不表示零網路延遲，也不能取代本機 STOP 或斷電。
-
-<div style="break-before: page"></div>
-
-#### 練習2參考做法
-
-1. 備份並用文字編輯器開啟 `static/index.html`。
-2. Ctrl+F 搜尋 `#command-form`，找到 submit 事件處理函式。
-3. 在檢查 deviceId、operatorKey、network、wsConnected 的 return 那一行之後，
-   且在 `ui.sendButton.disabled = true;` **之前**，加入：
-
-```javascript
-if (command === 'start') {
-  const confirmed = window.confirm(
-    '裝置：' + deviceId + '\n動作：start\n確定送出？'
-  );
-  if (!confirmed) return;
-}
-```
-
-4. 儲存，重新整理手機頁面，再填本次臨時 key。依表測取消、確認及 stop，
-   對照 Commands 中新增的 ID；不要只看彈出視窗。
-
-取消時在送出 HTTP 前 return，因此不建立命令；stop 不符合這個 if 條件，不會被確認視窗攔住。
-原有後端權限、錯誤顯示及裝置拒絕條件均保留，按確定不代表硬體已成功。
 
 ### 練習3：一個歷史filter
 

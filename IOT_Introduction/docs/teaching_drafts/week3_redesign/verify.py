@@ -3,12 +3,17 @@ from pathlib import Path
 import hashlib
 import json
 import math
+import subprocess
+import sys
 from html.parser import HTMLParser
 import fitz
 from PIL import Image, ImageDraw
 
-HERE = Path(__file__).resolve().parent
-COURSE = HERE.parents[2]
+BUILDER = Path(__file__).resolve().parent
+ANSWERS = "--answers" in sys.argv
+HERE = BUILDER.parent / "week3_answers" if ANSWERS else BUILDER
+STEM = "week3Ans" if ANSWERS else "week3_main"
+COURSE = BUILDER.parents[2]
 TMP = HERE / "tmp"
 TMP.mkdir(exist_ok=True)
 manifest = json.loads((HERE / "build_manifest.json").read_text(encoding="utf-8"))
@@ -19,9 +24,9 @@ def sha(p):
     return hashlib.sha256(data).hexdigest()
 
 assert manifest["textHashLineEndings"] == "LF"
-assert sha(HERE / "week3_main.md") == manifest["sourceSha256"]
-assert sha(HERE / "build.cjs") == manifest["builderSha256"]
-assert sha(HERE / "week3_main.pdf") == manifest["pdfSha256"]
+assert sha(HERE / f"{STEM}.md") == manifest["sourceSha256"]
+assert sha(BUILDER / "build.cjs") == manifest["builderSha256"]
+assert sha(HERE / f"{STEM}.pdf") == manifest["pdfSha256"]
 for item in manifest["sketches"]:
     assert sha(COURSE / item["path"]) == item["sha256"]
 for item in manifest["photos"]:
@@ -47,23 +52,44 @@ class CodeBlocks(HTMLParser):
             self.current = None
 
 parser = CodeBlocks()
-parser.feed((HERE / "week3_main.html").read_text(encoding="utf-8"))
+parser.feed((HERE / f"{STEM}.html").read_text(encoding="utf-8"))
 expected = "\n".join((COURSE / item["path"]).read_text(encoding="utf-8").rstrip()
                      for item in manifest["sketches"])
 assert "\n".join(parser.blocks) == expected
 
-doc = fitz.open(HERE / "week3_main.pdf")
+doc = fitz.open(HERE / f"{STEM}.pdf")
 assert len(doc) == len(manifest["pages"])
 ids = {p["id"]: p["number"] for p in manifest["pages"]}
-assert ids["answer"] == ids["exercise"] + 1
-assert ids["buildresults"] == ids["buildexercise"] + 1
-assert ids["buildanswer"] == ids["buildresults"] + 1
 all_text = "\n".join(p.get_text() for p in doc)
 assert "\ufffd" not in all_text
 assert "{{" not in all_text
 assert "**" not in all_text
-assert "720" in doc[ids["answer"] - 1].get_text()
-assert "4095" in doc[ids["answer"] - 1].get_text()
+if ANSWERS:
+    assert "720" in doc[ids["concept"] - 1].get_text()
+    assert "4095" in doc[ids["concept"] - 1].get_text()
+    assert ids["approach"] < ids["codeanswer"] < ids["expected"]
+else:
+    assert "answer" not in ids and "buildanswer" not in ids
+    assert ids["buildresults"] == ids["buildexercise"] + 1
+    assert ids["combinetry"] < ids["codebutton"] < ids["combineexplain"]
+    assert ids["buttonprinciple"] < ids.get("exercise") < ids["buildexercise"]
+    assert "SAMPLES_PER_PRESS" not in all_text
+    assert "batch_busy" not in expected
+    assert "只修改" not in doc[ids["buildexercise"] - 1].get_text()
+    assert "分界 720" not in all_text and "分界是 720" not in all_text
+    for word in ["現在先把", "公式等", "本課舊紀錄", "這是舊", "下一頁才"]:
+        assert word not in all_text, word
+for page in doc:
+    for link in page.get_links():
+        assert "week3_answers" not in link.get("uri", "") or ANSWERS
+if not ANSWERS:
+    destinations = {}
+    for page in doc:
+        for link in page.get_links():
+            if link.get("nameddest"):
+                destinations[link["nameddest"]] = link["page"] + 1
+    assert destinations == {name: ids[name] for name in
+                            ["codegpio", "coderaw", "codeclassifier", "codebutton"]}
 assert math.isclose(3.3 * 1000 / 11000, 0.3)
 assert math.isclose(3.3 * 10000 / 11000, 3.0)
 assert math.isclose(3.3 / 11000, 0.0003)
@@ -82,14 +108,19 @@ assert node("c20") != node("c23")
 assert node("d23") != node("d26")
 assert node("a15") != node("f15")
 
+# Render with Poppler; text extraction above checks a different property.
+poppler = Path.home() / ".cache/codex-runtimes/codex-primary-runtime/dependencies/native/poppler/Library/bin/pdftoppm.exe"
+if not poppler.exists():
+    raise RuntimeError("Poppler renderer not found")
+subprocess.run([str(poppler), "-scale-to", "1250", "-png",
+                str(HERE / f"{STEM}.pdf"), str(TMP / "page")], check=True)
 rendered = []
 for i, page in enumerate(doc):
     assert abs(page.rect.width - 595.28) < 1
     assert abs(page.rect.height - 841.89) < 1
     assert len(page.get_text().strip()) > 100
-    pix = page.get_pixmap(matrix=fitz.Matrix(1.35, 1.35), alpha=False)
-    out = TMP / f"page-{i+1:02}.png"
-    pix.save(out)
+    out = TMP / f"page-{i+1:0{len(str(len(doc)))}d}.png"
+    assert out.exists()
     rendered.append(out)
 
 for start in range(0, len(rendered), 8):
@@ -107,11 +138,11 @@ for start in range(0, len(rendered), 8):
 
 result = {
     "pages": len(doc),
-    "exercise_page": ids["exercise"],
-    "answer_page": ids["answer"],
-    "hands_on_exercise_page": ids["buildexercise"],
-    "hands_on_expected_results_page": ids["buildresults"],
-    "hands_on_answer_page": ids["buildanswer"],
+    "exercise_page": ids.get("exercise"),
+    "answer_page": ids.get("answer"),
+    "hands_on_exercise_page": ids.get("buildexercise"),
+    "hands_on_expected_results_page": ids.get("buildresults"),
+    "hands_on_answer_page": ids.get("buildanswer"),
     "source_hashes": "pass",
     "complete_embedded_programs_match_canonical_sources": "pass",
     "page_dimensions_text_and_placeholders": "pass",

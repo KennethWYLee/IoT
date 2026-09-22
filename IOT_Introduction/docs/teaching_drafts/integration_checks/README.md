@@ -1,12 +1,21 @@
 # Week 3–5 舊零件整合活動與檢查
 
+## 目前狀態（2026-09-22）
+
+公開 runner 只驗證基本整合程式與未確認設定保護；延伸解答及其測試已移至本機 week3/4/5_answers。
+Week4 不再以 REQUIRE_VALID_DHT 開關藏答案。Week5 的新練習包含暫停與續跑，不只是改兩個參數。
+下列頁碼、159 CHECK 與題解相鄰是歷史版本，不是本輪結果。當前數據見各 runner 的 tmp/results.json
+及[本輪紀錄](../../lab_notes/2026-09-22-weekly-main-answers.md)。
+
+## 歷史紀錄
+
 2026-09-16 教師決定：每週可以加入前一週或更早教過的零件，做更多變化。本次只修改 Week 3–5 重設稿與新增範例，不改正式 notebook、正式 PDF、QA 或實機紀錄，不操作硬體。
 
 ## 作品與教學範圍
 
 | 週次 | 新增範例 | 舊能力／新用途 | 練習與解答 |
 |---|---|---|---|
-| 3 | `button_light_capture` | Week 2 按鈕觸發 KY 取樣；batch、index、raw、時間 | 一筆改三筆；忙碌時不另排隊 |
+| 3 | `button_light_capture` | 按鈕觸發一筆 KY 取樣；sample、raw、時間 | 三筆練習答案與測試已移到本機 week3_answers |
 | 4 | `button_environment_log` | 同一按鈕加入 DHT 最近結果與時間；光線仍當下讀 | 無效 DHT 不收錄但保留 skipped |
 | 5 | `button_oled_timer` | Week 2 兩鍵直接控制 OLED 倒數；保留 log | 10–60 秒改為 5–30 秒、每格 5 秒 |
 

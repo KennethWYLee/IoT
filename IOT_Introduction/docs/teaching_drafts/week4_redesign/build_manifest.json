@@ -51,195 +51,199 @@
     },
     {
       "number": 13,
-      "id": "dhtmeaning"
+      "id": "dhtcode"
     },
     {
       "number": 14,
-      "id": "dhtflow"
+      "id": "dhtcode_1"
     },
     {
       "number": 15,
-      "id": "failure"
+      "id": "dhtcode_2"
     },
     {
       "number": 16,
-      "id": "quality"
+      "id": "dhtcode_3"
     },
     {
       "number": 17,
-      "id": "qualityquestion"
+      "id": "dhtmeaning"
     },
     {
       "number": 18,
-      "id": "qualityanswer"
+      "id": "dhtflow"
     },
     {
       "number": 19,
-      "id": "dualwire"
+      "id": "flowcase1"
     },
     {
       "number": 20,
-      "id": "dualsetup"
+      "id": "failure"
     },
     {
       "number": 21,
-      "id": "dualobserve"
+      "id": "quality"
     },
     {
       "number": 22,
-      "id": "age"
+      "id": "qualityquestion"
     },
     {
       "number": 23,
-      "id": "classify"
+      "id": "dualwire"
     },
     {
       "number": 24,
-      "id": "event"
+      "id": "dualsetup"
     },
     {
       "number": 25,
-      "id": "stable"
+      "id": "dualobserve"
     },
     {
       "number": 26,
-      "id": "limits"
+      "id": "dualcode"
     },
     {
       "number": 27,
-      "id": "dualfailure"
+      "id": "dualcode_1"
     },
     {
       "number": 28,
-      "id": "buzzer"
+      "id": "dualcode_2"
     },
     {
       "number": 29,
-      "id": "buzzerwire"
+      "id": "dualcode_3"
     },
     {
       "number": 30,
-      "id": "buzzersetup"
+      "id": "dualcode_4"
     },
     {
       "number": 31,
-      "id": "mute"
+      "id": "dualcode_5"
     },
     {
       "number": 32,
-      "id": "exercise"
+      "id": "dualcode_6"
     },
     {
       "number": 33,
-      "id": "answer"
+      "id": "dualcode_7"
     },
     {
       "number": 34,
-      "id": "combinegoal"
+      "id": "age"
     },
     {
       "number": 35,
-      "id": "combinewire"
+      "id": "classify"
     },
     {
       "number": 36,
-      "id": "combinetry"
+      "id": "event"
     },
     {
       "number": 37,
-      "id": "combineexplain"
+      "id": "stable"
     },
     {
       "number": 38,
-      "id": "buildexercise"
+      "id": "limits"
     },
     {
       "number": 39,
-      "id": "buildresults"
+      "id": "dualfailure"
     },
     {
       "number": 40,
-      "id": "buildanswer"
+      "id": "buzzer"
     },
     {
       "number": 41,
-      "id": "finish"
+      "id": "buzzerwire"
     },
     {
       "number": 42,
-      "id": "trouble"
+      "id": "buzzersetup"
     },
     {
       "number": 43,
-      "id": "color"
+      "id": "mute"
     },
     {
       "number": 44,
-      "id": "sources"
+      "id": "exercise"
     },
     {
       "number": 45,
-      "id": "week04_dht11_quality-0"
+      "id": "combinegoal"
     },
     {
       "number": 46,
-      "id": "week04_dht11_quality-1"
+      "id": "combinewire"
     },
     {
       "number": 47,
-      "id": "week04_dht11_quality-2"
+      "id": "combinetry"
     },
     {
       "number": 48,
-      "id": "week04_dht11_quality-3"
+      "id": "button_code"
     },
     {
       "number": 49,
-      "id": "week04_dual_sensor_alarm-0"
+      "id": "button_code_1"
     },
     {
       "number": 50,
-      "id": "week04_dual_sensor_alarm-1"
+      "id": "button_code_2"
     },
     {
       "number": 51,
-      "id": "week04_dual_sensor_alarm-2"
+      "id": "combineexplain"
     },
     {
       "number": 52,
-      "id": "week04_dual_sensor_alarm-3"
+      "id": "flowcase2"
     },
     {
       "number": 53,
-      "id": "week04_dual_sensor_alarm-4"
+      "id": "buildexercise"
     },
     {
       "number": 54,
-      "id": "week04_dual_sensor_alarm-5"
+      "id": "buildcounts"
     },
     {
       "number": 55,
-      "id": "week04_dual_sensor_alarm-6"
+      "id": "buildresults"
     },
     {
       "number": 56,
-      "id": "week04_dual_sensor_alarm-7"
+      "id": "buildtest"
     },
     {
       "number": 57,
-      "id": "button_environment_log-0"
+      "id": "finish"
     },
     {
       "number": 58,
-      "id": "button_environment_log-1"
+      "id": "trouble"
     },
     {
       "number": 59,
-      "id": "button_environment_log-2"
+      "id": "color"
+    },
+    {
+      "number": 60,
+      "id": "sources"
     }
   ],
-  "sourceSha256": "78b32f93bf7a89f10253ec93ae327865875c3c3711b6f9cad033484289d921b3",
-  "builderSha256": "7f49f1a42546a246b27e2dd0615aa2b54ff96d57244ce9bf2e66a7c54cc4de8e",
+  "sourceSha256": "9e38c6b5bda589eb23cc8d2ee0b27292230bf8bea0aeb42b252288b4ebb468c9",
+  "builderSha256": "ac54245a1e660f796cad3da9946f935f4e0974d535589cf5cb51df97ddcab74d",
   "sketches": [
     {
       "path": "examples/week04_dht11_quality/week04_dht11_quality.ino",
@@ -251,7 +255,7 @@
     },
     {
       "path": "docs/teaching_drafts/week4_redesign/button_environment_log/button_environment_log.ino",
-      "sha256": "8e04e4192f110868d804a307db3aa40c664f36c3863ef777b29ff4039e287529"
+      "sha256": "1d1274d8b7838c0ca181abff92d604de30a342156eba10e3050d8770d2d5f35d"
     }
   ],
   "photos": [
@@ -264,5 +268,5 @@
       "sha256": "0c212fbc5dfa87d116d3189c0d1089dc719001ce84d286e9e6373ca88327ca2f"
     }
   ],
-  "pdfSha256": "80ce82b4e40f4c18570772a5dc967be9fa14ea1b278e77f2714367c2417aadd8"
+  "pdfSha256": "995d494f62a1591ae9532868692e757004038bdb48688bcfa2f643c6ce5184f9"
 }

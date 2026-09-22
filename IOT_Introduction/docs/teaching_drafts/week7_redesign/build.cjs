@@ -17,7 +17,10 @@ marked.use({extensions:[{
 }]});
 
 const course = path.resolve(__dirname, '../../..');
-const tmp = path.join(__dirname, 'tmp');
+const answers = process.argv.includes('--answers');
+const destination = answers ? path.resolve(__dirname, '../week7_answers') : __dirname;
+const stem = answers ? 'week7Ans' : 'week7_main';
+const tmp = path.join(destination, 'tmp');
 fs.mkdirSync(tmp, { recursive: true });
 const esc = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const hash = data => crypto.createHash('sha256').update(typeof data === 'string' ? data.replace(/\r\n/g,'\n') : data).digest('hex');
@@ -94,19 +97,24 @@ const diagrams = {
   text(325,283,'兩者總綠燈都 15 秒，段數不同。',19,'middle'),305)
 };
 
-const input = fs.readFileSync(path.join(__dirname,'week7_main.md'),'utf8');
+const sourceFile = path.join(destination, stem + '.md');
+const input = fs.readFileSync(sourceFile,'utf8');
 const parts = [...input.matchAll(/<!-- page: ([\w]+) \| (.*?) -->\s*([\s\S]*?)(?=<!-- page:|$)/g)];
 if(!parts.length) throw Error('No pages');
-const pageNumbers = Object.fromEntries(parts.map((m,i)=>[m[1],i+1]));
-const pages = parts.map(m=>({id:m[1],tag:m[2],body:m[3]}));
-const sketchNames=['week07_traffic_light_challenge'];
+const pages = [];
 const inputs = [];
-for(const name of sketchNames) {
-  const p=path.join(course,'examples',name,name+'.ino');
+const sourceAnchors = new Map();
+for(const m of parts) {
+  const match = m[3].trim().match(/^\{\{program:(\w+)\}\}$/);
+  if(!match) { pages.push({id:m[1],tag:m[2],body:m[3]}); continue; }
+  const name=match[1];
+  const candidates = [path.join(destination,name,name+'.ino'),path.join(__dirname,name,name+'.ino'),path.join(course,'examples',name,name+'.ino')];
+  const p = candidates.find(f=>fs.existsSync(f));
+  if(!p)throw Error('Missing program '+name);
+  sourceAnchors.set(path.resolve(p), m[1]);
   const source=fs.readFileSync(p,'utf8');
   inputs.push({path:path.relative(course,p).replaceAll('\\','/'),sha256:hash(source)});
   const lines=source.trimEnd().split(/\r?\n/);
-  // Bound visual line count, including wrapping, without changing the program text.
   const chunks=[];let group=[],cost=0,start=1;
   for(let i=0;i<lines.length;i++) {
     const c=Math.max(1,Math.ceil(lines[i].length/78));
@@ -114,15 +122,16 @@ for(const name of sketchNames) {
     group.push(lines[i]);cost+=c;
   }
   if(group.length) chunks.push({start,lines:group});
-  // Avoid leaving only a closing brace or a few lines on the final program page.
   if(chunks.length>1) {
     const tail=chunks.at(-1),prev=chunks.at(-2);
     const visualCost=items=>items.reduce((n,l)=>n+Math.max(1,Math.ceil(l.length/78)),0);
     while(visualCost(tail.lines)<12&&prev.lines.length>12)tail.lines.unshift(prev.lines.pop());
     tail.start=prev.start+prev.lines.length;
   }
-  chunks.forEach((chunk,i)=>pages.push({id:name+'-'+i,tag:'完整程式 · '+(i+1)+' / '+chunks.length,html:`<h2 class="code-title">${esc(name)}</h2><p class="lead">第 ${chunk.start}～${chunk.start+chunk.lines.length-1} 行。</p><pre class="fullcode">${esc(chunk.lines.join('\n'))}</pre><p class="next">${i+1<chunks.length?'程式續頁；完整檔案見檔案準備表。':'完整程式結束。未確認的腳位與供電設定保持停用。'}</p>`}));
+  chunks.forEach((chunk,i)=>pages.push({id:i?m[1]+'_'+i:m[1],tag:'完整程式 · '+(i+1)+' / '+chunks.length,
+    html:`<h2 class="code-title">${esc(name)}.ino</h2><p class="lead">第 ${chunk.start}～${chunk.start+chunk.lines.length-1} 行。</p><pre class="fullcode">${esc(chunk.lines.join('\n'))}</pre><p class="next">同一份 .ino 檔案；分頁不代表另開程式。</p>`}));
 }
+const pageNumbers = Object.fromEntries(pages.map((p,i)=>[p.id,i+1]));
 const photoInputs=new Map();
 function render(body) {
   body=body.replace(/\{\{page:(\w+)\}\}/g,(_,id)=>{
@@ -147,10 +156,12 @@ function render(body) {
   return marked.parse(body).replace(/href="([^"]+)"/g,(_,link)=>{
     if (/^(https?:|mailto:|data:|#)/i.test(link)) return 'href="'+link+'"';
     const [file, anchor] = link.split('#');
-    const target = path.resolve(__dirname, decodeURIComponent(file));
+    const target = path.resolve(destination, decodeURIComponent(file));
     const repo = path.resolve(__dirname, '../../../..');
     const relative = path.relative(repo, target);
     if (relative.startsWith('..') || !fs.existsSync(target)) throw Error('Missing course file '+link);
+    if(sourceAnchors.has(target)) return 'href="#'+sourceAnchors.get(target)+'"';
+    if(/week\d+_answers/.test(relative)) throw Error('Private answer linked from Main');
     const url = relative.split(path.sep).map(encodeURIComponent).join('/');
     return 'href="https://github.com/KennethWYLee/IoT/blob/main/'+url+(anchor?'#'+anchor:'')+'"';
   });
@@ -170,13 +181,13 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:10.5pt/1.5 Consolas,"Micros
 footer{position:absolute;bottom:9mm;left:17mm;right:17mm;display:flex;justify-content:space-between;color:#617277;font-size:8.5pt}a{color:#1c666e;text-decoration:underline}.lead{font-size:12pt;color:#51676d}.code-title{font-size:17pt;overflow-wrap:anywhere}.fullcode{font-size:10pt;line-height:1.45}.next{border-top:1px solid #acc1c3;padding-top:3mm;font-size:11pt}
 @media screen{.page{margin:8mm auto;box-shadow:0 1px 6px #aaa}}
 `;
-const html='<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>Week 7 紅綠燈遮光挑戰</title><style>'+css+'</style></head><body>'+pages.map((p,i)=>`<section id="${p.id}" class="page"><header><span>Week 7 · 紅綠燈遮光挑戰</span><span>${esc(p.tag)}</span></header><main>${p.html||render(p.body)}</main><footer><span>Week 7 · 紅綠燈遮光挑戰</span><span>${i+1} / ${pages.length}</span></footer></section>`).join('')+'</body></html>';
-fs.writeFileSync(path.join(__dirname,'week7_main.html'),html);
+const html='<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>Week 7 紅綠燈遮光挑戰</title><style>'+css+'</style></head><body>'+pages.map((p,i)=>`<section id="${p.id}" class="page"><header><span>Week 7 ${answers?'Ans ':''}· 紅綠燈遮光挑戰</span><span>${esc(p.tag)}</span></header><main>${p.html||render(p.body)}</main><footer><span>Week 7 ${answers?'Ans ':''}· 紅綠燈遮光挑戰</span><span>${i+1} / ${pages.length}</span></footer></section>`).join('')+'</body></html>';
+fs.writeFileSync(path.join(destination,stem+'.html'),html);
 (async()=>{
  const browser=await chromium.launch({channel:'msedge',headless:true});
  try {
   const tab=await browser.newPage();
-  await tab.goto(pathToFileURL(path.join(__dirname,'week7_main.html')).href);
+  await tab.goto(pathToFileURL(path.join(destination,stem+'.html')).href);
   await tab.emulateMedia({media:'print'});
   await tab.evaluate(()=>document.fonts.ready);
   const audit=await tab.evaluate(()=>({
@@ -193,10 +204,10 @@ fs.writeFileSync(path.join(__dirname,'week7_main.html'),html);
   fs.writeFileSync(path.join(tmp,'layout_check.json'),JSON.stringify(audit,null,2));
   const bad=audit.pages.filter(p=>p.overflow||p.gap<8||p.horizontal.length);
   if(bad.length||audit.images.some(i=>!i.loaded))throw Error(JSON.stringify({bad,images:audit.images}));
-  const pdf=path.join(__dirname,'week7_main.pdf');
+  const pdf=path.join(destination,stem+'.pdf');
   await tab.pdf({path:pdf,format:'A4',printBackground:true,preferCSSPageSize:true});
   const manifest={textHashLineEndings:'LF',pages:pages.map((p,i)=>({number:i+1,id:p.id})),sourceSha256:hash(input),builderSha256:hash(fs.readFileSync(__filename,'utf8')),sketches:inputs,photos:[...photoInputs].map(([name,sha256])=>({name,sha256})),pdfSha256:hash(fs.readFileSync(pdf))};
-  fs.writeFileSync(path.join(__dirname,'build_manifest.json'),JSON.stringify(manifest,null,2)+'\n');
+  fs.writeFileSync(path.join(destination,'build_manifest.json'),JSON.stringify(manifest,null,2)+'\n');
   console.log(JSON.stringify({pages:pages.length,minimumGap:Math.min(...audit.pages.map(p=>p.gap)),pdf}));
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

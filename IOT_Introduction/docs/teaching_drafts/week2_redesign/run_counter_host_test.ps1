@@ -8,8 +8,8 @@ $version = Get-ChildItem -LiteralPath "$sdk\Include" -Directory | Where-Object {
 $env:INCLUDE = "$($vc.FullName)\include;$($version.FullName)\ucrt;$($version.FullName)\shared;$($version.FullName)\um"
 $env:LIB = "$($vc.FullName)\lib\x64;$sdk\Lib\$($version.Name)\ucrt\x64;$sdk\Lib\$($version.Name)\um\x64"
 $SourceFile = "$PSScriptRoot\$TestName.cpp"
-if ($TestName -eq 'exercise_host_test') { $SourceFile = "$PSScriptRoot\..\week2_oled_supplement\room_host_test.cpp" }
-if (-not (Test-Path -LiteralPath $SourceFile)) { throw 'This optional test requires the local Week 2 supplement.' }
+if ($TestName -eq 'exercise_host_test') { $SourceFile = "$PSScriptRoot\..\week2_answers\room_host_test.cpp" }
+if (-not (Test-Path -LiteralPath $SourceFile)) { throw 'This optional test requires the local week2Ans materials.' }
 & "$($vc.FullName)\bin\Hostx64\x64\cl.exe" /nologo /utf-8 /EHsc /std:c++17 /W4 $SourceFile "/Fo$PSScriptRoot\tmp\$TestName.obj" "/Fe$PSScriptRoot\tmp\$TestName.exe"
 if ($LASTEXITCODE -ne 0) { throw 'Host compile failed' }
 $ResultName = $TestName -replace '_test$', '_results'

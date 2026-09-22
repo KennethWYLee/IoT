@@ -26,7 +26,25 @@ config.local.h
 /IOT_Introduction/docs/teaching_drafts/week2_oled_supplement/
 /IOT_Introduction/docs/teaching_drafts/week2_redesign/room_answer.cjs
 
+# Locally reorganized answers and OLED supplement; publication still pending.
+/IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2Ans.pdf
+/IOT_Introduction/docs/teaching_drafts/week2_answers/
+/IOT_Introduction/docs/teaching_drafts/week5_oled_supplement/
+
 # Local development caches
 node_modules/
 .venv/
 __pycache__/
+
+# Unpublished Week 3 answers, code and checks remain local.
+/IOT_Introduction/docs/teaching_drafts/week3_answers/
+
+# Unreleased weekly exercise answers (local only).
+IOT_Introduction/docs/teaching_drafts/week4_answers/
+IOT_Introduction/docs/teaching_drafts/week5_answers/
+IOT_Introduction/docs/teaching_drafts/week6_answers/
+IOT_Introduction/docs/teaching_drafts/week7_answers/
+IOT_Introduction/docs/teaching_drafts/week11_answers/
+IOT_Introduction/docs/teaching_drafts/week12_answers/
+IOT_Introduction/docs/teaching_drafts/week14_answers/
+IOT_Introduction/docs/teaching_drafts/week15_answers/

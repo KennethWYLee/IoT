@@ -17,6 +17,7 @@
 
 <aside>OLED 和 Serial 顯示的是命令值；指針是否到位，仍須觀察實物。</aside>
 
+
 <!-- page: files | 先把程式準備在電腦裡 -->
 ## 不用從 PDF 一頁一頁抄程式
 
@@ -38,6 +39,7 @@
 
 <aside>若下載內容和講義列出的檔名不一致，先取得相符的課程資料夾，不猜替代檔。開啟檔案時，ESP32 的 USB 與外部電源保持拔除。</aside>
 
+
 <!-- page: route | 操作條件 -->
 ## 哪些條件齊全，才能讓指針動？
 
@@ -54,6 +56,7 @@
 舵機確切規格、負載供電及啟動行為，必須在課前由授課者完成驗證並提供設定表。**這份講義沒有替實物完成驗證。**
 
 若設定表尚未齊全，只做數字預覽、斷電辨識與題目。設定表必須與手上器材相符；數字預覽不能當作舵機通過的證據。
+
 
 <!-- page: preview | 第一步：先不用舵機 -->
 ## 先讓電腦顯示一個結果
@@ -75,6 +78,10 @@ servo_connected=false
 ```
 
 實際程式將上面欄位印在同一行。輸入框請一次送一個數字；`10` 是兩個字元，不是「第十格」。
+
+
+<!-- page: previewcode | 完整基本程式 -->
+{{program:count_preview}}
 
 <!-- page: explainpreview | 數字怎麼變的 -->
 ## 0～6，不是 0～6 度
@@ -98,6 +105,7 @@ servo_connected=false
 
 先預測輸入 `4` 會出現什麼，再執行檢查。輸入 `9` 應被拒絕，不擴大範圍。
 
+
 <!-- page: identify | 第二步：辨認實物 -->
 ## 桌上只留今天需要的東西
 
@@ -114,6 +122,7 @@ servo_connected=false
 
 先收起 RGB、DHT、KY 與蜂鳴器。這週不需要 L298N。不能把連續旋轉型舵機當作定位型使用。
 
+
 <!-- page: wires | 三條線，不是三個電源 -->
 ## 舵機的三條線各做一件事
 
@@ -128,6 +137,7 @@ servo_connected=false
 GPIO 是「告訴它要去哪裡」，不是提供轉動所需的全部電力。**不要把 V+ 接到 GPIO 或 3V3。**
 
 先把實物的三個功能指出來，才開始接線。照片上的顏色只是辨識線的輔助；功能以確切版本文件與已核對的接頭方向為準。
+
 
 <!-- page: powersetup | 先把電源分開 -->
 ## 先不要接舵機
@@ -145,6 +155,7 @@ GPIO 是「告訴它要去哪裡」，不是提供轉動所需的全部電力。
 
 <aside>降壓模組把較高電壓降下來，不是升壓器，也不是電池。顯示數字正常，不代表已能帶動舵機。</aside>
 
+
 <!-- page: meter | 電表與電源一起看 -->
 ## 黑筆接哪裡？紅筆接哪裡？
 
@@ -159,6 +170,7 @@ GPIO 是「告訴它要去哪裡」，不是提供轉動所需的全部電力。
 本頁先量測，不自行調整。只有課前已提供這組電源的**目標輸出、允許上下限與操作方法**，才由相符配置進行調整；未取得就 OFF、停止在空載讀值紀錄。4.76 V 是歷史量測，不是本次目標設定。
 
 <aside class="safety">這是在量兩點的電壓差，不是在量電流。不可把電表切到電流檔，再跨接正負極。</aside>
+
 
 <!-- page: readings | 先解讀，不急著插舵機 -->
 ## 空載讀值不能保證動作時一樣
@@ -176,6 +188,7 @@ GPIO 是「告訴它要去哪裡」，不是提供轉動所需的全部電力。
 兩者都用 V 表示電壓。帶載可能掉壓；慢速電表也可能漏掉短暫變化。4.76 V 不因「很接近 4.8」就自動合格，須對照確切舵機規格、量測不確定度與停止條件。
 
 現行課程方案是四顆 1.5 V AA 加降壓模組；不能直接換成四顆 1.2 V eneloop，再假設仍能穩定降到 5 V。替換電池是另一個需要確認的供電方案。
+
 
 <!-- page: configuration | 課前設定表，不靠猜數值 -->
 ## 接線之前，要有這一張表
@@ -197,6 +210,7 @@ GPIO 是「告訴它要去哪裡」，不是提供轉動所需的全部電力。
 
 本課先前提出 GPIO7 作 signal 的候選接法，但沒有實機通過紀錄。本頁不把候選值當作全班已驗證配置。
 
+
 <!-- page: loadcode | 打開正確程式 -->
 ## 先上傳，再接完整電路
 
@@ -214,6 +228,7 @@ GPIO 是「告訴它要去哪裡」，不是提供轉動所需的全部電力。
 ### 這次主要只學四種操作
 
 `a` 準備、`0～6` 指定格數、`q` 停訊號、按 STOP 中止。其他復原命令留到第一次停止之後再學。
+
 
 <!-- page: codefields | 在 IDE 逐項搜尋，不猜設定 -->
 ## 要填的名稱，和還缺的資料
@@ -234,6 +249,7 @@ GPIO 是「告訴它要去哪裡」，不是提供轉動所需的全部電力。
 
 **仍缺舵機資料時停在數字預覽與斷電辨識。**公開程式保留 −1／false 是預期保護，不是要求學生自行試出一組能動的數值。補齊接頭照片、供電及小範圍測試記錄後，教師才能把這張表換成該批器材的已填版本。
 
+
 <!-- page: stopwire | 第三步：先接停止按鈕 -->
 ## 沿用 Week 2 的按鈕
 
@@ -251,6 +267,7 @@ GPIO 是「告訴它要去哪裡」，不是提供轉動所需的全部電力。
 
 先核對麵包板的孔組；板子放旁邊用線連接，避免板體擋住插孔。
 
+
 <!-- page: stopreason | 按鈕電流路徑 -->
 ## 為什麼按下會讀到 LOW？
 
@@ -265,6 +282,7 @@ GPIO 是「告訴它要去哪裡」，不是提供轉動所需的全部電力。
 這裡的 STOP GPIO 是**輸入**，不能沿用 Week 3 的輸出高低電壓程式。先移除舊線，換上本週程式，再按本週圖接線。
 
 STOP 是軟體讀取的停止鍵，不是工業安全急停，也不是電池開關。程式失效時不能保證它仍有效。
+
 
 <!-- page: finalwire | 每條線都對到端點 -->
 ## 舵機接線分兩部分
@@ -286,6 +304,7 @@ USB 拔除，電池 OFF 並取出至少一顆。確認接頭方向，不按線�
 
 <aside class="safety">外部正極不接 ESP32 的 GPIO、3V3、5Vin 或 USB VBUS。只將指定的 GND 接在一起，不是把兩個電源正極相接。</aside>
 
+
 <!-- page: stoptest | 還不讓舵機轉 -->
 ## 先看停止鍵的紀錄
 
@@ -305,6 +324,7 @@ USB 拔除，電池 OFF 並取出至少一顆。確認接頭方向，不按線�
 
 STOP 若沒反應，先斷電檢查腳位、按鈕接點及目前上傳的程式，不進入下一步。
 
+
 <!-- page: firstmove | 第一個受限動作 -->
 ## 先不裝紙指針
 
@@ -322,6 +342,7 @@ STOP 若沒反應，先斷電檢查腳位、按鈕接點及目前上傳的程式
 
 有卡住、抖動、發熱、異味或板子重啟，立即外部 OFF，再拔 USB。不等待 30 秒、不提高電壓、不強扳轉軸。
 
+
 <!-- page: observe | 動過一次，再整理證據 -->
 ## 哪些是程式說的？哪些是你看到的？
 
@@ -337,6 +358,10 @@ STOP 若沒反應，先斷電檢查腳位、按鈕接點及目前上傳的程式
 電表不能證明沒有短暫掉壓；程式也沒有角度或電流感測。`position_measured=false` 就是「沒有量到實際位置」。
 
 如果 Serial 有紀錄但軸沒動，先停止，再分開查電源、signal、共同地與機構。不用反覆送指令來掩蓋問題。
+
+
+<!-- page: pointercode | 完整基本程式 -->
+{{program:week06_servo_pointer}}
 
 <!-- page: pulses | 控制訊號 -->
 ## GPIO 不是一直送出「90」
@@ -355,6 +380,18 @@ STOP 若沒反應，先斷電檢查腳位、按鈕接點及目前上傳的程式
 
 一般三線舵機會在內部控制位置，但本程式沒有讀回實際角度；library 的 `read()` 也不能當作外接角度感測器。
 
+
+<!-- page: flowcase2 | 只改一處，想想結果 -->
+## 顯示角度，不代表軸已到位
+> 資訊與控制示意；僅作圖上推演，保持現有實物接線不動。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="顯示角度，不代表軸已到位" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">目標角度</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><path d="M134,62 L139,66 L134,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">舵機命令</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><path d="M264,62 L269,66 L264,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">PWM 訊號</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><path d="M394,62 L399,66 L394,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">舵機動作</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><path d="M524,62 L529,66 L524,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">位置觀察</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">目標角度</text><line x1="121" y1="193" x2="139" y2="193" stroke="#246e73" stroke-width="2" /><path d="M134,189 L139,193 L134,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="198" font-size="16" text-anchor="middle">只印 angle</text><line x1="251" y1="193" x2="269" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="269" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" stroke-dasharray="5 4"/><text x="325" y="198" font-size="16" text-anchor="middle">沒有新 PWM</text><line x1="381" y1="193" x2="399" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="198" font-size="16" text-anchor="middle">舵機動作</text><line x1="511" y1="193" x2="529" y2="193" stroke="#246e73" stroke-width="2" /><path d="M524,189 L529,193 L524,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">位置觀察</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
+
+**想一想：** 假設程式只印出 angle=60，沒有發出對應控制命令。看到 60 能證明舵機轉到 60 度嗎？
+
+**原理提示：** 文字紀錄只證明程式回報的目標；輸出訊號、供電與實際位置仍要各自確認。
+
+只有標記處改變，其餘供電、程式與環境條件沿用正常情境。不可把未知結果直接寫成 0、LOW 或「一定停止」。
 <!-- page: common | 為什麼要共同接地 -->
 ## 兩邊需要同一個電壓參考
 
@@ -371,6 +408,19 @@ ESP32 說「相對我的 GND 是 HIGH」，不等於隔離的另一個電路自�
 **資訊：** Serial 命令 → ESP32 計算 → signal 的脈波 → 舵機內部控制 → 軸移動。signal 相對共同 GND 判讀。
 
 共地不代表把舵機工作電流繞進板上的細訊號線。也不要帶電拔 GND 來展示錯誤。
+
+
+<!-- page: flowcase1 | 只改一處，想想結果 -->
+## 舵機少了共地，訊號還可靠嗎？
+> 控制訊號參考示意；僅作圖上推演，保持現有實物接線不動。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="舵機少了共地，訊號還可靠嗎？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="79" y="71" font-size="16" text-anchor="middle">ESP32 GND</text><line x1="149" y1="66" x2="172" y2="66" stroke="#246e73" stroke-width="2" /><rect x="172" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="242" y="71" font-size="16" text-anchor="middle">共地導線</text><line x1="312" y1="66" x2="335" y2="66" stroke="#246e73" stroke-width="2" /><rect x="335" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="405" y="71" font-size="16" text-anchor="middle">外部電源 −</text><line x1="475" y1="66" x2="498" y2="66" stroke="#246e73" stroke-width="2" /><rect x="498" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="568" y="71" font-size="16" text-anchor="middle">舵機 GND</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="79" y="198" font-size="16" text-anchor="middle">ESP32 GND</text><line x1="149" y1="193" x2="172" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="172" y="170" width="140" height="46" rx="3" fill="#fff1de" stroke="#a65136" stroke-dasharray="5 4"/><text x="242" y="198" font-size="16" text-anchor="middle">共地中斷</text><line x1="312" y1="193" x2="335" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="335" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="405" y="198" font-size="16" text-anchor="middle">外部電源 −</text><line x1="475" y1="193" x2="498" y2="193" stroke="#246e73" stroke-width="2" /><rect x="498" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="568" y="198" font-size="16" text-anchor="middle">舵機 GND</text><text x="10" y="261" font-size="16">線表示電路連接；不是實物腳序或完整接線圖。</text></svg>
+
+**想一想：** 假設這條線是兩側唯一的共地；舵機仍接外部電源，訊號線也留著。能保證舵機只是停住嗎？
+
+**原理提示：** 沒有共同的電壓參考，舵機可能無法正確解讀控制訊號；不能保證位置、靜止或安全。
+
+只有標記處改變，其餘供電、程式與環境條件沿用正常情境。不可把未知結果直接寫成 0、LOW 或「一定停止」。
 
 <!-- page: fixture | 第四步：變成紙指針 -->
 ## 先對位置，再固定紙片
@@ -389,6 +439,7 @@ ESP32 說「相對我的 GND 是 HIGH」，不等於隔離的另一個電路自�
 
 每次 a 後最多 30 秒；不要啟用後停下來聽講或拍照。若逾時中止，先外部 OFF，依停止頁 c、z 復原後重新操作，不刪掉逾時保護。
 
+
 <!-- page: oledsettings | 加螢幕前，先更新程式 -->
 ## 把 Week 5 的顯示設定填回來
 
@@ -406,6 +457,7 @@ ESP32 說「相對我的 GND 是 HIGH」，不等於隔離的另一個電路自�
 舵機與 STOP 設定保留，四個訊號 GPIO 不重複。不同螢幕不能只照抄 T01；位址有回應也不等於控制器型號已辨識。
 
 只接 COM 的 USB，Verify、Upload；完成後關 Monitor、拔 USB。依第 {{page:oled}} 頁恢復 STOP、舵機與 OLED 接線；接線時外部電源保持 OFF。
+
 
 <!-- page: oled | 加回 Week 5 的 OLED -->
 ## 同一個數字，兩種呈現
@@ -429,6 +481,7 @@ SDA、SCL、signal、STOP 四個 GPIO 不得重複。T01 曾用 SDA8／SCL9、0x
 
 OLED 顯示 `NO SENSE` 是提醒「沒有量到真實位置」，不是一定壞了。ACK 回應也不證明每個像素都正確。
 
+
 <!-- page: sharedcount | 螢幕和指針不要各算一份 -->
 ## 共用 count，分開檢查結果
 
@@ -445,6 +498,7 @@ OLED 顯示 `NO SENSE` 是提醒「沒有量到真實位置」，不是一定壞
 OLED 上的 ANGLE CMD 是命令，不是量角器。畫面顯示 4、指針仍停在 3，就記下這個差異，先停止再排查。
 
 資訊可能已更新，但機構還在移動，也可能電源或接線有問題。不把「螢幕有字」當作整個作品完成。
+
 
 <!-- page: stopping | 停止也要會解釋 -->
 ## 三種停止，並不一樣
@@ -469,6 +523,7 @@ a → 依已驗證上電流程重新準備第 0 格
 
 停止控制訊號可能失去保持力，但不能保證立刻停止所有機械運動。軟體按鈕不是取代可操作的電源開關。
 
+
 <!-- page: faults | 做一次不同目的的測試 -->
 ## 逾時與故障，不靠拔線測
 
@@ -487,6 +542,7 @@ a → 依已驗證上電流程重新準備第 0 格
 
 RST 不能當作恢復捷徑。重啟行為留到課前專門驗證；課堂先外部 OFF 再重啟，不在帶載時試未知瞬態。
 
+
 <!-- page: exercise | 概念練習：先自己判斷 -->
 ## 這些紀錄能證明什麼？
 
@@ -502,20 +558,6 @@ RST 不能當作恢復捷徑。重啟行為留到課前專門驗證；課堂先�
 
 指出你看到的欄位、它能支持的結論，以及還沒量到什麼。例如「命令被接受，但沒有真實位置資料」。
 
-<!-- page: answer | 參考解答 -->
-## 先把命令和量測分開
-
-| 題 | 參考解答 |
-|---|---|
-| 1 | 60 + 4 × 10 = **100**。只用裸板與 Serial，不需要舵機。 |
-| 2 | 不行。attached 表示控制通道啟用；沒有量到電源或轉軸位置。 |
-| 3 | 不行。先外部電源 OFF，再拔 USB；確認斷電後才改線。 |
-| 4 | **31000 ms**。期限從 a 算起，後續數字命令不延長。 |
-| 5 | 同時記下 count／命令角度及實際指針位置與時間。先中止並外部 OFF，不先加大角度或電壓。 |
-
-第 5 題不能僅憑這兩個數字就判定「舵機壞了」。可能尚在移動、紙刻度或舵盤偏移，也可能供電或訊號有問題；必須分開檢查。
-
-接著把 Week 2 的加減計數規則，加到已完成的指針作品上。
 
 <!-- page: extension | 延伸作品：加減計數指針 -->
 ## 不用每次自己算下一個數字
@@ -526,11 +568,12 @@ Week 2 用按鈕讓數字加一、減一。這次先用 **Serial 的 + 與 − �
 
 加減命令由鍵盤輸入；既有實體按鈕繼續作 STOP，不挪作加減鍵。
 
-換上附錄「加減計數指針」完整程式。換程式仍要外部 OFF、拔 USB、移除外接線，不能帶載上傳。
+換上第 {{page:countercode}} 頁「加減計數指針」完整程式。換程式仍要外部 OFF、拔 USB、移除外接線，不能帶載上傳。
 
 同樣依已確認設定填入、先不開 OLED 測核心，再加入顯示。供電、停止、間隔與 30 秒上限都保留，不因改成計數器而解除。
 
 實機範圍未完成時，只可做主機假輸入測試；不能把預覽程式的數值直接貼成舵機設定。
+
 
 <!-- page: extensionrun | 每次操作，都核對三個地方 -->
 ## +、− 與上下限
@@ -552,6 +595,10 @@ Week 2 用按鈕讓數字加一、減一。這次先用 **Serial 的 + 與 − �
 中止後再送 + 不應加分也不應繼續動作。恢復並重新 a 會歸零；這份程式沒有永久保存計數。
 
 同一秒貼上很多 + 不是速度測試：超過接受頻率的命令會被丟棄，不會排隊等它慢慢轉。
+
+
+<!-- page: countercode | 完整基本程式 -->
+{{program:serial_pointer_counter}}
 
 <!-- page: extensioncode | 只改命令解讀 -->
 ## 原本的安全限制繼續用
@@ -576,6 +623,8 @@ if (c == '+' || c == '-') {
 
 只有狀態允許、STOP 放開、沒有故障、距前次至少一秒，才接受下一個 count。拒絕的操作不修改 count。
 
+
+
 <!-- page: buildexercise | 動手改造題 -->
 ## 每次改兩格，但不超出 0～6
 
@@ -589,6 +638,7 @@ if (c == '+' || c == '-') {
 - 先在紙上算或主機假輸入測試；完整安全行程已驗證才做實物。
 
 七格區間保持 0～6。這個改動只增加每次跳過的格數，不擴大指針總行程，也不改 STOP、命令間隔與中止規則。
+
 
 <!-- page: buildresults | 預期結果 -->
 ## 從零加到六，再減回零
@@ -610,28 +660,6 @@ if (c == '+' || c == '-') {
 
 中止後送 +，count 不變，不重新輸出脈波。Serial、OLED 應表示同一 count；紙指針的位置另行觀察。完整實體行程未驗證時，只做紙上或主機測試。
 
-<!-- page: buildanswer | 參考解答 -->
-## 只改下一個數字的計算
-
-開啟 `serial_pointer_counter.ino`，另存為 `two_step_pointer`。Ctrl+F 搜尋 `c = char`，保留前方兩個上下限拒絕條件，把這一行換成：
-
-```cpp
-int next = count + (c == '+' ? 2 : -2);
-if (next > 6) next = 6;
-if (next < 0) next = 0;
-c = char('0' + next);
-```
-
-| 測試 | 預期結果（每次間隔符合要求） |
-|---|---|
-| 從 0：+ + + + | 2、4、6、6；第 4 次拒絕 |
-| 接著：− − − − | 4、2、0、0；第 4 次拒絕 |
-| 先指定 3：+ + − | 5、6、4 |
-| ABORTED 時 + | count 不變，不重新啟用脈波 |
-
-仍然只傳 0～6 給原有換算函式，因此不必改角度端點。完整程式仍由原有條件決定是否接受，不直接繞過 `applyCount()` 的呼叫條件。
-
-這些是參考預期與主機測試目標，不是舵機實測紀錄。改動後重新編譯，依相同斷電與上傳流程處理。
 
 <!-- page: finish | 收尾與下週銜接 -->
 ## 今天留下什麼？
@@ -652,6 +680,7 @@ c = char('0' + next);
 設定缺值 → 先補來源；STOP 無效 → 先查斷電接線；有命令沒動 → 先停再查電源與訊號；紙盤偏位 → 檢查固定與刻度，不先擴大角度。
 
 **能說清楚「程式要求什麼、實物發生什麼、哪些還沒量到」，比只有一段轉動影片更完整。**
+
 
 <!-- page: sources | 來源與適用範圍 -->
 ## 查得到的資料與尚未確認的部分

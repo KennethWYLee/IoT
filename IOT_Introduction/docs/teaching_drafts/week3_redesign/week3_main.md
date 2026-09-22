@@ -2,7 +2,7 @@
 ## 遮住光，電腦怎麼知道？
 > Week 3：用電表看到電壓，再讓 ESP32 讀到變化。
 
-上週按下按鈕，電腦出現「按下」或計數增加。這週不按按鈕，改用一張不透光的紙，看看電腦能不能分辨室內光與遮光。
+用一張不透光的紙遮住光敏模組，觀察電表與電腦讀值如何改變，再讓程式印出「室內光／遮光」。
 
 {{diagram:overview}}
 
@@ -13,22 +13,22 @@
 | 用自己的數據設定規則 | 畫面出現「室內光／遮光／未判定」 |
 | 交換兩顆固定電阻 | 解釋光敏模組為何能改變電壓 |
 
-<aside class="note">今天不用馬達、舵機、Wi-Fi、OLED 或蜂鳴器。先完成「感測 → 程式判斷 → 紀錄」；它是之後軟體控制作品的基礎。</aside>
+這個作品使用電表、光敏模組與按鈕，在電腦保存光線資料。
 
 量測欄記下自己的數字與條件；尚未量測的欄位留白，不抄示例當實測。
 
 <!-- page: files | 先把程式準備在電腦裡 -->
-## 不用從 PDF 一頁一頁抄程式
+## 開啟本週的四支程式
 
-1. 已有教師提供的完整 IoT 資料夾，就直接使用同版本資料夾，不重新下載另一版。
-2. 沒有資料夾時，開啟 [課程 GitHub](https://github.com/KennethWYLee/IoT)，按 **Code → Download ZIP**。下載完成後在檔案總管右鍵 ZIP，選「全部解壓縮」。
+1. 使用隨本講義提供的完整 IoT 資料夾，內含本週四支完整程式。
+2. 若取得 ZIP 檔，在檔案總管右鍵 ZIP，選「全部解壓縮」。沒有課程檔案時，先取得與本講義相符的檔案包。
 3. 打開解壓縮後的資料夾，再開 **IOT_Introduction**。不要直接在 ZIP 預覽視窗操作。
 4. 依下表找到當段程式；在 Arduino IDE 選「檔案 → 開啟」，選該資料夾中的同名 **.ino**。瀏覽器裡看到程式文字，不等於已在 IDE 開啟。
 5. 修改前選「檔案 → 另存新檔」，存進自己的練習資料夾。按 **Ctrl+F** 搜尋講義指定的設定名稱，改等號右邊的值，保留分號，再按 **Ctrl+S**。
 
 ### 本週依序開這些檔案
 
-以下從 IOT_Introduction 資料夾開始找；每次只開當段要用的檔案。
+以下從 IOT_Introduction 資料夾開始找；四支程式也完整列在各自操作段落。
 
 - `examples/week03_gpio_voltage_cycle/week03_gpio_voltage_cycle.ino`
 - `examples/week03_ky018_raw/week03_ky018_raw.ino`
@@ -40,13 +40,13 @@
 <aside>若下載內容和講義列出的檔名不一致，先取得相符的課程資料夾，不猜替代檔。開啟檔案時，ESP32 的 USB 與外部電源保持拔除。</aside>
 
 <!-- page: prepare | 先斷電 -->
-## 收起按鈕，換一個問題
+## 清空接線，準備量電壓
 > GPIO4、GPIO5 這週要換用途，不能沿用計數器接線。
 
 1. 拔掉 ESP32 的 USB，移除電池及其他外部供電，確認 PWR 燈熄滅。
 2. 電表轉 OFF，移開表筆。拍下舊作品接法後，拆除開發板所有外接線。
 3. 拿空的 400 孔麵包板。板子放在乾燥、不導電桌面，不直接插進麵包板。
-4. 按鈕先收起來；本週不需要按住任何按鈕來量電壓。
+4. 按鈕先收起來，完成電表、感測器與分壓實作後，再接回按鈕取樣。
 
 | 現在拿出來 | 數量 |
 |---|---:|
@@ -55,6 +55,7 @@
 | 公對母／公對公／母對母杜邦線 | 各數條 |
 | KY-018 光敏模組、不透光的紙 | 各 1 |
 | 電阻包中的 1 kΩ、10 kΩ | 各 1 顆 |
+| Week2 使用過的四腳按鈕 | 1 顆 |
 
 <aside class="safety">以後每次改線：先移開表筆 → 拔 USB 與其他電源 → 確認 PWR 熄滅 → 電表 OFF → 才移線。關閉 Serial Monitor 不等於斷電。</aside>
 
@@ -77,7 +78,7 @@
 
 <aside class="safety">本稿接法對應圖示板型。不同板型、看不清印字或課程尚未確認 GPIO 用法時，保持斷電，一起核對。照片不能證明所有同名商品相同。</aside>
 
-**下一步：**先不用 GPIO，從 3V3 與 GND 量一次電壓。
+本段量 3V3 對 GND 的電壓，GPIO4、GPIO5 保持未接線。
 
 <!-- page: meter | 表筆先不碰電路 -->
 ## 黑筆、紅筆、旋鈕各放哪裡？
@@ -132,10 +133,9 @@ V 是電壓單位「伏特」。20 V 檔是量測範圍，不是電表會輸出 
 |---|---|---|---|---|
 | e3，GND | e6，3V3 | 直流 20 V | 約 +3.3 V | ____ V |
 
-課堂舊紀錄曾回報約 3.2 V；那是另一輪操作，不是你應照填的答案，也不是本次實測。
+預期為接近 +3.3 V 的正值，不要求每片板或每支電表完全相同；記錄自己看到的數字。
 
 **如果是負數：**先移開表筆，核對紅黑測點，不交換板子的供電線。**如果接近 0 V：**移開表筆、斷電，核對 USB、PWR、3V3 印字與列號。
-
 
 <!-- page: voltagemeaning | 對照剛才的讀值 -->
 ## 電壓是比較兩個位置
@@ -221,6 +221,9 @@ V 是電壓單位「伏特」。20 V 檔是量測範圍，不是電表會輸出 
 
 完成後拔 USB、電表 OFF。
 
+<!-- page: codegpio | 完整基本程式 -->
+{{program:week03_gpio_voltage_cycle}}
+
 <!-- page: gpioexplain | 資訊流與量測分開 -->
 ## 一個命令，兩種證據
 > Serial 說「我要求 HIGH」；電表說「我量到幾伏特」。
@@ -294,7 +297,7 @@ V 是電壓單位「伏特」。20 V 檔是量測範圍，不是電表會輸出 
 
 同樣光照與接觸下，總阻值應大致接近兩段相加。三次量測若光照變了、手碰到金屬或量程不同，不能把差異當成精密驗證通過。
 
-**先保留一個問題：**兩段之間的 S，供電後會是多少 V？不用先背公式，下一段直接量。公式等固定電阻實作後再算。
+S 相對 GND 的電壓取決於兩段電阻的比例。光敏電阻改變時，這個中間位置的電壓也會改變。
 
 <!-- page: kywire | USB 拔除 -->
 ## 先接供電，再把 S 引出來
@@ -323,19 +326,19 @@ GPIO5 與第 12 列的線已拆除。e6 電源延長線這段不用，斷電時�
 2. 接 COM USB。黑筆碰 e3 延長端；紅筆碰 **e15** 延長端，不是 e6。
 3. 不移動模組，記錄室內光；用不透光紙遮住感光面，再記錄；移開紙，最後再記一次。
 
-| 先後 | 條件 | 我的 S 對 GND 電壓 |
+| 條件 | 預期觀察 | 實測 S 對 GND |
 |---|---|---|
-| 1 | 固定位置、室內光 | ____ V |
-| 2 | 原位置、用紙遮住 | ____ V |
-| 3 | 原位置、移開紙 | ____ V |
+| 室內光 | 可穩定讀取一個電壓 | ____ V |
+| 原位置遮光 | 電壓與室內光有差異 | ____ V |
+| 移開紙 | 接近同位置室內光讀值 | ____ V |
 
 **我的觀察：**遮光後電壓＿＿；移開紙後＿＿。板子、檯燈、紙的位置與表筆接觸是否都固定？＿＿。
 
-<aside class="note">本課舊紀錄曾觀察遮光升高，較新的組裝卻回報遮光數字降低。兩輪不能合併成一組答案。本次只依自己的接法與同輪資料判斷，不預先規定「暗一定比較大」。</aside>
+<aside class="note">不憑 KY-018 商品名稱判斷方向。對圖示電路，下方光敏電阻變大時，S 電壓會升高；若實測相反，先保留結果，斷電核對模組內部接法與測點。</aside>
 
 讀值超出 0～3.3 V、負值或異常發熱：先移開表筆、斷電，查供電與測點。正常觀察完成後也先移開表筆、拔 USB、電表 OFF。
 
-**下一步：**目前是人看電表；接下來讓 ESP32 讀同一個 S。
+如果 S 一直等於電源電壓，移開表筆並確認量的是 e15，不是 e6；接點鬆脫要斷電後處理。
 
 <!-- page: adcupload | 先換讀取程式 -->
 ## 把 S 的電壓變成電腦上的數字
@@ -355,7 +358,7 @@ device=G01 ... adc_bits=12 interval_ms=500
 
 這是欄位示意，不是本次實測。尚未接模組的輸入可能亂跳，**現在的 raw 不拿來當光線資料**。
 
-<aside class="note">ADC 是晶片裡把電壓轉成數字的功能。現在先把讀值做出來；0～4095 與電壓的差別，等看到數字後再解釋。</aside>
+<aside class="note">ADC 是晶片裡把電壓轉成數字的功能。analogRead 取得的是原始整數，不是已換算的伏特。</aside>
 
 完成後拔 USB，依第 {{page:adcwire}} 頁接回模組電源與 S 訊號。
 
@@ -376,7 +379,7 @@ device=G01 ... adc_bits=12 interval_ms=500
 
 <aside class="safety">GPIO5 保持空著；4 不是 3V3。所有訊號只能在已確認的安全電壓內。ESP32-S3 GPIO 不接受 5 V 訊號；本週模組以 3V3 供電。</aside>
 
-全班對照接點後插 COM USB，開 Monitor，選 115200。先固定模組、遮住、移開一次，看數字是否改變，再開始保存資料。
+對照接點後插 COM USB，開 Monitor，選 115200。先固定模組、遮住、移開一次，看數字是否改變，再開始保存資料。
 
 <!-- page: savelog | 先練一次保存文字 -->
 ## Monitor 的文字不會自動存檔
@@ -391,8 +394,8 @@ device=G01 ... adc_bits=12 interval_ms=500
 
 | 兩份量測檔案 | 應有的內容 |
 |---|---|
-| indoor.txt | 同輪室內光十筆完整行與條件 |
-| shade.txt | 同接法遮光十筆完整行與條件 |
+| week3_group01_indoor.txt | 同輪室內光十筆完整行與條件 |
+| week3_group01_shade.txt | 同接法遮光十筆完整行與條件 |
 
 若拖選漏行，就重新選取那一段；不要補寫不存在的輸出。重開機或換位置後另存一輪，不能把不同輪資料混在一起。後面各週也用同樣方法保存 Serial 紀錄。
 
@@ -410,7 +413,7 @@ device=G01 sample=21 uptime_ms=10500 light_raw=310
 device=G01 sample=22 uptime_ms=11000 light_raw=314
 ```
 
-上面是**示意輸出**。只讀最後的 `light_raw` 作光線原始值；sample 是序號，uptime_ms 是開機後毫秒。
+上面是**預期格式示例，不是實測**。只讀最後的 `light_raw` 作光線原始值；sample 是序號，uptime_ms 是開機後毫秒。
 
 | 條件 | 10 筆最小值 | 10 筆最大值 | 電表 |
 |---|---|---|---|
@@ -419,7 +422,10 @@ device=G01 sample=22 uptime_ms=11000 light_raw=314
 
 **保存全部 20 行，表格只是摘要。**500 ms 是 0.5 秒；10 筆有 9 段間隔，首尾約 4.5 秒。若中途重開機或移位置，另開一輪，不混算。
 
-已有同輪完整資料可沿用；不足的地方寫未完成，不抄教材湊筆數。
+若一直顯示 0 或 4095，先用直流電壓檔量 e15 對 e3，再斷電查線。端點可能來自飽和或接線問題，不能只憑 raw 判斷斷線。
+
+<!-- page: coderaw | 完整基本程式 -->
+{{program:week03_ky018_raw}}
 
 <!-- page: adcmeaning | 資訊從哪裡來 -->
 ## raw 不是伏特，也不是亮度單位
@@ -443,6 +449,17 @@ device=G01 sample=22 uptime_ms=11000 light_raw=314
 
 <aside class="note">模組 − 與板子 GND 是共同參考；訊號送到 GPIO4。ADC 內部完成比較，不是叫你在板外用線把 GPIO4 和 GND 短接。</aside>
 
+<!-- page: flowcase2 | 只改一處，想想結果 -->
+## 光敏模組有電，不等於 ADC 有訊號
+> 資訊處理示意；僅作圖上推演，保持現有實物接線不動。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="光敏模組有電，不等於 ADC 有訊號" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">光線</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><path d="M134,62 L139,66 L134,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">模組 S 電壓</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><path d="M264,62 L269,66 L264,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">S 訊號線</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><path d="M394,62 L399,66 L394,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">GPIO ADC</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><path d="M524,62 L529,66 L524,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">raw 紀錄</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">光線</text><line x1="121" y1="193" x2="139" y2="193" stroke="#246e73" stroke-width="2" /><path d="M134,189 L139,193 L134,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="198" font-size="16" text-anchor="middle">模組 S 電壓</text><line x1="251" y1="193" x2="269" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="269" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" stroke-dasharray="5 4"/><text x="325" y="198" font-size="16" text-anchor="middle">S 線斷開</text><line x1="381" y1="193" x2="399" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="198" font-size="16" text-anchor="middle">GPIO ADC</text><line x1="511" y1="193" x2="529" y2="193" stroke="#246e73" stroke-width="2" /><path d="M524,189 L529,193 L524,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">raw 紀錄</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
+
+**想一想：** 保留模組的 3V3 與 GND，只在圖上斷開 S 到 GPIO 的線。raw 會一定變成 0 嗎？
+
+**原理提示：** 模組可能仍正常供電，但 ADC 腳失去可靠訊號；讀值不能當光線資料，也不保證是 0。
+
+只有標記處改變，其餘供電、程式與環境條件沿用正常情境。不可把未知結果直接寫成 0、LOW 或「一定停止」。
 <!-- page: ranges | 先用資料訂規則 -->
 ## 先畫兩段範圍，再選分界
 > 用剛才資料，不重新收一樣的二十筆。
@@ -467,7 +484,7 @@ device=G01 sample=22 uptime_ms=11000 light_raw=314
 ## 讓程式印出「室內光／遮光」
 > 這次 GPIO4 仍是輸入，模組接法不變。
 
-先移開表筆、電表 OFF。關閉上一個 Monitor，IDE 開啟 <a href="../../../examples/week03_light_classifier/week03_light_classifier.ino">光線分類程式</a>，只填下面這些設定：
+先移開表筆、拔 USB、電表 OFF，從開發板拔下外接線。關閉上一個 Monitor，IDE 開啟 <a href="../../../examples/week03_light_classifier/week03_light_classifier.ino">光線分類程式</a>，只填下面這些設定：
 
 | 程式名稱 | 填什麼 |
 |---|---|
@@ -476,7 +493,7 @@ device=G01 sample=22 uptime_ms=11000 light_raw=314
 | `INDOOR_MIN`、`INDOOR_MAX` | 自己室內光十筆的最小、最大值 |
 | `SHADE_MIN`、`SHADE_MAX` | 自己遮光十筆的最小、最大值 |
 
-分界與方向由程式算，不必另把 610 抄進程式。確認第 {{page:upload}} 頁設定後 Upload，Monitor 選 115200。
+分界與方向由程式算，不必另把 610 抄進程式。板子只接 COM USB，依第 {{page:upload}} 頁設定後 Upload。拔 USB，依第 {{page:adcwire}} 頁接回光敏電路；再接 USB，Monitor 選 115200。
 
 ```text
 status=ready ... threshold=610 shade_higher=true
@@ -505,6 +522,9 @@ status=ready ... threshold=610 shade_higher=true
 **若全部都判同一類：**先對照原始值與四個範圍，確認條件、上傳版本、模組位置與組別資料。不要先交換電源線。
 
 同一個 raw 落在兩組範圍之間時，程式雖然印了標籤，基準紀錄中是否真的出現過這個數字？
+
+<!-- page: codeclassifier | 完整基本程式 -->
+{{program:week03_light_classifier}}
 
 <!-- page: quality | 標籤不是保證 -->
 ## 看 raw，也看為什麼這樣判
@@ -571,10 +591,10 @@ status=ready ... threshold=610 shade_higher=true
 
 **為什麼預期約 0.3 V？**電流先經上面 10 kΩ，再經下面 1 kΩ，最後回到 GND。兩顆串聯，流過它們的電流相同；比較大的電阻分到比較大的電壓差。
 
-計算先定義：供電電壓 **Vs**，上方電阻 **R上**，下方電阻 **R下**，中間相對 GND 的電壓 **V中**。
+供電電壓是 3V3 對 GND；中間電壓是第 23 列對 GND；上方電阻靠近 3V3，下方電阻靠近 GND。電壓單位 V，兩個電阻須使用相同單位。
 
 ```text
-V中 = Vs × R下 ÷ (R上 + R下)
+中間電壓 = 供電電壓 × 下方電阻 ÷ (上方電阻 + 下方電阻)
     = 3.3 V × 1 kΩ ÷ (10 kΩ + 1 kΩ)
     = 0.3 V
 ```
@@ -584,7 +604,7 @@ V中 = Vs × R下 ÷ (R上 + R下)
 | 供電端 → 中間 | 3.3 V → 0.3 V | 上方電阻：3.0 V |
 | 中間 → GND | 0.3 V → 0 V | 下方電阻：0.3 V |
 
-電表量的是中間到 GND，所以對應**下方電阻的電壓差**。若實際供電不是 3.3 V，用自己量的 Vs 與阻值重算，不把差異直接當成錯接。
+電表量的是中間到 GND，所以對應**下方電阻的電壓差**。若實際供電不是 3.3 V，用自己量的供電電壓與阻值重算，不把差異直接當成錯接。
 
 交換電阻前，**先拔 USB、確認 PWR 熄滅、電表 OFF。**
 
@@ -599,7 +619,7 @@ USB 保持拔除：把 **1 kΩ 接 c20 → c23**；**10 kΩ 接 d23 → d26**。
 核對後插 USB，直流 20 V，黑 e3、紅 e23。我的結果：______ V。保存第二張接線照片，再移開表筆、拔 USB、電表 OFF。
 
 ```text
-V中 = 3.3 V × 10 kΩ ÷ (1 kΩ + 10 kΩ)
+中間電壓 = 3.3 V × 10 kΩ ÷ (1 kΩ + 10 kΩ)
     = 3.0 V
 ```
 
@@ -630,71 +650,41 @@ I = 3.3 V ÷ (10000 Ω + 1000 Ω)
 
 短路**可能**造成發熱、保護動作或損壞；不代表每次一定燒壞。沒有外加電阻也不等於 R=1 Ω，導線電阻可能遠小於 1 Ω，實際電流還受電源與接觸限制。
 
-<!-- page: exercise | 練習 · 練習 -->
-## 幫一個遮光提醒器找錯
-> 只在紙上作答，不製造短路，也不更動硬體。
+<!-- page: flowcase1 | 只改一處，想想結果 -->
+## 分壓器少一顆電阻，接點電壓呢？
+> 電路連接示意；僅作圖上推演，保持現有實物接線不動。
 
-同一組設備、同一位置，室內光十筆範圍 **400～440**；遮光十筆範圍 **1000～1040**。以下是為練習設計的資料。
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="分壓器少一顆電阻，接點電壓呢？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">3V3</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">上方 10 kΩ</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">量測接點</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">下方 1 kΩ</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">GND</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">3V3</text><line x1="121" y1="193" x2="139" y2="193" stroke="#246e73" stroke-width="2" /><rect x="139" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="198" font-size="16" text-anchor="middle">上方 10 kΩ</text><line x1="251" y1="193" x2="269" y2="193" stroke="#246e73" stroke-width="2" /><rect x="269" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="198" font-size="16" text-anchor="middle">量測接點</text><line x1="381" y1="193" x2="399" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" stroke-dasharray="5 4"/><text x="455" y="198" font-size="16" text-anchor="middle">下方拆掉</text><line x1="511" y1="193" x2="529" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">GND</text><text x="10" y="261" font-size="16">線表示電路連接；不是實物腳序或完整接線圖。</text></svg>
 
-1. 用兩段相近邊界的中點算分界。raw 等於分界時，依本課規則判哪一類？
-2. 新 raw=430、800、4095，各會印什麼標籤？哪筆落在兩段基準之間？哪筆先不判？
-3. 同學說「raw=800 就是 0.8 V，而且一定遮光」。這句話哪兩個地方不能成立？
-4. 供電 3.3 V，上方 1 kΩ、下方 10 kΩ。中間相對 GND 多少 V？電表選什麼檔、紅黑筆各碰哪裡？
-5. 同學將紅筆插 10A，打算照量電壓的方法跨接 3V3 與 GND。通電前你要阻止哪件事？
+**想一想：** 只拆掉下方 1 kΩ，留下斷路，不用線補上。紅筆仍量中間接點、黑筆仍接 GND，讀值會接近 0 V，還是 3.3 V？
 
-| 題目 | 我的答案或計算 |
-|---|---|
-| 1 | __________________________________ |
-| 2 | __________________________________ |
-| 3 | __________________________________ |
-| 4 | __________________________________ |
-| 5 | __________________________________ |
+**原理提示：** 高阻抗量測下，上方電阻電流變得很小，壓降接近 0；中間接點反而接近 3.3 V。
 
-每題指出使用的數字、接點或量測條件。
+只有標記處改變，其餘供電、程式與環境條件沿用正常情境。不可把未知結果直接寫成 0、LOW 或「一定停止」。
 
-<!-- page: answer | 練習解答 · 參考解答 -->
-## 看數字，也說出判斷的限制
-> 對照上一頁的同一組假資料，不代替自己的實測結果。
-
-**1. 分界 720。**(440 + 1000) ÷ 2 = 720。遮光在較高一側；本程式低側包含等號，因此 raw=720 判室內光，但它落在兩段基準之間，quality 為 suspect。
-
-**2. 分類與原因：**
-
-| raw | 標籤 | 紀錄該怎麼看 |
-|---:|---|---|
-| 430 | 室內光 | 在室內基準內；relative_only |
-| 800 | 遮光 | 超過 720，但在基準之間；suspect |
-| 4095 | 未判定 | 端點；suspect，不直接宣稱斷線 |
-
-**3. 兩個問題：**raw 是 ADC 整數，不能移動小數點當成精確伏特；800 雖依規則被標成遮光，卻不在任何已觀察基準內，不能保證真實條件。
-
-**4. 中間理想 3.0 V。**3.3 × 10 ÷ (1 + 10) = 3.0。黑筆插 COM 並碰 GND 延長端 e3；紅筆插 VΩmA 並碰中間延長端 e23；選直流 20 V。接線前 USB 拔除，核對後才供電量測。
-
-**5. 不可用電流插孔／檔位跨接電源。**保持斷電，將紅筆插回 VΩmA、選直流 20 V，再依正確電壓接法核對。不是只改旋鈕、忘了插孔。
-
-**回到作品：**哪一筆數據最能讓你看出「程式有標籤」不等於「已確認環境」？說明 raw=800 的原因，比只背答案更重要。
-
-<!-- page: combinegoal | 加入上週零件：一起做 -->
+<!-- page: combinegoal | 按鈕與光敏整合 -->
 ## 按一下，才記下一筆光線
-> Week 2 的按鈕，加上本週的 KY-018。不增加新種類的零件。
+> 用按鈕決定何時保存感測值。
 
-前面是持續讀光線；現在由你決定何時記錄。可用在比較「紙盒打開／蓋上」的光線，不宣稱能自動辨認任何盒子。
+固定光敏模組的位置，比較紙盒打開、蓋上時的讀值。這裡記錄光線變化，不宣稱能自動辨認所有盒子。
 
-| 用到的舊能力 | 這次拿來做什麼 |
+| 零件或工具 | 這次的作用 |
 |---|---|
-| Week 2：放開再按、長按只算一次 | 一次按壓只啟動一批取樣 |
-| Week 3：光敏 S 接 ADC | 按下時讀取 raw |
-| Serial 文字紀錄 | 保存批次、筆數、raw 與開機時間 |
+| 按鈕接 GPIO5 | 觸發一次記錄 |
+| 光敏 S 接 GPIO4 | 提供當下的原始讀值 |
+| Serial Monitor | 顯示序號、raw 與開機時間 |
 
-按下啟動一批取樣；持續壓住不新增批次，放開後才能再次按下。
+**預期結果：**按一下印一筆；持續按住不重複印；放開再按，才新增下一筆。這需要程式記住按鈕是否已放開，不能只用「讀到 LOW 就記錄」。
+
+Week2 的按鈕接線與 HIGH／LOW 概念沿用；本例另外加入按壓辨識，做法與完整程式都列在本冊。
 
 <!-- page: combinewire | 斷電換回按鈕 -->
 ## GPIO5 這次只讀按鈕
 > 本週前面 GPIO5 曾經輸出電壓；不能直接沿用那支程式接按鈕。
 
 1. 拔 USB、拆掉全部外接線；收起分壓電阻與 GPIO5 電壓量測線。
-2. 開啟 [完整取樣程式](button_light_capture/button_light_capture.ino)。依本組板卡確認設定後，先只接 USB 上傳。
-3. 關閉 Monitor、拔 USB，才依表重接。不要接 5Vin。
+2. 開啟 [button_light_capture.ino](button_light_capture/button_light_capture.ino)。依下表填入已確認設定，Ctrl+S 儲存；依第 {{page:upload}} 頁設定，只接 COM USB 上傳。
+3. Monitor 選 115200，應看到 event=ready release_button_first。關閉 Monitor、拔 USB，才依表重接。不要接 5Vin。
 
 | 設定 | 圖示板型已確認後的接法 |
 |---|---|
@@ -707,154 +697,90 @@ I = 3.3 V ÷ (10000 Ω + 1000 Ω)
 
 <aside class="safety">原檔腳位是 −1、確認值 false。圖示 4／5 僅供已確認的 YD-ESP32-S3 板使用。GPIO5 設成 INPUT_PULLUP，不是把 3V3 電源直接接到按鈕。</aside>
 
-<!-- page: combinetry | 留下自己的資料 -->
+<!-- page: combinepicture | 斷電接線圖 -->
+## 按鈕與光敏各接一個 GPIO
+> 按鈕與光敏共用 GND，但訊號線分開。
+
+{{diagram:combinedwiring}}
+
+- 按鈕四腳插 e27、f27、e29、f29，跨過麵包板中央溝槽。
+- a27 與 e27 相通；a29 與 e29 相通；a15 與 c15 相通。
+- KY 中間供電腳接 b6；不是 GPIO5，也不是 5Vin。
+
+接 USB 前核對：第 6 列是 3V3；第 3、29 列是 GND；第 15 列是光敏訊號；第 27 列是按鈕訊號。第 15、27 列不能互接。
+
+<!-- page: combinetry | 操作與預期結果 -->
 ## 打開、蓋上，各按一次
 > 保持感測器位置不動，只有遮光條件改變。
 
-接 USB，Monitor 選 115200。先放開按鈕至少 0.1 秒，再按住約半秒，確保程式看得到。
+接 COM USB，Monitor 選 115200。先放開按鈕至少 0.1 秒，再按住約半秒。
 
-| 操作 | 預期觀察；請另記實際結果 |
+| 操作 | 預期結果 |
 |---|---|
-| 室內光，按一次 | batch=1、index=1，一筆 raw |
-| 按住兩秒 | 不應新增第二筆 |
-| 放開，再遮光按一次 | batch=2、index=1；raw 大小方向以實物為準 |
-| 開機時壓住按鈕 | 先不記錄；放開穩定後重新按才記錄 |
+| 室內光，按一次 | sample=1，一筆 raw |
+| 按住兩秒 | 不新增資料 |
+| 放開，遮光，再按一次 | sample=2，一筆新的 raw |
+| 按 RST | 重新顯示 ready，記錄序號重新開始 |
+| 開機時壓住按鈕 | 放開後重新按，才記錄第一筆 |
 
-下面只是格式示例，不是實測：
+預期輸出格式；raw 與時間是示例，不是實測：
 
 ```text
-event=sample batch=1 index=1 raw=420 endpoint=0 uptime_ms=3040
-event=sample batch=2 index=1 raw=1020 endpoint=0 uptime_ms=6040
+event=sample sample=1 raw=420 endpoint=0 uptime_ms=3040
+event=sample sample=2 raw=1020 endpoint=0 uptime_ms=6040
 ```
 
-`endpoint=1` 表示 raw 是 0 或 4095，需要另查原因；不直接寫成「線斷了」。紀錄留在 Monitor，不會自動存進檔案或 Flash，請匯出到課堂筆記。
+sample 是記錄序號；uptime_ms 是開機後毫秒；endpoint=1 表示 raw 是 0 或 4095，不直接證明斷線。依第 {{page:savelog}} 頁將文字另存成檔案。
 
-<!-- page: combineexplain | 兩條路各做一件事 -->
+沒有 ready：查 Port、115200 與 Upload。出現 check_configuration：斷電核對板型、兩個不同腳位與 PROFILE_CONFIRMED。
+
+<!-- page: codebutton | 完整基本程式 -->
+{{program:button_light_capture}}
+
+<!-- page: combineexplain | 資訊流 -->
 ## 按鈕決定何時，感測器決定數字
 
 {{diagram:cumulative}}
 
-按鈕和光敏沒有串在同一條線。程式收到一次有效按壓，才向 ADC 要讀數。
+**digitalRead** 讀 GPIO5 的 HIGH／LOW，判斷按鈕。**analogRead** 讀 GPIO4 的原始數字，取得光敏訊號。它們讀的是不同腳位、不同內容。
 
-```text
-按鈕按下時的電流路徑：
-3.3 V → 晶片內部上拉電阻 → GPIO5 節點 → 按鈕 → GND
-
-光敏供電回路：
-3V3 → KY 的分壓電路 → GND → 板上電源
-```
-
-GPIO4 讀 KY 的中間電壓，不是用它供電。兩個模組共用 GND 作為參考，但 GPIO4 和 GPIO5 不能接在同一列。
-
-程式以 40 ms 等待讀值穩定，再接受按壓；這是本例的選擇，不保證捕捉比它更短的按壓。
-
-<!-- page: buildexercise | 動手練習 -->
-## 按一次，自動取三筆
-> 用按鈕記錄紙盒打開與蓋上的光線，每次保留三筆資料。
-
-要求：每次按下，立即取第一筆；後續每隔至少 200 ms 各取一筆，共三筆，同一批的 index 依序是 1、2、3。
-
-接線、40 ms 按鈕穩定時間及光敏設定保持不變。只修改 `button_light_capture.ino` 的取樣筆數。
-
-| 作品規則 | 要完成的行為 |
+| 程式部分 | 對應剛完成的操作 |
 |---|---|
-| 按下 | 啟動一批三筆資料 |
-| 持續按住 | 三筆完成後不再取樣 |
-| 放開，再按 | 新增一批，index 重新從 1 開始 |
-| 一批尚未完成時又按 | 印出忙碌原因，不排隊新增批次 |
+| pressed(now) | 只在一次新的有效按下回傳 true |
+| analogRead(PIN_LIGHT) | 在那次按下時取一筆 raw |
+| ++sampleNumber | 記錄序號加一 |
+| Serial.printf | 把序號、raw 與時間送到 Monitor |
 
-感測器位置保持固定。室內光做一批，再遮光做一批，保存兩批原始紀錄。比較 raw 的變化，但不要把 raw 當成已校準的照度。
+Monitor 顯示的是已送出的歷史文字，不會因光線繼續改變而改寫上一行。要看新資料，放開再按一次。
 
-<!-- page: buildresults | 預期結果 -->
-## 兩次按壓，六筆資料
+<!-- page: combinecurrent | 電流與供電 -->
+## 兩條電流路徑，兩個訊號接點
 
-接 USB，Monitor 選 115200；Reset 後先放開按鈕至少 0.1 秒。每次按住約半秒，放開至少半秒。
+{{diagram:combinedcurrent}}
 
-| 操作順序 | 預期新增資料 |
-|---|---|
-| 1. 室內光下按住 | batch=1，index=1 |
-| 2. 保持按住，至少再等 200 ms | batch=1，index=2 |
-| 3. 保持按住，至少再等 200 ms | batch=1，index=3 |
-| 4. 繼續按到兩秒 | 不新增資料 |
-| 5. 放開，遮光，再按住 | batch=2，index=1 |
-| 6. 至少再等 200 ms | batch=2，index=2 |
-| 7. 至少再等 200 ms | batch=2，index=3 |
+按鈕按下：GPIO5 經按鈕連到 GND，電壓接近 0 V，讀到 LOW；晶片內的上拉電阻限制這條路徑的電流。
 
-`raw` 與 `uptime_ms` 以本次量測為準，不要求複製示例數字。相鄰取樣間隔至少 200 ms，不保證剛好相等。
+按鈕放開：按鈕這一段不通，GPIO5 由晶片內上拉電阻連著 3.3 V，電壓接近 3.3 V，讀到 HIGH。
 
-輸出格式示例：
+光敏電路持續由 3V3 供電。S 是分壓的中間接點，GPIO4 讀取它相對 GND 的電壓。GPIO4 不替模組供電，也不要額外用線把 GPIO4 接到 GND。
 
-```text
-event=sample batch=1 index=1 raw=420 endpoint=0 uptime_ms=3040
-event=sample batch=1 index=2 raw=422 endpoint=0 uptime_ms=3240
-event=sample batch=1 index=3 raw=419 endpoint=0 uptime_ms=3440
-```
+<!-- page: buttonprinciple | 一次按壓的辨識 -->
+## 為什麼按住不會一直印？
+> 程式不只看 LOW，還記住是否已經放開。
 
-<!-- page: buildanswer | 參考解答 -->
-## 批次不變，筆數改成三
+| 按鈕狀態 | 程式記住的狀態 | 處理結果 |
+|---|---|---|
+| 放開且穩定 | armed = true | 準備接受下一次按下 |
+| 按下且穩定，armed 為 true | 改成 false | 記錄一筆 |
+| 繼續按住，armed 為 false | 維持 false | 不新增記錄 |
 
-```cpp
-const int SAMPLES_PER_PRESS = 3;
-const uint32_t SAMPLE_GAP_MS = 200;
-```
+**armed 是本程式的變數名稱**，表示已準備接受新的按下。它不是另一個零件。
 
-在 IDE 開啟 `button_light_capture.ino`，另存為 `three_light_samples`。Ctrl+F 搜尋兩個設定名稱，改成上面的值，其餘不改。儲存、Verify、Upload，Monitor 選 115200；接線不變，要移線先拔 USB。
+按鈕接觸的瞬間可能短暫跳動。程式記下讀值改變的時間 changedAt；同一讀值維持 40 ms 才接受，這種處理叫去抖動。40 ms 是本例選擇，不是所有按鈕的固定規格。
 
-| 測試 | 應有結果 |
-|---|---|
-| 按住兩秒 | 一批三筆，不是每 200 ms 永遠取樣 |
-| 放開後再按 | 新批次的 index 重新從 1 開始 |
-| 忙碌時的新按壓 | `event=ignored reason=batch_busy`；不另排隊 |
-| 後兩筆時間 | 相鄰取樣至少隔 200 ms，不保證精準等於 200 |
+millis() 是開機後經過的毫秒；now - changedAt 是本次讀值已維持多久。loop 持續讀按鈕。
 
-示例時間 3040、3240、3440 ms 表示同一批跨越約 0.4 秒，**不是三筆同時測量**。實際程式忙碌時，間隔可能更長。
-
-raw 有變化，可能是光線、手的位置或讀取波動。此例未校準照度；三筆都相同也不能證明結果準確。
-
-選做忙碌測試：另存副本，把 `SAMPLE_GAP_MS` 暫設 1000，按半秒、放開半秒、再按半秒，預期出現 `batch_busy`。完成後改回 200；兩種間隔的紀錄分開保存。
-
-<!-- page: finish | 一起收尾 · 把實際結果留下 -->
-## 保存一次完整過程，不重做三份
-> 照片、數值、程式與解釋放在同一份紀錄。
-
-| 保存什麼 | 對應本冊段落 |
-|---|---|
-| 板型、GPIO、IDE 版本、組別、電表檔位 | 器材及操作設定 |
-| 電源／GPIO 接線照、3V3 一筆、LOW／HIGH 各三筆、Reset 文字 | 電源及 GPIO 量測 |
-| KY 絲印、三組斷電阻值、接線照、S 電壓三筆 | 光敏模組辨認及電壓 |
-| 同輪室內／遮光各十筆 raw、條件與電壓 | 原始資料及範圍 |
-| 四個範圍值、分界方向、各五筆新驗證 | 分類規則及限制 |
-| 1 kΩ／10 kΩ 實測、A／B 預測與實測、兩張接線照 | 固定電阻分壓 |
-| 實際使用的程式、討論及練習答案、尚未完成項目 | 主範例三支；選做按鈕延伸時另有第四支 |
-
-**整理順序：**條件與接法 → 原始資料 → 比較 → 原因與限制。已有資料直接引用，不為換標題再拍照或重收。未完成寫「未量測／未確認」，不填理論值。
-
-### 最後一起斷電收納
-1. 移開表筆、關閉 Monitor、拔 USB 與其他電源，確認 PWR 熄滅。
-2. 電表 OFF。若停在分壓範例，先拆 b6 → a20，再拆電阻；若已做按鈕取樣，分壓線已拆除，只拆目前的 KY 與按鈕線。
-3. 從板子拆下 3V3、GND 線。電阻按阻值收好，模組和線材分開放。
-
-下週再把感測結果接上其他輸出與狀態判斷；本週不把一次分類成功當成可長期自動控制的系統。
-
-<!-- page: troubleshoot | 遇到問題再看 -->
-## 停在哪一步，就查那一步
-> 改線前都先斷電。不一次換線、換程式、換設定。
-
-| 現象 | 先做什麼 |
-|---|---|
-| 電阻檔顯示 1／OL | 模組保持斷電；檢查接觸、量程與表型說明，不記成 1 Ω |
-| 電壓負號 | 移開表筆、核對紅黑測點；不反接模組供電 |
-| 電源與 GND 持續蜂鳴 | 不通電；依五孔組、導線及元件逐一查路徑 |
-| GPIO 文字切換，電壓不變 | 斷電查 GPIO5 → a12、黑筆 GND，以及已上傳的程式 |
-| Monitor 沒文字或亂碼 | 查 COM 接頭、Port、115200；確認按的是 Upload 而非只有 Verify |
-| gpio_profile_missing | 腳位仍是 −1。課前未確認時不猜；設定與圖示接法必須相符 |
-| 量 S 卻總是電源電壓 | 紅筆是否量 e6 而非 e15？先移開表筆，改線要斷電 |
-| raw 固定 0／4095 | 端點可能飽和或接法有誤；先量 S 對 GND，再斷電查線，不直接判斷斷線 |
-| calibration_missing_or_overlap | 檢查四個範圍值、端點與重疊；先保留紀錄，不刪不利數字 |
-| 遮光方向和舊資料不同 | 分開保存兩輪，查光線、接法、模組及接觸；不混合基準 |
-| 異常發熱、異味、重啟 | 立即移除供電，停止使用並保存現象；不反覆通電嘗試 |
-
-<aside class="safety">電表量電壓時須供電；Ω／通斷時不可供電。即使表筆插在同一個 VΩmA 孔，旋鈕不同，內部量測方式也不同。</aside>
+開機時 armed = false。即使當時按住按鈕，也須先放開、再按，才留下第一筆資料。
 
 <!-- page: units | 需要時再看 · 數字判讀 -->
 ## V、A、Ω，不要混在一起
@@ -898,7 +824,7 @@ Sketch uses 286973 bytes (21%) ... Maximum is 1310720
 Global variables use 21936 bytes (6%) ... Maximum is 327680
 ```
 
-這是舊編譯摘要的判讀案例，與本次設定或結果不一定相同。
+這是編譯摘要格式示例，不是本次程式的編譯結果。
 
 **Flash 存程式，斷電仍保留。**第一行是在看目前分割設定給程式的空間，不是整顆 16 MB 都拿來當分母。
 
@@ -906,9 +832,101 @@ Global variables use 21936 bytes (6%) ... Maximum is 327680
 
 **PSRAM 是額外的 RAM。**不是 Flash，也不能由上面兩行就判斷它用了多少。21% 和 6% 分母不同，不能加成整片板用了 27%。
 
+<!-- page: exercise | 練習 · 練習 -->
+## 幫一個遮光提醒器找錯
+> 只在紙上作答，不製造短路，也不更動硬體。
+
+同一組設備、同一位置，室內光十筆範圍 **400～440**；遮光十筆範圍 **1000～1040**。以下是為練習設計的資料。
+
+1. 用兩段相近邊界的中點算分界。raw 等於分界時，依本課規則判哪一類？
+2. 新 raw=430、800、4095，各會印什麼標籤？哪筆落在兩段基準之間？哪筆先不判？
+3. 同學說「raw=800 就是 0.8 V，而且一定遮光」。這句話哪兩個地方不能成立？
+4. 供電 3.3 V，上方 1 kΩ、下方 10 kΩ。中間相對 GND 多少 V？電表選什麼檔、紅黑筆各碰哪裡？
+5. 同學將紅筆插 10A，打算照量電壓的方法跨接 3V3 與 GND。通電前你要阻止哪件事？
+
+| 題目 | 我的答案或計算 |
+|---|---|
+| 1 | __________________________________ |
+| 2 | __________________________________ |
+| 3 | __________________________________ |
+| 4 | __________________________________ |
+| 5 | __________________________________ |
+
+每題指出使用的數字、接點或量測條件。
+
+
+<!-- page: buildexercise | 動手練習 -->
+## 按一次，自動取三筆
+> 用按鈕記錄紙盒打開與蓋上的光線，每次保留三筆資料。
+
+每次辨識到有效按下後，取第一筆；後續每隔至少 200 ms 各讀一次感測器，共三筆。一批就是這次按下啟動的三筆資料，batch 是批次編號，index 是這批的第幾筆。
+
+以 button_light_capture 為起點，另存為 **three_light_samples**。接線、光敏設定與按壓辨識保持不變，增加定時取樣及完成後停止的功能。三筆都要重新讀感測器，不能複製同一個 raw。
+
+| 作品規則 | 要完成的行為 |
+|---|---|
+| 按下 | 第一筆不額外等 200 ms |
+| 持續按住 | 三筆完成後不再取樣 |
+| 取樣期間放開 | 仍完成這批三筆 |
+| 三筆完成後放開、再按 | 新增一批，index 從 1 開始 |
+| 一批尚未完成時又按 | 印 event=ignored reason=batch_busy，不排隊 |
+| 按 RST | 清除進度；放開再按，從 batch=1 開始 |
+
+感測器位置保持固定。室內光做一批，再遮光做一批，保存兩批原始紀錄。比較 raw 的變化，但不要把 raw 當成已校準的照度。
+
+<!-- page: buildresults | 預期結果 -->
+## 兩次按壓，六筆資料
+
+接 USB，Monitor 選 115200；Reset 後先放開按鈕至少 0.1 秒。每次按住約半秒，放開至少半秒。
+
+| 操作順序 | 預期新增資料 |
+|---|---|
+| 1. 室內光下按住 | batch=1，index=1 |
+| 2. 保持按住，至少再等 200 ms | batch=1，index=2 |
+| 3. 保持按住，至少再等 200 ms | batch=1，index=3 |
+| 4. 繼續按到兩秒 | 不新增資料 |
+| 5. 放開，遮光，再按住 | batch=2，index=1 |
+| 6. 至少再等 200 ms | batch=2，index=2 |
+| 7. 至少再等 200 ms | batch=2，index=3 |
+
+`raw` 與 `uptime_ms` 以本次量測為準，不要求複製示例數字。相鄰取樣間隔至少 200 ms，不保證剛好相等。提早放開仍應完成三筆。
+
+預期格式示例；第二次完成後，應另有 batch=2 的三行：
+
+```text
+event=sample batch=1 index=1 raw=420 endpoint=0 uptime_ms=3040
+event=sample batch=1 index=2 raw=422 endpoint=0 uptime_ms=3240
+event=sample batch=1 index=3 raw=419 endpoint=0 uptime_ms=3440
+```
+
+練習解答：**week3Ans.pdf**。
+
+<!-- page: finish | 一起收尾 · 把實際結果留下 -->
+## 保存量測與程式紀錄
+> 照片、數值、程式與解釋放在同一份紀錄。
+
+| 保存什麼 | 對應本冊段落 |
+|---|---|
+| 板型、GPIO、IDE 版本、組別、電表檔位 | 器材及操作設定 |
+| 電源／GPIO 接線照、3V3 一筆、LOW／HIGH 各三筆、Reset 文字 | 電源及 GPIO 量測 |
+| KY 絲印、三組斷電阻值、接線照、S 電壓三筆 | 光敏模組辨認及電壓 |
+| 同輪室內／遮光各十筆 raw、條件與電壓 | 原始資料及範圍 |
+| 四個範圍值、分界方向、各五筆新驗證 | 分類規則及限制 |
+| 1 kΩ／10 kΩ 實測、A／B 預測與實測、兩張接線照 | 固定電阻分壓 |
+| 實際使用的程式、討論及練習答案、尚未完成項目 | 三支量測／分類程式，加上按鈕單筆取樣 |
+
+**整理順序：**條件與接法 → 原始資料 → 比較 → 原因與限制。已有資料直接引用，不為換標題再拍照或重收。未完成寫「未量測／未確認」，不填理論值。
+
+### 最後一起斷電收納
+1. 移開表筆、關閉 Monitor、拔 USB 與其他電源，確認 PWR 熄滅。
+2. 電表 OFF。若停在分壓範例，先拆 b6 → a20，再拆電阻；若已做按鈕取樣，分壓線已拆除，只拆目前的 KY 與按鈕線。
+3. 從板子拆下 3V3、GND 線。電阻按阻值收好，模組和線材分開放。
+
+下週再把感測結果接上其他輸出與狀態判斷；本週不把一次分類成功當成可長期自動控制的系統。
+
 <!-- page: sources | 參考資料與證據界線 -->
 ## 操作依據，和還沒做的測試
-> 查核日期：2026-09-16。
+> ADC／GPIO 文件重新核對：2026-09-22；其他來源沿用既有查核。
 
 - [Espressif Arduino-ESP32 ADC](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html)：原始值、解析度、衰減與量測範圍。
 - [Espressif GPIO](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html)：輸入、輸出及 digitalWrite。
@@ -924,4 +942,4 @@ Global variables use 21936 bytes (6%) ... Maximum is 327680
 
 教師課前須確認使用板型、GPIO5 輸出與 GPIO4 ADC 的適用接法。既有 BOARD-T01 的觀察不代表全班每片板子都已通過；本稿不解除公開程式中 −1 的保護設定。
 
-後方附上四支程式全文，包含按鈕取樣延伸，便於離線閱讀。實際上傳開完整 `.ino` 檔，不只複製中間某一頁。
+四支基本程式全文列在各自操作段落。實際上傳開完整 .ino 檔，不只複製中間一頁。兩份練習的解答另列於 week3Ans.pdf。

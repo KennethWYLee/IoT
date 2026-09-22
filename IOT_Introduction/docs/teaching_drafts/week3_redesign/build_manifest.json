@@ -47,183 +47,187 @@
     },
     {
       "number": 12,
-      "id": "gpioexplain"
+      "id": "codegpio"
     },
     {
       "number": 13,
-      "id": "kyidentify"
+      "id": "codegpio_1"
     },
     {
       "number": 14,
-      "id": "kyresistance"
+      "id": "gpioexplain"
     },
     {
       "number": 15,
-      "id": "kyresistmeaning"
+      "id": "kyidentify"
     },
     {
       "number": 16,
-      "id": "kywire"
+      "id": "kyresistance"
     },
     {
       "number": 17,
-      "id": "kyvoltage"
+      "id": "kyresistmeaning"
     },
     {
       "number": 18,
-      "id": "adcupload"
+      "id": "kywire"
     },
     {
       "number": 19,
-      "id": "adcwire"
+      "id": "kyvoltage"
     },
     {
       "number": 20,
-      "id": "savelog"
+      "id": "adcupload"
     },
     {
       "number": 21,
-      "id": "sample"
+      "id": "adcwire"
     },
     {
       "number": 22,
-      "id": "adcmeaning"
+      "id": "savelog"
     },
     {
       "number": 23,
-      "id": "ranges"
+      "id": "sample"
     },
     {
       "number": 24,
-      "id": "classifyupload"
+      "id": "coderaw"
     },
     {
       "number": 25,
-      "id": "validation"
+      "id": "coderaw_1"
     },
     {
       "number": 26,
-      "id": "quality"
+      "id": "adcmeaning"
     },
     {
       "number": 27,
-      "id": "resistor"
+      "id": "flowcase2"
     },
     {
       "number": 28,
-      "id": "dividera"
+      "id": "ranges"
     },
     {
       "number": 29,
-      "id": "dividerameasure"
+      "id": "classifyupload"
     },
     {
       "number": 30,
-      "id": "dividerb"
+      "id": "validation"
     },
     {
       "number": 31,
-      "id": "current"
+      "id": "codeclassifier"
     },
     {
       "number": 32,
-      "id": "exercise"
+      "id": "codeclassifier_1"
     },
     {
       "number": 33,
-      "id": "answer"
+      "id": "codeclassifier_2"
     },
     {
       "number": 34,
-      "id": "combinegoal"
+      "id": "quality"
     },
     {
       "number": 35,
-      "id": "combinewire"
+      "id": "resistor"
     },
     {
       "number": 36,
-      "id": "combinetry"
+      "id": "dividera"
     },
     {
       "number": 37,
-      "id": "combineexplain"
+      "id": "dividerameasure"
     },
     {
       "number": 38,
-      "id": "buildexercise"
+      "id": "dividerb"
     },
     {
       "number": 39,
-      "id": "buildresults"
+      "id": "current"
     },
     {
       "number": 40,
-      "id": "buildanswer"
+      "id": "flowcase1"
     },
     {
       "number": 41,
-      "id": "finish"
+      "id": "combinegoal"
     },
     {
       "number": 42,
-      "id": "troubleshoot"
+      "id": "combinewire"
     },
     {
       "number": 43,
-      "id": "units"
+      "id": "combinepicture"
     },
     {
       "number": 44,
-      "id": "memory"
+      "id": "combinetry"
     },
     {
       "number": 45,
-      "id": "sources"
+      "id": "codebutton"
     },
     {
       "number": 46,
-      "id": "week03_gpio_voltage_cycle-0"
+      "id": "codebutton_1"
     },
     {
       "number": 47,
-      "id": "week03_gpio_voltage_cycle-1"
+      "id": "combineexplain"
     },
     {
       "number": 48,
-      "id": "week03_ky018_raw-0"
+      "id": "combinecurrent"
     },
     {
       "number": 49,
-      "id": "week03_ky018_raw-1"
+      "id": "buttonprinciple"
     },
     {
       "number": 50,
-      "id": "week03_light_classifier-0"
+      "id": "units"
     },
     {
       "number": 51,
-      "id": "week03_light_classifier-1"
+      "id": "memory"
     },
     {
       "number": 52,
-      "id": "week03_light_classifier-2"
+      "id": "exercise"
     },
     {
       "number": 53,
-      "id": "button_light_capture-0"
+      "id": "buildexercise"
     },
     {
       "number": 54,
-      "id": "button_light_capture-1"
+      "id": "buildresults"
     },
     {
       "number": 55,
-      "id": "button_light_capture-2"
+      "id": "finish"
+    },
+    {
+      "number": 56,
+      "id": "sources"
     }
   ],
-  "sourceSha256": "3765e13ad475481cdafacb2a926b5372fd49609bde3be98ba23b036f7c690a3e",
-  "builderSha256": "908f9b9fea1d771c9d3e0bd9b549a0f59ffb892161b935d889898abe28341f2d",
+  "sourceSha256": "275304873ac7b5e731268ae91800d848828139561fd607c0affd10ac5a1b84a7",
+  "builderSha256": "d54c1d76e13d6b3c9a913766c7dd3f20aa35f5c05d9a0e4b98efad16c3c05ebc",
   "sketches": [
     {
       "path": "examples/week03_gpio_voltage_cycle/week03_gpio_voltage_cycle.ino",
@@ -239,7 +243,7 @@
     },
     {
       "path": "docs/teaching_drafts/week3_redesign/button_light_capture/button_light_capture.ino",
-      "sha256": "5896f103843d84f75d07a2ae1fb234513405bd3b9b2cb2561e9649e6bc44f16e"
+      "sha256": "2cd577306e81ca7752030939e674fb2f0ae3317d78d1d4da5c1101af7fa16e09"
     }
   ],
   "photos": [
@@ -260,5 +264,5 @@
       "sha256": "155ef7c1267faf15d93b3113922c0f04b4c164ac7f59a43295d7eee5617eefc6"
     }
   ],
-  "pdfSha256": "d49a3826282404df94cab8bf74e42f4ce7679bb4ddfe78787e60d0c8e193c0f3"
+  "pdfSha256": "c18cfef70ea9a9d532e6b643c3e4315afad43c18d95fd976313cc3165a7bbcc3"
 }

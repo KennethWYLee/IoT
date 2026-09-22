@@ -1,15 +1,43 @@
 # Week 2–7 主教材重設稿入口
 
-本次發布範圍：教師授權提交所有 main 教材與必要維護來源；Week2 補充 PDF、補充程式、私有 QA 與本機執行資料不發布。詳見[主教材發布紀錄](../lab_notes/2026-09-21-main-publication.md)。以下修訂紀錄中的「未發布」描述各輪修訂完成當時的狀態；實際提交以 Git 歷史為準。
+## 目前閱讀與維護範圍（2026-09-22）
 
-2026-09-16 起採用「全班一起操作，看到結果後再解釋原理」。2026-09-21 後續教師要求：**Week 2 已取代正式 PDF；Week 3–7 尚未取代各週正式目錄的 notebook／PDF**。Week 2 於 2026-09-22 最新批註改為 35 頁：新增電阻換成導線的圖解，保留只做加減的雙按鈕、資訊流與電流；20 人活動入場登記的規則、預期結果與觀察問題合為兩頁；所有練習解答在本機 Week2 補充第 23–30 頁；下列入口已更新。
+本輪以 Week2 的 Main／Ans 分工整理實作週，取代下面沿革中的「Main 後面直接附解答」安排。
+Week3–7 仍維護在本目錄，課程總索引已指向這些 PDF。舊週目錄 Notebook 保留，不作目前閱讀入口。
+Week11、12、14、15 維護每週 Markdown。兩類均有本機 weekNAns，並已加入 Git 忽略規則。
+本輪不 commit、push、上傳；以下過去的發布授權不代表本次已發布。
+
+| 週 | 延伸題重點 |
+|---|---|
+| 3 | 一次按壓依間隔取三筆，忙碌與長按處理 |
+| 4 | DHT 有效性、1000 ms 年齡、光線端點、原因順序及成功／跳過次數 |
+| 5 | 五秒調整、30 秒上限、暫停保存剩餘毫秒、續跑 |
+| 6 | 兩格移動、0～6 端點截限，保留舵機停止與供電限制 |
+| 7 | 每局綠／紅事件、改分／未改分次數，結束只印一份摘要 |
+| 11 | ACTIVE 拒絕再次 START、錯誤狀態與相同 command_id |
+| 12 | MQTT 主題與裝置識別、固定資料批次的 API／SQL 核對 |
+| 14 | 不阻擋 STOP 的 START 確認、裝置不偷換、歷史篩選 |
+| 15 | 四筆暗才啟動、兩筆亮就停止，遇中斷重算且 STOP 優先 |
+
+上述十個實作週（含 Week2）各加兩個反例圖，只改一個元件、連線或軟體步驟，
+在 Main 提問與簡短說明，Ans 保留完整推理。圖示不是新增接線要求。
+[本輪驗證與限制](../lab_notes/2026-09-22-weekly-main-answers.md)。
+
+## 歷史沿革
+
+
+本次發布範圍：教師授權提交所有 main 教材與必要維護來源；week2Ans、week3Ans、Week 5 OLED 補充及其程式、私有 QA 與本機執行資料不發布。詳見[主教材發布紀錄](../lab_notes/2026-09-21-main-publication.md)。以下修訂紀錄中的「未發布」描述各輪修訂完成當時的狀態；實際提交以 Git 歷史為準。
+
+2026-09-16 起採用「全班一起操作，看到結果後再解釋原理」。2026-09-21 後續教師要求：**Week 2 已取代正式 PDF；Week 3–7 尚未取代各週正式目錄的 notebook／PDF**。Week 2 於 2026-09-22 最新批註改為 35 頁：新增電阻換成導線的圖解，保留只做加減的雙按鈕、資訊流與電流；20 人活動入場登記的規則、預期結果與觀察問題合為兩頁；所有練習解答在本機 week2Ans.pdf 第 1–8 頁；OLED 逐步講義移至 Week 5；下列入口已更新。
+
+2026-09-22：Week3 Main 為 54 頁，基本範例全文嵌在各自操作段落；練習解答與三筆取樣程式另放本機 week3Ans（10 頁）。本輪不 commit、push 或上傳；以下歷史安排不覆蓋這項分離決定。
 
 2026-09-21：依 [Week 2 修正準則](week2_redesign/revision_guidelines.md)，修正下列 Week 3–7 與現行 Week 11、12、14、15 實作教材。保留主題、週次、評分與報告要求，移除教學節奏旁白與版本比較，補齊練習的情境、預期結果及後續參考做法。九份 PDF 已重新產生；本輪未 commit、push 或上傳雲端，Week 2 既有修改不動。[本輪修改、閱讀入口與驗證限制](../lab_notes/2026-09-21-other-weeks-revision/README.md)為最新補充，以下較早紀錄的發布授權不代表本輪已發布。
 
 | 週次 | 閱讀 PDF | 維護及檢查 |
 |---|---|---|
-| Week 2 | [正式主教材](../../Week_02_ESP32_Hardware_Basics/week2_main.pdf)（補充另留本機，尚未發布） | [README](week2_redesign/README.md) |
-| Week 3 | [電表、光敏與 ADC](week3_redesign/week3_main.pdf) | [README](week3_redesign/README.md)、[檢查紀錄](week3_redesign/review.md) |
+| Week 2 | [正式主教材](../../Week_02_ESP32_Hardware_Basics/week2_main.pdf)（week2Ans 另留本機，尚未發布） | [README](week2_redesign/README.md) |
+| Week 3 | [電表、光敏與 ADC](week3_redesign/week3_main.pdf)（week3Ans 另留本機） | [README](week3_redesign/README.md)、[檢查紀錄](week3_redesign/review.md) |
 | Week 4 | [環境紀錄、失敗與遮光提醒](week4_redesign/week4_main.pdf) | [README](week4_redesign/README.md)、[檢查紀錄](week4_redesign/review.md) |
 | Week 5 | [RGB、OLED 與倒數](week5_redesign/week5_main.pdf) | [README](week5_redesign/README.md)、[檢查紀錄](week5_redesign/review.md) |
 | Week 6 | [舵機紙指針與加減計數](week6_redesign/week6_main.pdf) | [README](week6_redesign/README.md)、[檢查紀錄](week6_redesign/review.md) |
@@ -45,5 +73,5 @@
 - PDF 是閱讀成品；Markdown／builder 是維護來源，程式從既有 `.ino` 自動嵌入。不要直接修改 PDF。
 - 讀取[硬體狀態](../hardware/hardware_state.md)再碰實物。Git 同步不代表元件接法、供電、GPIO 與實測進度自動同步。
 - 教材內的假資料、示意圖、主機替代 I/O 測試都不是實物已通過。課前待確認項目見各週 review。
-- 練習後緊接解答，適合共讀與形成性練習，不是隱藏答案的考卷。私有 QA、runtime 資料庫、暫存渲染與編譯產物不納入這次發布。
+- Week2、3 的延伸練習解答已獨立且暫留本機；其他週仍保留練習後接解答的既有安排。私有 QA、runtime 資料庫、暫存渲染與編譯產物不納入這次發布。
 - Week 3／4 review 內「當時未 commit／push」描述撰寫當下。本次教師已授權把 Week 3–5 重設稿一併提交與推送；不表示正式出口已切換或已完成硬體驗證。

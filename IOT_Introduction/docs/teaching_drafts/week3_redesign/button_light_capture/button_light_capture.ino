@@ -1,17 +1,16 @@
 #include <Arduino.h>
 
-// Fill only after checking the actual board and the powered-off wiring.
+// 未確認實物與斷電接線前，保持停用。
 const bool PROFILE_CONFIRMED = false;
 const int PIN_LIGHT = -1;
 const int PIN_BUTTON = -1;
-const int SAMPLES_PER_PRESS = 1;
-const uint32_t SAMPLE_GAP_MS = 200;
 const uint32_t DEBOUNCE_MS = 40;
 
-bool ready = false, armed = false, collecting = false;
-int lastButton = HIGH, sampleIndex = 0;
-uint32_t changedAt = 0, lastSampleAt = 0, batch = 0;
+bool ready = false, armed = false;
+int lastButton = HIGH;
+uint32_t changedAt = 0, sampleNumber = 0;
 
+// 讀值穩定 40 ms 才接受；放開後，下一次按下才再回傳 true。
 bool pressed(uint32_t now) {
   const int level = digitalRead(PIN_BUTTON);
   if (level != lastButton) {
@@ -25,27 +24,15 @@ bool pressed(uint32_t now) {
   return true;
 }
 
-void capture(uint32_t now) {
-  const int raw = analogRead(PIN_LIGHT);
-  ++sampleIndex;
-  Serial.printf("event=sample batch=%lu index=%d raw=%d "
-                "endpoint=%d uptime_ms=%lu\n",
-                (unsigned long)batch, sampleIndex, raw,
-                raw == 0 || raw == 4095, (unsigned long)now);
-  lastSampleAt = now;
-  if (sampleIndex >= SAMPLES_PER_PRESS) collecting = false;
-}
-
 void setup() {
   Serial.begin(115200);
-  if (!PROFILE_CONFIRMED || PIN_LIGHT < 0 || PIN_BUTTON < 0 ||
-      PIN_LIGHT == PIN_BUTTON || SAMPLES_PER_PRESS < 1 ||
-      SAMPLES_PER_PRESS > 10) {
+  if (!PROFILE_CONFIRMED || PIN_LIGHT < 0 ||
+      PIN_BUTTON < 0 || PIN_LIGHT == PIN_BUTTON) {
     Serial.println("event=blocked reason=check_configuration");
     return;
   }
-  pinMode(PIN_BUTTON, INPUT_PULLUP);
-  analogReadResolution(12);
+  pinMode(PIN_BUTTON, INPUT_PULLUP); // 放開 HIGH，按下 LOW。
+  analogReadResolution(12);         // ADC 原始值：0～4095。
   analogSetPinAttenuation(PIN_LIGHT, ADC_11db);
   changedAt = millis();
   ready = true;
@@ -55,16 +42,12 @@ void setup() {
 void loop() {
   if (!ready) return;
   const uint32_t now = millis();
-  if (pressed(now)) {
-    if (collecting) {
-      Serial.println("event=ignored reason=batch_busy");
-    } else {
-      ++batch;
-      sampleIndex = 0;
-      collecting = true;
-      capture(now);
-    }
-  }
-  if (collecting && uint32_t(now - lastSampleAt) >= SAMPLE_GAP_MS)
-    capture(now);
+  if (!pressed(now)) return; // 沒有新的有效按壓，就不取樣。
+
+  const int raw = analogRead(PIN_LIGHT); // 按下時才讀一次光敏訊號。
+  ++sampleNumber;
+  Serial.printf("event=sample sample=%lu raw=%d "
+                "endpoint=%d uptime_ms=%lu\n",
+                (unsigned long)sampleNumber, raw,
+                raw == 0 || raw == 4095, (unsigned long)now);
 }

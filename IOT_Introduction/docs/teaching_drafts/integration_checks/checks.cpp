@@ -22,32 +22,26 @@ int main() {
   CHECK(!ready); CHECK(modes == 0); CHECK(adcCalls == 0);
   CHECK(dhtBegins == 0); CHECK(wireBegins == 0); CHECK(sends == 0);
 #elif TASK_WEEK == 3
-  advance(100); CHECK(batch == 0);
+  advance(100); CHECK(sampleNumber == 0);
   releaseButtons(); pressButton(5);
-  CHECK(batch == 1); CHECK(sampleIndex == 1); CHECK(adcCalls == 1);
-  if (SAMPLES_PER_PRESS == 3) {
-    releaseButtons(); pressButton(5);
-    CHECK(contains("reason=batch_busy")); CHECK(batch == 1);
-    advance(120); CHECK(sampleIndex == 2);
-    adcValue = 4095; advance(200); CHECK(sampleIndex == 3);
-    CHECK(contains("endpoint=1")); CHECK(!collecting);
-  }
-  advance(2000); CHECK(batch == 1);
-  CHECK(adcCalls == SAMPLES_PER_PRESS);
+  CHECK(sampleNumber == 1); CHECK(adcCalls == 1);
+  CHECK(contains("event=sample sample=1 raw=420"));
+  advance(2000); CHECK(sampleNumber == 1); CHECK(adcCalls == 1);
   releaseButtons();
   levels[5] = LOW; loop(); advance(10);
   levels[5] = HIGH; loop(); advance(10);
-  CHECK(batch == 1); // Short bounce is not accepted.
-  releaseButtons(); pressButton(5); CHECK(batch == 2);
-  advance(200); advance(200);
+  CHECK(sampleNumber == 1); // Short bounce is not accepted.
+  releaseButtons(); adcValue = 4095; pressButton(5);
+  CHECK(sampleNumber == 2); CHECK(contains("endpoint=1"));
   fakeNow = UINT32_MAX - 20; releaseButtons(); pressButton(5);
-  CHECK(batch == 3); CHECK(contains("index=1"));
+  CHECK(sampleNumber == 3); CHECK(adcCalls == 3);
+  CHECK(!contains("batch="));
 #elif TASK_WEEK == 4
   advance(100); CHECK(attempt == 0);
   releaseButtons(); pressButton(5);
   CHECK(attempt == 1);
-  CHECK(recordCount == (REQUIRE_VALID_DHT ? 0u : 1u));
-  CHECK(contains(REQUIRE_VALID_DHT ? "event=skipped" : "dht_age_ms=NA"));
+  CHECK(recordCount == 1u);
+  CHECK(contains("dht_age_ms=NA"));
   fakeNow = 2500; loop(); CHECK(dhtFinishedAt == 2525); CHECK(dhtValid);
   CHECK(dhtReads == 1);
   releaseButtons(); pressButton(5);
@@ -56,12 +50,12 @@ int main() {
   advance(1000); CHECK(recordCount == saved); // Held button.
   fakeTemperature = NAN; fakeNow = 5000; loop(); CHECK(!dhtValid);
   releaseButtons(); pressButton(5); CHECK(attempt == 3);
-  CHECK(recordCount == saved + (REQUIRE_VALID_DHT ? 0u : 1u));
+  CHECK(recordCount == saved + 1u);
   CHECK(std::isnan(temperature)); // Never reuse the earlier success as new.
   fakeTemperature = 25; adcValue = 4095; fakeNow = 7500; loop();
   releaseButtons(); pressButton(5); CHECK(contains("endpoint=1"));
   CHECK(dhtReads == 3);
-  CHECK(recordCount == (REQUIRE_VALID_DHT ? 2u : 4u));
+  CHECK(recordCount == 4u);
 #elif TASK_WEEK == 5
   advance(100); CHECK(!running); CHECK(durationSeconds == STEP_SECONDS);
   releaseButtons();

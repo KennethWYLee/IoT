@@ -263,7 +263,7 @@ def main() -> int:
         files = sorted(path.name for path in directory.iterdir() if path.is_file())
         if number == 2:
             expected = ["week2_main.pdf"]
-            local_supplement = directory / "Week2補充.pdf"
+            local_supplement = directory / "week2Ans.pdf"
             if local_supplement.exists():
                 expected = sorted([*expected, local_supplement.name])
             if files != expected:
@@ -278,11 +278,11 @@ def main() -> int:
                 data = source.read_text(encoding="utf-8").replace("\r\n", "\n").encode("utf-8") if source.suffix in {".cjs", ".ino"} else source.read_bytes()
                 if hashlib.sha256(data).hexdigest() != expected_hash:
                     errors.append(f"Week 2 layout source changed: {name}")
-            supplement = COURSE / "docs/teaching_drafts/week2_oled_supplement/Week2補充.pdf"
+            supplement = COURSE / "docs/teaching_drafts/week2_answers/week2Ans.pdf"
             if local_supplement.exists():
                 if not supplement.exists() or local_supplement.read_bytes() != supplement.read_bytes():
-                    errors.append("Week 2 local supplement differs from its build output")
-            summaries.append(f"Week 02: layout-built PDF ({manifest['pages']} pages); supplement optional")
+                    errors.append("Week 2 local answer PDF differs from its build output")
+            summaries.append(f"Week 02: layout-built PDF ({manifest['pages']} pages); week2Ans optional")
             continue
         expected = (
             [f"week{number}_main.ipynb", f"week{number}_main.pdf"]

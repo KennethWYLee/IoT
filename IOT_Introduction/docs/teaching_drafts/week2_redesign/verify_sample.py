@@ -59,7 +59,7 @@ assert 'boundaryReported' not in ''.join(parser.texts)
 pdf = repository / 'IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.pdf'
 assert pdf.read_bytes() == (root / 'Week2_main_layout_sample.pdf').read_bytes()
 doc = fitz.open(pdf)
-assert len(doc) == 35
+assert len(doc) == 37
 expected_titles = {
     21: '沒按按鈕，為什麼是 3.3V？',
     22: '按下後，為什麼變成 0V？',
@@ -107,7 +107,7 @@ page_checks = []
 for number, page in enumerate(doc, 1):
     content = page.get_text()
     assert len(content) > 250, (number, len(content))
-    assert f'{number} / 35' in content, number
+    assert f'{number} / 37' in content, number
     assert '\ufffd' not in content, number
     outside = []
     for block in page.get_text('dict')['blocks']:
@@ -127,9 +127,9 @@ assert all(unchanged.values()), unchanged
 reviewed = fitz.open(archive / 'Week2_layout_before_answer_move.pdf')
 assert len(reviewed) == 37
 # Keep unaffected teaching pages and source credits unchanged.
-for new_index, old_index in [(i,i) for i in range(22) if i not in {8,11,20,21}] + [(23,22),(26,25),(27,26),(34,36)]:
+for new_index, old_index in [(i,i) for i in range(22) if i not in {8,11,20,21}] + [(23,22),(26,25),(27,26),(36,36)]:
     before = re.sub(r'\d+\s*/\s*37\s*$', '', reviewed[old_index].get_text())
-    after = re.sub(r'\d+\s*/\s*35\s*$', '', doc[new_index].get_text())
+    after = re.sub(r'\d+\s*/\s*37\s*$', '', doc[new_index].get_text())
     assert ''.join(before.split()) == ''.join(after.split()), (new_index+1,old_index+1)
 assert '可傳資料的 USB 線' in doc[8].get_text()
 assert '失敗時保留錯誤文字' in doc[11].get_text()

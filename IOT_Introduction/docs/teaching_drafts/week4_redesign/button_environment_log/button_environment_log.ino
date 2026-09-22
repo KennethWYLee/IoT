@@ -6,7 +6,6 @@ const bool PROFILE_CONFIRMED = false;
 const int PIN_LIGHT = -1;
 const int PIN_BUTTON = -1;
 const int PIN_DHT = -1;
-const bool REQUIRE_VALID_DHT = false;
 const uint32_t DHT_INTERVAL_MS = 2500;
 const uint32_t DEBOUNCE_MS = 40;
 DHT dht(PIN_DHT, DHT11);
@@ -29,12 +28,7 @@ bool pressed(uint32_t now) {
 
 void saveRecord(uint32_t now) {
   ++attempt;
-  if (REQUIRE_VALID_DHT && (!haveDht || !dhtValid)) {
-    Serial.printf("event=skipped attempt=%lu reason=dht_unavailable\n",
-                  (unsigned long)attempt);
-    return;
-  }
-  ++recordCount;
+  ++recordCount; // Basic example records the latest result, including invalid data.
   const int raw = analogRead(PIN_LIGHT);
   Serial.printf("event=record attempt=%lu record=%lu raw=%d "
                 "endpoint=%d temperature_c=%.1f humidity_pct=%.1f "

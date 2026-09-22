@@ -67,139 +67,143 @@
     },
     {
       "number": 17,
-      "id": "clock"
+      "id": "gamecode"
     },
     {
       "number": 18,
-      "id": "events"
+      "id": "gamecode_1"
     },
     {
       "number": 19,
-      "id": "thresholds"
+      "id": "gamecode_2"
     },
     {
       "number": 20,
-      "id": "priority"
+      "id": "gamecode_3"
     },
     {
       "number": 21,
-      "id": "states"
+      "id": "gamecode_4"
     },
     {
       "number": 22,
-      "id": "logs"
+      "id": "gamecode_5"
     },
     {
       "number": 23,
-      "id": "faults"
+      "id": "gamecode_6"
     },
     {
       "number": 24,
-      "id": "exercise"
+      "id": "gamecode_7"
     },
     {
       "number": 25,
-      "id": "answer"
+      "id": "gamecode_8"
     },
     {
       "number": 26,
-      "id": "extra"
+      "id": "gamecode_9"
     },
     {
       "number": 27,
-      "id": "stage2fields"
+      "id": "gamecode_10"
     },
     {
       "number": 28,
-      "id": "stage2"
+      "id": "gamecode_11"
     },
     {
       "number": 29,
-      "id": "layout"
+      "id": "clock"
     },
     {
       "number": 30,
-      "id": "slower"
+      "id": "events"
     },
     {
       "number": 31,
-      "id": "comparison"
+      "id": "thresholds"
     },
     {
       "number": 32,
-      "id": "buildexercise"
+      "id": "flowcase2"
     },
     {
       "number": 33,
-      "id": "buildresults"
+      "id": "priority"
     },
     {
       "number": 34,
-      "id": "buildanswer"
+      "id": "states"
     },
     {
       "number": 35,
-      "id": "troubleshooting"
+      "id": "flowcase1"
     },
     {
       "number": 36,
-      "id": "finishrecord"
+      "id": "logs"
     },
     {
       "number": 37,
-      "id": "sources"
+      "id": "faults"
     },
     {
       "number": 38,
-      "id": "week07_traffic_light_challenge-0"
+      "id": "exercise"
     },
     {
       "number": 39,
-      "id": "week07_traffic_light_challenge-1"
+      "id": "extra"
     },
     {
       "number": 40,
-      "id": "week07_traffic_light_challenge-2"
+      "id": "stage2fields"
     },
     {
       "number": 41,
-      "id": "week07_traffic_light_challenge-3"
+      "id": "stage2"
     },
     {
       "number": 42,
-      "id": "week07_traffic_light_challenge-4"
+      "id": "layout"
     },
     {
       "number": 43,
-      "id": "week07_traffic_light_challenge-5"
+      "id": "slower"
     },
     {
       "number": 44,
-      "id": "week07_traffic_light_challenge-6"
+      "id": "comparison"
     },
     {
       "number": 45,
-      "id": "week07_traffic_light_challenge-7"
+      "id": "buildexercise"
     },
     {
       "number": 46,
-      "id": "week07_traffic_light_challenge-8"
+      "id": "buildresults"
     },
     {
       "number": 47,
-      "id": "week07_traffic_light_challenge-9"
+      "id": "buildtest"
     },
     {
       "number": 48,
-      "id": "week07_traffic_light_challenge-10"
+      "id": "troubleshooting"
     },
     {
       "number": 49,
-      "id": "week07_traffic_light_challenge-11"
+      "id": "finishrecord"
+    },
+    {
+      "number": 50,
+      "id": "sources"
     }
   ],
-  "sourceSha256": "42d4bbf567238d278447670bf8fa90fd5be83edcf72bbbf3383142aff9557207",
-  "builderSha256": "9f1ec7f62e7df76d6f861fa29da251c277ffd21527f0dca04080b6775a186a37",
+  "sourceSha256": "bde3739480e5241e0109b1bc2fea5e67c51a313ccfab4c4538420d0f0db48504",
+  "builderSha256": "3daed7fa6921b0343ef3b3c9276afa03d05f23903f6996fcde113a2fde6f2dff",
   "sketches": [
     {
       "path": "examples/week07_traffic_light_challenge/week07_traffic_light_challenge.ino",
@@ -216,5 +220,5 @@
       "sha256": "33f4855d2e8bf52ee6b1232f7c70c707aec04442644c4ccdc9bdfcc5c65a3f08"
     }
   ],
-  "pdfSha256": "2d795fd59ec1372ba265c2b5d4da642ab6a8cc9ec1d565defcf65335cea00ed9"
+  "pdfSha256": "a7c396ef81c3fd6ddc7b6c51383601f55637c4ec1fa114a99b529db0ce7aee04"
 }

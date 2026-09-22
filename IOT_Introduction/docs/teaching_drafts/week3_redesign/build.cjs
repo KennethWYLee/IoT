@@ -17,7 +17,11 @@ marked.use({extensions:[{
 }]});
 
 const course = path.resolve(__dirname, '../../..');
-const tmp = path.join(__dirname, 'tmp');
+const answers = process.argv.includes('--answers');
+const destination = answers ? path.resolve(__dirname, '../week3_answers') : __dirname;
+const stem = answers ? 'week3Ans' : 'week3_main';
+const title = answers ? 'Week 3 Ans · 電氣量測與 ADC' : 'Week 3 · 電氣量測與 ADC';
+const tmp = path.join(destination, 'tmp');
 fs.mkdirSync(tmp, { recursive: true });
 const esc = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const hash = data => crypto.createHash('sha256').update(typeof data === 'string' ? data.replace(/\r\n/g,'\n') : data).digest('hex');
@@ -46,7 +50,7 @@ function nodes(rows) {
     for(let c=0;c<5;c++)s+=`<circle cx="${220+c*42}" cy="${y}" r="7" fill="white" stroke="#5c747b"/>`;
     s+=text(419,y+6,r,17,'middle');
     if(left)s+=text(5,y-12,left,18)+line(38,y,220,y)+dot(220,y);
-    if(right){const x=right.startsWith('c')?304:388;s+=line(x,y,490,y)+dot(x,y)+text(485,y-12,right,18);}
+    if(right){const pin=right.match(/^([abcde])\d/);const x=pin?220+'abcde'.indexOf(pin[1])*42:388;s+=line(x,y,490,y)+dot(x,y)+text(485,y-12,right,18);}
   });
   return svg(s+text(330,h-1,'左半部 a～e；灰色為中央槽，右半部未畫出。',16,'middle'),h+6);
 }
@@ -77,8 +81,29 @@ function divider(swap=false) {
   return svg(s,338);
 }
 
+function combinedCurrent() {
+  let s=text(12,25,'按鈕按下時：傳統電流方向',19);
+  s+=box(12,52,82,42,'3.3 V')+box(139,52,176,42,'晶片內上拉電阻')
+    +box(388,52,82,42,'按鈕')+box(548,52,90,42,'GND');
+  s+=arrow(94,73,139,73)+arrow(315,73,388,73)+arrow(470,73,548,73);
+  s+=dot(347,73)+text(347,123,'GPIO5：約 0 V',18,'middle');
+  s+=line(593,94,593,157)+line(593,157,54,157)+arrow(54,157,54,96);
+  s+=text(325,149,'經板上電源回路返回',16,'middle');
+  s+=text(12,202,'光敏電路：供電與感測接點',19);
+  s+=box(12,230,82,42,'3V3')+box(139,230,130,42,'固定電阻')
+    +box(388,230,130,42,'光敏電阻')+box(548,230,90,42,'GND');
+  s+=arrow(94,251,139,251)+arrow(269,251,388,251)+arrow(518,251,548,251);
+  s+=dot(327,251)+line(327,251,327,293)+text(327,316,'S → GPIO4 讀取電壓；不是供電線',18,'middle');
+  s+=line(593,272,593,350)+line(593,350,54,350)+arrow(54,350,54,274);
+  s+=text(325,343,'經板上電源回路返回',16,'middle');
+  return svg(s,370);
+}
 const diagrams = {
- cumulative:()=>flow(['按鈕 → GPIO5：何時開始取樣','KY S → GPIO4 ADC：當次 raw','ESP32 → USB／UART → Monitor：批次與時間']),
+ combinedwiring:()=>nodes([[3,'板 GND → a3','b3 ← KY −'],[6,'板 3V3 → a6','b6 ← KY 中間'],[15,'KY S → a15','c15 → GPIO4'],[27,'GPIO5 → a27','e27 → 按鈕'],[29,'e3 → a29','e29 → 按鈕']]),
+ combinedcurrent:combinedCurrent,
+ answerflow:()=>flow(['辨識一次新按壓','空閒：開始三筆；忙碌：回報不接受','每到間隔才重新讀 ADC，index 加一','第三筆後停止，等待下一次按下']),
+
+ cumulative:()=>flow(['按鈕 → GPIO5：一次新的有效按下','KY S → GPIO4 ADC：取得當下 raw','程式：記錄序號、raw 與開機時間','UART → CH343 → USB → Monitor']),
  overview:()=>flow(['電表量電壓','遮住光敏模組，看電壓改變','ESP32 讀數字，程式印出判斷']),
  power:()=>nodes([[3,'GND → a3','e3 → 黑筆'],[6,'3V3 → a6','e6 → 紅筆']]),
  voltage:()=>svg(box(15,35,170,70,'3V3／e6')+box(465,35,170,70,'GND／e3')+box(227,25,195,92,'直流電壓表')+line(185,69,227,69,colors.red)+line(422,69,465,69,colors.black)+text(201,135,'紅筆',19,'middle')+text(444,135,'黑筆',19,'middle')+text(325,195,'顯示例：約 +3.3 V；兩端不可用普通線直接互接。',19,'middle'),220),
@@ -93,22 +118,29 @@ const diagrams = {
  classflow:()=>flow(['新的 raw','端點先不判；其他值依分界給標籤','另查是否落在已觀察基準','一起保存 raw、label、quality、reason']),
  dividera:()=>divider(false),
  dividerb:()=>divider(true),
- current:()=>svg(box(18,50,113,52,'3V3')+box(202,50,104,52,'R上')+box(374,50,104,52,'R下')+box(533,50,103,52,'GND')+arrow(131,76,202,76)+arrow(306,76,374,76)+arrow(478,76,533,76)+line(585,102,585,177)+line(585,177,73,177)+arrow(73,177,73,104)+text(325,209,'經板上電源回路返回；畫的是傳統電流方向。',18,'middle')+text(325,28,'兩顆串聯電阻流過相同電流',20,'middle'),230)
+ current:()=>svg(box(18,50,113,52,'3V3')+box(202,50,104,52,'上方電阻')+box(374,50,104,52,'下方電阻')+box(533,50,103,52,'GND')+arrow(131,76,202,76)+arrow(306,76,374,76)+arrow(478,76,533,76)+line(585,102,585,177)+line(585,177,73,177)+arrow(73,177,73,104)+text(325,209,'經板上電源回路返回；畫的是傳統電流方向。',18,'middle')+text(325,28,'兩顆串聯電阻流過相同電流',20,'middle'),230)
 };
 
-const input = fs.readFileSync(path.join(__dirname,'week3_main.md'),'utf8');
+const sourceFile = path.join(destination, stem + '.md');
+const input = fs.readFileSync(sourceFile,'utf8');
 const parts = [...input.matchAll(/<!-- page: ([\w]+) \| (.*?) -->\s*([\s\S]*?)(?=<!-- page:|$)/g)];
 if(!parts.length) throw Error('No pages');
-const pageNumbers = Object.fromEntries(parts.map((m,i)=>[m[1],i+1]));
-const pages = parts.map(m=>({id:m[1],tag:m[2],body:m[3]}));
-const sketchNames=['week03_gpio_voltage_cycle','week03_ky018_raw','week03_light_classifier','button_light_capture'];
+const pages = [];
 const inputs = [];
-for(const name of sketchNames) {
-  const p=name.startsWith('button_') ? path.join(__dirname,name,name+'.ino') : path.join(course,'examples',name,name+'.ino');
+const sourceAnchors = new Map();
+for(const m of parts) {
+  const match = m[3].trim().match(/^\{\{program:(\w+)\}\}$/);
+  if(!match) { pages.push({id:m[1],tag:m[2],body:m[3]}); continue; }
+  const name=match[1];
+  const p=name==='button_light_capture'
+    ? path.join(__dirname,name,name+'.ino')
+    : name==='three_light_samples' && answers
+      ? path.join(destination,name,name+'.ino')
+      : path.join(course,'examples',name,name+'.ino');
+  sourceAnchors.set(path.resolve(p), m[1]);
   const source=fs.readFileSync(p,'utf8');
   inputs.push({path:path.relative(course,p).replaceAll('\\','/'),sha256:hash(source)});
   const lines=source.trimEnd().split(/\r?\n/);
-  // Bound visual line count, including wrapping, without changing the program text.
   const chunks=[];let group=[],cost=0,start=1;
   for(let i=0;i<lines.length;i++) {
     const c=Math.max(1,Math.ceil(lines[i].length/78));
@@ -116,15 +148,25 @@ for(const name of sketchNames) {
     group.push(lines[i]);cost+=c;
   }
   if(group.length) chunks.push({start,lines:group});
-  // Keep the final program page useful rather than leaving a closing brace alone.
   if(chunks.length>1) {
     const tail=chunks.at(-1),prev=chunks.at(-2);
     const visualCost=items=>items.reduce((n,l)=>n+Math.max(1,Math.ceil(l.length/78)),0);
     while(visualCost(tail.lines)<12&&prev.lines.length>12)tail.lines.unshift(prev.lines.pop());
     tail.start=prev.start+prev.lines.length;
   }
-  chunks.forEach((chunk,i)=>pages.push({id:name+'-'+i,tag:'完整程式 · '+(i+1)+' / '+chunks.length,html:`<h2 class="code-title">${esc(name)}</h2><p class="lead">第 ${chunk.start}～${chunk.start+chunk.lines.length-1} 行。</p><pre class="fullcode">${esc(chunk.lines.join('\n'))}</pre><p class="next">${i+1<chunks.length?'程式續頁；完整檔案見檔案準備表。':'完整程式結束。未確認的腳位與供電設定保持停用。'}</p>`}));
+  // Keep complete functions together in the two button examples.
+  if(name==='button_light_capture' || name==='three_light_samples') {
+    const starts=name==='button_light_capture'
+      ? [0,lines.findIndex(l=>l.startsWith('void setup()')),lines.length]
+      : [0,lines.findIndex(l=>l.startsWith('// 每次都讀')),lines.findIndex(l=>l.startsWith('void loop()')),lines.length];
+    if(starts.some(n=>n<0)) throw Error('Program section boundary missing');
+    chunks.length=0;
+    for(let i=0;i<starts.length-1;i++) chunks.push({start:starts[i]+1,lines:lines.slice(starts[i],starts[i+1])});
+  }
+  chunks.forEach((chunk,i)=>pages.push({id:i?m[1]+'_'+i:m[1],tag:'完整程式 · '+(i+1)+' / '+chunks.length,
+    html:`<h2 class="code-title">${esc(name)}.ino</h2><p class="lead">第 ${chunk.start}～${chunk.start+chunk.lines.length-1} 行。</p><pre class="fullcode">${esc(chunk.lines.join('\n'))}</pre><p class="next">同一份 .ino 檔案；分頁不代表另開程式。</p>`}));
 }
+const pageNumbers = Object.fromEntries(pages.map((p,i)=>[p.id,i+1]));
 const photoInputs=new Map();
 function render(body) {
   body=body.replace(/\{\{page:(\w+)\}\}/g,(_,id)=>{
@@ -144,10 +186,13 @@ function render(body) {
   return marked.parse(body).replace(/href="([^"]+)"/g,(_,link)=>{
     if (/^(https?:|mailto:|data:|#)/i.test(link)) return 'href="'+link+'"';
     const [file, anchor] = link.split('#');
-    const target = path.resolve(__dirname, decodeURIComponent(file));
+    const target = path.resolve(destination, decodeURIComponent(file));
     const repo = path.resolve(__dirname, '../../../..');
     const relative = path.relative(repo, target);
     if (relative.startsWith('..') || !fs.existsSync(target)) throw Error('Missing course file '+link);
+    if(sourceAnchors.has(target)) return 'href="#'+sourceAnchors.get(target)+'"';
+    if(answers) return 'href="'+pathToFileURL(target).href+(anchor?'#'+anchor:'')+'"';
+    if(relative.includes('week3_answers')) throw Error('Private answer linked from Main');
     const url = relative.split(path.sep).map(encodeURIComponent).join('/');
     return 'href="https://github.com/KennethWYLee/IoT/blob/main/'+url+(anchor?'#'+anchor:'')+'"';
   });
@@ -166,13 +211,13 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:10.5pt/1.5 Consolas,"Micros
 footer{position:absolute;bottom:9mm;left:17mm;right:17mm;display:flex;justify-content:space-between;color:#617277;font-size:8.5pt}a{color:#1c666e;text-decoration:underline}.lead{font-size:12pt;color:#51676d}.code-title{font-size:17pt;overflow-wrap:anywhere}.fullcode{font-size:10pt;line-height:1.45}.next{border-top:1px solid #acc1c3;padding-top:3mm;font-size:11pt}
 @media screen{.page{margin:8mm auto;box-shadow:0 1px 6px #aaa}}
 `;
-const html='<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>Week 3 電氣量測與 ADC</title><style>'+css+'</style></head><body>'+pages.map((p,i)=>`<section id="${p.id}" class="page"><header><span>Week 3 · 電氣量測與 ADC</span><span>${esc(p.tag)}</span></header><main>${p.html||render(p.body)}</main><footer><span>Week 3 · 電氣量測與 ADC</span><span>${i+1} / ${pages.length}</span></footer></section>`).join('')+'</body></html>';
-fs.writeFileSync(path.join(__dirname,'week3_main.html'),html);
+const html='<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>'+title+'</title><style>'+css+'</style></head><body>'+pages.map((p,i)=>`<section id="${p.id}" class="page"><header><span>${esc(title)}</span><span>${esc(p.tag)}</span></header><main>${p.html||render(p.body)}</main><footer><span>${esc(title)}</span><span>${i+1} / ${pages.length}</span></footer></section>`).join('')+'</body></html>';
+fs.writeFileSync(path.join(destination,stem+'.html'),html);
 (async()=>{
  const browser=await chromium.launch({channel:'msedge',headless:true});
  try {
   const tab=await browser.newPage();
-  await tab.goto(pathToFileURL(path.join(__dirname,'week3_main.html')).href);
+  await tab.goto(pathToFileURL(path.join(destination,stem+'.html')).href);
   await tab.emulateMedia({media:'print'});
   await tab.evaluate(()=>document.fonts.ready);
   const audit=await tab.evaluate(()=>({
@@ -189,10 +234,10 @@ fs.writeFileSync(path.join(__dirname,'week3_main.html'),html);
   fs.writeFileSync(path.join(tmp,'layout_check.json'),JSON.stringify(audit,null,2));
   const bad=audit.pages.filter(p=>p.overflow||p.gap<8||p.horizontal.length);
   if(bad.length||audit.images.some(i=>!i.loaded))throw Error(JSON.stringify({bad,images:audit.images}));
-  const pdf=path.join(__dirname,'week3_main.pdf');
+  const pdf=path.join(destination,stem+'.pdf');
   await tab.pdf({path:pdf,format:'A4',printBackground:true,preferCSSPageSize:true});
   const manifest={textHashLineEndings:'LF',pages:pages.map((p,i)=>({number:i+1,id:p.id})),sourceSha256:hash(input),builderSha256:hash(fs.readFileSync(__filename,'utf8')),sketches:inputs,photos:[...photoInputs].map(([name,sha256])=>({name,sha256})),pdfSha256:hash(fs.readFileSync(pdf))};
-  fs.writeFileSync(path.join(__dirname,'build_manifest.json'),JSON.stringify(manifest,null,2)+'\n');
+  fs.writeFileSync(path.join(destination,'build_manifest.json'),JSON.stringify(manifest,null,2)+'\n');
   console.log(JSON.stringify({pages:pages.length,minimumGap:Math.min(...audit.pages.map(p=>p.gap)),pdf}));
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

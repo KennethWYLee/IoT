@@ -1,18 +1,35 @@
 """Check and render the network lesson PDFs; no device or lesson code is run."""
 from pathlib import Path
 import json
+import argparse
+import os
+import shutil
+import subprocess
 
 import fitz
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / '_outputs/network_pdfs/review'
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--answers", type=int, choices=(11,12,14,15))
+args = parser.parse_args()
+answer_dir = ROOT / f'IOT_Introduction/docs/teaching_drafts/week{args.answers}_answers' if args.answers else None
+OUT = answer_dir / 'tmp/review' if answer_dir else ROOT / '_outputs/network_pdfs/review'
 OUT.mkdir(parents=True, exist_ok=True)
-manifest = json.loads((ROOT / 'IOT_Introduction/docs/network_pdf_manifest.json').read_text(encoding='utf-8'))
+manifest_path = answer_dir / 'network_pdf_manifest.json' if answer_dir else ROOT / 'IOT_Introduction/docs/network_pdf_manifest.json'
+manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+poppler = shutil.which('pdftoppm') or str(Path.home() / '.cache/codex-runtimes/codex-primary-runtime/dependencies/native/poppler/Library/bin/pdftoppm.exe')
+if not Path(poppler).exists():
+    raise SystemExit('Poppler pdftoppm is required for rendering.')
 results = []
 for entry in manifest['documents']:
     pdf = ROOT / entry['pdf']
     document = fitz.open(pdf)
+    render_dir = OUT / (pdf.stem + '-' + entry['pdf_sha256'][:12])
+    render_dir.mkdir(exist_ok=True)
+    subprocess.run([poppler, '-scale-to', '1100', '-png', str(pdf), str(render_dir / 'page')], check=True, capture_output=True)
+    rendered = sorted(render_dir.glob('page-*.png'))
+    assert len(rendered) == len(document), (pdf, len(rendered), len(document))
     pictures = []
     warnings = []
     for index, page in enumerate(document):
@@ -31,9 +48,7 @@ for entry in manifest['documents']:
                 assert link['uri'].startswith(('http://', 'https://', 'mailto:'))
         if len(text.strip()) < 120:
             warnings.append(index + 1)
-        pix = page.get_pixmap(matrix=fitz.Matrix(1, 1), alpha=False)
-        pix.save(OUT / f'{pdf.stem}-p{index+1:03}.png')
-        picture = Image.frombytes('RGB', [pix.width, pix.height], pix.samples)
+        picture = Image.open(rendered[index]).convert('RGB')
         picture.thumbnail((340, 480))
         pictures.append(picture)
     for start in range(0, len(pictures), 12):

@@ -15,6 +15,7 @@
 
 <aside>燈色決定加減分；OLED 顯示目前結果；Serial 保存這一局的事件與原因。三者要能對上同一次操作。</aside>
 
+
 <!-- page: files | 先把程式準備在電腦裡 -->
 ## 不用從 PDF 一頁一頁抄程式
 
@@ -34,6 +35,7 @@
 
 <aside>若下載內容和講義列出的檔名不一致，先取得相符的課程資料夾，不猜替代檔。開啟檔案時，ESP32 的 USB 與外部電源保持拔除。</aside>
 
+
 <!-- page: rules | 先用手勢演一次 -->
 ## 還沒接線，也能先懂規則
 
@@ -52,6 +54,7 @@
 
 兩鍵同時按住或 Serial 送 `x` 是中止，不是玩家輸。裝置異常先停止處理，不要求玩家繼續玩。
 
+
 <!-- page: route | 器材與操作條件 -->
 ## 先完成不含舵機的一局
 
@@ -67,6 +70,7 @@
 Week 2 雙按鈕、Week 3 同配置光線基準、Week 5 RGB／OLED 的設定。完整版本另外需要 Week 4 的蜂鳴器及 Week 6 的舵機供電驗證。
 
 <aside class="safety">前週講義完成，不代表實物已驗證。SG90 及帶載電源未通過時，舵機與蜂鳴器先不接，只完成低功率版本。低功率模組本身也必須符合已確認的接法。</aside>
+
 
 <!-- page: roles | 先分配每個零件的工作 -->
 ## 同一條 GPIO 不兼兩份工作
@@ -85,10 +89,11 @@ Week 2 的 GPIO4 曾接按鈕，後來已用來讀 KY；Week 6 的 STOP 按鈕�
 
 本週不接 DHT11。表內是已記錄功能觀察，不是所有同名模組的安全保證；教師課前仍須確認本批 RGB 限流、OLED 邏輯相容性。器材不同就用對應表，不能只因想消除 blocked 而套值。
 
+
 <!-- page: settings | 填設定，不重做整套辨識 -->
 ## 先選不含舵機的版本
 
-開啟附錄的 `week07_traffic_light_challenge.ino`，先看檔案頂端。
+開啟第 {{page:gamecode}} 頁的 `week07_traffic_light_challenge.ino`，先看檔案頂端。
 
 | 設定 | 本次要填什麼 |
 |---|---|
@@ -105,6 +110,7 @@ Week 2 的 GPIO4 曾接按鈕，後來已用來讀 KY；Week 6 的 STOP 按鈕�
 
 若只看到 `profile_missing`，先找缺少或衝突的欄位，不把所有 false 改成 true。軟體檢查不能替代電氣確認。
 
+
 <!-- page: prepareupload | 先上傳，再接線 -->
 ## 現在只接開發板的 USB
 
@@ -115,6 +121,7 @@ Week 2 的 GPIO4 曾接按鈕，後來已用來讀 KY；Week 6 的 STOP 按鈕�
 5. 上傳完成，關閉 Monitor、拔 USB，PWR 熄滅後才照接下來的四頁接線。不要先接完再全拆上傳。
 
 先在自己的紀錄留下八個 GPIO、OLED 配置與四個光線範圍。後面若換到另一支程式或另一批器材，這些值不會自動轉移。
+
 
 <!-- page: rails | 斷電後先整理兩條供電線 -->
 ## 3V3 和 GND 分在不同孔組
@@ -134,6 +141,7 @@ USB 拔除，外部電池 OFF 並取出至少一顆。先收起舵機及蜂鳴�
 
 這是本頁的接線示例，不和既有作品不同版本的孔號混用。沒有蜂鳴只代表該次通斷觀察，不能證明極性或電流能力全部正確。
 
+
 <!-- page: buttons | 接第一個輸入 -->
 ## 兩顆按鈕，兩條輸入線
 
@@ -152,6 +160,7 @@ USB 拔除，外部電池 OFF 並取出至少一顆。先收起舵機及蜂鳴�
 
 兩鍵同時按住是軟體中止；不是具有電源隔離的急停。
 
+
 <!-- page: light | 接第二個輸入 -->
 ## 光敏的位置也是設定的一部分
 
@@ -165,6 +174,7 @@ USB 拔除，外部電池 OFF 並取出至少一顆。先收起舵機及蜂鳴�
 若移了位置，或資料來自不同接法，就先回 Week 3 重新取得對應基準，不把不同日期的數字湊成一組。
 
 T01 後來曾觀察到「遮光較小」，和早期方向不同。本程式支援兩種方向，但不能直接套早期門檻。raw 也不是 lux。
+
 
 <!-- page: rgb | 接第一個輸出 -->
 ## RGB 告訴玩家現在能不能遮
@@ -182,6 +192,7 @@ T01 後來曾觀察到「遮光較小」，和早期方向不同。本程式支�
 
 先前個別三色有反應，可以引用該次紀錄；整合後仍需確認 OLED 說綠時，真正亮的是綠。若不一致，先中止，不把玩家依錯燈操作算成玩家失誤。
 
+
 <!-- page: oled | 接第二個輸出 -->
 ## OLED 不只顯示分數
 
@@ -198,6 +209,7 @@ T01 後來曾觀察到「遮光較小」，和早期方向不同。本程式支�
 
 <aside>圖為版面示意。實際程式的兩個控制器選項是 1306／1315；只能套用先前已確認的 128×64 I2C 配置。</aside>
 
+
 <!-- page: upload | 上傳與第一個畫面 -->
 ## 先看到 IDLE，再開始玩
 
@@ -212,6 +224,7 @@ T01 後來曾觀察到「遮光較小」，和早期方向不同。本程式支�
 沒有畫面或仍 blocked，先查設定與錯誤紀錄，不開始接舵機。
 
 **重新開局：**每局結束後，兩鍵放開、手移開光敏，在 Monitor 上方輸入框打 `z`，按 Enter。看到 IDLE、count=0 才按 Start。若是 ABORTED，先排除 reason 指出的原因，送 c，再送 z。
+
 
 <!-- page: firstgame | 第一局只看開始與時間 -->
 ## 按開始，再把手放開
@@ -233,6 +246,7 @@ reason=start_accepted phase=GREEN
 
 低功率版本不需要 `a`。`a` 是完整版本準備舵機的命令，不是開始遊戲的指令。
 
+
 <!-- page: hold | 第二局只練一次加分 -->
 ## 綠燈遮住一秒，應加幾次？
 
@@ -248,6 +262,7 @@ reason=start_accepted phase=GREEN
 另開一局，在紅燈做一次新的遮光，應扣 1，但最低 0。若一直遮住，從紅變綠也不自動補加分。到期後兩鍵放開、手移開，用 z 回待機。
 
 手勢太短可能沒被確認；接近換色時，以程式**確認新事件的時刻**判燈色，不是你認為手剛開始移動的時刻。
+
 
 <!-- page: finish | 第三局只練結束 -->
 ## 不到 6，也可以按 Finish
@@ -270,6 +285,10 @@ z 不是重新開始：它只讓程式回待機。下次被接受的 Start 才�
 
 用剛才有遮光的第二局找 start、cover、result，保留相同 game_id；第三局沒遮光就沒有 cover，不把不同局拼成同一局。
 
+
+<!-- page: gamecode | 完整基本程式 -->
+{{program:week07_traffic_light_challenge}}
+
 <!-- page: clock | 計時原理 -->
 ## 螢幕變慢，時間也不應變慢
 
@@ -288,6 +307,7 @@ OLED 約每 200 ms 更新，剩餘 1～1000 ms 都顯示 1 秒。畫面可能是
 
 程式不以 delay 等每一秒，但顯示與 Serial 函式仍可能耗時。這不是所有操作都零延遲。
 
+
 <!-- page: events | 為什麼一秒遮光不算很多次 -->
 ## 讀值、分類、事件、count
 
@@ -305,6 +325,7 @@ OLED 約每 200 ms 更新，剩餘 1～1000 ms 都顯示 1 秒。畫面可能是
 `armed=true` 是「已準備接受下一次遮光」。遮光計入後改 false，必須穩定未遮才重新準備。開機就一直遮住，不會先白得一次。
 
 不要用 log 行數計分；snapshot 只是狀態快照，不是每一行都代表一次手勢。
+
 
 <!-- page: thresholds | 分類門檻 -->
 ## 中間的數字，先不要急著分類
@@ -325,6 +346,18 @@ OLED 約每 200 ms 更新，剩餘 1～1000 ms 都顯示 1 秒。畫面可能是
 
 若你的遮光數字較小，程式反轉兩端標籤。0／4095 在本遊戲視為不可用，不等於元件一定壞；合理 raw 也不保證線沒鬆。
 
+
+<!-- page: flowcase2 | 只改一處，想想結果 -->
+## 端點也算成功，分數會誤增嗎？
+> 資訊處理示意；僅作圖上推演，保持現有實物接線不動。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="端點也算成功，分數會誤增嗎？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="79" y="71" font-size="16" text-anchor="middle">raw=0</text><line x1="149" y1="66" x2="172" y2="66" stroke="#246e73" stroke-width="2" /><path d="M167,62 L172,66 L167,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="172" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="242" y="71" font-size="16" text-anchor="middle">有效性檢查</text><line x1="312" y1="66" x2="335" y2="66" stroke="#246e73" stroke-width="2" /><path d="M330,62 L335,66 L330,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="335" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="405" y="71" font-size="16" text-anchor="middle">不接受動作</text><line x1="475" y1="66" x2="498" y2="66" stroke="#246e73" stroke-width="2" /><path d="M493,62 L498,66 L493,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="498" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="568" y="71" font-size="16" text-anchor="middle">計數不變</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="79" y="198" font-size="16" text-anchor="middle">raw=0</text><line x1="149" y1="193" x2="172" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="172" y="170" width="140" height="46" rx="3" fill="#fff1de" stroke="#a65136" stroke-dasharray="5 4"/><text x="242" y="198" font-size="16" text-anchor="middle">略過檢查</text><line x1="312" y1="193" x2="335" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="335" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="405" y="198" font-size="16" text-anchor="middle">按門檻分類</text><line x1="475" y1="193" x2="498" y2="193" stroke="#246e73" stroke-width="2" /><path d="M493,189 L498,193 L493,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="498" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="568" y="198" font-size="16" text-anchor="middle">可能改分數</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
+
+**想一想：** 只拿掉 raw 有效性檢查，留下大小門檻。0 若被分到可計分那一類，分數增加能證明玩家完成動作嗎？
+
+**原理提示：** 不能。端點可能來自故障或錯接；先分類再加分會把不可信輸入當成玩家操作。
+
+只有標記處改變，其餘供電、程式與環境條件沿用正常情境。不可把未知結果直接寫成 0、LOW 或「一定停止」。
 <!-- page: priority | 兩件事同時發生時 -->
 ## 先處理什麼，要寫成規則
 
@@ -341,6 +374,7 @@ OLED 約每 200 ms 更新，剩餘 1～1000 ms 都顯示 1 秒。畫面可能是
 「同輪」是程式一次處理的資料，不是保證兩個硬體訊號在同一微秒到達。這類邊界用程式測試，不要求學生用手精準做出。
 
 完整版本中，同輪第六次加分後立即結算，可能已停止舵機脈波而指針尚未到 6；結果與實際位置仍要分開。
+
 
 <!-- page: states | 用狀態整理允許的操作 -->
 ## 待機、進行、結束不能混在一起
@@ -359,6 +393,19 @@ OLED 約每 200 ms 更新，剩餘 1～1000 ms 都顯示 1 秒。畫面可能是
 結果結算後再送 x，只停止輸出，不改寫已完成的 SUCCESS／FAILED。尚未結算時中止，才把這局記成 ABORTED。
 
 按鍵放開不會自動復原。兩鍵一直按住時，也不能用 c、z 或 a 繞過中止條件。
+
+
+<!-- page: flowcase1 | 只改一處，想想結果 -->
+## 送出 x，不是整台斷電
+> 兩種情況都保留 USB 供電；只比較送出 x 前後的程式狀態。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="送出 x，不是整台斷電" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="79" y="71" font-size="16" text-anchor="middle">沒有 x 命令</text><line x1="149" y1="66" x2="172" y2="66" stroke="#246e73" stroke-width="2" /><path d="M167,62 L172,66 L167,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="172" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="242" y="71" font-size="16" text-anchor="middle">RUNNING</text><line x1="312" y1="66" x2="335" y2="66" stroke="#246e73" stroke-width="2" /><path d="M330,62 L335,66 L330,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="335" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="405" y="71" font-size="16" text-anchor="middle">更新輸出</text><line x1="475" y1="66" x2="498" y2="66" stroke="#246e73" stroke-width="2" /><path d="M493,62 L498,66 L493,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="498" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="568" y="71" font-size="16" text-anchor="middle">RGB／OLED</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="140" height="46" rx="3" fill="#fff1de" stroke="#a65136" /><text x="79" y="198" font-size="16" text-anchor="middle">送出 x 命令</text><line x1="149" y1="193" x2="172" y2="193" stroke="#246e73" stroke-width="2" /><path d="M167,189 L172,193 L167,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="172" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="242" y="198" font-size="16" text-anchor="middle">ABORTED</text><line x1="312" y1="193" x2="335" y2="193" stroke="#246e73" stroke-width="2" /><path d="M330,189 L335,193 L330,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="335" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="405" y="198" font-size="16" text-anchor="middle">更新輸出</text><line x1="475" y1="193" x2="498" y2="193" stroke="#246e73" stroke-width="2" /><path d="M493,189 L498,193 L493,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="498" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="568" y="198" font-size="16" text-anchor="middle">RGB／OLED</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
+
+**想一想：** 只在 Monitor 送出 x，USB 不拔。為什麼 OLED 還能顯示結束結果？PWR 一定會熄滅嗎？
+
+**原理提示：** x 改變遊戲狀態，不切斷 USB 供電；處理器仍能更新顯示與紀錄。
+
+只有標記處改變，其餘供電、程式與環境條件沿用正常情境。不可把未知結果直接寫成 0、LOW 或「一定停止」。
 
 <!-- page: logs | 看紀錄，不只拍成品 -->
 ## 找到同一局的三種紀錄
@@ -385,6 +432,7 @@ reason=red_penalty
 
 boot_id 是隨機識別值，不是絕對不重複的保證。本週 log 尚在 Serial，沒有自動存進資料庫；保存時標註裝置及測試日期。
 
+
 <!-- page: faults | 做一次能恢復的故障示範 -->
 ## 用命令代替帶電拔線
 
@@ -402,6 +450,7 @@ boot_id 是隨機識別值，不是絕對不重複的保證。本週 log 尚在 
 
 樣本超過 200 ms 未更新也會中止。慢 I2C、資料無法分類、鬆線可能不同原因；先看 reason，不全部歸咎玩家。
 
+
 <!-- page: exercise | 概念練習 -->
 ## 遮光、換色與結束會得到什麼結果？
 
@@ -417,22 +466,6 @@ boot_id 是隨機識別值，不是絕對不重複的保證。本週 log 尚在 
 
 不要只寫「有問題」或「失敗」。請寫出 count、時間條件、哪個樣本打斷確認，或哪個原因尚待排查。
 
-<!-- page: answer | 參考解答 -->
-## 事件、時間、故障分開算
-
-| 題 | 參考解答 |
-|---|---|
-| 1 | 5−1＝**4**；Finish 是 FAILED，不是六次手勢就贏。 |
-| 2 | 不會。持續遮光沒有新的事件，必須先穩定未遮再遮。 |
-| 3 | **FAILED**，因為到期優先，不再接受該輪 Finish。 |
-| 4 | 沒有。100 ms 的600進中間區，中斷候選；150 ms重新開始，到200 ms只過50 ms。 |
-| 5 | 不等於0分；是中止，不當作正常玩家結果。先找 result／snapshot 的 reason，再查感測新鮮度或通訊等證據。 |
-
-第 4 題若後續250、300 ms仍是900，且之前已穩定未遮、armed=true，則300 ms可確認新遮光事件。
-
-如果開機後一直遮住，沒有先穩定未遮，不能只因滿150 ms就憑空新增一次事件。
-
-接下來才加入已分別驗證的舵機與蜂鳴器。若尚未完成驗證，保留本週低功率成果，不勉強接上。
 
 <!-- page: extra | 最後再加機械與聲音 -->
 ## 同一個遊戲，不改勝負規則
@@ -452,6 +485,7 @@ boot_id 是隨機識別值，不是絕對不重複的保證。本週 log 尚在 
 舵機工作電流不走 GPIO、3V3 或麵包板低功率列。外部正極不接 ESP32 5Vin／USB VBUS。端子與線材須固定、絕緣並符合負載需求。
 
 HW-508 限同型且課前已確認介面。c29、d29 是這次新增地線孔；b29 已接到 a23，不能把兩線塞進同孔。舵機轉接線與絕緣端子仍需 Week 6 已確認配件，不能用麵包板代替其工作電流回路。
+
 
 <!-- page: stage2fields | 完整版需要哪些設定 -->
 ## 先保留已成功的低功率設定
@@ -474,6 +508,7 @@ HW-508 限同型且課前已確認介面。c29、d29 是這次新增地線孔；
 
 這些值不會從 Week 6 自動匯入。目前舵機資料仍未齊全，不填示例角度代替；先保留低功率版作品。已填表不等於硬體已測試。
 
+
 <!-- page: stage2 | 完整版本的啟動 -->
 ## a 是準備指針，不是開始計時
 
@@ -490,6 +525,7 @@ HW-508 限同型且課前已確認介面。c29、d29 是這次新增地線孔；
 
 FAILED 會要求一次200 ms短聲；SUCCESS與ABORTED不發失敗聲。實際聲長、停止延遲與 PWM 資源相容性仍需整合實測。
 
+
 <!-- page: layout | 加了輸出，也可能干擾輸入 -->
 ## 燈光和指針不要替玩家遮光
 
@@ -505,6 +541,7 @@ FAILED 會要求一次200 ms短聲；SUCCESS與ABORTED不發失敗聲。實際�
 紙指針最後停在哪，不一定等於已凍結的結果；停止脈波可能失去保持力，結算前也可能還沒到位。
 
 看 OLED／log 的規則結果，另記實際位置。不要為了讓照片漂亮，在帶電時強扳指針。
+
 
 <!-- page: slower | 延伸作品：改變切換節奏 -->
 ## 同樣30秒，每色改成5秒
@@ -528,6 +565,7 @@ const uint32_t GAME_MS=30000, COLOR_MS=3000,
 
 先預測：經過4秒時，3秒切色與5秒切色各是哪一色？不能只憑「切換較慢」就宣稱一定比較容易成功。
 
+
 <!-- page: comparison | 用同一組事件比較 -->
 ## 差的是切換時間，不是手勢資料
 
@@ -548,56 +586,63 @@ const uint32_t GAME_MS=30000, COLOR_MS=3000,
 
 實物若由人重新玩兩局，手勢時間也會不同，請如實記下，不把差異全歸因於切換時間。
 
-<!-- page: buildexercise | 動手改造題 -->
-## 每1.5秒換色，其他不變
 
-使用同一份低功率遊戲，讓紅綠燈每1.5秒交換一次。遊戲仍為30秒、目標仍為6；光線基準、按鈕與安全機制保持不變。
 
-作品規則：0～1499 ms 綠燈，1500～2999 ms 紅燈，之後交替。綠燈的新遮光事件加一，紅燈的新遮光事件減一；持續遮住不重複計分。
+<!-- page: buildexercise | 動手練習 -->
+## 每局結束，說清楚分數怎麼來
+> 沿用低功率遊戲，紅綠各 3 秒；不接舵機與蜂鳴器。
 
-保存修改的程式行與操作紀錄。實物測試記下真正的事件時刻，不要求用手做出指定毫秒。
+先將比較用的 COLOR_MS 恢復 3000。保留 30 秒、目標 6、感測基準、勝負與中止規則，新增每局統計：
+
+| 欄位 | 記什麼 |
+|---|---|
+| green_events | RUNNING 時確認的綠燈新遮光次數 |
+| red_events | RUNNING 時確認的紅燈新遮光次數 |
+| changed_events | 這次事件確實改變 count 的次數 |
+| unchanged_events | 因為上限或下限，count 沒變的次數 |
+
+接受 Start 才清零；拒絕開始、snapshot 或放開手都不算事件。每個 RUNNING 遮光事件應恰好屬於一個燈色，以及「有變／沒變」其中一種。
+
+一局結束只印一次 `event_type=round_summary`，包含 game_id、結果、最終 count 與四個統計。FAILED 與 ABORTED 要分開保留；尚未開始就中止，不印假的一局。
 
 <!-- page: buildresults | 預期結果 -->
-## 同一組事件，在一點五秒節奏下的結果
+## 分數沒變，也可能發生了事件
+> 假設每次都是已確認的新遮光事件，無其他故障；從 count=0 開始。
 
-以下是程式測試用的已確認事件，不是實機手勢；假設開始時 count=0、沒有其他故障。
+| 順序 | 操作 | count | green／red | changed／unchanged |
+|---|---|---:|---|---|
+| 1 | 紅燈遮光一次 | 0 | 0／1 | 0／1 |
+| 2 | 綠燈遮光六次 | 6 | 6／1 | 6／1 |
+| 3 | 綠燈再遮光一次 | 6 | 7／1 | 6／2 |
+| 4 | 紅燈遮光一次 | 5 | 7／2 | 7／2 |
+| 5 | 期限前按 Finish | 5，FAILED | 7／2 | 7／2 |
 
-| 事件時刻 | 當時燈色 | count 變化 |
-|---:|---|---|
-| 1000 ms | 綠 | 0 → 1 |
-| 2000 ms | 紅 | 1 → 0 |
-| 4000 ms | 綠 | 0 → 1 |
-| 7000 ms | 綠 | 1 → 2 |
-| 10000 ms | 綠 | 2 → 3 |
-| 13000 ms | 綠 | 3 → 4 |
-| 14000 ms，按 Finish | 紅 | count=4，FAILED |
-
-1499 ms 仍為綠，1500 ms 開始變紅。三十秒共十段綠、十段紅，總綠燈時間仍為十五秒。
-
-綠燈遮住後一直保持到紅燈，不會自動扣分；要先穩定未遮，再穩定遮住，才有新事件。
-
-<!-- page: buildanswer | 參考解答 -->
-## 只改 COLOR_MS
-
-在 IDE 開啟 `week07_traffic_light_challenge.ino`，另存為 `traffic_light_1500`。Ctrl+F 找 `COLOR_MS`，只改其等號右側為 1500，保留其他設定。Verify 後，依第 {{page:prepareupload}} 頁的斷電、裸板上傳流程更新，再依接線頁恢復低功率元件。
-
-```cpp
-const uint32_t GAME_MS=30000, COLOR_MS=1500,
-               SAMPLE_MS=50, STABLE_MS=150;
+```text
+event_type=round_summary game_id=1 result=FAILED count=5
+green_events=7 red_events=2 changed_events=7 unchanged_events=2
 ```
 
-| 問題 | 參考結果 |
+分行只是方便閱讀，程式印同一行。最後九次事件滿足：
+
+```text
+green_events + red_events = changed_events + unchanged_events
+```
+
+結算後再遮光、按鍵或送 x，不再增加統計、不重印摘要。新局接受 Start 才重新計算。精確事件組合用紙上判讀或主機測試；實物依真實時刻記錄。
+
+<!-- page: buildtest | 測試情境 -->
+## 正常結束與中止都要有去向
+| 測試 | 預期 |
 |---|---|
-| 紅綠段數 | 30000÷1500＝20段；綠10段、紅10段 |
-| 總綠燈時間 | 10×1500＝15000 ms，仍是15秒 |
-| 1499／1500 ms | 前者綠，後者紅；1500正好開始新段 |
-| 既定六事件的count | **1、0、1、2、3、4** |
-| 14000 ms Finish | count=4，FAILED |
-| 遮住跨色 | 不補算事件，不自動扣分；先穩定未遮再遮 |
+| 未開始就送 x | ABORTED，但沒有 round_summary |
+| 新局開始、沒遮光就 Finish | 四個統計全 0，FAILED 摘要一次 |
+| 進行中送 x | ABORTED 摘要一次，不當成玩家 FAILED |
+| 結束後持續讀畫面 | 不重印摘要 |
+| 清除原因、回待機、接受新 Start | 新 game_id，四個統計從 0 開始 |
 
-這組主機事件測試最後和5秒版同樣4分，但過程不同：第二次事件曾扣回0。**最後分數相同，不代表每一步相同。**
+原程式已有 start、cover、result 紀錄，可用來對照自己的統計。不要數所有 log 行，也不要用「綠次數減紅次數」代替最終分數，因為分數受 0～6 限制。
 
-此處沒有量到玩家反應、感測器延遲或機械位置。請把事件測試和實物結果分開保存。
+這個練習只增加紀錄，不改得分、停止或實體輸出的條件。
 
 <!-- page: troubleshooting | 排錯不要同時改很多東西 -->
 ## 先找是哪一段不一致
@@ -614,6 +659,7 @@ const uint32_t GAME_MS=30000, COLOR_MS=1500,
 蜂鳴器初始化、發聲或停止API故障可能阻擋啟動或鎖住後續操作，不能用 c／z 清掉硬體原因。先斷電檢查，必要時重新啟動。
 
 程式不會抓到所有鬆線、假合理數值或畫面錯誤。每次只改一項，保留改前及改後紀錄，不為了通過就刪除中止條件。
+
 
 <!-- page: finishrecord | 收尾與下週報告 -->
 ## 留下一個能解釋的完整作品
@@ -632,6 +678,7 @@ const uint32_t GAME_MS=30000, COLOR_MS=1500,
 
 正常收尾先中止；完整版外部 OFF，再拔 USB，電表 OFF。斷電後才改線或收納。低功率版也要先拔 USB再拆線。
 
+
 <!-- page: sources | 來源與適用界限 -->
 ## 哪些是資料，哪些是本課規則？
 
@@ -646,4 +693,4 @@ const uint32_t GAME_MS=30000, COLOR_MS=1500,
 
 程式事件測試不能代替實體聲長、負載、停止或整合硬體測試。紀錄中的預期結果與實物觀察須分開保存。
 
-下頁起為同一支完整遊戲程式的附錄。不同分頁要合在一起使用；模式比較只改COLOR_MS，不必另外重寫遊戲。
+完整基本程式在第 {{page:gamecode}} 頁。各段使用同一支程式，不把分頁各自另存成不同草稿。

@@ -19,191 +19,191 @@
     },
     {
       "number": 5,
-      "id": "explainpreview"
+      "id": "previewcode"
     },
     {
       "number": 6,
-      "id": "identify"
+      "id": "explainpreview"
     },
     {
       "number": 7,
-      "id": "wires"
+      "id": "identify"
     },
     {
       "number": 8,
-      "id": "powersetup"
+      "id": "wires"
     },
     {
       "number": 9,
-      "id": "meter"
+      "id": "powersetup"
     },
     {
       "number": 10,
-      "id": "readings"
+      "id": "meter"
     },
     {
       "number": 11,
-      "id": "configuration"
+      "id": "readings"
     },
     {
       "number": 12,
-      "id": "loadcode"
+      "id": "configuration"
     },
     {
       "number": 13,
-      "id": "codefields"
+      "id": "loadcode"
     },
     {
       "number": 14,
-      "id": "stopwire"
+      "id": "codefields"
     },
     {
       "number": 15,
-      "id": "stopreason"
+      "id": "stopwire"
     },
     {
       "number": 16,
-      "id": "finalwire"
+      "id": "stopreason"
     },
     {
       "number": 17,
-      "id": "stoptest"
+      "id": "finalwire"
     },
     {
       "number": 18,
-      "id": "firstmove"
+      "id": "stoptest"
     },
     {
       "number": 19,
-      "id": "observe"
+      "id": "firstmove"
     },
     {
       "number": 20,
-      "id": "pulses"
+      "id": "observe"
     },
     {
       "number": 21,
-      "id": "common"
+      "id": "pointercode"
     },
     {
       "number": 22,
-      "id": "fixture"
+      "id": "pointercode_1"
     },
     {
       "number": 23,
-      "id": "oledsettings"
+      "id": "pointercode_2"
     },
     {
       "number": 24,
-      "id": "oled"
+      "id": "pointercode_3"
     },
     {
       "number": 25,
-      "id": "sharedcount"
+      "id": "pointercode_4"
     },
     {
       "number": 26,
-      "id": "stopping"
+      "id": "pointercode_5"
     },
     {
       "number": 27,
-      "id": "faults"
+      "id": "pulses"
     },
     {
       "number": 28,
-      "id": "exercise"
+      "id": "flowcase2"
     },
     {
       "number": 29,
-      "id": "answer"
+      "id": "common"
     },
     {
       "number": 30,
-      "id": "extension"
+      "id": "flowcase1"
     },
     {
       "number": 31,
-      "id": "extensionrun"
+      "id": "fixture"
     },
     {
       "number": 32,
-      "id": "extensioncode"
+      "id": "oledsettings"
     },
     {
       "number": 33,
-      "id": "buildexercise"
+      "id": "oled"
     },
     {
       "number": 34,
-      "id": "buildresults"
+      "id": "sharedcount"
     },
     {
       "number": 35,
-      "id": "buildanswer"
+      "id": "stopping"
     },
     {
       "number": 36,
-      "id": "finish"
+      "id": "faults"
     },
     {
       "number": 37,
-      "id": "sources"
+      "id": "exercise"
     },
     {
       "number": 38,
-      "id": "count_preview-0"
+      "id": "extension"
     },
     {
       "number": 39,
-      "id": "week06_servo_pointer-0"
+      "id": "extensionrun"
     },
     {
       "number": 40,
-      "id": "week06_servo_pointer-1"
+      "id": "countercode"
     },
     {
       "number": 41,
-      "id": "week06_servo_pointer-2"
+      "id": "countercode_1"
     },
     {
       "number": 42,
-      "id": "week06_servo_pointer-3"
+      "id": "countercode_2"
     },
     {
       "number": 43,
-      "id": "week06_servo_pointer-4"
+      "id": "countercode_3"
     },
     {
       "number": 44,
-      "id": "week06_servo_pointer-5"
+      "id": "countercode_4"
     },
     {
       "number": 45,
-      "id": "serial_pointer_counter-0"
+      "id": "countercode_5"
     },
     {
       "number": 46,
-      "id": "serial_pointer_counter-1"
+      "id": "extensioncode"
     },
     {
       "number": 47,
-      "id": "serial_pointer_counter-2"
+      "id": "buildexercise"
     },
     {
       "number": 48,
-      "id": "serial_pointer_counter-3"
+      "id": "buildresults"
     },
     {
       "number": 49,
-      "id": "serial_pointer_counter-4"
+      "id": "finish"
     },
     {
       "number": 50,
-      "id": "serial_pointer_counter-5"
+      "id": "sources"
     }
   ],
-  "sourceSha256": "d59f0fa23c2f46e44fb8f626b5ba6223d425c4cfb8183d13e1d1e3c73f691850",
-  "builderSha256": "67de231fd900469c7644c4e51e9cdb2f71bca796e405f5545d0afa072c5a918c",
+  "sourceSha256": "4d0411deae5c7bd83f2ad53dbe8d7177966d627daab9a56f0082d1cefa5946cf",
+  "builderSha256": "e15b66028dead88c74b6562927ca246ae803ddec758fd0242d915125f6556139",
   "sketches": [
     {
       "path": "docs/teaching_drafts/week6_redesign/count_preview/count_preview.ino",
@@ -232,5 +232,5 @@
       "sha256": "1fadf0571536167a5f4e1da7a98dfc8ab3950d4f1bb92b7e7aa8517b2c541d82"
     }
   ],
-  "pdfSha256": "6b58b9d7c55c5c5df9098943aead8475c9daad2dabae1f8167a98100c253537c"
+  "pdfSha256": "7150b907933ea07d6a2315164645e34c3fd931fa8e6b6508ba95e13db6416570"
 }

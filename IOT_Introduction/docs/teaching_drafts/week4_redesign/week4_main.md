@@ -12,6 +12,7 @@
 
 <aside>換接線前先拔 USB，依圖核對每條線的兩端。光敏、DHT 與蜂鳴器各使用不同的訊號 GPIO。</aside>
 
+
 <!-- page: files | 先把程式準備在電腦裡 -->
 ## 不用從 PDF 一頁一頁抄程式
 
@@ -33,6 +34,7 @@
 
 <aside>若下載內容和講義列出的檔名不一致，先取得相符的課程資料夾，不猜替代檔。開啟檔案時，ESP32 的 USB 與外部電源保持拔除。</aside>
 
+
 <!-- page: materials | 先整理桌面 -->
 ## 今天拿這些就好
 > 電池、馬達、舵機先留在盒子裡。
@@ -53,6 +55,7 @@
 
 <aside class="safety">DHT11 的三針順序不能靠線色猜。教師需在課前提供本批模組的已確認腳序與程式腳位；若沒有這份資訊，先做電阻及紙上判讀，不接未知模組。蜂鳴器未確認時，仍可完成無聲的紀錄與事件作品。</aside>
 
+
 <!-- page: resistorwire | 量電阻 -->
 ## 電阻不用接 ESP32
 > 先把它固定好，再拿表筆。
@@ -68,6 +71,7 @@
 典型手動表可用 2kΩ。若手上表的 2k 位置與二極體功能不易區分，先使用已確認的 20kΩ 檔。自動表選 Ω，另記畫面的單位。
 
 <aside class="safety">不要把粗表筆塞進麵包板，不用手指同時捏住兩端金屬。量電阻時，電表自己提供小測試電流；不需要外部供電。</aside>
+
 
 <!-- page: resistobserve | 看結果，再換一件 -->
 ## 換檔不會把電阻變大
@@ -91,6 +95,7 @@
 自動量程表不能手動換檔時，實際量兩顆，再用表內示例解釋量程。不用另買電表。
 
 完成後取下電阻與測試線，分別標示收好，電表 OFF。
+
 
 <!-- page: resistorwhy | 原理 -->
 ## 同列五孔會繞過電阻
@@ -116,6 +121,7 @@
 
 下一步換成感測器；剛才的 220、330 Ω **不直接加到 DHT11 接線裡**。
 
+
 <!-- page: dhtphoto | 認出新模組 -->
 ## 這塊藍色的是 DHT11
 > 它把溫度與相對濕度，用資料訊號傳給 ESP32。
@@ -134,6 +140,7 @@
 
 **目前資料仍缺：**斷電取下三線接頭後的排針絲印照片、這片模組的 3.3 V 供電／DATA 電位確認，以及本組 `PIN_DHT`。尚未取得時，到下一段只做裸板編譯與 blocked 訊息辨認，不接 DHT，也不把後面溫濕度示例當成自己的讀值。
 
+
 <!-- page: ide | 打開程式 -->
 ## 先準備程式，還不接模組
 > 今天仍使用 Arduino IDE 和 Serial Monitor。
@@ -147,6 +154,7 @@
 Serial Monitor 是 Arduino IDE 的文字觀察窗。稍後可由「工具 → 序列埠監控視窗」開啟，速度選 **115200**。
 
 <aside>本頁針對已辨認的 YD-ESP32-S3 Type-A V1.5／CH343 板。若實物不同，先依自己的板卡文件確認 USB 路徑與設定，不猜接頭或 GPIO 位置。</aside>
+
 
 <!-- page: library | 安裝程式庫 -->
 ## 讓程式看得懂 DHT11
@@ -166,6 +174,7 @@ Serial Monitor 是 Arduino IDE 的文字觀察窗。稍後可由「工具 → �
 
 <aside>勾號是編譯，右箭頭才是上傳。編譯成功只代表電腦能產生程式，不代表感測器已接對或讀取成功。</aside>
 
+
 <!-- page: dhtsettings | 填本次設定 -->
 ## 只改開頭的三個設定
 > 腳位要和本批實物接法一致。
@@ -183,6 +192,7 @@ Serial Monitor 是 Arduino IDE 的文字觀察窗。稍後可由「工具 → �
 3. 上傳完成後，關掉 Serial Monitor，拔 USB，確認 PWR 熄滅，才接下一頁的線。
 
 <aside class="safety">如果還沒有確認資料，保留預設值。程式會停止感測操作並提示設定未完成；不要為了消除提示隨便填 `true`。本課不把 DHT 模組改接 5 V，也不把 5 V DATA 接進 GPIO。</aside>
+
 
 <!-- page: dhtwire | 一條一條接 -->
 ## DHT11 先單獨工作
@@ -203,6 +213,7 @@ USB 拔除，KY 與蜂鳴器都還沒接。
 模組放在板外，用母端套住排針。第 3 列與第 6 列不能直接互接。第 15 列目前留空。
 
 <aside>通電前逐條核對起點與終點，尤其是模組 VCC／GND。有裸露金屬互碰、腳位辨識不清或接法不同，先保持斷電。</aside>
+
 
 <!-- page: dhtstart | 讀到第一筆 -->
 ## 接 USB，等數字出現
@@ -226,6 +237,10 @@ reason=basic_checks_passed
 
 如果看到 `read_failed`，先保存畫面，再依第 {{page:trouble}} 頁排查。如果是設定未完成，回第 {{page:dhtsettings}} 頁，不從感測線下手。
 
+
+<!-- page: dhtcode | 完整基本程式 -->
+{{program:week04_dht11_quality}}
+
 <!-- page: dhtmeaning | 看到結果後 -->
 ## 25.0 和 50.0 分別是什麼？
 > 每個數字都要和欄位、單位一起看。
@@ -246,6 +261,7 @@ reason=basic_checks_passed
 
 <aside>顯示一位小數，不等於感測器精度是 0.1°C。今天先練習取得可追溯紀錄，不把 DHT11 當校準過的精密儀器。</aside>
 
+
 <!-- page: dhtflow | 資訊流 -->
 ## DATA 傳的不是「溫度電壓」
 > 供電路徑與資訊路徑分開看。
@@ -259,6 +275,19 @@ reason=basic_checks_passed
 因此，不用 `analogRead(DATA)` 取得溫度，也不能把電表量到的 DATA 平均電壓當作攝氏度。
 
 DHT11 不適合每 50 ms 要求一次新測量。本例每 2500 ms 讀取；程式庫也有最小間隔與暫存資料的處理。
+
+
+<!-- page: flowcase1 | 只改一處，想想結果 -->
+## 只少 DATA，電源還在
+> 資訊傳遞示意；僅作圖上推演，保持現有實物接線不動。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="只少 DATA，電源還在" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">DHT 有供電</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><path d="M134,62 L139,66 L134,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">DHT 回覆</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><path d="M264,62 L269,66 L264,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">DATA 線</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><path d="M394,62 L399,66 L394,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">程式庫解析</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><path d="M524,62 L529,66 L524,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">溫濕度紀錄</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">DHT 有供電</text><line x1="121" y1="193" x2="139" y2="193" stroke="#246e73" stroke-width="2" /><path d="M134,189 L139,193 L134,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="198" font-size="16" text-anchor="middle">DHT 回覆</text><line x1="251" y1="193" x2="269" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="269" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" stroke-dasharray="5 4"/><text x="325" y="198" font-size="16" text-anchor="middle">DATA 線中斷</text><line x1="381" y1="193" x2="399" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="198" font-size="16" text-anchor="middle">程式庫解析</text><line x1="511" y1="193" x2="529" y2="193" stroke="#246e73" stroke-width="2" /><path d="M524,189 L529,193 L524,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">溫濕度紀錄</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
+
+**想一想：** VCC、GND 仍連著，只假設 DATA 不通。下一次真正嘗試讀取時，應把上一筆 25°C 當成新值嗎？
+
+**原理提示：** 有供電不代表能取得新資料。讀取失敗要留下失敗狀態；舊數值不是這次成功的量測。
+
+只有標記處改變，其餘供電、程式與環境條件沿用正常情境。不可把未知結果直接寫成 0、LOW 或「一定停止」。
 
 <!-- page: failure | 讓它暫時讀不到 -->
 ## 在輸入框送出 f，再送 r
@@ -280,6 +309,7 @@ NaN 表示這裡沒有可用的數值，**不是 0°C，也不是 0%**。
 
 <aside>這次測到的是「程式收到無效資料時如何處理」。它不是斷線實測，也不能算進真實感測器故障率。如果原本就讀不到，先記錄原始失敗，不假裝已完成正常 → 失敗 → 恢復。</aside>
 
+
 <!-- page: quality | 原理 -->
 ## 有數字，不一定適合拿來判斷
 > `valid` 看能否當數值使用，`quality` 說明本課規則的檢查結果。
@@ -297,6 +327,7 @@ NaN 表示這裡沒有可用的數值，**不是 0°C，也不是 0%**。
 `usable` 只表示通過這幾項檢查，不保證讀值精準。程式只記第一個符合的原因，不會把所有問題一次列出。
 
 先保留原數值、時間、品質及原因。不能把無效值改成上一筆正常溫度，再假裝它是新測量。
+
 
 <!-- page: qualityquestion | 一起判讀 -->
 ## 哪一筆要先查原因？
@@ -319,22 +350,6 @@ NaN 表示這裡沒有可用的數值，**不是 0°C，也不是 0%**。
 
 判斷每筆資料是否有效，並指出欄位與原因。
 
-<!-- page: qualityanswer | 參考解答 -->
-## 關鍵在順序和大於符號
-
-| 題目 | valid | quality | 原因 |
-|---|---|---|---|
-| A | false | invalid | `read_failed`，溫度不是可用數值 |
-| B | false | invalid | `rh_out_of_bounds`，濕度超過 100% |
-| C | true | suspect | `outside_classroom_policy`，先遇到室內範圍檢查 |
-| D | true | suspect | `abrupt_change`，31 − 25 = 6°C，超過 5°C |
-| E | true | usable | `basic_checks_passed`，剛好 5 與 10，沒有超過 |
-
-若 A 來自剛才的 **f** 指令，原因會特別標為 `injected_read_failed`。本題 A 沒有指定故障注入。
-
-這五題不能當成連續輸入來算。真正程式會更新前一筆紀錄；例如 31°C 之後又讀到 31°C，不會再因為「這次溫差大」觸發同一條規則。
-
-因此，第二筆沒有再被標為跳變，**不等於證明感測器恢復正確**。還要看環境、接觸與其他證據。
 
 <!-- page: dualwire | 加回光敏模組 -->
 ## 兩個模組，共用電源但不共用訊號
@@ -354,15 +369,16 @@ NaN 表示這裡沒有可用的數值，**不是 0°C，也不是 0%**。
 
 <aside>第 15 列只是麵包板的孔列編號。這裡同列 a15、c15 相通；它沒有自動連到晶片的 GPIO15。</aside>
 
+
 <!-- page: dualsetup | 先讓兩筆資料出現 -->
 ## 換成整合程式，先選 1
 > 先不判斷遮光，不接蜂鳴器。
 
-開啟 [雙感測器程式](../../../examples/week04_dual_sensor_alarm/week04_dual_sensor_alarm.ino)，完整版本也在附錄。不要把兩支程式直接貼在一起。
+開啟 [雙感測器程式](../../../examples/week04_dual_sensor_alarm/week04_dual_sensor_alarm.ino)，完整版本見第 {{page:dualcode}} 頁。不要把兩支程式直接貼在一起。
 
 | 設定名稱 | 第一輪內容 |
 |---|---|
-| `LESSON_STAGE` | **1**，原始檔是 3，這次要改成 1 |
+| `LESSON_STAGE` | **1**，這一輪只讀取資料 |
 | `PIN_LIGHT`、`PIN_DHT` | 剛才接線的兩個不同 GPIO |
 | `SENSOR_PROFILES_CONFIRMED` | 兩個模組的本次接法確認後填 `true` |
 | `DEVICE_ID` | 自己組別；和前一支程式一致 |
@@ -372,6 +388,7 @@ NaN 表示這裡沒有可用的數值，**不是 0°C，也不是 0%**。
 USB 拔除時，把 ESP32 上所有杜邦線拔下，包含 3V3、GND 與兩條訊號線；麵包板上的模組可原位保留。只接 USB、Verify、Upload；完成後拔 USB，再依前頁接回四條板端連線，核對後接 USB。
 
 Serial Monitor 選 115200。若畫面說 sensor 設定未完成，回查本表，不把所有確認值一律改 true。
+
 
 <!-- page: dualobserve | 看結果 -->
 ## 光線會變，溫濕度慢慢更新
@@ -389,6 +406,10 @@ KY 大約每 50 ms 讀一次，但一般紀錄約每 500 ms 印一次。`sensor=
 DHT 大約每 2500 ms 才讀新資料。中間重複列出上一筆 DHT 結果，是保留最近資訊，不是重新量了十次。
 
 第一輪沒有分類，因此看到 `state=UNKNOWN`、`event_count=0` 是預期行為。此時先確認資料讀得到，不急著改門檻。
+
+
+<!-- page: dualcode | 完整基本程式 -->
+{{program:week04_dual_sensor_alarm}}
 
 <!-- page: age | 原理 -->
 ## 同次輸出，不等於同時測量
@@ -412,6 +433,7 @@ DHT 資料距今時間 = 現在時間 − 讀取完成時間
 
 單獨 DHT 程式的 `uptime_ms` 在開始讀取時記錄；整合程式另記 DHT 完成時間。比較不同程式的紀錄時，要看欄位定義，不只看名字像不像。
 
+
 <!-- page: classify | 再選 2 -->
 ## 沿用上週基準，加入遮光判斷
 > 接線不變，蜂鳴器仍不接。
@@ -432,6 +454,7 @@ Verify、Upload 後，看開頭是否說基準可用。若不能判斷，先查�
 若換模組、位置、供電或照明，上週基準可能不能沿用。回到 Week 3 的基準建立步驟，只補受影響的紀錄；不混合不同次測量湊成一組。
 
 <aside>本輪上傳只改分類設定，已確認的感測線可維持原接法；要移線仍先拔 USB。保留蜂鳴器設定 false／−1。</aside>
+
 
 <!-- page: event | 數一次遮光 -->
 ## 放開，遮住，再放開
@@ -454,6 +477,7 @@ Verify、Upload 後，看開頭是否說基準可用。若不能判斷，先查�
 
 事件數增加不代表蜂鳴器已發聲。本輪本來就是無聲測試。
 
+
 <!-- page: stable | 原理 -->
 ## 為什麼不碰到門檻就立刻算？
 > 手晃一下、光線抖一下，不一定是一次完整動作。
@@ -467,6 +491,7 @@ Verify、Upload 後，看開頭是否說基準可用。若不能判斷，先查�
 約 50 ms 是安排的取樣間隔；程式執行與感測器讀取也需要時間，實際事件不保證剛好在第 150 ms 發生。
 
 穩定分類用來減少很短的變化造成重複事件，**不會把錯接的感測器變正確，也不證明距離或亮度準確**。
+
 
 <!-- page: limits | 這次規則的限制 -->
 ## 數字穩定，仍要看它從哪裡來
@@ -487,6 +512,7 @@ Week 3 已練過保留原值與品質原因。今天也要留下 raw，遇到這
 
 如果光線資料無效，程式會取消已準備好的遮光事件；恢復後要先穩定放開，再遮住。
 
+
 <!-- page: dualfailure | 分別模擬失敗 -->
 ## DHT 失敗，和光敏失敗不同
 > 仍在第 2 輪，先不用聲音判斷成功。
@@ -505,6 +531,7 @@ Week 3 已練過保留原值與品質原因。今天也要留下 raw，遇到這
 
 如果未來作品是依溫度控制加熱，DHT 失敗的處理就不能照搬。本課不是示範加熱器控制，也沒有接危險負載。
 
+
 <!-- page: buzzer | 最後才加入聲音 -->
 ## 先認出自己的蜂鳴器
 > 商品名稱相同，不代表接法與驅動方式相同。
@@ -521,6 +548,7 @@ Week 3 已練過保留原值與品質原因。今天也要留下 raw，遇到這
 兩種不能混用。不能把「有三支腳」一律當 VCC、GND、S，也不能用 220 Ω 取代指定的 1 kΩ。
 
 <aside class="safety">不把蜂鳴器直接跨接 3V3 與 GND 當成通用試法。未完成確認時保持無聲版本，先用事件紀錄完成操作與練習，不自行試插未知腳位。</aside>
+
 
 <!-- page: buzzerwire | HW-508 的接點和電阻 -->
 ## 把一千歐姆放在訊號路徑中
@@ -546,6 +574,7 @@ HW-508 − → d3／a3 → 板 GND
 
 對應設定：`PIN_BUZZER_CONTROL=18`、`BUZZER_USE_TONE=true`、`BUZZER_SERIES_OHMS=1000`；保留 `BUZZER_HZ=2000`。波形模式的 `BUZZER_ON_LEVEL` 不使用，可保持 −1。確認旗標仍依實物條件，不因填完這些值就自動通過。
 
+
 <!-- page: buzzersetup | 符合條件再選 3 -->
 ## 用同一個事件觸發短音
 > 先上傳能保持安靜的設定，再斷電接線。
@@ -567,6 +596,7 @@ HW-508 − → d3／a3 → 板 GND
 
 <aside class="safety">持續叫、發熱、重新開機，或聲音和命令不一致，先拔 USB。不要靠一直重啟或改大音量繼續測試。</aside>
 
+
 <!-- page: mute | 確認停止 -->
 ## q 是靜音，不是切斷電源
 > 分別確認事件、程式命令與實際聲音。
@@ -586,6 +616,7 @@ HW-508 − → d3／a3 → 板 GND
 `beep_off` 只能證明程式走到停止命令，不能代替耳朵觀察或硬體量測。持續叫就斷電排查。
 
 若波形輸出初始化失敗，程式會保持故障與靜音，u 不能強行解除。修正原因後重新啟動再測。
+
 
 <!-- page: exercise | 最後練習：先自己做 -->
 ## 幫另一組判讀測試紀錄
@@ -609,22 +640,6 @@ HW-508 − → d3／a3 → 板 GND
 
 每題寫出事件數、時間或停止動作，並說明理由。
 
-<!-- page: answer | 參考解答 -->
-## 數事件，也要分清資料和動作
-
-| 題目 | 解答 | 原因 |
-|---|---|---|
-| A | 0 | 開機後還沒穩定放開，不能算新遮光 |
-| B | 1 | 先有穩定室內光，再有穩定遮光 |
-| C | 1 | 持續蓋住不重複算 |
-| D | 2，不叫 | q 只靜音，事件仍記錄 |
-| E | 2，不補叫 | u 不新增或補播舊事件 |
-
-1. **不可以。** 保留 NaN 與無效原因。可另外顯示「上次有效值 25°C」及其時間，但不能冒充本次成功。
-2. **475 ms。** 3500 − 3025 = 475。不能因為一起列出，就說和光線同時取得。
-3. **先拔 USB 斷電。** 停止命令不保證實物停止，之後再查接法、模組型式與驅動設定。
-
-只答「程式成功」不夠。說明你看到的是哪個欄位、哪次操作，以及有沒有觀察到實際動作。
 
 <!-- page: combinegoal | 加入前幾週零件：一起做 -->
 ## 做一個按鈕式環境紀錄器
@@ -642,6 +657,7 @@ HW-508 − → d3／a3 → 板 GND
 
 本例只接按鈕、光敏與 DHT；斷電後移除蜂鳴器。
 
+
 <!-- page: combinewire | 先換程式再接線 -->
 ## 三個訊號，不能共用一個 GPIO
 
@@ -657,7 +673,8 @@ HW-508 − → d3／a3 → 板 GND
 
 按鈕四腳插 **e27、f27、e29、f29**，沿用 Week 2 的方向，跨中央溝槽。斷電量 b27 對 b29，應放開不通、按下才通。訊號走 GPIO5 → a27 → e27；按下後經 e29 → a29 → e3 回地。共地不是把三條訊號接在一起。
 
-保留 `REQUIRE_VALID_DHT = false`，只在本組腳位、模組腳序、3.3 V 供電及訊號確認後，才把 `PROFILE_CONFIRMED` 改 true。不知道 DHT 腳位時回看本組前段紀錄，不猜 6 或 7。
+只在本組腳位、模組腳序、3.3 V 供電及訊號確認後，才把 `PROFILE_CONFIRMED` 改 true。不知道 DHT 腳位時回看本組前段紀錄，不猜 6 或 7。
+
 
 <!-- page: combinetry | 同一行，兩個時間 -->
 ## 先等三秒，再按一下
@@ -681,6 +698,10 @@ light_uptime_ms=3500 dht_read_finished_ms=3025 dht_age_ms=475
 
 本例每 2.5 秒嘗試 DHT，讀取可能短暫占用程式。非常短的按壓可能漏掉，不能當成精準計次儀器。資料不會自動寫入硬碟，保存 Monitor 紀錄才留下證據。
 
+
+<!-- page: button_code | 完整基本程式 -->
+{{program:button_environment_log}}
+
 <!-- page: combineexplain | 按鈕不是量測指令 -->
 ## 一筆紀錄，不代表同時測量
 
@@ -698,71 +719,92 @@ light_uptime_ms=3500 dht_read_finished_ms=3025 dht_age_ms=475
 
 若本次 DHT 失敗，就保留失敗；程式不把上一次成功的 25°C 偽裝成本次新資料。
 
+
+
+<!-- page: flowcase2 | 只改一處，想想結果 -->
+## 時間戳改成現在，舊資料變新了嗎？
+> 資訊處理示意；僅作圖上推演，保持現有實物接線不動。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="時間戳改成現在，舊資料變新了嗎？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">DHT 讀取</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><path d="M134,62 L139,66 L134,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">保存讀取時間</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><path d="M264,62 L269,66 L264,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">按鈕</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><path d="M394,62 L399,66 L394,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">計算資料年齡</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><path d="M524,62 L529,66 L524,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">紀錄</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">DHT 讀取</text><line x1="121" y1="193" x2="139" y2="193" stroke="#246e73" stroke-width="2" /><path d="M134,189 L139,193 L134,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" /><text x="195" y="198" font-size="16" text-anchor="middle">每次改成現在</text><line x1="251" y1="193" x2="269" y2="193" stroke="#246e73" stroke-width="2" /><path d="M264,189 L269,193 L264,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="198" font-size="16" text-anchor="middle">按鈕</text><line x1="381" y1="193" x2="399" y2="193" stroke="#246e73" stroke-width="2" /><path d="M394,189 L399,193 L394,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="198" font-size="16" text-anchor="middle">計算資料年齡</text><line x1="511" y1="193" x2="529" y2="193" stroke="#246e73" stroke-width="2" /><path d="M524,189 L529,193 L524,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">紀錄</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
+
+**想一想：** 最後一次 DHT 完成於 3000 ms，按鈕在 4800 ms 按下。若把讀取時間改寫成 4800，會漏掉什麼？
+
+**原理提示：** 真正資料年齡是 1800 ms；只改時間欄會印成 0，但沒有發生新量測。
+
+只有標記處改變，其餘供電、程式與環境條件沿用正常情境。不可把未知結果直接寫成 0、LOW 或「一定停止」。
 <!-- page: buildexercise | 動手練習 -->
-## 沒有可用溫濕度，就先不收錄
-> 接線不變；成功紀錄與失敗嘗試都要看得見。
+## 展示櫃環境資料收錄
+> 按下按鈕，表示想收錄一筆；不代表當下資料一定可用。
 
-修改同一支程式，使「還沒有 DHT 結果」或「最新 DHT 結果無效」時，按鈕只印 `event=skipped`，不增加 record。
+沿用剛才的按鈕、KY-018、DHT11 與基本程式。把紙盒當成展示櫃模型，每次開啟或關閉後按一下，留下環境紀錄。
 
-作品用在紙盒環境紀錄：按下表示「想收錄一次」，不代表感測器一定有可用資料。
+這次只有符合以下條件才收錄：
 
-| 名稱 | 要完成的行為 |
+| 檢查順序 | 不符合時的 reason |
 |---|---|
-| attempt，嘗試次數 | 每次有效按壓都加 1 |
-| record，收錄次數 | 只有 DHT 已有有效結果才加 1 |
-| skipped，跳過訊息 | 沒讀到或最新讀取失敗時，留下原因 |
+| 1. 已完成至少一次 DHT 讀取 | `not_read_yet` |
+| 2. 最近一次 DHT 結果有效 | `dht_invalid` |
+| 3. DHT 讀取完成距今不超過 1000 ms | `dht_stale` |
+| 4. 本次光線 raw 不是 0 或 4095 | `light_endpoint` |
 
-使用 `button_environment_log.ino`，保留接線、按鈕與取樣間隔。這次條件只檢查 DHT，不改光敏判斷。
+1000 ms 是本題自訂的收錄規則，不是 DHT11 的規格。資料太舊不等於感測器故障；保持每 2500 ms 讀 DHT，不能為了過關而加快讀取。
 
-不要為了造出失敗拔帶電的 DATA。先用開機等待時間測「尚未讀到」；DHT 失敗分支可以用提供的主機測試驗證，與實測分開記錄。
+每次有效按壓都重新讀取一次 KY，並只回報第一個不符合的原因。這不是食品或文物保存的安全監控器。
+
+<!-- page: buildcounts | 要留下的紀錄 -->
+## 有成功，也要看得見拒絕
+| 欄位 | 規則 |
+|---|---|
+| attempt | 每次有效按壓加 1 |
+| record | 全部條件通過才加 1 |
+| skipped | 任一條件不通過就加 1 |
+| reason | 成功為 ok；失敗依檢查順序回報 |
+| raw、dht_age_ms | 保留本次光線與 DHT 資料年齡；尚未讀過時年齡為 NA |
+
+每次按下只印一行 `event=record` 或 `event=skipped`。每一行都要滿足：
+
+```text
+attempt = record + skipped
+```
+
+按住不放不重複新增。放開再按，才重新判斷；剛才被跳過的資料不得在背景自動補收錄。Reset 後次數歸零。
+
+沿用基本程式的按鈕辨識與定時 DHT 讀取。新增的是收錄條件與紀錄，不增加零件。
 
 <!-- page: buildresults | 預期結果 -->
-## 嘗試兩次，不一定收錄兩次
+## 同樣按七次，只有兩次收錄
+> 教學假資料；假設每列都是一次新的有效按下，從 Reset 後依序測試。
 
-Monitor 選 115200。以下第一至第四步是同一輪連續操作；每次按住半秒、放開至少 0.1 秒。
+| 次序 | 按下時的資料 | 結果／原因 | record／skipped |
+|---|---|---|---|
+| 1 | 尚未讀 DHT，raw=420 | skipped／not_read_yet | 0／1 |
+| 2 | DHT 無效，raw=420 | skipped／dht_invalid | 0／2 |
+| 3 | DHT 有效、距今 1001 ms，raw=420 | skipped／dht_stale | 0／3 |
+| 4 | DHT 有效、距今 1000 ms，raw=0 | skipped／light_endpoint | 0／4 |
+| 5 | DHT 有效、距今 1000 ms，raw=420 | record／ok | 1／4 |
+| 6 | DHT 有效、距今 400 ms，raw=4095 | skipped／light_endpoint | 1／5 |
+| 7 | DHT 有效、距今 400 ms，raw=420 | record／ok | 2／5 |
 
-| 操作順序 | 預期結果 |
-|---|---|
-| 1. Reset，放開按鈕 | attempt=0、record=0，尚未有 DHT 結果 |
-| 2. 第一筆 DHT 讀取前按一次 | 印 event=skipped、attempt=1、reason=dht_unavailable；record 仍為 0 |
-| 3. 放開，等有效 event=dht_attempt | 不自動收錄，次數不變 |
-| 4. 再按一次 | 印 event=record、attempt=2、record=1 |
-| 5. 保持按住兩秒 | 不重複增加 attempt 或 record |
+第七列的預期輸出（其他感測數字依當次資料）：
 
-另兩個條件可用紙上判讀或主機測試核對，不為製造錯誤拔帶電訊號線：
-
-| 條件 | 預期結果 |
-|---|---|
-| 最新 DHT 失敗後再按 | attempt 加 1；skipped；record 不變 |
-| DHT 有效，但 raw=4095 | 仍收錄，endpoint=1；不代表光線有效 |
-
-實物一直讀不到有效 DHT，就記錄失敗並排錯；不手動把 valid 改成 1。
-
-<!-- page: buildanswer | 參考解答 -->
-## 不收錄，但仍留下跳過原因
-
-```cpp
-const bool REQUIRE_VALID_DHT = true;
+```text
+event=record attempt=7 record=2 skipped=5 reason=ok
+raw=420 dht_age_ms=400
 ```
 
-在 IDE 開啟 `button_environment_log.ino`，另存為 `environment_valid_only`。Ctrl+F 找到同名設定，改成上面的 true，儲存並以 Verify、Upload 更新。接線不變；要移線仍先拔 USB。完整程式已具備這個判斷：
+為方便閱讀分成兩行；程式應印在同一行。第 3 列即使 raw 同時為 0，也先回報 dht_stale。
 
-```cpp
-if (REQUIRE_VALID_DHT && (!haveDht || !dhtValid)) {
-  Serial.printf("event=skipped attempt=%lu reason=dht_unavailable\n",
-                (unsigned long)attempt);
-  return;
-}
-```
+<!-- page: buildtest | 自己驗證 -->
+## 等待，也會改變能否收錄
+1. Reset 後放開按鈕，再於第一筆 DHT 完成前按一次，應跳過。
+2. 等出現有效 `event=dht_attempt` 後立刻按一次；raw 不在端點時應收錄。
+3. 放開按鈕，等到該筆 DHT 已超過一秒、下一筆尚未完成，再按一次，應因資料太舊跳過。
+4. 等下一次有效 DHT 更新，放開再按，應恢復收錄。
+5. 比較三個次數，確認每次嘗試都有成功或跳過的去向。
 
-| 測試條件 | 應有結果 |
-|---|---|
-| 尚未讀 DHT，按一次 | attempt=1；skipped；record 仍為 0 |
-| 之後有效，再按一次 | attempt=2、record=1 |
-| 最新 DHT 失敗再按 | 再增加 attempt，不增加 record |
-| DHT 有效，但 raw=4095 | 仍收錄，endpoint=1；本次只改 DHT 規則 |
+用紀錄中的時間核對，不只靠手按秒數。剛好 1000 ms 與 1001 ms 的邊界、無效值與端點，用上一頁假資料逐列走程式或用主機測試。
 
-「DHT 可用」不是「整筆都可靠」。不要把這個選項說成自動排除所有問題。若實物一直沒有有效 DHT，先完成失敗紀錄與排錯，不能把 valid 手動改成 1。
+**不要為了製造失敗拔帶電 DATA，也不要把 GPIO 短接到電源或地。** 感測器沒有出現的條件，標成紙上判讀或模擬，不冒充實測。
 
 <!-- page: finish | 今天留下什麼 -->
 ## 保留一段能重現的操作紀錄
@@ -782,6 +824,7 @@ if (REQUIRE_VALID_DHT && (!haveDht || !dhtValid)) {
 
 下次可把同樣的資料顯示在作品上，或交給其他介面。先能說清楚資料從哪裡來、何時取得、失敗怎麼表示，再增加功能。
 
+
 <!-- page: trouble | 有問題先查這裡 -->
 ## 一次只排查一件事
 
@@ -797,6 +840,7 @@ if (REQUIRE_VALID_DHT && (!haveDht || !dhtValid)) {
 | 蜂鳴器持續叫、發熱或板重啟 | 先拔 USB；保存現象後排查，不反覆通電硬試 |
 
 查不到原因時留下：正在用的程式、設定、完整錯誤、接線照片、最後一個操作。不要只寫「不能用」。
+
 
 <!-- page: color | 補充：電阻色環 -->
 ## 色環、容差與量到的數字
@@ -821,6 +865,7 @@ if (REQUIRE_VALID_DHT && (!haveDht || !dhtValid)) {
 
 辨識困難時先查包裝、在斷電且隔離的條件量阻值，再核對色環，不只靠顏色猜。
 
+
 <!-- page: sources | 延伸閱讀與完整程式 -->
 ## 查規格，要查對對象
 
@@ -833,6 +878,6 @@ if (REQUIRE_VALID_DHT && (!haveDht || !dhtValid)) {
 | 電阻色環 | [Vishay：Resistor Color Code](https://www.vishay.com/docs/49411/resistor_color_code_calculator.pdf) |
 | ESP32 波形輸出 API | [Espressif：Arduino-ESP32 LEDC](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html) |
 
-後面依序附上 **DHT11 單獨讀取**與**雙感測器整合**的完整程式。每支程式跨數頁，必須合起來才完整。原始檔的保護設定保留，課堂依已確認接法填入。
+三份完整程式分別在第 {{page:dhtcode}}、{{page:dualcode}}、{{page:button_code}} 頁。未確認的腳位與供電設定保持停用。
 
 上週 KY 基準仍可用就沿用；缺少基準時回 Week 3 補做，不因進入新一週而重收所有資料。

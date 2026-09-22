@@ -20,7 +20,7 @@ ESP32以自己的`device_id`組成topic，發布KY-018遙測、事件與online�
 A 是 MQTT broker，負責按主題轉送訊息；E 是本課的 bridge，負責把 MQTT 訊息送進既有後端。
 兩者不是同一個程式。單一裝置完成傳送、回覆與保存後，多裝置測試才有可比較的結果。
 
-## 一、Unit Overview
+## 一、本週內容
 
 ### 教學目標
 
@@ -509,6 +509,26 @@ $commandBody | & "C:\Program Files\mosquitto\mosquitto_pub.exe" `
 每項做完重建正常 body；測完在 E 重跑 bridge，從手機以新命令 reset，確認資料庫路徑恢復。
 不用任意 ID 覆寫資料庫，也不截圖含密碼的命令。新視窗沒有 `$device` 等變數，須重做本段設定。
 
+
+
+
+
+
+
+<div style="break-before:page"></div>
+
+## MQTT 收到了，不等於已入庫
+
+資料保存示意；僅作圖上推演，不停止正在使用的服務或取消真實系統的安全檢查。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="MQTT 收到了，不等於已入庫" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">ESP32</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><path d="M134,62 L139,66 L134,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">MQTT broker</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><path d="M264,62 L269,66 L264,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">bridge</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><path d="M394,62 L399,66 L394,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">資料庫</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><path d="M524,62 L529,66 L524,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">歷史 API</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">ESP32</text><line x1="121" y1="193" x2="139" y2="193" stroke="#246e73" stroke-width="2" /><path d="M134,189 L139,193 L134,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="198" font-size="16" text-anchor="middle">MQTT broker</text><line x1="251" y1="193" x2="269" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="269" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" stroke-dasharray="5 4"/><text x="325" y="198" font-size="16" text-anchor="middle">bridge 未運行</text><line x1="381" y1="193" x2="399" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="198" font-size="16" text-anchor="middle">資料庫</text><line x1="511" y1="193" x2="529" y2="193" stroke="#246e73" stroke-width="2" /><path d="M524,189 L529,193 L524,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">歷史 API</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
+
+**想一想：** 保留 broker，mosquitto_sub 仍看得到新訊息，只停止 bridge。查歷史 API 時一定有這筆嗎？
+
+**原理提示：** 不一定；本課由 bridge 把 MQTT 訊息交給資料庫。看到 broker 訊息不是入庫證據。
+
+只改圖中標記處，其餘條件保持相同。請指出哪一段仍工作，以及目前證據不能說明什麼。
+
 ## 十一、練習
 
 ### 練習1：Topic filter比較
@@ -524,22 +544,7 @@ $commandBody | & "C:\Program Files\mosquitto\mosquitto_pub.exe" `
 | course/team03-device01/telemetry | 收到 | 收到 | 收到 |
 | course/team03-device01/events | 不收到 | 收到 | 收到 |
 | course/team04-device01/telemetry | 收到 | 不收到 | 收到 |
-| course/team04-device01/ack | 不收到 | 不收到 | 收到 |
-
-<div style="break-before: page"></div>
-
-#### 練習1參考做法
-
-1. 保持 broker A 執行。B 按 Ctrl+C 停止訂閱，使用本週已成功的訂閱命令，
-   只替換 `-t` 後面的篩選字串；host、port 與已確認帳密不變。
-2. 依次使用表頭三個篩選字串，每次只測一個，保存 B 收到的 topic。
-   帳密只留在本機，不出現在紀錄截圖。
-3. 以本組正常 telemetry／events 核對前兩列。其他組兩列須由同意測試的組別發布，
-   或只做紙上主題配對；不自行對別人的裝置送 command。
-
-`+` 配對一層名稱，所以第一欄可收到不同裝置的 telemetry，但不收 events 或 ack。
-`#` 配對該位置以下的層次；放在自己的代號後只看自己的各類訊息，放在 course 後則涵蓋本課各裝置。
-是否收到歷史 retained 訊息仍取決於該 topic 的 retained 設定；配對表本身不表示裝置正在連線。
+| course/team04-device01/acks | 不收到 | 不收到 | 收到 |
 
 ### 練習2：Presence原因
 
@@ -902,9 +907,25 @@ $afterCreate.event_count
 3. 再執行schema，確認column沒有重複、既有event row仍可查詢。
 4. 記錄「重新啟動驗證」；不能把它誤稱成完整migration test，因為沒有建立舊版fixture。
 
+<div style="break-before:page"></div>
+
+## 少了裝置篩選，查到的是誰的資料？
+
+查詢資訊流示意；僅作圖上推演，不停止正在使用的服務或取消真實系統的安全檢查。
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="少了裝置篩選，查到的是誰的資料？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">A、B 的資料</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><path d="M134,62 L139,66 L134,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">資料庫</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><path d="M264,62 L269,66 L264,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">篩選 A</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><path d="M394,62 L399,66 L394,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">回傳 A</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><path d="M524,62 L529,66 L524,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">畫面標示 A</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">A、B 的資料</text><line x1="121" y1="193" x2="139" y2="193" stroke="#246e73" stroke-width="2" /><path d="M134,189 L139,193 L134,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="198" font-size="16" text-anchor="middle">資料庫</text><line x1="251" y1="193" x2="269" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="269" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" stroke-dasharray="5 4"/><text x="325" y="198" font-size="16" text-anchor="middle">不篩選裝置</text><line x1="381" y1="193" x2="399" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="198" font-size="16" text-anchor="middle">回傳 A、B</text><line x1="511" y1="193" x2="529" y2="193" stroke="#246e73" stroke-width="2" /><path d="M524,189 L529,193 L524,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">畫面仍標 A</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
+
+**想一想：** 資料不變，只刪除 API 查詢的 device_id 條件。總數增加，可以說 A 的事件增加了嗎？
+
+**原理提示：** 不能。查詢範圍變了，可能混入 B；數字增加不代表 A 產生更多事件。
+
+只改圖中標記處，其餘條件保持相同。請指出哪一段仍工作，以及目前證據不能說明什麼。
+
 ## DB 十二、練習
 
 ### DB 練習1：設計一個可驗證的filter
+
+先固定一段不再追加資料的來源或時段，兩種查詢使用相同 device、event type 與 limit，並比較每筆 id，不只比較畫面行數。若來源仍持續增加，先記錄查詢先後時間，不能把新增資料當成查詢錯誤。
 
 選一個device與event type，先預測筆數，再用API與`inspect_db.py`各查一次。若結果不同，
 比較limit、排序、時間範圍及資料解碼，不手動改row。
