@@ -20,7 +20,7 @@ const course = path.resolve(__dirname, '../../..');
 const answers = process.argv.includes('--answers');
 const destination = answers ? path.resolve(__dirname, '../week3_answers') : __dirname;
 const stem = answers ? 'week3Ans' : 'week3_main';
-const title = answers ? 'Week 3 Ans · 電氣量測與 ADC' : 'Week 3 · 電氣量測與 ADC';
+const title = answers ? 'Week 3 Ans · 電氣量測與 ADC' : 'Week 3 考卷 · 電氣量測與 ADC';
 const tmp = path.join(destination, 'tmp');
 fs.mkdirSync(tmp, { recursive: true });
 const esc = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
@@ -99,6 +99,48 @@ function combinedCurrent() {
   return svg(s,370);
 }
 const diagrams = {
+ oledpower:()=>svg(
+   text(325,22,'供電回路示意：傳統電流分成兩條支路',18,'middle')
+   +box(10,72,95,44,'3V3')+box(250,45,155,44,'光敏模組')
+   +box(250,135,155,44,'OLED 模組')+box(545,72,95,44,'GND')
+   +line(105,94,167,94)+line(167,67,167,157)+arrow(167,67,250,67)+arrow(167,157,250,157)
+   +arrow(405,67,483,67)+arrow(405,157,483,157)+line(483,67,483,157)
+   +line(483,94,545,94)+dot(167,94)+dot(483,94)
+   +line(592,116,592,222)+line(592,222,57,222)+arrow(57,222,57,116)
+   +text(325,216,'經板上電源回路返回；不是 OLED 的資料傳遞',16,'middle'),240),
+ oledconnections:()=>svg(
+   text(325,24,'連接關係示意；依模組絲印辨認，不是排針實際順序',17,'middle')
+   +box(10,50,220,42,'ESP32 3V3')+box(420,50,220,42,'OLED VDD')+line(230,71,420,71,colors.red)
+   +box(10,112,220,42,'ESP32 GND')+box(420,112,220,42,'OLED GND')+line(230,133,420,133,colors.black)
+   +box(10,174,220,42,'GPIO8／PIN_SDA')+box(420,174,220,42,'OLED SDA')+line(230,195,420,195)
+   +box(10,236,220,42,'GPIO9／PIN_SCL')+box(420,236,220,42,'OLED SCK／SCL')+line(230,257,420,257)
+   +text(325,307,'8／9 僅示範已確認適用的 T01 配置；不接 5Vin。',17,'middle'),320),
+ observerflow:()=>flow(['光線 → S 電壓 → GPIO4 的 raw','程式比較：更新本次最小值與最大值','同一組 raw／min／max → OLED 畫面','同一組資料 → Serial → 電腦紀錄']),
+ snapshotflow:()=>svg(
+   box(10,15,300,46,'定時：讀取目前 raw')+box(350,15,290,46,'按鈕：辨識新的按下')
+   +arrow(495,61,495,84)+box(350,86,290,46,'再取樣，保存並加次數')
+   +line(160,61,160,159)+arrow(160,159,160,183)
+   +line(495,132,495,159)+arrow(495,159,495,183)
+   +box(10,185,630,46,'OLED：RAW 持續更新；LAST／SAVED 只在保存時改')
+   +arrow(495,132,632,152)+text(625,176,'Serial 紀錄',15,'end')
+   +text(325,275,'箭頭是資訊處理順序，不是接線或電流。',17,'middle'),289),
+ worksheetinformation:()=>svg(
+   box(10,8,300,42,'光線 → 光敏電阻變化')+box(350,8,290,42,'按鈕按下／放開')
+   +arrow(160,50,160,68)+arrow(495,50,495,68)
+   +box(10,70,300,42,'模組 S 的電壓改變')+box(350,70,290,42,'GPIO5 → 辨識新按壓')
+   +arrow(160,112,160,130)+line(495,112,495,151)
+   +arrow(495,151,312,151)+text(420,141,'觸發取樣',16,'middle')
+   +box(10,132,300,42,'GPIO4 → ADC → raw')
+   +arrow(160,174,160,192)+box(10,194,630,42,'程式記錄：序號、raw、開機時間')
+   +arrow(325,236,325,254)+box(10,256,630,42,'Serial／UART → CH343 → USB → Monitor'),308),
+ worksheetdivider:()=>svg(
+   text(80,25,'3V3：3.3 V',19)+line(170,36,170,54)
+   +'<rect x="143" y="54" width="54" height="43" fill="white" stroke="#526c70"/>'
+   +text(220,82,'上方 1 kΩ',19)+line(170,97,170,130)+dot(170,130)
+   +line(170,130,382,130)+dot(382,130)+text(400,138,'中間接點：____ V',19)
+   +line(170,130,170,156)+'<rect x="143" y="156" width="54" height="43" fill="white" stroke="#526c70"/>'
+   +text(220,184,'下方 10 kΩ',19)+line(170,199,170,230)
+   +text(96,255,'GND：0 V',19),268),
  combinedwiring:()=>nodes([[3,'板 GND → a3','b3 ← KY −'],[6,'板 3V3 → a6','b6 ← KY 中間'],[15,'KY S → a15','c15 → GPIO4'],[27,'GPIO5 → a27','e27 → 按鈕'],[29,'e3 → a29','e29 → 按鈕']]),
  combinedcurrent:combinedCurrent,
  answerflow:()=>flow(['辨識一次新按壓','空閒：開始三筆；忙碌：回報不接受','每到間隔才重新讀 ADC，index 加一','第三筆後停止，等待下一次按下']),
@@ -125,6 +167,8 @@ const sourceFile = path.join(destination, stem + '.md');
 const input = fs.readFileSync(sourceFile,'utf8');
 const parts = [...input.matchAll(/<!-- page: ([\w]+) \| (.*?) -->\s*([\s\S]*?)(?=<!-- page:|$)/g)];
 if(!parts.length) throw Error('No pages');
+if (new Set(parts.map(m => m[1])).size !== parts.length) throw Error('Duplicate source page ID');
+if (!answers && /\{\{program:/.test(input)) throw Error('Main is an exam; programs belong in Ans');
 const pages = [];
 const inputs = [];
 const sourceAnchors = new Map();
@@ -134,7 +178,7 @@ for(const m of parts) {
   const name=match[1];
   const p=name==='button_light_capture'
     ? path.join(__dirname,name,name+'.ino')
-    : name==='three_light_samples' && answers
+    : ['three_light_samples','shade_counter','light_observer','light_snapshot'].includes(name) && answers
       ? path.join(destination,name,name+'.ino')
       : path.join(course,'examples',name,name+'.ino');
   sourceAnchors.set(path.resolve(p), m[1]);
@@ -209,6 +253,9 @@ svg{width:100%;display:block;max-height:82mm;fill:#263b40;font-family:"Microsoft
 aside{padding:3mm 4mm;margin:4mm 0;border-left:4px solid #9b7837;background:#faf5e8;font-size:11pt;line-height:1.6}.safety{border-color:#b14a3a;background:#fff2ee}
 pre{white-space:pre-wrap;overflow-wrap:anywhere;font:10.5pt/1.5 Consolas,"Microsoft JhengHei",monospace;background:#f1f4f5;border-left:3px solid #849ba1;padding:3mm;margin:3mm 0}code{font-family:Consolas,"Microsoft JhengHei",monospace;font-size:.92em;overflow-wrap:anywhere}
 footer{position:absolute;bottom:9mm;left:17mm;right:17mm;display:flex;justify-content:space-between;color:#617277;font-size:8.5pt}a{color:#1c666e;text-decoration:underline}.lead{font-size:12pt;color:#51676d}.code-title{font-size:17pt;overflow-wrap:anywhere}.fullcode{font-size:10pt;line-height:1.45}.next{border-top:1px solid #acc1c3;padding-top:3mm;font-size:11pt}
+.write-space{border:1px solid #a7b9bc;margin:3mm 0 4mm;background:white}
+.response-table td{height:13mm}
+#exercisemeter figure.diagram{margin:2mm 0}#exercisemeter .diagram svg{max-height:52mm}
 @media screen{.page{margin:8mm auto;box-shadow:0 1px 6px #aaa}}
 `;
 const html='<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>'+title+'</title><style>'+css+'</style></head><body>'+pages.map((p,i)=>`<section id="${p.id}" class="page"><header><span>${esc(title)}</span><span>${esc(p.tag)}</span></header><main>${p.html||render(p.body)}</main><footer><span>${esc(title)}</span><span>${i+1} / ${pages.length}</span></footer></section>`).join('')+'</body></html>';

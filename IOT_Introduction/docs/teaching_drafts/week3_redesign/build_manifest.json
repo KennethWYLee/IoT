@@ -3,290 +3,56 @@
   "pages": [
     {
       "number": 1,
-      "id": "start"
-    },
-    {
-      "number": 2,
-      "id": "files"
-    },
-    {
-      "number": 3,
-      "id": "prepare"
-    },
-    {
-      "number": 4,
-      "id": "board"
-    },
-    {
-      "number": 5,
-      "id": "meter"
-    },
-    {
-      "number": 6,
-      "id": "powerwire"
-    },
-    {
-      "number": 7,
-      "id": "firstvoltage"
-    },
-    {
-      "number": 8,
-      "id": "voltagemeaning"
-    },
-    {
-      "number": 9,
-      "id": "upload"
-    },
-    {
-      "number": 10,
-      "id": "gpiowire"
-    },
-    {
-      "number": 11,
-      "id": "gpiotest"
-    },
-    {
-      "number": 12,
-      "id": "codegpio"
-    },
-    {
-      "number": 13,
-      "id": "codegpio_1"
-    },
-    {
-      "number": 14,
-      "id": "gpioexplain"
-    },
-    {
-      "number": 15,
-      "id": "kyidentify"
-    },
-    {
-      "number": 16,
-      "id": "kyresistance"
-    },
-    {
-      "number": 17,
-      "id": "kyresistmeaning"
-    },
-    {
-      "number": 18,
-      "id": "kywire"
-    },
-    {
-      "number": 19,
-      "id": "kyvoltage"
-    },
-    {
-      "number": 20,
-      "id": "adcupload"
-    },
-    {
-      "number": 21,
-      "id": "adcwire"
-    },
-    {
-      "number": 22,
-      "id": "savelog"
-    },
-    {
-      "number": 23,
-      "id": "sample"
-    },
-    {
-      "number": 24,
-      "id": "coderaw"
-    },
-    {
-      "number": 25,
-      "id": "coderaw_1"
-    },
-    {
-      "number": 26,
-      "id": "adcmeaning"
-    },
-    {
-      "number": 27,
-      "id": "flowcase2"
-    },
-    {
-      "number": 28,
-      "id": "ranges"
-    },
-    {
-      "number": 29,
-      "id": "classifyupload"
-    },
-    {
-      "number": 30,
-      "id": "validation"
-    },
-    {
-      "number": 31,
-      "id": "codeclassifier"
-    },
-    {
-      "number": 32,
-      "id": "codeclassifier_1"
-    },
-    {
-      "number": 33,
-      "id": "codeclassifier_2"
-    },
-    {
-      "number": 34,
-      "id": "quality"
-    },
-    {
-      "number": 35,
-      "id": "resistor"
-    },
-    {
-      "number": 36,
-      "id": "dividera"
-    },
-    {
-      "number": 37,
-      "id": "dividerameasure"
-    },
-    {
-      "number": 38,
-      "id": "dividerb"
-    },
-    {
-      "number": 39,
-      "id": "current"
-    },
-    {
-      "number": 40,
-      "id": "flowcase1"
-    },
-    {
-      "number": 41,
-      "id": "combinegoal"
-    },
-    {
-      "number": 42,
-      "id": "combinewire"
-    },
-    {
-      "number": 43,
-      "id": "combinepicture"
-    },
-    {
-      "number": 44,
-      "id": "combinetry"
-    },
-    {
-      "number": 45,
-      "id": "codebutton"
-    },
-    {
-      "number": 46,
-      "id": "codebutton_1"
-    },
-    {
-      "number": 47,
-      "id": "combineexplain"
-    },
-    {
-      "number": 48,
-      "id": "combinecurrent"
-    },
-    {
-      "number": 49,
-      "id": "buttonprinciple"
-    },
-    {
-      "number": 50,
-      "id": "units"
-    },
-    {
-      "number": 51,
-      "id": "memory"
-    },
-    {
-      "number": 52,
       "id": "exercise"
     },
     {
-      "number": 53,
+      "number": 2,
+      "id": "exercisemeter"
+    },
+    {
+      "number": 3,
+      "id": "worksheetsafety"
+    },
+    {
+      "number": 4,
+      "id": "worksheetflow"
+    },
+    {
+      "number": 5,
       "id": "buildexercise"
     },
     {
-      "number": 54,
-      "id": "buildresults"
+      "number": 6,
+      "id": "batchrecord"
     },
     {
-      "number": 55,
+      "number": 7,
       "id": "projectbutton"
     },
     {
-      "number": 56,
+      "number": 8,
       "id": "projectbuttonresults"
     },
     {
-      "number": 57,
+      "number": 9,
       "id": "projectoled"
     },
     {
-      "number": 58,
+      "number": 10,
       "id": "projectoledresults"
     },
     {
-      "number": 59,
+      "number": 11,
       "id": "projectcapture"
     },
     {
-      "number": 60,
+      "number": 12,
       "id": "projectcaptureresults"
-    },
-    {
-      "number": 61,
-      "id": "finish"
-    },
-    {
-      "number": 62,
-      "id": "sources"
     }
   ],
-  "sourceSha256": "c47a9cb8126c0fc4df20de33a4994dd3d8f4874bae81ccd1d99d32001d8ecba3",
-  "builderSha256": "d54c1d76e13d6b3c9a913766c7dd3f20aa35f5c05d9a0e4b98efad16c3c05ebc",
-  "sketches": [
-    {
-      "path": "examples/week03_gpio_voltage_cycle/week03_gpio_voltage_cycle.ino",
-      "sha256": "ff56c133af60440daa5789da0f4d9090b93acacc9becb1ba1acf143b60b1690c"
-    },
-    {
-      "path": "examples/week03_ky018_raw/week03_ky018_raw.ino",
-      "sha256": "5e1e07af78eac587c228dc7a9c61eee376d2d2ad365ffcff45eeae51e17b9dd0"
-    },
-    {
-      "path": "examples/week03_light_classifier/week03_light_classifier.ino",
-      "sha256": "6b99ed8a705ca4e92ae43bd70e83490f8adcab98abc218b34436049148c95806"
-    },
-    {
-      "path": "docs/teaching_drafts/week3_redesign/button_light_capture/button_light_capture.ino",
-      "sha256": "2cd577306e81ca7752030939e674fb2f0ae3317d78d1d4da5c1101af7fa16e09"
-    }
-  ],
-  "photos": [
-    {
-      "name": "ESP32S3_1.png",
-      "sha256": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc"
-    },
-    {
-      "name": "A830L_1.jpg",
-      "sha256": "73b760a0168417746d7a907f2f3a6540d671b012283a6f8e1cb3e795ce054e7d"
-    },
-    {
-      "name": "KY018_1.jpg",
-      "sha256": "2fd4e014413f33071761700cdc45382a48f9f83dfed757769d917d5f18818aa1"
-    },
-    {
-      "name": "Resistor_1.png",
-      "sha256": "155ef7c1267faf15d93b3113922c0f04b4c164ac7f59a43295d7eee5617eefc6"
-    }
-  ],
-  "pdfSha256": "f3b00c6a46bfb2f60782d9783c2d248001a211e82beeb47fca4415eb8c27c5b9"
+  "sourceSha256": "9b2e7b4e057273c50045763a45f3e82bfcd3d498b27190309dab7882e3b5e88e",
+  "builderSha256": "194e23076fa229af6c86787b4b98b2a60f4da98840c37d183f738bc37f2f3c09",
+  "sketches": [],
+  "photos": [],
+  "pdfSha256": "fe25941cd8e34d2071666958c59b40e25cc373d67c3725bdd249b834839e4a40"
 }

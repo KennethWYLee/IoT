@@ -65,46 +65,150 @@ assert "\ufffd" not in all_text
 assert "{{" not in all_text
 assert "**" not in all_text
 if ANSWERS:
-    assert "720" in doc[ids["concept"] - 1].get_text()
-    assert "4095" in doc[ids["concept"] - 1].get_text()
+    concept_text = doc[ids["concept"] - 1].get_text()
+    for phrase in ["沒有固定數字答案", "沒遮光、遮光各記三筆", "兩組讀值", "0.8 V"]:
+        assert phrase in concept_text, phrase
+    assert "Q6" not in all_text
+    for obsolete_requirement in ["註明感測器位置與遮光方式", "紙本 C", "紙本 D", "C 的紙本回答"]:
+        assert obsolete_requirement not in all_text, obsolete_requirement
+    assert ids["answerindex"] == 1 and ids["concept"] == 2
+    assert ids["concept"] < ids["conceptmeter"] < ids["worksheetflowanswer"] < ids["start"]
+    assert ids["start"] < ids["sources"] < ids["approach"]
+    assert ids["combinetry"] < ids["codebutton"] < ids["combineexplain"]
+    assert ids["quality"] < ids["resistor"] < ids["buttonprinciple"]
+    assert "examreasoning" not in ids
+    assert len(manifest["sketches"]) == 9
+    assert "marking" not in ids
+    assert "SAMPLE_GAP_MS" in doc[ids["busy"] - 1].get_text()
+    assert "1000" in doc[ids["busy"] - 1].get_text()
+    assert "先放慢" in doc[ids["busy"] - 1].get_text()
     assert ids["approach"] < ids["codeanswer"] < ids["expected"]
+    for prepare, code, why in [("shadeprepare", "shadecode", "shadewhy"),
+                               ("observerprepare", "observercode", "observerwhy"),
+                               ("snapshotprepare", "snapshotcode", "snapshotwhy")]:
+        assert ids[prepare] < ids[code] < ids[why]
+    assert ids["oledprepare"] < ids["oledscancode"] < ids["observerprepare"]
+    for page_id, answer_label in [("expected", "A 的程式說明"),
+                                  ("observerwhy", "C 的程式說明"),
+                                  ("snapshotwhy", "D 的程式說明")]:
+        assert answer_label in doc[ids[page_id] - 1].get_text(), answer_label
+    assert ids["projectsources"] == len(doc)
 else:
     assert "answer" not in ids and "buildanswer" not in ids
-    assert ids["buildresults"] == ids["buildexercise"] + 1
-    assert ids["combinetry"] < ids["codebutton"] < ids["combineexplain"]
-    assert ids["buttonprinciple"] < ids.get("exercise") < ids["buildexercise"]
+    assert "start" not in ids and "sources" not in ids
+    assert not manifest["sketches"] and not parser.blocks
+    assert len(doc) == 12
+    assert ids["batchrecord"] == ids["buildexercise"] + 1
+    assert ids["exercise"] == 1
+    opening_text = doc[0].get_text()
+    assert (opening_text.index("作品：") < opening_text.index("預期結果：")
+            < opening_text.index("驗證方法：") < opening_text.index("Q1．")
+            < opening_text.index("Q2．"))
+    for unclear_heading in ["程式標籤", "位置與判斷理由"]:
+        assert unclear_heading not in opening_text, unclear_heading
+    for actual_condition in ["沒遮光", "遮光", "第 1 筆 raw", "第 3 筆 raw", "Q2", "0.8 V"]:
+        assert actual_condition in opening_text, actual_condition
+    for removed_prompt in ["移開紙", "你在哪裡量", "怎麼遮住感測器", "你的讀值能用來分辨"]:
+        assert removed_prompt not in opening_text, removed_prompt
+    for removed_aside in ["若兩種情況出現相同讀值", "題目沒有提供", "不必重抄整張表",
+                          "本題給定作品條件", "反例不在實物上操作。", "不另填重複表格"]:
+        assert removed_aside not in all_text, removed_aside
+    assert "在紙上把" in doc[ids["worksheetflow"] - 1].get_text()
+    assert "只在紙上回答" in doc[ids["worksheetsafety"] - 1].get_text()
+    for obsolete in ["400～440", "1000～1040", "三條規則", "raw=430", "raw=4095", "分界取"]:
+        assert obsolete not in opening_text, obsolete
+    exam_text = all_text
+    for removed_field in ["黑筆插孔／紅筆插孔", "黑筆測點／紅筆測點", "批次 batch",
+                          "uptime_ms", "檔名／位置", "證據位置", "短片位置", "紀錄位置"]:
+        assert removed_field not in all_text, removed_field
+    meter_text = doc[ids["exercisemeter"] - 1].get_text()
+    for concrete_question in ["黑色表筆的線", "紅色表筆的線", "黑色筆尖", "紅色筆尖"]:
+        assert concrete_question in meter_text, concrete_question
+    record_text = doc[ids["batchrecord"] - 1].get_text()
+    assert "重新量測" in record_text and "複製第一筆" in record_text
+    assert "自己的程式" in record_text and "什麼時候執行" in record_text
+    for copied_requirement in ["後兩筆是誰決定", "用一句話記下這次實際觀察"]:
+        assert copied_requirement not in record_text, copied_requirement
+    assert "第 1 筆光敏數值" not in all_text
+    assert "兩筆相隔約一秒" in record_text
+    for removed_page in ["examreadings", "examflowchecks", "buildresults", "batchchecks", "buttonrecord",
+                         "oledrecord", "capturerecord", "capturechecks"]:
+        assert removed_page not in ids, removed_page
+    assert "Q6" not in all_text
+    for question in ["Q1", "Q2", "Q3", "Q4", "Q5-1", "Q5-2"]:
+        assert question in all_text, question
+    assert "用手機展示" in opening_text
+    for hidden_prerequisite in ["依本課規則", "本課程式會顯示", "以 button_light_capture 為起點",
+                                "使用本週「按一下，記錄一筆光線」的作品回答"]:
+        assert hidden_prerequisite not in exam_text, hidden_prerequisite
+    assert ids["exercisemeter"] == ids["exercise"] + 1
+    assert "examtools" not in ids
+    assert ids["buildexercise"] == ids["worksheetflow"] + 1
+    practical_text = opening_text + "\n".join(
+        doc[i].get_text() for i in range(ids["buildexercise"] - 1, len(doc))
+    )
+    for setup_detail in ["YD-ESP32", "N16R8", "GPIO4", "GPIO5", "SDA", "SCL",
+                         "115200", "SSD1315", "0x3C", "three_light_samples",
+                         "器材條件", "材料與條件", "Espressif"]:
+        assert setup_detail not in practical_text, setup_detail
+    for safety_condition in ["拔 USB", "不通電試錯", "換程式前先拆外接線"]:
+        assert safety_condition in practical_text, safety_condition
+    for answer_phrase in ["720", "完整基本程式", "參考答案", "中間相對 GND 的理想電壓為 3.0 V"]:
+        assert answer_phrase not in exam_text, answer_phrase
+    assert "worksheet" not in ids and "submission" not in ids
+    assert ids["exercise"] < ids["exercisemeter"] < ids["worksheetsafety"] < ids["worksheetflow"] < ids["buildexercise"]
     project_ids = ["projectbutton", "projectbuttonresults", "projectoled",
                    "projectoledresults", "projectcapture", "projectcaptureresults"]
-    assert [ids[name] for name in project_ids] == list(range(55, 61))
-    assert ids["finish"] == 61 and ids["sources"] == 62
+    assert [ids[name] for name in project_ids] == sorted(ids[name] for name in project_ids)
+    for goal, results in [("projectbutton", "projectbuttonresults"),
+                          ("projectoled", "projectoledresults"),
+                          ("projectcapture", "projectcaptureresults")]:
+        assert ids[results] == ids[goal] + 1
+    assert ids["projectcaptureresults"] == len(doc)
+    button_question = doc[ids["projectbuttonresults"] - 1].get_text()
+    assert "比較方向與分界數字" in button_question and "Q1" in button_question
+    for goal, results, question in [
+        ("buildexercise", "batchrecord", "A．你的程式如何完成三次取樣？"),
+        ("projectbutton", "projectbuttonresults", "B．你的程式如何判斷現在被遮住？"),
+        ("projectoled", "projectoledresults", "C．你的程式如何保留最小值與最大值？"),
+        ("projectcapture", "projectcaptureresults", "D．你的程式如何分開更新目前值與保存值？"),
+    ]:
+        work_text = doc[ids[goal] - 1].get_text() + doc[ids[results] - 1].get_text()
+        assert work_text.index("作品：") < work_text.index("預期") < work_text.index(question), goal
+        assert work_text.index("特色：") < work_text.index("驗證方法：") < work_text.index(question), goal
+        assert all_text.count(question) == 1, question
+    for removed_copying in ["目前 RAW：", "哪個動作才會換掉 LAST", "剛才發生過什麼變化"]:
+        assert removed_copying not in all_text, removed_copying
+    for administrative_text in ["教師勾選", "提早離開", "交回指定練習", "教師確認", "本次負責", "主要測試者"]:
+        assert administrative_text not in all_text, administrative_text
     project_text = "\n".join(doc[ids[name] - 1].get_text() for name in project_ids)
     for label in ["RUNNING", "PAUSED", "RAW", "MIN", "MAX", "LAST", "SAVED"]:
         assert label in project_text, label
     for implementation in ["digitalRead(", "analogRead(", "void setup(",
                            "void loop(", "Wire.begin(", "u8g2."]:
-        assert implementation not in project_text, implementation
+        assert implementation not in all_text, implementation
     assert "SAMPLES_PER_PRESS" not in all_text
     assert "batch_busy" not in expected
     assert "只修改" not in doc[ids["buildexercise"] - 1].get_text()
-    assert "分界 720" not in all_text and "分界是 720" not in all_text
+    for private_sketch in ["shade_counter.ino", "light_observer.ino", "light_snapshot.ino"]:
+        assert private_sketch not in all_text
     for word in ["現在先把", "公式等", "本課舊紀錄", "這是舊", "下一頁才"]:
         assert word not in all_text, word
 for page in doc:
     for link in page.get_links():
         assert "week3_answers" not in link.get("uri", "") or ANSWERS
-if not ANSWERS:
+if ANSWERS:
     destinations = {}
     for page in doc:
         for link in page.get_links():
             if link.get("nameddest"):
                 destinations[link["nameddest"]] = link["page"] + 1
-    assert destinations == {name: ids[name] for name in
-                            ["codegpio", "coderaw", "codeclassifier", "codebutton"]}
+    for name in ["codegpio", "coderaw", "codeclassifier", "codebutton"]:
+        assert destinations[name] == ids[name]
 assert math.isclose(3.3 * 1000 / 11000, 0.3)
 assert math.isclose(3.3 * 10000 / 11000, 3.0)
 assert math.isclose(3.3 / 11000, 0.0003)
 assert math.isclose(3.3 / 330, 0.01)
-assert (440 + 1000) // 2 == 720
 assert (320 + 900) // 2 == 610
 
 # Breadboard connectivity is independently represented by (bank, row).
