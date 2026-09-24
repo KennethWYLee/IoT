@@ -73,6 +73,16 @@ else:
     assert ids["buildresults"] == ids["buildexercise"] + 1
     assert ids["combinetry"] < ids["codebutton"] < ids["combineexplain"]
     assert ids["buttonprinciple"] < ids.get("exercise") < ids["buildexercise"]
+    project_ids = ["projectbutton", "projectbuttonresults", "projectoled",
+                   "projectoledresults", "projectcapture", "projectcaptureresults"]
+    assert [ids[name] for name in project_ids] == list(range(55, 61))
+    assert ids["finish"] == 61 and ids["sources"] == 62
+    project_text = "\n".join(doc[ids[name] - 1].get_text() for name in project_ids)
+    for label in ["RUNNING", "PAUSED", "RAW", "MIN", "MAX", "LAST", "SAVED"]:
+        assert label in project_text, label
+    for implementation in ["digitalRead(", "analogRead(", "void setup(",
+                           "void loop(", "Wire.begin(", "u8g2."]:
+        assert implementation not in project_text, implementation
     assert "SAMPLES_PER_PRESS" not in all_text
     assert "batch_busy" not in expected
     assert "只修改" not in doc[ids["buildexercise"] - 1].get_text()

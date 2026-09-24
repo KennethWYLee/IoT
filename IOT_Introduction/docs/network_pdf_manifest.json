@@ -5,9 +5,9 @@
     {
       "source": "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md",
       "pdf": "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.pdf",
-      "pdf_sha256": "977b0cd03ffd61fe019bbc51dfd37ab5b6081f361a77a48e7d99a96bb4961112",
+      "pdf_sha256": "936e866486fdd336cb8c7177631be60e9e3554fdea914e17751a66b1c2d5972c",
       "inputs": {
-        "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md": "f689233394286b2f17248270fd5146cd3665a1fe6807374db0837a7a5f77ad5a",
+        "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md": "c9f0ecc3dbf3aa4733841b275a11caa9436949140249888a439d68406e507a7b",
         "IOT_Introduction/scripts/export_network_pdfs.cjs": "15d1a58df756eb98f8f0bc46d44d7152e9d2e3d7fb2c489420768cb94108704e",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
@@ -26,9 +26,9 @@
     {
       "source": "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md",
       "pdf": "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.pdf",
-      "pdf_sha256": "f946442ae4e190b16b0f5becdd453c3744beb97b5c00a5ce4d23945cf065b592",
+      "pdf_sha256": "695239bc69789214a94efbcea6023311c0b2cc677264827e9fc006b0e190ef1a",
       "inputs": {
-        "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md": "2dc81cfbbff3334c5da9ec12ef98fe7fdd0a8747ebb083fbb127efa5c714a575",
+        "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md": "d9893ca38a8e0c93d5ebd3ed43bfe9d69e92424da5b246a6c81a4b9d61c2968a",
         "IOT_Introduction/scripts/export_network_pdfs.cjs": "15d1a58df756eb98f8f0bc46d44d7152e9d2e3d7fb2c489420768cb94108704e",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
@@ -50,9 +50,9 @@
     {
       "source": "IOT_Introduction/Week_14_Mobile_PWA/week14_main.md",
       "pdf": "IOT_Introduction/Week_14_Mobile_PWA/week14_main.pdf",
-      "pdf_sha256": "2c9fc8574f4a9caa64ad6ad8668d9c54f94b9cc78309f393ad53cd8d2ddb1f27",
+      "pdf_sha256": "825984693f1fcbc8c0ff980eed602163b0723a9e9f9c420c4adb347e6ad84254",
       "inputs": {
-        "IOT_Introduction/Week_14_Mobile_PWA/week14_main.md": "b7798b2539e2ef14cfcbba25ab7906d5983a17e3637b369f333cdea8c983269d",
+        "IOT_Introduction/Week_14_Mobile_PWA/week14_main.md": "e95e9b1d202555e0169249ce9334570a37a9f00aaf95d92b2d1e87c0564f96c2",
         "IOT_Introduction/scripts/export_network_pdfs.cjs": "15d1a58df756eb98f8f0bc46d44d7152e9d2e3d7fb2c489420768cb94108704e",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
@@ -74,9 +74,9 @@
     {
       "source": "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.md",
       "pdf": "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.pdf",
-      "pdf_sha256": "a5ea827e6d63b5a083362771ccf0897f3648a4a2585e89d1adb0b0b414133fe8",
+      "pdf_sha256": "b38d9fdd29a8c7a2220328d87de07133902e5ea48c47206fb680b60d8dc3e3f5",
       "inputs": {
-        "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.md": "c1753bffefc4be21c369e349b7f62a019f207940a5b6eaec83d708ee56c088af",
+        "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.md": "f227b063857721a3299aae7b6b99b86fd0fd55d20ec65a8faf00fe846af3d425",
         "IOT_Introduction/scripts/export_network_pdfs.cjs": "15d1a58df756eb98f8f0bc46d44d7152e9d2e3d7fb2c489420768cb94108704e",
         "IOT_Introduction/examples/week15_automation_device/week15_automation_device.ino": "fd01928f42541c341446cb1545852c4905034caba10b32ae85b3a21615e1fc74",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",

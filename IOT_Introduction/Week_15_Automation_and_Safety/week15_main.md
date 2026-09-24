@@ -2,10 +2,7 @@
 
 日期：2026-12-16
 
-本章將KY-018輸入、RGB輸出、狀態機、網路、Backend、Database與手機前台組成一項可說明
-的自動反應。學生先寫清楚trigger、允許條件、停止條件與優先順序，再加入hysteresis、
-連續取樣、最大動作時間及斷線策略；最後以故障注入驗證安全復原，並由另一人從乾淨
-資料夾依文件重建系統。
+本章讓程式依光線資料自動切換RGB，並記下每次變化的原因。先訂何時啟動、何時停止，再用不同的啟動／停止門檻、連續取樣及時間限制避免反覆切換或持續動作；最後刻意建立可控制的故障情境，檢查復原，再由另一人依文件重建系統。
 
 ## 光線觸發 RGB，STOP 可中止自動反應
 
@@ -136,7 +133,7 @@
 
 ## 二、先定義Automation Policy
 
-**automation（自動反應）** 不是「感測值一變就做事」，而是一組可檢查的決策。共同實驗
+**automation（自動反應）** 是程式依事先訂好的條件，自行決定是否執行動作。共同實驗
 使用KY-018判斷環境進入較暗條件，RGB由IDLE藍色進入ACTIVE綠色；恢復較亮、超過最大
 時間、感測無效、網路長時間中斷或STOP時，回到IDLE或ERROR安全狀態。
 
@@ -159,7 +156,7 @@
 
 ## 三、Hysteresis與連續取樣
 
-單一threshold附近的noise可能使state快速來回。**hysteresis（遲滯）** 使用兩個不同門檻：
+**hysteresis（遲滯）** 是啟動與停止使用不同門檻，兩者之間保留目前狀態。本例光線讀值在邊界小幅波動時，不會每跨過同一個數字就切換RGB：
 
 - `DARK_ENTER_RAW`：進入dark條件的門檻。
 - `LIGHT_EXIT_RAW`：離開dark條件的門檻。
@@ -497,7 +494,7 @@ evaluateAutomation();
 1. 改`DRY_RUN=false`，拍照後拔下所有板端杜邦線，只接 USB 後 Verify、Upload。
    完成後拔 USB、依 Week 12 接線表恢復，接 USB 並開 Monitor 選 115200；開機應IDLE、auto off。
 2. 先取得一筆有效KY-018 sample，確保`latestSensorValid=true`。
-3. 送`auto_on`，ack為done但state仍IDLE，表示只是armed。
+3. 送`auto_on`，ack為done但state仍IDLE；armed表示已啟用自動判斷，正在等待符合光線條件，並未啟動RGB動作。
 4. 使環境符合dark-enter；前兩筆不動作，連續第三筆後進ACTIVE。
 5. 在enter與exit門檻中間改變光線，state不應快速來回。
 6. 使環境符合light-exit；連續第三筆後回IDLE。

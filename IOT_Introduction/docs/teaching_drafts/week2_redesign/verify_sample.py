@@ -67,7 +67,7 @@ expected_titles = {
     29: '加鍵增加，減鍵減少',
     30: '雙按鈕計數器完整程式',
     31: '數字是誰算的？誰負責顯示？',
-    32: '按鈕的電流，不是 USB 的訊息',
+    32: '按下哪顆按鈕，哪條路接通？',
     33: '活動入場人數登記',
     34: '用這些結果檢查自己的程式',
 }
@@ -126,11 +126,16 @@ unchanged = {name: hashlib.sha256((archive / (Path(name).name + ('.json' if name
 assert all(unchanged.values()), unchanged
 reviewed = fitz.open(archive / 'Week2_layout_before_answer_move.pdf')
 assert len(reviewed) == 37
-# Keep unaffected teaching pages and source credits unchanged.
-for new_index, old_index in [(i,i) for i in range(22) if i not in {8,11,20,21}] + [(23,22),(26,25),(27,26),(36,36)]:
+# Concept-first edits on 2026-09-23 supersede the old wording on these pages.
+concept_pages = {0, 1, 3, 4, 10, 19, 23}
+for new_index, old_index in [(i,i) for i in range(22) if i not in {8,11,20,21} | concept_pages] + [(26,25),(27,26),(36,36)]:
     before = re.sub(r'\d+\s*/\s*37\s*$', '', reviewed[old_index].get_text())
     after = re.sub(r'\d+\s*/\s*37\s*$', '', doc[new_index].get_text())
     assert ''.join(before.split()) == ''.join(after.split()), (new_index+1,old_index+1)
+for number, terms in {5: ('GND', '0V'), 11: ('Flash', 'PSRAM'),
+                      24: ('UART', 'CH343'), 32: ('壓降', '電阻')}.items():
+    for term in terms:
+        assert term in ''.join(doc[number-1].get_text().split()), (number, term)
 assert '可傳資料的 USB 線' in doc[8].get_text()
 assert '失敗時保留錯誤文字' in doc[11].get_text()
 manifest = json.loads((root / 'checks/published_main.json').read_text(encoding='utf-8'))

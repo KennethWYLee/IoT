@@ -121,12 +121,12 @@ module.exports = ({page, escape, svg, text, line, dot, marker, block, arrow, pho
       <p><code>Serial.println(count);</code> 把目前的 3 傳給電腦。ESP32 負責計算，Monitor 只負責顯示。</p>
       <p>按鈕沒有傳出「3」這個數字；按鈕改變 GPIO 的電壓，程式才決定如何修改 count。</p>
     `),
-    page(32,'計數器原理 · 電流','按鈕的電流，不是 USB 的訊息','只有加鍵按下、減鍵放開時，兩條按鈕支路並不相同。',`
+    page(32,'計數器原理 · 電流','按下哪顆按鈕，哪條路接通？','只有加鍵按下、減鍵放開時，分別看兩條電流路徑。',`
       <figure class="diagram">${current()}<figcaption>簡化電路：兩顆上拉電阻在 ESP32 晶片內部，不在按鈕或麵包板內。GPIO 是讀取接點電壓的位置。</figcaption></figure>
       <h2>加鍵按下：有一條經電阻的回路</h2>
       <p><b>3.3V → 晶片內上拉電阻 → 加鍵 → GND</b>。電阻限制電流，GPIO4 與 GND 之間的電壓接近 0V，所以讀到 LOW。不是電流變大就讀 HIGH。</p>
       <h2>減鍵放開：按鈕處斷開</h2>
-      <p>減鍵這條支路幾乎沒有電流。上拉電阻上的壓降很小，GPIO5 對 GND 的電壓接近 3.3V，所以讀到 HIGH。不是電壓被「卡住」或用完。</p>
+      <p>減鍵這條支路幾乎沒有電流。上拉電阻兩端的電壓差（壓降）很小，GPIO5 對 GND 接近 3.3V，所以讀到 HIGH；不是電壓被「卡住」。</p>
       <table><thead><tr><th>觀察的是什麼</th><th>對應內容</th></tr></thead><tbody>
       <tr><td>電流路徑</td><td>供電、上拉電阻、按鈕、GND；不是 count 的傳遞路徑</td></tr>
       <tr><td>資訊流</td><td>GPIO 讀值 → 程式計數 → Serial → 電腦</td></tr></tbody></table>

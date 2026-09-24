@@ -46,7 +46,7 @@ page(11,'從頭開始 · 開發板設定','在 Tools 選單照表選一次','以
   <table class="settings"><thead><tr><th>在 Tools 找這個名稱</th><th>選右邊這個值</th></tr></thead><tbody>
     <tr><td>Upload Speed</td><td>115200</td></tr><tr><td>USB Mode</td><td>Hardware CDC and JTAG</td></tr><tr><td>USB CDC On Boot</td><td>Disabled</td></tr><tr><td>Upload Mode</td><td>UART0 / Hardware CDC</td></tr><tr><td>Flash Mode</td><td>QIO 80MHz</td></tr><tr><td>Flash Size</td><td>16MB (128Mb)</td></tr><tr><td>Partition Scheme</td><td>16M Flash (3MB APP/9.9MB FATFS)</td></tr><tr><td>PSRAM</td><td>OPI PSRAM</td></tr><tr><td>Erase All Flash Before Sketch Upload</td><td>Disabled</td></tr>
   </tbody></table>
-  <p><b>其他項目先不改。</b>這張表只對應本講義照片中的 <b>YD-ESP32-S3 Type-A V1.5／N16R8</b>，以及 <b>esp32 3.3.11</b>。</p>
+  <p><b>Flash 存放程式，斷電仍保留；PSRAM 是執行時的額外暫存記憶體。</b>其餘選項依表選，不必自行推算；本表適用圖示 N16R8 板與 esp32 3.3.11。</p>
   <p class="question"><b>一起核對：</b>重開 Tools，依序對照表格。找不到選項時，先核對板型和安裝版本，不隨便挑名字相近的項目。</p>
   <aside class="note">這裡的 115200 是「把程式傳進板子」的速度。稍後訊息視窗也會用到 115200，但那是另一個設定，兩處都要各自選。</aside>
   ${source('https://docs.espressif.com/projects/arduino-esp32/en/latest/guides/tools_menu.html','Espressif Tools 選單；選項文字另核對本機 3.3.11')}

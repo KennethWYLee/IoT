@@ -139,7 +139,7 @@ V 是電壓單位「伏特」。20 V 檔是量測範圍，不是電表會輸出 
 
 <!-- page: voltagemeaning | 對照剛才的讀值 -->
 ## 電壓是比較兩個位置
-> 不是「紅筆裡面有 3.3 V」，也不是「流過了 3.3 A」。
+> 剛才的 +3.3 V，表示紅筆位置比黑筆位置高約 3.3 V。
 
 電表在直流電壓檔顯示：**紅筆位置的電位 − 黑筆位置的電位**。本週把 GND 當共同的 0 V 參考。
 
@@ -234,10 +234,10 @@ V 是電壓單位「伏特」。20 V 檔是量測範圍，不是電表會輸出 
 |---|---|
 | `pinMode(..., OUTPUT)` | 指定 GPIO 用來輸出，不再讀按鈕 |
 | `digitalWrite(..., HIGH/LOW)` | 要求輸出高／低準位 |
-| `millis()` 的時間差達 10000 | 約等 10 秒才切換一次 |
+| `millis()` 的時間差達 10000 | millis() 記開機後毫秒；相差 10000 ms 就是約 10 秒 |
 | `Serial.printf(...)` | 把命令與次數送到電腦 |
 
-**3V3 和 GPIO5 不相同。**3V3 是供電腳；GPIO5 是訊號腳，電壓由程式控制。讀到約 3.3 V，不代表 GPIO 可以當一般 3.3 V 電源帶動馬達或模組。
+**3V3 負責供電；GPIO5 負責輸出訊號。**剛才程式讓 GPIO5 在高、低電壓間切換。即使量到約 3.3 V，也不能把 GPIO 當一般電源帶動馬達或模組。
 
 **自己回答：**如果 Monitor 顯示 HIGH，電表卻是 0 V，能說程式完全正確、接線也正確嗎？先斷電查腳位、列號和上傳版本，不能只相信文字。
 
@@ -283,7 +283,7 @@ V 是電壓單位「伏特」。20 V 檔是量測範圍，不是電表會輸出 
 
 <!-- page: kyresistmeaning | 這不是三個電源 -->
 ## 光敏模組裡有兩個電阻
-> 剛才量的三組腳，是兩段電阻及它們的總路徑。
+> 固定電阻的阻值大致不變；光敏電阻的阻值會隨光線改變。
 
 {{diagram:kycircuit}}
 
@@ -358,7 +358,7 @@ device=G01 ... adc_bits=12 interval_ms=500
 
 這是欄位示意，不是本次實測。尚未接模組的輸入可能亂跳，**現在的 raw 不拿來當光線資料**。
 
-<aside class="note">ADC 是晶片裡把電壓轉成數字的功能。analogRead 取得的是原始整數，不是已換算的伏特。</aside>
+<aside class="note">ADC 把接腳電壓轉成整數，這個結果叫原始讀值 raw。程式用 analogRead 取得它；例如 light_raw=310 就是本次轉換得到 310。</aside>
 
 完成後拔 USB，依第 {{page:adcwire}} 頁接回模組電源與 S 訊號。
 
@@ -382,7 +382,7 @@ device=G01 ... adc_bits=12 interval_ms=500
 對照接點後插 COM USB，開 Monitor，選 115200。先固定模組、遮住、移開一次，看數字是否改變，再開始保存資料。
 
 <!-- page: savelog | 先練一次保存文字 -->
-## Monitor 的文字不會自動存檔
+## 把 Monitor 的紀錄存成文字檔
 
 保持接線與感測器位置不變。室內光與遮光各存十筆，分成兩份檔案；檔名註明條件，不把試打文字混入量測資料。
 
@@ -401,7 +401,7 @@ device=G01 ... adc_bits=12 interval_ms=500
 
 <!-- page: sample | 保存同一輪的資料 -->
 ## 室內光十筆，遮光十筆
-> 不是只挑最好看的兩個數字，也不是把不同位置的資料拼起來。
+> 固定位置與接線，只改變遮光條件，才能比較兩組讀值。
 
 1. 模組、桌燈、電源、接線位置不變。先預測遮光後 raw 比室內光大還是小：______。
 2. 室內光穩定後，從 Monitor 保存連續 **10 行**，標記「室內光」。保留序號、時間及 raw。
@@ -428,16 +428,16 @@ device=G01 sample=22 uptime_ms=11000 light_raw=314
 {{program:week03_ky018_raw}}
 
 <!-- page: adcmeaning | 資訊從哪裡來 -->
-## raw 不是伏特，也不是亮度單位
-> 電表顯示 V；程式目前顯示的是 ADC 原始整數。
+## ESP32 怎麼把電壓變成數字？
+> ADC 把 GPIO4 相對 GND 的電壓轉成整數；程式把它記為 raw。
 
 {{diagram:information}}
 
-圖中的 UART 是 ESP32 傳送這些文字的通訊介面；CH343 是圖示板 COM 接頭使用的 USB 轉接晶片。本頁是資訊路徑，不是新增接線指令。
+UART 與 CH343 沿用 Week 2 的文字傳送路徑；箭頭是資訊傳遞，不是新增接線。
 
-12-bit 在這支程式中代表 **4096 個編號，從 0 到 4095**。raw=700 不是 700 V、0.700 V，也不是 700 lux。
+本程式設定 **12-bit：4096 個整數，從 0 到 4095**。raw=700 就是本次轉換得到 700；相同設定、未飽和時，較高電壓通常得到較大讀值。
 
-程式設定 `ADC_11db`；Espressif 文件列 ESP32-S3 此設定的可量測範圍約 0～3.1 V。靠近端點可能飽和，不能假設 4095 正好等於 3.3 V，也不能保證每一格都同樣精準。
+`ADC_11db` 用來選擇輸入量測範圍；文件列此板晶片約可量 0～3.1 V。超出可轉換範圍時，數字可能卡在端點，稱為飽和。raw=700 不能直接當 0.700 V 或 700 lux（照度單位）；4095 也不保證正好等於 3.3 V。
 
 | 現在可以說 | 不能直接說 |
 |---|---|
@@ -505,8 +505,8 @@ status=ready ... threshold=610 shade_higher=true
 <aside class="note">既有分類程式保守排除 raw=0、4095 的基準。這是課堂規則，不代表端點讀值一定是斷線。尚未取得可分開的基準時，保留原始資料與原因就好，不偽造通過。</aside>
 
 <!-- page: validation | 用新的資料驗證 -->
-## 規則設好了，不代表一定判對
-> 不用剛才建立規則的二十筆，改看接下來的新資料。
+## 用新資料檢查分類結果
+> 驗證就是把程式的判斷和實際條件比較；這次各取五筆新資料。
 
 1. 先在相同位置回到室內光，保存 **5 筆新紀錄**。
 2. 再以相同方式遮光，保存 **5 筆新紀錄**。
@@ -539,7 +539,7 @@ status=ready ... threshold=610 shade_higher=true
 
 {{diagram:classflow}}
 
-這些英文是程式輸出的欄位值：`raw` 是原始數字，`label` 是規則給的文字，`reason` 是這筆數字和基準的關係。它們不能互相替代。
+這些英文是紀錄的欄位：`raw` 是 ADC 原始整數，`label` 是分類文字，`quality` 標記判斷的適用情況，`reason` 說明和基準的關係。例如 700 雖判遮光，仍標記缺少基準支持。
 
 **討論：**假設剛才遮光較大，現在換位置卻較小，先查哪兩件事？先保存兩輪，不合併；再查接法／模組是否相同，以及光線、遮法和接觸是否改變。找到差異前不能套用舊規則。
 
@@ -628,8 +628,8 @@ USB 保持拔除：把 **1 kΩ 接 c20 → c23**；**10 kΩ 接 d23 → d26**。
 回看 KY 模組：上方固定電阻不變，下方光敏電阻隨光改變，中間 S 的電壓就會跟著變。另一種內部接法可能方向相反，不能只憑商品名稱判方向。
 
 <!-- page: current | 電流的路徑 -->
-## 同一條路，電流不會先被用掉
-> 電阻限制整條串聯路徑的電流，不是把 3.3 A 變成小一點。
+## 兩顆電阻串聯，流過相同電流
+> 串聯就是元件首尾相接、沒有分支；電流依序經過兩顆電阻回到電源。
 
 {{diagram:current}}
 
@@ -783,7 +783,7 @@ millis() 是開機後經過的毫秒；now - changedAt 是本次讀值已維持�
 開機時 armed = false。即使當時按住按鈕，也須先放開、再按，才留下第一筆資料。
 
 <!-- page: units | 需要時再看 · 數字判讀 -->
-## V、A、Ω，不要混在一起
+## 電壓、電流與電阻各用什麼單位？
 > 本週用電表量 V 和 Ω；A 只在紙上計算。
 
 | 問什麼 | 名稱與單位 | 例子 |
@@ -808,8 +808,8 @@ millis() 是開機後經過的毫秒；now - changedAt 是本次讀值已維持�
 **有聲音就短路嗎？**同一五孔組相通，本來就會叫；供電與 GND 原本不該直接相通，卻有低阻路徑，才是需要停止供電排查的情況。
 
 <!-- page: memory | 需要時再看 · 編譯畫面 -->
-## 上傳成功，不等於感測成功
-> 三個檢查，回答三個不同問題。
+## 編譯、上傳與感測各確認什麼？
+> 編譯把程式轉成板子能執行的形式；上傳把它寫入板子；感測再用實物驗證。
 
 | 看到什麼 | 代表什麼 | 還沒證明什麼 |
 |---|---|---|
@@ -817,7 +817,7 @@ millis() 是開機後經過的毫秒；now - changedAt 是本次讀值已維持�
 | Upload 完成 | 程式已寫入板子 | 光線分類必定正確 |
 | Monitor 與量測符合測試條件 | 這輪觀察有對應證據 | 所有器材、環境與時間都可靠 |
 
-### Flash 與 RAM 不要把百分比相加
+### Flash 存程式，RAM 暫存執行資料
 
 ```text
 Sketch uses 286973 bytes (21%) ... Maximum is 1310720
@@ -901,6 +901,147 @@ event=sample batch=1 index=3 raw=419 endpoint=0 uptime_ms=3440
 
 練習解答：**week3Ans.pdf**。
 
+<!-- page: projectbutton | 延伸作品 1 · 光敏＋按鈕 -->
+## 可以暫停的遮光計數器
+> 用手遮住感測器計次，用一顆按鈕決定是否繼續計數。
+
+**材料：**ESP32-S3、光敏模組、一顆按鈕、麵包板、杜邦線與 USB。結果顯示在 Serial Monitor（115200），不需要 OLED、LED 或蜂鳴器。
+
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 222" role="img" aria-label="Serial Monitor 預期內容示意"><text x="16" y="24" font-size="19">按鈕啟動後，遮住一次</text><text x="348" y="24" font-size="19">暫停後再遮住，不增加</text><rect x="8" y="40" width="302" height="165" rx="4" fill="#f1f4f5" stroke="#477b80"/><rect x="340" y="40" width="302" height="165" rx="4" fill="#f1f4f5" stroke="#477b80"/><text x="24" y="73" font-size="20" font-family="Consolas,monospace" fill="#263b40">mode=RUNNING</text><text x="24" y="105" font-size="20" font-family="Consolas,monospace" fill="#263b40">count=1</text><text x="356" y="73" font-size="20" font-family="Consolas,monospace" fill="#263b40">mode=PAUSED</text><text x="356" y="105" font-size="20" font-family="Consolas,monospace" fill="#263b40">count=1</text></svg><figcaption>Serial Monitor 預期內容示意；不是實測截圖，文字位置與字型可自行設計。</figcaption></figure>
+
+| 使用者看到的資訊 | 意義 |
+|---|---|
+| RUNNING／PAUSED | 正在計數／暫停計數 |
+| count | 這次開機後，計數期間完成的遮光次數 |
+| 一次遮光 | 從未遮住變成遮住；持續遮住不算新的一次 |
+
+按一下按鈕切換啟動／暫停；按住不放只切換一次。暫停保留次數，但暫停期間的動作不補算。按 RST 後回到 PAUSED、count=0，不要求斷電保存。
+
+**判斷依據：**使用本組同一位置的未遮光／遮光資料，兩種情況必須能區分。不指定哪一種 raw 較大，也不直接套用別組的分界。
+
+<aside class="safety">改線前拔除 USB；供電、訊號電壓與 GPIO 仍須符合已確認的器材規格。不要把電源腳或輸出 HIGH 的 GPIO 直接接 GND。</aside>
+
+<!-- page: projectbuttonresults | 延伸作品 1 · 預期結果 -->
+## 一次動作，增加一次
+> 從未遮住、按鈕放開的狀態按 RST，再依序操作。
+
+每次遮住或移開都維持至少一秒，避開剛好在分界附近的光線。除了第 8 步，其餘按鈕操作都是按一下後放開。
+
+| 順序與操作 | 預期 mode／count |
+|---|---|
+| 1. 啟動後不操作 | PAUSED／0 |
+| 2. 按一下按鈕 | RUNNING／0 |
+| 3. 遮住並保持三秒 | RUNNING／1，不持續增加 |
+| 4. 移開，再遮住 | RUNNING／2 |
+| 5. 保持遮住，按一下暫停 | PAUSED／2 |
+| 6. 暫停時移開、遮住兩次 | PAUSED／2 |
+| 7. 保持遮住，按一下恢復；再移開、遮住 | 恢復時 RUNNING／2；重新遮住後變 3 |
+| 8. 仍在 RUNNING，按住按鈕兩秒 | 只切換成 PAUSED／3，不反覆切換 |
+| 9. 放開按鈕，再按 RST | PAUSED／0 |
+
+模式或次數改變時，Monitor 都要留下對應紀錄。沒有改變時，不要求重複印字。
+
+**另外檢查：**開機時已遮住，不得自行增加；按鈕按住開機時，須放開後再按才接受操作。切換模式本身不算遮光，恢復時也不補算暫停期間的動作。
+
+可改作品外觀或顯示文字，但要能分辨啟動、暫停及目前次數。沒有額外歸零按鈕，也不要求長按執行其他功能。
+
+
+<!-- page: projectoled | 延伸作品 2 · 光敏＋OLED -->
+## 桌面光線觀測器
+> 不按按鈕，也能看到光線讀值及這次觀察的最大、最小值。
+
+**材料：**ESP32-S3、光敏模組、已購四針 OLED、麵包板、杜邦線與 USB；不使用按鈕。
+
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 222" role="img" aria-label="OLED 預期畫面示意"><text x="16" y="24" font-size="19">剛開始，第一筆 raw=480</text><text x="348" y="24" font-size="19">之後量到 980，再回到 510</text><rect x="8" y="40" width="302" height="165" rx="4" fill="#18363c" stroke="#477b80"/><rect x="340" y="40" width="302" height="165" rx="4" fill="#18363c" stroke="#477b80"/><text x="24" y="73" font-size="20" font-family="Consolas,monospace" style="fill:#f0ffff">RAW 480</text><text x="24" y="105" font-size="20" font-family="Consolas,monospace" style="fill:#f0ffff">MIN 480</text><text x="24" y="137" font-size="20" font-family="Consolas,monospace" style="fill:#f0ffff">MAX 480</text><text x="356" y="73" font-size="20" font-family="Consolas,monospace" style="fill:#f0ffff">RAW 510</text><text x="356" y="105" font-size="20" font-family="Consolas,monospace" style="fill:#f0ffff">MIN 480</text><text x="356" y="137" font-size="20" font-family="Consolas,monospace" style="fill:#f0ffff">MAX 980</text></svg><figcaption>OLED 預期畫面示意；不是實測截圖，文字位置與字型可自行設計。</figcaption></figure>
+
+| 畫面資訊 | 需要呈現的內容 |
+|---|---|
+| RAW | 最近一筆光敏原始讀值，不是伏特或照度 |
+| MIN | 這次開機後，已取得資料中的最小值 |
+| MAX | 這次開機後，已取得資料中的最大值 |
+
+**作品規則：**畫面至少每秒更新一次。MIN、MAX 包含最新一筆資料；光線回復時，兩者不跟著回到目前值。按 RST 後重新開始統計，不要求斷電保存。
+
+480、980、510 只是示例，假設中間沒有其他更大或更小的讀值。自己的作品顯示自己的量測結果，不要把示例數字寫死。
+
+<aside class="safety">接 OLED 前核對這片模組的腳序、供電及訊號電壓、控制器與位址。GPIO 訊號不得超過 3.3 V；不同用途不能誤用同一 GPIO。不確定規格時先保持斷電，不猜接法或提高電壓試錯。</aside>
+
+<!-- page: projectoledresults | 延伸作品 2 · 預期結果 -->
+## 光線回復，紀錄仍留下
+> OLED 不只是把目前 raw 放大顯示，還要留下這次變化的範圍。
+
+| 操作或條件 | 預期畫面與紀錄 |
+|---|---|
+| 剛啟動，尚無第一筆資料 | 可顯示 WAIT；不能把未取得的資料當成量測值 |
+| 取得第一筆資料 | RAW、MIN、MAX 都等於這一筆 |
+| 維持相同光線 | RAW 可小幅變動；範圍包含所有已取得的值 |
+| 改變光線，使 raw 超過目前 MAX | MAX 更新；MIN 保留 |
+| 改變光線，使 raw 低於目前 MIN | MIN 更新；MAX 保留 |
+| raw 回到已記錄範圍中間 | RAW 改變；MIN、MAX 保留 |
+| 按 RST | 舊範圍清除；以重啟後第一筆重新開始 |
+
+**三筆資料的預期範例：**
+
+| 依序取得的 raw | RAW | MIN | MAX |
+|---:|---:|---:|---:|
+| 480 | 480 | 480 | 480 |
+| 980 | 980 | 480 | 980 |
+| 510 | 510 | 480 | 980 |
+
+Serial Monitor 至少每秒留下一筆相同資料組的 raw、min、max。可用以下格式，也可自行命名欄位：
+
+```text
+raw=510 min=480 max=980
+```
+
+實際比較時確認 MIN ≤ RAW ≤ MAX；不要因雜訊或結果不如預期而偷偷刪除資料。若持續出現端點值，保存紀錄並查明原因，不把它直接解讀為精確照度。
+
+<!-- page: projectcapture | 延伸作品 3 · 光敏＋按鈕＋OLED -->
+## 按一下，留下光線快照
+> OLED 持續顯示目前光線；按一下按鈕，保留當次讀值。
+
+**材料：**ESP32-S3、光敏模組、一顆按鈕、四針 0.96 吋 OLED、麵包板、杜邦線與 USB。
+
+<figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 222" role="img" aria-label="OLED 預期畫面示意"><text x="16" y="24" font-size="19">尚未按過按鈕</text><text x="348" y="24" font-size="19">保存 480 後，光線變為 980</text><rect x="8" y="40" width="302" height="165" rx="4" fill="#18363c" stroke="#477b80"/><rect x="340" y="40" width="302" height="165" rx="4" fill="#18363c" stroke="#477b80"/><text x="24" y="73" font-size="20" font-family="Consolas,monospace" style="fill:#f0ffff">RAW 480</text><text x="24" y="105" font-size="20" font-family="Consolas,monospace" style="fill:#f0ffff">LAST ---</text><text x="24" y="137" font-size="20" font-family="Consolas,monospace" style="fill:#f0ffff">SAVED 0</text><text x="356" y="73" font-size="20" font-family="Consolas,monospace" style="fill:#f0ffff">RAW 980</text><text x="356" y="105" font-size="20" font-family="Consolas,monospace" style="fill:#f0ffff">LAST 480</text><text x="356" y="137" font-size="20" font-family="Consolas,monospace" style="fill:#f0ffff">SAVED 1</text></svg><figcaption>OLED 預期畫面示意；不是實測截圖，文字位置與字型可自行設計。</figcaption></figure>
+
+| 畫面資訊 | 需要呈現的內容 |
+|---|---|
+| RAW | 持續更新的目前讀值，至少每秒更新一次 |
+| LAST | 最近保存的讀值；尚未保存時顯示 --- |
+| SAVED | 這次開機後的保存次數，從 0 開始 |
+
+每次新的按下保存一筆，LAST 更新、SAVED 加一；按住不放只保存一次。保存後改變光線，RAW 繼續變，LAST 保持不變，直到下一次按下。
+
+每次保存都在 Serial Monitor 留下一筆序號與讀值。只保留最近一筆即可，不要求全部歷史、資料庫或網路。RST／重新上電後，LAST 回到 ---、SAVED 回到 0。
+
+<aside class="safety">OLED 規格須先確認；光敏、按鈕及 OLED 訊號不得誤用同一 GPIO。改線前斷電，不把 OLED 或其他負載接到 GPIO 當作供電。</aside>
+
+<!-- page: projectcaptureresults | 延伸作品 3 · 預期結果 -->
+## 目前值，和剛才保存的值
+> 按鈕先放開，再按 RST。以下數字是假想輸入，用來說明應有行為，不是實測值。
+
+| 順序與操作 | OLED 預期結果 |
+|---|---|
+| 1. 啟動，raw 為 480 | RAW 480；LAST ---；SAVED 0 |
+| 2. 按一下，此次取得 480 | RAW 持續更新；LAST 480；SAVED 1 |
+| 3. 不再按鈕，改變光線至 980 | RAW 980；LAST 480；SAVED 1 |
+| 4. 放開再按，此次取得 980 | LAST 980；SAVED 2 |
+| 5. 繼續按住三秒，光線改至 510 | RAW 510；LAST 980；SAVED 2 |
+| 6. 放開再按，此次取得 510 | LAST 510；SAVED 3 |
+| 7. 放開按鈕，再按 RST | RAW 顯示新讀值；LAST ---；SAVED 0 |
+
+第 2、4、6 步各新增一筆保存紀錄；其餘步驟不新增保存事件。第 7 步清除本次進度，但電腦上已印出的舊文字不會因此消失。
+
+```text
+event=saved sample=1 raw=480
+event=saved sample=2 raw=980
+event=saved sample=3 raw=510
+```
+
+OLED 的 LAST 必須與最新一筆保存紀錄相同，SAVED 必須與序號相同；LAST 與即時 RAW 不必相同。按鈕按住開機時，放開後再按才保存第一筆。
+
+**成品條件：**只看 OLED 就能讀懂目前值、最近保存值與保存次數；文字不可重疊或超出畫面。字型、排列與外觀可自行設計，紀錄仍須能與畫面互相核對。
+
 <!-- page: finish | 一起收尾 · 把實際結果留下 -->
 ## 保存量測與程式紀錄
 > 照片、數值、程式與解釋放在同一份紀錄。
@@ -942,4 +1083,4 @@ event=sample batch=1 index=3 raw=419 endpoint=0 uptime_ms=3440
 
 教師課前須確認使用板型、GPIO5 輸出與 GPIO4 ADC 的適用接法。既有 BOARD-T01 的觀察不代表全班每片板子都已通過；本稿不解除公開程式中 −1 的保護設定。
 
-四支基本程式全文列在各自操作段落。實際上傳開完整 .ino 檔，不只複製中間一頁。兩份練習的解答另列於 week3Ans.pdf。
+四支基本程式全文列在各自操作段落。實際上傳開完整 .ino 檔，不只複製中間一頁。「幫一個遮光提醒器找錯」與「按一次，自動取三筆」的解答另列於 week3Ans.pdf。

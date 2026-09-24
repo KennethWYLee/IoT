@@ -3,11 +3,11 @@
 日期：2026-11-18
 
 本章把前七週完成的實體按鈕與RGB輸出接到第一個完整網路系統。按下ESP32的
-START或STOP後，事件會送到筆電Backend、寫入SQLite，並由WebSocket即時更新
+START或STOP後，事件會送到筆電上的接收與管理程式（Backend後端），存入SQLite資料庫，並透過保持連線的WebSocket通道即時更新
 手機畫面；手機送出的`start`、`stop`或`reset`命令則由ESP32接收、判斷、執行，
 最後回報結果。實體STOP仍在ESP32本機直接處理，不依賴網路才能生效。
 
-本週採低功率網路示範：只沿用Week 7的按鈕與Week 5的RGB，不遠端控制整套遊戲。第二顆按鈕在本週改作持續有效的STOP，不是遊戲的Finish送出。韌體使用idle／active／error狀態；它們不是將Week 7所有遊戲結果直接改名。共同事件欄位保留device_id、event_type、state、value、unit、valid、reason與uptime_ms；遊戲專屬欄位若日後上傳，必須另外明訂schema映射。
+本週採低功率網路示範：只沿用Week 7的按鈕與Week 5的RGB，不遠端控制整套遊戲。第二顆按鈕在本週改作持續有效的STOP，不是遊戲的Finish送出。韌體使用idle／active／error狀態；它們不是將Week 7所有遊戲結果直接改名。共同事件欄位保留device_id、event_type、state、value、unit、valid、reason與uptime_ms；遊戲專屬欄位若日後上傳，必須另訂欄位與格式的對應。
 
 ## 用手機查看事件、操作 RGB
 
@@ -43,6 +43,8 @@ START或STOP後，事件會送到筆電Backend、寫入SQLite，並由WebSocket�
 本單元介紹全端物聯網系統（full-stack IoT system）的網路資料路徑。學生會運用無線網路（Wi-Fi）、超文字傳輸協定（HTTP）與JSON資料交換格式（JSON），將先前已驗證的實體輸入及輸出連接至本機後端（local backend）。後端負責驗證及儲存裝置事件（device event）、提供命令介面（command interface），並透過網頁雙向通訊協定（WebSocket）同步手機瀏覽器，不需持續重新整理整頁。實作重點包括可觀察的訊息流（message flow）、穩定的裝置識別（device identity）、命令回覆確認（command acknowledgement）、本機安全行為、認證資料（credential）保護與分層故障排查（layer-by-layer troubleshooting），而不只把網路操作當成一次連線成功或失敗。
 
 ### 可觀察的完整資料流
+
+HTTP是程式提出請求、另一端回應的通訊規則；API是約定可呼叫哪些功能及資料格式的介面。圖中的POST送資料、查詢使用GET；FastAPI用來撰寫後端，SQLite負責保存資料。箭頭表示資料處理方向，不是電流。
 
 ```text
 START／STOP按鈕
@@ -252,7 +254,7 @@ python -m pip install -r requirements.txt
 
 **operator key（操作權限金鑰）** 是Backend用來判斷某個瀏覽器是否能建立控制命令的
 臨時字串。本週只把它設定在目前PowerShell process（程序）的環境變數，不寫入檔案。
-本週手機LAN網址使用HTTP，傳輸本身沒有TLS加密，因此這個臨時key不能當作正式系統的
+TLS用來加密通訊並驗證伺服器身分，HTTPS使用它保護HTTP。本站手機LAN網址使用HTTP，沒有這項保護，因此這個臨時key不能當作正式系統的
 帳號安全。只在教師核准的隔離課堂網路與低功率輸出中使用，下課停止Backend後立即作廢；
 不得沿用到公開網路或真實設備。
 
@@ -267,7 +269,7 @@ python -m uvicorn app:app --host 0.0.0.0 --port 8000
 .\.venv\Scripts\python.exe -m uvicorn app:app --host 0.0.0.0 --port 8000
 ```
 
-正常結果包含`Uvicorn running on http://0.0.0.0:8000`。`0.0.0.0`表示服務接受
+Uvicorn是讓後端程式接收網路請求的伺服器程式。正常結果包含`Uvicorn running on http://0.0.0.0:8000`。`0.0.0.0`表示服務接受
 本機各網路介面的連線，它不是手機要輸入的目的位址。
 
 Windows Firewall若詢問是否允許Python接收連線，只勾選本週可信任的private network；
@@ -294,7 +296,7 @@ Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/events `
   -ContentType application/json -Body $eventBody
 ```
 
-**HTTP request（HTTP請求）** 是client送給server的動作。本例使用`POST`，表示送出
+**HTTP request（HTTP請求）** 是用戶端（client）向提供服務的伺服器（server）提出要求。本例PowerShell是用戶端，筆電後端是伺服器；使用`POST`送出
 一筆新事件。**HTTP response（HTTP回應）** 是server處理後傳回的狀態與資料。
 預期回應包含事件`id`與`recorded_at`，Backend終端機也應出現JSON格式log。
 
@@ -342,7 +344,7 @@ requested → accepted → done
                      ↘ error／timeout／rejected
 ```
 
-`accepted`只代表ESP32收到命令；`done`才代表命令已完成。本週Backend為每筆命令產生
+`requested`是後端已建立命令，`accepted`是ESP32已收件，`done`是裝置程式回報已完成處理；實體RGB仍須目視核對。`done`、`rejected`、`error`、`timeout`都是結束這筆命令的最終結果（terminal result）。本週Backend為每筆命令產生
 唯一的`command_id`，之後的回報必須使用同一個ID。
 
 ## 七、建立ESP32網路程式
@@ -498,7 +500,7 @@ Wi-Fi 與 HTTP 傳的是資料，不是給 RGB 供電。收到 HTTP 201 只表�
 3. 上節 STOP 測試會留下 ERROR。放開 STOP，先從手機選 `reset` 並送出，等同一筆
    命令 `done`、Serial 顯示 `idle`、RGB 藍色，再選 `start` 送出。
 4. 在Commands區找到新產生的`command_id`，記錄它。
-5. ESP32下一次poll取得命令後先回`accepted`，執行安全輸出後再回`done`。
+5. ESP32定期向後端查有沒有新命令，稱為輪詢（poll）；取得後先回`accepted`，執行安全輸出後再回`done`。
 6. 確認RGB變綠，手機上同一個`command_id`最後為`done`。
 7. 按手機`stop`，確認RGB變紅、狀態為ERROR、結果為`done`。
 8. 在ERROR狀態再送`start`，裝置應回`rejected`及`reset required after error`，

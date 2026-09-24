@@ -2,10 +2,8 @@
 
 日期：2026-11-25
 
-本章把Week 11的單一ESP32／Backend流程改成多裝置的publish／subscribe系統。每片
-ESP32以自己的`device_id`組成topic，發布KY-018遙測、事件與online／offline presence，
-只訂閱自己的命令。Backend透過MQTT bridge把資料寫入原有SQLite並更新手機畫面，
-手機命令也能經broker送到正確裝置，再以相同`command_id`回報結果。
+本章讓多片ESP32透過同一個訊息轉送程式交換資料。送出訊息叫發布（publish），登記想接收的主題叫訂閱（subscribe），這種通訊方式使用MQTT協定。
+每片ESP32用自己的`device_id`區分主題，傳送光線讀值、事件及上線／離線狀態，也接收自己的命令。資料仍保存到Week 11的資料庫，手機可查看並操作指定裝置。
 
 ## 按裝置代號傳送訊息並保存資料
 
@@ -131,8 +129,7 @@ A 是 MQTT broker，負責按主題轉送訊息；E 是本課的 bridge，負責
 
 ## 二、從Week 11架構加入Broker
 
-**MQTT broker（訊息代理伺服器）** 接收publisher送來的訊息，再依topic轉給所有符合的
-subscriber。publisher不必知道subscriber的IP；兩者只要能連到broker並使用相同topic。
+**MQTT broker（訊息代理伺服器）** 是轉送訊息的程式：接收發布者（publisher）送來的訊息，再按主題（topic）轉給已訂閱該主題的訂閱者（subscriber）。例如ESP32發布光線資料，監看視窗訂閱後就能收到；發布者不必知道接收者的IP。
 
 ```text
 ESP32-A ─publish─┐
@@ -155,8 +152,9 @@ course/<device_id>/commands
 course/<device_id>/acks
 ```
 
-`<device_id>`不得含`/`、空白、`+`或`#`。`+`與`#`是subscription中的wildcard
-（萬用字元），不作為裝置名稱。
+telemetry傳感測讀值，events傳事件，presence表示上線／離線，commands傳命令，acks傳回覆。斜線`/`分隔名稱層次；例如`course/A/telemetry`是A的感測資料主題。
+
+訂閱篩選中的萬用字元`+`配對一層，`#`配對其所在位置的零層或多層名稱；例如`course/+/telemetry`可看各裝置的感測資料。`<device_id>`不得含`/`、空白、`+`或`#`，避免改變主題意義。
 
 ## 三、器材、軟體與安全邊界
 
@@ -170,7 +168,7 @@ broker成功作為前置條件。
 3. Broker使用臨時帳密；Wi-Fi與broker密碼放在`secrets.h`，不得提交Git。
 4. 本課LAN範例沒有TLS，不可當成Internet部署。跨Internet還需TLS、裝置身分、
    憑證更新、細部授權、rate limiting與監控。
-5. 控制命令不使用retained message，避免新連線裝置執行過期命令。
+5. retained message是broker替主題保留、供後來訂閱者接收的最後一筆訊息。控制命令不使用它，避免新連線裝置執行過期命令。
 
 <a id="mqtt-startup"></a>
 
@@ -336,13 +334,14 @@ $env:IOT_API_BASE_URL="http://127.0.0.1:8000"
 
 ## 六、QoS、Retained Message與Last Will
 
-**QoS（Quality of Service）** 表示MQTT傳遞保證。本週PubSubClient發布使用QoS 0，
-訂閱可要求QoS 1；bridge發布命令使用QoS 1。QoS 1可能重送，所以仍須以
+**QoS（Quality of Service）** 指MQTT訊息的傳遞等級：0至多一次，不做MQTT層確認重送；1至少一次，可能重複收到。本週PubSubClient發布使用QoS 0，訂閱可要求QoS 1；bridge發布命令使用QoS 1。這些等級處理訊息傳遞，不保證實體動作完成，所以仍須以
 `command_id`避免重複動作。PubSubClient發布限制與buffer設定見
 [官方repository](https://github.com/knolleary/pubsubclient)。
 
 **retained message（保留訊息）** 是broker替topic保存的最後一筆資料，新subscriber
 一訂閱就會收到。它適合presence，不適合一次性控制命令。
+
+MQTT工作階段（session）保存客戶端的訂閱等通訊狀態；是否跨重連保留取決於連線設定，不能當作資料庫歷史。
 
 **Last Will（遺囑訊息）** 由client連線時預先交給broker。若ESP32未正常告別就斷線，
 broker代為發布offline。online與意外offline都retain，監看者才可立即看到最後狀態。
@@ -589,7 +588,7 @@ SQLite Database：資料以哪些table、column與row保存
 Structured log：程式在何時做了什麼判斷與處理
 ```
 
-**Database（資料庫）** 保存結構化row（列）。關閉瀏覽器或重新啟動Backend後，已提交的
+**Database（資料庫）** 有組織地保存資料。本例一個table（資料表）存一類紀錄，一個row（列）是一筆，一個column（欄位）是一項內容；例如events表中的某筆事件有device_id欄位。關閉瀏覽器或重新啟動Backend後，已提交的
 SQLite資料仍存在。**log（日誌）** 按執行順序記錄程式行為，用來理解請求為何成功、
 被拒絕或失敗；log不一定等於正式歷史資料，也不能取代database schema。
 
@@ -643,7 +642,7 @@ $env:IOT_OPERATOR_KEY="replace-with-your-temporary-classroom-key"
 確認 `mqtt_connected`，才接回已確認安全接線的 ESP32。手機重新填同一個臨時 key 及
 Device ID，按 **套用並重新整理**。如果 E 是新視窗，須先重填第五節四個 MQTT 變數與 API 位址。
 
-**structured log（結構化日誌）** 是一行一個具有固定欄位的JSON object，例如：
+**structured log（結構化日誌）** 把時間、動作與結果分成有名稱的欄位，方便查詢。本課每行使用一個JSON物件，例如：
 
 ```json
 {"timestamp":"2026-11-25T02:10:00+00:00","action":"event_created","event_id":21,"device_id":"team03-device01","event_type":"light_sample","valid":true,"reason":"within_profile"}
@@ -651,7 +650,7 @@ Device ID，按 **套用並重新整理**。如果 E 是新視窗，須先重填
 
 固定欄位使程式能篩選`action`、`device_id`或`command_id`；自然語句「剛才好像有收到」
 無法提供同等查詢能力。Uvicorn本身的啟動與access log可能不是JSON，因此本週log檔是
-「包含structured records的程序log」，不能假稱整個檔案都是純JSONL。
+「包含structured records的程序log」。JSONL是每行一筆JSON的文字格式；混有其他啟動文字的整份紀錄不算純JSONL。
 
 ## DB 五、建立一組已知資料
 
@@ -670,8 +669,7 @@ Device ID，按 **套用並重新整理**。如果 E 是新視窗，須先重填
 
 ## DB 六、讀取SQLite Schema
 
-**schema（綱要）** 定義table、column、資料型態與限制。**table（資料表）** 保存同類資料；
-**row**是一筆資料；**column（欄位）** 表示每筆資料的某個屬性。
+**schema（綱要）** 是資料庫結構的規定：有哪些表、欄位、可存的資料型態及限制。例如events的id必須能唯一辨認一筆事件，不能兩筆共用同一id。
 
 保持 A、B、D、E 執行，C 已發布完訊息，可用來查資料。在檔案總管從
 `IOT_Introduction/examples/course_backend` 開新的查詢視窗，或將 C 切到此目錄。
@@ -689,6 +687,8 @@ Test-Path .\inspect_db.py
 後續 `<your-device-id>` 要換成本組代號，連尖括號一起移除；例如 `--device team03-device01`。
 
 ### DB 6.1 Events table
+
+時間欄位以ISO 8601格式寫日期與時間，例如`2026-11-25T10:10:00+08:00`；末尾是相對UTC的時區差。UTC是共同時間基準，這個例子對應UTC的02:10。`null`表示欄位沒有值，不是數字0。
 
 | Column | 意義 | 為何存在 |
 |---|---|---|

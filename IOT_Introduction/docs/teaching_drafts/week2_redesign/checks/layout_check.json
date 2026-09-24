@@ -66,9 +66,9 @@
     {
       "page": 5,
       "overflow": false,
-      "lastBottom": 5462.890625,
+      "lastBottom": 5499.8125,
       "footerTop": 5560.4375,
-      "gap": 97.546875
+      "gap": 60.625
     },
     {
       "page": 6,
@@ -199,9 +199,9 @@
     {
       "page": 24,
       "overflow": false,
-      "lastBottom": 26774.40625,
+      "lastBottom": 26836.921875,
       "footerTop": 26888.234375,
-      "gap": 113.828125
+      "gap": 51.3125
     },
     {
       "page": 25,
@@ -283,9 +283,9 @@
     {
       "page": 36,
       "overflow": false,
-      "lastBottom": 39933.59375,
+      "lastBottom": 39959.1875,
       "footerTop": 40358.421875,
-      "gap": 424.828125
+      "gap": 399.234375
     },
     {
       "page": 37,

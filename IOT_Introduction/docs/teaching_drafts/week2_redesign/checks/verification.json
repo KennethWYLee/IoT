@@ -2,12 +2,12 @@
   "pages": [
     {
       "page": 1,
-      "characters": 340,
+      "characters": 348,
       "text_outside_page": []
     },
     {
       "page": 2,
-      "characters": 427,
+      "characters": 434,
       "text_outside_page": []
     },
     {
@@ -17,12 +17,12 @@
     },
     {
       "page": 4,
-      "characters": 457,
+      "characters": 451,
       "text_outside_page": []
     },
     {
       "page": 5,
-      "characters": 389,
+      "characters": 439,
       "text_outside_page": []
     },
     {
@@ -52,7 +52,7 @@
     },
     {
       "page": 11,
-      "characters": 701,
+      "characters": 714,
       "text_outside_page": []
     },
     {
@@ -97,7 +97,7 @@
     },
     {
       "page": 20,
-      "characters": 665,
+      "characters": 690,
       "text_outside_page": []
     },
     {
@@ -117,7 +117,7 @@
     },
     {
       "page": 24,
-      "characters": 623,
+      "characters": 678,
       "text_outside_page": []
     },
     {
@@ -157,7 +157,7 @@
     },
     {
       "page": 32,
-      "characters": 530,
+      "characters": 525,
       "text_outside_page": []
     },
     {
@@ -177,7 +177,7 @@
     },
     {
       "page": 36,
-      "characters": 349,
+      "characters": 357,
       "text_outside_page": []
     },
     {
@@ -190,7 +190,7 @@
     "IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.pdf": true,
     "IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.ipynb": true
   },
-  "pdf_sha256": "ae9dd3614f3062e2bc86ae87c14ad7717cabb3fff28468e5124a25d0742c1264",
+  "pdf_sha256": "005c985eb5c6d12ff9f2c2a9d7509602f74b5593a40e5badc0a170a8336e630f",
   "code_in_html_matches_sketches": true,
   "counter_has_no_custom_bounds": true,
   "minimal_counter_then_information_and_current_then_exercises": true,

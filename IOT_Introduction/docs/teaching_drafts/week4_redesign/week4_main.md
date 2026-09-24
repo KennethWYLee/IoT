@@ -74,8 +74,8 @@
 
 
 <!-- page: resistobserve | 看結果，再換一件 -->
-## 換檔不會把電阻變大
-> 比較同一顆、同一對測點，只改量程。
+## 同一顆電阻，換量程再讀一次
+> 量程是這個檔位可量的範圍；這次只換範圍，不換元件與測點。
 
 先預測：標稱 220 Ω，在約 200 Ω 的範圍內量得下嗎？
 
@@ -117,7 +117,7 @@
 | 330 Ω | 檔位＿＿／完整顯示＿＿／換算＿＿Ω |
 | 過小量程或畫面判讀 | 提示＿＿／我的解釋＿＿ |
 
-330 Ω 量成 326 Ω，不必立即判定壞掉。標稱阻值有容差，電表與接觸也有誤差。色環與容差的補充放在第 {{page:color}} 頁。
+容差是實際阻值相對標示值允許的偏差。例如標示 330 Ω，實物可能量到 326 Ω；還要考慮電表與接觸誤差。色環與容差計算見第 {{page:color}} 頁。
 
 下一步換成感測器；剛才的 220、330 Ω **不直接加到 DHT11 接線裡**。
 
@@ -158,7 +158,7 @@ Serial Monitor 是 Arduino IDE 的文字觀察窗。稍後可由「工具 → �
 
 <!-- page: library | 安裝程式庫 -->
 ## 讓程式看得懂 DHT11
-> 程式庫是別人已寫好的讀取方法，不是新的硬體。
+> 程式庫是可重複使用的程式。本例用 Adafruit 的 DHT 程式庫讀取溫濕度。
 
 1. Arduino IDE 左側打開 **Library Manager／程式庫管理員**。
 2. 搜尋 **DHT sensor library**，選作者 **Adafruit** 的版本。
@@ -248,12 +248,12 @@ reason=basic_checks_passed
 | 欄位 | 例子怎麼讀 |
 |---|---|
 | `temperature_c=25.0` | 攝氏 25.0 度；不是 25 V |
-| `humidity_pct=50.0` | 相對濕度 50%；不是空氣一半是水 |
+| `humidity_pct=50.0` | 相對濕度 50%；意義見下方，不是水占空氣的比例 |
 | `sample=1` | 本次開機的第 1 次讀取嘗試，失敗也計次 |
 | `uptime_ms` | 本次開機以來的毫秒；不是時鐘日期 |
 | `source=hardware` | 這次走實際感測器讀取，不表示讀取一定成功 |
 
-相對濕度，是當時空氣中的水氣，相對於同溫度下飽和狀態的程度。溫度改變時，相對濕度也可能改變。
+相對濕度（RH）表示水氣接近飽和的程度。「飽和」是同溫度下水氣與液態水達到平衡的狀態；50% RH 表示目前水氣壓是同溫度飽和值的一半，不是空氣一半是水。溫度改變，此比例也可能改變。
 
 先看 10 筆的序號和時間是否前進，再看數值。房間穩定時，連續幾筆相同不等於程式卡住。
 
@@ -263,8 +263,8 @@ reason=basic_checks_passed
 
 
 <!-- page: dhtflow | 資訊流 -->
-## DATA 傳的不是「溫度電壓」
-> 供電路徑與資訊路徑分開看。
+## DATA 怎麼把溫濕度傳回來？
+> DHT11 用高、低電壓的變化傳資料；程式庫依持續時間解讀數字。
 
 {{diagram:dhtflows}}
 
@@ -311,7 +311,7 @@ NaN 表示這裡沒有可用的數值，**不是 0°C，也不是 0%**。
 
 
 <!-- page: quality | 原理 -->
-## 有數字，不一定適合拿來判斷
+## valid 與 quality 如何標記讀值？
 > `valid` 看能否當數值使用，`quality` 說明本課規則的檢查結果。
 
 | 檢查順序 | 程式給的結果 |
@@ -322,7 +322,7 @@ NaN 表示這裡沒有可用的數值，**不是 0°C，也不是 0%**。
 | 4. 距前一筆不超過 5 秒，溫差 >5°C 或濕度差 >10 個百分點 | `valid=true`、`suspect` |
 | 5. 以上都沒有 | `valid=true`、`usable` |
 
-10～40°C 是**本課室內活動的檢查範圍**，不是 DHT11 的完整規格。超出範圍先查原因，不改寫成感測器一定壞了。
+百分點是兩個百分比的差，例如 50% 到 60% 相差 10 個百分點。10～40°C 是**本課室內活動的檢查範圍**，不是 DHT11 完整規格；超出時先查原因。
 
 `usable` 只表示通過這幾項檢查，不保證讀值精準。程式只記第一個符合的原因，不會把所有問題一次列出。
 
@@ -412,8 +412,8 @@ DHT 大約每 2500 ms 才讀新資料。中間重複列出上一筆 DHT 結果�
 {{program:week04_dual_sensor_alarm}}
 
 <!-- page: age | 原理 -->
-## 同次輸出，不等於同時測量
-> 程式會分行列出 KY 資料和最近的 DHT 狀態。
+## 這筆溫濕度是多久以前讀到的？
+> 資料距今時間 age_ms，是現在減掉讀取完成的時間，單位為毫秒。
 
 **教學假資料：** 整合程式於開機後 3025 ms 完成一次 DHT 讀取，3500 ms 印出紀錄。
 
@@ -458,7 +458,7 @@ Verify、Upload 後，看開頭是否說基準可用。若不能判斷，先查�
 
 <!-- page: event | 數一次遮光 -->
 ## 放開，遮住，再放開
-> 看事件數，不只是看某一次 raw。
+> 事件是程式確認的一次動作；這裡指從穩定未遮變成穩定遮光。
 
 1. 先讓 KY 在室內光下穩定至少約 0.3 秒。
 2. 遮住至少約 0.3 秒，查看事件數是否增加 **1**。
@@ -479,8 +479,8 @@ Verify、Upload 後，看開頭是否說基準可用。若不能判斷，先查�
 
 
 <!-- page: stable | 原理 -->
-## 為什麼不碰到門檻就立刻算？
-> 手晃一下、光線抖一下，不一定是一次完整動作。
+## 同一分類維持多久，才接受？
+> 程式等分類維持一段時間，再接受這次變化，減少短暫晃動造成的計次。
 
 程式先得到暫時分類 `candidate`。連續取樣得到同一分類，持續至少 **150 ms**，才更新穩定分類 `stable`。
 
@@ -544,6 +544,8 @@ Week 3 已練過保留原值與品質原因。今天也要留下 raw，遇到這
 |---|---|
 | 已確認的有效準位控制模組 | 控制 GPIO、HIGH 或 LOW 有效、獨立供電／共地接法 |
 | 已確認的 HW-508 受限波形接法 | 控制 GPIO、串聯 1 kΩ、2000 Hz 波形，其他腳依確認圖 |
+
+有效準位是會啟動聲音的 HIGH 或 LOW；波形則反覆切換高低，2000 Hz 表示每秒 2000 次週期。兩者使用不同的控制方式。
 
 兩種不能混用。不能把「有三支腳」一律當 VCC、GND、S，也不能用 220 Ω 取代指定的 1 kΩ。
 
@@ -703,7 +705,7 @@ light_uptime_ms=3500 dht_read_finished_ms=3025 dht_age_ms=475
 {{program:button_environment_log}}
 
 <!-- page: combineexplain | 按鈕不是量測指令 -->
-## 一筆紀錄，不代表同時測量
+## 按下時，把兩種感測資料放在一起
 
 {{diagram:cumulative}}
 
@@ -715,7 +717,7 @@ light_uptime_ms=3500 dht_read_finished_ms=3025 dht_age_ms=475
 資訊：KY S → ADC；DHT DATA ↔ 程式庫 → RAM 中最近結果
 ```
 
-`dht_age_ms` 是距離最近一次讀取完成多久，不是感測器內部精準取樣時間。`dht_valid=1` 只表示這次通過程式的基本數值檢查，不表示經過儀器校準。
+`dht_age_ms` 是最近讀取完成距今的毫秒數，也稱資料年齡。上圖 DATA 的雙向箭頭代表 ESP32 先要求讀取、DHT 再回覆；RAM 暫存最近結果，不表示兩邊同時量測。
 
 若本次 DHT 失敗，就保留失敗；程式不把上一次成功的 25°C 偽裝成本次新資料。
 
@@ -723,7 +725,7 @@ light_uptime_ms=3500 dht_read_finished_ms=3025 dht_age_ms=475
 
 <!-- page: flowcase2 | 只改一處，想想結果 -->
 ## 時間戳改成現在，舊資料變新了嗎？
-> 資訊處理示意；僅作圖上推演，保持現有實物接線不動。
+> 時間戳是記下事情發生的時刻；這裡記開機後何時完成 DHT 讀取。僅在圖上比較。
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="時間戳改成現在，舊資料變新了嗎？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">DHT 讀取</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><path d="M134,62 L139,66 L134,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">保存讀取時間</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><path d="M264,62 L269,66 L264,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">按鈕</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><path d="M394,62 L399,66 L394,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">計算資料年齡</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><path d="M524,62 L529,66 L524,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">紀錄</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">DHT 讀取</text><line x1="121" y1="193" x2="139" y2="193" stroke="#246e73" stroke-width="2" /><path d="M134,189 L139,193 L134,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" /><text x="195" y="198" font-size="16" text-anchor="middle">每次改成現在</text><line x1="251" y1="193" x2="269" y2="193" stroke="#246e73" stroke-width="2" /><path d="M264,189 L269,193 L264,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="198" font-size="16" text-anchor="middle">按鈕</text><line x1="381" y1="193" x2="399" y2="193" stroke="#246e73" stroke-width="2" /><path d="M394,189 L399,193 L394,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="198" font-size="16" text-anchor="middle">計算資料年齡</text><line x1="511" y1="193" x2="529" y2="193" stroke="#246e73" stroke-width="2" /><path d="M524,189 L529,193 L524,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">紀錄</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
 

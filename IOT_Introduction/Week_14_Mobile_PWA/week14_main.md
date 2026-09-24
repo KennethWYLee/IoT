@@ -2,9 +2,8 @@
 
 日期：2026-12-09
 
-本章把Week 11、12完成的即時事件、歷史資料、命令與統計整理成手機可用的前台。
-學生會在真實手機上驗證版面與操作狀態，區分viewer與operator權限，完成一筆可追蹤的
-實體命令，並分別判定Responsive Web與PWA條件是否真的成立。
+本章把Week 11、12的資料與命令整理成手機可用的前台，也就是使用者看到和操作的網頁。
+同一頁能配合螢幕大小重新排列，稱為響應式網頁（Responsive Web）；具備相應功能與瀏覽器條件的網頁應用可做成PWA，例如安裝到主畫面。我們會在真實手機測試監看、操作權限與命令結果，再核對安裝條件。
 
 ## 在手機查看裝置、歷史資料與命令結果
 
@@ -168,8 +167,7 @@ ESP32 先保持 IDLE 且 RGB 為安全顏色。筆電開 `http://127.0.0.1:8000`
 把頁面 **Device ID** 改成板上 `.ino` 的裝置代號，按 **套用並重新整理**。
 先留空 Operator key，看見資料後才做控制；歷史資料不代表裝置現在連線。
 
-Backend命令deadline預設20秒。**timeout（逾時）** 表示裝置在deadline前沒有完成，
-不是「命令稍後一定會成功」。發生timeout後，不自動重送可能造成危險或重複的動作。
+後端等待最終結果的期限（deadline）預設20秒。**timeout（逾時）** 表示期限內沒有收到最終結果；可能尚未執行，也可能回報未送達，不能由此判定實體狀態。發生timeout後，不自動重送可能造成危險或重複的動作。
 
 ### 先改一行標題，確認你改的是正在使用的頁面
 
@@ -191,7 +189,7 @@ Backend命令deadline預設20秒。**timeout（逾時）** 表示裝置在deadli
 
 ### 4.1 HTML：結構與可辨認控制
 
-**HTML**描述頁面的內容與語意。開啟`index.html`，找到：
+**HTML**描述頁面有哪些內容，例如剛才改過的`h1`是標題。viewport是瀏覽器用來顯示網頁的可視區域。開啟`index.html`，找到：
 
 - `<meta name="viewport" ...>`：告訴手機以裝置viewport寬度排版；缺少時手機可能先以
   寬桌面畫布縮小整頁。
@@ -202,7 +200,7 @@ Backend命令deadline預設20秒。**timeout（逾時）** 表示裝置在deadli
 
 ### 4.2 CSS：Responsive Web
 
-**Responsive Web Design（響應式網頁設計）** 使同一份內容依viewport寬度重新排列。基準
+**CSS** 設定文字、間距與排列；**Responsive Web Design（響應式網頁設計）** 讓同一份內容依viewport寬度重新排列。基準
 CSS先定義一般版面，再以`@media (max-width: 680px)`調整窄螢幕。`@media`內隱藏
 table header，並使用cell的`data-label`呈現欄名，避免手機只能左右拖曳大型表格。
 
@@ -212,8 +210,7 @@ table header，並使用cell的`data-label`呈現欄名，避免手機只能左�
 
 ### 4.3 JavaScript：資料與狀態
 
-**JavaScript**在頁面載入後讀API、更新DOM（Document Object Model，瀏覽器中的頁面
-物件）及維持WebSocket。找到這些函式：
+**JavaScript**負責網頁中的程式操作，例如取得事件後更新表格。瀏覽器把標題、欄位等內容表示為可操作的物件，稱為DOM；程式更新DOM，畫面就改變。找到這些函式：
 
 | Function | 作用 | 失敗時必須呈現 |
 |---|---|---|
@@ -319,7 +316,7 @@ live update；重新整理後仍存在，表示historical API／database可讀�
 ## 九、Manifest、Service Worker與PWA判定
 
 **Web App Manifest**是`manifest.json`，描述app name、start URL、display與icon。
-**Service Worker**是與頁面分開執行的script，可攔截network request並提供cache等能力。
+**Service Worker**是與頁面分開執行的程式，可處理網路請求與快取（cache）。快取是留在瀏覽器、可再次使用的副本；本課保存頁面框架（shell），例如HTML與圖示，不拿舊裝置資料冒充最新結果。
 
 基準檔案：
 
@@ -341,7 +338,7 @@ live update；重新整理後仍存在，表示historical API／database可讀�
 ### 9.2 手機LAN HTTP限制
 
 一般`http://<筆電LAN-IP>:8000`不是HTTPS，也不是手機自己的localhost。Service Worker
-只在secure context可用，PWA installability也通常要求HTTPS或localhost／loopback。
+只在瀏覽器認定的安全環境（secure context，例如HTTPS或本機localhost）可用，PWA安裝也通常要求這些條件。
 因此本週共同LAN流程可以驗證**Responsive Web**，但不能因repository有manifest與sw檔就
 宣稱手機PWA已安裝。官方條件見[MDN Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
 及[MDN Making PWAs installable](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Making_PWAs_installable)。

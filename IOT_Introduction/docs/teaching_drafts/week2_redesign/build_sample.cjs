@@ -98,7 +98,7 @@ const footer = n => `<footer><span>Week 2 · 按鈕與計數器</span><span>${n}
 const page = (n, tag, title, lead, body) => `<section class="page"><header><span>ESP32-S3 硬體基礎</span><span>${tag}</span></header><main><h1>${title}</h1><p class="lead">${lead}</p>${body}</main>${footer(n)}</section>`;
 const pages = [
 page(1,'按鈕與電腦訊息','按一下按鈕，電腦怎麼知道？','按鈕改變電路的連接，ESP32 讀取狀態，再把文字傳回電腦。',`
-  <div class="goal"><b>按鈕、電路與紀錄：</b><br>按鈕改變哪一條路？GPIO 為什麼讀到不同狀態？電腦上的紀錄從哪裡來？</div>
+  <div class="goal"><b>按鈕、電路與紀錄：</b><br>GPIO 是 ESP32 用來讀取或輸出訊號的接腳。本週用它讀按鈕，再把結果傳到電腦。</div>
   <h2>零件與功能</h2>
   <ol class="sequence">
     <li><b>一條線</b><span>用電表確認兩端是否相通。</span></li>
@@ -115,7 +115,7 @@ page(2,'操作 1 · 不接外部電源','電表先回答：通，還是不通？
   </div></div>
   <h2>先做自測，再測一條線</h2>
   <table><thead><tr><th>你的動作</th><th>預期</th><th>我的實際結果</th></tr></thead><tbody><tr><td>兩個筆尖分開</td><td>不叫</td><td>____________</td></tr><tr><td>兩個金屬筆尖接觸</td><td>會叫</td><td>____________</td></tr><tr><td>同一條公對公線的兩端，各碰一筆</td><td>完好的線會叫</td><td>____________</td></tr></tbody></table>
-  <p><b>怎麼判讀：</b>會叫，表示兩筆間有足夠低電阻的路徑；不代表每次都是故障。這裡是刻意讓筆尖接通。</p>
+  <p><b>怎麼判讀：</b>電阻表示路徑對電流的阻礙。兩筆間的電阻夠小，通斷檔就會叫；例如完好導線。蜂鳴不一定表示故障。</p>
   <aside class="safety">結果不符時，檢查插孔、檔位與接觸。不要改接電源來試。通斷檔不能用在帶電電路。</aside>
 `),
 page(3,'操作 2 · 不接外部電源','麵包板：哪些孔原本就相通？','孔靠得很近，不一定相通。用電表驗證，不只看外觀。',`
@@ -126,7 +126,7 @@ page(3,'操作 2 · 不接外部電源','麵包板：哪些孔原本就相通？
   <table><thead><tr><th>比較的兩孔</th><th>先猜：叫／不叫</th><th>實測：叫／不叫</th></tr></thead><tbody><tr><td>a10 與 e10</td><td>____________</td><td>____________</td></tr><tr><td>a10 與 a11</td><td>____________</td><td>____________</td></tr><tr><td>a10 與 f10</td><td>____________</td><td>____________</td></tr></tbody></table>
   <p><b>核對：</b>正常、未加其他接線的這類麵包板，三次應是「叫、不叫、不叫」。不符時先確認列號、線是否插到底，以及表筆接觸。</p>
 `),
-page(4,'操作 3 · 不接外部電源','按鈕不是四個互不相干的腳','先找「一直相通」的一組，再找「按下才相通」的兩組。',`
+page(4,'操作 3 · 不接外部電源','四腳按鈕，分成兩組接點','每組兩腳一直相通；按下時，兩組也會接通。',`
   <figure class="diagram">${svg(switchDiagram(false)+switchDiagram(true),268)}<figcaption>這是內部連接示意，不是腳位擺放圖。A1、A2、B1、B2 是本頁為說明測試而標的腳，必須實測辨認。</figcaption></figure>
   <h2>按鈕先不要裝進其他電路</h2>
   <ol class="steps compact"><li>放開按鈕，用通斷檔比較各腳，找出原本就相通的兩腳，記為 A1、A2。</li><li>確認另兩腳放開時也相通，記為 B1、B2。</li><li>紅筆碰 A1、黑筆碰 B1。固定接觸後，再比較放開與按下。</li></ol>
@@ -136,6 +136,7 @@ page(4,'操作 3 · 不接外部電源','按鈕不是四個互不相干的腳','
 `),
 page(5,'一起做 · 先找位置','拿出開發板，找到兩個腳位','先找印字，不接線。這一段只用 GPIO4 與 GND。',`
   <figure class="diagram"><img style="width:100%;height:90mm;object-fit:contain" src="${photo('ESP32S3_1.png')}" alt="YD-ESP32-S3 實物正面，天線向左、USB 向右；GPIO4 在下排，左上端有 GND"/><figcaption>照片：課堂既有 YD-ESP32-S3 Type-A V1.5。把你的板子轉成相同方向：天線在左，兩個 USB 接頭在右。</figcaption></figure>
+  <p><b>GND 是共同的 0V 參考點。</b>本週比較 GPIO4 和 GND 的電壓；V 是電壓單位「伏特」。</p>
   <h2>跟著找到，先用手指出來</h2>
   <table><thead><tr><th>這次找哪個腳</th><th>照片中的位置</th></tr></thead><tbody><tr><td>印字「4」</td><td>下排，印字 RST 的右邊、5 的左邊。這是 GPIO4，不是「數第四個腳」。</td></tr><tr><td>印字「GND」</td><td>上排最左端，靠天線這一側。這次統一使用這個 GND。</td></tr></tbody></table>
   <p><b>板子先放桌上：</b>放在乾燥、不導電的平面，不插進這塊 400 孔麵包板。稍後用公對母杜邦線連過去。</p>
@@ -179,7 +180,7 @@ page(19,'一起做 · 看到結果','按下、放開，看文字改變','現在�
   <aside class="safety">文字不變：先拔 USB，再回第 16–18 頁核對方向與接點。完全沒有文字：先核對 Port、接頭與 115200。改線時不插 USB。</aside>
 `),
 page(20,'電壓與電流','按下會接通，為什麼讀到 LOW？','這個接法：放開是 HIGH，按下才是 LOW。',`
-  <p><b>GPIO4 讀的是相對 GND 的電壓，不是電流大小。</b>GND 當作 0V；此處接點接近 3.3V 時讀到 HIGH，接近 0V 時讀到 LOW。</p>
+  <p><b>GPIO4 比較接點和 GND 的電壓。</b>GND 當作 0V；接點接近 3.3V 時讀到 HIGH（高），接近 0V 時讀到 LOW（低）。電流是電荷流動；這裡的 HIGH／LOW 不是電流大小。</p>
   <p><b>電阻在哪裡？</b>在開發板上的 <b>ESP32 晶片內部</b>，不是按鈕或麵包板裡。第 15 頁的 <code>INPUT_PULLUP</code> 會開啟這顆「上拉電阻」，把 GPIO4 接向 3.3V。</p>
   <figure class="diagram">${pullup()}<figcaption>同一個電路的兩種狀態。框內是晶片內部，框外是已接好的線與按鈕。電壓為正常接線的近似說明，不是本次實測值。</figcaption></figure>
   <p><b>放開：</b>按鈕切斷通往 GND 的路。GPIO 輸入只取用極小電流，電阻兩端幾乎沒有電壓差，所以 GPIO4 仍接近 3.3V。</p>
@@ -190,7 +191,8 @@ page(20,'電壓與電流','按下會接通，為什麼讀到 LOW？','這個接�
 ...require('./ohms_law_pages.cjs')({page,svg,text,line,dot,marker,block,arrow}),
 page(24,'GPIO 與訊息','LOW 怎麼變成電腦上的 pressed？','程式依照 GPIO4 的讀值，選擇傳回 pressed 或 released。',`
   <figure class="diagram">${flow()}<figcaption>按下時的資訊流。箭頭表示處理與傳送順序，不是電流路徑，也不是要新增的杜邦線。</figcaption></figure>
-  <h2>文字是程式選的，不是按鈕自己送出的</h2>
+  <p>圖中的 UART 是 ESP32 傳送文字的通訊介面；CH343 把 UART 訊號轉接到 USB，讓電腦收到文字。</p>
+  <h2>文字是程式依讀值選出來的</h2>
   <p>第 15 頁的 <code>digitalRead(BUTTON_PIN)</code> 先讀 GPIO4，存進 <code>value</code>（暫存讀值的名字）。<br><code>if (value == LOW)</code> 再問：「讀值是不是 LOW？」是就印 <code>pressed</code>；不是就印 <code>released</code>。</p>
   <table><thead><tr><th>這個接法的動作</th><th>GPIO4 讀值</th><th>程式送出的文字</th></tr></thead><tbody><tr><td>放開</td><td>HIGH</td><td>released（放開）</td></tr><tr><td>按下</td><td>LOW</td><td>pressed（按下）</td></tr></tbody></table>
   <p class="question"><b>想一想：</b>若只把程式中的 <code>"pressed"</code> 改成 <code>"Hello"</code>，按下時 GPIO4 會變成 HIGH 嗎？<br><b>不會。</b>接線沒變，仍是 LOW；改變的只有送到電腦的文字。</p>
@@ -204,7 +206,7 @@ page(35,'只改一處，想想結果',"不啟用上拉，不等於換成導線",
 `),
 page(36,'只改一處，想想結果',"少了印字，按鈕還會改變數字嗎？",'只在圖上推演，不修改目前實物接線。',`
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="少了印字，按鈕還會改變數字嗎？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">按鈕</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><path d="M134,62 L139,66 L134,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">GPIO 讀值</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><path d="M264,62 L269,66 L264,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">count 加減</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><path d="M394,62 L399,66 L394,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">Serial 印字</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><path d="M524,62 L529,66 L524,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">Monitor</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">按鈕</text><line x1="121" y1="193" x2="139" y2="193" stroke="#246e73" stroke-width="2" /><path d="M134,189 L139,193 L134,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="198" font-size="16" text-anchor="middle">GPIO 讀值</text><line x1="251" y1="193" x2="269" y2="193" stroke="#246e73" stroke-width="2" /><path d="M264,189 L269,193 L264,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="198" font-size="16" text-anchor="middle">count 加減</text><line x1="381" y1="193" x2="399" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" stroke-dasharray="5 4"/><text x="455" y="198" font-size="16" text-anchor="middle">不呼叫印字</text><line x1="511" y1="193" x2="529" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">Monitor</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
-<p><b>想一想：</b>只拿掉 Serial.println(count)，其他程式與接線保持不變。Monitor 沒有新數字，能判定按鈕壞了嗎？</p><p><b>原理提示：</b>count 仍在 ESP32 的 RAM 裡加減；少的是對電腦的回報，不是按鈕的電流路徑。</p><aside class="safety">保留已確認的程式與接線。不能用拔帶電線、短接電源或試接未知電壓來驗證反例。</aside>
+<p><b>想一想：</b>只拿掉 Serial.println(count)，其他程式與接線保持不變。Monitor 沒有新數字，能判定按鈕壞了嗎？</p><p><b>原理提示：</b>RAM 是程式執行時暫存資料的記憶體。count 仍在其中加減；少的是對電腦的回報，不是按鈕的電流路徑。</p><aside class="safety">保留已確認的程式與接線。不能用拔帶電線、短接電源或試接未知電壓來驗證反例。</aside>
 `),
 page(37,'參考資料','操作依據與圖片來源','Arduino IDE 操作、ESP32 GPIO 與通斷測試的文件來源。',`
   <h2>Arduino 官方文件與截圖</h2><ul>
