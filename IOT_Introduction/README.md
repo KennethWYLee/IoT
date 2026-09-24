@@ -1,6 +1,6 @@
 # IoT Introduction：18週課程教材
 
-2026-09-24 最新本機版：Week3 Main 為 12 頁純考卷，實作題先列作品、特色與預期結果，再提供操作驗證及最後作答；刪除器材規格頁，接線與設定細節留在 95 頁 Ans。Q1 記錄遮光／未遮光各三筆，Q2 問 raw 與電壓；基本教學及全部解答仍在 Ans。未加入分工、教師勾選或提早離開流程；本次僅授權本機提交，未 push 或上傳，Ans 不納入 Git。見[本次調整紀錄](docs/lab_notes/2026-09-24-week3-opening-worksheet.md)。
+2026-09-24 最新版：Week3 Main 為 12 頁純考卷，實作題先列作品、特色與預期結果，再提供操作驗證及最後作答；刪除器材規格頁，接線與設定細節留在 95 頁 Ans。Q1 記錄遮光／未遮光各三筆，Q2 問 raw 與電壓；基本教學及全部解答仍在 Ans。未加入分工、教師勾選或提早離開流程。教材提交 9a9a7ad 已推送 GitHub，Main／Ans PDF 已更新至原雲端檔案；Ans 不納入 Git。見[本次調整及發布紀錄](docs/lab_notes/2026-09-24-week3-opening-worksheet.md)。
 
 2026-09-23：Week3 保留授課內容，新增「光敏＋按鈕」、「光敏＋OLED」、「光敏＋按鈕＋OLED」三個自主作品題，提供成品示意與預期結果，不提供做法或答案。OLED 僅在延伸題提前使用，Week5 正式教學不變；本機 Week3 Main 為 62 頁。見[題目與檢查紀錄](docs/lab_notes/2026-09-23-week3-extension-projects.md)。
 

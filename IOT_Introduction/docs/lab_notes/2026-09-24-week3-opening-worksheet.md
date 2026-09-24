@@ -1,6 +1,21 @@
 # 2026-09-24 Week 3：紙本題目移至開頭
 
-## 本機提交範圍
+## GitHub 與雲端更新
+
+教師後續授權 commit、push 及更新雲端。教材已於 9a9a7ad 提交；fetch 後確認沒有遠端新增提交，再以一般 push 將 origin/main 從 906cfea 更新至 9a9a7ad，未強制推送。這次發布紀錄另外提交；不納入既有 Week4 修改、根目錄 examples 或被忽略的 Ans 來源。
+
+Google Drive 位置：[codex／課堂教材／IoT](https://drive.google.com/drive/folders/1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta)。兩份 PDF 使用 files.update 原地替換內容，不另建副本、不更名、不移動、不變更分享設定。
+
+| 原雲端檔案 | 本機頁數 | 回讀大小（bytes） | 雲端修改時間（UTC） |
+|---|---|---|---|
+| [IoT_week3_main.pdf](https://drive.google.com/file/d/1MFdwSSGf_0nk4xYAMlqkh8XFd2ImQPGi/view) | 12 | 345974 | 2026-09-24 12:50:47.864 |
+| [IoT_week3Ans.pdf](https://drive.google.com/file/d/1R3D8WhN76yURQlb1nf-CioqItJQsZfC4/view) | 95 | 7228742 | 2026-09-24 12:50:56.873 |
+
+發布前重新執行 verify_redesign.py 3 及 --answers，來源、程式、頁碼、錨點與文字邊界檢查通過。沒有重建或更改 PDF，沿用前輪渲染檢查的檔案。上傳後回讀兩檔的 ID、名稱、PDF 類型、父資料夾、大小與修改時間；大小與本機一致。API 未提供回讀檔案的雜湊，不宣稱已完成遠端逐位元比對。本機 MD5 分別為 620624b076230d5d0a931d7ade4f5cb0（Main）、41ad4bf0215226a60a30343bb283bb80（Ans）。
+
+以下未 push、未上傳等描述為各次編修當時狀態，已由本節發布紀錄更新。沒有韌體上傳或硬體操作。
+
+## 前次本機提交範圍
 
 教師在完成下列修訂後授權 commit。本次提交 Week3 Main 來源、12 頁 PDF、產生器、建置清單、驗證程式、修訂準則及相關索引／紀錄；不含被忽略的 week3_answers、既有 Week4 修改或根目錄 examples。沒有 push 或雲端上傳授權。下方各輪「未 commit」描述編修當時狀態；本機提交結果以 Git 紀錄為準。
 
