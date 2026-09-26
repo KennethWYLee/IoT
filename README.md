@@ -7,7 +7,7 @@
 - [Week 2–7 重設稿、操作修正與待確認事項](IOT_Introduction/docs/teaching_drafts/README.md)
 - [Drone：無人機專題](Drone/README.md)
 
-每週只有一份主教材。Week 2 使用排版後的 PDF，練習解答另放尚未發布的本機 week2Ans.pdf；OLED 安排在 Week 5；Week 3～7、11、12、14、15 也使用 Main／本機 Ans 分離。Week 3 最新本機版的 Main 是考卷，基本教學及全部參考解答在 Ans；其他週 Main 的基本範例仍保留完整程式，延伸答案不公開；
+每週只有一份主教材。Week 2 使用排版後的 PDF，練習解答另放尚未發布的本機 week2Ans.pdf；OLED 安排在 Week 5；Week 3～7、11、12、14、15 也使用 Main／本機 Ans 分離。Week 3、4 最新本機版的 Main 是考卷，基本教學及全部參考解答在 Ans；其他週 Main 的基本範例仍保留完整程式，延伸答案不公開；
 無人機研究與課程的必買材料、必做進度分開。
 
 ## 檔案分類

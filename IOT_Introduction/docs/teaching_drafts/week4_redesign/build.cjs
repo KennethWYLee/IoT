@@ -56,6 +56,35 @@ function nodes(rows) {
 
 
 const diagrams = {
+ examresistor:()=>svg(
+   text(18,25,'斷電、無其他元件；同列 a～e 內部相通',18)+
+   line(70,105,450,105,colors.teal,'stroke-dasharray="5 5"')+
+   ['a','b','c','d','e'].map((c,i)=>dot(70+i*95,105)+text(70+i*95,134,c+'20',17,'middle')).join('')+
+   line(165,105,165,55)+line(165,55,230,55)+box(230,37,150,36,'220 Ω')+
+   line(380,55,450,55)+line(450,55,450,105)+
+   text(528,73,'表筆碰',18,'middle')+text(528,102,'b20、e20',18,'middle'),147),
+ examdisplay:()=>svg(
+   box(10,10,630,150,'')+text(30,42,'來源：實際感測器    第 1 次',21)+
+   text(30,79,'溫度 25.0°C    相對濕度 50.0% RH',21)+text(30,119,'結果：通過檢查',21)+
+   box(10,176,630,87,'')+text(30,209,'來源：模擬失敗    第 11 次',21)+
+   text(30,246,'溫濕度無可用數值；原因：模擬讀取失敗',19),275),
+ examflow:()=>svg(
+   '<rect x="20" y="15" width="185" height="196" fill="#edf5f4" stroke="#246e73"/>'+
+   '<rect x="445" y="15" width="185" height="196" fill="#edf5f4" stroke="#246e73"/>'+
+   text(38,44,'ESP32',22)+text(465,44,'DHT 模組',22)+
+   text(38,82,'3V3',19)+text(468,82,'VCC',19)+line(205,76,445,76)+
+   text(38,140,'訊號 GPIO',19)+text(468,140,'DATA',19)+line(205,134,445,134)+
+   text(38,195,'GND',19)+text(468,195,'GND',19)+line(205,189,445,189)+
+   text(325,240,'實線只表示連接；請自行補上方向與資訊。',17,'middle'),256),
+ examdual:()=>svg(
+   box(10,8,630,154,'')+text(30,42,'光線：raw 910，遮光，次數 1',22)+
+   text(30,82,'最近溫濕度：25.0°C／50.0% RH，有效',21)+
+   text(30,121,'DHT 完成：10025 毫秒；距今：975 毫秒',19)+
+   text(325,189,'示例於開機後 11000 毫秒顯示；不是實測值。',17,'middle'),201),
+ examcounts:()=>svg(
+   box(10,10,630,145,'')+text(30,45,'第 7 次按下：收錄成功',23)+
+   text(30,86,'按下總次數 7    成功 2    跳過 5',23)+
+   text(30,128,'光線 raw 420；DHT 距今 400 毫秒',21),168),
  cumulative:()=>flow(['DHT → 定時讀取 → RAM 保留最近結果與時間','按鈕 → GPIO5 → 讀 KY 當次 raw','合成一行紀錄 → USB／UART → Monitor']),
  overview:()=>flow(['DHT11 → 溫度、濕度與讀取狀態','加回 KY → 保留不同時間的兩筆資料','穩定放開 → 穩定遮光 → 記一次事件','確認蜂鳴器接法後 → 短叫一次']),
  resistor:()=>svg(
@@ -109,6 +138,8 @@ const sourceFile = path.join(destination, stem + '.md');
 const input = fs.readFileSync(sourceFile,'utf8');
 const parts = [...input.matchAll(/<!-- page: ([\w]+) \| (.*?) -->\s*([\s\S]*?)(?=<!-- page:|$)/g)];
 if(!parts.length) throw Error('No pages');
+if(new Set(parts.map(m=>m[1])).size!==parts.length)throw Error('Duplicate source page id');
+if(!answers&&/\{\{program:/.test(input))throw Error('Main is an exam; complete programs belong in Ans');
 const pages = [];
 const inputs = [];
 const sourceAnchors = new Map();
@@ -181,6 +212,13 @@ header{display:flex;justify-content:space-between;font-size:9pt;color:#526c70;bo
 main{height:246mm}h2{font-size:23pt;line-height:1.4;margin:0 0 3mm;color:#194e54}h3{font-size:14pt;margin:4mm 0 2mm}
 blockquote{margin:0 0 5mm;padding:0;color:#51676d;font-size:13pt}p{margin:3mm 0}li{margin:2mm 0}ol,ul{padding-left:7mm;margin:3mm 0}
 table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11pt;line-height:1.55;margin:4mm 0}th,td{text-align:left;vertical-align:top;padding:2.7mm 2.4mm;border-bottom:1px solid #c5d4d6;overflow-wrap:anywhere}th{background:#edf3f3}
+.write-space{border:1px solid #aec0c4;margin:3mm 0;background:repeating-linear-gradient(to bottom,white 0,white 8.8mm,#e3ebec 8.8mm,#e3ebec 9mm)}
+#examresistor svg{height:32mm}#examdht svg{height:65mm}#examflow svg{height:52mm}
+#exambtest th,#exambtest td{padding-top:2mm;padding-bottom:2mm}
+#examquality th:nth-child(1){width:10%}#examquality th:nth-child(2){width:18%}#examquality th:nth-child(3){width:18%}#examquality th:nth-child(4){width:54%}
+#examquality table:first-of-type th:nth-child(2){width:66%}#examquality table:first-of-type th:nth-child(3){width:24%}
+#examdgoal th:nth-child(1){width:10%}#examdgoal th:nth-child(2){width:60%}#examdgoal th:nth-child(3){width:30%}
+#examdexpected th:nth-child(1){width:10%}#examdexpected th:nth-child(2){width:42%}#examdexpected th:nth-child(3){width:29%}#examdexpected th:nth-child(4){width:19%}
 #qualityanswer th:nth-child(1){width:10%}#qualityanswer th:nth-child(2){width:15%}#qualityanswer th:nth-child(3){width:18%}#qualityanswer th:nth-child(4){width:57%}
 figure{margin:4mm 0}.photo img{width:100%;object-fit:contain;display:block}figcaption{font-size:9.5pt;line-height:1.45;color:#52686c;margin-top:2mm}
 svg{width:100%;display:block;max-height:82mm;fill:#263b40;font-family:"Microsoft JhengHei",sans-serif}
@@ -189,7 +227,7 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:10.5pt/1.5 Consolas,"Micros
 footer{position:absolute;bottom:9mm;left:17mm;right:17mm;display:flex;justify-content:space-between;color:#617277;font-size:8.5pt}a{color:#1c666e;text-decoration:underline}.lead{font-size:12pt;color:#51676d}.code-title{font-size:17pt;overflow-wrap:anywhere}.fullcode{font-size:10pt;line-height:1.45}.next{border-top:1px solid #acc1c3;padding-top:3mm;font-size:11pt}
 @media screen{.page{margin:8mm auto;box-shadow:0 1px 6px #aaa}}
 `;
-const html='<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>Week 4 感測與環境紀錄</title><style>'+css+'</style></head><body>'+pages.map((p,i)=>`<section id="${p.id}" class="page"><header><span>Week 4 ${answers?'Ans ':''}· 感測與環境紀錄</span><span>${esc(p.tag)}</span></header><main>${p.html||render(p.body)}</main><footer><span>Week 4 ${answers?'Ans ':''}· 感測與環境紀錄</span><span>${i+1} / ${pages.length}</span></footer></section>`).join('')+'</body></html>';
+const html='<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>Week 4 '+(answers?'Ans：完整教學與解答':'考卷：感測與環境紀錄')+'</title><style>'+css+'</style></head><body>'+pages.map((p,i)=>`<section id="${p.id}" class="page"><header><span>Week 4 ${answers?'Ans ':''}· 感測與環境紀錄</span><span>${esc(p.tag)}</span></header><main>${p.html||render(p.body)}</main><footer><span>Week 4 ${answers?'Ans ':''}· 感測與環境紀錄</span><span>${i+1} / ${pages.length}</span></footer></section>`).join('')+'</body></html>';
 fs.writeFileSync(path.join(destination,stem+'.html'),html);
 (async()=>{
  const browser=await chromium.launch({channel:'msedge',headless:true});

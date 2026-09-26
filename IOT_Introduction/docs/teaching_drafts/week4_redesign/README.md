@@ -1,5 +1,25 @@
 # Week 4 主教材重設稿
 
+## 目前版本：2026-09-26
+
+教師要求「根據 Week3 做法改寫 Week4」：本目錄 `week4_main.md`／PDF 是 **11 頁純考卷**；`../week4_answers/week4Ans.md`／PDF 是 **72 頁完整教學與答案**，繼續由 Git 忽略，不公開加入 repository。
+
+Main 順序是電阻量測、DHT 溫濕度紀錄、品質判讀、電流與資訊流、雙感測器遮光提醒、按鈕環境紀錄、延伸資料收錄。實作先說作品與特色、預期結果、驗證，再作答；不列板型、GPIO、程式庫、設定及完整程式。沒有增加 OLED、零件、功能、評分或週次。
+
+Ans 首頁有 Main 題號索引；原基本教學、完整程式及反例解說已移入，延伸答案仍完整保留。四份 `.ino` 原文嵌入且雜湊核對，沒有修改韌體。現行課程入口仍指向本目錄，不改歷史週目錄。
+
+完整性、題目條件、獨立紙上計算、主機測試與渲染檢查見[本輪紀錄](../../lab_notes/2026-09-26-week4-exam-answers.md)。沒有實機操作、commit、push 或雲端更新。DHT 與蜂鳴器的課前硬體確認尚未完成，不能把軟體檢查當成實機通過。
+
+```powershell
+$env:NODE_PATH='C:/Users/User/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules'
+node IOT_Introduction/docs/teaching_drafts/week4_redesign/build.cjs
+node IOT_Introduction/docs/teaching_drafts/week4_redesign/build.cjs --answers
+python -X utf8 IOT_Introduction/docs/teaching_drafts/week4_redesign/verify.py --render
+python -X utf8 IOT_Introduction/docs/teaching_drafts/week4_redesign/verify.py --answers --render
+```
+
+## 歷史版本
+
 2026-09-22 本輪：Main 保留基本程式與原理，延伸題答案另放本機 week4Ans。
 新增兩張「只改一處」反例對照圖，相關接線只作圖上推演；不新增實物實測。
 目前頁次以 PDF 頁尾與產生器清單為準，下方舊頁碼保留沿革意義。

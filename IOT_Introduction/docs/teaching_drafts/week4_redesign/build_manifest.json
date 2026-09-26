@@ -3,270 +3,52 @@
   "pages": [
     {
       "number": 1,
-      "id": "start"
+      "id": "examresistor"
     },
     {
       "number": 2,
-      "id": "files"
+      "id": "examdht"
     },
     {
       "number": 3,
-      "id": "materials"
+      "id": "examquality"
     },
     {
       "number": 4,
-      "id": "resistorwire"
+      "id": "examflow"
     },
     {
       "number": 5,
-      "id": "resistobserve"
+      "id": "exambdual"
     },
     {
       "number": 6,
-      "id": "resistorwhy"
+      "id": "exambtest"
     },
     {
       "number": 7,
-      "id": "dhtphoto"
+      "id": "examcrecord"
     },
     {
       "number": 8,
-      "id": "ide"
+      "id": "examctime"
     },
     {
       "number": 9,
-      "id": "library"
+      "id": "examdgoal"
     },
     {
       "number": 10,
-      "id": "dhtsettings"
+      "id": "examdexpected"
     },
     {
       "number": 11,
-      "id": "dhtwire"
-    },
-    {
-      "number": 12,
-      "id": "dhtstart"
-    },
-    {
-      "number": 13,
-      "id": "dhtcode"
-    },
-    {
-      "number": 14,
-      "id": "dhtcode_1"
-    },
-    {
-      "number": 15,
-      "id": "dhtcode_2"
-    },
-    {
-      "number": 16,
-      "id": "dhtcode_3"
-    },
-    {
-      "number": 17,
-      "id": "dhtmeaning"
-    },
-    {
-      "number": 18,
-      "id": "dhtflow"
-    },
-    {
-      "number": 19,
-      "id": "flowcase1"
-    },
-    {
-      "number": 20,
-      "id": "failure"
-    },
-    {
-      "number": 21,
-      "id": "quality"
-    },
-    {
-      "number": 22,
-      "id": "qualityquestion"
-    },
-    {
-      "number": 23,
-      "id": "dualwire"
-    },
-    {
-      "number": 24,
-      "id": "dualsetup"
-    },
-    {
-      "number": 25,
-      "id": "dualobserve"
-    },
-    {
-      "number": 26,
-      "id": "dualcode"
-    },
-    {
-      "number": 27,
-      "id": "dualcode_1"
-    },
-    {
-      "number": 28,
-      "id": "dualcode_2"
-    },
-    {
-      "number": 29,
-      "id": "dualcode_3"
-    },
-    {
-      "number": 30,
-      "id": "dualcode_4"
-    },
-    {
-      "number": 31,
-      "id": "dualcode_5"
-    },
-    {
-      "number": 32,
-      "id": "dualcode_6"
-    },
-    {
-      "number": 33,
-      "id": "dualcode_7"
-    },
-    {
-      "number": 34,
-      "id": "age"
-    },
-    {
-      "number": 35,
-      "id": "classify"
-    },
-    {
-      "number": 36,
-      "id": "event"
-    },
-    {
-      "number": 37,
-      "id": "stable"
-    },
-    {
-      "number": 38,
-      "id": "limits"
-    },
-    {
-      "number": 39,
-      "id": "dualfailure"
-    },
-    {
-      "number": 40,
-      "id": "buzzer"
-    },
-    {
-      "number": 41,
-      "id": "buzzerwire"
-    },
-    {
-      "number": 42,
-      "id": "buzzersetup"
-    },
-    {
-      "number": 43,
-      "id": "mute"
-    },
-    {
-      "number": 44,
-      "id": "exercise"
-    },
-    {
-      "number": 45,
-      "id": "combinegoal"
-    },
-    {
-      "number": 46,
-      "id": "combinewire"
-    },
-    {
-      "number": 47,
-      "id": "combinetry"
-    },
-    {
-      "number": 48,
-      "id": "button_code"
-    },
-    {
-      "number": 49,
-      "id": "button_code_1"
-    },
-    {
-      "number": 50,
-      "id": "button_code_2"
-    },
-    {
-      "number": 51,
-      "id": "combineexplain"
-    },
-    {
-      "number": 52,
-      "id": "flowcase2"
-    },
-    {
-      "number": 53,
-      "id": "buildexercise"
-    },
-    {
-      "number": 54,
-      "id": "buildcounts"
-    },
-    {
-      "number": 55,
-      "id": "buildresults"
-    },
-    {
-      "number": 56,
-      "id": "buildtest"
-    },
-    {
-      "number": 57,
-      "id": "finish"
-    },
-    {
-      "number": 58,
-      "id": "trouble"
-    },
-    {
-      "number": 59,
-      "id": "color"
-    },
-    {
-      "number": 60,
-      "id": "sources"
+      "id": "examdtest"
     }
   ],
-  "sourceSha256": "445125f1c4813d9bb21a87cc0ddcc3379d41c7d66bb4397cfe890282ce8dad34",
-  "builderSha256": "ac54245a1e660f796cad3da9946f935f4e0974d535589cf5cb51df97ddcab74d",
-  "sketches": [
-    {
-      "path": "examples/week04_dht11_quality/week04_dht11_quality.ino",
-      "sha256": "9b1de88be48d76bdf2f6a352e72ca4992e731e07e25323634bb5d89efa34e8a8"
-    },
-    {
-      "path": "examples/week04_dual_sensor_alarm/week04_dual_sensor_alarm.ino",
-      "sha256": "f22255e3f4bf40162b0f672bcf38cec492aa4c00d3a775ce4b9a2ec357ba6ff4"
-    },
-    {
-      "path": "docs/teaching_drafts/week4_redesign/button_environment_log/button_environment_log.ino",
-      "sha256": "1d1274d8b7838c0ca181abff92d604de30a342156eba10e3050d8770d2d5f35d"
-    }
-  ],
-  "photos": [
-    {
-      "name": "DHT11_1.jpg",
-      "sha256": "f96a2ee9499c6103b681a8828391d8d7cf4039c93f270fc831908dc1f3c9e64d"
-    },
-    {
-      "name": "Buzzer_HW508_3.jpg",
-      "sha256": "0c212fbc5dfa87d116d3189c0d1089dc719001ce84d286e9e6373ca88327ca2f"
-    }
-  ],
-  "pdfSha256": "21f3fb33114a6a6da18c907ab9d43da59cc832b63b5a1d48373563d7ef296207"
+  "sourceSha256": "99926e87de6ddd68e9c92fd55b3d5a444a0f09f901e8610482ccc5aae7785b9e",
+  "builderSha256": "45e93559f76849896dcb071c2f1c8d4f805086ee07cf597724c9e355f66cfef1",
+  "sketches": [],
+  "photos": [],
+  "pdfSha256": "6a764ae254310fe675bc756c745b6cc458b20ffc04cef6eb43cacaa86c652bd6"
 }
