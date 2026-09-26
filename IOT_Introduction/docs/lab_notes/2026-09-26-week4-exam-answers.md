@@ -1,6 +1,26 @@
 # Week4：改為考卷與完整解答
 
-日期：2026-09-26。依教師「根據 Week3 做法改寫 Week4」執行；本輪只修改 Week4 及其入口、修訂準則，不 commit、push 或更新雲端。
+日期：2026-09-26。依教師「根據 Week3 做法改寫 Week4」執行；編修時只修改本機 Week4 及其入口、修訂準則，後續依「commit push 傳到雲端」授權完成下列發布。
+
+## GitHub 與雲端更新
+
+教材提交 `cae86c6`（Restructure Week 4 main as a practical exam）已推送 `origin/main`，前一提交為 `1c267ec`。fetch 後確認本機與遠端相同，再以一般 push 更新，沒有強制推送或改寫歷史。GitHub `KennethWYLee/IoT` 回查仍為 PRIVATE；此次發布紀錄另作提交。
+
+僅提交本輪 Week4 Main、維護工具、入口、準則與紀錄，共 11 個檔案。不提交 `week4_answers/`、既有雙感測器程式工作樹狀態或根目錄未追蹤 `examples/`。
+
+兩份 PDF 在既有 [codex／課堂教材／IoT](https://drive.google.com/drive/folders/1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta) 資料夾原地更新，不另建副本、不更名、不移動、不修改分享權限。回讀仍為未分享狀態。
+
+| 雲端檔案 | 頁數 | bytes | 修改時間（UTC） |
+|---|---:|---:|---|
+| [IoT_week4_main.pdf](https://drive.google.com/file/d/1qzGTz814HXrt5b-Xm1n6Olb19FkJ23K1/view) | 11 | 372468 | 2026-09-26 04:27:29.049 |
+| [IoT_week4Ans.pdf](https://drive.google.com/file/d/1YcXd7br6thubY06nE-eWMZzV_gWyoWUQ/view) | 72 | 947508 | 2026-09-26 04:27:33.720 |
+
+上傳後用 Drive metadata 回讀位置、名稱、大小與分享狀態，另下載完整原始 bytes 計算 SHA-256，兩份都與本機相符：
+
+- Main：`6a764ae254310fe675bc756c745b6cc458b20ffc04cef6eb43cacaa86c652bd6`
+- Ans：`52aec3afead40d2680b9acb8a4d601700f368e524e2ca4ffd9f245f3d90b83ec`
+
+發布前重跑兩份 `verify.py`，來源、完整程式、頁碼與邊界檢查通過；PDF 未重新編修或改版，沿用下方已完成的 83 頁渲染紀錄。發布不代表實機檢查完成。
 
 ## 成品與維護來源
 

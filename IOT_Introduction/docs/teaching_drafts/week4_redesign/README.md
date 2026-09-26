@@ -8,7 +8,7 @@ Main 順序是電阻量測、DHT 溫濕度紀錄、品質判讀、電流與資�
 
 Ans 首頁有 Main 題號索引；原基本教學、完整程式及反例解說已移入，延伸答案仍完整保留。四份 `.ino` 原文嵌入且雜湊核對，沒有修改韌體。現行課程入口仍指向本目錄，不改歷史週目錄。
 
-完整性、題目條件、獨立紙上計算、主機測試與渲染檢查見[本輪紀錄](../../lab_notes/2026-09-26-week4-exam-answers.md)。沒有實機操作、commit、push 或雲端更新。DHT 與蜂鳴器的課前硬體確認尚未完成，不能把軟體檢查當成實機通過。
+完整性、題目條件、獨立紙上計算、主機測試與渲染檢查見[本輪紀錄](../../lab_notes/2026-09-26-week4-exam-answers.md)。教師後續授權發布，教材提交 cae86c6 已推送；兩份 PDF 已更新原雲端檔案，回讀 SHA-256 與本機一致。Ans 不加入 Git，專案仍為私人。沒有實機操作；DHT 與蜂鳴器的課前硬體確認尚未完成，不能把軟體檢查當成實機通過。
 
 ```powershell
 $env:NODE_PATH='C:/Users/User/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules'
