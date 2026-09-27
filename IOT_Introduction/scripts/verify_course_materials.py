@@ -15,8 +15,9 @@ from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[2]
 COURSE = ROOT / "IOT_Introduction"
-REGULAR_WEEKS = {1, 2, 3, 4, 5, 6, 7, 11, 12, 14, 15}
-OVERVIEW_WEEKS = set(range(1, 18))
+EXAM_MAIN_WEEKS = {3, 4, 5, 6, 7, 11, 12, 14, 15}
+REPORT_WEEKS = {8, 13, 17}
+OVERVIEW_WEEKS = {1, 9, 10, 16}
 HARDWARE_CODE_WEEKS = {2, 3, 4, 5, 6, 7, 11, 12, 15}
 LOCAL_ONLY_NAMES = {"agents.md", "claude.md", "project.md"}
 FORBIDDEN_EDITORIAL_PHRASES = (
@@ -282,7 +283,7 @@ def main() -> int:
             if local_supplement.exists():
                 if not supplement.exists() or local_supplement.read_bytes() != supplement.read_bytes():
                     errors.append("Week 2 local answer PDF differs from its build output")
-            summaries.append(f"Week 02: layout-built PDF ({manifest['pages']} pages); week2Ans optional")
+            summaries.append(f"Week 02: question PDF ({manifest['pages']} pages); full teaching in local week2Ans")
             continue
         expected = (
             [f"week{number}_main.ipynb", f"week{number}_main.pdf"]
@@ -296,6 +297,9 @@ def main() -> int:
             continue
 
         main_path = directory / expected[0]
+        # Keep historical notebooks, but validate the current reading entry.
+        if number in {3, 4, 5, 6, 7}:
+            main_path = COURSE / f"docs/teaching_drafts/week{number}_redesign/week{number}_main.md"
         main_content = document_content(main_path)
         main_lines = len(main_content.splitlines())
         summaries.append(
@@ -361,11 +365,21 @@ def main() -> int:
                     f"fixed GPIO value(s): {', '.join(fixed_pins)}"
                 )
 
-        if number in REGULAR_WEEKS:
-            if main_lines < 180:
-                errors.append(
-                    f"{main_path.relative_to(ROOT)}: only {main_lines} lines for a regular unit"
-                )
+        if number in EXAM_MAIN_WEEKS:
+            for term in ("作品", "預期", "驗證", "Q1", "write-space"):
+                if term not in main_content:
+                    errors.append(f"{main_path.relative_to(ROOT)}: missing question-paper element {term}")
+            if re.search(r"```(?:cpp|c\+\+|python|powershell)|<!--\s*(?:fullcode|complete-sketch)|void\s+(?:setup|loop)\s*\(", main_content):
+                errors.append(f"{main_path.relative_to(ROOT)}: implementation code in question paper")
+            if re.search(r"\]\([^)]*week\d+_answers", main_content):
+                errors.append(f"{main_path.relative_to(ROOT)}: private answer link in question paper")
+            if not main_path.with_suffix(".pdf").exists():
+                errors.append(f"{main_path.relative_to(ROOT)}: missing current PDF")
+
+        if number in REPORT_WEEKS:
+            for term in ("作品", "預期成果與驗證", "Q1", "____"):
+                if term not in main_content:
+                    errors.append(f"{main_path.relative_to(ROOT)}: missing report question element {term}")
 
     print("\n".join(summaries))
     if errors:

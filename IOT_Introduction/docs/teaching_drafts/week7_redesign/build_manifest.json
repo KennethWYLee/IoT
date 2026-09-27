@@ -3,222 +3,36 @@
   "pages": [
     {
       "number": 1,
-      "id": "start"
+      "id": "examgame"
     },
     {
       "number": 2,
-      "id": "files"
+      "id": "examsensing"
     },
     {
       "number": 3,
-      "id": "rules"
+      "id": "exampriority"
     },
     {
       "number": 4,
-      "id": "route"
+      "id": "examfault"
     },
     {
       "number": 5,
-      "id": "roles"
+      "id": "examoutputs"
     },
     {
       "number": 6,
-      "id": "settings"
+      "id": "examtempo"
     },
     {
       "number": 7,
-      "id": "prepareupload"
-    },
-    {
-      "number": 8,
-      "id": "rails"
-    },
-    {
-      "number": 9,
-      "id": "buttons"
-    },
-    {
-      "number": 10,
-      "id": "light"
-    },
-    {
-      "number": 11,
-      "id": "rgb"
-    },
-    {
-      "number": 12,
-      "id": "oled"
-    },
-    {
-      "number": 13,
-      "id": "upload"
-    },
-    {
-      "number": 14,
-      "id": "firstgame"
-    },
-    {
-      "number": 15,
-      "id": "hold"
-    },
-    {
-      "number": 16,
-      "id": "finish"
-    },
-    {
-      "number": 17,
-      "id": "gamecode"
-    },
-    {
-      "number": 18,
-      "id": "gamecode_1"
-    },
-    {
-      "number": 19,
-      "id": "gamecode_2"
-    },
-    {
-      "number": 20,
-      "id": "gamecode_3"
-    },
-    {
-      "number": 21,
-      "id": "gamecode_4"
-    },
-    {
-      "number": 22,
-      "id": "gamecode_5"
-    },
-    {
-      "number": 23,
-      "id": "gamecode_6"
-    },
-    {
-      "number": 24,
-      "id": "gamecode_7"
-    },
-    {
-      "number": 25,
-      "id": "gamecode_8"
-    },
-    {
-      "number": 26,
-      "id": "gamecode_9"
-    },
-    {
-      "number": 27,
-      "id": "gamecode_10"
-    },
-    {
-      "number": 28,
-      "id": "gamecode_11"
-    },
-    {
-      "number": 29,
-      "id": "clock"
-    },
-    {
-      "number": 30,
-      "id": "events"
-    },
-    {
-      "number": 31,
-      "id": "thresholds"
-    },
-    {
-      "number": 32,
-      "id": "flowcase2"
-    },
-    {
-      "number": 33,
-      "id": "priority"
-    },
-    {
-      "number": 34,
-      "id": "states"
-    },
-    {
-      "number": 35,
-      "id": "flowcase1"
-    },
-    {
-      "number": 36,
-      "id": "logs"
-    },
-    {
-      "number": 37,
-      "id": "faults"
-    },
-    {
-      "number": 38,
-      "id": "exercise"
-    },
-    {
-      "number": 39,
-      "id": "extra"
-    },
-    {
-      "number": 40,
-      "id": "stage2fields"
-    },
-    {
-      "number": 41,
-      "id": "stage2"
-    },
-    {
-      "number": 42,
-      "id": "layout"
-    },
-    {
-      "number": 43,
-      "id": "slower"
-    },
-    {
-      "number": 44,
-      "id": "comparison"
-    },
-    {
-      "number": 45,
-      "id": "buildexercise"
-    },
-    {
-      "number": 46,
-      "id": "buildresults"
-    },
-    {
-      "number": 47,
-      "id": "buildtest"
-    },
-    {
-      "number": 48,
-      "id": "troubleshooting"
-    },
-    {
-      "number": 49,
-      "id": "finishrecord"
-    },
-    {
-      "number": 50,
-      "id": "sources"
+      "id": "examsummary"
     }
   ],
-  "sourceSha256": "9878263fa79179256b4cd33636628a3b33da24dc50af471befe8998d624fdee4",
-  "builderSha256": "3daed7fa6921b0343ef3b3c9276afa03d05f23903f6996fcde113a2fde6f2dff",
-  "sketches": [
-    {
-      "path": "examples/week07_traffic_light_challenge/week07_traffic_light_challenge.ino",
-      "sha256": "986e62c61d75f6aea0c3fe8f1381ca8540a60dd4a94be762c7a2f55e3d3582b0"
-    }
-  ],
-  "photos": [
-    {
-      "name": "KY018_2.jpg",
-      "sha256": "df1e6a94c914ad9d70e95a111fe77c00c9fc05426ba938f3ae3d66d34f483ef5"
-    },
-    {
-      "name": "RGB_HW479_3.jpg",
-      "sha256": "33f4855d2e8bf52ee6b1232f7c70c707aec04442644c4ccdc9bdfcc5c65a3f08"
-    }
-  ],
-  "pdfSha256": "e16d7fb6df1071a68a0360643496ad8d18ce9e24e2473c4f61277741e083f89f"
+  "sourceSha256": "54850492edff339a70f530e59fc08a9c33bb2355507839b51db066cbf52fa4d8",
+  "builderSha256": "6f60c62b8bc15d1051325c25e0400f536f7e35aa7b67af6190003059e5bf6a80",
+  "sketches": [],
+  "photos": [],
+  "pdfSha256": "3c4048700175535e249081f3d897fc92c9211ec2ffc4bbd0641d964968ce5b8c"
 }

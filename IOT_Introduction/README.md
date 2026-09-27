@@ -1,5 +1,7 @@
 # IoT Introduction：18週課程教材
 
+2026-09-27 現行安排：依 Week3 方式逐週檢查全學期。Week2～7、11、12、14、15 的 Main 為整份題目與作品要求；完整基本教學及全部解答在 Ans。Week3、4 保留已確認版本；本次重整其餘八個實作週。Week1 保留課程與採購，Week8、13、17 合併重複報告要求為明確問句；Week9、10、16、18 保留原用途。評分、零件、授課週次及硬體限制未改。本次僅更新本機，未 commit、push 或上傳；見[逐週狀況及檢查紀錄](docs/lab_notes/2026-09-27-semester-exam-answers.md)。以下日期較早的文字為修訂沿革，不覆蓋本段現行分工。
+
 2026-09-26：Week4 沿用 Week3 的考卷／解答分工。Main 為 11 頁題目，按作品、預期結果、驗證與作答安排；72 頁 Ans 保留完整操作、四份程式、原理及逐題答案。主題、零件、評分與週次不變。教材提交 cae86c6 已推送私人 GitHub 專案，Main／Ans PDF 已原地更新雲端並回讀核對 SHA-256；Ans 不加入 Git。見[修訂與發布紀錄](docs/lab_notes/2026-09-26-week4-exam-answers.md)。
 
 2026-09-24 最新版：Week3 Main 為 12 頁純考卷，實作題先列作品、特色與預期結果，再提供操作驗證及最後作答；刪除器材規格頁，接線與設定細節留在 95 頁 Ans。Q1 記錄遮光／未遮光各三筆，Q2 問 raw 與電壓；基本教學及全部解答仍在 Ans。未加入分工、教師勾選或提早離開流程。教材提交 9a9a7ad 已推送 GitHub，Main／Ans PDF 已更新至原雲端檔案；Ans 不納入 Git。見[本次調整及發布紀錄](docs/lab_notes/2026-09-24-week3-opening-worksheet.md)。
@@ -23,8 +25,7 @@ OLED 維持 Week5。私有 QA、答案、執行資料均不發布。本輪尚未
 Week 1只介紹課程與[正式材料清單](Week_01_Course_Orientation/week1_main.md#purchase-table)，不操作硬體。
 
 Week 1 的[零件照片](Week_01_Course_Orientation/week1_main.md#equipment-photos)依品項展示外觀與不同角度。
-Week 2～7、11～12、14～15的主教材開頭亦有當週器材圖集。離線閱讀請下載完整 repository，
-保留共用圖片資料夾；不必另外開一份器材講義。
+Week 2～7、11～12、14～15 的器材圖集與接線教學已隨完整教學移至 Ans。Main 保留作品需求及必要的題目圖。離線閱讀教學須由教師提供對應 Ans；repository 的 Main 不包含答案。
 
 ## 18 週導覽
 

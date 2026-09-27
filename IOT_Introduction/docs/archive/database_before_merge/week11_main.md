@@ -99,7 +99,7 @@ python -m uvicorn app:app --host 0.0.0.0 --port 8000 2>&1 |
 4. 按START一次、STOP一次、reset一次。
 5. 送一筆ERROR狀態中的`start`，取得`rejected`。
 6. 記錄開始與結束時間、device ID，以及預期事件數。資料來源表放在
-   [Week 11支援資料](../../../Week_12_MQTT_Database_and_Logs/week12_main.md#support-db-二已知資料集紀錄表)。
+   [Week 11支援資料](week11_support.md#二已知資料集紀錄表)。
 
 若本週實機暫時無法運作，可以使用Week 10已保存的真實資料練習query，但必須標示資料
 產生日期與來源；host test資料不得偽裝成physical target data。
@@ -373,4 +373,4 @@ $afterCreate.event_count
 
 結束時以`Ctrl+C`正常停止bridge與Backend，不在Backend執行時搬移database。`runtime`
 資料不提交Git；只提交遮蔽秘密的schema、query、統計及重建紀錄。詳細表格與延伸題見
-[Week 11支援資料](../../../Week_12_MQTT_Database_and_Logs/week12_main.md#practice-and-reference)。
+[Week 11支援資料](week11_support.md)。

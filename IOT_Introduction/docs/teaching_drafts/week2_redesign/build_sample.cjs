@@ -4,7 +4,9 @@ const { pathToFileURL } = require('node:url');
 const { chromium } = require('playwright');
 const crypto = require('node:crypto');
 const root = path.resolve(__dirname, '../../../..');
-const official = path.join(root, 'IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.pdf');
+const answers = process.argv.includes('--answers');
+const answerDir = path.resolve(__dirname, '../week2_answers');
+const official = path.join(root, 'IOT_Introduction/Week_02_ESP32_Hardware_Basics/' + (answers ? 'week2Ans.pdf' : 'week2_main.pdf'));
 const inputs = new Set(['build_sample.cjs', 'beginner_setup.cjs', 'ohms_law_pages.cjs', 'counter_project.cjs',
   'hello_first/hello_first.ino', 'button_follow_along/button_follow_along.ino',
   'counter_practice/counter_practice.ino'].map(name => path.join(__dirname, name)));
@@ -96,7 +98,7 @@ function buttonBoard(wires=0) {
 }
 const footer = n => `<footer><span>Week 2 · 按鈕與計數器</span><span>${n} / 37</span></footer>`;
 const page = (n, tag, title, lead, body) => `<section class="page"><header><span>ESP32-S3 硬體基礎</span><span>${tag}</span></header><main><h1>${title}</h1><p class="lead">${lead}</p>${body}</main>${footer(n)}</section>`;
-const pages = [
+const lessonPages = [
 page(1,'按鈕與電腦訊息','按一下按鈕，電腦怎麼知道？','按鈕改變電路的連接，ESP32 讀取狀態，再把文字傳回電腦。',`
   <div class="goal"><b>按鈕、電路與紀錄：</b><br>GPIO 是 ESP32 用來讀取或輸出訊號的接腳。本週用它讀按鈕，再把結果傳到電腦。</div>
   <h2>零件與功能</h2>
@@ -224,25 +226,42 @@ page(37,'參考資料','操作依據與圖片來源','Arduino IDE 操作、ESP32
   <p class="note">所有程式輸出示例都是預期格式，不是這次操作的實測紀錄。學習者應以自己實際看到的畫面記錄結果。網路來源查核：2026-09-16。</p>
 `)
 ];
+let pages;
+if (answers) {
+  const answerFile = path.join(answerDir, 'exam_answers.cjs');
+  const roomFile = path.join(answerDir, 'room_answer.cjs');
+  inputs.add(answerFile); inputs.add(roomFile);
+  inputs.add(path.join(answerDir, 'room_counter/room_counter.ino'));
+  const solutions = require(answerFile)({escape});
+  const room = require(roomFile)({escape});
+  pages = [...lessonPages, ...solutions, ...room].map((p, i) => typeof p === 'string' ? p : page(i + 1, p.kicker, p.title, p.lead, p.body));
+} else {
+  inputs.add(path.join(__dirname, 'exam_pages.cjs'));
+  pages = require('./exam_pages.cjs')({page});
+}
+pages = pages.map((p, i) => p.replace(/<footer>[\s\S]*?<\/footer>/, `<footer><span>Week 2 · ${answers ? '教學與解答' : '按鈕與計數器'}</span><span>${i + 1} / ${pages.length}</span></footer>`));
+const htmlFile = path.join(answers ? answerDir : __dirname, answers ? 'week2Ans.html' : 'Week2_main_layout_sample.html');
 const css = `
 @page{size:A4;margin:0}*{box-sizing:border-box}body{margin:0;color:#24343b;background:#e4e7e8;font:12pt/1.6 "Microsoft JhengHei",sans-serif;letter-spacing:0} .page{background:white;width:210mm;height:297mm;padding:14mm 17mm 16mm;position:relative;break-after:page;overflow:hidden}.page:last-child{break-after:auto}header{display:flex;justify-content:space-between;color:#506b70;font-size:9pt;border-bottom:1px solid #a8bdbd;padding-bottom:3mm;margin-bottom:6mm}main{height:246mm}h1{font-size:23pt;line-height:1.4;margin:0 0 3mm;color:#194e54}h2{font-size:14pt;line-height:1.45;margin:5mm 0 2mm}p{margin:2.5mm 0}p.lead{font-size:13pt;color:#4d636d;margin-bottom:5mm}.goal{border-left:4px solid #287d80;padding:3mm 4mm;background:#edf5f4}.sequence{list-style:none;padding:0;margin:3mm 0;counter-reset:step}.sequence li{counter-increment:step;display:grid;grid-template-columns:9mm 30mm 1fr;gap:3mm;align-items:start;padding:3mm 0;border-bottom:1px solid #dce2e3}.sequence li:before{content:counter(step);font-weight:700;color:#246f74}.photo-row{display:grid;grid-template-columns:62mm 1fr;gap:6mm;align-items:center;margin:5mm 0}.photo-row img{width:62mm;height:43mm;object-fit:contain}.meter-row{display:grid;grid-template-columns:67mm 1fr;gap:6mm}.meter-row figure{margin:0}.meter-row img{height:104mm;width:65mm;object-fit:contain}.meter-row h2{margin-top:0}.steps{padding-left:6mm;margin:2mm 0}.steps li{margin:3mm 0}.steps.compact li{margin:1.5mm 0}figure.diagram{margin:3mm 0}svg{display:block;width:100%;height:auto;max-height:92mm;font-family:"Microsoft JhengHei",sans-serif;fill:#24343b}figcaption{font-size:9.5pt;line-height:1.5;color:#52636c;margin-top:2mm}table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:11pt;line-height:1.5;margin:4mm 0}th{text-align:left;background:#eaf1f2;font-weight:700}td,th{border-bottom:1px solid #c6d3d6;padding:3mm 2.5mm;vertical-align:top}aside{padding:3mm 4mm;line-height:1.55;font-size:11pt;margin:4mm 0}.safety{border-left:4px solid #ae493c;background:#fff2ee}.note{border-left:4px solid #947336;background:#fbf6e8}.question{border-top:1px solid #a7bfc2;padding-top:3mm}.next{border-top:1px solid #a7bfc2;padding-top:3mm;margin-top:5mm;color:#194e54;font-weight:700;font-size:11pt}.sources{font-size:9pt;line-height:1.5;color:#5d6b72}a{color:#194e54}footer{position:absolute;bottom:9mm;left:17mm;right:17mm;display:flex;justify-content:space-between;color:#607079;font-size:8.5pt} @media screen{.page{margin:10mm auto;box-shadow:0 1px 8px #aaa}}
 `;
 const html = `<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>Week 2 主教材：按鈕與計數器</title><style>${css}pre{font:10.5pt/1.4 Consolas,monospace;white-space:pre-wrap;margin:3mm 0;padding:3mm;background:#f1f4f5;border-left:3px solid #718991}code{font-family:Consolas,monospace}.reference{width:100%;object-fit:contain}.urlbox{padding:3mm;background:#edf5f4;font:10.5pt/1.5 Consolas,monospace;overflow-wrap:anywhere}.settings td,.settings th{padding:2mm 2.5mm}.troubleshooting{font-size:10.5pt}.troubleshooting th:first-child,.troubleshooting td:first-child{width:27%}.troubleshooting td{padding:2mm 2.5mm}ul{padding-left:6mm;margin:2mm 0}li{margin:1.5mm 0}</style></head><body>${pages.join('')}</body></html>`;
-fs.writeFileSync(path.join(__dirname,'Week2_main_layout_sample.html'),html);
+const finalHtml = html.replace('</style>', '.write-space{border:1px solid #aec0c4;margin:3mm 0;background:repeating-linear-gradient(to bottom,white 0,white 8.8mm,#e3ebec 8.8mm,#e3ebec 9mm)}</style>');
+fs.writeFileSync(htmlFile,finalHtml);
 (async()=>{
   const browser=await chromium.launch({channel:'msedge',headless:true});
   const page=await browser.newPage();
-  await page.goto(pathToFileURL(path.join(__dirname,'Week2_main_layout_sample.html')).href);
+  await page.goto(pathToFileURL(htmlFile).href);
   await page.emulateMedia({media:'print'});
   await page.evaluate(()=>document.fonts.ready);
   const audit=await page.evaluate(()=>({images:[...document.images].map(i=>({loaded:i.complete&&i.naturalWidth>0})),pages:[...document.querySelectorAll('.page')].map((p,i)=>{const m=p.querySelector('main'), f=p.querySelector('footer'), last=m.lastElementChild;return{page:i+1,overflow:m.scrollHeight>m.clientHeight+1,lastBottom:last.getBoundingClientRect().bottom,footerTop:f.getBoundingClientRect().top,gap:f.getBoundingClientRect().top-last.getBoundingClientRect().bottom};})}));
   fs.writeFileSync(path.join(__dirname,'tmp/layout_check.json'),JSON.stringify(audit,null,2));
   if(audit.images.some(i=>!i.loaded)||audit.pages.some(p=>p.overflow||p.gap<8)) { await browser.close(); throw Error(JSON.stringify(audit)); }
   await page.pdf({path:official,format:'A4',printBackground:true,preferCSSPageSize:true});
-  fs.copyFileSync(official, path.join(__dirname,'Week2_main_layout_sample.pdf'));
-  fs.mkdirSync(path.join(__dirname, 'checks'), {recursive:true});
-  fs.writeFileSync(path.join(__dirname, 'checks/layout_check.json'), JSON.stringify(audit, null, 2) + '\n');
-  fs.writeFileSync(path.join(__dirname, 'checks/published_main.json'), JSON.stringify({
+  fs.copyFileSync(official, path.join(answers ? answerDir : __dirname, answers ? 'week2Ans.pdf' : 'Week2_main_layout_sample.pdf'));
+  const checks = path.join(answers ? answerDir : __dirname, 'checks');
+  fs.mkdirSync(checks, {recursive:true});
+  fs.writeFileSync(path.join(checks, 'layout_check.json'), JSON.stringify(audit, null, 2) + '\n');
+  fs.writeFileSync(path.join(checks, answers ? 'published_answers.json' : 'published_main.json'), JSON.stringify({
     pdf: path.relative(root, official).replaceAll('\\', '/'), pages: pages.length,
     pdf_sha256: digest(official),
     inputs: Object.fromEntries([...inputs].sort().map(file => [path.relative(root, file).replaceAll('\\', '/'), digest(file)])),

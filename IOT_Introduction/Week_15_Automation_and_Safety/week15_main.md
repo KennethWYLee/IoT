@@ -1,1033 +1,114 @@
-# Week 15：Automation、Safety、Fault Recovery與Clean Reconstruction
+# Week 15 考卷：自動反應、停止與重建
 
-日期：2026-12-16
+日期：2026-12-16　組別／姓名：________________
 
-本章讓程式依光線資料自動切換RGB，並記下每次變化的原因。先訂何時啟動、何時停止，再用不同的啟動／停止門檻、連續取樣及時間限制避免反覆切換或持續動作；最後刻意建立可控制的故障情境，檢查復原，再由另一人依文件重建系統。
+可使用講義與 AI。沿用已驗證的光敏、按鈕、RGB 與網路系統，不新增負載；完成作品並用實際紀錄回答。改線前拔除電源，不短接電源或接腳製造故障。
 
-## 光線觸發 RGB，STOP 可中止自動反應
+## 作品 A：光線改變時自動反應
 
-本週讓光線觸發 RGB 變色，再確認 STOP 與故障處理仍能停止自動反應。
-只使用已確認的按鈕、KY-018 與 RGB，不新增馬達或舵機。
+啟用自動模式後，連續確認遮光才讓 RGB 變綠；連續確認回到亮處才回到藍色待機。實體 STOP 或故障必須優先使 RGB 變紅、關閉自動模式。
 
-1. 保留上次成功的 Week 12 個人程式。另開
-   [week15_automation_device.ino](../examples/week15_automation_device/week15_automation_device.ino)，
-   在 IDE **另存新檔**為 `week15_automation_practice`。
-2. 依 Week 12 的方式建立 `secrets.h`，填本次 Wi-Fi 與 broker 帳密；保持 `DRY_RUN=true`。
-   個人機密不放入教材或提交 Git。
-3. 用 Ctrl+F 逐一核對：`DEVICE_ID`、`PIN_START`、`PIN_STOP`、`PIN_LIGHT`、
-   `PIN_RGB_R`、`PIN_RGB_G`、`PIN_RGB_B`、`RGB_ON_LEVEL`、`LIGHT_VALID_MIN`、`LIGHT_VALID_MAX`。
-   這些值來自已成功的 Week 12 設定，不因換檔案就自動帶過來。
-4. 再找 `DARK_WHEN_RAW_LESS`、`DARK_ENTER_RAW`、`LIGHT_EXIT_RAW`。
-   依第二、三節及本人的有效光線紀錄設定；沒有校正資料時只能先編譯，不猜門檻上電。
-5. 依 [Week 12 啟動步驟](../Week_12_MQTT_Database_and_Logs/week12_main.md#mqtt-startup)
-   啟動 broker、後端與 bridge；已有密碼檔不要重建。A、D、E 都保持執行。
-6. 第五節的七段修改已包含在完整程式中，**不要再貼一次**。
-   編譯、接線確認及操作步驟見第六節。
+### 預期結果與驗證
 
-本週 `auto_on` 等命令不在手機預設選單；[下面有逐步送出方式](#send-automation-command)，
-透過後端 API 建立命令，沿用相同權限與 command_id 追蹤。
-
-## 一、本週內容
-
-### 教學目標
-
-完成本單元後，學生應能：
-
-1. 訂定自動化規則（automation policy），明列可觀察的觸發條件（trigger）、資料有效性要求（validity requirement）、狀態前置條件（state precondition）、動作（action）、最長持續時間（maximum duration）、停止條件（stop condition）與安全狀態（safe state）。
-2. 實作感測遲滯（hysteresis）、重複樣本確認（repeated-sample confirmation）、狀態轉換（state transition）、明確的手動／自動控制權（manual/automatic ownership）、實體停止優先權（physical stop priority）及具有明確限制的復原行為（recovery）。
-3. 依文件記錄的優先順序（priority order），處理自動動作、遠端命令（remote command）、本機控制（local control）、無效感測（invalid sensing）、網路中斷（network loss）與動作逾時（action timeout）之間的衝突。
-4. 注入並定位至少三種故障（fault），同時維持安全的實體輸出、可見的手機狀態、結構化紀錄（structured log）與可重現的復原步驟。
-5. 從乾淨目錄重建後端（backend）、資料庫結構（database schema）、行動前端（mobile frontend）與裝置設定（device configuration），不依賴複製既有環境或未記錄的機密資料。
-6. 區分主機測試（host test）、編譯（compilation）、上傳（upload）、實體目標板測試（physical target test）、故障測試（fault test）與重建證據（reconstruction evidence）。
-
-### 教學內容
-
-本單元將自動化（automation）與全端物聯網系統（full-stack IoT system）所需的安全及復原能力整合。學生會將已校正的感測輸入轉為具有明確限制的狀態機動作（state-machine action），以遲滯（hysteresis）與重複取樣（repeated sampling）避免門檻附近反覆切換（threshold chatter），並明定實體停止（physical stop）、故障（fault）、手動命令（manual command）及自動行為的優先順序。實作會刻意引入網路及感測故障，同時查驗安全輸出、操作者回饋、資料庫紀錄（database record）與紀錄檔（log）。最後進行乾淨環境重建（clean reconstruction），檢查文件中的軟體版本、環境變數（environment variable）、資料庫初始化（database initialization）、前端資源（frontend asset）、裝置設定檔（device profile）與機密佔位值（secret placeholder），是否足以讓另一個人重現系統。
-
-<!-- hardware-gallery:start -->
-<a id="equipment-photos"></a>
-
-### 本週器材外觀
-
-用光敏資料觸發 RGB 自動反應，測試 START／STOP、故障復原與重建；不新增硬體。另備筆電、USB 資料線、區域網路與手機。
-
-照片下方標示拍攝角度與來源。先辨認零件，再依本週器材表與接線步驟操作；照片本身不是接線指令，也不表示已完成電氣驗證。
-
-[ESP32-S3 開發板](#equipment-esp32s3) · [400 孔麵包板](#equipment-breadboard400) · [杜邦線](#equipment-jumperwire) · [四腳輕觸按鈕](#equipment-pushbutton) · [KY-018 光敏電阻模組](#equipment-ky018) · [HW-479 三色發光二極體模組](#equipment-rgb_hw479)
-
-<a id="equipment-esp32s3"></a>
-
-#### ESP32-S3 開發板（Development Board）
-
-照片中的板卡為 YD-ESP32-S3 Type-A V1.5，搭載 N16R8 模組。正反面白底圖是既有後製展示圖；小字與腳位須核對本人實物及本週接線資料。
-
-| 實物後製展示圖：正面：模組、按鈕與 USB 接頭 | 實物後製展示圖：背面：板身與排針 |
-| --- | --- |
-| ![ESP32-S3 開發板（Development Board）；實物後製展示圖；正面：模組、按鈕與 USB 接頭](../docs/images/hardware/actual/ESP32S3_1.png) | ![ESP32-S3 開發板（Development Board）；實物後製展示圖；背面：板身與排針](../docs/images/hardware/actual/ESP32S3_2.png) |
-
-其他留存角度：[麵包板對孔紀錄；不是建議的實驗安裝方式，右側接線空間不足](../docs/images/hardware/actual/ESP32S3_3.jpg)。
-
-<a id="equipment-breadboard400"></a>
-
-#### 400 孔麵包板（Breadboard）
-
-辨認中央溝槽、a～j 字母與列號。外觀照片不表示所有孔都相通，連通關係依本週圖解與斷電量測確認。
-
-| 實物照片：俯視：中央溝槽、五孔組與側邊電源軌 |
-| --- |
-| ![400 孔麵包板（Breadboard）；實物照片；俯視：中央溝槽、五孔組與側邊電源軌](../docs/images/hardware/actual/Breadboard400_1.jpg) |
-
-<a id="equipment-jumperwire"></a>
-
-#### 杜邦線（Jumper Wire）
-
-露出金屬針的是公頭（Male），有插孔的是母頭（Female）；線色不會自行決定電壓或功能。所需接頭種類依當週器材表，不是每週都用完三種。商品參考卡上的數量與金額是歷史資料，不是學生應買數量或目前售價。
-
-| 實物照片：成排導線與接頭全貌 | 蝦皮商品參考：公對公：兩端皆為金屬針 |
-| --- | --- |
-| ![杜邦線（Jumper Wire）；實物照片；成排導線與接頭全貌](../docs/images/hardware/actual/JumperWire_1.jpg) | ![杜邦線（Jumper Wire）；蝦皮商品參考；公對公：兩端皆為金屬針](../docs/images/hardware/product-cards/JumperWire_MM_1.png) |
-
-| 蝦皮商品參考：公對母：金屬針與插孔各一端 | 蝦皮商品參考：母對母：兩端皆為插孔 |
-| --- | --- |
-| ![杜邦線（Jumper Wire）；蝦皮商品參考；公對母：金屬針與插孔各一端](../docs/images/hardware/product-cards/JumperWire_MF_1.png) | ![杜邦線（Jumper Wire）；蝦皮商品參考；母對母：兩端皆為插孔](../docs/images/hardware/product-cards/JumperWire_FF_1.png) |
-
-<a id="equipment-pushbutton"></a>
-
-#### 四腳輕觸按鈕（Tactile Pushbutton）
-
-上方黑色部分是按壓位置，四支金屬腳用來連接電路。照片不能單獨證明哪一對腳常通；先斷電，依 Week 2 的方法辨認。
-
-| 實物照片：俯視：按鍵與金屬上蓋 | 實物照片：側面：四支接腳 |
-| --- | --- |
-| ![四腳輕觸按鈕（Tactile Pushbutton）；實物照片；俯視：按鍵與金屬上蓋](../docs/images/hardware/actual/Pushbutton_1.jpg) | ![四腳輕觸按鈕（Tactile Pushbutton）；實物照片；側面：四支接腳](../docs/images/hardware/actual/Pushbutton_2.jpg) |
-
-其他留存角度：[歷史接線紀錄：同一組常通接點的量測，不是按下才導通的接法答案](../docs/images/hardware/actual/Pushbutton_3.jpg)。
-
-<a id="equipment-ky018"></a>
-
-#### KY-018 光敏電阻模組（Photoresistor Module）
-
-圓形感光元件、板上固定電阻與三支排針構成模組。S 是訊號標示；元件區的 A、S1、R1 不能直接當成中間排針名稱。接線沿用已確認的 Week 3 紀錄。
-
-| 實物照片：正面近照：感光元件、S 與 − 絲印 | 實物照片：另一元件面角度 |
-| --- | --- |
-| ![KY-018 光敏電阻模組（Photoresistor Module）；實物照片；正面近照：感光元件、S 與 − 絲印](../docs/images/hardware/actual/KY018_1.jpg) | ![KY-018 光敏電阻模組（Photoresistor Module）；實物照片；另一元件面角度](../docs/images/hardware/actual/KY018_2.jpg) |
-
-| 實物照片：焊接面 |
-| --- |
-| ![KY-018 光敏電阻模組（Photoresistor Module）；實物照片；焊接面](../docs/images/hardware/actual/KY018_3.jpg) |
-
-<a id="equipment-rgb_hw479"></a>
-
-#### HW-479 三色發光二極體模組（RGB LED Module）
-
-訂單稱 KY-016；實物 PCB 標示 HW-479，前方可見 B、G、R、− 與板上電阻。共同端、阻值及控制電流仍須核對，不能用八顆燈條取代這個模組。
-
-| 實物照片：正面：單顆 LED 與 B／G／R／− 標示 | 實物照片：焊接面 |
-| --- | --- |
-| ![HW-479 三色發光二極體模組（RGB LED Module）；實物照片；正面：單顆 LED 與 B／G／R／− 標示](../docs/images/hardware/actual/RGB_HW479_1.jpg) | ![HW-479 三色發光二極體模組（RGB LED Module）；實物照片；焊接面](../docs/images/hardware/actual/RGB_HW479_2.jpg) |
-
-其他留存角度：[較早的元件面照片](../docs/images/hardware/actual/RGB_HW479_3.jpg)；[失焦補充照；不供腳位或焊點判讀](../docs/images/hardware/actual/RGB_HW479_4.jpg)。
-
-<!-- hardware-gallery:end -->
-
-## 二、先定義Automation Policy
-
-**automation（自動反應）** 是程式依事先訂好的條件，自行決定是否執行動作。共同實驗
-使用KY-018判斷環境進入較暗條件，RGB由IDLE藍色進入ACTIVE綠色；恢復較亮、超過最大
-時間、感測無效、網路長時間中斷或STOP時，回到IDLE或ERROR安全狀態。
-
-開始寫程式前先填[Week 15支援資料](#support-一automation-policy表)，至少包含：
-
-| Element | 本週共同規則 |
+| 條件 | 預期結果 |
 |---|---|
-| Trigger | 連續3筆有效sample符合dark-enter門檻 |
-| Permission | auto mode已啟用、目前IDLE、profile完整 |
-| Action | 進ACTIVE，RGB顯示綠色並記錄原因 |
-| Release | 連續3筆有效sample符合light-exit門檻 |
-| Maximum duration | ACTIVE最多10秒，超過進ERROR |
-| Invalid sensing | 下一次感測處理進ERROR，不把無效值當0 |
-| Network loss | ACTIVE期間MQTT離線超過30秒進ERROR |
-| Physical STOP | 最高優先；下一次本機輸入處理進ERROR，不等待network結果 |
-| Recovery | 查明原因後reset回IDLE；reset不自動重做舊命令 |
-
-門檻的確切raw值與方向必須來自本人Week 3 profile。沒有共同固定數字，因為模組、ADC、
-接線與環境不同。
-
-## 三、Hysteresis與連續取樣
-
-**hysteresis（遲滯）** 是啟動與停止使用不同門檻，兩者之間保留目前狀態。本例光線讀值在邊界小幅波動時，不會每跨過同一個數字就切換RGB：
-
-- `DARK_ENTER_RAW`：進入dark條件的門檻。
-- `LIGHT_EXIT_RAW`：離開dark條件的門檻。
-
-若「越暗raw越小」，enter值必須小於exit值；若「越暗raw越大」，enter值必須大於exit值。
-此外連續三筆符合才轉換，避免單一偶發值觸發。這不是任意平均；sample count與兩門檻都
-必須寫進policy與log。
-
-例如同輪假資料為暗 300～320、亮 900～920，可示範 enter=513、exit=706，
-方向為 `DARK_WHEN_RAW_LESS=true`。IDLE 連續三筆不大於 513 才開始；ACTIVE
-連續三筆不小於 706 才回待機；600 位於兩門檻之間，不觸發轉換。
-這些數字只用來讀懂規則，實際設定取本組兩段基準之間的不同值，並落在有效範圍內。
-
-## 四、安全優先順序
-
-程式在同一個loop可能同時看到STOP、sensor change、network command與timeout。固定順序：
-
-```text
-1. Physical STOP
-2. Invalid sensor／action timeout／network safety timeout
-3. Remote stop
-4. Reset after fault condition is cleared
-5. Manual start（auto mode關閉時）
-6. Automatic enter／exit
-7. Telemetry與介面更新
-```
-
-高優先動作不可被低優先動作同一loop覆蓋。例如STOP使state進ERROR後，sensor仍然dark也
-不得立刻回ACTIVE。**safe state（安全狀態）** 是故障時輸出應進入的明確狀態；共同RGB
-實驗為紅色ERROR。學生專題若使用舵機或馬達，安全狀態還須停止PWM／detach／driver
-disable並受最大動作時間限制，不能只改畫面顏色。
-
-## 五、由Week 12程式加入Automation
-
-本節逐項列出自動反應需要的程式修改。使用 Week 15 完整程式時，這些內容已包含，
-不要重貼；若從 Week 12 的副本修改，才依標示位置加入或替換。
-以下片段的插入或替換位置均有標示。保持 `DRY_RUN=true` 先編譯，profile 未填時不得啟用硬體。
-
-### 5.1 在設定常數後加入profile與runtime變數
-
-放在`TELEMETRY_MS`之後：
-
-```cpp
-// 全部值來自本人Week 3校正，不可照抄placeholder。
-const bool DARK_WHEN_RAW_LESS = true;
-const int DARK_ENTER_RAW = -1;
-const int LIGHT_EXIT_RAW = -1;
-const int REQUIRED_CONSECUTIVE_SAMPLES = 3;
-
-const unsigned long AUTOMATION_SAMPLE_MS = 500;
-const unsigned long MAX_ACTIVE_MS = 10000;
-const unsigned long NETWORK_GRACE_MS = 30000;
-
-bool autoMode = false;
-bool latestSensorValid = false;
-bool simulatedSensorFault = false;
-int latestLightRaw = -1;
-int darkCount = 0;
-int lightCount = 0;
-unsigned long lastAutomationSampleAt = 0;
-unsigned long activeStartedAt = 0;
-unsigned long mqttOfflineSince = 0;
-```
-
-### 5.2 擴充profile檢查
-
-在原`profileReady()`後加入：
-
-```cpp
-bool automationProfileReady() {
-  if (!profileReady()) return false;
-  if (DARK_ENTER_RAW < LIGHT_VALID_MIN || DARK_ENTER_RAW > LIGHT_VALID_MAX) return false;
-  if (LIGHT_EXIT_RAW < LIGHT_VALID_MIN || LIGHT_EXIT_RAW > LIGHT_VALID_MAX) return false;
-  if (DARK_WHEN_RAW_LESS) return DARK_ENTER_RAW < LIGHT_EXIT_RAW;
-  return DARK_ENTER_RAW > LIGHT_EXIT_RAW;
-}
-
-bool meetsDarkEnter(int raw) {
-  return DARK_WHEN_RAW_LESS ? raw <= DARK_ENTER_RAW : raw >= DARK_ENTER_RAW;
-}
-
-bool meetsLightExit(int raw) {
-  return DARK_WHEN_RAW_LESS ? raw >= LIGHT_EXIT_RAW : raw <= LIGHT_EXIT_RAW;
-}
-```
-
-### 5.3 替換`enterState()`
-
-用下列完整函式替換Week 12原函式，加入ACTIVE起始時間與每次transition log：
-
-```cpp
-void enterState(DeviceState next, const char *reason) {
-  DeviceState previous = state;
-  state = next;
-  if (state == DeviceState::IDLE) setRgb(false, false, true);
-  if (state == DeviceState::ACTIVE) setRgb(false, true, false);
-  if (state == DeviceState::ERROR_STATE) setRgb(true, false, false);
-  if (state == DeviceState::ACTIVE && previous != DeviceState::ACTIVE) {
-    activeStartedAt = millis();
-  }
-  if (state != DeviceState::ACTIVE) activeStartedAt = 0;
-  Serial.printf("action=state_transition from=%d to=%s reason=%s raw=%d auto=%s\n",
-                static_cast<int>(previous), stateName(), reason, latestLightRaw,
-                autoMode ? "true" : "false");
-}
-```
-
-### 5.4 新增安全錯誤與自動判斷函式
-
-放在`readPhysicalInputs()`之前：
-
-```cpp
-void enterSafetyError(const char *reason) {
-  autoMode = false;
-  darkCount = 0;
-  lightCount = 0;
-  enterState(DeviceState::ERROR_STATE, reason);
-  publishEvent("safety_error", latestLightRaw, "adc_raw", false, reason);
-}
-
-void evaluateNetworkSafety() {
-  if (mqttClient.connected()) {
-    mqttOfflineSince = 0;
-    return;
-  }
-  if (mqttOfflineSince == 0) mqttOfflineSince = millis();
-  if (state == DeviceState::ACTIVE &&
-      millis() - mqttOfflineSince >= NETWORK_GRACE_MS) {
-    enterSafetyError("network_timeout");
-  }
-}
-
-void evaluateAutomation() {
-  evaluateNetworkSafety();
-  if (state == DeviceState::ACTIVE && activeStartedAt != 0 &&
-      millis() - activeStartedAt >= MAX_ACTIVE_MS) {
-    enterSafetyError("active_timeout");
-    return;
-  }
-  if (DRY_RUN || !automationProfileReady()) return;
-  unsigned long now = millis();
-  if (now - lastAutomationSampleAt < AUTOMATION_SAMPLE_MS) return;
-  lastAutomationSampleAt = now;
-  latestLightRaw = analogRead(PIN_LIGHT);
-  latestSensorValid = !simulatedSensorFault &&
-                      latestLightRaw >= LIGHT_VALID_MIN &&
-                      latestLightRaw <= LIGHT_VALID_MAX;
-  Serial.printf("action=automation_sample uptime_ms=%lu raw=%d valid=%s "
-                "state=%s auto=%s dark_before=%d light_before=%d\n",
-                now, latestLightRaw, latestSensorValid ? "true" : "false",
-                stateName(), autoMode ? "true" : "false", darkCount, lightCount);
-  if (!latestSensorValid) {
-    if (state != DeviceState::ERROR_STATE) {
-      enterSafetyError(simulatedSensorFault ? "simulated_sensor_invalid" :
-                                                "sensor_out_of_profile");
-    }
-    return;
-  }
-  if (!autoMode) return;
-
-  if (state == DeviceState::IDLE) {
-    darkCount = meetsDarkEnter(latestLightRaw) ? darkCount + 1 : 0;
-    lightCount = 0;
-    if (darkCount >= REQUIRED_CONSECUTIVE_SAMPLES) {
-      darkCount = 0;
-      enterState(DeviceState::ACTIVE, "automation_dark_confirmed");
-      publishEvent("automation_started", latestLightRaw, "adc_raw", true,
-                   "three_dark_samples");
-    }
-  } else if (state == DeviceState::ACTIVE) {
-    lightCount = meetsLightExit(latestLightRaw) ? lightCount + 1 : 0;
-    darkCount = 0;
-    if (lightCount >= REQUIRED_CONSECUTIVE_SAMPLES) {
-      lightCount = 0;
-      enterState(DeviceState::IDLE, "automation_light_confirmed");
-      publishEvent("automation_stopped", latestLightRaw, "adc_raw", true,
-                   "three_light_samples");
-    }
-  }
-}
-```
-
-### 5.5 替換command處理
-
-用下列函式替換原`executeCommand()`：
-
-```cpp
-void executeCommand(const String &id, const String &command) {
-  int previousIndex = findProcessedCommand(id);
-  if (previousIndex >= 0) {
-    publishAck(id, processedCommands[previousIndex].result.c_str(),
-               processedCommands[previousIndex].message.c_str());
-    return;
-  }
-  publishAck(id, "accepted", "received by device");
-
-  if (command == "test_sensor_fault") {
-    simulatedSensorFault = true;
-    latestSensorValid = false;
-    enterSafetyError("simulated_sensor_invalid");
-    finishCommand(id, "done", "sensor fault test active; safe output applied");
-  } else if (command == "clear_sensor_fault_test") {
-    simulatedSensorFault = false;
-    latestSensorValid = false;
-    finishCommand(id, "done",
-                  "sensor fault test cleared; wait for a fresh valid sample before reset");
-  } else if (command == "stop") {
-    enterSafetyError("remote_stop");
-    finishCommand(id, "done", "safe output applied");
-  } else if (command == "reset") {
-    if (!DRY_RUN && stopStablePressed) {
-      finishCommand(id, "rejected", "release physical stop before reset");
-    } else if (!latestSensorValid && !DRY_RUN) {
-      finishCommand(id, "rejected", "sensor must be valid before reset");
-    } else {
-      autoMode = false;
-      enterState(DeviceState::IDLE, "remote_reset");
-      finishCommand(id, "done", "idle output applied; auto mode off");
-    }
-  } else if (command == "auto_on") {
-    if (state != DeviceState::IDLE || !automationProfileReady() ||
-        (!latestSensorValid && !DRY_RUN)) {
-      finishCommand(id, "rejected",
-                    "idle state, valid sensor, and verified profile required");
-    } else {
-      autoMode = true;
-      darkCount = 0; lightCount = 0;
-      finishCommand(id, "done", "automation armed");
-    }
-  } else if (command == "auto_off") {
-    autoMode = false;
-    if (state == DeviceState::ERROR_STATE) {
-      finishCommand(id, "done", "automation disabled; error remains latched");
-    } else {
-      enterState(DeviceState::IDLE, "remote_auto_off");
-      finishCommand(id, "done", "automation disabled and idle applied");
-    }
-  } else if (command == "start" && !autoMode &&
-             state != DeviceState::ERROR_STATE) {
-    enterState(DeviceState::ACTIVE, "remote_manual_start");
-    finishCommand(id, "done", "manual active output applied");
-  } else if (command == "start" && autoMode) {
-    finishCommand(id, "rejected", "disable auto mode before manual start");
-  } else {
-    finishCommand(id, "rejected", "command not allowed in current state");
-  }
-}
-```
-
-手機基準頁面只有start／stop／reset。測試`auto_on`與`auto_off`可用`/docs`建立命令，
-`test_sensor_fault`與`clear_sensor_fault_test`也只作本週低功率RGB實驗的故障注入。
-這些命令可用`/docs`建立，或在自己的前台加入清楚標示的測試控制；仍須帶正確
-`X-IoT-Key`，不得把測試命令未經風險評估直接保留在公開或高功率系統。
-
-### 5.6 替換physical input並修改loop
-
-STOP永遠先處理；用下列函式替換原`readPhysicalInputs()`：
-
-```cpp
-void readPhysicalInputs() {
-  if (DRY_RUN || !profileReady()) return;
-  bool stopPressedEvent =
-    pressedEvent(PIN_STOP, stopLastRaw, stopStablePressed, stopChangedAt);
-  bool startPressedEvent =
-    pressedEvent(PIN_START, startLastRaw, startStablePressed, startChangedAt);
-  if (stopStablePressed) {
-    if (stopPressedEvent || state != DeviceState::ERROR_STATE) {
-      enterSafetyError("physical_stop");
-    }
-    return;
-  }
-  if (startPressedEvent) {
-    if (autoMode || state == DeviceState::ERROR_STATE) {
-      publishEvent("start_rejected", 1, "pressed", false,
-                   "manual_start_not_allowed");
-    } else {
-      enterState(DeviceState::ACTIVE, "physical_manual_start");
-      publishEvent("start_pressed", 1, "pressed", true, "physical_input");
-    }
-  }
-}
-```
-
-在`loop()`的`readPhysicalInputs();`之後加入：
-
-```cpp
-evaluateAutomation();
-```
-
-完整loop順序應保持physical input在network reconnect與automation之上；不得用無限`while`
-重連broker。
-
-另外在 `setup()` 的啟動訊息把 `week=12` 改成 `week=15`；只改這段文字，
-方便確認上傳的是哪一週，不改 topic。完整程式已包含此修改。
-
-## 六、分階段驗證Automation
-
-<a id="send-automation-command"></a>
-
-### 命令要在哪裡送
-
-先讀這段了解按鈕位置，等 6.3 的指定步驟才送命令，現在不要先啟動自動反應。
-
-1. 筆電瀏覽器開 `http://127.0.0.1:8000/docs`，找到綠色 **POST /api/commands** 並展開。
-2. 按 **Try it out**。在 `x-iot-key` 欄位（HTTP 標頭 `X-IoT-Key`）輸入 D 後端視窗設定的同一個臨時 key，勿截圖。
-3. 把 Request body 換成以下內容，其中 `device_id` 改成自己的 `.ino` 裝置代號：
-
-```json
-{"device_id":"replace-with-team-device-id","command":"auto_on","parameters":{}}
-```
-
-4. 到 6.3 要求送 `auto_on` 時才按 **Execute**。看到 `201`、`command_id`、`requested`，
-   只代表後端已收件。回手機 **Recent commands** 找同一個 ID，等 `done` 或實際錯誤結果。
-5. 後面要送 `auto_off`、`test_sensor_fault`、`clear_sensor_fault_test` 或 `reset` 時，
-   只改 JSON 的 `command` 字串，再按 Execute。一次等前一筆結果出現才送下一筆。
-6. `403` 先查 key；`422` 查 JSON／裝置代號；`timeout` 查 A、D、E 及 ESP32 連線，
-   不用重按 Execute 掩蓋問題。這些測試只用於本課低功率 RGB，不操作高功率負載。
-
-### 6.1 Dry run與compile
-
-1. `DRY_RUN=true`、硬體profile保留實際填值或placeholder。
-2. Verify程式，記錄board package、PubSubClient、ArduinoJson與compile結果。
-3. 檢查所有新函式只有一份，沒有留下兩個`executeCommand()`或`enterState()`。
-4. Compile通過不代表門檻方向、安全動作或實體反應正確。
-
-### 6.2 上電前檢查
-
-1. 拔USB，只保留 Week 12 第八節已確認的 KY-018、START、STOP、RGB 接法；不接SG90／蜂鳴器／4AA。
-2. 核對Week 3有效範圍、dark方向、enter與exit門檻。
-3. 確認profile logic：raw越暗越小時enter < exit；越暗越大時enter > exit。
-4. 從ESP32沿線到模組、再反向檢查；接回USB前確認3V3、GND與signal。
-
-### 6.3 Baseline sequence
-
-1. 改`DRY_RUN=false`，拍照後拔下所有板端杜邦線，只接 USB 後 Verify、Upload。
-   完成後拔 USB、依 Week 12 接線表恢復，接 USB 並開 Monitor 選 115200；開機應IDLE、auto off。
-2. 先取得一筆有效KY-018 sample，確保`latestSensorValid=true`。
-3. 送`auto_on`，ack為done但state仍IDLE；armed表示已啟用自動判斷，正在等待符合光線條件，並未啟動RGB動作。
-4. 使環境符合dark-enter；前兩筆不動作，連續第三筆後進ACTIVE。
-5. 在enter與exit門檻中間改變光線，state不應快速來回。
-6. 使環境符合light-exit；連續第三筆後回IDLE。
-7. 再次進ACTIVE但不恢復光線，10秒後進ERROR，auto off，RGB紅色。
-8. 條件恢復且sensor valid後送reset，回IDLE；不自動重新arm。
-9. 送`test_sensor_fault`，確認進ERROR且reason為`simulated_sensor_invalid`；再送
-   `clear_sensor_fault_test`，等下一筆sample使`latestSensorValid=true`後才送reset。
-   這一步驗證可重現的程式故障路徑，不宣稱實體訊號線已故障。
-
-觀察 Serial 的 `action=automation_sample`，這是每次自動判斷讀到的資料，不是每兩秒
-發布的 telemetry。`dark_before`／`light_before` 是**處理這筆之前**的連續筆數；
-例如符合暗條件的三行依次為 0、1、2，第三行之後才出現狀態轉換。
-先讀完本段再測一輪，ACTIVE 最長只有 10 秒；到期後照步驟8復原，不邊倒數邊翻頁。
-
-## 七、衝突與優先順序測試
-
-1. Auto mode active時按manual START，應拒絕，避免兩個controller同時控制。
-2. Auto ACTIVE時按實體STOP，進入ERROR；同一loop的light-exit不得把它改回IDLE。
-   按住STOP時送reset必須rejected，不能因沒有新的按下邊緣而復歸。
-3. ERROR中sensor仍dark，不得自動start。
-4. ERROR中送`auto_on`，應rejected。
-5. Auto ACTIVE時送remote stop，應ERROR並記`remote_stop`。
-6. 非ERROR狀態送`auto_off`時應回IDLE並停止自動反應；ERROR狀態只關閉auto mode，
-   仍保持ERROR，必須確認故障排除後另送`reset`。
-
-所有測試以Serial、Backend event、command ID、database row、手機狀態與實體RGB共同判斷。
-
-## 八、Fault Injection與Recovery
-
-至少完成下列五項中的三項，其中physical STOP與sensor invalid為固定必測：
-
-### 8.1 Physical STOP
-
-Auto ACTIVE時按STOP。預期下一次本機輸入處理後RGB為紅色、auto off、event reason為
-physical_stop；記錄實測最長反應時間，網路同時斷線也不影響本機結果。
-
-### 8.2 Sensor invalid
-
-共同必測使用`test_sensor_fault`，程式須在下一個命令處理流程進ERROR、RGB紅色、
-auto off，並保存`simulated_sensor_invalid`。送`clear_sensor_fault_test`只會撤除測試
-旗標；必須再取得一筆profile內的新sample，才能送reset。這個結果只證明invalid-data
-處理與recovery路徑，不證明實體斷線偵測。
-
-若教師已用同批KY-018與接線驗證某個安全、可重現的實體故障方式，可另做physical
-fault test；所有改線先拔USB，並記錄實際raw與reason。不得假設單純拔除signal一定
-超出profile，也不得為了得到特定數字短接3V3、GND或GPIO。
-
-### 8.3 Broker／Backend unavailable
-
-Auto ACTIVE後停止broker，觀察MQTT斷線及重連紀錄。這個基準同時有ACTIVE最多10秒及
-MQTT連續離線30秒兩個限制，所以正常保持ACTIVE時會先由10秒動作期限進ERROR，不能
-把這次結果寫成「30秒網路timeout已測通過」。期間實體STOP由下一次本機輸入處理生效；
-網路呼叫可能延後下一輪，須記錄實測反應時間。復原broker可重連，但ERROR不自動reset。
-
-只停止Backend而broker仍在線，不一定造成MQTT斷線；應另外記錄API／歷史資料／前台停止更新，
-不能由`mqtt.connected()`推定Backend健康。這兩項故障分開判讀，不為了測30秒而自行放寬安全期限。
-
-### 8.4 Stuck action timeout
-
-保持dark條件，使ACTIVE不會由light-exit結束。10秒後必須ERROR。若專題使用舵機／馬達，
-另外量測實體動作確實停止，不能只看state文字。
-
-### 8.5 Malformed／duplicate command
-
-無效JSON不得執行；重複command ID不得重複啟動。不同ID但相同action仍是新命令，需依
-目前state與policy判斷，而不是全部忽略。
-
-Week 12的RAM cache只涵蓋最近8筆且會在重啟後消失。本項測試先驗證同一次開機的重送，
-再把「跨重啟仍可能重做」記為限制；有機械或高功率輸出的專題須加入耐久完成紀錄或
-可安全重做的command語意，不能把QoS 1誤當成exactly-once執行保證。
-
-每個故障要記錄baseline、唯一變因、預測、實際、安全輸出、手機狀態、log、根因、復原
-步驟與baseline恢復。完整表在支援資料。
-
-## 九、Clean Reconstruction
-
-**clean reconstruction（乾淨重建）** 由沒有使用原開發環境的人，在新資料夾中依repository
-文件建立可運作系統。它驗證文件與依賴，不是把原電腦`.venv`、runtime database與secrets
-整包複製。
-
-### 9.1 原開發者準備
-
-1. 所有必要程式與文件已在Git tracked files中。
-2. `requirements.txt`固定Python依賴；Arduino library與board package版本寫入紀錄。
-3. `.env.example`與`device_secrets.example.h`只含placeholder。
-4. README包含Backend啟動、host test、API與停止方式。
-5. `git status --short`不含秘密；提供要重建的完整commit hash。
-
-### 9.2 重建者建立全新資料夾
-
-選一個新的空資料夾名稱，不刪除原repository：
-
-```powershell
-git clone https://github.com/KennethWYLee/IoT.git iot-week15-rebuild
-Set-Location .\iot-week15-rebuild
-git checkout <exact-commit-hash>
-git status --short
-```
-
-正常status為空。若commit尚未push，重建者不能靠原電腦未提交檔案補齊；先記為文件／發布
-缺漏。
-
-### 9.3 Backend reconstruction
-
-```powershell
-Set-Location .\IOT_Introduction\examples\course_backend
-Test-Path .\app.py
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m pytest -q
-$env:IOT_OPERATOR_KEY="a-new-local-rebuild-key"
-.\.venv\Scripts\python.exe -m uvicorn app:app --host 127.0.0.1 --port 8000
-```
-
-第二行必須為 `True` 才執行後面命令。這一段只讓新筆電本機重建，不要求手機能連上。
-若稍後測手機，先完成本機測試並 Ctrl+C，再依 Week 11 的可信任 LAN 設定重啟，
-不能用 `127.0.0.1` 的本機綁定位址直接要求另一台裝置連線。
-
-新database應由程式建立；不要複製原`runtime/iot_course.db`。Host test通過後開
-`http://127.0.0.1:8000`，檢查manifest、service worker與API。這仍不等於LAN／target test。
-
-### 9.4 Device reconstruction
-
-1. 依實際紀錄安裝相同esp32 board package、ArduinoJson與PubSubClient。
-2. 從[device_secrets.example.h](../examples/device_secrets.example.h)建立本機
-   `secrets.h`並填**重建環境自己的**host與臨時密碼。
-3. 由profile紀錄填GPIO、ON level、有效範圍與automation門檻；不猜腳位。
-4. 先`DRY_RUN=true` compile，再Upload與network dry run。
-5. 只有接線檢查完成才`DRY_RUN=false`做physical target test。
-
-### 9.5 Reconstruction pass condition
-
-另一位重建者能在不取得原`.venv`、runtime database、`secrets.h`或口頭隱藏步驟的情況下：
-
-- 執行host tests；
-- 啟動Backend並建立新schema；
-- 開啟mobile page；
-- compile device firmware；
-- 知道哪些target test仍需特定實體profile與硬體。
-
-重建失敗時記第一個缺漏、實際錯誤、文件修正與重新測試；不能由原作者直接接手操作後
-宣稱文件完整。
-
-
-<div style="break-before:page"></div>
-
-## 沒有遲滯，邊界附近會怎麼切換？
-
-感測到動作示意；僅作圖上推演，不停止正在使用的服務或取消真實系統的安全檢查。
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="沒有遲滯，邊界附近會怎麼切換？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="79" y="71" font-size="16" text-anchor="middle">raw 來回波動</text><line x1="149" y1="66" x2="172" y2="66" stroke="#246e73" stroke-width="2" /><path d="M167,62 L172,66 L167,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="172" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="242" y="71" font-size="16" text-anchor="middle">兩個門檻</text><line x1="312" y1="66" x2="335" y2="66" stroke="#246e73" stroke-width="2" /><path d="M330,62 L335,66 L330,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="335" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="405" y="71" font-size="16" text-anchor="middle">狀態保持</text><line x1="475" y1="66" x2="498" y2="66" stroke="#246e73" stroke-width="2" /><path d="M493,62 L498,66 L493,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="498" y="43" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="568" y="71" font-size="16" text-anchor="middle">RGB 輸出</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="79" y="198" font-size="16" text-anchor="middle">raw 來回波動</text><line x1="149" y1="193" x2="172" y2="193" stroke="#246e73" stroke-width="2" /><path d="M167,189 L172,193 L167,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="172" y="170" width="140" height="46" rx="3" fill="#fff1de" stroke="#a65136" /><text x="242" y="198" font-size="16" text-anchor="middle">同一門檻</text><line x1="312" y1="193" x2="335" y2="193" stroke="#246e73" stroke-width="2" /><path d="M330,189 L335,193 L330,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="335" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="405" y="198" font-size="16" text-anchor="middle">較易反覆切換</text><line x1="475" y1="193" x2="498" y2="193" stroke="#246e73" stroke-width="2" /><path d="M493,189 L498,193 L493,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="498" y="170" width="140" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="568" y="198" font-size="16" text-anchor="middle">RGB 輸出</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
-
-**想一想：** 每次取樣間隔相同，三筆確認也保留，只把進入／離開改成同一門檻 600。連續三筆 599，再三筆 601，會怎樣？
-
-**原理提示：** 單一門檻可每三筆就切換；分開門檻時，這些中間值可保持原狀態。
-
-只改圖中標記處，其餘條件保持相同。請指出哪一段仍工作，以及目前證據不能說明什麼。
-
-
-<div style="break-before:page"></div>
-
-## 只改 state，忘了更新輸出呢？
-
-程式狀態與輸出示意；僅作圖上推演，不停止正在使用的服務或取消真實系統的安全檢查。
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 275" role="img" aria-label="只改 state，忘了更新輸出呢？" style="width:100%;max-height:78mm"><style>text{font-family:'Microsoft JhengHei',sans-serif;fill:#263b40}</style><text x="10" y="28" font-size="19">正常的連接／處理</text><rect x="9" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="71" font-size="16" text-anchor="middle">STOP 成立</text><line x1="121" y1="66" x2="139" y2="66" stroke="#246e73" stroke-width="2" /><path d="M134,62 L139,66 L134,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="71" font-size="16" text-anchor="middle">進入 ERROR</text><line x1="251" y1="66" x2="269" y2="66" stroke="#246e73" stroke-width="2" /><path d="M264,62 L269,66 L264,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="269" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="325" y="71" font-size="16" text-anchor="middle">安全輸出函式</text><line x1="381" y1="66" x2="399" y2="66" stroke="#246e73" stroke-width="2" /><path d="M394,62 L399,66 L394,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="399" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="71" font-size="16" text-anchor="middle">RGB 改變</text><line x1="511" y1="66" x2="529" y2="66" stroke="#246e73" stroke-width="2" /><path d="M524,62 L529,66 L524,70" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="43" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="71" font-size="16" text-anchor="middle">紀錄與觀察</text><text x="10" y="155" font-size="19">只改標記的地方</text><rect x="9" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="65" y="198" font-size="16" text-anchor="middle">STOP 成立</text><line x1="121" y1="193" x2="139" y2="193" stroke="#246e73" stroke-width="2" /><path d="M134,189 L139,193 L134,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="139" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="195" y="198" font-size="16" text-anchor="middle">只改 state</text><line x1="251" y1="193" x2="269" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="269" y="170" width="112" height="46" rx="3" fill="#fff1de" stroke="#a65136" stroke-dasharray="5 4"/><text x="325" y="198" font-size="16" text-anchor="middle">沒更新輸出</text><line x1="381" y1="193" x2="399" y2="193" stroke="#a65136" stroke-width="2" stroke-dasharray="3 4"/><rect x="399" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="455" y="198" font-size="16" text-anchor="middle">RGB 保持舊值</text><line x1="511" y1="193" x2="529" y2="193" stroke="#246e73" stroke-width="2" /><path d="M524,189 L529,193 L524,197" fill="none" stroke="#246e73" stroke-width="2"/><rect x="529" y="170" width="112" height="46" rx="3" fill="#edf5f4" stroke="#477b80" /><text x="585" y="198" font-size="16" text-anchor="middle">只看 ERROR 字</text><text x="10" y="261" font-size="16">箭頭表示資訊處理順序，不是供電或電流路徑。</text></svg>
-
-**想一想：** 只把 state 改為 ERROR 並印字，不執行相應輸出。看到 ERROR 能證明實體已安全嗎？
-
-**原理提示：** 不能。變數、紀錄與輸出是不同步驟；少了輸出命令，腳位可能仍保持舊值。
-
-只改圖中標記處，其餘條件保持相同。請指出哪一段仍工作，以及目前證據不能說明什麼。
-
-## 十、練習
-
-### 練習1：啟動與停止使用不同的確認次數
-
-將自動反應改成：IDLE 連續四筆符合暗門檻才進 ACTIVE；
-ACTIVE 連續兩筆符合亮門檻就回 IDLE。
-兩種累積次數要分開，不符合目前條件的一筆就清除該次累積。
-無效資料不是重新計數而已，仍須進 ERROR、關閉 auto。
-STOP、最大 ACTIVE 時間及網路安全限制沿用基本程式，不延長等待。
-
-事件 reason 要能分辨四筆暗啟動與兩筆亮停止，不能沿用 three 的文字。
-
-#### 預期結果
-
-假設 auto 已啟用、IDLE、資料均有效，且無其他故障；暗是 raw≤513、亮是 raw≥706。
-這些門檻是教學假資料，不能抄成實物設定。相鄰樣本間隔 500 ms。
-
-| 依序讀入 raw | 預期 state | 目前連續次數 |
-|---:|---|---|
-| 300 | IDLE | 暗 1 |
-| 310 | IDLE | 暗 2 |
-| 600 | IDLE | 暗 0 |
-| 300 | IDLE | 暗 1 |
-| 310 | IDLE | 暗 2 |
-| 305 | IDLE | 暗 3 |
-| 315 | ACTIVE | 切換後清除累積 |
-| 900 | ACTIVE | 亮 1 |
-| 600 | ACTIVE | 亮 0 |
-| 910 | ACTIVE | 亮 1 |
-| 915 | IDLE | 切換後清除累積 |
-
-另做兩項測試：
-- 累積暗 3 筆後收到無效資料：ERROR、auto=false，不啟動。
-- 累積中按本機 STOP：確認按壓成立後進 ERROR，不等待下一個光線樣本。
-
-測試結果須註明紙上、主機或實物來源；不要用短路或拔動帶電接線製造故障。
-
-### 練習2：專題優先順序
-
-把自己的專題input、output與failure代入共同priority table。若使用高電流裝置，寫出
-driver disable、external power與physical stop如何實現；GPIO LOW文字不能取代電氣設計。
-
-### 練習3：修一個重建缺漏
-
-重建者選第一個造成停止的文件缺漏，原作者只依重建紀錄修README／example／dependency，
-由重建者從失敗步驟重新執行並記結果。
-
-## 十一、繳交內容與完成條件
-
-繳交automation policy、Week 3 profile來源、完整程式差異、hysteresis資料、baseline sequence、
-衝突矩陣、至少三項fault（含STOP與sensor invalid）、安全輸出與recovery、structured log與
-mobile evidence、exact commit clean reconstruction及文件修正紀錄。
-
-- [ ] Trigger、permission、action、release、maximum time、safe state與recovery明確。
-- [ ] Enter／exit門檻方向正確，連續三筆與hysteresis實測通過。
-- [ ] Physical STOP優先於network、manual與automation，Backend離線也有效。
-- [ ] Invalid sensor、timeout與選定network fault進ERROR，無限動作不可能發生。
-- [ ] ERROR不自動reset或重做舊命令，recovery前先確認fault已排除。
-- [ ] Phone、Backend、database、Serial與physical output對同一事件／command一致。
-- [ ] 另一位學生從新folder與exact commit完成host reconstruction。
-- [ ] 新database由schema建立，沒有複製runtime資料、`.venv`或secret files。
-- [ ] Compile、host、network、physical、fault及reconstruction分別標示。
-- [ ] Secret scan通過，文件只有placeholder與環境變數名稱。
-
-結束時停用auto mode、使裝置回IDLE，再停止bridge、Backend與broker並拔USB。保留原始
-baseline及重建folder供檢查，不使用破壞性命令清除。完整policy、fault、recovery與重建
-表格見[Week 15支援資料](#practice-and-reference)。
-
-## 完整基本程式
-
-檔名：week15_automation_device.ino。這是第五節所列修改合併後的完整基本程式。
-secrets.h 仍使用 Week12 已建立的個人設定；下方範例保留安全佔位值。
-校正值與接線尚未確認時保持 DRY_RUN=true，不啟用實體輸出。
-
-<!-- complete-sketch: week15_automation_device -->
-
-<a id="practice-and-reference"></a>
-
-## 準備、紀錄表與延伸參考
-
-<a id="support-一automation-policy表"></a>
-
-### 一、Automation Policy表
-
-| Policy element | 定義 | 可觀察輸入 | State前置條件 | 動作／輸出 | Log／event | 驗收方式 |
-|---|---|---|---|---|---|---|
-| Dark enter |  |  | IDLE＋auto on | ACTIVE |  |  |
-| Light exit |  |  | ACTIVE | IDLE |  |  |
-| Invalid sensor |  |  | 任何 | ERROR |  |  |
-| Active timeout |  |  | ACTIVE | ERROR |  |  |
-| Network timeout |  |  | ACTIVE | ERROR |  |  |
-| Physical STOP |  |  | 任何 | ERROR |  |  |
-| Remote stop |  |  | 任何 | ERROR |  |  |
-| Reset |  | fault已排除 | IDLE＋auto off |  |  |  |
-
-<a id="support-二profile與hysteresis紀錄"></a>
-
-### 二、Profile與Hysteresis紀錄
-
-```text
-Week 3 profile commit／紀錄：
-PIN_LIGHT：
-LIGHT_VALID_MIN：
-LIGHT_VALID_MAX：
-DARK_WHEN_RAW_LESS：true／false
-DARK_ENTER_RAW：
-LIGHT_EXIT_RAW：
-Enter／exit關係檢查：
-REQUIRED_CONSECUTIVE_SAMPLES：
-AUTOMATION_SAMPLE_MS：
-MAX_ACTIVE_MS：
-NETWORK_GRACE_MS：
-```
-
-<a id="support-門檻附近觀察"></a>
-
-#### 門檻附近觀察
-
-| Sample | Raw | Valid | Enter條件 | Exit條件 | dark count | light count | State | 是否符合預測 |
-|---:|---:|---|---|---|---:|---:|---|---|
-| 1 |  |  |  |  |  |  |  |  |
-| 2 |  |  |  |  |  |  |  |  |
-| 3 |  |  |  |  |  |  |  |  |
-| 4 |  |  |  |  |  |  |  |  |
-| 5 |  |  |  |  |  |  |  |  |
-| 6 |  |  |  |  |  |  |  |  |
-
-完成條件：在enter與exit之間的小幅變化不造成state chatter；連續sample尚未達指定數時不
-提早轉換。
-
-<a id="support-三priority與conflict-matrix"></a>
-
-### 三、Priority與Conflict Matrix
-
-| 同時條件 | 較高優先 | 預期最終state | 輸出 | 低優先動作是否執行 | 實際證據 |
-|---|---|---|---|---|---|
-| Physical STOP＋dark enter | STOP | ERROR | Safe | 否 |  |
-| Sensor invalid＋remote start | invalid sensor | ERROR | Safe | 否 |  |
-| Active timeout＋light exit | timeout | ERROR | Safe | 否 |  |
-| Auto mode＋manual start | auto ownership | 不變／reject | 不變 | 否 |  |
-| ERROR＋auto_on | ERROR latch | ERROR | Safe | 否 |  |
-| Remote stop＋telemetry | stop | ERROR | Safe | telemetry可後送 |  |
-| Network offline＋physical STOP | STOP | ERROR | Safe | 不等待network |  |
-
-若測試結果與priority table不同，先修程式順序或state guard，不修改表格迎合程式錯誤。
-
-<a id="support-四baseline-test紀錄"></a>
-
-### 四、Baseline Test紀錄
-
-| 階段 | 開始state | 操作／input | 預期 | 實際state／RGB | Event／command ID | Pass |
-|---:|---|---|---|---|---|---|
-| 1 | boot | 有效sample | IDLE、auto off |  |  |  |
-| 2 | IDLE | auto_on | armed、仍IDLE |  |  |  |
-| 3 | IDLE | dark sample 1／2 | 不轉換 |  |  |  |
-| 4 | IDLE | dark sample 3 | ACTIVE |  |  |  |
-| 5 | ACTIVE | hysteresis區間 | 維持ACTIVE |  |  |  |
-| 6 | ACTIVE | light sample 1／2 | 不轉換 |  |  |  |
-| 7 | ACTIVE | light sample 3 | IDLE |  |  |  |
-| 8 | ACTIVE | 超過max duration | ERROR＋auto off |  |  |  |
-| 9 | ERROR | fault清除＋reset | IDLE＋auto off |  |  |  |
-
-<a id="support-五fault-injection與recovery表"></a>
-
-### 五、Fault Injection與Recovery表
-
-| Fault | Baseline | 唯一變因 | 預期安全state | 實體結果 | Mobile | Structured log | Database | Recovery | Baseline再驗證 |
-|---|---|---|---|---|---|---|---|---|---|
-| Physical STOP |  |  | ERROR |  |  |  |  |  |  |
-| Sensor invalid（程式注入） |  | `test_sensor_fault` | ERROR |  |  |  |  | 清除測試旗標、取得新有效sample、reset |  |
-| Sensor invalid（核准實體測試，如有） |  |  | ERROR |  |  |  |  |  |  |
-| Broker unavailable |  |  | ERROR；核對是 ACTIVE 超時或離線寬限期先到 |  |  |  |  |  |  |
-| Backend unavailable |  |  | 依policy |  |  |  |  |  |  |
-| Active timeout |  |  | ERROR |  |  |  |  |  |  |
-| Malformed command |  |  | state unchanged |  |  |  |  |  |  |
-| Duplicate command |  |  | no repeated action |  |  |  |  |  |  |
-
-<a id="support-recovery必須回答"></a>
-
-#### Recovery必須回答
-
-1. Fault是否仍存在？用什麼證據判定？
-2. 哪個輸出已進safe state？是實體測試還是只看log？
-3. Reset前需要人工檢查什麼？
-4. Reset會回到哪個state？Auto mode是否保持關閉？
-5. 舊command會不會重播？
-6. Recovery後哪一個baseline test重新通過？
-
-<a id="support-六高功率機械輸出專題附加檢查"></a>
-
-### 六、高功率／機械輸出專題附加檢查
-
-共同RGB實驗是低功率可視輸出。專題若使用SG90、馬達、泵、電磁閥或其他負載，另外填：
-
-| 項目 | 專題設計 | 實測證據 | 未完成時的限制 |
-|---|---|---|---|
-| External power voltage／current |  |  |  |
-| Common ground |  |  |  |
-| Driver／isolation |  |  |  |
-| Startup current／voltage drop |  |  |  |
-| Driver disable／detach |  |  |  |
-| Maximum action duration |  |  |  |
-| Physical emergency stop |  |  |  |
-| Jam／stuck detection |  |  |  |
-| Power removal recovery |  |  |  |
-
-GPIO不得直接供應高電流負載。「畫面顯示STOP」不是實體driver已停止的證據。
-
-<a id="support-七clean-reconstruction-checklist"></a>
-
-### 七、Clean Reconstruction Checklist
-
-<a id="support-原作者交付前"></a>
-
-#### 原作者交付前
-
-- [ ] 提供exact commit hash，且必要commit已push到可取得remote。
-- [ ] `git status --short`已檢查，不依賴untracked必要檔。
-- [ ] Backend dependency固定於`requirements.txt`。
-- [ ] Board package與Arduino libraries版本已記錄。
-- [ ] `.env.example`及device secrets example只有placeholder。
-- [ ] `.gitignore`排除`.venv`、runtime、cache及秘密。
-- [ ] README寫明setup、host test、run、stop、API、限制。
-- [ ] Hardware profile、接線與安全停止有紀錄。
-
-<a id="support-重建者不得取得"></a>
-
-#### 重建者不得取得
-
-- 原開發者`.venv`或全域Python site-packages。
-- 原`runtime/iot_course.db`。
-- 原`secrets.h`、broker password file或operator key。
-- 原開發者未寫入文件的口頭步驟。
-- 原開發者已開啟的Backend／broker程序。
-
-<a id="support-重建步驟紀錄"></a>
-
-#### 重建步驟紀錄
-
-| Step | Command／document section | Expected | Actual | Pass／blocked | First missing fact | Fix commit | Retest |
-|---:|---|---|---|---|---|---|---|
-| 1 | clone exact commit | clean status |  |  |  |  |  |
-| 2 | create venv | local environment |  |  |  |  |  |
-| 3 | install requirements | no error |  |  |  |  |  |
-| 4 | pytest | all pass |  |  |  |  |  |
-| 5 | start Backend | new DB schema |  |  |  |  |  |
-| 6 | host POST／query | 201／history |  |  |  |  |  |
-| 7 | mobile localhost | page／WS |  |  |  |  |  |
-| 8 | install Arduino deps | exact versions |  |  |  |  |  |
-| 9 | device dry-run compile | build success |  |  |  |  |  |
-| 10 | target profile | documented／pending |  |  |  |  |  |
-
-<a id="support-八reconstruction-failure分類"></a>
-
-### 八、Reconstruction Failure分類
-
-| 分類 | 例子 | 修正位置 | 不可採用的繞過方式 |
-|---|---|---|---|
-| Missing dependency | import error | requirements／version docs | 複製原`.venv` |
-| Missing secret name | 不知env var | `.env.example`／README | 提交真實key |
-| Missing command | 不知run path | README | 原作者代為啟動 |
-| Missing schema step | DB table不存在 | app init／README | 複製原database |
-| Missing frontend asset | 404 manifest/sw | tracked files／routes | 使用原瀏覽器cache |
-| Missing hardware profile | GPIO不明 | Lab Note／profile | 猜網路pinout |
-| Environment mismatch | version API不同 | version record | 靜默升降版 |
-| Undocumented external state | broker已預先執行 | runbook | 使用原程序 |
-
-<a id="support-九secret-scan與資料清理"></a>
-
-### 九、Secret Scan與資料清理
-
-- [ ] `git diff`與staged diff沒有SSID、password、key、token。
-- [ ] Screenshot、terminal transcript與log沒有command header秘密。
-- [ ] `.env.example`及`.h` example全部是placeholder。
-- [ ] Device ID不含個資。
-- [ ] Runtime database與broker password file不在Git。
-- [ ] Reconstruction使用全新臨時credential。
-- [ ] 若秘密曾進Git，已立即停止分享、撤銷／更換，並依repository管理流程處理。
-
-<a id="support-十lab-notebook模板"></a>
-
-### 十、Lab Notebook模板
-
-```text
-日期／組別／baseline commit：
-
-Automation policy：
-- trigger／release：
-- validity：
-- action／max duration：
-- safe state：
-- priority：
-- recovery：
-
-Hardware profile evidence：
-- sensor：
-- RGB／output：
-- physical STOP：
-
-Baseline：
-- compile：
-- upload：
-- physical sequence：
-- Backend／DB／mobile：
-
-Faults：
-1.
-2.
-3.
-
-Reconstruction：
-- rebuilder：
-- exact commit：
-- host pass：
-- device compile：
-- first missing fact：
-- fix／retest：
-
-Unverified layers：
-```
-
-<a id="support-十一延伸實作"></a>
-
-### 十一、延伸實作
-
-<a id="support-延伸acooldown"></a>
-
-#### 延伸A：Cooldown
-
-完成一次ACTIVE後加入短cooldown，期間拒絕重新start並顯示剩餘條件。Physical STOP不受
-cooldown限制。
-
-<a id="support-延伸bmanual-override-lease"></a>
-
-#### 延伸B：Manual override lease
-
-手動override必須有到期時間，超時回safe state。記錄owner、start、expiry與terminal
-reason；不得建立永久隱藏override。
-
-<a id="support-延伸cboot-safety"></a>
-
-#### 延伸C：Boot safety
-
-在network、sensor與profile尚未ready時強制safe output，逐一測試開機按住START、broker
-離線、sensor缺失及brownout後restart。
-
-<a id="support-延伸dautomated-reconstruction-test"></a>
-
-#### 延伸D：Automated reconstruction test
-
-建立host-only script依序建立venv、安裝、pytest、啟動Backend及API smoke test。Script不得
-寫入真實secret，也不能聲稱涵蓋target hardware。
-
-<a id="support-十二repository參考"></a>
-
-### 十二、Repository參考
-
-- [Course Backend README](../examples/course_backend/README.md)
-- [Backend environment example](../examples/course_backend/.env.example)
-- [Device secrets example](../examples/device_secrets.example.h)
-- [Backend host tests](../examples/course_backend/tests/test_api.py)
-- [Week 12 MQTT主教材](../Week_12_MQTT_Database_and_Logs/week12_main.md)
-- [Week 14 Mobile主教材](../Week_14_Mobile_PWA/week14_main.md)
+| 開機或完成 reset | 待機 IDLE、自動模式關閉 |
+| 啟用自動模式，每 500 ms 取一筆 | 連續三筆符合本組暗門檻，才進 ACTIVE、變綠 |
+| ACTIVE 時連續三筆符合亮門檻 | 回到 IDLE、變藍 |
+| 數字在暗、亮兩門檻之間 | 保持目前狀態；不累積為符合另一門檻 |
+| ACTIVE 達 10 秒仍未離開 | 進 ERROR、變紅、關閉自動模式 |
+| 無效感測值或按下實體 STOP | 進 ERROR、關閉自動模式，不被同輪自動啟動覆蓋 |
+| 故障已排除後 reset | 回待機且自動模式仍關閉，不自動重做舊命令 |
+
+**Q1．寫出本組暗、亮讀值範圍及兩個判斷門檻。展示正常開始、回待機與停止；說明為什麼你的比較方向符合自己的感測器。**
+
+<div class="write-space" style="height:30mm"></div>
+
+**Q2．紙上比較：原設定是暗讀值不大於 513、亮讀值不小於 706，連續三筆才切換。只改成以 600 為單一分界，保持三筆確認。從待機開始，依序三筆 599、三筆 601，兩種設定各會怎樣？**
+
+以上是示例門檻，不是實物設定；單一分界的暗為 ≤600、亮為 >600。
+
+<div class="write-space" style="height:28mm"></div>
+
+<div class="exam-page"></div>
+
+## 作品 B：故障時真的停止
+
+沿用作品 A，讓手機、程式紀錄與 RGB 都能辨認停止原因。至少驗證三項故障，實體 STOP 及程式注入的感測無效為必測，第三項從下表其餘項目選擇。
+
+| 測試 | 應有結果與驗證限制 |
+|---|---|
+| 自動運行時按實體 STOP | 下一次本機輸入處理進 ERROR、紅色、自動關閉；不等網路回覆 |
+| 使用既有測試命令注入感測無效 | 進 ERROR、紅色、自動關閉；清除測試後須取得新有效讀值才可 reset |
+| 保持暗處不讓 ACTIVE 正常結束 | 到 10 秒動作期限停止 |
+| 停止 broker | 記錄停止原因；本例還有 ACTIVE 10 秒與網路離線 30 秒限制，不能為測網路而延長動作期限 |
+| 只停止後端，broker 仍在 | 分別觀察本機、MQTT 與手機；不得把 broker 連著當成後端也正常 |
+| 格式錯誤／同代號立即重送命令 | 無效內容不執行；同次開機最近八筆快取內的相同命令不重做 |
+
+**Q3．展示三項測試及復原。選一項寫出唯一改動的條件、實際停止原因、RGB 結果，以及復原前必須確認什麼。停止時間可由紀錄或影片判讀，不要求手按毫秒。**
+
+<div class="write-space" style="height:48mm"></div>
+
+**Q4．若程式只把狀態文字改成 ERROR，沒有更新輸出，能否說裝置已安全？分別畫出「感測到判斷」的資訊流與 RGB 供電、返回 GND 的電流路徑，指出缺少哪一步。**
+
+<div class="write-space" style="height:44mm"></div>
+
+程式注入只驗證錯誤資料的處理，不證明能偵測實物斷線。網路函式可能阻塞，低功率 RGB 測試不能當成機械緊急停止驗證。
+
+<div class="exam-page"></div>
+
+## 作品 C：啟動更慎重，恢復更快
+
+只修改作品 A 的確認次數：待機時連續四筆暗才開始；運行時連續兩筆亮就回待機。不符合目前條件的一筆會清除該次累積，切換後重新計數。STOP、感測無效與所有安全期限不變。
+
+### 預期結果與驗證
+
+用程式測試下面的示例輸入，不能把示例當作實測。起始為自動模式開啟、IDLE，全部資料有效；暗為 ≤513、亮為 ≥706，相隔 500 ms。
+
+| 依序輸入 raw | 應有狀態 |
+|---|---|
+| 300、310、600 | 都維持 IDLE，第三筆清除暗累積 |
+| 300、310、305、315 | 前三筆 IDLE，第四筆 ACTIVE |
+| 900、600、910、915 | 前三筆 ACTIVE，最後一筆 IDLE |
+
+累積三筆暗後出現無效資料，必須 ERROR 而不是開始；累積中按 STOP，應在按壓確認後停止，不等下一筆光線資料。
+
+**Q5．展示結果並指出自己的程式如何分別保存暗、亮的連續次數。選一次累積被清除的地方，說明原因。紀錄中的啟動、停止原因也應反映四筆與兩筆。**
+
+<div class="write-space" style="height:43mm"></div>
+
+## 把停止規則用在自己的專題
+
+**Q6．列出自己的專題輸入、輸出與一種故障。當「使用者要求開始」和「故障」同時發生時，哪個先處理、實體輸出要變成什麼？說明如何驗證。**
+
+<div class="write-space" style="height:37mm"></div>
+
+只代入既有專題，不要求新增零件。若有馬達或高電流負載，須說明獨立供電、驅動停止與實體停止；未完成電氣確認前不操作，GPIO 的文字狀態不能取代驗證。
+
+<div class="exam-page"></div>
+
+## 作品 D：別人照文件也能建立系統
+
+請另一位同學在新資料夾，從你指定的 Git 版本重新建立後端與裝置程式。提供完整版本代號、依賴版本、設定範例與啟動文件；不使用原作者已啟動的程式或未寫下來的口頭步驟。
+
+### 預期結果與驗證
+
+重建者能安裝依賴、通過主機測試、啟動後端並建立新的資料庫、打開網頁、編譯裝置程式，並指出仍需實體設備才能驗證的部分。
+
+不複製原本的虛擬環境、執行中的資料庫或真實秘密。帳密使用重建環境自己的設定；不刪除原專案。硬體設定未核對時不啟用輸出。
+
+**Q7．填寫重建版本與實際結果。若有失敗，記第一個阻止重建的缺漏；原作者修正文件或範例後，由重建者重新測試。**
+
+版本代號：________________________________________________
+
+| 驗證 | 實際結果或停止原因 |
+|---|---|
+| 依賴安裝與主機測試 | |
+| 新資料庫與後端啟動 | |
+| 網頁載入 | |
+| 裝置程式編譯 | |
+| 尚未進行的實物測試 | |
+
+第一個缺漏、修正位置及重測結果；若一次成功，寫最容易因電腦更換而不同的一項設定，以及文件如何交代：
+
+<div class="write-space" style="height:60mm"></div>

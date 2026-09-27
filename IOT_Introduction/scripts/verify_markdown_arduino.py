@@ -12,7 +12,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-MQTT_WEEK = ROOT / "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md"
+MQTT_WEEK = ROOT / "IOT_Introduction/docs/teaching_drafts/week12_answers/lesson.md"
 SOURCES = (
     ROOT / "IOT_Introduction/docs/teaching_drafts/week2_redesign/hello_first/hello_first.ino",
     ROOT / "IOT_Introduction/docs/teaching_drafts/week2_redesign/button_follow_along/button_follow_along.ino",
@@ -24,7 +24,7 @@ SOURCES = (
     ROOT / "IOT_Introduction/Week_05_RGB_OLED_Countdown/week5_main.ipynb",
     ROOT / "IOT_Introduction/Week_06_Servo_Pointer/week6_main.ipynb",
     ROOT / "IOT_Introduction/Week_07_Traffic_Light_Challenge/week7_main.ipynb",
-    ROOT / "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md",
+    ROOT / "IOT_Introduction/docs/teaching_drafts/week11_answers/lesson.md",
     MQTT_WEEK,
     ROOT / "IOT_Introduction/docs/course_materials/starter_code_snippets.md",
 )
@@ -34,7 +34,7 @@ WEEK3_EXAMPLES = (
     ROOT / "IOT_Introduction/examples/week03_ky018_raw/week03_ky018_raw.ino",
     ROOT / "IOT_Introduction/examples/week03_light_classifier/week03_light_classifier.ino",
 )
-AUTOMATION_WEEK = ROOT / "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.md"
+AUTOMATION_WEEK = ROOT / "IOT_Introduction/docs/teaching_drafts/week15_answers/lesson.md"
 WINDOWS_CLI = Path(
     r"C:\Program Files\Arduino IDE\resources\app\lib\backend\resources\arduino-cli.exe"
 )

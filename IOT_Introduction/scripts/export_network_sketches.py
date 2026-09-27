@@ -16,7 +16,7 @@ from verify_markdown_arduino import (
 
 
 def exported_files() -> dict[Path, str]:
-    http = ROOT / "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md"
+    http = ROOT / "IOT_Introduction/docs/teaching_drafts/week11_answers/lesson.md"
     files = {}
     for name, document, sketch in [
         ("week11_http_device", http, extract_only_complete_sketch(http)),

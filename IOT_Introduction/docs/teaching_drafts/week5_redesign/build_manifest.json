@@ -3,258 +3,36 @@
   "pages": [
     {
       "number": 1,
-      "id": "start"
+      "id": "examrgb"
     },
     {
       "number": 2,
-      "id": "files"
+      "id": "examoled"
     },
     {
       "number": 3,
-      "id": "prepare"
+      "id": "examtimer"
     },
     {
       "number": 4,
-      "id": "settings"
+      "id": "examtime"
     },
     {
       "number": 5,
-      "id": "rgbphoto"
+      "id": "exambutton"
     },
     {
       "number": 6,
-      "id": "ide"
+      "id": "exampause"
     },
     {
       "number": 7,
-      "id": "rgbsetup"
-    },
-    {
-      "number": 8,
-      "id": "rgbwire"
-    },
-    {
-      "number": 9,
-      "id": "rgbtest"
-    },
-    {
-      "number": 10,
-      "id": "timercode"
-    },
-    {
-      "number": 11,
-      "id": "timercode_1"
-    },
-    {
-      "number": 12,
-      "id": "timercode_2"
-    },
-    {
-      "number": 13,
-      "id": "timercode_3"
-    },
-    {
-      "number": 14,
-      "id": "timercode_4"
-    },
-    {
-      "number": 15,
-      "id": "timercode_5"
-    },
-    {
-      "number": 16,
-      "id": "timercode_6"
-    },
-    {
-      "number": 17,
-      "id": "timercode_7"
-    },
-    {
-      "number": 18,
-      "id": "rgbwhy"
-    },
-    {
-      "number": 19,
-      "id": "flowcase1"
-    },
-    {
-      "number": 20,
-      "id": "oledphoto"
-    },
-    {
-      "number": 21,
-      "id": "scanprepare"
-    },
-    {
-      "number": 22,
-      "id": "oledwire"
-    },
-    {
-      "number": 23,
-      "id": "scanresult"
-    },
-    {
-      "number": 24,
-      "id": "scancode"
-    },
-    {
-      "number": 25,
-      "id": "scancode_1"
-    },
-    {
-      "number": 26,
-      "id": "i2cwhy"
-    },
-    {
-      "number": 27,
-      "id": "oledsetup"
-    },
-    {
-      "number": 28,
-      "id": "oledtest"
-    },
-    {
-      "number": 29,
-      "id": "buffer"
-    },
-    {
-      "number": 30,
-      "id": "flowcase2"
-    },
-    {
-      "number": 31,
-      "id": "combined"
-    },
-    {
-      "number": 32,
-      "id": "countdown"
-    },
-    {
-      "number": 33,
-      "id": "abort"
-    },
-    {
-      "number": 34,
-      "id": "time"
-    },
-    {
-      "number": 35,
-      "id": "rounding"
-    },
-    {
-      "number": 36,
-      "id": "log"
-    },
-    {
-      "number": 37,
-      "id": "slow"
-    },
-    {
-      "number": 38,
-      "id": "delay"
-    },
-    {
-      "number": 39,
-      "id": "fault"
-    },
-    {
-      "number": 40,
-      "id": "recover"
-    },
-    {
-      "number": 41,
-      "id": "lightwire"
-    },
-    {
-      "number": 42,
-      "id": "lighttest"
-    },
-    {
-      "number": 43,
-      "id": "exercise"
-    },
-    {
-      "number": 44,
-      "id": "combinegoal"
-    },
-    {
-      "number": 45,
-      "id": "combinewire"
-    },
-    {
-      "number": 46,
-      "id": "combinetry"
-    },
-    {
-      "number": 47,
-      "id": "button_code"
-    },
-    {
-      "number": 48,
-      "id": "button_code_1"
-    },
-    {
-      "number": 49,
-      "id": "button_code_2"
-    },
-    {
-      "number": 50,
-      "id": "button_code_3"
-    },
-    {
-      "number": 51,
-      "id": "combineexplain"
-    },
-    {
-      "number": 52,
-      "id": "buildexercise"
-    },
-    {
-      "number": 53,
-      "id": "buildresults"
-    },
-    {
-      "number": 54,
-      "id": "finish"
-    },
-    {
-      "number": 55,
-      "id": "trouble"
-    },
-    {
-      "number": 56,
-      "id": "codeguide"
-    },
-    {
-      "number": 57,
-      "id": "sources"
+      "id": "examlight"
     }
   ],
-  "sourceSha256": "942ecc276f3aef1cb6367b045bc61ea1b31aa5fbc9d657ca3adb6192f1f44c40",
-  "builderSha256": "d81830f9e07b18cf79f8582c9c736be48703e08fac6702d07e10725941ad7534",
-  "sketches": [
-    {
-      "path": "examples/week05_rgb_oled_timer/week05_rgb_oled_timer.ino",
-      "sha256": "70848a449ddc66189984c5b79fceeacef22472a3b9cbdcc531bb46f8bfd98063"
-    },
-    {
-      "path": "examples/week05_i2c_check/week05_i2c_check.ino",
-      "sha256": "2e3eb0723e40855b4ee194d14b7472d2bab234b762cf842ff100e1d7f07dce51"
-    },
-    {
-      "path": "docs/teaching_drafts/week5_redesign/button_oled_timer/button_oled_timer.ino",
-      "sha256": "e9c5d9f2f57747b3569b99393535aceeda69ab88a524d046902dc2ad5d4b1fef"
-    }
-  ],
-  "photos": [
-    {
-      "name": "RGB_HW479_3.jpg",
-      "sha256": "33f4855d2e8bf52ee6b1232f7c70c707aec04442644c4ccdc9bdfcc5c65a3f08"
-    },
-    {
-      "name": "OLED_1.jpg",
-      "sha256": "bd4167fe88992265fb826498ad01bec7d27f328be07b0ee192718ba194bfb14c"
-    }
-  ],
-  "pdfSha256": "805ad63ae3c54a34dbcafac738577a447cffcd4abd3d6ae66f8d7a53734bc968"
+  "sourceSha256": "7027c2f6011c8908010f42bc9dbf73c76a809fd20bddacba8e3fb9c5d091b2bd",
+  "builderSha256": "d33d232c9ce6efadce7f364ebf32704303735fb465a4d5f1040ffab370b3e716",
+  "sketches": [],
+  "photos": [],
+  "pdfSha256": "d94a1d9c8495d2186489d23efc025f537ba8d8eadbc78003203f81e0553261ca"
 }

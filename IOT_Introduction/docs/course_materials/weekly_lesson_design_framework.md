@@ -1,12 +1,15 @@
 # IoT 每週教材設計框架
 
-更新日期：2026-09-06。
+更新日期：2026-09-27。
 
-本文件供教材維護者用來產生、修訂與驗收每週教材。以目前
-[Week 2主教材](../../Week_02_ESP32_Hardware_Basics/week2_main.pdf)與
-[Week 3主教材](../../Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb)
-的初學者問答、操作修訂及[聯合檢查紀錄](../lab_notes/2026-09-05-week2-week3-beginner-review.md)
-為設計參照，不把它們當成所有內容均已實機驗證或所有學生均已試讀通過的樣板。
+本文件供教材維護者用來產生、修訂與驗收每週教材。現行實作週以
+[Week3 題目卷](../teaching_drafts/week3_redesign/week3_main.pdf)及教師本機 Week3 Ans
+的分工作為參照：Main 只放作品要求、預期結果、驗證方式與問題；完整教學、接線、程式與所有答案在 Ans。
+詳見[現行修訂準則](../teaching_drafts/week2_redesign/revision_guidelines.md)與
+[逐週檢查紀錄](../lab_notes/2026-09-27-semester-exam-answers.md)。
+以下完整教學的要求適用於 Ans，不應因此把答案或逐步做法放回 Main。
+報告與正式筆試維持各自規定，不套用實作週題目卷的資源使用規則。
+文件與程式檢查不代表所有內容均已實機驗證或所有學生均已試讀通過。
 
 目標是產生好懂、清楚、完整、適合入門者的文件。第一次接觸硬體的學生不只要知道
 「下一步按哪裡」，還要能說明「為什麼這樣做、正在觀察什麼、結果能證明什麼、

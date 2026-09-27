@@ -7,6 +7,16 @@ Week 1 introduces the course, assessment, project direction and materials.
 No hardware is connected or powered on, and no program is uploaded.
 The objectives below are semester-end abilities; practical concepts will be taught step by step.
 
+### 本週先想清楚的問題
+
+先看下方作品示意，回答：使用者做什麼、作品應有什麼反應、你會觀察什麼來確認它真的發生？再帶著這三個問題閱讀課程安排與採購清單。這是課堂討論，不增加繳交或通電實作。
+
+________________________________________________________________
+
+________________________________________________________________
+
+實作週的 Main 提供作品要求、預期結果、驗證方式與作答空間；完整教學與解答另列 Ans。報告及正式筆試維持各自原有規定。
+
 [課程大綱](#course-schedule)｜[配分](#assessment)｜[中文採購清單](#purchase-table)｜[零件照片](#equipment-photos)｜[參考預算](#purchase-budget)｜[每組電表](#group-measurement-tool)｜[Week 2課前準備](#week-2-preclass-setup)｜[蝦皮購買圖片](#shopee-purchase-images)
 
 ## 1. Week 1 Overview
@@ -471,17 +481,17 @@ Week 6先辨認IN／OUT並量測、調整輸出，再確認舵機負載電壓、
 ## 7. Week 2課前準備（Week 1課後完成）
 
 Week 1課後先安裝Arduino IDE（撰寫與上傳程式的軟體）及ESP32板卡套件（Board Package，讓IDE支援ESP32）；兩者須分別安裝。
-操作畫面見[Week 2 主教材第 6–13 頁](../Week_02_ESP32_Hardware_Basics/week2_main.pdf#page=6)。
+操作畫面見教師提供的 Week2 Ans 第 6～13 頁；Week2 Main 是題目卷，不含安裝教學。
 課前只完成安裝與資料準備，接板、接線與上傳留到Week 2。
 
 ### 1. 安裝Arduino IDE 2
 
-依Week 2第四節提供的[Arduino官方來源](https://docs.arduino.cc/software/ide/)
+依 Week2 Ans 安裝段落及[Arduino官方來源](https://docs.arduino.cc/software/ide/)
 完成安裝，再開啟一次IDE。保留成功開啟的畫面及實際安裝版本。
 
 ### 2. 安裝Espressif ESP32 board package
 
-依Week 2第四節及其中連結的
+依 Week2 Ans 安裝段落及其中連結的
 [Espressif官方安裝說明](https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html)
 完成Boards Manager安裝，確認Espressif的`esp32`項目顯示已安裝並記下版本。
 安裝後重新啟動Arduino IDE。Board、flash與PSRAM設定由教師在Week 2

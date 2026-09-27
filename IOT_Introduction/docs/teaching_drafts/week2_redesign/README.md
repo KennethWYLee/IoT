@@ -1,5 +1,9 @@
 # Week 2 正式主教材維護來源
 
+2026-09-27 現行版：Main 為 5 頁題目，Ans 為 47 頁完整教學及答案。`exam_pages.cjs` 維護 Main；`build_sample.cjs` 保留原教學，配合本機 `week2_answers/exam_answers.cjs`、`room_answer.cjs` 產生 Ans。舊頁次表為沿革；原教學第 1～37 頁現位於 Ans，電壓說明沒有刪除。此段優先於下方較早的分工描述。
+
+重建依序執行 `node build_sample.cjs`、`node build_sample.cjs --answers`，再執行 `python verify_sample.py`，同時核對兩份輸出。`week2_answers/build_answers.cjs` 現為同一產生器的入口，不再產生舊的九頁解答。Ans 及其私有維護來源不加入 Git。見[全學期修訂紀錄](../../lab_notes/2026-09-27-semester-exam-answers.md)。
+
 2026-09-22 本輪：Main 保留基本程式與原理，延伸題答案另放本機 week2Ans。
 新增兩張「只改一處」反例對照圖，相關接線只作圖上推演；不新增實物實測。
 目前頁次以 PDF 頁尾與產生器清單為準，下方舊頁碼保留沿革意義。

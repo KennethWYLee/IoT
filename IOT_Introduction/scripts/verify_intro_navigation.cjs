@@ -115,7 +115,8 @@ assert(docs[0].indexOf('### A First IoT Example')<docs[0].indexOf('## 5. Minimum
 assert(docs[0].includes('not a tested'));
 assert(docs[0].includes('不是已完成實機驗證的成品'));
 assert(docs[0].indexOf('### 先看會做出的互動')<docs[0].indexOf('### 教學目標'));
-assert(docs[0].includes('week2_main.pdf#page=6'));
+assert(docs[0].includes('Week2 Ans 第 6～13 頁'));
+assert(!docs[0].includes('week2_main.pdf#page=6'));
 assert(!docs[0].includes('week2_main.ipynb'));
 assert(docs[1].includes('[F2. KY-018原始值](#w3-adc-concept)'));
 assert(docs[1].indexOf('## 九、實驗四')<docs[1].indexOf('const int PIN_TEST_OUTPUT'));

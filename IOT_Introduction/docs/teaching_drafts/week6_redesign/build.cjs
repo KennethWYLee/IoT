@@ -93,6 +93,8 @@ const sourceFile = path.join(destination, stem + '.md');
 const input = fs.readFileSync(sourceFile,'utf8');
 const parts = [...input.matchAll(/<!-- page: ([\w]+) \| (.*?) -->\s*([\s\S]*?)(?=<!-- page:|$)/g)];
 if(!parts.length) throw Error('No pages');
+if(!answers && input.includes('{{program:')) throw Error('Complete programs belong in Ans');
+if(new Set(parts.map(m=>m[1])).size !== parts.length) throw Error('Duplicate page IDs');
 const pages = [];
 const inputs = [];
 const sourceAnchors = new Map();
@@ -171,6 +173,7 @@ svg{width:100%;display:block;max-height:82mm;fill:#263b40;font-family:"Microsoft
 aside{padding:3mm 4mm;margin:4mm 0;border-left:4px solid #9b7837;background:#faf5e8;font-size:11pt;line-height:1.6}.safety{border-color:#b14a3a;background:#fff2ee}
 pre{white-space:pre-wrap;overflow-wrap:anywhere;font:10.5pt/1.5 Consolas,"Microsoft JhengHei",monospace;background:#f1f4f5;border-left:3px solid #849ba1;padding:3mm;margin:3mm 0}code{font-family:Consolas,"Microsoft JhengHei",monospace;font-size:.92em;overflow-wrap:anywhere}
 footer{position:absolute;bottom:9mm;left:17mm;right:17mm;display:flex;justify-content:space-between;color:#617277;font-size:8.5pt}a{color:#1c666e;text-decoration:underline}.lead{font-size:12pt;color:#51676d}.code-title{font-size:17pt;overflow-wrap:anywhere}.fullcode{font-size:10pt;line-height:1.45}.next{border-top:1px solid #acc1c3;padding-top:3mm;font-size:11pt}
+.write-space{border:1px solid #aec0c4;margin:3mm 0;background:repeating-linear-gradient(to bottom,white 0,white 8.8mm,#e3ebec 8.8mm,#e3ebec 9mm)}
 @media screen{.page{margin:8mm auto;box-shadow:0 1px 6px #aaa}}
 `;
 const html='<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>Week 6 舵機紙指針與加減計數</title><style>'+css+'</style></head><body>'+pages.map((p,i)=>`<section id="${p.id}" class="page"><header><span>Week 6 ${answers?'Ans ':''}· 舵機紙指針與加減計數</span><span>${esc(p.tag)}</span></header><main>${p.html||render(p.body)}</main><footer><span>Week 6 ${answers?'Ans ':''}· 舵機紙指針與加減計數</span><span>${i+1} / ${pages.length}</span></footer></section>`).join('')+'</body></html>';

@@ -1,5 +1,7 @@
 # Week 7 紅綠燈遮光挑戰重設稿
 
+2026-09-27 現行版：Main 7 頁為作品與考題，完整原教學、基本程式及延伸答案均移至本機 `../week7_answers/week7Ans.md`，Ans 70 頁。下方頁次與 Main 含教學的敘述為歷史紀錄。依序 `node build.cjs`、`node build.cjs --answers`，以 `python verify.py`、`python verify.py --answers` 核對。感測、舵機與聲音的安全限制不變；Ans 不加入 Git。[全學期修訂紀錄](../../lab_notes/2026-09-27-semester-exam-answers.md)。
+
 2026-09-22 本輪：Main 保留基本程式與原理，延伸題答案另放本機 week7Ans。
 新增兩張「只改一處」反例對照圖，相關接線只作圖上推演；不新增實物實測。
 目前頁次以 PDF 頁尾與產生器清單為準，下方舊頁碼保留沿革意義。

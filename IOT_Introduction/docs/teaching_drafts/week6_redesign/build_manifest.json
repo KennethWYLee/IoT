@@ -3,234 +3,28 @@
   "pages": [
     {
       "number": 1,
-      "id": "start"
+      "id": "exampreview"
     },
     {
       "number": 2,
-      "id": "files"
+      "id": "exampower"
     },
     {
       "number": 3,
-      "id": "route"
+      "id": "examflow"
     },
     {
       "number": 4,
-      "id": "preview"
+      "id": "exampointer"
     },
     {
       "number": 5,
-      "id": "previewcode"
-    },
-    {
-      "number": 6,
-      "id": "explainpreview"
-    },
-    {
-      "number": 7,
-      "id": "identify"
-    },
-    {
-      "number": 8,
-      "id": "wires"
-    },
-    {
-      "number": 9,
-      "id": "powersetup"
-    },
-    {
-      "number": 10,
-      "id": "meter"
-    },
-    {
-      "number": 11,
-      "id": "readings"
-    },
-    {
-      "number": 12,
-      "id": "configuration"
-    },
-    {
-      "number": 13,
-      "id": "loadcode"
-    },
-    {
-      "number": 14,
-      "id": "codefields"
-    },
-    {
-      "number": 15,
-      "id": "stopwire"
-    },
-    {
-      "number": 16,
-      "id": "stopreason"
-    },
-    {
-      "number": 17,
-      "id": "finalwire"
-    },
-    {
-      "number": 18,
-      "id": "stoptest"
-    },
-    {
-      "number": 19,
-      "id": "firstmove"
-    },
-    {
-      "number": 20,
-      "id": "observe"
-    },
-    {
-      "number": 21,
-      "id": "pointercode"
-    },
-    {
-      "number": 22,
-      "id": "pointercode_1"
-    },
-    {
-      "number": 23,
-      "id": "pointercode_2"
-    },
-    {
-      "number": 24,
-      "id": "pointercode_3"
-    },
-    {
-      "number": 25,
-      "id": "pointercode_4"
-    },
-    {
-      "number": 26,
-      "id": "pointercode_5"
-    },
-    {
-      "number": 27,
-      "id": "pulses"
-    },
-    {
-      "number": 28,
-      "id": "flowcase2"
-    },
-    {
-      "number": 29,
-      "id": "common"
-    },
-    {
-      "number": 30,
-      "id": "flowcase1"
-    },
-    {
-      "number": 31,
-      "id": "fixture"
-    },
-    {
-      "number": 32,
-      "id": "oledsettings"
-    },
-    {
-      "number": 33,
-      "id": "oled"
-    },
-    {
-      "number": 34,
-      "id": "sharedcount"
-    },
-    {
-      "number": 35,
-      "id": "stopping"
-    },
-    {
-      "number": 36,
-      "id": "faults"
-    },
-    {
-      "number": 37,
-      "id": "exercise"
-    },
-    {
-      "number": 38,
-      "id": "extension"
-    },
-    {
-      "number": 39,
-      "id": "extensionrun"
-    },
-    {
-      "number": 40,
-      "id": "countercode"
-    },
-    {
-      "number": 41,
-      "id": "countercode_1"
-    },
-    {
-      "number": 42,
-      "id": "countercode_2"
-    },
-    {
-      "number": 43,
-      "id": "countercode_3"
-    },
-    {
-      "number": 44,
-      "id": "countercode_4"
-    },
-    {
-      "number": 45,
-      "id": "countercode_5"
-    },
-    {
-      "number": 46,
-      "id": "extensioncode"
-    },
-    {
-      "number": 47,
-      "id": "buildexercise"
-    },
-    {
-      "number": 48,
-      "id": "buildresults"
-    },
-    {
-      "number": 49,
-      "id": "finish"
-    },
-    {
-      "number": 50,
-      "id": "sources"
+      "id": "examcounter"
     }
   ],
-  "sourceSha256": "8f802fd95a3b7f6c601525e3dd04346a9f586d7827df7e0e54fb547ee1692b12",
-  "builderSha256": "e15b66028dead88c74b6562927ca246ae803ddec758fd0242d915125f6556139",
-  "sketches": [
-    {
-      "path": "docs/teaching_drafts/week6_redesign/count_preview/count_preview.ino",
-      "sha256": "f18010fd3c82ce8340cccdcf0b2625b48927af03dbb22df7a6369d8b4d6a14e5"
-    },
-    {
-      "path": "examples/week06_servo_pointer/week06_servo_pointer.ino",
-      "sha256": "5ae0b41b88eee6a64a1edcba4e01977f0859d720ac201f469c0256c19f353d3a"
-    },
-    {
-      "path": "docs/teaching_drafts/week6_redesign/serial_pointer_counter/serial_pointer_counter.ino",
-      "sha256": "72090fc6a2d86acbf2d1d8859aac50cbf9686a9bb882af823107252a1cf326ac"
-    }
-  ],
-  "photos": [
-    {
-      "name": "SG90_2.jpg",
-      "sha256": "d0bf5a360a776690fefdbf768949d21496dd2a994dc887d6806cef16e70c5e4d"
-    },
-    {
-      "name": "BuckConverter_3.jpg",
-      "sha256": "fc14700672f71ddd92be03a4b86735645b01abfc9af6561cdfb8cde843a62019"
-    },
-    {
-      "name": "SG90_1.jpg",
-      "sha256": "1fadf0571536167a5f4e1da7a98dfc8ab3950d4f1bb92b7e7aa8517b2c541d82"
-    }
-  ],
-  "pdfSha256": "c9fe51934598e52826d82462f2b0341c3a171cad4dcab55a185e6758e6911375"
+  "sourceSha256": "e9ef44114d1fc4d6936bc493946bf90749598d39261ae0cb9f862cc15a19965e",
+  "builderSha256": "3553725254924a8183e6e158661f856a8e578ea57eb349bf4926b5548260f244",
+  "sketches": [],
+  "photos": [],
+  "pdfSha256": "b9150c606cd1c269a88778b3845a770ccac413297e64e83a385fa91e420779d4"
 }

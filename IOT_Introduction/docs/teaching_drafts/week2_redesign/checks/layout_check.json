@@ -1,298 +1,40 @@
 {
-  "images": [
-    {
-      "loaded": true
-    },
-    {
-      "loaded": true
-    },
-    {
-      "loaded": true
-    },
-    {
-      "loaded": true
-    },
-    {
-      "loaded": true
-    },
-    {
-      "loaded": true
-    },
-    {
-      "loaded": true
-    },
-    {
-      "loaded": true
-    },
-    {
-      "loaded": true
-    },
-    {
-      "loaded": true
-    },
-    {
-      "loaded": true
-    }
-  ],
+  "images": [],
   "pages": [
     {
       "page": 1,
       "overflow": false,
-      "lastBottom": 821.484375,
+      "lastBottom": 899.703125,
       "footerTop": 1070.375,
-      "gap": 248.890625
+      "gap": 170.671875
     },
     {
       "page": 2,
       "overflow": false,
-      "lastBottom": 2092.578125,
+      "lastBottom": 2067.21875,
       "footerTop": 2192.890625,
-      "gap": 100.3125
+      "gap": 125.671875
     },
     {
       "page": 3,
       "overflow": false,
-      "lastBottom": 3213.796875,
+      "lastBottom": 3271.84375,
       "footerTop": 3315.40625,
-      "gap": 101.609375
+      "gap": 43.5625
     },
     {
       "page": 4,
       "overflow": false,
-      "lastBottom": 4283.640625,
+      "lastBottom": 4385.203125,
       "footerTop": 4437.921875,
-      "gap": 154.28125
+      "gap": 52.71875
     },
     {
       "page": 5,
       "overflow": false,
-      "lastBottom": 5499.8125,
+      "lastBottom": 5495.546875,
       "footerTop": 5560.4375,
-      "gap": 60.625
-    },
-    {
-      "page": 6,
-      "overflow": false,
-      "lastBottom": 6544.28125,
-      "footerTop": 6682.953125,
-      "gap": 138.671875
-    },
-    {
-      "page": 7,
-      "overflow": false,
-      "lastBottom": 7681.875,
-      "footerTop": 7805.46875,
-      "gap": 123.59375
-    },
-    {
-      "page": 8,
-      "overflow": false,
-      "lastBottom": 8803.171875,
-      "footerTop": 8927.984375,
-      "gap": 124.8125
-    },
-    {
-      "page": 9,
-      "overflow": false,
-      "lastBottom": 9939.15625,
-      "footerTop": 10050.5,
-      "gap": 111.34375
-    },
-    {
-      "page": 10,
-      "overflow": false,
-      "lastBottom": 11066.171875,
-      "footerTop": 11173.015625,
-      "gap": 106.84375
-    },
-    {
-      "page": 11,
-      "overflow": false,
-      "lastBottom": 12135.953125,
-      "footerTop": 12295.53125,
-      "gap": 159.578125
-    },
-    {
-      "page": 12,
-      "overflow": false,
-      "lastBottom": 13313.203125,
-      "footerTop": 13418.046875,
-      "gap": 104.84375
-    },
-    {
-      "page": 13,
-      "overflow": false,
-      "lastBottom": 14404.46875,
-      "footerTop": 14540.5625,
-      "gap": 136.09375
-    },
-    {
-      "page": 14,
-      "overflow": false,
-      "lastBottom": 15560.34375,
-      "footerTop": 15663.078125,
-      "gap": 102.734375
-    },
-    {
-      "page": 15,
-      "overflow": false,
-      "lastBottom": 16610.171875,
-      "footerTop": 16785.59375,
-      "gap": 175.421875
-    },
-    {
-      "page": 16,
-      "overflow": false,
-      "lastBottom": 17816.375,
-      "footerTop": 17908.109375,
-      "gap": 91.734375
-    },
-    {
-      "page": 17,
-      "overflow": false,
-      "lastBottom": 18804.234375,
-      "footerTop": 19030.625,
-      "gap": 226.390625
-    },
-    {
-      "page": 18,
-      "overflow": false,
-      "lastBottom": 20048.8125,
-      "footerTop": 20153.140625,
-      "gap": 104.328125
-    },
-    {
-      "page": 19,
-      "overflow": false,
-      "lastBottom": 21040.078125,
-      "footerTop": 21275.65625,
-      "gap": 235.578125
-    },
-    {
-      "page": 20,
-      "overflow": false,
-      "lastBottom": 22258.5,
-      "footerTop": 22398.171875,
-      "gap": 139.671875
-    },
-    {
-      "page": 21,
-      "overflow": false,
-      "lastBottom": 23455.625,
-      "footerTop": 23520.6875,
-      "gap": 65.0625
-    },
-    {
-      "page": 22,
-      "overflow": false,
-      "lastBottom": 24493.9375,
-      "footerTop": 24643.203125,
-      "gap": 149.265625
-    },
-    {
-      "page": 23,
-      "overflow": false,
-      "lastBottom": 25694.515625,
-      "footerTop": 25765.71875,
-      "gap": 71.203125
-    },
-    {
-      "page": 24,
-      "overflow": false,
-      "lastBottom": 26836.921875,
-      "footerTop": 26888.234375,
-      "gap": 51.3125
-    },
-    {
-      "page": 25,
-      "overflow": false,
-      "lastBottom": 27721.59375,
-      "footerTop": 28010.75,
-      "gap": 289.15625
-    },
-    {
-      "page": 26,
-      "overflow": false,
-      "lastBottom": 28868.984375,
-      "footerTop": 29133.265625,
-      "gap": 264.28125
-    },
-    {
-      "page": 27,
-      "overflow": false,
-      "lastBottom": 30121,
-      "footerTop": 30255.78125,
-      "gap": 134.78125
-    },
-    {
-      "page": 28,
-      "overflow": false,
-      "lastBottom": 31264.25,
-      "footerTop": 31378.296875,
-      "gap": 114.046875
-    },
-    {
-      "page": 29,
-      "overflow": false,
-      "lastBottom": 32155.90625,
-      "footerTop": 32500.8125,
-      "gap": 344.90625
-    },
-    {
-      "page": 30,
-      "overflow": false,
-      "lastBottom": 33440.90625,
-      "footerTop": 33623.328125,
-      "gap": 182.421875
-    },
-    {
-      "page": 31,
-      "overflow": false,
-      "lastBottom": 34436.328125,
-      "footerTop": 34745.84375,
-      "gap": 309.515625
-    },
-    {
-      "page": 32,
-      "overflow": false,
-      "lastBottom": 35753.6875,
-      "footerTop": 35868.359375,
-      "gap": 114.671875
-    },
-    {
-      "page": 33,
-      "overflow": false,
-      "lastBottom": 36784.140625,
-      "footerTop": 36990.875,
-      "gap": 206.734375
-    },
-    {
-      "page": 34,
-      "overflow": false,
-      "lastBottom": 37877.359375,
-      "footerTop": 38113.390625,
-      "gap": 236.03125
-    },
-    {
-      "page": 35,
-      "overflow": false,
-      "lastBottom": 38811.078125,
-      "footerTop": 39235.90625,
-      "gap": 424.828125
-    },
-    {
-      "page": 36,
-      "overflow": false,
-      "lastBottom": 39959.1875,
-      "footerTop": 40358.421875,
-      "gap": 399.234375
-    },
-    {
-      "page": 37,
-      "overflow": false,
-      "lastBottom": 41224.34375,
-      "footerTop": 41480.9375,
-      "gap": 256.59375
+      "gap": 64.890625
     }
   ]
 }

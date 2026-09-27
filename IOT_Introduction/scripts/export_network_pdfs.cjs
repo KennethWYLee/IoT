@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const assert = require('node:assert/strict');
+const {pathToFileURL} = require('node:url');
 
 const root = path.resolve(__dirname, '../..');
 const answerIndex = process.argv.indexOf('--answers');
@@ -50,6 +51,16 @@ th,td { border:0.5pt solid #b6c3c7; padding:1.8mm; text-align:left; vertical-ali
 th { background:#e9eff0; }
 blockquote { border-left:3px solid #b58b35; margin:4mm 0; padding:1mm 4mm; }
 hr { border:0; border-top:1px solid #ccd3d5; margin:6mm 0; }
+.write-space { border:1px solid #aec0c4; margin:3mm 0; break-inside:avoid; background:repeating-linear-gradient(to bottom,white 0,white 8.8mm,#e3ebec 8.8mm,#e3ebec 9mm); }
+.exam-page { break-before:page; }
+.exam-page:first-child { break-before:auto; }
+.exam-sheet { display:flow-root; break-before:page; }
+.exam-sheet:first-child { break-before:auto; }
+.exam-sheet h2 { margin-top:5mm; margin-bottom:3mm; }
+.exam-sheet > h2:first-child { margin-top:0; }
+.exam-sheet h3 { margin:4mm 0 2mm; }
+.exam-sheet p { margin:2mm 0; }
+.exam-sheet table { margin:3mm 0; }
 `;
 
 function resolveLocal(href, source) {
@@ -99,18 +110,29 @@ async function main() {
           const target = resolveLocal(href, file);
           assert(answerDir || !/week\d+_answers/.test(target), 'Private answer link in Main');
           const anchor = href.includes('#') ? href.slice(href.indexOf('#')) : '';
-          href = 'https://github.com/KennethWYLee/IoT/blob/main/' + relative(target).split('/').map(encodeURIComponent).join('/') + anchor;
+          href = /week\d+_answers/.test(target)
+            ? pathToFileURL(target.replace(/\.md$/, '.pdf')).href
+            : 'https://github.com/KennethWYLee/IoT/blob/main/' + relative(target).split('/').map(encodeURIComponent).join('/') + anchor;
         }
         return `<a href="${escape(href)}">${this.parser.parseInline(token.tokens)}</a>`;
       };
       let markdown = fs.readFileSync(file,'utf8');
+      if (!answerDir && /```(?:cpp|powershell|python)|<!-- complete-sketch:/.test(markdown)) throw Error('Implementation belongs in Ans: '+name);
+      markdown = markdown.replace(/<!-- include: ([a-z0-9_.-]+) -->/g, (_, include) => {
+        assert(answerDir, 'Private include in Main');
+        const input = resolveLocal(include, file);
+        inputs[relative(input)] = digest(input);
+        return fs.readFileSync(input, 'utf8');
+      });
       markdown = markdown.replace(/<!-- complete-sketch: ([a-z0-9_]+) -->/g, (_, sketch) => {
         const ino = path.join(root,'IOT_Introduction/examples',sketch,sketch+'.ino');
         assert(fs.existsSync(ino), 'Missing complete sketch: '+sketch);
         inputs[relative(ino)] = digest(ino);
         return '\n\x60\x60\x60cpp\n'+fs.readFileSync(ino,'utf8')+'\n\x60\x60\x60\n';
       });
-      const html = `<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><style>${style}</style></head><body>${marked.parse(markdown,{renderer})}</body></html>`;
+      const body = answerDir ? marked.parse(markdown,{renderer})
+        : markdown.split('<div class="exam-page"></div>').map(part=>`<section class="exam-sheet">${marked.parse(part,{renderer})}</section>`).join('');
+      const html = `<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><style>${style}</style></head><body>${body}</body></html>`;
       const page = await browser.newPage({viewport:{width:680,height:990}});
       try {
         await page.route('**/*', route => route.abort());
@@ -153,13 +175,15 @@ async function main() {
           const badLinks = [...document.querySelectorAll('a[href^="#"]')].filter(a => !document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)))).map(a=>a.getAttribute('href'));
           const overflow = [...document.querySelectorAll('pre,table,img,p,li')].filter(e=>e.scrollWidth>e.clientWidth+2).map(e=>e.tagName);
           document.title = document.querySelector('h1').textContent;
-          return {badLinks,overflow,duplicateIds,literalBold,images:document.images.length};
+          const paperHeights = [...document.querySelectorAll('.exam-sheet')].map(e=>Math.round(e.getBoundingClientRect().height));
+          return {badLinks,overflow,duplicateIds,literalBold,images:document.images.length,paperHeights};
         });
         assert.deepEqual(layout.badLinks, [], `${name}: broken anchors`);
         assert.deepEqual(layout.duplicateIds, [], `${name}: duplicate anchors`);
         assert.deepEqual(layout.overflow, [], `${name}: horizontal overflow`);
         assert.equal(layout.literalBold, false, `${name}: unparsed Markdown bold markers`);
         assert.equal(layout.images, imageCount);
+        assert(layout.paperHeights.every(h=>h<=980), `${name}: question page too tall ${JSON.stringify(layout.paperHeights)}`);
         const pdf = name.replace(/\.md$/, '.pdf');
         await page.pdf({path:path.join(root,pdf), preferCSSPageSize:true, printBackground:true,
           displayHeaderFooter:true, tagged:true, outline:true, headerTemplate:'<span></span>',
