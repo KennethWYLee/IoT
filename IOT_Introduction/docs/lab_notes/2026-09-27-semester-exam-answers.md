@@ -1,5 +1,30 @@
 # 2026-09-27 全學期 Main／Ans 整理
 
+## GitHub 與雲端發布
+
+教師後續明確要求「Commit and push and 更新雲端」。教材提交 `e91a557cf361712ee74947f187f0c356bce0a8aa` 已推送 `origin/main`，前一提交 `4c6e18f`；fetch 後確認雙方一致才一般推送，沒有強制推送或改寫歷史。GitHub 專案為 PRIVATE；本段發布紀錄另作提交。
+
+教材提交包含 49 個本輪 Main、維護來源、工具、索引及紀錄檔。Ans 來源與 PDF 沒有加入 Git；既有 Week4 `.ino` 工作樹狀態及根目錄未追蹤 `examples/` 未提交。根目錄 README 同步現行 Main／Ans 分工。
+
+在原有 [codex／課堂教材／IoT 資料夾](https://drive.google.com/drive/folders/1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta) 原地更新 16 份 PDF，保留檔名、ID、資料夾、原連結與分享權限。Week3、4 的四份原檔已是本機相同版本，核對後不重複上傳。20 份均為未分享狀態。
+
+| 週次 | 雲端 Main | 雲端 Ans | 本次結果 |
+|---|---|---|---|
+| 2 | [Main](https://drive.google.com/file/d/1lZ1jzWWUz5zTqscX8597bxzgCayJ9lL8/view?usp=drivesdk) | [Ans](https://drive.google.com/file/d/1gRBn01_MQnDZ5dnA1ctYInpk_pFYdx6k/view?usp=drivesdk) | 兩份原地更新 |
+| 3 | [Main](https://drive.google.com/file/d/1MFdwSSGf_0nk4xYAMlqkh8XFd2ImQPGi/view?usp=drivesdk) | [Ans](https://drive.google.com/file/d/1R3D8WhN76yURQlb1nf-CioqItJQsZfC4/view?usp=drivesdk) | 原檔已最新，核對一致 |
+| 4 | [Main](https://drive.google.com/file/d/1qzGTz814HXrt5b-Xm1n6Olb19FkJ23K1/view?usp=drivesdk) | [Ans](https://drive.google.com/file/d/1YcXd7br6thubY06nE-eWMZzV_gWyoWUQ/view?usp=drivesdk) | 原檔已最新，核對一致 |
+| 5 | [Main](https://drive.google.com/file/d/1qLqgKl6gUfUQG3GMeGzhFDkdTnoocUlJ/view?usp=drivesdk) | [Ans](https://drive.google.com/file/d/1mA8-9w0bO9xKt_ICpIHivCL1onAB5lAA/view?usp=drivesdk) | 兩份原地更新 |
+| 6 | [Main](https://drive.google.com/file/d/1Rd37hlt7q0z42aMCJADv_TyuuYUOWHhd/view?usp=drivesdk) | [Ans](https://drive.google.com/file/d/1YJEAxzDI7hWToczZY7wJ9lsYpwNWzJXc/view?usp=drivesdk) | 兩份原地更新 |
+| 7 | [Main](https://drive.google.com/file/d/1dX1iP2fR0uypY6GzKpHHqrgPML0CXqAq/view?usp=drivesdk) | [Ans](https://drive.google.com/file/d/1iSeQB6C7-vjIX8O-wxBKeCozvDWa7scI/view?usp=drivesdk) | 兩份原地更新 |
+| 11 | [Main](https://drive.google.com/file/d/1PLATWiCbVkShTxjZHQijiT5g5IDZLUQG/view?usp=drivesdk) | [Ans](https://drive.google.com/file/d/1SbKpgyT1WyslKNoEPFOlXzyvEYLQa7Q5/view?usp=drivesdk) | 兩份原地更新 |
+| 12 | [Main](https://drive.google.com/file/d/1vRYAMgHjHLWN12HqobJ3mlo5-ZXhqyc1/view?usp=drivesdk) | [Ans](https://drive.google.com/file/d/1l8OVeh0PZOAtAl2lV8s7twewWCLb6I9r/view?usp=drivesdk) | 兩份原地更新 |
+| 14 | [Main](https://drive.google.com/file/d/1z_diw043z2ZP1lXq2PZyJuVyZr2xHHRd/view?usp=drivesdk) | [Ans](https://drive.google.com/file/d/17T3r_T-BWaWgDp984ns2BLhs6EY5IXjz/view?usp=drivesdk) | 兩份原地更新 |
+| 15 | [Main](https://drive.google.com/file/d/1-hQ-uFFVjZJkrDKQ_wQY5vskOw7ZbAa2/view?usp=drivesdk) | [Ans](https://drive.google.com/file/d/1XmiitlQfNcYt4zfJ3GSFq_15kVRRxSOq/view?usp=drivesdk) | 兩份原地更新 |
+
+全部 20 份已重新下載完整原始 bytes，SHA-256 與檔案大小逐一符合本機；metadata 回讀檔名、資料夾與分享狀態均一致。完整雜湊、頁數、檔案 ID 及修改時間見[發布核對清單](2026-09-27-cloud-publication.json)。授課與報告 Markdown 已隨 Git 提交；雲端維持原有 PDF 組織，不另創造報告或正式筆試 PDF。
+
+發布前再跑 Week2、Week3～7 Main／Ans、四個網路 Main／Ans、網路程式同步與全課程結構／連結檢查，全部通過。未修改或重新產生 PDF，因此沿用下方最新 464 頁的渲染檢查；發布不表示硬體實測完成。
+
 ## 範圍與決定
 
 依教師「根據 week3 作法，逐週次，修正所有週次」，檢查 18 週現行入口。
@@ -11,7 +36,7 @@
 - Main 給足產品行為及紙上推理條件，不要求依未給定的「本課規則」猜答案；不把 GPIO、函式庫與設定表當作作品說明。
 - 原理先解釋正常情況，再比較只改一處的反例。安全警告不後移；電流路徑與資訊流分開。
 - 保留週次、零件、授課順序與正式評分。報告與正式筆試不改成可用 AI 提早離開的考試。
-- 本次沒有新增正式筆試題或答案，也沒有 commit、push、雲端更新或硬體操作。
+- 編修階段沒有新增正式筆試題或答案，也沒有硬體操作；後續依教師另次授權完成上方 Git 與雲端發布。
 
 ## 逐週結果
 
@@ -103,4 +128,4 @@ Week5～7 的分離前來源副本保存在各本機 `weekN_answers/before_exam_
 
 重建後執行 `verify_sample.py`、`scripts/verify_redesign.py N [--answers]`、`export_network_pdfs.cjs [--answers N] --check`、`scripts/export_network_sketches.py --check` 與 `scripts/verify_course_materials.py`，再檢查最新渲染。
 
-下一步優先確認尚未通過的硬體條件，才進行有關裝置實作；教材文字審閱可從 Week5 Main 開始，確認只讀題目是否能理解作品、完成條件與要回答的內容。未取得另次授權前不提交、推送或更新雲端。
+下一步優先確認尚未通過的硬體條件，才進行有關裝置實作；教材文字審閱可從 Week5 Main 開始，確認只讀題目是否能理解作品、完成條件與要回答的內容。本輪發布已依教師另次授權完成；後續新改版仍須另次確認發布範圍。
