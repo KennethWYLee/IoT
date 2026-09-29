@@ -1,6 +1,6 @@
 # IoT 課程與無人機專題
 
-2026-09-29 發布限制：教師要求所有週次的 Ans 暫停上傳雲端，仍不加入 Git。已存在的雲端 Ans 不更新、不刪除；後續須另行授權才發布答案。目前授權僅提交 Week3 修正並更新其 Main PDF，進度見[本次紀錄](IOT_Introduction/docs/lab_notes/2026-09-29-week3-question-clarity.md)。
+2026-09-29 發布分工：GitHub 是給學生閱讀的 Public repository，Ans 來源與 PDF 暫不加入 Git；雲端則同步各週 Main 與 Ans PDF，保留原有檔案位置與分享權限。兩者分開處理，不把「GitHub 不放 Ans」解讀成「雲端不更新 Ans」。現有 20 份雲端 PDF 已核對為最新版，詳見[發布紀錄](IOT_Introduction/docs/lab_notes/2026-09-29-week3-question-clarity.md)。
 
 ## 選擇入口
 
@@ -9,7 +9,7 @@
 - [Week 2–7 重設稿、操作修正與待確認事項](IOT_Introduction/docs/teaching_drafts/README.md)
 - [Drone：無人機專題](Drone/README.md)
 
-每週只有一份主教材。Week2～7、11、12、14、15 的 Main 都是題目卷，完整基本教學、程式與所有參考答案另在教師提供的 Ans。Ans 不加入 Git，雲端發布狀態以[逐週修訂紀錄](IOT_Introduction/docs/lab_notes/2026-09-27-semester-exam-answers.md)為準。OLED 正式教學安排在 Week5；報告週、筆試規定與配分不變。
+每週只有一份主教材。Week2～7、11、12、14、15 的 Main 都是題目卷，完整基本教學、程式與所有參考答案另在教師提供的 Ans。Ans 不加入 Git，雲端發布狀態以[最新發布紀錄](IOT_Introduction/docs/lab_notes/2026-09-29-week3-question-clarity.md)為準。OLED 正式教學安排在 Week5；報告週、筆試規定與配分不變。
 無人機研究與課程的必買材料、必做進度分開。
 
 ## 檔案分類

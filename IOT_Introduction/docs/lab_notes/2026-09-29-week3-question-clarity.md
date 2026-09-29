@@ -1,6 +1,18 @@
 # 2026-09-29 Week3 題意、實作引言與物件標示
 
-## 後續發布授權
+## 最新發布分工：GitHub 與雲端分開
+
+教師澄清：雲端各週 Main 與 Ans 都要更新；GitHub 給學生閱讀，Ans 暫時不傳 GitHub，並確認 GitHub 為 Public。本節取代同日第一輪「暫停 Ans 雲端上傳」的理解，下方保留已發生操作的紀錄。
+
+- GitHub `KennethWYLee/IoT` 原為 PRIVATE，已依要求改為 PUBLIC；以 `gh repo view` 回讀確認，再以不帶登入憑證的 GitHub API 查詢得到 HTTP 200、`private=false`、`visibility=public`。
+- 檢查目前 Git 追蹤及可見歷史中的 `*Ans*`、`*_answers/*`，沒有答案來源或 PDF；現有忽略規則保留。公開前的目前版本文字掃描沒有找到列舉的常見私鑰或 token 格式。這是限定範圍的檢查，不等於完整歷史機密稽核；原有教學來源、範例與歷史內容仍可由 GitHub 閱讀，沒有改寫歷史。
+- Week3 Ans 通過維護來源、完整引用程式、算式、節點、字元與 95 頁 PDF 檢查，重新渲染。PDF 沒有再編修，沿用本紀錄下方的最新目視檢查結果。
+- 補更新 [Week3 Ans 雲端原檔](https://drive.google.com/file/d/1R3D8WhN76yURQlb1nf-CioqItJQsZfC4/view?usp=drivesdk)：95 頁，`7239750` bytes，雲端修改時間 `2026-09-29T03:32:30.895Z`。同日稍早已更新的 Main 不重複上傳。
+- 逐一讀取 Week2～7、11、12、14、15 的 20 份 Main／Ans PDF metadata，核對原 ID、名稱、資料夾及權限；重新下載全部原始內容，以 SHA-256 與 byte count 對照目前本機，20 份全部相符。本輪更新 1 份，其他 19 份已是最新，不另建副本。
+- 雲端 20 份檔案仍為未分享狀態，沒有因 GitHub 改為 Public 而修改 Google Drive 權限。完整結果見[本次雲端核對清單](2026-09-29-cloud-publication.json)。
+- Root README、課程索引及本週入口已分清楚兩種發布目的。本輪只提交這些政策／發布紀錄與核對清單；Ans、既有 Week4 `.ino` 工作樹狀態及未追蹤 `examples/` 不加入提交，沒有硬體操作。
+
+## 第一輪發布授權（已由上方澄清）
 
 教師在本機修訂完成後要求 commit、push 並更新雲端，同時要求所有週次的 Ans 暫停上傳。本次僅提交 Week3 Main、相關維護工具、準則、索引及紀錄，雲端僅更新原有 Week3 Main PDF。所有 Ans 來源與 PDF 維持 Git 忽略；既有雲端 Ans 不更新、不刪除。下方「僅本機」段落保留各次編修完成時的歷史狀態，以本節發布結果為準。
 

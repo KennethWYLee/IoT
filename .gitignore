@@ -39,7 +39,8 @@ __pycache__/
 # Unpublished Week 3 answers, code and checks remain local.
 /IOT_Introduction/docs/teaching_drafts/week3_answers/
 
-# Unreleased weekly exercise answers (local only).
+# Ans sources and PDFs stay out of the student-facing GitHub repository.
+# This Git exclusion does not prevent authorized Main/Ans PDF updates on Drive.
 IOT_Introduction/docs/teaching_drafts/week4_answers/
 IOT_Introduction/docs/teaching_drafts/week5_answers/
 IOT_Introduction/docs/teaching_drafts/week6_answers/
