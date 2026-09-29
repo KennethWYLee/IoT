@@ -2,7 +2,16 @@
 
 ## 後續發布授權
 
-教師在本機修訂完成後要求 commit、push 並更新雲端，同時要求所有週次的 Ans 暫停上傳。本次僅提交 Week3 Main、相關維護工具、準則、索引及紀錄，雲端僅更新原有 Week3 Main PDF。所有 Ans 來源與 PDF 維持 Git 忽略；既有雲端 Ans 不更新、不刪除。下方「僅本機」段落保留各次編修完成時的歷史狀態，實際發布結果補記於本節。
+教師在本機修訂完成後要求 commit、push 並更新雲端，同時要求所有週次的 Ans 暫停上傳。本次僅提交 Week3 Main、相關維護工具、準則、索引及紀錄，雲端僅更新原有 Week3 Main PDF。所有 Ans 來源與 PDF 維持 Git 忽略；既有雲端 Ans 不更新、不刪除。下方「僅本機」段落保留各次編修完成時的歷史狀態，以本節發布結果為準。
+
+### 發布結果
+
+- 教材提交 `8a8610d`，前一提交 `8add9aa`，已一般推送至 `origin/main`。提交前 fetch 確認兩端一致，GitHub 專案 `KennethWYLee/IoT` 為 PRIVATE；沒有強制推送、改寫歷史或改變可見度。
+- 提交共 11 個 Main、工具、準則、索引及紀錄檔；沒有 Ans 來源或 PDF。既有 Week4 `.ino` 工作樹狀態與根目錄未追蹤 `examples/` 未提交。
+- [Week3 Main 雲端原檔](https://drive.google.com/file/d/1MFdwSSGf_0nk4xYAMlqkh8XFd2ImQPGi/view?usp=drivesdk) 已更新為 13 頁；保留檔名 `IoT_week3_main.pdf`、ID、資料夾與未分享狀態，沒有建立新副本。
+- 雲端修改時間 `2026-09-29T03:27:52.540Z`；回讀原始 PDF 為 `390312` bytes，SHA-256 `12D1D8534B21CF8104C7CE5D9D30DC1D661381501D2665939D932C6B2625BFF7` 與本機完全相符。
+- 發布前重新執行 Week3 Main `verify.py`，來源、完整程式隔離、13 頁 PDF、電路算式與節點檢查通過，並重新渲染。全課程 137 份 Markdown／Notebook 的結構與連結檢查、暫存差異檢查通過；PDF 未再改動，版面沿用下方最後一次目視檢查。
+- 本次只有一次雲端內容更新，目標為上述 Main ID。所有週次的 Ans 都未上傳、未更新或刪除，也沒有操作硬體。本節發布結果與索引另作紀錄提交。
 
 ## 教師要求與範圍
 
