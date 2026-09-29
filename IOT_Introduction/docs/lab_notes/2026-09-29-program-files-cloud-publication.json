@@ -1,0 +1,340 @@
+{
+  "date": "2026-09-29",
+  "github": {
+    "repository": "https://github.com/KennethWYLee/IoT",
+    "visibility": "PUBLIC",
+    "base_commit": "2bb30c7",
+    "answers_tracked": false,
+    "new_program_folders_tracked": false,
+    "policy": "Commit lesson maintenance and release records only; exclude Ans sources/PDFs and local course programs."
+  },
+  "drive": {
+    "folder_url": "https://drive.google.com/drive/folders/1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta",
+    "updated_this_request": 10,
+    "already_current": 10,
+    "programs_uploaded": false,
+    "verification": "Read all 20 files as raw PDFs and compared SHA-256 and byte count against local files. File IDs, titles, parents and sharing state preserved."
+  },
+  "files": [
+    {
+      "week": 2,
+      "kind": "Main",
+      "drive_id": "1lZ1jzWWUz5zTqscX8597bxzgCayJ9lL8",
+      "title": "IoT_week2_main.pdf",
+      "url": "https://drive.google.com/file/d/1lZ1jzWWUz5zTqscX8597bxzgCayJ9lL8/view?usp=drivesdk",
+      "bytes": 245258,
+      "sha256": "f25ecb954825d96e10fba9d6cf14a1f3e971c1fddd480b974ef94a9c6032672e",
+      "modified_utc": "2026-09-27T07:32:33.656Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "already_current",
+      "verified_sha256": true
+    },
+    {
+      "week": 2,
+      "kind": "Ans",
+      "drive_id": "1gRBn01_MQnDZ5dnA1ctYInpk_pFYdx6k",
+      "title": "IoT_week2Ans.pdf",
+      "url": "https://drive.google.com/file/d/1gRBn01_MQnDZ5dnA1ctYInpk_pFYdx6k/view?usp=drivesdk",
+      "bytes": 5857300,
+      "sha256": "4590c7612b1efdc25a731d04540dbd4d149cd375fffd596c04dc4d6fe03bdd27",
+      "modified_utc": "2026-09-29T07:26:24.570Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "updated_in_place",
+      "verified_sha256": true
+    },
+    {
+      "week": 3,
+      "kind": "Main",
+      "drive_id": "1MFdwSSGf_0nk4xYAMlqkh8XFd2ImQPGi",
+      "title": "IoT_week3_main.pdf",
+      "url": "https://drive.google.com/file/d/1MFdwSSGf_0nk4xYAMlqkh8XFd2ImQPGi/view?usp=drivesdk",
+      "bytes": 390312,
+      "sha256": "12d1d8534b21cf8104c7ce5d9d30dc1d661381501d2665939d932c6b2625bff7",
+      "modified_utc": "2026-09-29T03:27:52.540Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "already_current",
+      "verified_sha256": true
+    },
+    {
+      "week": 3,
+      "kind": "Ans",
+      "drive_id": "1R3D8WhN76yURQlb1nf-CioqItJQsZfC4",
+      "title": "IoT_week3Ans.pdf",
+      "url": "https://drive.google.com/file/d/1R3D8WhN76yURQlb1nf-CioqItJQsZfC4/view?usp=drivesdk",
+      "bytes": 7236175,
+      "sha256": "6fd1fa3ab16110c3eef7ba1cdda81557b3272a84cff7ab42ef6159e1236994e4",
+      "modified_utc": "2026-09-29T07:26:59.980Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "updated_in_place",
+      "verified_sha256": true
+    },
+    {
+      "week": 4,
+      "kind": "Main",
+      "drive_id": "1qzGTz814HXrt5b-Xm1n6Olb19FkJ23K1",
+      "title": "IoT_week4_main.pdf",
+      "url": "https://drive.google.com/file/d/1qzGTz814HXrt5b-Xm1n6Olb19FkJ23K1/view?usp=drivesdk",
+      "bytes": 372468,
+      "sha256": "6a764ae254310fe675bc756c745b6cc458b20ffc04cef6eb43cacaa86c652bd6",
+      "modified_utc": "2026-09-26T04:27:29.049Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "already_current",
+      "verified_sha256": true
+    },
+    {
+      "week": 4,
+      "kind": "Ans",
+      "drive_id": "1YcXd7br6thubY06nE-eWMZzV_gWyoWUQ",
+      "title": "IoT_week4Ans.pdf",
+      "url": "https://drive.google.com/file/d/1YcXd7br6thubY06nE-eWMZzV_gWyoWUQ/view?usp=drivesdk",
+      "bytes": 891194,
+      "sha256": "be129100c3759b4642fcf6b3dc9912b882f8c9fed709fd44e31b6d6b7f2c7792",
+      "modified_utc": "2026-09-29T07:27:04.715Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "updated_in_place",
+      "verified_sha256": true
+    },
+    {
+      "week": 5,
+      "kind": "Main",
+      "drive_id": "1qLqgKl6gUfUQG3GMeGzhFDkdTnoocUlJ",
+      "title": "IoT_week5_main.pdf",
+      "url": "https://drive.google.com/file/d/1qLqgKl6gUfUQG3GMeGzhFDkdTnoocUlJ/view?usp=drivesdk",
+      "bytes": 281604,
+      "sha256": "d94a1d9c8495d2186489d23efc025f537ba8d8eadbc78003203f81e0553261ca",
+      "modified_utc": "2026-09-27T07:33:00.671Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "already_current",
+      "verified_sha256": true
+    },
+    {
+      "week": 5,
+      "kind": "Ans",
+      "drive_id": "1mA8-9w0bO9xKt_ICpIHivCL1onAB5lAA",
+      "title": "IoT_week5Ans.pdf",
+      "url": "https://drive.google.com/file/d/1mA8-9w0bO9xKt_ICpIHivCL1onAB5lAA/view?usp=drivesdk",
+      "bytes": 971882,
+      "sha256": "13b3de8bddd3134b47fb8785008749da970225c16b60e7c6e0b24a8b8c3ea2a6",
+      "modified_utc": "2026-09-29T07:27:09.824Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "updated_in_place",
+      "verified_sha256": true
+    },
+    {
+      "week": 6,
+      "kind": "Main",
+      "drive_id": "1Rd37hlt7q0z42aMCJADv_TyuuYUOWHhd",
+      "title": "IoT_week6_main.pdf",
+      "url": "https://drive.google.com/file/d/1Rd37hlt7q0z42aMCJADv_TyuuYUOWHhd/view?usp=drivesdk",
+      "bytes": 266552,
+      "sha256": "b9150c606cd1c269a88778b3845a770ccac413297e64e83a385fa91e420779d4",
+      "modified_utc": "2026-09-27T07:33:09.322Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "already_current",
+      "verified_sha256": true
+    },
+    {
+      "week": 6,
+      "kind": "Ans",
+      "drive_id": "1YJEAxzDI7hWToczZY7wJ9lsYpwNWzJXc",
+      "title": "IoT_week6Ans.pdf",
+      "url": "https://drive.google.com/file/d/1YJEAxzDI7hWToczZY7wJ9lsYpwNWzJXc/view?usp=drivesdk",
+      "bytes": 1283284,
+      "sha256": "bf669bdf5bfdaeff26d83272280e5370fb7e2176c739b5de6e7698d5eb79a86c",
+      "modified_utc": "2026-09-29T07:27:30.504Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "updated_in_place",
+      "verified_sha256": true
+    },
+    {
+      "week": 7,
+      "kind": "Main",
+      "drive_id": "1dX1iP2fR0uypY6GzKpHHqrgPML0CXqAq",
+      "title": "IoT_week7_main.pdf",
+      "url": "https://drive.google.com/file/d/1dX1iP2fR0uypY6GzKpHHqrgPML0CXqAq/view?usp=drivesdk",
+      "bytes": 299397,
+      "sha256": "3c4048700175535e249081f3d897fc92c9211ec2ffc4bbd0641d964968ce5b8c",
+      "modified_utc": "2026-09-27T07:33:18.954Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "already_current",
+      "verified_sha256": true
+    },
+    {
+      "week": 7,
+      "kind": "Ans",
+      "drive_id": "1iSeQB6C7-vjIX8O-wxBKeCozvDWa7scI",
+      "title": "IoT_week7Ans.pdf",
+      "url": "https://drive.google.com/file/d/1iSeQB6C7-vjIX8O-wxBKeCozvDWa7scI/view?usp=drivesdk",
+      "bytes": 971331,
+      "sha256": "3e658c4f3ee8f1e63dcab6cea5c05dd2f535e30044b24854dcf9405a30a57401",
+      "modified_utc": "2026-09-29T07:27:35.455Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "updated_in_place",
+      "verified_sha256": true
+    },
+    {
+      "week": 11,
+      "kind": "Main",
+      "drive_id": "1PLATWiCbVkShTxjZHQijiT5g5IDZLUQG",
+      "title": "IoT_week11_main.pdf",
+      "url": "https://drive.google.com/file/d/1PLATWiCbVkShTxjZHQijiT5g5IDZLUQG/view?usp=drivesdk",
+      "bytes": 310329,
+      "sha256": "e6fb0b7be036b5c952ad1271b55147fc12f32cc5e6805e502bd14102a1e13511",
+      "modified_utc": "2026-09-27T07:33:28.349Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "already_current",
+      "verified_sha256": true
+    },
+    {
+      "week": 11,
+      "kind": "Ans",
+      "drive_id": "1SbKpgyT1WyslKNoEPFOlXzyvEYLQa7Q5",
+      "title": "IoT_week11Ans.pdf",
+      "url": "https://drive.google.com/file/d/1SbKpgyT1WyslKNoEPFOlXzyvEYLQa7Q5/view?usp=drivesdk",
+      "bytes": 9594942,
+      "sha256": "f904d08aad3802dbf6afa2db499dbe6c23bc7254bee2ad3b4ca47dfdb25f1255",
+      "modified_utc": "2026-09-29T07:27:43.677Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "updated_in_place",
+      "verified_sha256": true
+    },
+    {
+      "week": 12,
+      "kind": "Main",
+      "drive_id": "1vRYAMgHjHLWN12HqobJ3mlo5-ZXhqyc1",
+      "title": "IoT_week12_main.pdf",
+      "url": "https://drive.google.com/file/d/1vRYAMgHjHLWN12HqobJ3mlo5-ZXhqyc1/view?usp=drivesdk",
+      "bytes": 355854,
+      "sha256": "6705cb93c7cff39ce6185a340d22302a4cce80622dfe605e05a56b28a69f0646",
+      "modified_utc": "2026-09-27T07:33:47.579Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "already_current",
+      "verified_sha256": true
+    },
+    {
+      "week": 12,
+      "kind": "Ans",
+      "drive_id": "1l8OVeh0PZOAtAl2lV8s7twewWCLb6I9r",
+      "title": "IoT_week12Ans.pdf",
+      "url": "https://drive.google.com/file/d/1l8OVeh0PZOAtAl2lV8s7twewWCLb6I9r/view?usp=drivesdk",
+      "bytes": 10569650,
+      "sha256": "0490633654204b0b0c79aaf1b4fbb328ead52a33d6caa7ac0a4e804d6792e2e2",
+      "modified_utc": "2026-09-29T07:28:08.530Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "updated_in_place",
+      "verified_sha256": true
+    },
+    {
+      "week": 14,
+      "kind": "Main",
+      "drive_id": "1z_diw043z2ZP1lXq2PZyJuVyZr2xHHRd",
+      "title": "IoT_week14_main.pdf",
+      "url": "https://drive.google.com/file/d/1z_diw043z2ZP1lXq2PZyJuVyZr2xHHRd/view?usp=drivesdk",
+      "bytes": 336591,
+      "sha256": "0a36bdfcc579111f4d9d6d1bffd16d1de3520894f33046f39d47d8632f3e0db8",
+      "modified_utc": "2026-09-27T07:33:59.003Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "already_current",
+      "verified_sha256": true
+    },
+    {
+      "week": 14,
+      "kind": "Ans",
+      "drive_id": "17T3r_T-BWaWgDp984ns2BLhs6EY5IXjz",
+      "title": "IoT_week14Ans.pdf",
+      "url": "https://drive.google.com/file/d/17T3r_T-BWaWgDp984ns2BLhs6EY5IXjz/view?usp=drivesdk",
+      "bytes": 10233340,
+      "sha256": "ff1b17f0f6278dbaffed881270192e64a12790668eb93e0c243da16677b73517",
+      "modified_utc": "2026-09-29T07:28:18.035Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "updated_in_place",
+      "verified_sha256": true
+    },
+    {
+      "week": 15,
+      "kind": "Main",
+      "drive_id": "1-hQ-uFFVjZJkrDKQ_wQY5vskOw7ZbAa2",
+      "title": "IoT_week15_main.pdf",
+      "url": "https://drive.google.com/file/d/1-hQ-uFFVjZJkrDKQ_wQY5vskOw7ZbAa2/view?usp=drivesdk",
+      "bytes": 345520,
+      "sha256": "412ddfb14d90f775e7df979da011b6ad9614cef858776b2655918226f823a0fe",
+      "modified_utc": "2026-09-27T07:34:11.597Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "already_current",
+      "verified_sha256": true
+    },
+    {
+      "week": 15,
+      "kind": "Ans",
+      "drive_id": "1XmiitlQfNcYt4zfJ3GSFq_15kVRRxSOq",
+      "title": "IoT_week15Ans.pdf",
+      "url": "https://drive.google.com/file/d/1XmiitlQfNcYt4zfJ3GSFq_15kVRRxSOq/view?usp=drivesdk",
+      "bytes": 10252838,
+      "sha256": "1bc31f41e5653f5133bf5169bdc36c7f0e71580b7f3cab9901c6cc14f3212468",
+      "modified_utc": "2026-09-29T07:28:29.224Z",
+      "parents": [
+        "1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta"
+      ],
+      "shared": false,
+      "operation": "updated_in_place",
+      "verified_sha256": true
+    }
+  ]
+}

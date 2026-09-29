@@ -235,6 +235,9 @@ if (answers) {
   const solutions = require(answerFile)({escape});
   const room = require(roomFile)({escape});
   pages = [...lessonPages, ...solutions, ...room].map((p, i) => typeof p === 'string' ? p : page(i + 1, p.kicker, p.title, p.lead, p.body));
+  const programGuide = path.join(answerDir, 'program_file_pages.cjs');
+  inputs.add(programGuide);
+  pages = require(programGuide)(pages);
 } else {
   inputs.add(path.join(__dirname, 'exam_pages.cjs'));
   pages = require('./exam_pages.cjs')({page});

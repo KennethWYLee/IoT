@@ -4,12 +4,12 @@
 
 For the current Week 2-7 practical lessons, use the maintained sources and builders
 listed in [the teaching-draft index](../docs/teaching_drafts/README.md). Those PDFs
-are the current step-by-step edition; the notebook commands below maintain the
+define the current question papers and separate answer lessons; the notebook commands below maintain the
 older formal edition and must not be used to overwrite the current lesson sources.
 Weeks 11, 12, 14 and 15 use their weekly Markdown and the network exporter below.
 
-The current Week2 builder also updates its formal PDF. Week3-7 builders keep
-basic sketches embedded in Main; `--answers` builds a local ignored answer directory.
+The current Week2 builder also updates its formal PDF. Week3-7 Main PDFs contain
+questions; `--answers` builds the separate local ignored answer lesson.
 Keep the answer directory off public Git. Example:
 
 ```powershell
@@ -21,7 +21,7 @@ python -X utf8 IOT_Introduction/scripts/verify_redesign.py 4 --answers --render
 
 Week2 uses `week2_redesign/build_sample.cjs` and `verify_sample.py`.
 Its private answer builder is `week2_answers/build_answers.cjs`.
-The Week2 counter's complete basic code remains in Main; extension answers remain separate.
+Week2 Main is a question paper; teaching and answers remain separate.
 Current sources and verification scope are recorded in
 [the weekly revision record](../docs/lab_notes/2026-09-22-weekly-main-answers.md).
 
@@ -41,11 +41,36 @@ It does not connect to the course database, broker or devices. Screenshots and
 results go under `_outputs/lesson_review/mobile_shell/`. This is not a real-phone
 installation, HTTPS/LAN or live WebSocket test.
 
+## Local weekly program folders
+
+Weeks 2-7, 11, 12, 14 and 15 keep complete programs in each ignored
+`docs/teaching_drafts/weekN_answers/programs` directory. Ans PDFs name these files
+instead of printing complete programs. The private `programs.sources.json` in each
+answer directory lists canonical sources, destinations and program entry files.
+
+```powershell
+node IOT_Introduction/scripts/package_answer_programs.cjs
+node IOT_Introduction/scripts/package_answer_programs.cjs --check
+python -X utf8 IOT_Introduction/scripts/verify_answer_programs.py
+```
+
+Pass week numbers to limit either command. Packaging copies only listed files,
+preserves bytes, records SHA-256, and refuses to overwrite a changed local copy.
+Verification checks source equality, local includes, Ans file references, Arduino
+folder names and Git exclusion. It does not compile or execute the programs.
+Canonical files remain the editing source; regenerate copies after changing them.
+
+These commands require the instructor's local answer sources; a public repository
+clone alone does not include them. On 2026-09-29 the instructor explicitly kept
+programs local. Neither these scripts nor PDF builders upload anything. Do not
+add answer folders to Git or publish them without a new request.
+
 ## Network lesson sketch exports
 
 Weeks 11, 12 and 15 now include directly openable Arduino folders. The maintained
-sources remain the complete sketches in the Week 11/12 Markdown appendices and
-the seven Week 15 modification blocks. The exporter uses the existing compile
+sources are the Week 11/12 private `source-code` sketches referenced by their lesson
+Markdown, and the seven Week 15 modification blocks. The extractor resolves the
+`source-sketch` reference inside the repository. The exporter uses the existing compile
 assembler, so students need not manually assemble the Week 15 program.
 
 ```powershell
@@ -74,7 +99,7 @@ directory if needed; `BROWSER_CHANNEL` selects another installed Chromium browse
 The Node-only `--check` compares Markdown, image, exporter and PDF hashes against
 `docs/network_pdf_manifest.json`. Text hashes normalize CRLF/LF across computers.
 Use `--answers 11` (or 12, 14, 15) with both the exporter and verifier to build/check a local answer PDF.
-The Week15 complete-sketch marker embeds the generated basic sketch in its Main PDF and records its hash.
+Current Main PDFs contain questions; Ans refers to the separately packaged complete sketches.
 The Python verifier requires PyMuPDF, Pillow and Poppler. It checks page bounds, text and
 links, renders every page, and creates contact sheets and `checks.json` under the
 ignored `_outputs/network_pdfs/review/` directory. Inspect those images and selected

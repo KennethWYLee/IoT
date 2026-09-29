@@ -1,5 +1,9 @@
 # Week 2–7 主教材重設稿入口
 
+2026-09-29 後續發布完成：雲端已更新下段所述的 10 份新版 Ans，Week3 為 86 頁；全部 20 份 Main／Ans PDF 已下載回讀並核對 SHA-256。GitHub 維持 Public、不加入 Ans；各週程式資料夾仍只留本機，不隨 PDF 上傳。見[發布紀錄](../lab_notes/2026-09-29-program-files-publication.md)。
+
+2026-09-29 本機後續修訂：Week2～7、11、12、14、15 的完整程式另放各自 Ans 目錄內的 `programs`。Ans 改為指出要開啟的檔案，保留必要設定、接線、短程式片段與原理；Main 不變。Week3 Ans 為 86 頁，前 13 頁仍依 Main 格式直接填答，之後詳解。程式資料夾及新版 Ans 均未上傳，本次沒有 commit 或 push；以下發布段落只記錄當時版本。見[檔案與檢查紀錄](../lab_notes/2026-09-29-weekly-program-folders.md)。
+
 2026-09-29 修訂與發布：Week3 Main 13 頁、Ans 95 頁。釐清 Q3、實作前引言及 A 三筆取樣的要求；同日重寫 Q4，通讀兩冊並釐清表筆、插孔、檔位、接腳、孔位與畫面欄位各自屬於哪個物件。未改功能或評分；教材提交 `8a8610d` 已推送 GitHub。依教師最新決定，GitHub 為 Public、Ans 不加入 Git；雲端則同步各週 Main 與 Ans PDF。Week3 Main／Ans 已更新，全部 20 份雲端 PDF 下載核對與本機一致。見[修訂與發布紀錄](../lab_notes/2026-09-29-week3-question-clarity.md)。
 
 2026-09-27 現行分工：Week2～7、11、12、14、15 全部採 Main 題目卷、Ans 完整教學與答案。Week3、4 沿用已確認版本，其餘八個實作週已重整；報告週整理為成果問答，正式筆試與 Week18 留白維持原規定。現行來源、頁數及檢查見[逐週紀錄](../lab_notes/2026-09-27-semester-exam-answers.md)。以下為歷史沿革，不覆蓋本段。教材提交 `e91a557` 已推送私人 GitHub；16 份新版 PDF 已原地更新雲端，連同 Week3、4 共 20 份 SHA-256 回讀相符；Ans 不加入 Git。

@@ -1,5 +1,7 @@
 # IoT Introduction：18週課程教材
 
+2026-09-29 後續發布：每週完整程式另放本機資料夾，Ans 改列檔案與必要說明。Week3 Ans 現為 86 頁，先依 Main 格式填答，再逐題詳解。雲端已原地更新 10 份 Ans；10 份 Main 無變更，20 份 PDF 均已回讀核對 SHA-256。GitHub 維持 Public 且不含 Ans；程式依教師要求不傳 GitHub 或雲端。見[最新發布紀錄](docs/lab_notes/2026-09-29-program-files-publication.md)。下方保留較早版本沿革。
+
 2026-09-29 修訂與發布：Week3 Main 改善 Q3、Q4 的量測情境與作答要求，新增實作引言並重寫 A 的三筆取樣說明；兩冊全文釐清物件、插孔、檔位、接腳、孔位與畫面欄位。Main 13 頁、Ans 95 頁，題目功能與程式未改。教材提交 `8a8610d` 已推送 GitHub；專案依教師最新決定改為 Public，Ans 來源與 PDF 不加入 Git。雲端同步 Main 與 Ans，Week3 兩份 PDF 均已原地更新；全體 20 份 PDF 已下載回讀、核對 SHA-256 與本機一致，保留原分享權限。此分工取代本日稍早「Ans 暫停上傳雲端」的理解。見[修訂與發布紀錄](docs/lab_notes/2026-09-29-week3-question-clarity.md)。
 
 2026-09-27 現行安排：依 Week3 方式逐週檢查全學期。Week2～7、11、12、14、15 的 Main 為整份題目與作品要求；完整基本教學及全部解答在 Ans。Week3、4 保留已確認版本；本次重整其餘八個實作週。Week1 保留課程與採購，Week8、13、17 合併重複報告要求為明確問句；Week9、10、16、18 保留原用途。評分、零件、授課週次及硬體限制未改。教材提交 `e91a557` 已推送私人 GitHub；16 份新版 Main／Ans PDF 已在原雲端位置更新，連同 Week3、4 共 20 份回讀 SHA-256 均相符；Ans 不加入 Git。見[逐週狀況及發布紀錄](docs/lab_notes/2026-09-27-semester-exam-answers.md)。以下日期較早的文字為修訂沿革，不覆蓋本段現行分工。

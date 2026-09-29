@@ -85,6 +85,14 @@ def extract_complete_sketches(markdown: Path) -> list[str]:
     content = source_content(markdown)
     blocks = re.findall(r"```cpp\s*\n(.*?)\n```", content, flags=re.DOTALL)
     complete = [block for block in blocks if "void setup()" in block and "void loop()" in block]
+    for relative in re.findall(r"<!-- source-sketch: ([\w./-]+) -->", content):
+        source = (markdown.parent / relative).resolve()
+        if not source.is_relative_to(ROOT.resolve()) or source.suffix != ".ino":
+            raise ValueError(f"Invalid sketch source: {relative}")
+        code = source.read_text(encoding="utf-8").rstrip()
+        if "void setup()" not in code or "void loop()" not in code:
+            raise ValueError(f"Incomplete sketch: {source}")
+        complete.append(code)
     if not complete:
         raise ValueError(f"expected at least one complete sketch in {markdown}")
     return [block + "\n" for block in complete]

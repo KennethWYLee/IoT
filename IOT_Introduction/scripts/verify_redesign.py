@@ -41,6 +41,9 @@ embedded = "\n".join(p.get_text() for p in soup.select("pre.fullcode"))
 for sketch in manifest["sketches"]:
     code = (COURSE / sketch["path"]).read_text(encoding="utf-8").strip()
     assert code in embedded, f"Incomplete embedded sketch: {sketch['path']}"
+if args.answers:
+    assert not manifest["sketches"] and not embedded, "Complete programs belong in programs/"
+    subprocess.run([sys.executable, str(COURSE / "scripts/verify_answer_programs.py"), str(w)], check=True)
 ids = {node["id"] for node in soup.select("section[id]")}
 assert len(ids) == len(soup.select("section[id]")), "Duplicate anchor"
 for link in soup.select('a[href^="#"]'):

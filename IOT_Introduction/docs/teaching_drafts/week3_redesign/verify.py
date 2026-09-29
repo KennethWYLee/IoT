@@ -3,6 +3,7 @@ from pathlib import Path
 import hashlib
 import json
 import math
+import re
 import subprocess
 import sys
 from html.parser import HTMLParser
@@ -71,23 +72,53 @@ if ANSWERS:
     assert "Q6" not in all_text
     for obsolete_requirement in ["註明感測器位置與遮光方式", "紙本 C", "紙本 D", "C 的紙本回答"]:
         assert obsolete_requirement not in all_text, obsolete_requirement
-    assert ids["answerindex"] == 1 and ids["concept"] == 2
-    assert ids["concept"] < ids["conceptmeter"] < ids["worksheetflowanswer"] < ids["start"]
-    assert ids["start"] < ids["sources"] < ids["approach"]
-    assert ids["combinetry"] < ids["codebutton"] < ids["combineexplain"]
+    main_manifest = json.loads((BUILDER / "build_manifest.json").read_text(encoding="utf-8"))
+    main_pages = main_manifest["pages"]
+    assert manifest["pages"][:len(main_pages)] == main_pages
+    assert ids["answerindex"] == len(main_pages) + 1
+    assert ids["answerindex"] < ids["start"] < ids["kyidentify"] < ids["adcmeaning"]
+    assert ids["concept"] < ids["resistor"] < ids["conceptmeter"] < ids["metersafetyanswer"]
+    assert ids["metersafetyanswer"] < ids["combinegoal"] < ids["worksheetflowanswer"] < ids["approach"]
+    assert ids["snapshotwhy"] < ids["units"] < ids["sources"]
+    assert all(ids[p["id"]] > ids["answerindex"] for p in manifest["pages"] if p["id"].startswith("code"))
+
+    # Remove only filled responses; the question pages must otherwise match Main.
+    page_pattern = r"<!-- page: (\w+) \| .*? -->\s*([\s\S]*?)(?=<!-- page:|$)"
+    main_sections = re.findall(page_pattern, (BUILDER / "week3_main.md").read_text(encoding="utf-8"))
+    answer_sections = re.findall(page_pattern, (HERE / "week3Ans.md").read_text(encoding="utf-8"))
+    for (main_id, question), (answer_id, filled) in zip(main_sections, answer_sections):
+        assert main_id == answer_id
+        filled = re.sub(r"<style>[\s\S]*?</style>", "", filled)
+        filled = re.sub(r'<p class="answer-note">[\s\S]*?</p>', "", filled)
+        filled = re.sub(
+            r'<div class="write-space filled-answer" style="height:(\d+)mm">[\s\S]*?</div>',
+            r'<div class="write-space" style="height:\1mm"></div>', filled)
+        blank = "______" if main_id == "exercise" else "__________________________"
+        filled = re.sub(r'<span class="answer-ink">[\s\S]*?</span>', blank, filled)
+        if main_id == "exercisemeter":
+            filled = re.sub(r'<figure class="diagram">[\s\S]*?</figure>',
+                            "{{diagram:worksheetdivider}}", filled)
+        assert " ".join(question.split()) == " ".join(filled.split()), main_id
+    for page_id in ["exercise", "exercisemeter", "worksheetsafety", "worksheetflow", "batchrecord",
+                    "projectbuttonresults", "projectoledresults", "projectcaptureresults"]:
+        assert "參考答案" in doc[ids[page_id] - 1].get_text(), page_id
+    assert ids["combinetry"] < ids["combineexplain"]
     assert ids["quality"] < ids["resistor"] < ids["buttonprinciple"]
     assert "examreasoning" not in ids
-    assert len(manifest["sketches"]) == 9
+    assert not manifest["sketches"] and not parser.blocks
+    package = json.loads((HERE / "programs.sources.json").read_text(encoding="utf-8"))
+    assert len(package["entries"]) == 9
+    subprocess.run([sys.executable, str(COURSE / "scripts/verify_answer_programs.py"), "3"], check=True)
     assert "marking" not in ids
     assert "SAMPLE_GAP_MS" in doc[ids["busy"] - 1].get_text()
     assert "1000" in doc[ids["busy"] - 1].get_text()
     assert "先放慢" in doc[ids["busy"] - 1].get_text()
-    assert ids["approach"] < ids["codeanswer"] < ids["expected"]
+    assert ids["approach"] < ids["timing"] < ids["expected"]
     for prepare, code, why in [("shadeprepare", "shadecode", "shadewhy"),
                                ("observerprepare", "observercode", "observerwhy"),
                                ("snapshotprepare", "snapshotcode", "snapshotwhy")]:
-        assert ids[prepare] < ids[code] < ids[why]
-    assert ids["oledprepare"] < ids["oledscancode"] < ids["observerprepare"]
+        assert ids[prepare] < ids[why] and code not in ids
+    assert ids["oledprepare"] < ids["oledscan"] < ids["observerprepare"]
     for page_id, answer_label in [("expected", "A 的程式說明"),
                                   ("observerwhy", "C 的程式說明"),
                                   ("snapshotwhy", "D 的程式說明")]:
@@ -220,8 +251,10 @@ if ANSWERS:
         for link in page.get_links():
             if link.get("nameddest"):
                 destinations[link["nameddest"]] = link["page"] + 1
-    for name in ["codegpio", "coderaw", "codeclassifier", "codebutton"]:
-        assert destinations[name] == ids[name]
+    for name, page_number in destinations.items():
+        assert page_number == ids[name]
+    for item in package["entries"]:
+        assert item["file"].split("/")[-1] in all_text, item["file"]
 assert math.isclose(3.3 * 1000 / 11000, 0.3)
 assert math.isclose(3.3 * 10000 / 11000, 3.0)
 assert math.isclose(3.3 / 11000, 0.0003)
@@ -283,7 +316,7 @@ result = {
     "hands_on_expected_results_page": ids.get("buildresults"),
     "hands_on_answer_page": ids.get("buildanswer"),
     "source_hashes": "pass",
-    "complete_embedded_programs_match_canonical_sources": "pass",
+    "program_files_match_canonical_sources": "pass" if ANSWERS else "not applicable",
     "page_dimensions_text_and_placeholders": "pass",
     "circuit_arithmetic_and_node_checks": "pass",
     "rendered_pages": len(rendered),

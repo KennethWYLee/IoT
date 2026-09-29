@@ -2,6 +2,8 @@
 import hashlib
 import json
 import math
+import subprocess
+import sys
 from pathlib import Path
 import fitz
 from bs4 import BeautifulSoup
@@ -13,7 +15,7 @@ formal = repository / 'IOT_Introduction/Week_02_ESP32_Hardware_Basics'
 
 for pdf, mirror, manifest_file, expected in [
     (formal/'week2_main.pdf', root/'Week2_main_layout_sample.pdf', root/'checks/published_main.json', 5),
-    (formal/'week2Ans.pdf', answers/'week2Ans.pdf', answers/'checks/published_answers.json', 47),
+    (formal/'week2Ans.pdf', answers/'week2Ans.pdf', answers/'checks/published_answers.json', 43),
 ]:
     assert pdf.read_bytes() == mirror.read_bytes()
     manifest = json.loads(manifest_file.read_text(encoding='utf-8'))
@@ -48,7 +50,7 @@ html = answers / 'week2Ans.html'
 soup = BeautifulSoup(html.read_text(encoding='utf-8'),'html.parser')
 embedded = ' '.join(p.get_text() for p in soup.select('pre')).split()
 flat = ' '.join(embedded)
-for p in [root/'hello_first/hello_first.ino', root/'counter_practice/counter_practice.ino', answers/'room_counter/room_counter.ino']:
-    assert ' '.join(p.read_text(encoding='utf-8').split()) in flat, p
+assert 'void setup()' not in flat and 'void loop()' not in flat
+subprocess.run([sys.executable, str(repository / 'IOT_Introduction/scripts/verify_answer_programs.py'), '2'], check=True)
 assert 'MAX_COUNT' not in (root/'counter_practice/counter_practice.ino').read_text(encoding='utf-8')
-print('PASS Week2 Main 5 / Ans 47: hashes, full code, voltage regression, text bounds and separation')
+print('PASS Week2 Main 5 / Ans 43: hashes, external program files, voltage regression, text bounds and separation')

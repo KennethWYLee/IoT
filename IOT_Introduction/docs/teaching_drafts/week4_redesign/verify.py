@@ -15,7 +15,8 @@ assert len(parts) == len(sections)
 manifest = json.loads((directory / "build_manifest.json").read_text(encoding="utf-8"))
 if answers:
     assert next(iter(sections)) == "answerindex"
-    assert len(manifest["sketches"]) == 4
+    assert not manifest["sketches"]
+    assert len(json.loads((directory / "programs.sources.json").read_text(encoding="utf-8"))["entries"]) == 4
     for ident in ["resistoranswer", "readinganswer", "qualityanswer", "flowanswer",
                   "answer", "timeanswer", "buildanswer"]:
         assert ident in sections, ident
@@ -24,7 +25,7 @@ if answers:
                               ("dualobserve", "dualcode", "age"),
                               ("combinetry", "button_code", "combineexplain")]:
         order = list(sections)
-        assert order.index(intro) < order.index(code) < order.index(why)
+        assert order.index(intro) < order.index(why) and code not in order
     assert "lightArmed" not in md and "candidateSinceMs" not in md
     assert "Main 已確認的接線" not in md
     subprocess.run([sys.executable, str(directory / "check_exam_answers.py")], check=True)
