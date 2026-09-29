@@ -19,40 +19,44 @@
     },
     {
       "number": 5,
-      "id": "buildexercise"
+      "id": "projectintro"
     },
     {
       "number": 6,
-      "id": "batchrecord"
+      "id": "buildexercise"
     },
     {
       "number": 7,
-      "id": "projectbutton"
+      "id": "batchrecord"
     },
     {
       "number": 8,
-      "id": "projectbuttonresults"
+      "id": "projectbutton"
     },
     {
       "number": 9,
-      "id": "projectoled"
+      "id": "projectbuttonresults"
     },
     {
       "number": 10,
-      "id": "projectoledresults"
+      "id": "projectoled"
     },
     {
       "number": 11,
-      "id": "projectcapture"
+      "id": "projectoledresults"
     },
     {
       "number": 12,
+      "id": "projectcapture"
+    },
+    {
+      "number": 13,
       "id": "projectcaptureresults"
     }
   ],
-  "sourceSha256": "9b2e7b4e057273c50045763a45f3e82bfcd3d498b27190309dab7882e3b5e88e",
-  "builderSha256": "194e23076fa229af6c86787b4b98b2a60f4da98840c37d183f738bc37f2f3c09",
+  "sourceSha256": "2a098e605dd523cb07bcaf48bf013ac4932557660dd526b9285d72537013a082",
+  "builderSha256": "01e58f5ea82aede73a7e7eca84a21618817c5ddb1800eb3e40c2006bc288b94d",
   "sketches": [],
   "photos": [],
-  "pdfSha256": "fe25941cd8e34d2071666958c59b40e25cc373d67c3725bdd249b834839e4a40"
+  "pdfSha256": "12d1d8534b21cf8104c7ce5d9d30dc1d661381501d2665939d932c6b2625bff7"
 }

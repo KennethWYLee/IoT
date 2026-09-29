@@ -97,7 +97,7 @@ else:
     assert "answer" not in ids and "buildanswer" not in ids
     assert "start" not in ids and "sources" not in ids
     assert not manifest["sketches"] and not parser.blocks
-    assert len(doc) == 12
+    assert len(doc) == 13
     assert ids["batchrecord"] == ids["buildexercise"] + 1
     assert ids["exercise"] == 1
     opening_text = doc[0].get_text()
@@ -122,8 +122,16 @@ else:
                           "uptime_ms", "檔名／位置", "證據位置", "短片位置", "紀錄位置"]:
         assert removed_field not in all_text, removed_field
     meter_text = doc[ids["exercisemeter"] - 1].get_text()
-    for concrete_question in ["黑色表筆的線", "紅色表筆的線", "黑色筆尖", "紅色筆尖"]:
+    for explicit_task in ["兩顆電阻連接處與 GND 之間", "1. 畫電流", "2. 算電壓", "3. 設定電表", "板上電源"]:
+        assert explicit_task in meter_text, explicit_task
+    assert meter_text.index("要量的位置") < meter_text.index("1. 畫電流") < meter_text.index("2. 算電壓") < meter_text.index("3. 設定電表")
+    for concrete_question in ["黑色表筆的插頭", "紅色表筆的插頭", "黑色筆尖", "紅色筆尖"]:
         assert concrete_question in meter_text, concrete_question
+    safety_text = "".join(doc[ids["worksheetsafety"] - 1].get_text().split())
+    for concrete_location in ["A830L萬用電表", "表筆插孔", "紅色表筆的插頭", "萬用電表上標示10A的插孔",
+                              "萬用電表的旋鈕", "金屬筆尖", "開發板的3V3電源腳"]:
+        assert concrete_location in safety_text, concrete_location
+    assert safety_text.index("同學目前的接法") < safety_text.index("為什麼仍應阻止")
     record_text = doc[ids["batchrecord"] - 1].get_text()
     assert "重新量測" in record_text and "複製第一筆" in record_text
     assert "自己的程式" in record_text and "什麼時候執行" in record_text
@@ -143,7 +151,16 @@ else:
         assert hidden_prerequisite not in exam_text, hidden_prerequisite
     assert ids["exercisemeter"] == ids["exercise"] + 1
     assert "examtools" not in ids
-    assert ids["buildexercise"] == ids["worksheetflow"] + 1
+    assert ids["projectintro"] == ids["worksheetflow"] + 1
+    assert ids["buildexercise"] == ids["projectintro"] + 1
+    intro_text = doc[ids["projectintro"] - 1].get_text()
+    for introductory_context in ["先做 A", "三個延伸作品 B、C、D", "分開展示", "驗證方法", "最後回答題末問題"]:
+        assert introductory_context in intro_text, introductory_context
+    sample_text = doc[ids["buildexercise"] - 1].get_text()
+    for sample_requirement in ["取一筆", "電腦新增三行", "5000", "5200", "5400", "三筆數字也可能相同", "不在之後補做"]:
+        assert "".join(sample_requirement.split()) in "".join(sample_text.split()), sample_requirement
+    for test_stage in ["正式間隔", "暫時放慢", "恢復 0.2 秒", "每列分開測試"]:
+        assert test_stage in record_text, test_stage
     practical_text = opening_text + "\n".join(
         doc[i].get_text() for i in range(ids["buildexercise"] - 1, len(doc))
     )
@@ -210,6 +227,14 @@ assert math.isclose(3.3 * 10000 / 11000, 3.0)
 assert math.isclose(3.3 / 11000, 0.0003)
 assert math.isclose(3.3 / 330, 0.01)
 assert (320 + 900) // 2 == 610
+
+# Check source phrasing as well as extracted PDF text; line wrapping is irrelevant here.
+source_text = (HERE / f"{STEM}.md").read_text(encoding="utf-8")
+for ambiguous_command in ["紅筆插 10A", "黑筆 COM", "紅 e15、黑 e3", "黑 e3、紅 e23", "按 RST", "COM USB", "SDA8", "SCL9"]:
+    assert ambiguous_command not in source_text, ambiguous_command
+if ANSWERS:
+    for explicit_location in ["電表 COM 插孔", "電表 VΩmA 插孔", "麵包板孔位", "標示 COM 的 USB 接頭", "通訊速率", "電表旋鈕"]:
+        assert explicit_location in source_text, explicit_location
 
 # Breadboard connectivity is independently represented by (bank, row).
 def node(hole):

@@ -52,7 +52,7 @@ function nodes(rows) {
     if(left)s+=text(5,y-12,left,18)+line(38,y,220,y)+dot(220,y);
     if(right){const pin=right.match(/^([abcde])\d/);const x=pin?220+'abcde'.indexOf(pin[1])*42:388;s+=line(x,y,490,y)+dot(x,y)+text(485,y-12,right,18);}
   });
-  return svg(s+text(330,h-1,'左半部 a～e；灰色為中央槽，右半部未畫出。',16,'middle'),h+6);
+  return svg(s+text(330,h-1,'字母欄＋數字列是麵包板孔位；灰色是中央溝槽。',16,'middle'),h+6);
 }
 
 function kyCircuit() {
@@ -72,12 +72,12 @@ function divider(swap=false) {
     s+=line(205,ys[i],365,ys[i],colors.teal,'stroke-dasharray="3 4"')+text(388,ys[i]+6,r,18);
     for(let c=0;c<5;c++)s+=`<circle cx="${205+c*40}" cy="${ys[i]}" r="6" fill="white" stroke="#536a71"/>`;
   });
-  s+=text(6,42,'3V3／b6',18)+line(20,60,205,60,colors.red)+dot(205,60);
-  s+=text(6,261,'GND／b3',18)+line(20,276,205,276,colors.black)+dot(205,276);
+  s+=text(6,42,'板 3V3 → b6',18)+line(20,60,205,60,colors.red)+dot(205,60);
+  s+=text(6,261,'板 GND → b3',18)+line(20,276,205,276,colors.black)+dot(205,276);
   s+=line(285,60,285,84)+line(285,144,285,168)+`<rect x="268" y="84" width="34" height="60" fill="#fbf3df" stroke="#96662b"/>`+text(332,121,upper,19);
   s+=line(325,168,325,192)+line(325,252,325,276)+`<rect x="308" y="192" width="34" height="60" fill="#fbf3df" stroke="#96662b"/>`+text(373,229,lower,19);
-  s+=dot(365,168)+line(365,168,490,168)+text(470,146,'e23 → 紅筆',19);
-  s+=text(325,322,'黑筆仍碰 e3 延長端；電阻兩端跨不同列。',18,'middle');
+  s+=dot(365,168)+line(365,168,490,168)+text(470,146,'e23 → 紅色筆尖',19);
+  s+=text(325,322,'黑色筆尖碰麵包板 e3 孔延長端；電阻跨不同列。',18,'middle');
   return svg(s,338);
 }
 
@@ -114,7 +114,8 @@ const diagrams = {
    +box(10,112,220,42,'ESP32 GND')+box(420,112,220,42,'OLED GND')+line(230,133,420,133,colors.black)
    +box(10,174,220,42,'GPIO8／PIN_SDA')+box(420,174,220,42,'OLED SDA')+line(230,195,420,195)
    +box(10,236,220,42,'GPIO9／PIN_SCL')+box(420,236,220,42,'OLED SCK／SCL')+line(230,257,420,257)
-   +text(325,307,'8／9 僅示範已確認適用的 T01 配置；不接 5Vin。',17,'middle'),320),
+   +text(325,307,'GPIO8、GPIO9：開發板接腳',17,'middle')
+   +text(325,330,'PIN_SDA、PIN_SCL：程式設定名稱',17,'middle'),344),
  observerflow:()=>flow(['光線 → S 電壓 → GPIO4 的 raw','程式比較：更新本次最小值與最大值','同一組 raw／min／max → OLED 畫面','同一組資料 → Serial → 電腦紀錄']),
  snapshotflow:()=>svg(
    box(10,15,300,46,'定時：讀取目前 raw')+box(350,15,290,46,'按鈕：辨識新的按下')
@@ -134,27 +135,33 @@ const diagrams = {
    +arrow(160,174,160,192)+box(10,194,630,42,'程式記錄：序號、raw、開機時間')
    +arrow(325,236,325,254)+box(10,256,630,42,'Serial／UART → CH343 → USB → Monitor'),308),
  worksheetdivider:()=>svg(
-   text(80,25,'3V3：3.3 V',19)+line(170,36,170,54)
-   +'<rect x="143" y="54" width="54" height="43" fill="white" stroke="#526c70"/>'
-   +text(220,82,'上方 1 kΩ',19)+line(170,97,170,130)+dot(170,130)
-   +line(170,130,382,130)+dot(382,130)+text(400,138,'中間接點：____ V',19)
-   +line(170,130,170,156)+'<rect x="143" y="156" width="54" height="43" fill="white" stroke="#526c70"/>'
-   +text(220,184,'下方 10 kΩ',19)+line(170,199,170,230)
-   +text(96,255,'GND：0 V',19),268),
- combinedwiring:()=>nodes([[3,'板 GND → a3','b3 ← KY −'],[6,'板 3V3 → a6','b6 ← KY 中間'],[15,'KY S → a15','c15 → GPIO4'],[27,'GPIO5 → a27','e27 → 按鈕'],[29,'e3 → a29','e29 → 按鈕']]),
+   '<rect x="24" y="69" width="146" height="139" fill="#edf5f4" stroke="#526c70"/>'
+   +text(97,125,'板上電源',20,'middle')+text(97,151,'3.3 V',20,'middle')
+   +text(97,91,'＋',18,'middle')+text(97,197,'−',18,'middle')
+   +line(97,69,97,26)+line(97,26,325,26)+line(325,26,325,52)
+   +text(218,17,'3V3：3.3 V',18,'middle')
+   +'<rect x="298" y="52" width="54" height="43" fill="white" stroke="#526c70"/>'
+   +text(369,80,'1 kΩ',20)+line(325,95,325,138)+dot(325,138)
+   +line(325,138,447,138)+dot(447,138)
+   +text(460,128,'兩顆電阻連接處',18)+text(460,157,'電壓：____ V',18)
+   +line(325,138,325,180)+'<rect x="298" y="180" width="54" height="43" fill="white" stroke="#526c70"/>'
+   +text(369,208,'10 kΩ',20)+line(325,223,325,253)
+   +line(325,253,97,253)+line(97,253,97,208)+dot(325,253)
+   +text(369,258,'GND：0 V',19),274),
+ combinedwiring:()=>nodes([[3,'板 GND → a3','b3 ← 光敏 − 腳'],[6,'板 3V3 → a6','b6 ← 光敏供電腳'],[15,'光敏 S → a15','c15 → 板 GPIO4'],[27,'板 GPIO5 → a27','e27 → 按鈕'],[29,'e3 → a29','e29 → 按鈕']]),
  combinedcurrent:combinedCurrent,
  answerflow:()=>flow(['辨識一次新按壓','空閒：開始三筆；忙碌：回報不接受','每到間隔才重新讀 ADC，index 加一','第三筆後停止，等待下一次按下']),
 
- cumulative:()=>flow(['按鈕 → GPIO5：一次新的有效按下','KY S → GPIO4 ADC：取得當下 raw','程式：記錄序號、raw 與開機時間','UART → CH343 → USB → Monitor']),
+ cumulative:()=>flow(['按鈕 → 板 GPIO5：一次新的有效按下','光敏 S 腳 → 板 GPIO4／ADC → raw','程式：記錄序號、raw 與開機時間','UART → CH343 → USB → 電腦視窗']),
  overview:()=>flow(['電表量電壓','遮住光敏模組，看電壓改變','ESP32 讀數字，程式印出判斷']),
- power:()=>nodes([[3,'GND → a3','e3 → 黑筆'],[6,'3V3 → a6','e6 → 紅筆']]),
- voltage:()=>svg(box(15,35,170,70,'3V3／e6')+box(465,35,170,70,'GND／e3')+box(227,25,195,92,'直流電壓表')+line(185,69,227,69,colors.red)+line(422,69,465,69,colors.black)+text(201,135,'紅筆',19,'middle')+text(444,135,'黑筆',19,'middle')+text(325,195,'顯示例：約 +3.3 V；兩端不可用普通線直接互接。',19,'middle'),220),
+ power:()=>nodes([[3,'板 GND → a3','e3 → 黑色筆尖'],[6,'板 3V3 → a6','e6 → 紅色筆尖']]),
+ voltage:()=>svg(box(15,35,170,70,'板 3V3／e6 孔')+box(465,35,170,70,'板 GND／e3 孔')+box(227,25,195,92,'電表直流電壓檔')+line(185,69,227,69,colors.red)+line(422,69,465,69,colors.black)+text(201,135,'紅色筆尖',19,'middle')+text(444,135,'黑色筆尖',19,'middle')+text(325,195,'e6、e3 是麵包板孔位；示例顯示約 +3.3 V。',19,'middle'),220),
  meterpath:()=>svg(text(22,30,'正常量測：',20)+box(25,60,100,50,'3V3')+box(237,60,170,50,'電壓表高電阻')+box(522,60,100,50,'GND')+line(125,85,237,85)+line(407,85,522,85)+text(22,159,'不要實作：',20)+box(25,189,100,50,'3V3')+box(522,189,100,50,'GND')+line(125,214,522,214,colors.red)+text(320,194,'普通線直接接通',19,'middle')+text(320,270,'低電阻路徑 → 短路',19,'middle'),295),
- gpio:()=>nodes([[3,'GND → a3','e3 → 黑筆'],[6,'3V3 → a6','這段不量'],[12,'GPIO5 → a12','e12 → 紅筆']]),
+ gpio:()=>nodes([[3,'板 GND → a3','e3 → 黑色筆尖'],[6,'板 3V3 → a6','這段不量'],[12,'板 GPIO5 → a12','e12 → 紅色筆尖']]),
  command:()=>svg(box(183,10,285,50,'ESP32 程式設定 HIGH')+line(325,60,325,87)+line(162,87,488,87)+arrow(162,87,162,114)+arrow(488,87,488,114)+box(20,116,285,55,'Serial → USB → Monitor')+box(345,116,285,55,'GPIO5 → 第12列 → 電表')+text(162,218,'看到程式回報',20,'middle')+text(488,218,'量到實際電壓',20,'middle'),245),
  kycircuit:kyCircuit,
- ky:()=>nodes([[3,'板子 GND → a3','c3 ← KY −'],[6,'板子 3V3 → a6','c6 ← KY 中間'],[15,'KY S → a15','e15 → 紅筆']]),
- adc:()=>svg(text(325,27,'新增訊號線；模組供電接法保持不變',20,'middle')+box(10,75,130,55,'KY S')+box(231,75,188,55,'第15列 a～e')+box(504,75,136,55,'GPIO4')+arrow(140,102,231,102)+arrow(419,102,504,102)+text(185,76,'a15',18,'middle')+text(460,76,'c15',18,'middle')+line(326,130,326,190)+text(326,218,'e15 → 紅筆延長線',19,'middle')+text(325,267,'黑筆 → e3／GND；模組 − → c3／GND。',18,'middle'),290),
+ ky:()=>nodes([[3,'板 GND → a3','c3 ← 光敏 − 腳'],[6,'板 3V3 → a6','c6 ← 光敏供電腳'],[15,'光敏 S → a15','e15 → 紅色筆尖']]),
+ adc:()=>svg(text(325,27,'新增訊號線；模組供電接法保持不變',20,'middle')+box(10,75,130,55,'光敏 S 腳')+box(231,75,188,55,'麵包板第15列')+box(504,75,136,55,'板 GPIO4')+arrow(140,102,231,102)+arrow(419,102,504,102)+text(185,76,'a15 孔',18,'middle')+text(460,76,'c15 孔',18,'middle')+line(326,130,326,190)+text(326,218,'e15 孔延長線 → 紅色筆尖',19,'middle')+text(325,267,'黑色筆尖碰 e3 孔延長端；e3、c3 通開發板 GND。',18,'middle'),290),
  information:()=>flow(['光線改變 → 光敏電阻改變','S 電壓 → GPIO4 → 晶片內 ADC','raw 整數 → 程式 → Serial','UART → CH343 → USB → 電腦 Monitor']),
  ranges:()=>svg(text(15,24,'教學假資料；raw 無單位，不是 V',18)+line(55,106,600,106)+`<rect x="65" y="66" width="130" height="55" fill="#dfefee" stroke="#246e73"/><rect x="448" y="66" width="130" height="55" fill="#fff1d7" stroke="#96662b"/>`+text(130,100,'300～320',20,'middle')+text(513,100,'900～920',20,'middle')+text(130,155,'室內光',19,'middle')+text(513,155,'遮光',19,'middle')+line(324,51,324,129,colors.red)+text(324,177,'分界 610',20,'middle')+text(325,220,'示意位置非等比例。兩段之間的值沒有基準資料。',18,'middle'),245),
  classflow:()=>flow(['新的 raw','端點先不判；其他值依分界給標籤','另查是否落在已觀察基準','一起保存 raw、label、quality、reason']),
@@ -273,13 +280,17 @@ fs.writeFileSync(path.join(destination,stem+'.html'),html);
       const m=p.querySelector('main'),f=p.querySelector('footer'),last=m.lastElementChild;
       const bounds=m.getBoundingClientRect();
       return {page:i+1,id:p.id,overflow:m.scrollHeight>m.clientHeight+1,gap:f.getBoundingClientRect().top-last.getBoundingClientRect().bottom,
-        horizontal:[...m.querySelectorAll('*')].filter(e=>!(e instanceof SVGElement)&&e.getBoundingClientRect().right>bounds.right+2).map(e=>e.tagName)};
+        horizontal:[...m.querySelectorAll('*')].filter(e=>!(e instanceof SVGElement)&&e.getBoundingClientRect().right>bounds.right+2).map(e=>e.tagName),
+        svgText:[...m.querySelectorAll('svg text')].filter(e=>{
+          const r=e.getBoundingClientRect(),s=e.closest('svg').getBoundingClientRect();
+          return r.left<s.left-2||r.right>s.right+2||r.top<s.top-2||r.bottom>s.bottom+2;
+        }).map(e=>e.textContent)};
     })
   }));
   const links=await tab.locator('a').evaluateAll(items=>items.map(a=>a.getAttribute('href')).filter(h=>!h.startsWith('http')&&!h.startsWith('#')));
   for(const link of links)if(!fs.existsSync(path.resolve(__dirname,link)))throw Error('Missing local link '+link);
   fs.writeFileSync(path.join(tmp,'layout_check.json'),JSON.stringify(audit,null,2));
-  const bad=audit.pages.filter(p=>p.overflow||p.gap<8||p.horizontal.length);
+  const bad=audit.pages.filter(p=>p.overflow||p.gap<8||p.horizontal.length||p.svgText.length);
   if(bad.length||audit.images.some(i=>!i.loaded))throw Error(JSON.stringify({bad,images:audit.images}));
   const pdf=path.join(destination,stem+'.pdf');
   await tab.pdf({path:pdf,format:'A4',printBackground:true,preferCSSPageSize:true});

@@ -1,5 +1,7 @@
 # IoT 課程與無人機專題
 
+2026-09-29 發布限制：教師要求所有週次的 Ans 暫停上傳雲端，仍不加入 Git。已存在的雲端 Ans 不更新、不刪除；後續須另行授權才發布答案。目前授權僅提交 Week3 修正並更新其 Main PDF，進度見[本次紀錄](IOT_Introduction/docs/lab_notes/2026-09-29-week3-question-clarity.md)。
+
 ## 選擇入口
 
 - [IoT課程：18週教材](IOT_Introduction/README.md)
