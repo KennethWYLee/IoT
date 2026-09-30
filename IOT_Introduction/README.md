@@ -1,6 +1,8 @@
 # IoT Introduction：18週課程教材
 
-2026-09-30 後續授權：公開 [Week3 Ans：答案與逐題教學 PDF](Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf)，共 86 頁，先按 Main 原卷填答，再提供詳細教學。只將這份 PDF 加入 GitHub；程式及其他週答案不在本次發布範圍。下方較早紀錄的「Ans 不加入 GitHub」不再適用於這份 PDF。見[發布紀錄](docs/lab_notes/2026-09-30-week3-ans-github.md)。
+2026-09-30 程式公開：Week3 的 9 支 `.ino` 已列入 [program/week3](../program/week3/README.md)，依教師要求直接提供原始檔，不用 ZIP。未來各週程式統一由 [program](../program/README.md) 進入；本次僅公開 Week3，其他週仍依原發布限制。見[程式發布紀錄](docs/lab_notes/2026-09-30-week3-program-github.md)。
+
+2026-09-30 Ans 授權：公開 [Week3 Ans：答案與逐題教學 PDF](Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf)，共 86 頁，先按 Main 原卷填答，再提供詳細教學。其他週答案不在此次授權範圍；Week3 程式另依上方新授權公開。下方較早紀錄的「Ans 不加入 GitHub」不再適用於這份 PDF。見[答案發布紀錄](docs/lab_notes/2026-09-30-week3-ans-github.md)。
 
 2026-09-30：Week2、Week4、Week5 已依 Week3 的原則修訂：Main 是題目卷，Ans 先依原卷填答再逐題教學，完整程式另附 programs。三週 Main/Ans 頁數為 6/44、12/64、8/54；六份 PDF 和三個程式包已更新雲端並回讀核對。GitHub 不加入 Ans 或新答案程式。見[本輪紀錄](docs/lab_notes/2026-09-30-week245-main-ans-program-publication.md)。以下較早日期的頁數與上傳範圍為歷史紀錄。
 
@@ -43,7 +45,7 @@ Week 2～7、11～12、14～15 的器材圖集與接線教學已隨完整教學�
 |---:|---|---|---|
 | 1 | 2026-09-09 | 課程大綱、配分與中文採購清單 | [開啟 Week 1](Week_01_Course_Orientation/week1_main.md) |
 | 2 | 2026-09-16 | ESP32-S3、開發環境與按鈕去抖 | [主教材 PDF](Week_02_ESP32_Hardware_Basics/week2_main.pdf) |
-| 3 | 2026-09-23 | 電氣量測、ADC與室內／遮光分類 | [題目 PDF](Week_03_Electrical_Measurement_and_ADC/week3_main.pdf)／[Ans PDF](Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf) |
+| 3 | 2026-09-23 | 電氣量測、ADC與室內／遮光分類 | [題目 PDF](Week_03_Electrical_Measurement_and_ADC/week3_main.pdf)／[Ans PDF](Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf)／[程式](../program/week3/README.md) |
 | 4 | 2026-09-30 | 電阻量程、DHT11、雙感測器與蜂鳴提示 | [主教材 PDF](docs/teaching_drafts/week4_redesign/week4_main.pdf) |
 | 5 | 2026-10-07 | RGB、OLED與非阻塞倒數 | [主教材 PDF](docs/teaching_drafts/week5_redesign/week5_main.pdf) |
 | 6 | 2026-10-14 | SG90計數指針、供電與安全 | [主教材 PDF](docs/teaching_drafts/week6_redesign/week6_main.pdf) |
