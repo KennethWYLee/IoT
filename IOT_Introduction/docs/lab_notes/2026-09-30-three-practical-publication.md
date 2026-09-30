@@ -39,3 +39,13 @@ GitHub API 確認 `KennethWYLee/IoT` 的 `private=false`、`visibility=public`�
 
 編譯、主機模擬與硬體實測不是同一種證據；本次未上傳韌體、操作序列埠或驅動舵機。
 課前仍優先用實物確認 Week4 Q1 的空板接線、DHT 讀值及顯示／失敗提示，完成標準沿用修訂紀錄。
+
+## GitHub 完成證據
+
+教材提交 [`df23cb3`](https://github.com/KennethWYLee/IoT/commit/df23cb33d0fb37c7e809cb596ad24a6c00499bba) 已成功推到 `origin/main`。
+`git ls-remote`、重新 fetch 的 `origin/main` 與 GitHub commit API 均回傳相同完整 SHA。
+遠端 15 份現行 Main PDF 與 Week3 Ans PDF 的 SHA256 全部符合本機版本；四支 Week3 公開程式符合維護來源（Git 文字換行正規化後）。
+公開現行 `program` 只有 Week3；其他週 Ans PDF、答案維護來源與程式沒有因本次發布新增到公開清單。
+各週原有文字入口、公開導覽、雲端 25 份 PDF、26 支程式及封存位置核對完成。
+Git 初次提交因本機沒有姓名／信箱設定而未成立；改用 repository 既有提交者的單次命令設定後成功，沒有修改全域設定。
+無關的 Week4 範例修改、根目錄 examples 與 Windows 主機檢查紀錄保留原狀，不提交。
