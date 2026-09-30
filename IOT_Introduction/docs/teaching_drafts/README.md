@@ -1,5 +1,19 @@
 # Week 2–7 主教材重設稿入口
 
+2026-09-30 最新改版決定：Week2按鈕、Week3加光敏與OLED、Week4加DHT、Week5加RGB、Week6加舵機，
+Week7只整合已學材料。OLED自Week3起作裝置主要顯示，Serial留作排錯；Ans改為先接線、開程式及看成功畫面，
+答案與詳細原理在後，不再用完整填答卷開場。授課內容與分工已寫入[課程規劃](../course/18_week_plan.md)及
+[修訂準則](week2_redesign/revision_guidelines.md)。學生 Main／Ans／program 已重建，見[本輪驗證與發布紀錄](../lab_notes/2026-09-30-cumulative-rebuild.md)。
+
+## 現行維護入口
+
+Week2 使用 `week2_redesign/build_sample.cjs`；Week3 使用 `week3_redesign/build.cjs` 及 `scripts/sync_week3_main.cjs`。
+Week4～7 維護 `weekN_redesign/weekN_main.md`，以各目錄 `build.cjs` 產生 Main；加 `--answers` 讀取私有 `weekN_answers/weekNAns.md`。
+完整程式依私有 `programs.sources.json` 產生同週 `programs`。GitHub 只公開 Week3 Ans PDF 和 `program/week3`，雲端程式位於 `IoT/IOT_Introduction/program`。
+圖文與程式對應、目前頁數及未實測事項記在本輪紀錄。下列是舊版沿革，不是現行入口或必做要求。
+
+## 歷次修改紀錄
+
 2026-09-30 現行版：Week2、Week4、Week5 的 Main/Ans 分別為 6/44、12/64、8/54 頁。Ans 前段保留同週原卷填答，之後按題序操作與解釋；各週 programs 附四份完整程式和中文入口說明。六份 PDF、三個 ZIP 已更新正確雲端資料夾並回讀核對，GitHub 不加入 Ans 或答案程式。見[本輪修訂與發布紀錄](../lab_notes/2026-09-30-week245-main-ans-program-publication.md)。下方「未發布」表示當時狀態，不覆蓋本段。
 
 2026-09-30：Week3 的原週目錄 PDF 與 Notebook 已換成目前 13 頁考卷，維護來源仍在 week3_redesign。舊含答案教學版另行封存於本機；教師已授權本次 commit、push。詳見[替換及發布紀錄](../lab_notes/2026-09-30-week3-main-promotion.md)。

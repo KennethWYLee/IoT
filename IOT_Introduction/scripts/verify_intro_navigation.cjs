@@ -6,19 +6,27 @@ const files=[
  'IOT_Introduction/Week_01_Course_Orientation/week1_main.md',
  'IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb'
 ];
-function read(file){const raw=fs.readFileSync(file,'utf8').replace(/\r\n/g,'\n');return file.endsWith('.ipynb')?JSON.parse(raw).cells.map(c=>c.source.join('')).join('\n'):raw;}
+function read(file){const raw=fs.readFileSync(file,'utf8').replace(/\r\n/g,'\n');return file.endsWith('.ipynb')?JSON.parse(raw).cells.map(c=>Array.isArray(c.source)?c.source.join(''):c.source).join('\n'):raw;}
 function anchors(text){return [...text.matchAll(/<a id="([^"]+)"><\/a>/g)].map(m=>m[1]);}
+function allAnchors(text){
+ const ids=anchors(text),counts=new Map();
+ for(const [,heading]of text.matchAll(/^#{1,6}\s+(.+?)\s*#*\s*$/gm)){
+  const base=heading.replace(/<[^>]*>/g,'').toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu,'').trim().replace(/\s+/g,'-');
+  const count=counts.get(base)||0;counts.set(base,count+1);ids.push(base+(count?'-'+count:''));
+ }
+ return ids;
+}
 const docs=files.map(f=>read(path.join(root,f)));
 let links=0;
 for(const [i,text]of docs.entries()){
- const ids=anchors(text);assert.equal(new Set(ids).size,ids.length,files[i]);assert(ids.length>5);
+ const ids=anchors(text);assert.equal(new Set(ids).size,ids.length,files[i]);
  for(const m of text.matchAll(/(?<!!)\[[^\]]+\]\(([^)]+)\)/g)){
   const [target,fragment]=m[1].split('#');
   if(!fragment||/^[a-z]+:/i.test(target))continue;
-  // This verifier checks the explicit anchors introduced for the introductory reading paths.
-  if(!/^(?:w[23]-|first-iot-example|course-schedule|assessment$|final-project|materials$|purchase-(?:table|budget)$|safety$|records-and-ai|idea-card|week1-evidence|before-week2|group-measurement-tool|delivery-check|architecture-extension|assessment-details)/.test(fragment))continue;
-  const dest=target?path.resolve(path.dirname(path.join(root,files[i])),target):path.join(root,files[i]);
-  assert(fs.existsSync(dest),dest);assert(anchors(read(dest)).includes(fragment),`${files[i]}: ${m[1]}`);links++;
+  const dest=target?path.resolve(path.dirname(path.join(root,files[i])),decodeURIComponent(target)):path.join(root,files[i]);
+  assert(fs.existsSync(dest),dest);
+  if(!/\.(md|ipynb)$/.test(dest))continue;
+  assert(allAnchors(read(dest)).includes(decodeURIComponent(fragment)),`${files[i]}: ${m[1]}`);links++;
  }
 }
 for(const id of ['purchase-table','purchase-budget','course-schedule','assessment','group-measurement-tool','week-2-preclass-setup','shopee-purchase-images'])assert(anchors(docs[0]).includes(id));
@@ -97,7 +105,7 @@ assert(docs[0].includes('未含筆電與充電器、USB資料線、收納、AA�
 for(const stale of ['OLED須於核准規格公布後','OLED以外','教師這筆訂單已購5個','尚待教師公布的電池盒安全轉接端子'])assert(!docs[0].includes(stale),`No stale purchasing rule: ${stale}`);
 for(const value of ['220 Ω','330 Ω','1 kΩ','10 kΩ'])assert(resistor[1].includes(value));
 assert(resistor[3].includes('整包估算'),'Resistor package price is not a four-piece quotation');
-const groupSection=docs[0].split('### 每組必備的量測工具\n')[1]?.split('### 學生也須自備')[0];
+const groupSection=docs[0].split('### 每組必備的量測工具\n')[1]?.split('### 其他自備用品')[0];
 assert(groupSection,'Group-tool section exists');
 const meterPrice=Number(groupSection.match(/A830L既有成交參考NT\$(\d+)/)?.[1]);
 assert(Number.isFinite(meterPrice));
@@ -116,27 +124,30 @@ assert(docs[0].includes('not a tested'));
 assert(docs[0].includes('不是已完成實機驗證的成品'));
 assert(docs[0].indexOf('### 先看會做出的互動')<docs[0].indexOf('### 教學目標'));
 assert(!docs[0].includes('Week2 Ans 第 6～13 頁'));
-assert.deepEqual([...docs[0].matchAll(/^### 7\.(\d+) /gm)].map(m=>Number(m[1])),[1,2,3,4,5,6,7,8,9,10]);
-const setupAnchors=['w1-install','w1-settings','w1-usb','w1-hello','w1-serial','w1-edit','w1-troubleshoot','w1-readiness'];
+assert.deepEqual([...docs[0].matchAll(/^### 7\.(\d+) /gm)].map(m=>Number(m[1])),[1,2,3,4,5,6,7,8]);
+const setupAnchors=['w1-install','w1-settings','w1-hello','w1-compile','w1-edit','w1-troubleshoot','w1-readiness'];
 for(const id of setupAnchors)assert(anchors(docs[0]).includes(id),id);
-const hello=read(path.join(root,'IOT_Introduction/docs/teaching_drafts/week2_redesign/hello_first/hello_first.ino')).trim();
-assert.equal(docs[0].match(/```cpp\n([\s\S]*?)\n```/)?.[1].trim(),hello,'Week 1 Hello matches canonical sketch');
-const beginner=read(path.join(root,'IOT_Introduction/docs/teaching_drafts/week2_redesign/beginner_setup.cjs'));
-for(const [,option,value]of docs[0].matchAll(/^\| (Upload Speed|USB Mode|USB CDC On Boot|Upload Mode|Flash Mode|Flash Size|Partition Scheme|PSRAM|Erase All Flash Before Sketch Upload) \| ([^|]+) \|$/gm)){
- assert(beginner.includes(`<td>${option}</td><td>${value.trim()}</td>`),`Week 1/2 setting mismatch: ${option}`);
-}
-for(const phrase of ['3.3.11','只存檔時仍會新增 Hello','原有 Week 2 到貨期限不變','不熟悉的操作會先帶做','GPIO']){
+assert(docs[0].includes('hello_first/hello_first.ino'),'Exact sketch folder/name remains visible');
+assert(!/```(?:cpp|c\+\+)|void\s+(?:setup|loop)\s*\(/.test(docs[0]),'No complete private Hello program in Main');
+for(const id of ['w1-usb','w1-serial'])assert(!anchors(docs[0]).includes(id),'No Week 1 hardware procedure');
+for(const phrase of ['3.3.11','Week 1 沒有硬體','不要求找 Port','第一次上傳與文字觀察在 Week 2','GPIO']){
  assert(docs[0].includes(phrase),phrase);
 }
 const gallery=require('./hardware_galleries.cjs');
 assert(docs[0].includes(gallery.gallery(1,path.join(root,files[0]))),'Week 1 gallery matches catalog');
 assert(!docs[0].includes('week2_main.pdf#page=6'));
 assert(!docs[0].includes('week2_main.ipynb'));
-assert(docs[1].includes('Week 3 考卷：光線與紀錄'));
+assert(docs[1].includes('Week 3：光線顯示與按鈕快照'));
 assert(!docs[1].includes('完整備課版'));
 require('node:child_process').execFileSync(process.execPath,[path.join(__dirname,'sync_week3_main.cjs'),'--check'],{stdio:'inherit'});
 assert(fs.existsSync(path.join(root,'IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.pdf')));
-console.log(`PASS introductory navigation: ${links} explicit links, Week 1/3 anchors and current Week 2 PDF entry. Run verify_sample.py for Week 2 content checks.`);
+const publicFiles=require('node:child_process').execFileSync('git',['ls-files','--cached','--others','--exclude-standard','-z'],{cwd:root,encoding:'utf8'}).split('\0').filter(f=>f&&fs.existsSync(path.join(root,f)));
+for(const file of publicFiles){
+ const program=/^program\/week(\d+)(?:\/|$)/i.exec(file);
+ const answer=/^IOT_Introduction\/Week_\d+_[^/]+\/week(\d+)Ans\.pdf$/i.exec(file);
+ for(const match of [program,answer])if(match)assert.equal(Number(match[1]),3,`Only Week 3 programs/Ans are authorized public: ${file}`);
+}
+console.log(`PASS introductory navigation: ${links} local anchor links, compile-only Week 1, current Week 3 Main and public-only Week 3 programs/Ans.`);
 
 async function render(){
  const {marked}=await import(pathToFileURL(require.resolve('marked')).href);
@@ -153,7 +164,7 @@ async function render(){
     const mime=/\.png$/i.test(image)?'image/png':/\.webp$/i.test(image)?'image/webp':'image/jpeg';
     return `![${alt}](data:${mime};base64,${fs.readFileSync(image).toString('base64')})`;
    });
-   const html='<!doctype html><html lang="'+(index?'zh-Hant':'en')+'"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><style>body{font:18px/1.7 "Microsoft JhengHei",sans-serif;color:#183047;margin:24px}main{max-width:1120px;margin:auto}h2{margin-top:48px}h3{margin-top:32px}p,li{overflow-wrap:anywhere}table{display:block;overflow-x:auto;border-collapse:collapse}th,td{border:1px solid #ccd6df;padding:10px;min-width:80px}img{max-width:100%;height:auto}pre{overflow-x:auto;background:#f2f6fa;padding:16px;font:15px/1.8 Consolas,monospace}a[id]{scroll-margin-top:80px}</style><main>'+marked.parse(body)+'</main></html>';
+   const html='<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><style>body{font:18px/1.7 "Microsoft JhengHei",sans-serif;color:#183047;margin:24px}main{max-width:1120px;margin:auto}h2{margin-top:48px}h3{margin-top:32px}p,li{overflow-wrap:anywhere}table{display:block;overflow-x:auto;border-collapse:collapse}th,td{border:1px solid #ccd6df;padding:10px;min-width:80px}img{max-width:100%;height:auto}pre{overflow-x:auto;background:#f2f6fa;padding:16px;font:15px/1.8 Consolas,monospace}a[id]{scroll-margin-top:80px}</style><main>'+marked.parse(body)+'</main></html>';
    fs.writeFileSync(path.join(out,`week1_${index?'support':'main'}_review.html`),html);
    await page.setContent(html);
    assert(!(await page.locator('main').innerText()).includes('**'),'No unrendered Markdown emphasis in Week 1');

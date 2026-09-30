@@ -1,40 +1,36 @@
-# Week 2 Main、Ans、program
+# Week2 Main、Ans、program
 
-## 現行版本
+## 現行本機版本
 
-2026-09-30：Main 6 頁；Ans 44 頁，前 6 頁依原卷位置填答，第 7 頁起按 Q1～Q5 逐題教學。沿用 Week3 的分工，不套用光敏題目；保留按鈕、上拉電阻與兩種計數器的課程內容。
+2026-09-30 依課程規劃第四節重建：Main 3 頁，私人 Ans 11 頁。一顆按鈕、GPIO5；GPIO4 留給後續光敏。不新增第二顆按鈕、長按連加、0～20 上下限或外部電阻實驗。
 
-- 學生入口：[正式 Main PDF](../../../Week_02_ESP32_Hardware_Basics/week2_main.pdf)。
-- Main 維護來源：`exam_pages.cjs`。先介紹題目關係，再列作品、預期結果、驗證與作答。
-- Ans：本機 `../week2_answers/week2Ans.pdf`；正式週目錄另有相同內容副本，不加入 Git。
-- Ans 前段填答與教學排序：`../week2_answers/assemble_answers.cjs`；題目直接由 Main 產生，避免兩份原卷漂移。
-- 教學來源：`build_sample.cjs`、`beginner_setup.cjs`、`ohms_law_pages.cjs`、`counter_project.cjs`，以及私有 `room_answer.cjs`。
-- 四份完整程式在本週 Ans 的 `programs`，每份 .ino 在同名子資料夾；先讀 `START_HERE.md`。PDF 只保留開檔位置、必要片段與解說。
-- `Week2_main_layout_sample.pdf` 是正式 Main 的同步副本，不獨立修改。
-- 雲端已更新 Main、Ans 與 `program/IoT_week2_program.zip`，三檔均下載回讀核對 SHA-256。GitHub 不新增 Ans 或答案程式。
+- 學生 Main：[正式 Main PDF](../../../Week_02_ESP32_Hardware_Basics/week2_main.pdf)；本目錄 `Week2_main_layout_sample.pdf` 是相同副本。
+- Main 維護來源：`exam_pages.cjs`，含首次上傳成果、單鍵計數成果、驗證與 Q1～Q4。沒有程式檔名、答案程式或實作接線步驟。
+- 列印版型：`print.css`；入口與渲染：`build_sample.cjs`。保留既有 A4、字體、配色及頁尾。
+- 私人 Ans 的 `current_lesson.cjs` 先教操作，末段同號回答；新 .ino 只在私人 `week2_answers/programs`。
+- 舊教學來源與程式未當成新的主線；完整舊版已另保存於私人 `week2_answers/supplemental/pre_cumulative_20260930`，不構成共同必做。
 
-[共同修訂準則](revision_guidelines.md)；[本輪修訂與發布檢查](../../lab_notes/2026-09-30-week245-main-ans-program-publication.md)。
+## 重建
 
-## 重建與檢查
-
-從 IoT repository 根目錄執行；使用既有 Node、Playwright、Edge 與 Python PDF 相依套件。
+從 IoT repository 根目錄執行，沿用已配置的 Node、Playwright、Edge、Python pypdf、Poppler：
 
 ```powershell
 node IOT_Introduction/scripts/package_answer_programs.cjs 2
 node IOT_Introduction/docs/teaching_drafts/week2_redesign/build_sample.cjs
-node IOT_Introduction/docs/teaching_drafts/week2_redesign/build_sample.cjs --answers
+node IOT_Introduction/docs/teaching_drafts/week2_answers/build_answers.cjs
+node IOT_Introduction/docs/teaching_drafts/week2_answers/test_source_simulation.cjs
 python IOT_Introduction/docs/teaching_drafts/week2_redesign/verify_sample.py
 node IOT_Introduction/scripts/package_answer_programs.cjs 2 --check
 ```
 
-只有公開 repository 時可重建 Main；Ans 及其檢查需教師保留的私有來源。公開 `checks/published_main.json` 記錄 Main 與輸入來源雜湊。原 notebook 已封存，不得用舊匯出器覆蓋 Main。
+公開來源可獨立重建 Main，不需要私人答案目錄。Ans 與完整驗證需要本機私人來源。`checks/published_main.json` 是沿用檔名的本機輸出雜湊紀錄，不表示這次已發布。
 
-本輪完成原卷題序、填答區裁切、算式、程式引用及逐頁渲染檢查。沒有變更 .ino 行為，也沒有重新進行 Arduino 目標編譯、MSVC 主機測試或實機操作。舊成功紀錄只代表當時版本。
+## 驗證界線
 
-## 使用限制
+Main、Ans 已重建、逐頁檢查；三支新程式使用 Arduino-ESP32 3.3.12 目標編譯。另以替代 I/O 執行由來源轉換的 JavaScript 控制流程，測試按下、放開、彈跳、計時與起始行為；這不是原生 C++ 主機執行，也不是硬體實測。
 
-接線示範限定已核對的 YD-ESP32-S3 Type-A V1.5／N16R8／CH343 與四腳按鈕。GPIO4／5 為輸入；不把按鈕支路直接接 3V3 或 5V。改線前斷電，短路反例只在紙上討論。
+GPIO5 選擇依 BOARD-T01 2026-09-07 按放紀錄與板卡廠商腳位表，麵包板及四腳方向依既有接點紀錄。須核對每組實際板型、按鈕組別、資料線及新版實際按放；沒有上電、Upload 或新實機結果。
 
-優先完成本組接線與短按、長按、上下限的實物核對，再用 Main 驗收。照片、編譯或紙上計算不能代替實物結果。
+未改共享準則、課程計畫、根索引、其他週或 Git 排除規則；未 stage、commit、push 或上傳。正式週目錄舊 Ans 副本不在本分工修改範圍，新 Ans 在私人目錄。
 
-較早頁碼、Arduino 編譯與主機測試紀錄見 [Week2_redesign_review.md](Week2_redesign_review.md)及各日期 lab_notes；不作本輪新測試證據。
+詳細證據與變更清單：[本輪紀錄](../week2_answers/2026-09-30-cumulative-rebuild.md)。

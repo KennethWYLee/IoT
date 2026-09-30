@@ -1,0 +1,13 @@
+@page{size:A4;margin:0}*{box-sizing:border-box}body{margin:0;color:#24343b;background:#e4e7e8;font:12pt/1.6 "Microsoft JhengHei",sans-serif;letter-spacing:0}
+.page{background:white;width:210mm;height:297mm;padding:14mm 17mm 16mm;position:relative;break-after:page;overflow:hidden}.page:last-child{break-after:auto}
+header{display:flex;justify-content:space-between;color:#506b70;font-size:9pt;border-bottom:1px solid #a8bdbd;padding-bottom:3mm;margin-bottom:6mm}main{height:246mm}
+h1{font-size:23pt;line-height:1.4;margin:0 0 3mm;color:#194e54}h2{font-size:14pt;line-height:1.45;margin:5mm 0 2mm}p{margin:2.5mm 0}p.lead{font-size:13pt;color:#4d636d;margin-bottom:5mm}
+.goal{border-left:4px solid #287d80;padding:3mm 4mm;background:#edf5f4}.steps{padding-left:6mm;margin:2mm 0}.steps li{margin:2mm 0}
+figure{margin:3mm 0}svg{display:block;width:100%;height:auto;max-height:96mm;font-family:"Microsoft JhengHei",sans-serif;fill:#24343b}figcaption{font-size:9.5pt;line-height:1.5;color:#52636c;margin-top:2mm}
+table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:11pt;line-height:1.5;margin:4mm 0}th{text-align:left;background:#eaf1f2}td,th{border-bottom:1px solid #c6d3d6;padding:2.5mm;vertical-align:top}.settings td,.settings th{padding:1.6mm 2.5mm}
+aside{padding:3mm 4mm;line-height:1.55;font-size:11pt;margin:4mm 0}.safety{border-left:4px solid #ae493c;background:#fff2ee}.note{border-left:4px solid #947336;background:#fbf6e8}
+.sources{font-size:9pt;line-height:1.5;color:#5d6b72}a{color:#194e54}footer{position:absolute;bottom:9mm;left:17mm;right:17mm;display:flex;justify-content:space-between;color:#607079;font-size:8.5pt}
+pre{font:12pt/1.5 Consolas,monospace;white-space:pre-wrap;margin:3mm 0;padding:3mm;background:#f1f4f5;border-left:3px solid #718991}code{font-family:Consolas,monospace;font-size:11pt;overflow-wrap:anywhere}
+.reference{width:100%;object-fit:contain}.write-space{border-bottom:1px solid #aec0c4;margin:3mm 0;background:repeating-linear-gradient(to bottom,white 0,white 8.8mm,#e3ebec 8.8mm,#e3ebec 9mm)}ul{padding-left:6mm;margin:2mm 0}li{margin:1.5mm 0}
+.two-col{display:grid;grid-template-columns:62mm 1fr;gap:5mm;align-items:start}.two-col img{width:62mm;object-fit:contain}.file{font:11pt/1.5 Consolas,monospace;padding:2mm 3mm;background:#edf5f4;overflow-wrap:anywhere}.compact{font-size:11pt}
+@media screen{.page{margin:10mm auto;box-shadow:0 1px 8px #aaa}}

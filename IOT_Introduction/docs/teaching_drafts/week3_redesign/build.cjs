@@ -20,7 +20,7 @@ const course = path.resolve(__dirname, '../../..');
 const answers = process.argv.includes('--answers');
 const destination = answers ? path.resolve(__dirname, '../week3_answers') : __dirname;
 const stem = answers ? 'week3Ans' : 'week3_main';
-const title = answers ? 'Week 3 Ans · 電氣量測與 ADC' : 'Week 3 考卷 · 電氣量測與 ADC';
+const title = answers ? 'Week 3 Ans · 光線顯示與按鈕快照' : 'Week 3 · 光線顯示與按鈕快照';
 const tmp = path.join(destination, 'tmp');
 fs.mkdirSync(tmp, { recursive: true });
 const esc = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
@@ -48,7 +48,7 @@ function nodes(rows) {
     const y=67+i*64;
     s+=line(220,y,388,y,colors.teal,'stroke-dasharray="3 4"');
     for(let c=0;c<5;c++)s+=`<circle cx="${220+c*42}" cy="${y}" r="7" fill="white" stroke="#5c747b"/>`;
-    s+=text(419,y+6,r,17,'middle');
+    s+=text(419,y-12,r,17,'middle');
     if(left)s+=text(5,y-12,left,18)+line(38,y,220,y)+dot(220,y);
     if(right){const pin=right.match(/^([abcde])\d/);const x=pin?220+'abcde'.indexOf(pin[1])*42:388;s+=line(x,y,490,y)+dot(x,y)+text(485,y-12,right,18);}
   });
@@ -98,7 +98,45 @@ function combinedCurrent() {
   s+=text(325,343,'經板上電源回路返回',16,'middle');
   return svg(s,370);
 }
+function snapshotWiring() {
+  const tx=(x,y,s,size=22)=>`<text x="${x}" y="${y}" font-size="${size}">${esc(s)}</text>`;
+  const wire=(points,color=colors.teal)=>`<polyline points="${points}" fill="none" stroke="${color}" stroke-width="3"/>`;
+  const hole=(x,y)=>`<circle cx="${x}" cy="${y}" r="7" fill="white" stroke="#526c70" stroke-width="2"/>`;
+  let s=tx(15,26,'板 8 ─ OLED SDA；板 9 ─ OLED SCK（SCL）',23);
+  s+='<rect x="295" y="48" width="214" height="455" fill="#f5f8f8" stroke="#a5b5b8"/>';
+  s+='<rect x="510" y="355" width="22" height="148" fill="#dce3e4"/>';
+  s+='<rect x="533" y="355" width="198" height="148" fill="#f5f8f8" stroke="#a5b5b8"/>';
+  'abcde'.split('').forEach((c,i)=>s+=tx(312+i*40,75,c,20));
+  'fghij'.split('').forEach((c,i)=>s+=tx(552+i*40,385,c,20));
+  const rows=[[3,115],[6,210],[15,305],[20,415],[22,480]];
+  for(const [r,y] of rows){
+    s+=`<line x1="320" y1="${y}" x2="480" y2="${y}" stroke="#a7b9bc" stroke-width="5"/>`;
+    for(let i=0;i<5;i++)s+=hole(320+i*40,y);
+    s+=tx(265,y-13,String(r),20);
+    if(r>=20){for(let i=0;i<5;i++)s+=hole(560+i*40,y);}
+  }
+  s+=tx(15,105,'板 GND → a3')+wire('180,115 320,115',colors.black);
+  s+=wire('360,115 360,90 580,90',colors.black)+tx(595,97,'b3 → OLED GND');
+  s+=wire('400,115 400,142 580,142',colors.black)+tx(595,149,'c3 → 光敏 −');
+  s+=wire('440,115 440,168 580,168',colors.black)+tx(595,175,'d3 → a22 地線');
+  s+=tx(15,200,'板 3V3 → a6')+wire('180,210 320,210',colors.red);
+  s+=wire('360,210 360,190 580,190',colors.red)+tx(595,197,'b6 → OLED VDD');
+  s+=wire('400,210 400,240 580,240',colors.red)+tx(595,247,'c6 → 光敏供電腳');
+  s+=tx(15,295,'光敏 S → a15')+wire('180,305 320,305');
+  s+=wire('400,305 400,325 580,325')+tx(595,332,'c15 → 板 4');
+  s+=tx(15,405,'板 5 → a20')+wire('180,415 320,415');
+  s+=tx(15,470,'d3 → a22')+wire('180,480 320,480',colors.black);
+  s+='<rect x="478" y="408" width="84" height="78" rx="3" fill="#d7dfe0" stroke="#526c70" stroke-width="2"/>';
+  s+='<circle cx="520" cy="447" r="21" fill="#526c70"/>';
+  for(const y of [415,480])for(const x of [480,560])s+=hole(x,y);
+  s+=tx(15,541,'按鈕腳：e20／f20／e22／f22；跨中央溝槽。',23);
+  s+=tx(15,574,'線兩端依實物印字辨認；列距省略，不是等比例安裝照片。',21);
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 595" role="img">${s}</svg>`;
+}
 const diagrams = {
+ oledfirst:()=>nodes([[3,'板 GND → a3','b3 → OLED GND'],[6,'板 3V3 → a6','b6 → OLED VDD']]).replace('</svg>',text(20,232,'板 8 → OLED SDA；板 9 → OLED SCK（SCL）',20)+'</svg>').replace('viewBox="0 0 650 199"','viewBox="0 0 650 258"'),
+ lightadded:()=>nodes([[3,'保留板 GND → a3','c3 ← 光敏 −'],[6,'保留板 3V3 → a6','c6 ← 光敏供電'],[15,'光敏 S → a15','c15 → 板 4']]),
+ fullsnapshotwiring:snapshotWiring,
  oledpower:()=>svg(
    text(325,22,'供電回路示意：傳統電流分成兩條支路',18,'middle')
    +box(10,72,95,44,'3V3')+box(250,45,155,44,'光敏模組')
@@ -178,6 +216,10 @@ if (new Set(parts.map(m => m[1])).size !== parts.length) throw Error('Duplicate 
 if (!answers && /\{\{program:/.test(input)) throw Error('Main is an exam; programs belong in Ans');
 const pages = [];
 const inputs = [];
+if (answers) for (const name of ['oled_fixed_text','oled_light','oled_light_snapshot']) {
+  const p=path.join(destination,'programs',name,name+'.ino');
+  inputs.push({path:path.relative(course,p).replaceAll('\\','/'),sha256:hash(fs.readFileSync(p,'utf8'))});
+}
 const sourceAnchors = new Map();
 for(const m of parts) {
   const match = m[3].trim().match(/^\{\{program:(\w+)\}\}$/);
@@ -229,8 +271,12 @@ function render(body) {
     const data=fs.readFileSync(path.join(actual,name));
     photoInputs.set(name,hash(data));
     const uri=`data:image/${name.endsWith('.png')?'png':'jpeg'};base64,${data.toString('base64')}`;
-    const media=name==='KY018_1.jpg'
-      ? `<svg viewBox="350 540 290 640" style="height:${height}mm;max-height:none" role="img" aria-label="${esc(caption)}"><image href="${uri}" width="1108" height="1477"/></svg>`
+    const media=name==='ESP32S3_1.png'
+      ? `<svg viewBox="100 145 1460 625" style="width:${height*1460/625}mm;height:${height}mm;max-height:none;margin:auto;overflow:hidden" role="img" aria-label="${esc(caption)}"><image href="${uri}" width="1672" height="940"/></svg>`
+      : name==='OLED_1.jpg'
+      ? `<svg viewBox="325 655 435 420" style="width:${height*435/420}mm;height:${height}mm;max-height:none;margin:auto;overflow:hidden" role="img" aria-label="${esc(caption)}"><image href="${uri}" width="1108" height="1477"/></svg>`
+      : name==='KY018_1.jpg'
+      ? `<svg viewBox="350 540 290 640" style="width:${height*290/640}mm;height:${height}mm;max-height:none;margin:auto;overflow:hidden" role="img" aria-label="${esc(caption)}"><image href="${uri}" width="1108" height="1477"/></svg>`
       : `<img style="height:${height}mm" alt="${esc(caption)}" src="${uri}"/>`;
     return `<figure class="photo">${media}<figcaption>${esc(caption)}</figcaption></figure>`;
   });
@@ -263,6 +309,7 @@ footer{position:absolute;bottom:9mm;left:17mm;right:17mm;display:flex;justify-co
 .write-space{border:1px solid #a7b9bc;margin:3mm 0 4mm;background:white}
 .response-table td{height:13mm}
 #exercisemeter figure.diagram{margin:2mm 0}#exercisemeter .diagram svg{max-height:52mm}
+#allwiring .diagram svg{max-height:125mm}#oledwire .diagram svg{max-height:65mm}
 @media screen{.page{margin:8mm auto;box-shadow:0 1px 6px #aaa}}
 `;
 const html='<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>'+title+'</title><style>'+css+'</style></head><body>'+pages.map((p,i)=>`<section id="${p.id}" class="page"><header><span>${esc(title)}</span><span>${esc(p.tag)}</span></header><main>${p.html||render(p.body)}</main><footer><span>${esc(title)}</span><span>${i+1} / ${pages.length}</span></footer></section>`).join('')+'</body></html>';

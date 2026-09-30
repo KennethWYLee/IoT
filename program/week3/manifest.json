@@ -3,49 +3,19 @@
   "textHashLineEndings": "LF",
   "files": [
     {
-      "source": "examples/week03_gpio_voltage_cycle/week03_gpio_voltage_cycle.ino",
-      "destination": "week03_gpio_voltage_cycle/week03_gpio_voltage_cycle.ino",
-      "sha256": "ff56c133af60440daa5789da0f4d9090b93acacc9becb1ba1acf143b60b1690c"
+      "source": "docs/teaching_drafts/week3_answers/programs/oled_fixed_text/oled_fixed_text.ino",
+      "destination": "oled_fixed_text/oled_fixed_text.ino",
+      "sha256": "4ba99e604cdad7249e23dcdb6e4937c0a6b2fddcc278219abf0165b67747be1f"
     },
     {
-      "source": "examples/week03_ky018_raw/week03_ky018_raw.ino",
-      "destination": "week03_ky018_raw/week03_ky018_raw.ino",
-      "sha256": "5e1e07af78eac587c228dc7a9c61eee376d2d2ad365ffcff45eeae51e17b9dd0"
+      "source": "docs/teaching_drafts/week3_answers/programs/oled_light/oled_light.ino",
+      "destination": "oled_light/oled_light.ino",
+      "sha256": "7ac12525722b9632af943780df01ae1b0808a174a54feb9a5af8a28bf71527c2"
     },
     {
-      "source": "examples/week03_light_classifier/week03_light_classifier.ino",
-      "destination": "week03_light_classifier/week03_light_classifier.ino",
-      "sha256": "6b99ed8a705ca4e92ae43bd70e83490f8adcab98abc218b34436049148c95806"
-    },
-    {
-      "source": "docs/teaching_drafts/week3_redesign/button_light_capture/button_light_capture.ino",
-      "destination": "button_light_capture/button_light_capture.ino",
-      "sha256": "2cd577306e81ca7752030939e674fb2f0ae3317d78d1d4da5c1101af7fa16e09"
-    },
-    {
-      "source": "docs/teaching_drafts/week3_answers/three_light_samples/three_light_samples.ino",
-      "destination": "three_light_samples/three_light_samples.ino",
-      "sha256": "c6c35a8b5957c42d6d4d277285bd66a5f0ee335f92be00c2af7e1e5df807b34e"
-    },
-    {
-      "source": "docs/teaching_drafts/week3_answers/shade_counter/shade_counter.ino",
-      "destination": "shade_counter/shade_counter.ino",
-      "sha256": "c53deaf8800fd06a96dc1e5a0094a4d8c487de93f5760c200e6ca9f8254bbb55"
-    },
-    {
-      "source": "docs/teaching_drafts/week3_answers/week05_i2c_check/week05_i2c_check.ino",
-      "destination": "week05_i2c_check/week05_i2c_check.ino",
-      "sha256": "410d7d52e93a266b8846651cb2c9f3fe0155a842fd2148c3381187210c40a924"
-    },
-    {
-      "source": "docs/teaching_drafts/week3_answers/light_observer/light_observer.ino",
-      "destination": "light_observer/light_observer.ino",
-      "sha256": "3cbbc65ae538a245fb02c5f3cf36cb7c149902ae175c63907cf7c3096f8c2cf8"
-    },
-    {
-      "source": "docs/teaching_drafts/week3_answers/light_snapshot/light_snapshot.ino",
-      "destination": "light_snapshot/light_snapshot.ino",
-      "sha256": "da3187be2f075249f9712aebdcc1b65e352d5baa2a75f8fda5bec5332ff62f44"
+      "source": "docs/teaching_drafts/week3_answers/programs/oled_light_snapshot/oled_light_snapshot.ino",
+      "destination": "oled_light_snapshot/oled_light_snapshot.ino",
+      "sha256": "d6fc74e881004d27f66a8af68b5aedf5e77369a34a4209ce710fca0f27316dd6"
     }
   ]
 }

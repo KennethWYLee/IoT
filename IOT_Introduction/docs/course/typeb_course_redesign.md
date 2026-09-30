@@ -1,5 +1,11 @@
 # Type B 課程設計：IoT 玩具與互動硬體
 
+2026-09-30 更新：本文件保留早期設計供追溯。現行安排為 Week8 實作考、Week9 教師出國、
+Week10 第一次專題報告、Week13 第二次報告、Week16 一般實作課、Week17 第三次報告。
+兩次筆試已取消，新配分待確認；下方舊評量與週次不再作為學生通知。
+Week3起使用OLED作主要顯示，Week5改為RGB環境狀態，Week7改為已學材料整合；
+新教學順序及現行要求以[18週課程規劃](18_week_plan.md)為準。
+
 本文件依據 `C:\Users\User\Documents\Lecture materials\2026_Oxford EMI\output\TypeB-teaching-redesign-guide.md`，將 IoT 課程設計成「概念判斷、實作驗證、同儕比較、修正與遷移」的循環。完整週次以 `18_week_plan.md` 為主。
 
 ## 1. 課程假設

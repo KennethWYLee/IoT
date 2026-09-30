@@ -3,60 +3,20 @@
   "pages": [
     {
       "number": 1,
-      "id": "exercise"
+      "id": "goal"
     },
     {
       "number": 2,
-      "id": "exercisemeter"
+      "id": "tests"
     },
     {
       "number": 3,
-      "id": "worksheetsafety"
-    },
-    {
-      "number": 4,
-      "id": "worksheetflow"
-    },
-    {
-      "number": 5,
-      "id": "projectintro"
-    },
-    {
-      "number": 6,
-      "id": "buildexercise"
-    },
-    {
-      "number": 7,
-      "id": "batchrecord"
-    },
-    {
-      "number": 8,
-      "id": "projectbutton"
-    },
-    {
-      "number": 9,
-      "id": "projectbuttonresults"
-    },
-    {
-      "number": 10,
-      "id": "projectoled"
-    },
-    {
-      "number": 11,
-      "id": "projectoledresults"
-    },
-    {
-      "number": 12,
-      "id": "projectcapture"
-    },
-    {
-      "number": 13,
-      "id": "projectcaptureresults"
+      "id": "questions"
     }
   ],
-  "sourceSha256": "2a098e605dd523cb07bcaf48bf013ac4932557660dd526b9285d72537013a082",
-  "builderSha256": "01e58f5ea82aede73a7e7eca84a21618817c5ddb1800eb3e40c2006bc288b94d",
+  "sourceSha256": "6c560cab7363c26d6a975fd247e9280f10df0ceb48b3f1ea357c7a8a25db2811",
+  "builderSha256": "f257999e769fc80939cbcccca27df9296cd3ea34d6c065ef2609ef3c4aab466a",
   "sketches": [],
   "photos": [],
-  "pdfSha256": "12d1d8534b21cf8104c7ce5d9d30dc1d661381501d2665939d932c6b2625bff7"
+  "pdfSha256": "f13f38ef644873386f570b5bd9e07b8f3ea736dea890db91e0ceeca23acab7de"
 }

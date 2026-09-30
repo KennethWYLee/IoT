@@ -1,83 +1,22 @@
-# Week 16：第二次個人筆試—網路通訊與軟硬整合架構
+# Week 16：實作課，修正期末作品
 
 日期：2026-12-23
 
-## Unit Overview
+本週是一般實作課，不是第二次筆試，也不是第二場實作考。用已具備的材料，依 Week 13 回饋及 Week 14～15 的整合結果改善期末作品，準備 Week 17 展示。不新增零件清單、報告或另一份繳交包。
 
-### 教學目標
+## 本週要改善什麼？
 
-學生應能在本次評量中展現下列能力：
+從自己的作品找出尚未成功的一項接線、程式或整合問題。先說清楚目前做哪個操作、預期看見什麼、實際發生什麼，再決定本次修改；不要同時加入無關的新功能。
 
-1. 追蹤感測事件（sensor event）與控制命令（control command），說明它們如何經過ESP32、無線網路（Wi-Fi）、超文字傳輸協定（HTTP）或訊息佇列遙測傳輸協定（MQTT）、後端（backend）、資料庫（database）、網頁雙向通訊（WebSocket）及行動介面（mobile interface）。
-2. 比較請求／回應（request-response）、發布／訂閱（publish-subscribe）、即時更新（live update）、歷史儲存（historical storage）與結構化紀錄（structured log）的責任。
-3. 使用識別碼（identifier）、狀態碼（status code）、訊息內容欄位（payload field）、時間戳記（timestamp）與紀錄（log），找出整合系統中首先失敗的層次。
-4. 解釋授權（authorization）、逾時（timeout）、無效資料（invalid data）、離線（offline）與復原（recovery）行為，不混淆介面狀態與實體證據。
+## 課堂操作與驗證
 
-### 教學內容
+1. 帶原有作品、接線資料、程式與測試紀錄，從已確認的版本重新操作，找出首先不符預期的位置。
+2. 修改接線前拔除 USB 與外部電源；重新上電前核對供電、訊號、共同 GND 及已教的停止條件。未確認的電壓、驅動或行程不靠通電試錯。
+3. 針對找到的問題修正接線或程式。軟硬整合問題對照裝置、後端、資料紀錄與手機的實際結果；不要把命令已送出當作硬體已完成動作。
+4. 用修改前相同的操作重測，核對原問題是否排除，以及既有功能是否仍可操作。把改了什麼、測試結果與未解決限制更新到原有專案紀錄，不另交本週報告。
 
-本次個人筆試評量第一次專題報告後發展的網路通訊與整合架構（integrated architecture）。學生會將超文字傳輸協定（HTTP）、JSON資料交換格式（JSON）、網頁雙向通訊（WebSocket）、訊息佇列遙測傳輸協定（MQTT）、後端驗證（backend validation）、資料庫紀錄（database record）、結構化紀錄（structured log）、行動介面狀態（mobile state）及跨層識別碼（cross-layer identifier），視為同一套可追蹤系統進行判讀。本週不教授新內容，不安排實驗活動、專題報告或小組作業。
+## 下週展示
 
-## 本週性質
+Week 17（2026-12-30）第三次專題報告安排不變，每組只評一次並保留個人問答。展示內容、共同截止時間與提交方式依[Week 17 Main](../Week_17_Project_Report_3/week17_main.md)及教師原有公告；本週不另增展示或評量。
 
-本週全週只進行個人筆試，不安排新進度、硬體實作、專題報告或小組活動。
-本次筆試占學期成績15%。
-
-## 筆試範圍
-
-- Wi-Fi、IP與裝置如何找到Backend。
-- HTTP request／response、status code與JSON資料格式。
-- 手機以HTTP建立命令，以及Backend以WebSocket推送即時狀態與命令結果。
-- MQTT broker、topic、payload、presence與acknowledgement。
-- ESP32、Backend、Database、structured log與手機前台的責任邊界。
-- sensor signal如何成為event，以及command、result、error與timeout如何跨層流動。
-- 依Serial、request log、server log、Database紀錄及手機狀態判斷中斷位置。
-
-## 當週產出
-
-完成第二次個人筆試。作答內容只以個人理解與判斷為評量依據。
-
-## 完成檢核
-
-- [ ] 完成個人筆試。
-- [ ] 已依應試規定繳交試卷。
-
-參考：[第二次筆試藍圖](../docs/course_materials/rubrics_and_checklists.md)
-
-<a id="practice-and-reference"></a>
-
-## 準備、紀錄表與延伸參考
-
-<a id="support-應試準備"></a>
-
-### 應試準備
-
-本週不攜帶或操作ESP32-S3、感測器、致動器與外部電源。考前依正式公告確認
-考場、座位、可攜物品與應試規定。
-
-<a id="support-複習主線"></a>
-
-### 複習主線
-
-```text
-sensor signal
-  -> ESP32 event
-  -> Wi-Fi / HTTP or MQTT
-  -> Backend validation
-  -> Database / structured log
-  -> WebSocket
-  -> phone state
-
-phone command
-  -> HTTP POST / Backend authorization
-  -> HTTP polling or MQTT command delivery
-  -> ESP32 validation and physical action
-  -> HTTP result or MQTT acknowledgement
-  -> Backend / Database
-  -> WebSocket
-  -> phone result
-```
-
-學生應能根據資料流圖、JSON、topic、程式片段、log或錯誤畫面，判斷每一層的
-責任、成功證據與第一個檢查位置。正式試題與答案不放在公開repository中。
-
-參考：[第二次筆試藍圖](../docs/course_materials/rubrics_and_checklists.md)
+全學期僅 Week 8 一次實作考。實作考與平常成績的配分仍待教師確認，不沿用原第二次筆試的 15%；個人或組內輪流、時限、可用資源與 AI 等實作考規定見[Week 8 通知](../Week_08_Project_Report_1/week8_main.md)，未公告部分仍待確認。

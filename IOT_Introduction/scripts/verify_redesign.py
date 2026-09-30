@@ -19,6 +19,8 @@ w = args.week
 directory = COURSE / "docs/teaching_drafts" / f"week{w}_{'answers' if args.answers else 'redesign'}"
 stem = f"week{w}Ans" if args.answers else f"week{w}_main"
 manifest = json.loads((directory / "build_manifest.json").read_text(encoding="utf-8"))
+if manifest.get("format") == 2:
+    raise SystemExit(subprocess.call([sys.executable, str(COURSE / "scripts/verify_cumulative_lesson.py"), *sys.argv[1:]]))
 def digest(p, text=False):
     value = p.read_text(encoding="utf-8").replace("\r\n", "\n").encode() if text else p.read_bytes()
     return hashlib.sha256(value).hexdigest()

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import base64
+import argparse
 import binascii
 import json
 import hashlib
@@ -16,8 +17,9 @@ from urllib.parse import unquote
 ROOT = Path(__file__).resolve().parents[2]
 COURSE = ROOT / "IOT_Introduction"
 EXAM_MAIN_WEEKS = {3, 4, 5, 6, 7, 11, 12, 14, 15}
-REPORT_WEEKS = {8, 13, 17}
-OVERVIEW_WEEKS = {1, 9, 10, 16}
+REPORT_WEEKS = {10, 13, 17}
+OVERVIEW_WEEKS = {1, 9}
+ORIENTATION_PDF_WEEKS = {1, 8, 9, 10, 16}
 HARDWARE_CODE_WEEKS = {2, 3, 4, 5, 6, 7, 11, 12, 15}
 LOCAL_ONLY_NAMES = {"agents.md", "claude.md", "project.md"}
 FORBIDDEN_EDITORIAL_PHRASES = (
@@ -173,19 +175,23 @@ def markdown_table_blocks(content: str) -> set[str]:
     return blocks
 
 
-def repository_documents() -> list[Path]:
+def repository_files() -> set[Path]:
     # Honor Git exclusions: local rules, personal projects and generated previews
     # must not become public lesson inputs just because they exist on this computer.
     paths = subprocess.check_output(
         ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
         cwd=ROOT,
     ).decode("utf-8").split("\0")
-    return sorted(
-        {ROOT / name for name in paths
-         if name and Path(name).suffix.lower() in {".md", ".ipynb"}
-         and Path(name).name.lower() not in LOCAL_ONLY_NAMES
-         and (ROOT / name).is_file()}
-    )
+    return {ROOT / name for name in paths if name and (ROOT / name).is_file()}
+
+
+def current_main(directory: Path) -> Path:
+    number = week_number(directory)
+    draft = COURSE / f"docs/teaching_drafts/week{number}_redesign/week{number}_main.md"
+    if number in {3, 4, 5, 6, 7} and draft.exists():
+        return draft
+    extension = "ipynb" if number in {3, 4, 5, 6, 7} else "md"
+    return directory / f"week{number}_main.{extension}"
 
 
 def table_cells(line: str) -> list[str]:
@@ -244,68 +250,87 @@ def check_document_file(document: Path, content: str) -> list[str]:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--weeks", type=int, nargs="+", choices=range(1, 19),
+                        help="Check only these current weekly entries, not unrelated legacy documents")
+    parser.add_argument("--report", type=Path, help="Write a JSON findings record")
+    args = parser.parse_args()
     errors: list[str] = []
     summaries: list[str] = []
-    all_documents = repository_documents()
+    public_files = repository_files()
+    week_directories = sorted(COURSE.glob("Week_*"), key=week_number)
+    if len(week_directories) != 18:
+        errors.append(f"expected 18 week directories, found {len(week_directories)}")
+    if args.weeks:
+        week_directories = [d for d in week_directories if week_number(d) in args.weeks]
+        documents = {current_main(d) for d in week_directories if week_number(d) != 2}
+    else:
+        documents = {p for p in public_files if p.suffix.lower() in {".md", ".ipynb"}
+                     and p.name.lower() not in LOCAL_ONLY_NAMES}
+        documents.update(current_main(d) for d in week_directories if week_number(d) != 2)
+    all_documents = sorted(documents)
+    # Apply the current publication boundary, without removing historical examples.
+    for file in sorted(public_files):
+        relative = file.relative_to(ROOT).as_posix()
+        for pattern in (r"^program/week(\d+)(?:/|$)",
+                        r"^IOT_Introduction/Week_\d+_[^/]+/week(\d+)Ans\.pdf$"):
+            match = re.match(pattern, relative, flags=re.IGNORECASE)
+            if match and int(match.group(1)) != 3:
+                errors.append(f"{relative}: only Week 3 programs/Ans are authorized public")
     for document in all_documents:
         try:
             content = document_content(document)
-        except (json.JSONDecodeError, ValueError) as exc:
+        except (OSError, json.JSONDecodeError, ValueError) as exc:
             errors.append(f"{document.relative_to(ROOT)}: {exc}")
             continue
         errors.extend(check_document_file(document, content))
 
-    week_directories = sorted(COURSE.glob("Week_*"), key=week_number)
-    if len(week_directories) != 18:
-        errors.append(f"expected 18 week directories, found {len(week_directories)}")
-
     for directory in week_directories:
         number = week_number(directory)
-        files = sorted(path.name for path in directory.iterdir() if path.is_file())
+        files = sorted(path.name for path in directory.iterdir() if path in public_files)
         if number == 2:
             expected = ["week2_main.pdf"]
-            local_supplement = directory / "week2Ans.pdf"
-            if local_supplement.exists():
-                expected = sorted([*expected, local_supplement.name])
             if files != expected:
                 errors.append(f"{directory.name}: expected only {expected}, found {files}")
             manifest_path = COURSE / "docs/teaching_drafts/week2_redesign/checks/published_main.json"
+            if not manifest_path.exists():
+                summaries.append("Week 02: public Main PDF; private build manifest unavailable (not checked)")
+                continue
             manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
             pdf = ROOT / manifest["pdf"]
             if hashlib.sha256(pdf.read_bytes()).hexdigest() != manifest["pdf_sha256"]:
                 errors.append("Week 2 PDF differs from its layout build manifest")
             for name, expected_hash in manifest["inputs"].items():
                 source = ROOT / name
-                data = source.read_text(encoding="utf-8").replace("\r\n", "\n").encode("utf-8") if source.suffix in {".cjs", ".ino"} else source.read_bytes()
+                data = source.read_text(encoding="utf-8").replace("\r\n", "\n").encode("utf-8") if source.suffix in {".cjs", ".ino", ".css"} else source.read_bytes()
                 if hashlib.sha256(data).hexdigest() != expected_hash:
                     errors.append(f"Week 2 layout source changed: {name}")
-            supplement = COURSE / "docs/teaching_drafts/week2_answers/week2Ans.pdf"
-            if local_supplement.exists():
-                if not supplement.exists() or local_supplement.read_bytes() != supplement.read_bytes():
-                    errors.append("Week 2 local answer PDF differs from its build output")
-            summaries.append(f"Week 02: question PDF ({manifest['pages']} pages); full teaching in local week2Ans")
+            summaries.append(f"Week 02: public Main PDF ({manifest['pages']} pages); private answers excluded")
             continue
         expected = (
             [f"week{number}_main.ipynb", f"week{number}_main.pdf"]
             if number in {2, 3, 4, 5, 6, 7}
             else [f"week{number}_main.md"]
         )
-        if number in {11, 12, 14, 15}:
+        if number in {11, 12, 14, 15} | ORIENTATION_PDF_WEEKS:
             expected.append(f"week{number}_main.pdf")
-        if files != expected:
-            errors.append(f"{directory.name}: expected only {expected}, found {files}")
+        if number == 1:
+            expected.append("programs.sources.json")
+        if number == 3:
+            expected.append("week3Ans.pdf")
+        if files != sorted(expected):
+            errors.append(f"{directory.name}: expected only {sorted(expected)}, found {files}")
             continue
 
-        main_path = directory / expected[0]
-        # Keep historical notebooks, but validate the current reading entry.
-        if number in {3, 4, 5, 6, 7}:
-            main_path = COURSE / f"docs/teaching_drafts/week{number}_redesign/week{number}_main.md"
+        main_path = current_main(directory)
+        if not main_path.exists():
+            continue  # The document check above records the missing source.
         main_content = document_content(main_path)
         main_lines = len(main_content.splitlines())
         summaries.append(
             f"Week {number:02d}: main={main_lines} lines"
-            + (", notebook and PDF" if main_path.suffix == ".ipynb"
-               else ", Markdown and PDF" if number in {11, 12, 14, 15}
+            + (", current Main, notebook and PDF" if number in {3, 4, 5, 6, 7}
+               else ", Markdown and PDF" if number in {11, 12, 14, 15} | ORIENTATION_PDF_WEEKS
                else ", single Markdown")
         )
 
@@ -321,6 +346,21 @@ def main() -> int:
                 errors.append(f"{main_path.relative_to(ROOT)}: missing Chinese purchase list")
             if "每人必備零件" in main_content or "每人參考金額" in main_content:
                 errors.append(f"{main_path.relative_to(ROOT)}: obsolete per-student procurement")
+            for term in ("Week 1 沒有硬體", "不要求找 Port", "w1-compile", "hello_first/hello_first.ino"):
+                if term not in main_content:
+                    errors.append(f"{main_path.relative_to(ROOT)}: missing compile-only Week 1 condition {term}")
+            if re.search(r'<a id="w1-(?:usb|serial)"', main_content):
+                errors.append(f"{main_path.relative_to(ROOT)}: obsolete Week 1 hardware procedure")
+
+        if number in {8, 10, 16}:
+            expected_terms = {
+                8: ("實作考通知", "2026-10-28", "尚待教師確認", "不是正式試題"),
+                10: ("第一次專題報告", "2026-11-11", "12–15", "15%"),
+                16: ("一般實作課", "2026-12-23", "不另交本週報告", "不是第二次筆試"),
+            }
+            for term in expected_terms[number]:
+                if term not in main_content:
+                    errors.append(f"{main_path.relative_to(ROOT)}: missing current arrangement {term}")
 
         if number in OVERVIEW_WEEKS:
             for heading in ("### 教學目標", "### 教學內容"):
@@ -341,9 +381,9 @@ def main() -> int:
                     errors.append(f"{main_path.relative_to(ROOT)}: objective must use Chinese")
             if not re.search(r"[\u3400-\u9fff]", content_overview):
                 errors.append(f"{main_path.relative_to(ROOT)}: 教學內容 must use Chinese prose")
-            # Evaluating an installable PWA is a learning outcome, not an installation checklist.
+            # Week 1 explicitly teaches computer setup and compilation without hardware.
             if re.search(
-                r"\b(?:purchase|install)\b|%|採購|購買|配分|^\d+\.\s*安裝",
+                r"\bpurchase\b|%|採購|購買|配分",
                 objectives.lower(), flags=re.MULTILINE,
             ):
                 errors.append(
@@ -366,14 +406,16 @@ def main() -> int:
                 )
 
         if number in EXAM_MAIN_WEEKS:
-            for term in ("作品", "預期", "驗證", "Q1", "write-space"):
+            for term in ("作品", "預期", "Q1"):
                 if term not in main_content:
                     errors.append(f"{main_path.relative_to(ROOT)}: missing question-paper element {term}")
+            if not re.search(r"驗證|展示順序", main_content):
+                errors.append(f"{main_path.relative_to(ROOT)}: missing observable validation or demonstration sequence")
             if re.search(r"```(?:cpp|c\+\+|python|powershell)|<!--\s*(?:fullcode|complete-sketch)|void\s+(?:setup|loop)\s*\(", main_content):
                 errors.append(f"{main_path.relative_to(ROOT)}: implementation code in question paper")
             if re.search(r"\]\([^)]*week\d+_answers", main_content):
                 errors.append(f"{main_path.relative_to(ROOT)}: private answer link in question paper")
-            if not main_path.with_suffix(".pdf").exists():
+            if not (directory / f"week{number}_main.pdf").exists():
                 errors.append(f"{main_path.relative_to(ROOT)}: missing current PDF")
 
         if number in REPORT_WEEKS:
@@ -381,6 +423,13 @@ def main() -> int:
                 if term not in main_content:
                     errors.append(f"{main_path.relative_to(ROOT)}: missing report question element {term}")
 
+    if args.report:
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(json.dumps({
+            "scope": sorted(set(args.weeks)) if args.weeks else "repository",
+            "documents_checked": len(all_documents), "summaries": summaries,
+            "errors": errors, "passed": not errors,
+        }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("\n".join(summaries))
     if errors:
         print("\nVerification errors:", file=sys.stderr)

@@ -1,5 +1,25 @@
 # Week 3 Main 與 Ans
 
+## 2026-09-30：目前累積作品版本
+
+Main 3 頁，Ans 11 頁。Main 只要求 OLED 光線快照一件作品：成品示意、六個可觀察反應、
+Q1～Q3 不重複問題。Ans 先接線與開檔，固定文字、光線顯示、按鈕保存依序成功，
+簡短原理及同題號直接答案在後。舊分壓、三筆、暫停與 min/max 不再列共同必做。
+
+共同程式來源在 ../week3_answers/programs 的 oled_fixed_text、oled_light、
+oled_light_snapshot 各自同名 .ino；舊雲端 light_snapshot 與其他使用者程式沒有覆寫。
+舊教材與舊檢查已保存於 ../week3_answers/optional_legacy_20260930，僅供補充追溯。
+
+重建 Main：node build.cjs；重建 Ans：node build.cjs --answers。
+文件與逐頁渲染檢查：python verify.py（Ans 加 --answers，需 pypdf、Pillow、Poppler）。
+Main 透過既有 scripts/sync_week3_main.cjs 更新週目錄的 PDF 與 Markdown-only notebook；
+Ans PDF 以逐位元相同副本更新該週 week3Ans.pdf。不編輯共享同步工具。
+
+驗證、版本與未實測限制見 ../week3_answers/revision_record_20260930.md。
+本輪沒有 staging、commit、push、雲端或根 program 發布。
+
+## 以下保留舊版沿革，不是目前學生要求
+
 ## 2026-09-29：後續發布
 
 - Main 13 頁與 Ans 86 頁已在雲端核對為目前版本；Ans 原地更新，Main 未重複上傳。全體 20 份 PDF 回讀 SHA-256 相符，原連結與權限不變。

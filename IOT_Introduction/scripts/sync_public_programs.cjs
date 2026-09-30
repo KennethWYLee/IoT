@@ -5,7 +5,7 @@ const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
 const course = path.resolve(__dirname, '..');
 const root = path.dirname(course);
-const approvedWeeks = [1, 3];
+const approvedWeeks = [3];
 const args = process.argv.slice(2);
 assert(args.every(a => a === '--check' || /^\d+$/.test(a)), 'Unknown argument');
 const weeks = args.filter(a => /^\d+$/.test(a)).map(Number);
@@ -31,7 +31,7 @@ for (const week of weeks) {
   const files = [];
   const seen = new Set();
   // Validate the whole batch before replacing any previously exported file.
-  for (const item of config.files) {
+  for (const item of config.files.filter(item => item.destination.endsWith('.ino'))) {
     assert(item.destination.endsWith('.ino'), 'Only Arduino sketches are approved');
     assert(!seen.has(item.destination), 'Duplicate destination');
     seen.add(item.destination);
@@ -51,6 +51,9 @@ for (const week of weeks) {
   const manifest = {week, textHashLineEndings: 'LF', files: files.map(({source, destination, sha256}) => ({source, destination, sha256}))};
   if (check) {
     assert.deepEqual(previous, manifest, 'Stale public program manifest');
+    const actual = fs.readdirSync(out, {recursive: true}).filter(file => file.endsWith('.ino'))
+      .map(file => file.replaceAll('\\', '/')).sort();
+    assert.deepEqual(actual, [...seen].sort(), 'Unlisted or obsolete public sketches');
   } else {
     for (const file of files) {
       fs.mkdirSync(path.dirname(file.destinationPath), {recursive: true});

@@ -1,42 +1,26 @@
 {
-  "textHashLineEndings": "LF",
+  "format": 2,
+  "week": 5,
+  "kind": "Main",
   "pages": [
+    "colours",
+    "lightstate"
+  ],
+  "inputs": [
     {
-      "number": 1,
-      "id": "examrgb"
+      "file": "docs/teaching_drafts/week5_redesign/week5_main.md",
+      "sha256": "356186906d14a4f9dc2b9c71059fd735c3a9d4b27f989221c1f30572bf46765d"
     },
     {
-      "number": 2,
-      "id": "examoled"
+      "file": "scripts/build_cumulative_lesson.cjs",
+      "sha256": "847e69a5ee69259600ef160ce789ffec5be6d2cbe50bb428a5c1e4f11e016a50"
     },
     {
-      "number": 3,
-      "id": "examoverview"
-    },
-    {
-      "number": 4,
-      "id": "examtimer"
-    },
-    {
-      "number": 5,
-      "id": "examtime"
-    },
-    {
-      "number": 6,
-      "id": "exambutton"
-    },
-    {
-      "number": 7,
-      "id": "exampause"
-    },
-    {
-      "number": 8,
-      "id": "examlight"
+      "file": "docs/teaching_drafts/week5_redesign/build.cjs",
+      "sha256": "51e0ddf626bd45289e5a0fed968bc9a9d1215e2f1f15d7e5aa7e83e7e7ae1195"
     }
   ],
-  "sourceSha256": "95a1831812ced0d33d2c0070f1778c689ff4730151e256b5fe373b44bb546afe",
-  "builderSha256": "55397b4ea946c6a7a638d694afcbb185e6961fd83a0b3eff33011e91beff683f",
-  "sketches": [],
-  "photos": [],
-  "pdfSha256": "39792fcbc1764614259311dcc735216dc9ab36192572f26168b56297ca4cd845"
+  "pdfSha256": "da5bec71f5b6609ac661d305e74eae5610061a518a8c676893adb7711ba85fe1",
+  "layoutPassed": true,
+  "physicalTested": false
 }

@@ -1,38 +1,26 @@
 {
-  "textHashLineEndings": "LF",
+  "format": 2,
+  "week": 7,
+  "kind": "Main",
   "pages": [
+    "integrate",
+    "diagnose"
+  ],
+  "inputs": [
     {
-      "number": 1,
-      "id": "examgame"
+      "file": "docs/teaching_drafts/week7_redesign/week7_main.md",
+      "sha256": "b2c491898a24cc00c5f6ba9b83c2b3048e74604e0eec87f023a69a5d20c98776"
     },
     {
-      "number": 2,
-      "id": "examsensing"
+      "file": "scripts/build_cumulative_lesson.cjs",
+      "sha256": "847e69a5ee69259600ef160ce789ffec5be6d2cbe50bb428a5c1e4f11e016a50"
     },
     {
-      "number": 3,
-      "id": "exampriority"
-    },
-    {
-      "number": 4,
-      "id": "examfault"
-    },
-    {
-      "number": 5,
-      "id": "examoutputs"
-    },
-    {
-      "number": 6,
-      "id": "examtempo"
-    },
-    {
-      "number": 7,
-      "id": "examsummary"
+      "file": "docs/teaching_drafts/week7_redesign/build.cjs",
+      "sha256": "61cf587692de4d9da358c18da9f46bd878e5ed0b73a747aa6c259fa7f61becd6"
     }
   ],
-  "sourceSha256": "54850492edff339a70f530e59fc08a9c33bb2355507839b51db066cbf52fa4d8",
-  "builderSha256": "6f60c62b8bc15d1051325c25e0400f536f7e35aa7b67af6190003059e5bf6a80",
-  "sketches": [],
-  "photos": [],
-  "pdfSha256": "3c4048700175535e249081f3d897fc92c9211ec2ffc4bbd0641d964968ce5b8c"
+  "pdfSha256": "f3df5a22b79d5fd07db40991fa7b695f1fc39173c1f6562b214c602456917605",
+  "layoutPassed": true,
+  "physicalTested": false
 }

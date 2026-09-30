@@ -53,3 +53,7 @@ IOT_Introduction/docs/teaching_drafts/week11_answers/
 IOT_Introduction/docs/teaching_drafts/week12_answers/
 IOT_Introduction/docs/teaching_drafts/week14_answers/
 IOT_Introduction/docs/teaching_drafts/week15_answers/
+
+# Current student-facing release: only Week3 answer PDF and program are approved.
+/program/*/
+!/program/week3/

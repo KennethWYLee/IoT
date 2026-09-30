@@ -1,0 +1,143 @@
+{
+  "format": 1,
+  "browser": "154.0.4258.48",
+  "documents": [
+    {
+      "source": "IOT_Introduction/Week_01_Course_Orientation/week1_main.md",
+      "pdf": "IOT_Introduction/Week_01_Course_Orientation/week1_main.pdf",
+      "pdf_sha256": "f2b437752d2a5c5ee9b087ebf9504ba649369953649529931516868eb3b084b5",
+      "inputs": {
+        "IOT_Introduction/Week_01_Course_Orientation/week1_main.md": "977a7bc17128010ba272a0d6d9222e6034afc54f24e9c3ec558b278c2074ea61",
+        "IOT_Introduction/scripts/build_orientation_pdfs.cjs": "941940b00eff52c7f73a24f84552d8416f7840a933986b20988251214c61ad78",
+        "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
+        "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
+        "IOT_Introduction/docs/images/hardware/actual/Breadboard400_1.jpg": "f303c6f3dcada1d9970cd840592ce6886a2d6da949bcfcfc9d10559a5f45500a",
+        "IOT_Introduction/docs/images/hardware/actual/JumperWire_1.jpg": "29c87f712d44ce735c0a5738a3d8973105076c76ae7c6133ba25cea3bf1b4a8e",
+        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_MM_1.png": "f62e97e75489fa96aa0bd7c14f37a23bc0df34919e8da17a8b5a3a80bb46af06",
+        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_MF_1.png": "9c0a84c513935fc0a2d0d6496f5df83a0b60ff7ba70e7717e882245b975d8f09",
+        "IOT_Introduction/docs/images/hardware/product-cards/JumperWire_FF_1.png": "9cb3bd156342bc801af4d25560a4563019da1a6c061913c8e745f3f0fd271c52",
+        "IOT_Introduction/docs/images/hardware/actual/Pushbutton_1.jpg": "e03faca2cf6af8a368fc3e8a3ef0319a6f569955af893b86bf954fa581d42c18",
+        "IOT_Introduction/docs/images/hardware/actual/Pushbutton_2.jpg": "e1378d7b3b7c2c2c6c60da780f04af16c34381109717bdd908e77e233cb9d2db",
+        "IOT_Introduction/docs/images/hardware/actual/A830L_1.jpg": "73b760a0168417746d7a907f2f3a6540d671b012283a6f8e1cb3e795ce054e7d",
+        "IOT_Introduction/docs/images/hardware/actual/Resistor_1.png": "155ef7c1267faf15d93b3113922c0f04b4c164ac7f59a43295d7eee5617eefc6",
+        "IOT_Introduction/docs/images/hardware/actual/KY018_1.jpg": "2fd4e014413f33071761700cdc45382a48f9f83dfed757769d917d5f18818aa1",
+        "IOT_Introduction/docs/images/hardware/actual/KY018_2.jpg": "df1e6a94c914ad9d70e95a111fe77c00c9fc05426ba938f3ae3d66d34f483ef5",
+        "IOT_Introduction/docs/images/hardware/actual/KY018_3.jpg": "6e6a92d1eed6d64c0f2ae016f67a9c49eb8d97e8fdae96fe060e8422ec38a784",
+        "IOT_Introduction/docs/images/hardware/actual/DHT11_1.jpg": "f96a2ee9499c6103b681a8828391d8d7cf4039c93f270fc831908dc1f3c9e64d",
+        "IOT_Introduction/docs/images/hardware/actual/DHT11_2.jpg": "5b70418a2ada22252669a0e9ba146858f45746f7f4b31275bcfe5f427ba0df2c",
+        "IOT_Introduction/docs/images/hardware/actual/Buzzer_HW508_1.jpg": "9f789cc6b4106aa0367f6f9bcc87fbe56e219a2f6aac161367abe465e0f1049a",
+        "IOT_Introduction/docs/images/hardware/actual/Buzzer_HW508_2.jpg": "800a7e4799fb3997617c5b5e27ba603dbb92d0181f312feedb8e18b4527f3c5e",
+        "IOT_Introduction/docs/images/hardware/actual/RGB_HW479_1.jpg": "f7a91295c78732011c94eb567a67dcb4354f82d3517b6632e2314e4c7748bc17",
+        "IOT_Introduction/docs/images/hardware/actual/RGB_HW479_2.jpg": "c0e302eebea955dff427d8410d7cba78c4c47b5ce8065831bed28283a9577a30",
+        "IOT_Introduction/docs/images/hardware/actual/OLED_1.jpg": "bd4167fe88992265fb826498ad01bec7d27f328be07b0ee192718ba194bfb14c",
+        "IOT_Introduction/docs/images/hardware/actual/OLED_2.jpg": "108418a1744619a24b0e9b5e29eb44faf160fd661a48fe4f8c594f34fcdf620e",
+        "IOT_Introduction/docs/images/hardware/orders/shopee-aroundtw-02-drivers-servos-sensors-displays.png": "257bf803ec5093caba8b090812c6a77d529d5b6fb13381bb7f1a3a5c04cb4759",
+        "IOT_Introduction/docs/images/hardware/actual/SG90_1.jpg": "1fadf0571536167a5f4e1da7a98dfc8ab3950d4f1bb92b7e7aa8517b2c541d82",
+        "IOT_Introduction/docs/images/hardware/actual/SG90_2.jpg": "d0bf5a360a776690fefdbf768949d21496dd2a994dc887d6806cef16e70c5e4d",
+        "IOT_Introduction/docs/images/hardware/actual/SG90_3.jpg": "9b9b2f2172dbcc0fe401fcd7ef5e1796999646726cf7d0b0607ffd3faeacff6f",
+        "IOT_Introduction/docs/images/hardware/actual/BatteryHolder4AA_1.jpg": "85ac8c26a5792829d4d7f97a6d61887846530e15a8b27fd9509b24d84fecfe09",
+        "IOT_Introduction/docs/images/hardware/actual/BatteryHolder4AA_2.jpg": "383bff078fd47f526fa841a7740e57fa2fa62caf24baae597fd3c9f0a6e7504a",
+        "IOT_Introduction/docs/images/hardware/actual/BuckConverter_3.jpg": "fc14700672f71ddd92be03a4b86735645b01abfc9af6561cdfb8cde843a62019",
+        "IOT_Introduction/docs/images/hardware/actual/BuckConverter_1.jpg": "cf47d381fb6ea2e58a5c18841d09fb3fdd63209835f6f6ba41fc3394a3aeb366",
+        "IOT_Introduction/docs/images/hardware/actual/BuckConverter_2.jpg": "576a3ec227194a853609fb695837546685848a9ca73628c3f34aa6953c41f30e",
+        "IOT_Introduction/docs/teaching_drafts/week2_redesign/reference_images/esp-install.webp": "60e8128fdb6729b5ee680f21cf798d65017169667c6a6fc5a6af8bbdfc5c9979",
+        "IOT_Introduction/docs/teaching_drafts/week2_redesign/reference_images/arduino-upload.png": "0c129e9ac59f85525b7e5b35dfa33ffc455e0db8189c061d22ade4fc67b03893",
+        "IOT_Introduction/docs/images/hardware/orders/shopee-aroundtw-01-prototyping-motors-power.png": "868d1dae4b67642cb83276771d7ed2797e102b396d7a17526b0b2299915e9aed",
+        "IOT_Introduction/docs/images/hardware/orders/shopee-aroundtw-03-esp32-sensors-lighting-power.png": "3515f5546df61c4429c52da6d114a0d47eb6d7f108e10614db9a0e9a1a607e5d",
+        "IOT_Introduction/docs/images/hardware/orders/shopee-aroundtw-04-photoresistor-servo-breadboard.png": "9b4717977362d616414405b1801e48e80b609aa83c0466aae7b3a901d6dbc4d0",
+        "IOT_Introduction/docs/images/hardware/orders/shopee-loyi-maker-05-resistors-storage.png": "88e8da3f364644cb9c2a7034750dd6c25cd99c675a26d58e7d1f0e36271f23f9"
+      },
+      "images": 38,
+      "layout": {
+        "badLinks": [],
+        "overflow": [],
+        "duplicateIds": [],
+        "literalBold": false,
+        "images": 38,
+        "paperHeights": [
+          24914
+        ]
+      }
+    },
+    {
+      "source": "IOT_Introduction/Week_08_Project_Report_1/week8_main.md",
+      "pdf": "IOT_Introduction/Week_08_Project_Report_1/week8_main.pdf",
+      "pdf_sha256": "aac3d587bb2d64feb0429960e8efec00bc33b783b3f1f974521b8cb4839d989b",
+      "inputs": {
+        "IOT_Introduction/Week_08_Project_Report_1/week8_main.md": "4b408c926e804d5154cb4de8e54650886e1de6d049296fff96920ed6de4cd245",
+        "IOT_Introduction/scripts/build_orientation_pdfs.cjs": "941940b00eff52c7f73a24f84552d8416f7840a933986b20988251214c61ad78"
+      },
+      "images": 0,
+      "layout": {
+        "badLinks": [],
+        "overflow": [],
+        "duplicateIds": [],
+        "literalBold": false,
+        "images": 0,
+        "paperHeights": [
+          770
+        ]
+      }
+    },
+    {
+      "source": "IOT_Introduction/Week_09_Self_Study/week9_main.md",
+      "pdf": "IOT_Introduction/Week_09_Self_Study/week9_main.pdf",
+      "pdf_sha256": "943a06f38e6e21c53fad91fd3e04118c625d7fba01ec4513a6fe24695377368c",
+      "inputs": {
+        "IOT_Introduction/Week_09_Self_Study/week9_main.md": "8fcf6e93f7bef1e29392c510b9f4c4897e397fdd1e3f20e374492fde28a329cd",
+        "IOT_Introduction/scripts/build_orientation_pdfs.cjs": "941940b00eff52c7f73a24f84552d8416f7840a933986b20988251214c61ad78"
+      },
+      "images": 0,
+      "layout": {
+        "badLinks": [],
+        "overflow": [],
+        "duplicateIds": [],
+        "literalBold": false,
+        "images": 0,
+        "paperHeights": [
+          1429
+        ]
+      }
+    },
+    {
+      "source": "IOT_Introduction/Week_10_Individual_Written_Exam/week10_main.md",
+      "pdf": "IOT_Introduction/Week_10_Individual_Written_Exam/week10_main.pdf",
+      "pdf_sha256": "b94424ae251c73a186730f89afbe468f19e4217355997d6ee91236433e9a6df4",
+      "inputs": {
+        "IOT_Introduction/Week_10_Individual_Written_Exam/week10_main.md": "6923ded28de6fdf44619579f749bf2cb59e50c2a82fd4665492c2411f3b1bbc7",
+        "IOT_Introduction/scripts/build_orientation_pdfs.cjs": "941940b00eff52c7f73a24f84552d8416f7840a933986b20988251214c61ad78"
+      },
+      "images": 0,
+      "layout": {
+        "badLinks": [],
+        "overflow": [],
+        "duplicateIds": [],
+        "literalBold": false,
+        "images": 0,
+        "paperHeights": [
+          1363
+        ]
+      }
+    },
+    {
+      "source": "IOT_Introduction/Week_16_Integrated_Framework_Exam/week16_main.md",
+      "pdf": "IOT_Introduction/Week_16_Integrated_Framework_Exam/week16_main.pdf",
+      "pdf_sha256": "755b815401e2404fcbb9572ed2b473a5bce0c30ae267df12bf0079c471414edc",
+      "inputs": {
+        "IOT_Introduction/Week_16_Integrated_Framework_Exam/week16_main.md": "cd3228c3e5c78dca4c6b28bc72c41b13fe3fd8792a3458e6074c7500a03688e8",
+        "IOT_Introduction/scripts/build_orientation_pdfs.cjs": "941940b00eff52c7f73a24f84552d8416f7840a933986b20988251214c61ad78"
+      },
+      "images": 0,
+      "layout": {
+        "badLinks": [],
+        "overflow": [],
+        "duplicateIds": [],
+        "literalBold": false,
+        "images": 0,
+        "paperHeights": [
+          669
+        ]
+      }
+    }
+  ]
+}

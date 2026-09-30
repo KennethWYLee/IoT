@@ -11,7 +11,7 @@ node IOT_Introduction/scripts/sync_week3_main.cjs
 node IOT_Introduction/scripts/sync_week3_main.cjs --check
 ```
 
-The sync command copies the maintained PDF without changing its 13-page layout
+The sync command copies the maintained PDF without changing its current layout
 and derives question-only Markdown cells and the circuit attachment from the
 same source. The notebook PDF exporter preserves this PDF; the old Week 3
 figure/classifier builders refuse to overwrite the question paper. Historical
@@ -33,6 +33,12 @@ node IOT_Introduction/docs/teaching_drafts/week4_redesign/build.cjs --answers
 python -X utf8 IOT_Introduction/scripts/verify_redesign.py 4 --render
 python -X utf8 IOT_Introduction/scripts/verify_redesign.py 4 --answers --render
 ```
+
+The 2026-09-30 Week4-7 builds use `build_cumulative_lesson.cjs` and format-2
+manifests. `verify_redesign.py` dispatches them to `verify_cumulative_lesson.py`;
+the latter can also be run directly and needs pypdf plus Poppler. Full programs
+are not embedded in these PDFs. Repackage changed private program files before
+checking the Ans references and hashes.
 
 Week2 uses `week2_redesign/build_sample.cjs` and `verify_sample.py`.
 Its private answer builder is `week2_answers/build_answers.cjs`.
@@ -60,15 +66,16 @@ installation, HTTPS/LAN or live WebSocket test.
 
 ### Public program download copies
 
-The instructor authorized Week1's Hello and Week3's nine `.ino` files on 2026-09-30. Their public
-download locations are the repository-root `program/week1/` and `program/week3/` folders, with one
-same-named Arduino folder per sketch. Future approved weeks use `program/weekN/`;
+The latest instructor instruction permits only Week3 programs on GitHub.
+Its current download location is repository-root `program/week3/`, with one
+same-named Arduino folder per sketch. The three current OLED-first sketches are
+listed first; historical Week3 sketches are retained but are not the current
+common lesson. Week1 was removed from the latest Git index while kept locally
+and supplied on Drive. Future approved weeks can use `program/weekN/`;
 no other week is enabled automatically. Existing private canonical sources remain
 the editing source. Do not overwrite student edits to an exported copy.
 
 ```powershell
-node IOT_Introduction/scripts/sync_public_programs.cjs 1
-node IOT_Introduction/scripts/sync_public_programs.cjs 1 --check
 node IOT_Introduction/scripts/sync_public_programs.cjs 3
 node IOT_Introduction/scripts/sync_public_programs.cjs 3 --check
 ```
@@ -100,9 +107,10 @@ folder names and Git exclusion. It does not compile or execute the programs.
 Canonical files remain the editing source; regenerate copies after changing them.
 
 These commands require the instructor's local answer sources; a public repository
-clone alone does not include them. On 2026-09-29 the instructor explicitly kept
-programs local. Neither these scripts nor PDF builders upload anything. Do not
-add answer folders to Git or publish them without a new request.
+clone alone does not include them. The latest rebuild publishes current Week1-7
+programs to Drive under `IoT/IOT_Introduction/program`, but only Week3 to GitHub.
+Neither these scripts nor PDF builders upload anything. Do not add other answer
+folders to Git or change publication scope without a new request.
 
 ## Network lesson sketch exports
 

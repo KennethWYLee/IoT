@@ -1,58 +1,26 @@
 {
-  "textHashLineEndings": "LF",
+  "format": 2,
+  "week": 4,
+  "kind": "Main",
   "pages": [
+    "live",
+    "snapshot"
+  ],
+  "inputs": [
     {
-      "number": 1,
-      "id": "examresistor"
+      "file": "docs/teaching_drafts/week4_redesign/week4_main.md",
+      "sha256": "4da802f69d3746443f8cd3807544d2ba38935b6e93a3678614ece3ca58c0768f"
     },
     {
-      "number": 2,
-      "id": "examworks"
+      "file": "scripts/build_cumulative_lesson.cjs",
+      "sha256": "847e69a5ee69259600ef160ce789ffec5be6d2cbe50bb428a5c1e4f11e016a50"
     },
     {
-      "number": 3,
-      "id": "examdht"
-    },
-    {
-      "number": 4,
-      "id": "examquality"
-    },
-    {
-      "number": 5,
-      "id": "examflow"
-    },
-    {
-      "number": 6,
-      "id": "exambdual"
-    },
-    {
-      "number": 7,
-      "id": "exambtest"
-    },
-    {
-      "number": 8,
-      "id": "examcrecord"
-    },
-    {
-      "number": 9,
-      "id": "examctime"
-    },
-    {
-      "number": 10,
-      "id": "examdgoal"
-    },
-    {
-      "number": 11,
-      "id": "examdexpected"
-    },
-    {
-      "number": 12,
-      "id": "examdtest"
+      "file": "docs/teaching_drafts/week4_redesign/build.cjs",
+      "sha256": "d434f273b36125e449290983da823a35496c1a5322872293e844ca0c7708e63a"
     }
   ],
-  "sourceSha256": "b657372a323a759e2f658e9c433c14446f3edd99d9dd4fbcbd686142f5d08fdb",
-  "builderSha256": "fd63adfccc18a62aad25b0318f09eea1ecb1d19280ef1823e20010d4ddde080b",
-  "sketches": [],
-  "photos": [],
-  "pdfSha256": "7d3d5819cd9f94582deca7a5bb7d8eb83edf201f43bcc75427694d3069bb7c60"
+  "pdfSha256": "2e2de86e5a9ddc53642bac4a4a7f05ca86544b96f1d52f8f91fd1b659e06ae6f",
+  "layoutPassed": true,
+  "physicalTested": false
 }
