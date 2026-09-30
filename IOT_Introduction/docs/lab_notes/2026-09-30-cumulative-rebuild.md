@@ -36,4 +36,11 @@ GitHub 保持 Public，已經由 GitHub API 回讀確認。此次更新本輪重
 雲端已更新 17 份 Main／Ans PDF 和 12 支現行程式，全部下載回讀比對 SHA-256 相符。新程式放在 `codex / 課堂教材 / IoT / IOT_Introduction / program / weekN / 程式同名資料夾`，使用 `.ino`，不新增 ZIP。既有 12 份 PDF 原地更新，新增 Week1／8／9／10／16 五份，沒有變更分享權限。
 教師隨後明確要求移除舊 Week3 程式：root `program/week3` 的九支舊程式刪除；雲端九支舊檔先下載本機備份後刪除，雲端 Week3 目錄回讀只剩三個新版資料夾。私人歷史來源不作教材入口，沒有改寫 Git 既有歷史。
 
-目前狀態：教材、程式與雲端核對完成；準備提交並推送本次 Git 變更。發布清單與雲端回讀證據在本機 `_outputs/cumulative_rebuild_20260930/cloud_published.json`、`cloud_programs.json`、`removed_cloud_legacy.json`。
+目前狀態：教材提交 `71f049d1ded394b2d161a12378ce38d70d15482a` 已推送 `origin/main`。GitHub API 回讀提交相符、Public 為 true；12 份公開 PDF 與三支現行程式的 Git blob 雜湊均與本機相符。遠端 Ans PDF 只有 Week3，root program 也只有 Week3 的三支新版程式。未提交使用者原有的 root `examples/` 或舊 `week04_dual_sensor_alarm.ino` 工作。
+發布清單與雲端回讀證據在本機 `_outputs/cumulative_rebuild_20260930/cloud_published.json`、`cloud_programs.json`、`removed_cloud_legacy.json`。雲端另附新版開檔順序 README，亦已回讀比對。
+
+- [GitHub 教材](https://github.com/KennethWYLee/IoT)
+- [雲端 PDF](https://drive.google.com/drive/folders/1Cp_mL9PXGe8LBNbtSN4btu1WdQkp9pta)
+- [雲端 program](https://drive.google.com/drive/folders/1C-W4qDARTYn5Bq2fCDitJrpt5KTEvuO3)
+
+下一步優先以課堂實物核對接線與供電，尤其 DHT、RGB 和舵機尚未完成的安全條件；通過後才上傳及試動。正式實作考的規則與比重仍待教師決定，與本次檔案發布分開處理。
