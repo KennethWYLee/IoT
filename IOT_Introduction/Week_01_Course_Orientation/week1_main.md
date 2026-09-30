@@ -1,15 +1,16 @@
-# Week 1: Course Overview, Assessment, and Project Direction
+# Week 1: Course Overview and Getting Started with Arduino and ESP32
 
 Date: September 9, 2026<br>
 Course: Internet of Things
 
-Week 1 introduces the course, assessment, project direction and materials.
-No hardware is connected or powered on, and no program is uploaded.
-The objectives below are semester-end abilities; practical concepts will be taught step by step.
+Week 1 introduces the course, assessment, project direction and materials, then
+guides the first Arduino IDE and ESP32 setup. Use USB only for the first program;
+external wiring starts in Week 2. The course objectives below are semester-end
+abilities, not requirements for the first lesson.
 
 ### 本週先想清楚的問題
 
-先看下方作品示意，回答：使用者做什麼、作品應有什麼反應、你會觀察什麼來確認它真的發生？再帶著這三個問題閱讀課程安排與採購清單。這是課堂討論，不增加繳交或通電實作。
+先看下方作品示意，回答：使用者做什麼、作品應有什麼反應、你會觀察什麼來確認它真的發生？這是課堂討論，不另外繳交。了解課程安排後，依[第一次操作](#week-2-preclass-setup)完成軟體設定。
 
 ________________________________________________________________
 
@@ -17,7 +18,9 @@ ________________________________________________________________
 
 實作週的 Main 提供作品要求、預期結果、驗證方式與作答空間；完整教學與解答另列 Ans。報告及正式筆試維持各自原有規定。
 
-[課程大綱](#course-schedule)｜[配分](#assessment)｜[中文採購清單](#purchase-table)｜[零件照片](#equipment-photos)｜[參考預算](#purchase-budget)｜[每組電表](#group-measurement-tool)｜[Week 2課前準備](#week-2-preclass-setup)｜[蝦皮購買圖片](#shopee-purchase-images)
+**本週做到：** 打開 Arduino IDE、選對 ESP32 板型、編譯 Hello 程式；有已核對板卡時，再完成上傳、讀取文字及修改後重新上傳。尚未拿到板卡，不能把編譯成功當成上傳成功；Week 2 開頭先補做實機操作，再開始按鈕練習。
+
+[課程大綱](#course-schedule)｜[配分](#assessment)｜[中文採購清單](#purchase-table)｜[零件照片](#equipment-photos)｜[參考預算](#purchase-budget)｜[每組電表](#group-measurement-tool)｜[Arduino 與 ESP32 第一次操作](#week-2-preclass-setup)｜[進入 Week 2 前](#w1-readiness)｜[蝦皮購買圖片](#shopee-purchase-images)
 
 ## 1. Week 1 Overview
 
@@ -25,7 +28,7 @@ ________________________________________________________________
 
 ![紅綠燈遮光挑戰功能示意：感測、按鈕、規則與顯示輸出；非實物接線圖](../docs/images/wiring/week7-system.png)
 
-*這是共同作品的功能示意，不是接線圖，也不是已完成實機驗證的成品。Week 1不接電操作。*
+*這是共同作品的功能示意，不是接線圖，也不是已完成實機驗證的成品。Week 1 不組裝這個作品，只用 USB 練習開發板與電腦通訊。*
 
 按開始，OLED顯示倒數；綠燈時遮光再放開，次數加一；紅燈的新遮光扣一。
 達到六次仍要在期限前按結束。舵機指針顯示有效次數，失敗以短聲提示。
@@ -116,8 +119,8 @@ system announcement.
 
 | Week | Date | Core Content | Main Outcome |
 |---:|---|---|---|
-| 1 | 09-09 | Course orientation, assessment, materials, and challenge preview | Explain the common exercise and self-selected final project; no hardware operation |
-| 2 | 09-16 | ESP32-S3, safe wiring, buttons, and debounce | Existing Week 2: upload, Serial, continuity, GPIO events and debounce evidence |
+| 1 | 09-09 | Course orientation, materials, Arduino IDE and ESP32 setup | Compile Hello; with a verified board, upload it and observe changed Serial text |
+| 2 | 09-16 | ESP32-S3, safe wiring, buttons, and debounce | Check first-upload readiness, then learn and practise continuity, GPIO, voltage and button counting |
 | 3 | 09-23 | Electrical measurement, ADC, and indoor/shade classification | Retain measurements and resistor-divider work; add local calibration and Serial labels |
 | 4 | 09-30 | Resistor ranges, DHT11, dual sensors, and buzzer events | Independent sampling, per-sensor quality, one-shot events, fault injection and recovery |
 | 5 | 10-07 | RGB, OLED countdown, and time control | Align visible states and elapsed-time countdown; no servo power |
@@ -248,7 +251,7 @@ Week 6首次使用，Week 7沿用。組內輪流操作，一次只供一顆SG90�
 
 對照照片辨認零件，所需規格與數量以採購表為準。
 
-照片標示來源與角度，只供外觀辨識，不是接線圖或已驗證證明；商品圖的價格與數量不代表學生需求。Week 1不接線，實作時依當週核准步驟操作。
+照片標示來源與角度，只供外觀辨識，不是接線圖或已驗證證明；商品圖的價格與數量不代表學生需求。Week 1只依第7節接USB，不接杜邦線或外部模組。
 
 [ESP32-S3 開發板](#equipment-esp32s3) · [400 孔麵包板](#equipment-breadboard400) · [杜邦線](#equipment-jumperwire) · [四腳輕觸按鈕](#equipment-pushbutton) · [萬用電表](#equipment-a830l) · [固定電阻](#equipment-resistor) · [KY-018 光敏電阻模組](#equipment-ky018) · [DHT11 溫濕度模組](#equipment-dht11) · [HW-508 蜂鳴器模組](#equipment-buzzer_hw508) · [HW-479 三色發光二極體模組](#equipment-rgb_hw479) · [有機發光二極體顯示模組](#equipment-oled) · [SG90 舵機](#equipment-sg90) · [四槽 AA 帶開關電池盒](#equipment-batteryholder4aa) · [帶數字顯示的降壓模組](#equipment-buckconverter)
 
@@ -478,54 +481,239 @@ Week 6先辨認IN／OUT並量測、調整輸出，再確認舵機負載電壓、
 
 <a id="week-2-preclass-setup"></a>
 
-## 7. Week 2課前準備（Week 1課後完成）
+## 7. Arduino 與 ESP32 第一次操作
 
-Week 1課後先安裝Arduino IDE（撰寫與上傳程式的軟體）及ESP32板卡套件（Board Package，讓IDE支援ESP32）；兩者須分別安裝。
-操作畫面見教師提供的 Week2 Ans 第 6～13 頁；Week2 Main 是題目卷，不含安裝教學。
-課前只完成安裝與資料準備，接板、接線與上傳留到Week 2。
+**要做出的結果：** ESP32 每隔約一秒傳回一行 `Hello`，電腦顯示它；改成自己的文字並重新上傳後，電腦顯示新的文字。本週不需要按鈕、光敏或 OLED，也不連 Wi-Fi。
 
-### 1. 安裝Arduino IDE 2
+先認識兩樣東西：**Arduino IDE 是電腦上用來寫程式、檢查程式及上傳的軟體；ESP32-S3 開發板是實際執行程式的硬體。** 使用 Arduino IDE 不代表要另買 Arduino UNO 板。
 
-依 Week2 Ans 安裝段落及[Arduino官方來源](https://docs.arduino.cc/software/ide/)
-完成安裝，再開啟一次IDE。保留成功開啟的畫面及實際安裝版本。
+以下以 Windows 10／11 64-bit、Arduino IDE 2，以及課堂的 **YD-ESP32-S3 Type-A V1.5、N16R8** 為例。不同板卡先請教師核對，不直接套用設定。Mac／Linux 的安裝方式見[Arduino 官方安裝說明](https://support.arduino.cc/hc/en-us/articles/360019833020-Download-and-install-Arduino-IDE)，連接埠名稱也不一定以 COM 開頭。
 
-### 2. 安裝Espressif ESP32 board package
+**材料尚未到貨：** 先完成 7.1～7.3 與 7.5 的編譯，跟著教師看上傳及訊息示範。原有 Week 2 到貨期限不變；拿到板子後，必須親自完成 7.4～7.7，才能確認自己的電腦真的能上傳。
 
-依 Week2 Ans 安裝段落及其中連結的
-[Espressif官方安裝說明](https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html)
-完成Boards Manager安裝，確認Espressif的`esp32`項目顯示已安裝並記下版本。
-安裝後重新啟動Arduino IDE。Board、flash與PSRAM設定由教師在Week 2
-依實物板卡統一公布，不自行猜測。
+[安裝軟體](#w1-install)｜[板卡設定](#w1-settings)｜[USB 與 Port](#w1-usb)｜[第一支程式](#w1-hello)｜[看結果](#w1-serial)｜[修改與理解](#w1-edit)｜[排錯](#w1-troubleshoot)｜[進入 Week 2 前](#w1-readiness)
 
-### 3. 取得課程資料
+<a id="w1-install"></a>
 
-第一次取得課程資料且尚未使用Git時，可先在
-[課程GitHub首頁](https://github.com/KennethWYLee/IoT)選擇`Code → Download ZIP`。
-畫面位置可對照[GitHub官方下載說明](https://docs.github.com/en/repositories/working-with-files/using-files/downloading-source-code-archives)。
-下載後解壓縮到一個容易找到的新資料夾，不直接覆蓋自己已修改過的舊資料夾。
-解壓縮後確認能找到：
+### 7.1 安裝 Arduino IDE 2
+
+板子先不用接電腦。已有 Arduino IDE 2 的同學開啟它後，接著做 7.2。
+
+1. 開啟[Arduino 官方下載頁](https://www.arduino.cc/en/software/)，選 Arduino IDE 2 的 Windows 64-bit 安裝檔，不選網頁版 Cloud Editor。
+2. 在電腦的「下載」資料夾開啟 `.exe`。閱讀並接受授權後，依畫面完成安裝。
+3. 完成時選 Run Arduino IDE，或從開始選單開啟 Arduino IDE。第一次開啟若仍在下載工具，等它完成。
+
+**完成時看到：** 可以輸入程式的編輯區。此時只是軟體已開啟，還沒安裝 ESP32 支援。
+
+學校電腦若沒有安裝權限，請教師或管理人員協助，不繞過限制。這次操作不需要 Arduino 雲端帳號或付費方案。
+
+### 7.2 加入 ESP32 開發板套件
+
+**開發板套件是一組工具，讓 IDE 知道怎麼把程式轉成 ESP32 能執行的內容，並傳進板子。** 它和 Arduino IDE 分開安裝。
+
+1. 點 **File → Preferences（檔案 → 偏好設定）**。
+2. 找到 **Additional boards manager URLs**，貼上下列網址。已有其他網址時，開啟右側清單按鈕，另加一行，不刪掉原設定。按 OK 儲存。
 
 ```text
-IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.pdf
-IOT_Introduction/docs/course_materials/starter_code_snippets.md
+https://espressif.github.io/arduino-esp32/package_esp32_index.json
 ```
 
-`.ipynb`是包含說明與程式格的notebook文件；在GitHub可以閱讀，不需要在Week 1
-安裝Python或Jupyter才能開始課程。下載的ZIP是一份當下的檔案快照，不會自動
-取得之後的更新。已有Git工作目錄的學生可沿用原有同步方式，但同步前先檢查
-尚未保存的修改；不確定時保留舊資料並提出問題，不用覆蓋或刪除來解決。
+3. 點 **Tools → Board → Boards Manager（工具 → 開發板 → 開發板管理員）**，搜尋 `esp32`。
+4. 找作者為 **Espressif Systems** 的 `esp32`，版本選 **3.3.11**，按 INSTALL。這是本課既有程式使用的版本，不要求追最新版。
+5. 等該項顯示 **3.3.11 installed**，再關閉並重新開啟 Arduino IDE。
 
-### 4. 準備上課用品與證據
+![Espressif 官方 Boards Manager 畫面，下面一項為 esp32 by Espressif Systems](../docs/teaching_drafts/week2_redesign/reference_images/esp-install.webp)
 
-- [ ] 筆電、充電器及一條可傳輸資料的USB線。
-- [ ] Arduino IDE 2可開啟的截圖。
-- [ ] Boards Manager顯示Espressif `esp32`已安裝的截圖。
-- [ ] 課程資料已下載或同步的截圖。
-- [ ] 已盤點Week 2需用的開發板、麵包板、按鈕與杜邦線。
-- [ ] 已確認本組萬用電表的準備者；1人組若共用，已確認共用對象。
+*圖片為[Espressif 官方操作示例](https://developer.espressif.com/blog/2025/10/arduino-get-started/)，其中是舊版 3.3.1；本課選 3.3.11。不要選上面的 Arduino ESP32 Boards，也不要照圖中其他板型設定。*
 
-安裝失敗時，回報作業系統版本、卡住的步驟、完整錯誤訊息或截圖，
-以及已經嘗試過的處理方式。
+**完成時確認：** Boards Manager 顯示 Espressif 的 esp32 已安裝，不是只有下載進度。若安裝失敗，依[排錯表](#w1-troubleshoot)處理。安裝來源依據：[Espressif 安裝說明](https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html)。
+
+<a id="w1-settings"></a>
+
+### 7.3 選板型與設定
+
+**Board（板型）指定程式要給哪種板子；Port（連接埠）指定電腦實際連到哪一塊板子。** 還沒有接板也能選 Board 及編譯，Port 留到 7.4。
+
+點 **Tools → Board → esp32 → ESP32S3 Dev Module**。名稱中必須有 **S3**，不是 ESP32 Dev Module。接著在 Tools 選單逐項核對：
+
+| 在 Tools 找這個名稱 | 本課 YD-ESP32-S3 Type-A V1.5／N16R8 的設定 |
+|---|---|
+| Upload Speed | 115200 |
+| USB Mode | Hardware CDC and JTAG |
+| USB CDC On Boot | Disabled |
+| Upload Mode | UART0 / Hardware CDC |
+| Flash Mode | QIO 80MHz |
+| Flash Size | 16MB (128Mb) |
+| Partition Scheme | 16M Flash (3MB APP/9.9MB FATFS) |
+| PSRAM | OPI PSRAM |
+| Erase All Flash Before Sketch Upload | Disabled |
+
+每選完一項，重新開啟 Tools 選下一項；其餘保留預設。找不到項目時，先核對板型和套件版本，不挑名字相近的選項。
+
+**Flash 存放上傳的程式，斷電仍保留；PSRAM 是程式執行時可用的額外暫存記憶體。** 這裡依 N16R8 的規格設定，不要求背誦選單縮寫。USB 選項配合下一步使用的板背 **COM** 接頭；換用另一個 USB 接頭不能假設設定仍相同。
+
+選單意義見[Espressif Tools 說明](https://docs.espressif.com/projects/arduino-esp32/en/latest/guides/tools_menu.html)；Board 與 Port 的差別見[Arduino 選板說明](https://support.arduino.cc/hc/en-us/articles/4406856349970-Select-board-and-port-in-Arduino-IDE)。
+
+<a id="w1-usb"></a>
+
+### 7.4 只接 USB，找到自己的 Port
+
+**接電前：** 核對板背 YD-ESP32-S3 Type-A V1.5 與模組 N16R8 標字，確認板子完整且沒有金屬物碰到排針。移除杜邦線、按鈕、電池及其他模組，放在乾燥、不導電的桌面；本次只接一條 USB 資料線。發熱異常或有異味時立即拔除 USB，停止測試。
+
+![課堂 YD-ESP32-S3 開發板背面，USB 接頭分別標示 COM 與 USB](../docs/images/hardware/actual/ESP32S3_2.png)
+
+*依照片與本人板背的 COM 印字找接頭；不要用照片翻轉後的上下位置猜。這是課堂既有實物照片，不代表你的板子已通過測試。*
+
+1. 先查看 **Tools → Port** 清單；尚未接板時沒有此選單也沒關係。
+2. 把可傳資料的 USB 線接到板背標示 **COM** 的接頭，另一端接電腦，等系統辨識。
+3. 重新開啟 **Tools → Port**，選這次新增的連接埠，例如 COM8。號碼由自己的電腦分配，不照抄示例。
+
+**完成時看到：** IDE 已選 ESP32S3 Dev Module 及自己的 Port。若顯示 Unknown，可以手動選 Board；如果完全沒有新 Port，先看[排錯表](#w1-troubleshoot)，不要任選另一個裝置。
+
+板背的 **COM** 是 USB 接頭標字；電腦上的 **COM8** 是系統給連線的名稱。板上的 PWR 燈亮代表有供電，還不能證明資料線能傳程式。此接法依[板卡廠商文件](https://github.com/vcc-gnd/YD-ESP32-S3)與課堂既有實物核對，沒有外接電路。
+
+<a id="w1-hello"></a>
+
+### 7.5 建立、儲存、編譯與上傳 Hello
+
+**Sketch 是 Arduino IDE 裡的一份程式。** 主要程式檔副檔名為 `.ino`，這次把它命名為 `hello_first`。
+
+也可直接開啟 [Hello 程式檔](../../program/week1/hello_first/hello_first.ino)。下載後保留 `hello_first/hello_first.ino` 的資料夾結構，與下方程式相同。
+
+1. 點 **File → New Sketch（檔案 → 新增草稿）**，在程式編輯區全選，換成下列完整內容。
+2. 按 **Ctrl+S**，儲存為 `hello_first`。IDE 會建立同名資料夾，其中的檔案是 `hello_first.ino`。記得自己放在哪裡，下次從 **File → Open** 開啟這個檔案。
+
+```cpp
+void setup() {
+  Serial.begin(115200);
+}
+
+void loop() {
+  Serial.println("Hello");
+  delay(1000);
+}
+```
+
+3. 確認 Board 仍是 **ESP32S3 Dev Module**，按左上方勾勾 **Verify**。編譯是把程式轉成板子可執行的內容；成功時會顯示完成及程式大小，失敗時下方 Output 顯示錯誤。**這一步不需要插板。**
+4. **上傳會取代板上原有程式；用自己的課堂板，借用板須先徵得同意。** 已完成 7.4 的同學再確認 Port，按右箭頭 **Upload**。上傳會先編譯，再透過 USB 寫入板子；等 IDE 顯示上傳完成，途中不拔 USB。
+
+![Arduino IDE 左上方 Verify 與 Upload 工具列示例](../docs/teaching_drafts/week2_redesign/reference_images/arduino-upload.png)
+
+*圖片來源：[Arduino 上傳教學](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started/ide-v2-uploading-a-sketch/)。只看勾勾與右箭頭；圖中的 UNO 不是本課板型。*
+
+**完成時確認：** 編譯成功只證明程式能被轉換；只有 Upload 完成，才表示已傳進板子。本課沒有要求把程式上傳到網路。
+
+<a id="w1-serial"></a>
+
+### 7.6 打開 Serial Monitor，看執行結果
+
+**Serial Monitor（序列監控視窗）是 IDE 裡接收板子文字的視窗。** 程式已上傳後，USB 保持連接：
+
+1. 點 **Tools → Serial Monitor**，查看下方的 Serial Monitor 分頁，不是顯示編譯訊息的 Output 分頁。
+2. 將視窗速度選成 **115200 baud**。baud 是此處傳輸速度的標示，數值要與程式的 `Serial.begin(115200)` 相同。
+3. 等待幾秒，應每隔約一秒新增一行 `Hello`。
+
+![Arduino IDE Serial Monitor 的入口及下方訊息區示例](../docs/teaching_drafts/week2_redesign/reference_images/arduino-monitor.png)
+
+*圖片來源：[Arduino Serial Monitor 教學](https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/)。圖中的 UNO／9600／Hello World 只供辨認位置；本課使用 ESP32S3／115200／Hello。*
+
+```text
+Hello
+Hello
+Hello
+```
+
+以上是**預期輸出示例**，不是本次實測紀錄。必須看到持續新增的文字，不是留在畫面上的舊訊息。
+
+Tools 裡的 **Upload Speed** 控制上傳程式的速度；Serial Monitor 的速度控制接收執行結果。兩處這次都選 115200，但改其中一處不會自動修改另一處。
+
+<a id="w1-edit"></a>
+
+### 7.7 改一個地方，確認程式真的改了
+
+先做完下列操作，再用表格理解原因。
+
+1. 將 `"Hello"` 改為 `"My ESP32"`，只儲存，**先不要 Upload**。猜猜 Serial Monitor 會繼續顯示什麼，再觀察新出現的文字。
+2. 關閉 Serial Monitor 分頁，按 Upload。完成後重開 Serial Monitor，應改為持續新增 `My ESP32`。
+3. 將 `delay(1000)` 改成 `delay(500)`。預測新行會變快還是變慢，再儲存、上傳並觀察。`1000` 毫秒是 1 秒，`500` 毫秒是 0.5 秒。
+
+| 剛才操作的部分 | 它做什麼，與結果有什麼關係 |
+|---|---|
+| `setup()` 的大括號 `{ }` 內 | 程式啟動時執行一次；這次先準備文字傳輸 |
+| `Serial.begin(115200)` | 設定文字通訊速度，與訊息視窗配合 |
+| `loop()` 的大括號 `{ }` 內 | 執行完再從頭重複，所以不只送出一行 |
+| `Serial.println("My ESP32")` | 傳出雙引號內的文字並換行 |
+| `delay(500)` | 暫停約 500 毫秒後再繼續；加上其他執行時間，間隔約半秒 |
+
+**只存檔時仍會新增 Hello。** 你改的是電腦上的檔案，板子還在執行上一次上傳的程式。重新 Upload 後，板子才改送新文字。
+
+```text
+按 Upload：電腦上的程式 → USB → ESP32 保存程式
+執行時：ESP32 執行程式 → USB 傳回文字 → Serial Monitor 顯示
+```
+
+箭頭表示程式或文字傳到哪裡，是**資訊流**，不是電流方向。USB 同時提供電力和資料連線；本次沒有外接零件支路。看到新的文字，才能確認這次修改已在板上執行。
+
+本週先認得程式區塊、文字與等待時間。變數保存數字、`if` 判斷條件，以及讀取按鈕的指令，在 Week 2 對應作品中再操作與解釋，不要求先會整套計數器。
+
+<a id="w1-troubleshoot"></a>
+
+### 7.8 卡住時，先找是哪一步
+
+| 你看到的情況 | 先做這件事 |
+|---|---|
+| ESP32 套件下載失敗 | 保留 Boards Manager 的完整錯誤，確認網路與 7.2 的穩定版網址，再重試安裝；不要跳去裝另一個名字相近的套件 |
+| 找不到 ESP32S3 Dev Module | 核對作者 Espressif Systems、版本 3.3.11 及 installed 狀態，重開 IDE |
+| PWR 亮，但 Port 沒新增 | 確認插板背 COM，換一條已知能傳資料的線，直接接電腦；再看 Windows 裝置管理員是否有新增裝置或警告 |
+| 裝置管理員有 CH343 警告或缺驅動 | 驅動程式讓 Windows 辨識 USB 裝置。先核對晶片是 CH343，再依[廠商 CH343 驅動資料](https://github.com/vcc-gnd/YD-ESP32-S3/tree/main/0-public-USB%20to%20serial%20CH343%20driver(important))處理；已有正常 Port 不需重裝。安裝需權限時請教師協助 |
+| Verify 失敗 | 看下方 Output 的第一個程式錯誤；先檢查雙引號、大括號及行末分號是否與完整範例相同。不能只憑最後一行 exit status 1 判斷原因 |
+| Verify 成功，Upload 失敗 | 確認自己的 Port、COM 接頭及資料線；關閉其他占用該 Port 的程式。若停在 Connecting，先找教師核對板型與下載模式，不重接外部電源試錯 |
+| 上傳成功，沒有新文字 | 確認正在看 Serial Monitor、Port 正確、速度 115200、USB CDC On Boot 為 Disabled；若剛改設定需重新 Upload |
+| 文字是亂碼 | 先核對程式與 Serial Monitor 的速度都為 115200；觀察持續輸出，不把啟動瞬間訊息當成 Hello |
+| 還是出現舊文字 | 確認改的是目前開啟的 `.ino`，再存檔並 Upload；不要只按 Verify |
+
+需要協助時，直接展示目前畫面，說明停在「安裝、編譯、上傳或讀取文字」哪一步，並保留完整錯誤。這不是另交一份截圖作業。
+
+### 7.9 取得教材，保留自己的程式
+
+第一次取得資料且尚未使用 Git，可在[課程 GitHub 首頁](https://github.com/KennethWYLee/IoT)選 **Code → Download ZIP**，解壓縮到容易找到的新資料夾，不覆蓋自己的舊作業。
+
+- 本週直接閱讀 `Week_01_Course_Orientation/week1_main.md`；Hello 完整程式已在 7.5，不必等 Ans 才能開始。
+- 下週的題目是 `Week_02_ESP32_Hardware_Basics/week2_main.pdf`。Ans 與完整實作程式依教師提供的資料使用，不假設都包含在公開 GitHub。
+- `.ipynb` 是可包含說明與程式的 Notebook 文件，在 GitHub 可閱讀；本週不用安裝 Python 或 Jupyter。
+- 下載 ZIP 不會自動取得後續更新。自己的 `.ino` 另存在可找到的資料夾；不要在 ZIP 預覽中修改，也不要直接覆蓋原本的課程範例。
+
+<a id="w1-readiness"></a>
+
+### 7.10 進入 Week 2 前，我能做什麼？
+
+以下在課堂直接操作確認，不增加繳交表單或配分。每位同學都要操作自己的電腦；共用板卡可以輪流。
+
+- 能重新開啟自己儲存的 `hello_first.ino`，找到 Boards Manager、Board 與 Port。
+- 能用 ESP32S3 Dev Module 編譯成功；有板卡時，能上傳並看到持續新增的文字。
+- 能改文字、重新上傳，說明為何只存檔不會改變板上的程式。
+- 能指出 `setup()` 執行一次、`loop()` 反覆執行，以及 `delay(500)` 等待約半秒。
+- 能從下方照片找出 COM 接頭、RST、3V3、GND 與標字 4；先辨認位置，不接線。
+
+![課堂 ESP32-S3 正面實物，包含 RST、3V3、GND 及 GPIO 編號](../docs/images/hardware/actual/ESP32S3_1.png)
+
+**這些標字各指什麼？** `RST` 按鍵會讓板上的程式重新開始；`3V3` 是板上的 3.3 V 電源腳，`GND` 是量電壓時通常當作 0 V 的共同參考點。GPIO 是可由程式設定用途的訊號接腳，板上標字 `4` 指 GPIO4，不是從邊緣數第四根。它們的實際接法與電壓原理，在 Week 2 接按鈕時再教。
+
+**接線安全先記住：** 拔除 USB 與其他電源後才改線；不把 3V3 直接接 GND，不把 5 V 接到 GPIO。電表的通斷測試只用在未通電的電路。Week 1 不把排針插入麵包板、不接杜邦線。
+
+**Week 2 從這裡接續，不把新內容當成已經學過：**
+
+| Week 2 要完成的題目 | 作答前會先操作、解釋的內容 |
+|---|---|
+| Q1 找相通的孔與按鈕腳 | 電表插孔與通斷檔、麵包板內部連接、四腳按鈕按下前後的差別 |
+| Q2 按鈕狀態顯示器 | GPIO 輸入、接地、上拉電阻、讀取按鈕及 `if` 條件判斷；沿用本週的上傳與訊息視窗 |
+| Q3 比較電壓與電流 | 先看正常接法，再說明比較哪兩點的電壓、電阻與電流的關係，最後作紙上反例 |
+| Q4 雙按鈕計數器 | 變數如何保存數字、反覆讀取時如何加減，以及重新啟動後發生什麼事 |
+| Q5 活動入場人數登記 | 完成 Q4 後，再學短按與長按、接點彈跳造成的多次變化與去抖處理、上下限及雙鍵重疊 |
+
+Main 的題目先讓你知道要完成什麼；**不熟悉的操作會先帶做，再依題目完成作品與回答。** 已具備能力的同學可先自行嘗試。安裝或上傳尚未完成者，Week 2 開頭先補做，不直接跳到計數器。
+
+上課帶筆電與充電器、USB 資料線，以及原清單的開發板、麵包板、兩顆按鈕、杜邦線；確認本組電表已備妥。採購數量、到貨週次與正式考試規定不變。
 
 <a id="shopee-purchase-images"></a>
 

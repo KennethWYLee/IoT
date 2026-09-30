@@ -5,7 +5,7 @@ const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
 const course = path.resolve(__dirname, '..');
 const root = path.dirname(course);
-const approvedWeeks = [3];
+const approvedWeeks = [1, 3];
 const args = process.argv.slice(2);
 assert(args.every(a => a === '--check' || /^\d+$/.test(a)), 'Unknown argument');
 const weeks = args.filter(a => /^\d+$/.test(a)).map(Number);
@@ -21,7 +21,9 @@ function inside(base, relative) {
 }
 for (const week of weeks) {
   assert(approvedWeeks.includes(week), `Week ${week} has no public-release approval`);
-  const config = JSON.parse(read(path.join(course, `docs/teaching_drafts/week${week}_answers/programs.sources.json`)));
+  const configPath = week === 1 ? 'Week_01_Course_Orientation/programs.sources.json'
+    : `docs/teaching_drafts/week${week}_answers/programs.sources.json`;
+  const config = JSON.parse(read(path.join(course, configPath)));
   assert.equal(config.week, week);
   const out = path.join(root, 'program', `week${week}`);
   const manifestFile = path.join(out, 'manifest.json');

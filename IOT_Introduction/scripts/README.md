@@ -60,18 +60,21 @@ installation, HTTPS/LAN or live WebSocket test.
 
 ### Public program download copies
 
-The instructor authorized Week3's nine `.ino` files on 2026-09-30. Their public
-download location is the repository-root `program/week3/` folder, with one
+The instructor authorized Week1's Hello and Week3's nine `.ino` files on 2026-09-30. Their public
+download locations are the repository-root `program/week1/` and `program/week3/` folders, with one
 same-named Arduino folder per sketch. Future approved weeks use `program/weekN/`;
 no other week is enabled automatically. Existing private canonical sources remain
 the editing source. Do not overwrite student edits to an exported copy.
 
 ```powershell
+node IOT_Introduction/scripts/sync_public_programs.cjs 1
+node IOT_Introduction/scripts/sync_public_programs.cjs 1 --check
 node IOT_Introduction/scripts/sync_public_programs.cjs 3
 node IOT_Introduction/scripts/sync_public_programs.cjs 3 --check
 ```
 
-The exporter copies only `.ino` entries from the existing private source list,
+The exporter copies only `.ino` entries from the weekly source list (Week1's list
+is beside its maintained Markdown; answer-week lists remain private),
 normalizes line endings to LF, and writes a SHA-256 manifest. It refuses unknown
 weeks or independently edited destinations. It does not commit, push, upload to
 Drive, compile, flash, or test hardware. PDF filenames and program basenames stay

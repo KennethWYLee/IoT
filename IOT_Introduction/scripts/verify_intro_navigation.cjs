@@ -36,7 +36,7 @@ for(const id of ['delivery-check','personal-purchase-check','safety','records-an
  assert(!docs[0].includes(`](#${id})`),`No dangling link to removed section: ${id}`);
 }
 assert.deepEqual([...docs[0].matchAll(/^## (\d+)\. /gm)].map(m=>Number(m[1])),[1,2,3,4,5,6,7,8]);
-assert(docs[0].includes('## 7. Week 2課前準備（Week 1課後完成）'));
+assert(docs[0].includes('## 7. Arduino 與 ESP32 第一次操作'));
 const shoppingSection=docs[0].split('<a id="shopee-purchase-images"></a>')[1];
 assert(shoppingSection?.includes('## 8. 老師的蝦皮購買圖片（歷史參考）'));
 assert(!/^## (?!8\.)/m.test(shoppingSection),'Shopping reference remains at the end');
@@ -115,7 +115,21 @@ assert(docs[0].indexOf('### A First IoT Example')<docs[0].indexOf('## 5. Minimum
 assert(docs[0].includes('not a tested'));
 assert(docs[0].includes('不是已完成實機驗證的成品'));
 assert(docs[0].indexOf('### 先看會做出的互動')<docs[0].indexOf('### 教學目標'));
-assert(docs[0].includes('Week2 Ans 第 6～13 頁'));
+assert(!docs[0].includes('Week2 Ans 第 6～13 頁'));
+assert.deepEqual([...docs[0].matchAll(/^### 7\.(\d+) /gm)].map(m=>Number(m[1])),[1,2,3,4,5,6,7,8,9,10]);
+const setupAnchors=['w1-install','w1-settings','w1-usb','w1-hello','w1-serial','w1-edit','w1-troubleshoot','w1-readiness'];
+for(const id of setupAnchors)assert(anchors(docs[0]).includes(id),id);
+const hello=read(path.join(root,'IOT_Introduction/docs/teaching_drafts/week2_redesign/hello_first/hello_first.ino')).trim();
+assert.equal(docs[0].match(/```cpp\n([\s\S]*?)\n```/)?.[1].trim(),hello,'Week 1 Hello matches canonical sketch');
+const beginner=read(path.join(root,'IOT_Introduction/docs/teaching_drafts/week2_redesign/beginner_setup.cjs'));
+for(const [,option,value]of docs[0].matchAll(/^\| (Upload Speed|USB Mode|USB CDC On Boot|Upload Mode|Flash Mode|Flash Size|Partition Scheme|PSRAM|Erase All Flash Before Sketch Upload) \| ([^|]+) \|$/gm)){
+ assert(beginner.includes(`<td>${option}</td><td>${value.trim()}</td>`),`Week 1/2 setting mismatch: ${option}`);
+}
+for(const phrase of ['3.3.11','只存檔時仍會新增 Hello','原有 Week 2 到貨期限不變','不熟悉的操作會先帶做','GPIO']){
+ assert(docs[0].includes(phrase),phrase);
+}
+const gallery=require('./hardware_galleries.cjs');
+assert(docs[0].includes(gallery.gallery(1,path.join(root,files[0]))),'Week 1 gallery matches catalog');
 assert(!docs[0].includes('week2_main.pdf#page=6'));
 assert(!docs[0].includes('week2_main.ipynb'));
 assert(docs[1].includes('Week 3 考卷：光線與紀錄'));
@@ -136,12 +150,13 @@ async function render(){
    body=body.replace(/!\[([^\]]*)\]\(([^)]+)\)/g,(_,alt,relative)=>{
     assert(!/^[a-z]+:/i.test(relative),'Render only local evidence images');
     const image=path.resolve(path.dirname(path.join(root,files[index])),relative);
-    const mime=/\.png$/i.test(image)?'image/png':'image/jpeg';
+    const mime=/\.png$/i.test(image)?'image/png':/\.webp$/i.test(image)?'image/webp':'image/jpeg';
     return `![${alt}](data:${mime};base64,${fs.readFileSync(image).toString('base64')})`;
    });
    const html='<!doctype html><html lang="'+(index?'zh-Hant':'en')+'"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><style>body{font:18px/1.7 "Microsoft JhengHei",sans-serif;color:#183047;margin:24px}main{max-width:1120px;margin:auto}h2{margin-top:48px}h3{margin-top:32px}p,li{overflow-wrap:anywhere}table{display:block;overflow-x:auto;border-collapse:collapse}th,td{border:1px solid #ccd6df;padding:10px;min-width:80px}img{max-width:100%;height:auto}pre{overflow-x:auto;background:#f2f6fa;padding:16px;font:15px/1.8 Consolas,monospace}a[id]{scroll-margin-top:80px}</style><main>'+marked.parse(body)+'</main></html>';
    fs.writeFileSync(path.join(out,`week1_${index?'support':'main'}_review.html`),html);
    await page.setContent(html);
+   assert(!(await page.locator('main').innerText()).includes('**'),'No unrendered Markdown emphasis in Week 1');
    await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));
    const internal=await page.locator('a[href^="#"]').evaluateAll(a=>a.map(x=>x.getAttribute('href')));
    for(const fragment of internal){
@@ -153,7 +168,7 @@ async function render(){
     await page.setViewportSize({width,height:960});
     await page.locator('details').evaluateAll(elements=>elements.forEach(e=>e.open=true));
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-    for(const focus of ['first-iot-example','course-schedule','purchase-table','purchase-budget','group-measurement-tool','week-2-preclass-setup','shopee-purchase-images',...orderFiles.map((_,i)=>`shopee-order-${i+1}`)]){
+    for(const focus of ['first-iot-example','course-schedule','purchase-table','purchase-budget','group-measurement-tool','week-2-preclass-setup',...setupAnchors,'shopee-purchase-images',...orderFiles.map((_,i)=>`shopee-order-${i+1}`)]){
      await page.locator('#'+focus).evaluate(e=>e.scrollIntoView());
      await page.screenshot({path:path.join(out,`week1_${focus}_${width}.png`)});
     }

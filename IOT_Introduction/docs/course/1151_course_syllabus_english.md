@@ -36,7 +36,7 @@ Weeks 2–7 cover hardware and standalone interaction. From Week 11, add Wi-Fi, 
 
 | Week | Date | Topic |
 |---:|---|---|
-| 1 | 2026-09-09 | Course, materials, and project overview |
+| 1 | 2026-09-09 | Course, materials and projects; Arduino IDE, ESP32 setup and first USB program |
 | 2 | 2026-09-16 | ESP32-S3, wiring, and button debounce |
 | 3 | 2026-09-23 | Electrical measurement, ADC, and light classification |
 | 4 | 2026-09-30 | Resistors, dual sensors, and buzzer |

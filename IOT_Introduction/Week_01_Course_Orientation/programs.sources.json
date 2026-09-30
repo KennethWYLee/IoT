@@ -1,0 +1,15 @@
+{
+  "week": 1,
+  "files": [
+    {
+      "source": "docs/teaching_drafts/week2_redesign/hello_first/hello_first.ino",
+      "destination": "hello_first/hello_first.ino"
+    }
+  ],
+  "entries": [
+    {
+      "label": "Hello",
+      "file": "hello_first/hello_first.ino"
+    }
+  ]
+}

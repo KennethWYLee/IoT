@@ -1,5 +1,7 @@
 # IoT Introduction：18週課程教材
 
+2026-09-30 Week1 入門補充：加入 Arduino IDE、ESP32 套件與板型設定、USB／Port、Hello 編譯上傳、Serial Monitor、修改程式及排錯。直接閱讀 [Week1 教學](Week_01_Course_Orientation/week1_main.md#week-2-preclass-setup)，程式在 [program/week1](../program/week1/README.md)。採購期限與配分不變；未完成實機上傳者在 Week2 開頭補做，不以題目卷取代初學者教學。見[修訂紀錄](docs/lab_notes/2026-09-30-week1-arduino-readiness.md)。
+
 2026-09-30 程式公開：Week3 的 9 支 `.ino` 已列入 [program/week3](../program/week3/README.md)，依教師要求直接提供原始檔，不用 ZIP。未來各週程式統一由 [program](../program/README.md) 進入；本次僅公開 Week3，其他週仍依原發布限制。見[程式發布紀錄](docs/lab_notes/2026-09-30-week3-program-github.md)。
 
 2026-09-30 Ans 授權：公開 [Week3 Ans：答案與逐題教學 PDF](Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf)，共 86 頁，先按 Main 原卷填答，再提供詳細教學。其他週答案不在此次授權範圍；Week3 程式另依上方新授權公開。下方較早紀錄的「Ans 不加入 GitHub」不再適用於這份 PDF。見[答案發布紀錄](docs/lab_notes/2026-09-30-week3-ans-github.md)。
@@ -34,7 +36,7 @@ Week11、12、14、15 使用每週 Markdown 與同名 PDF。原週目錄的 Week
 現行例外是 Week3 Ans PDF 已獲准公開；其他答案、私有 QA 與執行資料維持原限制。OLED 維持 Week5。
 詳見[當時修改與驗證紀錄](docs/lab_notes/2026-09-22-weekly-main-answers.md)。
 
-Week 1只介紹課程與[正式材料清單](Week_01_Course_Orientation/week1_main.md#purchase-table)，不操作硬體。
+Week1 保留課程與[正式材料清單](Week_01_Course_Orientation/week1_main.md#purchase-table)，並帶做 Arduino／ESP32 第一次操作；有已核對板卡時只接 USB，不接外部電路。尚無板卡者先完成安裝與編譯。
 
 Week 1 的[零件照片](Week_01_Course_Orientation/week1_main.md#equipment-photos)依品項展示外觀與不同角度。
 Week 2～7、11～12、14～15 的器材圖集與接線教學已隨完整教學移至 Ans。Main 保留作品需求及必要的題目圖。Week3 Ans 可直接下載，其餘教學由教師提供；repository 的 Main 不包含答案。
@@ -43,7 +45,7 @@ Week 2～7、11～12、14～15 的器材圖集與接線教學已隨完整教學�
 
 | 週次 | 日期 | 主題 | 主教材（唯一入口） |
 |---:|---|---|---|
-| 1 | 2026-09-09 | 課程大綱、配分與中文採購清單 | [開啟 Week 1](Week_01_Course_Orientation/week1_main.md) |
+| 1 | 2026-09-09 | 課程、採購與 Arduino／ESP32 第一次操作 | [開啟 Week1](Week_01_Course_Orientation/week1_main.md)／[Hello 程式](../program/week1/README.md) |
 | 2 | 2026-09-16 | ESP32-S3、開發環境與按鈕去抖 | [主教材 PDF](Week_02_ESP32_Hardware_Basics/week2_main.pdf) |
 | 3 | 2026-09-23 | 電氣量測、ADC與室內／遮光分類 | [題目 PDF](Week_03_Electrical_Measurement_and_ADC/week3_main.pdf)／[Ans PDF](Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf)／[程式](../program/week3/README.md) |
 | 4 | 2026-09-30 | 電阻量程、DHT11、雙感測器與蜂鳴提示 | [主教材 PDF](docs/teaching_drafts/week4_redesign/week4_main.pdf) |

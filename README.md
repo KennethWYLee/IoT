@@ -1,5 +1,7 @@
 # IoT 課程與無人機專題
 
+2026-09-30 Week1：已補齊 Arduino／ESP32 安裝設定、Hello 上傳與 Serial 觀察、修改與排錯，以及 Week2 先備能力說明。入口為 [Week1](IOT_Introduction/Week_01_Course_Orientation/week1_main.md)，可下載程式在 [program/week1](program/week1/README.md)。本次更新 GitHub，不更新雲端；見[修訂與驗證紀錄](IOT_Introduction/docs/lab_notes/2026-09-30-week1-arduino-readiness.md)。
+
 2026-09-30 程式公開：依教師新授權，Week3 的 9 支 `.ino` 放在 [program/week3](program/week3/README.md)，保留 Arduino 同名資料夾，不用 ZIP。未來各週已開放的程式統一放在 [program](program/README.md) 下按週分類；本次不連帶公開其他週程式，也不更新雲端。見[程式發布紀錄](IOT_Introduction/docs/lab_notes/2026-09-30-week3-program-github.md)。
 
 2026-09-30 Ans 授權：Week3 Ans 的 86 頁 PDF 現列入 GitHub，見[Week3 答案與逐題教學](IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf)。答案維護來源與其他週 Ans 不因此公開；Week3 程式另依上方新授權公開。下方較早發布紀錄的「Ans 不加入 GitHub」不再適用於這份 PDF。見[答案發布紀錄](IOT_Introduction/docs/lab_notes/2026-09-30-week3-ans-github.md)。
@@ -14,7 +16,7 @@
 
 - [IoT課程：18週教材](IOT_Introduction/README.md)
 - [各週程式：program](program/README.md)
-- [Week 1：課程大綱與中文採購清單](IOT_Introduction/Week_01_Course_Orientation/week1_main.md)
+- [Week1：課程、採購與 Arduino／ESP32 第一次操作](IOT_Introduction/Week_01_Course_Orientation/week1_main.md)
 - [Week 2–7 重設稿、操作修正與待確認事項](IOT_Introduction/docs/teaching_drafts/README.md)
 - [Drone：無人機專題](Drone/README.md)
 
