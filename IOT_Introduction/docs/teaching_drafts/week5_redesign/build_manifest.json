@@ -11,28 +11,32 @@
     },
     {
       "number": 3,
-      "id": "examtimer"
+      "id": "examoverview"
     },
     {
       "number": 4,
-      "id": "examtime"
+      "id": "examtimer"
     },
     {
       "number": 5,
-      "id": "exambutton"
+      "id": "examtime"
     },
     {
       "number": 6,
-      "id": "exampause"
+      "id": "exambutton"
     },
     {
       "number": 7,
+      "id": "exampause"
+    },
+    {
+      "number": 8,
       "id": "examlight"
     }
   ],
-  "sourceSha256": "7027c2f6011c8908010f42bc9dbf73c76a809fd20bddacba8e3fb9c5d091b2bd",
-  "builderSha256": "d33d232c9ce6efadce7f364ebf32704303735fb465a4d5f1040ffab370b3e716",
+  "sourceSha256": "95a1831812ced0d33d2c0070f1778c689ff4730151e256b5fe373b44bb546afe",
+  "builderSha256": "55397b4ea946c6a7a638d694afcbb185e6961fd83a0b3eff33011e91beff683f",
   "sketches": [],
   "photos": [],
-  "pdfSha256": "d94a1d9c8495d2186489d23efc025f537ba8d8eadbc78003203f81e0553261ca"
+  "pdfSha256": "39792fcbc1764614259311dcc735216dc9ab36192572f26168b56297ca4cd845"
 }

@@ -7,48 +7,52 @@
     },
     {
       "number": 2,
-      "id": "examdht"
+      "id": "examworks"
     },
     {
       "number": 3,
-      "id": "examquality"
+      "id": "examdht"
     },
     {
       "number": 4,
-      "id": "examflow"
+      "id": "examquality"
     },
     {
       "number": 5,
-      "id": "exambdual"
+      "id": "examflow"
     },
     {
       "number": 6,
-      "id": "exambtest"
+      "id": "exambdual"
     },
     {
       "number": 7,
-      "id": "examcrecord"
+      "id": "exambtest"
     },
     {
       "number": 8,
-      "id": "examctime"
+      "id": "examcrecord"
     },
     {
       "number": 9,
-      "id": "examdgoal"
+      "id": "examctime"
     },
     {
       "number": 10,
-      "id": "examdexpected"
+      "id": "examdgoal"
     },
     {
       "number": 11,
+      "id": "examdexpected"
+    },
+    {
+      "number": 12,
       "id": "examdtest"
     }
   ],
-  "sourceSha256": "99926e87de6ddd68e9c92fd55b3d5a444a0f09f901e8610482ccc5aae7785b9e",
-  "builderSha256": "45e93559f76849896dcb071c2f1c8d4f805086ee07cf597724c9e355f66cfef1",
+  "sourceSha256": "b657372a323a759e2f658e9c433c14446f3edd99d9dd4fbcbd686142f5d08fdb",
+  "builderSha256": "fd63adfccc18a62aad25b0318f09eea1ecb1d19280ef1823e20010d4ddde080b",
   "sketches": [],
   "photos": [],
-  "pdfSha256": "6a764ae254310fe675bc756c745b6cc458b20ffc04cef6eb43cacaa86c652bd6"
+  "pdfSha256": "7d3d5819cd9f94582deca7a5bb7d8eb83edf201f43bcc75427694d3069bb7c60"
 }

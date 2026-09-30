@@ -85,7 +85,7 @@ const diagrams = {
    box(10,10,630,145,'')+text(30,45,'第 7 次按下：收錄成功',23)+
    text(30,86,'按下總次數 7    成功 2    跳過 5',23)+
    text(30,128,'光線 raw 420；DHT 距今 400 毫秒',21),168),
- cumulative:()=>flow(['DHT → 定時讀取 → RAM 保留最近結果與時間','按鈕 → GPIO5 → 讀 KY 當次 raw','合成一行紀錄 → USB／UART → Monitor']),
+ cumulative:()=>flow(['DHT → 定時讀取 → 記憶體保留最近結果與時間','按鈕 → GPIO5 → 讀 KY 當次 raw','合成一行紀錄 → USB／UART → Monitor']),
  overview:()=>flow(['DHT11 → 溫度、濕度與讀取狀態','加回 KY → 保留不同時間的兩筆資料','穩定放開 → 穩定遮光 → 記一次事件','確認蜂鳴器接法後 → 短叫一次']),
  resistor:()=>svg(
    text(325,24,'外部斷電，測試區不接 ESP32',20,'middle')+
@@ -213,6 +213,7 @@ main{height:246mm}h2{font-size:23pt;line-height:1.4;margin:0 0 3mm;color:#194e54
 blockquote{margin:0 0 5mm;padding:0;color:#51676d;font-size:13pt}p{margin:3mm 0}li{margin:2mm 0}ol,ul{padding-left:7mm;margin:3mm 0}
 table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11pt;line-height:1.55;margin:4mm 0}th,td{text-align:left;vertical-align:top;padding:2.7mm 2.4mm;border-bottom:1px solid #c5d4d6;overflow-wrap:anywhere}th{background:#edf3f3}
 .write-space{border:1px solid #aec0c4;margin:3mm 0;background:repeating-linear-gradient(to bottom,white 0,white 8.8mm,#e3ebec 8.8mm,#e3ebec 9mm)}
+.filled-answer{border-left:3px solid #246e73;background:#eff6f5;color:#175b60;padding:2mm 3mm;margin:3mm 0;font-size:11pt;line-height:1.5}.answer-text{color:#175b60;font-weight:600}
 #examresistor svg{height:32mm}#examdht svg{height:65mm}#examflow svg{height:52mm}
 #exambtest th,#exambtest td{padding-top:2mm;padding-bottom:2mm}
 #examquality th:nth-child(1){width:10%}#examquality th:nth-child(2){width:18%}#examquality th:nth-child(3){width:18%}#examquality th:nth-child(4){width:54%}

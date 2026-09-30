@@ -1,6 +1,28 @@
 # Week 4 主教材重設稿
 
-## 目前版本：2026-09-26
+## 目前版本：2026-09-30
+
+先整理 Week3 已確認的 Main／Ans／program 做法，再套用到 Week4。可沿用的規則集中在[教材修訂準則](../week2_redesign/revision_guidelines.md)最前一節。
+
+- `week4_main.md`／PDF：12 頁考卷。Q1 後先說明 A～D 的關係，再依作品、特色、預期結果、驗證方法及作答安排；保留原來的器材、題目與行為條件。
+- `../week4_answers/week4Ans.md`／PDF：64 頁。前 12 頁保留 Main 原題並填答，p13 起按相同題序教實作。實測欄不造假標準值；完整程式不印入 PDF。
+- `../week4_answers/programs/`：四份完整 Arduino 程式、`START_HERE.md` 與來源雜湊清單。題目名稱、開檔位置、必要設定及啟動訊息對應；canonical 程式行為未改。
+- 本輪沒有 commit、push 或雲端上傳。Ans 與 program 保持既有 Git 忽略；歷史發布紀錄不代表本輪已發布。
+
+驗證結果與課前限制見[本輪紀錄](../../lab_notes/2026-09-30-week4-main-ans-program.md)。DHT 腳序、供電／訊號相容性與蜂鳴器的電流、上電、停止條件仍待確認；不能把 PDF 已建置當成實機通過。
+
+```powershell
+$env:NODE_PATH='C:/Users/User/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules'
+$env:PYTHONPATH=(Resolve-Path '_outputs/review_dependencies').Path
+$python='C:/Users/User/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe'
+node IOT_Introduction/scripts/package_answer_programs.cjs 4 --check
+node IOT_Introduction/docs/teaching_drafts/week4_redesign/build.cjs
+node IOT_Introduction/docs/teaching_drafts/week4_redesign/build.cjs --answers
+& $python -X utf8 IOT_Introduction/docs/teaching_drafts/week4_redesign/verify.py --render
+& $python -X utf8 IOT_Introduction/docs/teaching_drafts/week4_redesign/verify.py --answers --render
+```
+
+## 歷史版本：2026-09-26
 
 教師要求「根據 Week3 做法改寫 Week4」：本目錄 `week4_main.md`／PDF 是 **11 頁純考卷**；`../week4_answers/week4Ans.md`／PDF 是 **72 頁完整教學與答案**，繼續由 Git 忽略，不公開加入 repository。
 

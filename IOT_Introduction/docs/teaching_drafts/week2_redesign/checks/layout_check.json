@@ -4,36 +4,49 @@
     {
       "page": 1,
       "overflow": false,
-      "lastBottom": 899.703125,
+      "clippedAnswers": 0,
+      "lastBottom": 866.71875,
       "footerTop": 1070.375,
-      "gap": 170.671875
+      "gap": 203.65625
     },
     {
       "page": 2,
       "overflow": false,
-      "lastBottom": 2067.21875,
+      "clippedAnswers": 0,
+      "lastBottom": 2022.21875,
       "footerTop": 2192.890625,
-      "gap": 125.671875
+      "gap": 170.671875
     },
     {
       "page": 3,
       "overflow": false,
-      "lastBottom": 3271.84375,
+      "clippedAnswers": 0,
+      "lastBottom": 3189.734375,
       "footerTop": 3315.40625,
-      "gap": 43.5625
+      "gap": 125.671875
     },
     {
       "page": 4,
       "overflow": false,
-      "lastBottom": 4385.203125,
+      "clippedAnswers": 0,
+      "lastBottom": 4394.359375,
       "footerTop": 4437.921875,
-      "gap": 52.71875
+      "gap": 43.5625
     },
     {
       "page": 5,
       "overflow": false,
-      "lastBottom": 5495.546875,
+      "clippedAnswers": 0,
+      "lastBottom": 5507.71875,
       "footerTop": 5560.4375,
+      "gap": 52.71875
+    },
+    {
+      "page": 6,
+      "overflow": false,
+      "clippedAnswers": 0,
+      "lastBottom": 6618.0625,
+      "footerTop": 6682.953125,
       "gap": 64.890625
     }
   ]

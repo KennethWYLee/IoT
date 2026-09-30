@@ -1,5 +1,7 @@
 # IoT Introduction：18週課程教材
 
+2026-09-30：Week2、Week4、Week5 已依 Week3 的原則修訂：Main 是題目卷，Ans 先依原卷填答再逐題教學，完整程式另附 programs。三週 Main/Ans 頁數為 6/44、12/64、8/54；六份 PDF 和三個程式包已更新雲端並回讀核對。GitHub 不加入 Ans 或新答案程式。見[本輪紀錄](docs/lab_notes/2026-09-30-week245-main-ans-program-publication.md)。以下較早日期的頁數與上傳範圍為歷史紀錄。
+
 2026-09-30 入口修正：Week3 原週目錄的 PDF 與 Notebook 已同步為目前 13 頁考卷，舊含答案教材另存本機封存目錄。維護來源仍是 week3_redesign；教師已授權本次 commit、push。見[替換及發布紀錄](docs/lab_notes/2026-09-30-week3-main-promotion.md)。
 
 2026-09-29 後續發布：每週完整程式另放本機資料夾，Ans 改列檔案與必要說明。Week3 Ans 現為 86 頁，先依 Main 格式填答，再逐題詳解。雲端已原地更新 10 份 Ans；10 份 Main 無變更，20 份 PDF 均已回讀核對 SHA-256。GitHub 維持 Public 且不含 Ans；程式依教師要求不傳 GitHub 或雲端。見[最新發布紀錄](docs/lab_notes/2026-09-29-program-files-publication.md)。下方保留較早版本沿革。

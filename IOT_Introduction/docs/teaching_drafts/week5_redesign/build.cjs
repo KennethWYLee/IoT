@@ -63,7 +63,7 @@ const diagrams = {
    box(15,167,170,48,'3V3／GND')+box(450,167,180,48,'VDD／GND')+line(185,191,450,191)+
    text(325,260,'上：資訊與時序；下：供電與共同參考。',19,'middle'),281),
  screen:()=>svg('<rect x="150" y="10" width="350" height="206" fill="#162528" rx="3"/>'+
-    ['IDLE','TIME 30 s','NOT RUNNING','DEMO 3/6 NOT SCORE'].map((t,i)=>'<text x="171" y="'+(49+46*i)+'" fill="#d7f2e9" font-size="24" font-family="Consolas,monospace">'+t+'</text>').join('')+
+    ['IDLE','TIME 30 s','NOT RUNNING','DEMO 3/6 NOT SCORE'].map((t,i)=>'<text x="171" y="'+(49+46*i)+'" style="fill:#d7f2e9" font-size="24" font-family="Consolas,monospace">'+t+'</text>').join('')+
     text(325,248,'版面示意，不是實機照片；四行都要能看清楚。',18,'middle'),271),
  buffer:()=>flow(['clearBuffer：清掉記憶體中的上一張圖','drawStr：把四行文字畫進緩衝區','sendBuffer：經 I2C 傳到螢幕']),
  combined:()=>svg(
@@ -181,6 +181,7 @@ aside{padding:3mm 4mm;margin:4mm 0;border-left:4px solid #9b7837;background:#faf
 pre{white-space:pre-wrap;overflow-wrap:anywhere;font:10.5pt/1.5 Consolas,"Microsoft JhengHei",monospace;background:#f1f4f5;border-left:3px solid #849ba1;padding:3mm;margin:3mm 0}code{font-family:Consolas,"Microsoft JhengHei",monospace;font-size:.92em;overflow-wrap:anywhere}
 footer{position:absolute;bottom:9mm;left:17mm;right:17mm;display:flex;justify-content:space-between;color:#617277;font-size:8.5pt}a{color:#1c666e;text-decoration:underline}.lead{font-size:12pt;color:#51676d}.code-title{font-size:17pt;overflow-wrap:anywhere}.fullcode{font-size:10pt;line-height:1.45}.next{border-top:1px solid #acc1c3;padding-top:3mm;font-size:11pt}
 .write-space{border:1px solid #aec0c4;margin:3mm 0;background:repeating-linear-gradient(to bottom,white 0,white 8.8mm,#e3ebec 8.8mm,#e3ebec 9mm)}
+.filled-answer{border:1px solid #aec0c4;margin:3mm 0;padding:3mm;background:#f0f7f3;color:#21594b;font-size:11pt;line-height:1.55}.filled-answer p{margin:1mm 0}
 @media screen{.page{margin:8mm auto;box-shadow:0 1px 6px #aaa}}
 `;
 const html='<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>Week 5 RGB、OLED 與倒數</title><style>'+css+'</style></head><body>'+pages.map((p,i)=>`<section id="${p.id}" class="page"><header><span>Week 5 ${answers?'Ans ':''}· RGB、OLED 與倒數</span><span>${esc(p.tag)}</span></header><main>${p.html||render(p.body)}</main><footer><span>Week 5 ${answers?'Ans ':''}· RGB、OLED 與倒數</span><span>${i+1} / ${pages.length}</span></footer></section>`).join('')+'</body></html>';

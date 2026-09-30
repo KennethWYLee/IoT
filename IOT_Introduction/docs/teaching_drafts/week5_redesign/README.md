@@ -1,37 +1,39 @@
-# Week 5 主教材重設稿
+# Week 5 Main、Ans、program
 
-2026-09-27 現行版：Main 7 頁為作品與考題，完整原教學、基本程式及延伸答案均移至本機 `../week5_answers/week5Ans.md`，Ans 69 頁。下方頁次及 Main 含教學的敘述為歷史紀錄。依序 `node build.cjs`、`node build.cjs --answers`，以 `python verify.py`、`python verify.py --answers` 核對；Ans 來源須由教師保留，不加入 Git。[全學期修訂紀錄](../../lab_notes/2026-09-27-semester-exam-answers.md)。
+## 現行版本
 
-2026-09-22 本輪：Main 保留基本程式與原理，延伸題答案另放本機 week5Ans。
-新增兩張「只改一處」反例對照圖，相關接線只作圖上推演；不新增實物實測。
-目前頁次以 PDF 頁尾與產生器清單為準，下方舊頁碼保留沿革意義。
-[本輪修改、驗證與限制](../../lab_notes/2026-09-22-weekly-main-answers.md)。本輪尚未提交或上傳。
+2026-09-30：Main 8 頁；Ans 54 頁，前 8 頁原卷填答，第 9 頁起按題序教學。Main 先做 RGB 與 OLED 題，再介紹 A、B、C 的關係；不強加新作品或評分要求。
 
+- 學生入口：[Main PDF](week5_main.pdf)，維護來源 `week5_main.md` 與 `build.cjs`。
+- Ans 維護來源：本機 `../week5_answers/week5Ans.md`；PDF 與來源不加入 Git。
+- Ans 先填答，再依 Q1、Q2、A/Q3/Q4、B/Q5、C/Q6、Q7 安排操作及原理。
+- 四份完整程式在本週 Ans 的 `programs`，先讀 `START_HERE.md`；每支程式各有同名子資料夾。
+- 程式包以 `programs.sources.json` 指定維護來源，由共用包裝工具核對雜湊；不覆蓋學生或教師另外修改的副本。
+- 雲端已更新 Main、Ans 與 `program/IoT_week5_program.zip`，三檔均下載回讀核對 SHA-256。GitHub 不新增 Ans 或答案程式。
+- 舊週目錄 Notebook／PDF 維持歷史版本，課程索引直接開本目錄的現行 Main；不從舊 Notebook 重新匯出覆蓋。
 
+[共同修訂準則](../week2_redesign/revision_guidelines.md)；[本輪修訂與發布檢查](../../lab_notes/2026-09-30-week245-main-ans-program-publication.md)。
 
-2026-09-22：教師決定 OLED 顯示教學統一放在 Week 5。主教材原有 OLED 接線、掃描、文字與倒數進度維持；原 Week 2 詳細 OLED 講義移到本機 `../week5_oled_supplement/week5_OLED.pdf`（22 頁），作為額外逐步操作參考，不把兩份重複安排為必做。Week 2 解答已分離為 week2Ans.pdf。OLED 補充及其來源仍不發布，主教材的接線與程式不改。
+## 重建與檢查
 
-依 2026-09-16 教師要求，沿用 Week 2 的同步帶做方式：先觀察結果，再解釋原理。完成一個可中止、可重新準備的 RGB／OLED 倒數器，不新增遮光計分、舵機、電池或雲端要求。
-
-- 閱讀成品：[week5_main.pdf](week5_main.pdf)，56 頁。p33–38 為雙按鈕 OLED 倒數器；p37 改五秒一格、p38 緊接解答。p43 起為完整程式。已補開檔步驟、按鈕孔位並區分兩版收尾命令。
-- 維護來源：`week5_main.md`、`build.cjs`。兩支既有 `.ino` 加上本目錄 `button_oled_timer/button_oled_timer.ino`，附錄直接嵌入，不另維護副本。
-- p31 是六題練習，p32 緊接完整解答；本稿含答案，不用作未公開考卷。
-- 原正式 `Week_05_RGB_OLED_Countdown/week5_main.ipynb`／PDF、`docs/course_materials/week5_main.source.md` 及 canonical 程式未改動。尚未切換正式出口。
-- 先前三週重設稿已隨 869418b 推送。本次新增舊零件整合活動也獲教師授權提交並推送；實際版本以 Git 歷史為準。入口在上層 README。
-- 課前硬體待辦、120 分鐘安排、內容對照與檢查結果見 [review.md](review.md)。沒有新實機通過紀錄。
-
-## 重建
-
-從 IoT repository 根目錄執行。需有 Node、marked、Playwright、Edge、Python、PyMuPDF 與 Pillow。
+從 IoT repository 根目錄執行。需既有 Node、marked、Playwright、Edge、Python、PyMuPDF、BeautifulSoup 與 Pillow。
 
 ```powershell
-$env:NODE_PATH='C:\Users\User\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules'
+node IOT_Introduction/scripts/package_answer_programs.cjs 5
 node IOT_Introduction/docs/teaching_drafts/week5_redesign/build.cjs
-python IOT_Introduction/docs/teaching_drafts/week5_redesign/verify.py
+node IOT_Introduction/docs/teaching_drafts/week5_redesign/build.cjs --answers
+python IOT_Introduction/docs/teaching_drafts/week5_redesign/verify.py --render
+python IOT_Introduction/docs/teaching_drafts/week5_redesign/verify.py --answers --render
+python IOT_Introduction/docs/teaching_drafts/week5_answers/check_exam_answers.py
+node IOT_Introduction/scripts/package_answer_programs.cjs 5 --check
 ```
 
-`build_manifest.json` 保存來源、程式、照片與 PDF 雜湊。HTML、逐頁圖、版面檢查放在忽略追蹤的暫存區；不必在另一台電腦重新建置才能閱讀 PDF。
+只有公開 repository 時可重建 Main；Ans 及其檢查須教師的私有來源。完整程式不再嵌入 PDF，`build_manifest.json` 記錄來源、圖片、產生器與 PDF 雜湊。
 
 ## 優先下一步
 
-核對同批 RGB 的限流及各色電流、OLED 的供電與 SDA／SCL 電位，再完成一輪正式倒數器的實機開始／中止／故障恢復。T01 曾有三色和顯示回報，不足以把這次整合標成硬體通過。
+先確認同批 RGB 限流及電流、OLED 供電與訊號電位，再依 Main 驗證倒數、中止與恢復。預設 -1、false、LESSON_STAGE=0 保留，不能只把全部旗標改 true。已上傳不代表畫面已初始化。
+
+本輪未改 .ino 行為，未上傳韌體或操作硬體，未重新進行目標板編譯與 MSVC 主機測試。T01 的歷史顯示回報不代表每一組模組都已核對。
+
+較早重設、備課時程及歷史測試留在 [review.md](review.md)，舊頁數不覆蓋上方現行分工。

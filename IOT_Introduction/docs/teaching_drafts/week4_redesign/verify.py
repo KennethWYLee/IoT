@@ -14,7 +14,10 @@ sections = {m[1]: m[3] for m in parts}
 assert len(parts) == len(sections)
 manifest = json.loads((directory / "build_manifest.json").read_text(encoding="utf-8"))
 if answers:
-    assert next(iter(sections)) == "answerindex"
+    main_md = (here / "week4_main.md").read_text(encoding="utf-8")
+    main_ids = re.findall(r"<!-- page: (\w+) \|", main_md)
+    assert list(sections)[:len(main_ids)] == main_ids
+    assert list(sections)[len(main_ids)] == "answerindex"
     assert not manifest["sketches"]
     assert len(json.loads((directory / "programs.sources.json").read_text(encoding="utf-8"))["entries"]) == 4
     for ident in ["resistoranswer", "readinganswer", "qualityanswer", "flowanswer",
@@ -30,7 +33,8 @@ if answers:
     assert "Main 已確認的接線" not in md
     subprocess.run([sys.executable, str(directory / "check_exam_answers.py")], check=True)
 else:
-    assert len(parts) == 11
+    assert len(parts) == 12
+    assert list(sections).index("examworks") < list(sections).index("examdht")
     assert not manifest["sketches"] and "{{program:" not in md
     assert "```cpp" not in md and ".ino" not in md
     assert "475" not in md

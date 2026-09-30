@@ -113,10 +113,10 @@ page(1,'按鈕與電腦訊息','按一下按鈕，電腦怎麼知道？','按鈕
 `),
 page(2,'操作 1 · 不接外部電源','電表先回答：通，還是不通？','這次只用通斷功能，不量電流，也不量供電電壓。',`
   <div class="meter-row"><figure><img style="height:84mm" src="${photo('A830L_1.jpg')}" alt="A830L：黑筆插 COM，紅筆插 VΩmA，左側 10A 空著；旋鈕照片為 OFF"/><figcaption>實物照片的旋鈕在 OFF。<br>接好表筆後，還要選通斷檔。</figcaption></figure><div>
-  <h2>先認三個位置</h2><ol class="steps"><li><b>黑筆插 COM。</b><br>在這台表的下方中間。</li><li><b>紅筆插 VΩmA。</b><br>在下方右邊。左邊 10A 不用。</li><li><b>旋鈕轉到通斷蜂鳴符號。</b><br>找聲波圖案，不是 200 Ω 的數字。實物標示不同時，先一起核對，不猜檔位。</li></ol>
+  <h2>先認三個位置</h2><ol class="steps"><li><b>黑色表筆的插頭插電表 COM 孔。</b><br>在這台表的下方中間。</li><li><b>紅色表筆的插頭插 VΩmA 孔。</b><br>在下方右邊。左邊 10A 是量電流的插孔，本次不用。</li><li><b>旋鈕轉到通斷蜂鳴符號。</b><br>找聲波圖案，不是 200 Ω 的數字。實物標示不同時，先一起核對，不猜檔位。</li></ol>
   </div></div>
   <h2>先做自測，再測一條線</h2>
-  <table><thead><tr><th>你的動作</th><th>預期</th><th>我的實際結果</th></tr></thead><tbody><tr><td>兩個筆尖分開</td><td>不叫</td><td>____________</td></tr><tr><td>兩個金屬筆尖接觸</td><td>會叫</td><td>____________</td></tr><tr><td>同一條公對公線的兩端，各碰一筆</td><td>完好的線會叫</td><td>____________</td></tr></tbody></table>
+  <table><thead><tr><th>你的動作</th><th>預期</th></tr></thead><tbody><tr><td>兩個筆尖分開</td><td>不叫</td></tr><tr><td>兩個金屬筆尖接觸</td><td>會叫</td></tr><tr><td>同一條公對公線的兩端，各碰一筆</td><td>完好的線會叫</td></tr></tbody></table>
   <p><b>怎麼判讀：</b>電阻表示路徑對電流的阻礙。兩筆間的電阻夠小，通斷檔就會叫；例如完好導線。蜂鳴不一定表示故障。</p>
   <aside class="safety">結果不符時，檢查插孔、檔位與接觸。不要改接電源來試。通斷檔不能用在帶電電路。</aside>
 `),
@@ -125,7 +125,7 @@ page(3,'操作 2 · 不接外部電源','麵包板：哪些孔原本就相通？
   <h2>先讀一個孔位</h2><p><b>a10</b> 是 a 欄、第 10 列。這張圖中，a10 到 e10 是同一組；f10 到 j10 是另一組。</p>
   <h2>用兩條杜邦線把測試位置引出來</h2>
   <ol class="steps compact"><li>在要比較的兩個孔，各插入一條公對公杜邦線。</li><li>紅、黑表筆各碰一條線另一端的金屬針。</li><li>兩條線末端不要互碰；不要把粗表筆硬塞進麵包板孔。</li></ol>
-  <table><thead><tr><th>比較的兩孔</th><th>先猜：叫／不叫</th><th>實測：叫／不叫</th></tr></thead><tbody><tr><td>a10 與 e10</td><td>____________</td><td>____________</td></tr><tr><td>a10 與 a11</td><td>____________</td><td>____________</td></tr><tr><td>a10 與 f10</td><td>____________</td><td>____________</td></tr></tbody></table>
+  <table><thead><tr><th>比較的兩孔</th><th>正常接線區的預期</th></tr></thead><tbody><tr><td>a10 與 e10</td><td>會叫</td></tr><tr><td>a10 與 a11</td><td>不叫</td></tr><tr><td>a10 與 f10</td><td>不叫</td></tr></tbody></table>
   <p><b>核對：</b>正常、未加其他接線的這類麵包板，三次應是「叫、不叫、不叫」。不符時先確認列號、線是否插到底，以及表筆接觸。</p>
 `),
 page(4,'操作 3 · 不接外部電源','四腳按鈕，分成兩組接點','每組兩腳一直相通；按下時，兩組也會接通。',`
@@ -134,7 +134,7 @@ page(4,'操作 3 · 不接外部電源','四腳按鈕，分成兩組接點','每
   <ol class="steps compact"><li>放開按鈕，用通斷檔比較各腳，找出原本就相通的兩腳，記為 A1、A2。</li><li>確認另兩腳放開時也相通，記為 B1、B2。</li><li>紅筆碰 A1、黑筆碰 B1。固定接觸後，再比較放開與按下。</li></ol>
   <table><thead><tr><th>量哪兩腳</th><th>放開時的預期</th><th>按下時的預期</th></tr></thead><tbody><tr><td>A1 與 A2（同組）</td><td>會叫</td><td>會叫</td></tr><tr><td>A1 與 B1（跨組）</td><td>不叫</td><td>會叫</td></tr></tbody></table>
   <p><b>最重要的判斷：</b>要讓按鈕改變連通，必須從兩組各取一腳。只取同組兩腳，按不按都相通。</p>
-  <p class="question">我的按鈕哪兩腳是同組？在紙上畫四個腳，把相通的一組圈起來。若測不出上表結果，先一起核對接觸與腳位，不接 ESP32。</p>
+  <p class="question">將自己測到的兩組腳畫回 Q1，不另抄一份。若測不出上表結果，先一起核對接觸與腳位，不接 ESP32。</p>
 `),
 page(5,'一起做 · 先找位置','拿出開發板，找到兩個腳位','先找印字，不接線。這一段只用 GPIO4 與 GND。',`
   <figure class="diagram"><img style="width:100%;height:90mm;object-fit:contain" src="${photo('ESP32S3_1.png')}" alt="YD-ESP32-S3 實物正面，天線向左、USB 向右；GPIO4 在下排，左上端有 GND"/><figcaption>照片：課堂既有 YD-ESP32-S3 Type-A V1.5。把你的板子轉成相同方向：天線在左，兩個 USB 接頭在右。</figcaption></figure>
@@ -238,6 +238,10 @@ if (answers) {
   const programGuide = path.join(answerDir, 'program_file_pages.cjs');
   inputs.add(programGuide);
   pages = require(programGuide)(pages);
+  const examFile = path.join(__dirname, 'exam_pages.cjs');
+  const assembleFile = path.join(answerDir, 'assemble_answers.cjs');
+  inputs.add(examFile); inputs.add(assembleFile);
+  pages = require(assembleFile)({lessons: pages, exam: require(examFile)({page})});
 } else {
   inputs.add(path.join(__dirname, 'exam_pages.cjs'));
   pages = require('./exam_pages.cjs')({page});
@@ -248,7 +252,7 @@ const css = `
 @page{size:A4;margin:0}*{box-sizing:border-box}body{margin:0;color:#24343b;background:#e4e7e8;font:12pt/1.6 "Microsoft JhengHei",sans-serif;letter-spacing:0} .page{background:white;width:210mm;height:297mm;padding:14mm 17mm 16mm;position:relative;break-after:page;overflow:hidden}.page:last-child{break-after:auto}header{display:flex;justify-content:space-between;color:#506b70;font-size:9pt;border-bottom:1px solid #a8bdbd;padding-bottom:3mm;margin-bottom:6mm}main{height:246mm}h1{font-size:23pt;line-height:1.4;margin:0 0 3mm;color:#194e54}h2{font-size:14pt;line-height:1.45;margin:5mm 0 2mm}p{margin:2.5mm 0}p.lead{font-size:13pt;color:#4d636d;margin-bottom:5mm}.goal{border-left:4px solid #287d80;padding:3mm 4mm;background:#edf5f4}.sequence{list-style:none;padding:0;margin:3mm 0;counter-reset:step}.sequence li{counter-increment:step;display:grid;grid-template-columns:9mm 30mm 1fr;gap:3mm;align-items:start;padding:3mm 0;border-bottom:1px solid #dce2e3}.sequence li:before{content:counter(step);font-weight:700;color:#246f74}.photo-row{display:grid;grid-template-columns:62mm 1fr;gap:6mm;align-items:center;margin:5mm 0}.photo-row img{width:62mm;height:43mm;object-fit:contain}.meter-row{display:grid;grid-template-columns:67mm 1fr;gap:6mm}.meter-row figure{margin:0}.meter-row img{height:104mm;width:65mm;object-fit:contain}.meter-row h2{margin-top:0}.steps{padding-left:6mm;margin:2mm 0}.steps li{margin:3mm 0}.steps.compact li{margin:1.5mm 0}figure.diagram{margin:3mm 0}svg{display:block;width:100%;height:auto;max-height:92mm;font-family:"Microsoft JhengHei",sans-serif;fill:#24343b}figcaption{font-size:9.5pt;line-height:1.5;color:#52636c;margin-top:2mm}table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:11pt;line-height:1.5;margin:4mm 0}th{text-align:left;background:#eaf1f2;font-weight:700}td,th{border-bottom:1px solid #c6d3d6;padding:3mm 2.5mm;vertical-align:top}aside{padding:3mm 4mm;line-height:1.55;font-size:11pt;margin:4mm 0}.safety{border-left:4px solid #ae493c;background:#fff2ee}.note{border-left:4px solid #947336;background:#fbf6e8}.question{border-top:1px solid #a7bfc2;padding-top:3mm}.next{border-top:1px solid #a7bfc2;padding-top:3mm;margin-top:5mm;color:#194e54;font-weight:700;font-size:11pt}.sources{font-size:9pt;line-height:1.5;color:#5d6b72}a{color:#194e54}footer{position:absolute;bottom:9mm;left:17mm;right:17mm;display:flex;justify-content:space-between;color:#607079;font-size:8.5pt} @media screen{.page{margin:10mm auto;box-shadow:0 1px 8px #aaa}}
 `;
 const html = `<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>Week 2 主教材：按鈕與計數器</title><style>${css}pre{font:10.5pt/1.4 Consolas,monospace;white-space:pre-wrap;margin:3mm 0;padding:3mm;background:#f1f4f5;border-left:3px solid #718991}code{font-family:Consolas,monospace}.reference{width:100%;object-fit:contain}.urlbox{padding:3mm;background:#edf5f4;font:10.5pt/1.5 Consolas,monospace;overflow-wrap:anywhere}.settings td,.settings th{padding:2mm 2.5mm}.troubleshooting{font-size:10.5pt}.troubleshooting th:first-child,.troubleshooting td:first-child{width:27%}.troubleshooting td{padding:2mm 2.5mm}ul{padding-left:6mm;margin:2mm 0}li{margin:1.5mm 0}</style></head><body>${pages.join('')}</body></html>`;
-const finalHtml = html.replace('</style>', '.write-space{border:1px solid #aec0c4;margin:3mm 0;background:repeating-linear-gradient(to bottom,white 0,white 8.8mm,#e3ebec 8.8mm,#e3ebec 9mm)}</style>');
+const finalHtml = html.replace('</style>', '.answer-text{color:#21594b;padding:3mm;font-size:11pt;line-height:1.55}.answer-text p{margin:1mm 0}.write-space.answered{background:#f0f7f3;overflow:hidden}.write-space{border:1px solid #aec0c4;margin:3mm 0;background:repeating-linear-gradient(to bottom,white 0,white 8.8mm,#e3ebec 8.8mm,#e3ebec 9mm)}</style>');
 fs.writeFileSync(htmlFile,finalHtml);
 (async()=>{
   const browser=await chromium.launch({channel:'msedge',headless:true});
@@ -256,9 +260,9 @@ fs.writeFileSync(htmlFile,finalHtml);
   await page.goto(pathToFileURL(htmlFile).href);
   await page.emulateMedia({media:'print'});
   await page.evaluate(()=>document.fonts.ready);
-  const audit=await page.evaluate(()=>({images:[...document.images].map(i=>({loaded:i.complete&&i.naturalWidth>0})),pages:[...document.querySelectorAll('.page')].map((p,i)=>{const m=p.querySelector('main'), f=p.querySelector('footer'), last=m.lastElementChild;return{page:i+1,overflow:m.scrollHeight>m.clientHeight+1,lastBottom:last.getBoundingClientRect().bottom,footerTop:f.getBoundingClientRect().top,gap:f.getBoundingClientRect().top-last.getBoundingClientRect().bottom};})}));
+  const audit=await page.evaluate(()=>({images:[...document.images].map(i=>({loaded:i.complete&&i.naturalWidth>0})),pages:[...document.querySelectorAll('.page')].map((p,i)=>{const m=p.querySelector('main'), f=p.querySelector('footer'), last=m.lastElementChild;return{page:i+1,overflow:m.scrollHeight>m.clientHeight+1,clippedAnswers:[...m.querySelectorAll('.answered')].filter(e=>e.scrollHeight>e.clientHeight+1).length,lastBottom:last.getBoundingClientRect().bottom,footerTop:f.getBoundingClientRect().top,gap:f.getBoundingClientRect().top-last.getBoundingClientRect().bottom};})}));
   fs.writeFileSync(path.join(__dirname,'tmp/layout_check.json'),JSON.stringify(audit,null,2));
-  if(audit.images.some(i=>!i.loaded)||audit.pages.some(p=>p.overflow||p.gap<8)) { await browser.close(); throw Error(JSON.stringify(audit)); }
+  if(audit.images.some(i=>!i.loaded)||audit.pages.some(p=>p.overflow||p.clippedAnswers||p.gap<8)) { await browser.close(); throw Error(JSON.stringify(audit)); }
   await page.pdf({path:official,format:'A4',printBackground:true,preferCSSPageSize:true});
   fs.copyFileSync(official, path.join(answers ? answerDir : __dirname, answers ? 'week2Ans.pdf' : 'Week2_main_layout_sample.pdf'));
   const checks = path.join(answers ? answerDir : __dirname, 'checks');

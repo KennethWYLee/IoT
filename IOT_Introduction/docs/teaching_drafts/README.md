@@ -1,6 +1,10 @@
 # Week 2–7 主教材重設稿入口
 
+2026-09-30 現行版：Week2、Week4、Week5 的 Main/Ans 分別為 6/44、12/64、8/54 頁。Ans 前段保留同週原卷填答，之後按題序操作與解釋；各週 programs 附四份完整程式和中文入口說明。六份 PDF、三個 ZIP 已更新正確雲端資料夾並回讀核對，GitHub 不加入 Ans 或答案程式。見[本輪修訂與發布紀錄](../lab_notes/2026-09-30-week245-main-ans-program-publication.md)。下方「未發布」表示當時狀態，不覆蓋本段。
+
 2026-09-30：Week3 的原週目錄 PDF 與 Notebook 已換成目前 13 頁考卷，維護來源仍在 week3_redesign。舊含答案教學版另行封存於本機；教師已授權本次 commit、push。詳見[替換及發布紀錄](../lab_notes/2026-09-30-week3-main-promotion.md)。
+
+2026-09-30 Week4 本機修訂：先將 Week3 最新 Main／Ans／program 做法整理到[教材修訂準則](week2_redesign/revision_guidelines.md)，再套用 Week4。Main 12 頁，先交代四個作品的關係；Ans 64 頁，前 12 頁原卷填答，之後按題序詳解；四份完整程式另附中文開檔與設定說明。沒有增加器材、功能或評分，本輪未 commit、push 或更新雲端。這是 Week4 最新分工，下方同週頁數與發布狀態是歷史紀錄。[本輪紀錄](../lab_notes/2026-09-30-week4-main-ans-program.md)。
 
 2026-09-29 後續發布完成：雲端已更新下段所述的 10 份新版 Ans，Week3 為 86 頁；全部 20 份 Main／Ans PDF 已下載回讀並核對 SHA-256。GitHub 維持 Public、不加入 Ans；各週程式資料夾仍只留本機，不隨 PDF 上傳。見[發布紀錄](../lab_notes/2026-09-29-program-files-publication.md)。
 
@@ -50,7 +54,7 @@ Week11、12、14、15 維護每週 Markdown。兩類均有本機 weekNAns，並�
 
 | 週次 | 閱讀 PDF | 維護及檢查 |
 |---|---|---|
-| Week 2 | [正式主教材](../../Week_02_ESP32_Hardware_Basics/week2_main.pdf)（week2Ans 另留本機，尚未發布） | [README](week2_redesign/README.md) |
+| Week 2 | [正式主教材](../../Week_02_ESP32_Hardware_Basics/week2_main.pdf)（Ans 另由教師雲端提供，不在 GitHub） | [README](week2_redesign/README.md) |
 | Week 3 | [電表、光敏與 ADC](week3_redesign/week3_main.pdf)（week3Ans 另留本機） | [README](week3_redesign/README.md)、[檢查紀錄](week3_redesign/review.md) |
 | Week 4 | [環境紀錄、失敗與遮光提醒](week4_redesign/week4_main.pdf) | [README](week4_redesign/README.md)、[檢查紀錄](week4_redesign/review.md) |
 | Week 5 | [RGB、OLED 與倒數](week5_redesign/week5_main.pdf) | [README](week5_redesign/README.md)、[檢查紀錄](week5_redesign/review.md) |

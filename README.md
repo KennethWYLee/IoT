@@ -1,5 +1,7 @@
 # IoT 課程與無人機專題
 
+2026-09-30：Week2、Week4、Week5 已依 Week3 的 Main／Ans／program 分工完成修訂。Main 為 6／12／8 頁，Ans 為 44／64／54 頁，先原卷填答再按題序教學。六份 PDF 及三個程式 ZIP 已更新雲端並下載核對；程式包位於 `codex/課堂教材/IoT/program`。GitHub 維持 Public，不新增 Ans 或答案程式。見[本輪修訂與發布紀錄](IOT_Introduction/docs/lab_notes/2026-09-30-week245-main-ans-program-publication.md)。
+
 2026-09-30 Week3 入口已替換：原週目錄的 PDF 與 Notebook 都改為目前 13 頁考卷。舊含答案教學版另行封存、不新增至 Git。課程索引直接開啟原週目錄的新版 PDF；教師已授權本次 commit、push。見[替換及發布紀錄](IOT_Introduction/docs/lab_notes/2026-09-30-week3-main-promotion.md)。
 
 2026-09-30 最新發布：Week3 Ans 已補充分壓推導與 OLED 實物接線說明，86 頁 PDF 原地更新至雲端；Week3 的 9 支完整程式另以 ZIP 提供於雲端，兩檔均下載回讀、核對 SHA-256 與上傳版本一致。Ans 與新程式包仍不加入 GitHub；Ans 程式正在修改，雲端 ZIP 是本次已上傳的版本，不代表後續本機修改已同步。其他週次程式維持暫不上傳。見[發布紀錄](IOT_Introduction/docs/lab_notes/2026-09-30-week3-cloud-update.md)。
@@ -11,7 +13,7 @@
 - [Week 2–7 重設稿、操作修正與待確認事項](IOT_Introduction/docs/teaching_drafts/README.md)
 - [Drone：無人機專題](Drone/README.md)
 
-每週只有一份主教材。Week2～7、11、12、14、15 的 Main 都是題目卷，完整基本教學與參考答案另在教師提供的 Ans，完整程式改為另外開啟檔案。Ans 與新程式資料夾不加入 Git；Week3 程式已另提供雲端 ZIP，其他週次程式暫留本機。雲端狀態以[最新發布紀錄](IOT_Introduction/docs/lab_notes/2026-09-30-week3-cloud-update.md)為準。OLED 正式教學安排在 Week5；報告週、筆試規定與配分不變。
+每週只有一份主教材。Week2～7、11、12、14、15 的 Main 都是題目卷，完整基本教學與參考答案另在教師提供的 Ans，完整程式改為另外開啟檔案。Ans 與新答案程式不加入 Git；Week2～5 程式已獲授權另提供雲端，其他週次程式暫留本機。雲端狀態以[最新發布紀錄](IOT_Introduction/docs/lab_notes/2026-09-30-week245-main-ans-program-publication.md)為準。OLED 正式教學安排在 Week5；報告週、筆試規定與配分不變。
 無人機研究與課程的必買材料、必做進度分開。
 
 ## 檔案分類
