@@ -12,7 +12,7 @@ const self = path.relative(root, __filename).replaceAll('\\', '/');
 const text = value => Array.isArray(value) ? value.join('') : (value || '');
 const escape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const hash = buffer => crypto.createHash('sha256').update(buffer).digest('hex');
-const digest = file => hash(/\.(ipynb|cjs|css|md|svg)(?:\.snapshot)?$/.test(file)
+const digest = file => hash(/\.(ipynb|cjs|css|md|svg)$/.test(file)
   ? fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n') : fs.readFileSync(file));
 const relative = file => path.relative(root, file).replaceAll('\\', '/');
 
@@ -167,27 +167,8 @@ async function main() {
   fs.mkdirSync(scratch, { recursive: true });
   const browser = await chromium.launch({ headless: true, channel: process.env.BROWSER_CHANNEL || 'msedge' });
   try {
-    const onlyIndex = process.argv.indexOf('--only');
-    const only = onlyIndex < 0 ? null : process.argv[onlyIndex + 1];
-    if (onlyIndex >= 0) assert(notebooks().includes(only), 'Use a repository-relative notebook path after --only');
-    const documents = only ? JSON.parse(fs.readFileSync(manifestPath,'utf8')).documents : [];
-    for (const name of notebooks().filter(name => !only || name === only)) {
-      const nb = JSON.parse(fs.readFileSync(path.join(root, name), 'utf8'));
-      if (nb.metadata?.course_source === 'IOT_Introduction/docs/teaching_drafts/week3_redesign/week3_main.md') {
-        execFileSync(process.execPath, [path.join(__dirname, 'sync_week3_main.cjs'), '--check'], {stdio:'inherit'});
-        const pdf = name.replace(/\.ipynb$/, '.pdf');
-        const inputs = Object.fromEntries([name, nb.metadata.course_source,
-          'IOT_Introduction/docs/teaching_drafts/week3_redesign/week3_main.pdf',
-          'IOT_Introduction/scripts/sync_week3_main.cjs'].map(input => [input,digest(path.join(root,input))]));
-        const current = {notebook:name,pdf,pdf_sha256:digest(path.join(root,pdf)),inputs,cells:nb.cells.length,images:1};
-        if (only) documents[documents.findIndex(doc => doc.notebook === name)] = current;
-        else documents.push(current);
-        continue;
-      }
-      const rendered = await renderNotebook(name, browser, marked);
-      if (only) documents[documents.findIndex(doc => doc.notebook === name)] = rendered;
-      else documents.push(rendered);
-    }
+    const documents = [];
+    for (const name of notebooks()) documents.push(await renderNotebook(name, browser, marked));
     fs.writeFileSync(manifestPath, JSON.stringify({ format: 1, browser: browser.version(), documents }, null, 2) + '\n');
   } finally { await browser.close(); }
   check();

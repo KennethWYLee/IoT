@@ -9,6 +9,9 @@ const sharp = require('sharp');
 const root = path.resolve(__dirname, '../..');
 const output = path.join(root, 'IOT_Introduction/docs/images/wiring');
 const notebook = path.join(root, 'IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb');
+if (JSON.parse(fs.readFileSync(notebook,'utf8')).metadata?.course_source) {
+  throw Error('Week 3 now uses the question paper. Build week3_redesign/build.cjs, then run scripts/sync_week3_main.cjs.');
+}
 const check = process.argv.includes('--check');
 const ink = '#183047', muted = '#52657a', blue = '#1765ad', red = '#ae2842', green = '#087768';
 const esc = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');

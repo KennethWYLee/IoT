@@ -2,6 +2,21 @@
 
 ## Current practical lesson sources
 
+Week 3 now publishes the current question paper at its original weekly PDF and
+Notebook paths. Edit `docs/teaching_drafts/week3_redesign/week3_main.md`, then run:
+
+```powershell
+node IOT_Introduction/docs/teaching_drafts/week3_redesign/build.cjs
+node IOT_Introduction/scripts/sync_week3_main.cjs
+node IOT_Introduction/scripts/sync_week3_main.cjs --check
+```
+
+The sync command copies the maintained PDF without changing its 13-page layout
+and derives question-only Markdown cells and the circuit attachment from the
+same source. The notebook PDF exporter preserves this PDF; the old Week 3
+figure/classifier builders refuse to overwrite the question paper. Historical
+Week 3 notebook commands below apply only to the archived teaching edition.
+
 For the current Week 2-7 practical lessons, use the maintained sources and builders
 listed in [the teaching-draft index](../docs/teaching_drafts/README.md). Those PDFs
 define the current question papers and separate answer lessons; the notebook commands below maintain the

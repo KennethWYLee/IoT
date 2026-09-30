@@ -98,6 +98,7 @@ function sync(check) {
   }
   for (const week of Object.keys(catalog.weeks).map(Number)) {
     const file = lessonPath(week);
+    if (week === 3 && JSON.parse(fs.readFileSync(file,'utf8')).metadata?.course_source) continue;
     if (week >= 4 && week <= 7) {
       const source = fs.readFileSync(path.join(root, `IOT_Introduction/docs/course_materials/week${week}_main.source.md`),'utf8');
       assert.equal((source.match(new RegExp(`<!-- hardware-gallery:${week} -->`, 'g')) || []).length, 1);

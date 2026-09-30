@@ -6,6 +6,10 @@ const {pathToFileURL}=require('node:url');
 const root=path.resolve(__dirname, '../..');
 const notebookPath=path.join(root,'IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb');
 const nb=JSON.parse(fs.readFileSync(notebookPath,'utf8'));
+if (nb.metadata?.course_source) {
+  require('node:child_process').execFileSync(process.execPath,[path.join(__dirname,'sync_week3_main.cjs'),'--check'],{stdio:'inherit'});
+  process.exit(0);
+}
 const allSources=nb.cells.map(c=>c.source.join('')), all=allSources.join('\n');
 // Original material has stable assertions; the additive unit is checked separately.
 const sources=nb.cells.filter(c=>c.metadata?.maintenance_source!=='week3_classification.source.md').map(c=>c.source.join(''));

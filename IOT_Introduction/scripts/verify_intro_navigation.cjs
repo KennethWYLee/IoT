@@ -118,10 +118,9 @@ assert(docs[0].indexOf('### 先看會做出的互動')<docs[0].indexOf('### 教�
 assert(docs[0].includes('Week2 Ans 第 6～13 頁'));
 assert(!docs[0].includes('week2_main.pdf#page=6'));
 assert(!docs[0].includes('week2_main.ipynb'));
-assert(docs[1].includes('[F2. KY-018原始值](#w3-adc-concept)'));
-assert(docs[1].indexOf('## 九、實驗四')<docs[1].indexOf('const int PIN_TEST_OUTPUT'));
-assert(docs[1].indexOf('## 十二、實驗五')<docs[1].indexOf('const int PIN_LIGHT'));
-assert(docs[1].includes('../Week_02_ESP32_Hardware_Basics/week2_main.pdf'));
+assert(docs[1].includes('Week 3 考卷：光線與紀錄'));
+assert(!docs[1].includes('完整備課版'));
+require('node:child_process').execFileSync(process.execPath,[path.join(__dirname,'sync_week3_main.cjs'),'--check'],{stdio:'inherit'});
 assert(fs.existsSync(path.join(root,'IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.pdf')));
 console.log(`PASS introductory navigation: ${links} explicit links, Week 1/3 anchors and current Week 2 PDF entry. Run verify_sample.py for Week 2 content checks.`);
 

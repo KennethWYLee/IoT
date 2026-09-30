@@ -1,5 +1,7 @@
 # IoT 課程與無人機專題
 
+2026-09-30 Week3 入口已替換：原週目錄的 PDF 與 Notebook 都改為目前 13 頁考卷。舊含答案教學版另行封存、不新增至 Git。課程索引直接開啟原週目錄的新版 PDF；教師已授權本次 commit、push。見[替換及發布紀錄](IOT_Introduction/docs/lab_notes/2026-09-30-week3-main-promotion.md)。
+
 2026-09-30 最新發布：Week3 Ans 已補充分壓推導與 OLED 實物接線說明，86 頁 PDF 原地更新至雲端；Week3 的 9 支完整程式另以 ZIP 提供於雲端，兩檔均下載回讀、核對 SHA-256 與上傳版本一致。Ans 與新程式包仍不加入 GitHub；Ans 程式正在修改，雲端 ZIP 是本次已上傳的版本，不代表後續本機修改已同步。其他週次程式維持暫不上傳。見[發布紀錄](IOT_Introduction/docs/lab_notes/2026-09-30-week3-cloud-update.md)。
 
 ## 選擇入口

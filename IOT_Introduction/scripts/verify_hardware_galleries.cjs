@@ -8,6 +8,7 @@ assert.deepEqual(actual,allPhotos.filter(p=>p.file.startsWith('actual/')).map(p=
 for(const week of Object.keys(g.catalog.weeks).map(Number)) {
  const file=g.lessonPath(week),isNotebook=file.endsWith('.ipynb');
  const nb=isNotebook?JSON.parse(fs.readFileSync(file,'utf8')):null;
+ if(week===3 && nb?.metadata?.course_source) continue; // Question paper omits teaching galleries.
  const text=nb?nb.cells.map(c=>c.source.join('')).join('\n'):fs.readFileSync(file,'utf8');
  const gallery=text.match(/<!-- hardware-gallery:start -->[\s\S]+?<!-- hardware-gallery:end -->/g);
  assert.equal(gallery?.length,1,file);
@@ -19,7 +20,7 @@ for(const week of Object.keys(g.catalog.weeks).map(Number)) {
  assert(!gallery[0].includes('attachment:'),'Do not duplicate full-resolution gallery bytes');
  if(nb)assert(fs.statSync(file).size<6*1024*1024,'Gallery should not bloat the notebook beyond the reviewed 6 MiB budget');
 }
-console.log(`PASS all ${actual.length} actual photographs catalogued; 11 exact galleries; canonical photo hashes; notebooks below reviewed 6 MiB budget.`);
+console.log(`PASS all ${actual.length} actual photographs catalogued; teaching galleries match their sources; Week 3 question paper keeps photos in Ans.`);
 
 async function render(){
  const {marked}=await import(pathToFileURL(require.resolve('marked')).href);

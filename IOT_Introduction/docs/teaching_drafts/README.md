@@ -1,5 +1,7 @@
 # Week 2–7 主教材重設稿入口
 
+2026-09-30：Week3 的原週目錄 PDF 與 Notebook 已換成目前 13 頁考卷，維護來源仍在 week3_redesign。舊含答案教學版另行封存於本機；教師已授權本次 commit、push。詳見[替換及發布紀錄](../lab_notes/2026-09-30-week3-main-promotion.md)。
+
 2026-09-29 後續發布完成：雲端已更新下段所述的 10 份新版 Ans，Week3 為 86 頁；全部 20 份 Main／Ans PDF 已下載回讀並核對 SHA-256。GitHub 維持 Public、不加入 Ans；各週程式資料夾仍只留本機，不隨 PDF 上傳。見[發布紀錄](../lab_notes/2026-09-29-program-files-publication.md)。
 
 2026-09-29 本機後續修訂：Week2～7、11、12、14、15 的完整程式另放各自 Ans 目錄內的 `programs`。Ans 改為指出要開啟的檔案，保留必要設定、接線、短程式片段與原理；Main 不變。Week3 Ans 為 86 頁，前 13 頁仍依 Main 格式直接填答，之後詳解。程式資料夾及新版 Ans 均未上傳，本次沒有 commit 或 push；以下發布段落只記錄當時版本。見[檔案與檢查紀錄](../lab_notes/2026-09-29-weekly-program-folders.md)。
@@ -13,7 +15,7 @@
 ## 目前閱讀與維護範圍（2026-09-22）
 
 本輪以 Week2 的 Main／Ans 分工整理實作週，取代下面沿革中的「Main 後面直接附解答」安排。
-Week3–7 仍維護在本目錄，課程總索引已指向這些 PDF。舊週目錄 Notebook 保留，不作目前閱讀入口。
+Week3–7 仍維護在本目錄。Week3 的原週目錄 PDF 與 Notebook 已同步為目前考卷，總索引改連原週目錄 PDF；Week4–7 的舊週目錄 Notebook 保留，不作目前閱讀入口。
 
 2026-09-24 最新版：Week3 Main 為 12 頁純考卷，實作題依作品、特色、預期結果、操作驗證與最後作答安排，不列器材規格或接線設定表；基本教學、完整程式及所有參考答案在 95 頁 week3Ans，Ans 首頁依題號索引。教材提交 9a9a7ad 已推送 GitHub，兩份 PDF 已更新原雲端檔案；Ans 仍不納入 Git，其他週本次不變。
 Week11、12、14、15 維護每週 Markdown。兩類均有本機 weekNAns，並已加入 Git 忽略規則。

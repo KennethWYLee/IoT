@@ -630,7 +630,7 @@ device=DEMO sensor=dht11 source=hardware sample=12 uptime_ms=35000 temperature_c
 本週不重做KY-018電阻、分壓、ADC或兩套校正取樣。
 先取出上週自己的室內光／遮光兩組基準、四個min/max、門檻與獨立驗證。
 若換了模組、供電、ADC設定、位置或遮光方式，只重查受影響的基準，不能盲目沿用。
-完整計算及重疊反例在[Week 3第十二之一節](../../Week_03_Electrical_Measurement_and_ADC/week3_main.ipynb#w3-classification)。
+完整計算及重疊反例在[Week 3第十二之一節](week3_classification.source.md#w3-classification)。
 
 ### 10.1 用既有數據區分波動與動作
 

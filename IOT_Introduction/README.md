@@ -1,5 +1,7 @@
 # IoT Introduction：18週課程教材
 
+2026-09-30 入口修正：Week3 原週目錄的 PDF 與 Notebook 已同步為目前 13 頁考卷，舊含答案教材另存本機封存目錄。維護來源仍是 week3_redesign；教師已授權本次 commit、push。見[替換及發布紀錄](docs/lab_notes/2026-09-30-week3-main-promotion.md)。
+
 2026-09-29 後續發布：每週完整程式另放本機資料夾，Ans 改列檔案與必要說明。Week3 Ans 現為 86 頁，先依 Main 格式填答，再逐題詳解。雲端已原地更新 10 份 Ans；10 份 Main 無變更，20 份 PDF 均已回讀核對 SHA-256。GitHub 維持 Public 且不含 Ans；程式依教師要求不傳 GitHub 或雲端。見[最新發布紀錄](docs/lab_notes/2026-09-29-program-files-publication.md)。下方保留較早版本沿革。
 
 2026-09-29 修訂與發布：Week3 Main 改善 Q3、Q4 的量測情境與作答要求，新增實作引言並重寫 A 的三筆取樣說明；兩冊全文釐清物件、插孔、檔位、接腳、孔位與畫面欄位。Main 13 頁、Ans 95 頁，題目功能與程式未改。教材提交 `8a8610d` 已推送 GitHub；專案依教師最新決定改為 Public，Ans 來源與 PDF 不加入 Git。雲端同步 Main 與 Ans，Week3 兩份 PDF 均已原地更新；全體 20 份 PDF 已下載回讀、核對 SHA-256 與本機一致，保留原分享權限。此分工取代本日稍早「Ans 暫停上傳雲端」的理解。見[修訂與發布紀錄](docs/lab_notes/2026-09-29-week3-question-clarity.md)。
@@ -18,8 +20,8 @@
 延伸練習答案獨立在本機 Ans。Week2–7、11、12、14、15 各補兩個「只改一處」的反例圖，
 區分電流、訊號、軟體紀錄與實物結果。危險接法僅圖上推演，不實作。
 
-Week2 使用正式目錄 PDF；Week3–7 使用下表重設稿 PDF，不再把舊 Notebook 當成閱讀入口。
-Week11、12、14、15 使用每週 Markdown 與同名 PDF。原週目錄的 Week3–7 Notebook／PDF
+Week2、Week3 使用原週目錄的新版 PDF；Week4–7 使用下表重設稿 PDF。Week3 Notebook 也已同步為題目卷。
+Week11、12、14、15 使用每週 Markdown 與同名 PDF。原週目錄的 Week4–7 Notebook／PDF
 保留歷史內容，不用舊匯出器覆蓋本輪稿件。報告、筆試、配分與週次安排沒有修改。
 
 答案暫留本機 `docs/teaching_drafts/weekN_answers/`；Week2 另有正式目錄同內容副本。
@@ -37,7 +39,7 @@ Week 2～7、11～12、14～15 的器材圖集與接線教學已隨完整教學�
 |---:|---|---|---|
 | 1 | 2026-09-09 | 課程大綱、配分與中文採購清單 | [開啟 Week 1](Week_01_Course_Orientation/week1_main.md) |
 | 2 | 2026-09-16 | ESP32-S3、開發環境與按鈕去抖 | [主教材 PDF](Week_02_ESP32_Hardware_Basics/week2_main.pdf) |
-| 3 | 2026-09-23 | 電氣量測、ADC與室內／遮光分類 | [主教材 PDF](docs/teaching_drafts/week3_redesign/week3_main.pdf) |
+| 3 | 2026-09-23 | 電氣量測、ADC與室內／遮光分類 | [主教材 PDF](Week_03_Electrical_Measurement_and_ADC/week3_main.pdf) |
 | 4 | 2026-09-30 | 電阻量程、DHT11、雙感測器與蜂鳴提示 | [主教材 PDF](docs/teaching_drafts/week4_redesign/week4_main.pdf) |
 | 5 | 2026-10-07 | RGB、OLED與非阻塞倒數 | [主教材 PDF](docs/teaching_drafts/week5_redesign/week5_main.pdf) |
 | 6 | 2026-10-14 | SG90計數指針、供電與安全 | [主教材 PDF](docs/teaching_drafts/week6_redesign/week6_main.pdf) |
