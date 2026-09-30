@@ -1,5 +1,7 @@
 # IoT Introduction：18週課程教材
 
+2026-09-30 後續授權：公開 [Week3 Ans：答案與逐題教學 PDF](Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf)，共 86 頁，先按 Main 原卷填答，再提供詳細教學。只將這份 PDF 加入 GitHub；程式及其他週答案不在本次發布範圍。下方較早紀錄的「Ans 不加入 GitHub」不再適用於這份 PDF。見[發布紀錄](docs/lab_notes/2026-09-30-week3-ans-github.md)。
+
 2026-09-30：Week2、Week4、Week5 已依 Week3 的原則修訂：Main 是題目卷，Ans 先依原卷填答再逐題教學，完整程式另附 programs。三週 Main/Ans 頁數為 6/44、12/64、8/54；六份 PDF 和三個程式包已更新雲端並回讀核對。GitHub 不加入 Ans 或新答案程式。見[本輪紀錄](docs/lab_notes/2026-09-30-week245-main-ans-program-publication.md)。以下較早日期的頁數與上傳範圍為歷史紀錄。
 
 2026-09-30 入口修正：Week3 原週目錄的 PDF 與 Notebook 已同步為目前 13 頁考卷，舊含答案教材另存本機封存目錄。維護來源仍是 week3_redesign；教師已授權本次 commit、push。見[替換及發布紀錄](docs/lab_notes/2026-09-30-week3-main-promotion.md)。
@@ -26,14 +28,14 @@ Week2、Week3 使用原週目錄的新版 PDF；Week4–7 使用下表重設稿 
 Week11、12、14、15 使用每週 Markdown 與同名 PDF。原週目錄的 Week4–7 Notebook／PDF
 保留歷史內容，不用舊匯出器覆蓋本輪稿件。報告、筆試、配分與週次安排沒有修改。
 
-答案暫留本機 `docs/teaching_drafts/weekN_answers/`；Week2 另有正式目錄同內容副本。
-OLED 維持 Week5。私有 QA、答案、執行資料均不發布。本輪尚未 commit、push 或上傳。
-詳見[本輪修改與驗證紀錄](docs/lab_notes/2026-09-22-weekly-main-answers.md)。
+以下為 2026-09-22 的分離紀錄：答案維護來源位於本機 `docs/teaching_drafts/weekN_answers/`，Week2 另有正式目錄同內容副本。
+現行例外是 Week3 Ans PDF 已獲准公開；其他答案、私有 QA 與執行資料維持原限制。OLED 維持 Week5。
+詳見[當時修改與驗證紀錄](docs/lab_notes/2026-09-22-weekly-main-answers.md)。
 
 Week 1只介紹課程與[正式材料清單](Week_01_Course_Orientation/week1_main.md#purchase-table)，不操作硬體。
 
 Week 1 的[零件照片](Week_01_Course_Orientation/week1_main.md#equipment-photos)依品項展示外觀與不同角度。
-Week 2～7、11～12、14～15 的器材圖集與接線教學已隨完整教學移至 Ans。Main 保留作品需求及必要的題目圖。離線閱讀教學須由教師提供對應 Ans；repository 的 Main 不包含答案。
+Week 2～7、11～12、14～15 的器材圖集與接線教學已隨完整教學移至 Ans。Main 保留作品需求及必要的題目圖。Week3 Ans 可直接下載，其餘教學由教師提供；repository 的 Main 不包含答案。
 
 ## 18 週導覽
 
@@ -41,7 +43,7 @@ Week 2～7、11～12、14～15 的器材圖集與接線教學已隨完整教學�
 |---:|---|---|---|
 | 1 | 2026-09-09 | 課程大綱、配分與中文採購清單 | [開啟 Week 1](Week_01_Course_Orientation/week1_main.md) |
 | 2 | 2026-09-16 | ESP32-S3、開發環境與按鈕去抖 | [主教材 PDF](Week_02_ESP32_Hardware_Basics/week2_main.pdf) |
-| 3 | 2026-09-23 | 電氣量測、ADC與室內／遮光分類 | [主教材 PDF](Week_03_Electrical_Measurement_and_ADC/week3_main.pdf) |
+| 3 | 2026-09-23 | 電氣量測、ADC與室內／遮光分類 | [題目 PDF](Week_03_Electrical_Measurement_and_ADC/week3_main.pdf)／[Ans PDF](Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf) |
 | 4 | 2026-09-30 | 電阻量程、DHT11、雙感測器與蜂鳴提示 | [主教材 PDF](docs/teaching_drafts/week4_redesign/week4_main.pdf) |
 | 5 | 2026-10-07 | RGB、OLED與非阻塞倒數 | [主教材 PDF](docs/teaching_drafts/week5_redesign/week5_main.pdf) |
 | 6 | 2026-10-14 | SG90計數指針、供電與安全 | [主教材 PDF](docs/teaching_drafts/week6_redesign/week6_main.pdf) |

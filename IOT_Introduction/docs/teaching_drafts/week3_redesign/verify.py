@@ -99,9 +99,13 @@ if ANSWERS:
             filled = re.sub(r'<figure class="diagram">[\s\S]*?</figure>',
                             "{{diagram:worksheetdivider}}", filled)
         assert " ".join(question.split()) == " ".join(filled.split()), main_id
-    for page_id in ["exercise", "exercisemeter", "worksheetsafety", "worksheetflow", "batchrecord",
+    for page_id in ["exercise", "worksheetsafety", "worksheetflow", "batchrecord",
                     "projectbuttonresults", "projectoledresults", "projectcaptureresults"]:
         assert "參考答案" in doc[ids[page_id] - 1].get_text(), page_id
+    meter_answer = "".join(doc[ids["exercisemeter"] - 1].get_text().split())
+    for answer in ["I=3.3÷(1000+10000)=0.0003A", "V=I×R=0.0003×10000=3.0V",
+                   "電表COM插孔", "電表VΩmA插孔", "直流電壓，20V範圍", "GND接地點"]:
+        assert answer in meter_answer, answer
     assert ids["combinetry"] < ids["combineexplain"]
     assert ids["quality"] < ids["resistor"] < ids["buttonprinciple"]
     assert "examreasoning" not in ids
