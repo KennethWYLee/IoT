@@ -3,24 +3,26 @@
   "week": 5,
   "kind": "Main",
   "pages": [
-    "colours",
-    "lightstate"
+    "desk",
+    "light",
+    "climate",
+    "reason"
   ],
   "inputs": [
     {
       "file": "docs/teaching_drafts/week5_redesign/week5_main.md",
-      "sha256": "356186906d14a4f9dc2b9c71059fd735c3a9d4b27f989221c1f30572bf46765d"
+      "sha256": "f840abae80810b4061a2f32496f8d646166bc5ae537a96c00898c4a72926e21f"
     },
     {
       "file": "scripts/build_cumulative_lesson.cjs",
-      "sha256": "847e69a5ee69259600ef160ce789ffec5be6d2cbe50bb428a5c1e4f11e016a50"
+      "sha256": "3500eaef10a345d2167296e6a231a478a27d8630253c73d1125ae187b2a83a30"
     },
     {
       "file": "docs/teaching_drafts/week5_redesign/build.cjs",
       "sha256": "51e0ddf626bd45289e5a0fed968bc9a9d1215e2f1f15d7e5aa7e83e7e7ae1195"
     }
   ],
-  "pdfSha256": "da5bec71f5b6609ac661d305e74eae5610061a518a8c676893adb7711ba85fe1",
+  "pdfSha256": "ca6b7f74247cd7f73fcdb7f7775e268846b16e371ee0f1a9c4ce744045d618a2",
   "layoutPassed": true,
   "physicalTested": false
 }

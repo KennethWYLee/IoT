@@ -37,13 +37,19 @@ assert len(doc.pages) == len(manifest["pages"])
 assert all(token not in text for token in ("{{", "\ufffd", "**"))
 assert 'class="fullcode"' not in html
 assert "{{program:" not in source
+assert "空麵包板" in source and "下課收拾" in source
+assert "拔除 USB 與其他電源" in source and "拆下全部連接線與元件" in source
+assert all(phrase not in source for phrase in (
+    "沿用 Week2 已確認的按鈕", "併回已成功", "按鈕可原位保留", "新增或恢復"))
 ids = [p["id"] for p in manifest["pages"]]
-assert re.findall(r"^### (Q[123])", source, re.M) == ["Q1", "Q2", "Q3"]
+assert re.findall(r"^### (Q[1234])", source, re.M) == ["Q1", "Q2", "Q3", "Q4"] if ANSWERS else re.findall(r"^## (Q[1234])", source, re.M) == ["Q1", "Q2", "Q3", "Q4"]
 if ANSWERS:
+    assert {p.name for p in (HERE / "programs").iterdir() if p.is_dir()} == {
+        "oled_fixed_text", "oled_light", "oled_light_snapshot", "oled_shade_counter"}
     assert ids == ["start", "oledwire", "fixedsettings", "fixedresult", "lightwire",
-                   "lightresult", "allwiring", "snapshotresult", "adctheory",
+                   "lightresult", "allwiring", "snapshotresult", "calibration", "counterresult", "adctheory",
                    "savetheory", "answers"]
-    for sketch in ("oled_fixed_text", "oled_light", "oled_light_snapshot"):
+    for sketch in ("oled_fixed_text", "oled_light", "oled_light_snapshot", "oled_shade_counter"):
         assert f"{sketch}/{sketch}.ino" in source
         sketch_source = (HERE / "programs" / sketch / f"{sketch}.ino").read_text()
         assert "PROFILE_CONFIRMED = false" in sketch_source
@@ -52,13 +58,15 @@ if ANSWERS:
         assert "Wire.begin(PIN_SDA, PIN_SCL, 100000)" in sketch_source
     assert "e20、f20、e22、f22" in source and "d3→a22" in source
     assert "0.720 V" in source and "lux" in source
-    assert "savedRaw = raw" in source
+    assert "savedRaw" in source and "SHADE_IS_HIGH" in source and "LIGHT_LIMIT" in source
+    assert "先不接 GPIO 或 GND" in source
 else:
-    assert ids == ["goal", "tests", "questions"]
+    assert source.index('<aside class="safety">') < source.index('### 作品要求')
+    assert ids == ["observer", "snapshot", "counter", "concept"]
     assert not re.search(r"GPIO|\.ino|PROFILE_CONFIRMED|savedRaw|參考答案|week3_answers", source)
     assert not manifest["sketches"] and not manifest["photos"]
     assert "畫面示例" in source and "LAST ---" in source and "SAVED 0" in source
-    assert source.count('<div class="write-space"') == 3
+    assert source.count('<div class="write-space"') == 4
     assert chr(96) * 3 not in source
 
 audit = json.loads((HERE / "tmp/layout_check.json").read_text(encoding="utf-8"))

@@ -12,7 +12,7 @@ const course=path.resolve(__dirname,'..');
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const input=file=>({file:path.relative(course,file).replaceAll('\\','/'),sha256:sha(/\.(md|cjs|json|ino|css)$/.test(file)?fs.readFileSync(file,'utf8').replace(/\r\n/g,'\n'):fs.readFileSync(file))});
-const titles={4:'OLED 環境顯示與保存',5:'用 RGB 表示光線狀態',6:'OLED 與舵機紙指針',7:'環境作品整合練習'};
+const titles={4:'環境顯示、提示與比較',5:'用 RGB 製作狀態提示燈',6:'三種舵機紙指針',7:'環境作品整合練習'};
 const css=`
 @page{size:A4;margin:0}*{box-sizing:border-box}body{margin:0;color:#293e43;font-family:'Microsoft JhengHei',sans-serif;font-size:12pt;line-height:1.6;letter-spacing:0}
 .page{width:210mm;height:297mm;padding:14mm 17mm 16mm;break-after:page;position:relative;background:white}.page:last-child{break-after:auto}
@@ -33,13 +33,17 @@ async function build(week){
   const stem=answers?`week${week}Ans`:`week${week}_main`;
   const folder=path.join(course,`docs/teaching_drafts/week${week}_${answers?'answers':'redesign'}`);
   const source=path.join(folder,stem+'.md');
-  const raw=fs.readFileSync(source,'utf8');
+  let raw=fs.readFileSync(source,'utf8');
+  const setupFile=path.join(course,'docs/teaching_drafts/week4_answers/weekly_setup.cjs');
+  const usesSetup=raw.includes('{{weekly_setup}}');
+  if(usesSetup){if(!answers)throw Error('Answer setup in Main');raw=raw.replace('{{weekly_setup}}',()=>require(setupFile).setup(week));}
   const parts=[...raw.matchAll(/<!-- page: ([\w-]+)\s*\|\s*([^\n]+?)\s*-->([\s\S]*?)(?=<!-- page:|$)/g)];
   if(!parts.length)throw Error('No pages');
   const ids=parts.map(x=>x[1]);
   if(new Set(ids).size!==ids.length)throw Error('Duplicate page id');
   const inputs=[input(source),input(__filename),input(path.join(course,`docs/teaching_drafts/week${week}_redesign/build.cjs`))];
   if(answers)inputs.push(input(path.join(course,'docs/teaching_drafts/week4_answers/cumulative_figures.cjs')));
+  if(usesSetup)inputs.push(input(setupFile));
   const render=s=>marked.parse(s.replace(/\{\{page:([\w-]+)\}\}/g,(_,id)=>{if(!ids.includes(id))throw Error('Unknown page '+id);return String(ids.indexOf(id)+1);})
     .replace(/\{\{diagram:([\w-]+)\}\}/g,(_,id)=>{if(!answers)throw Error('Answer figure in Main');return require('../docs/teaching_drafts/week4_answers/cumulative_figures.cjs').diagram(id,week);})
     .replace(/\{\{photo:([^|]+)\|(\d+)\|([^}]+)\}\}/g,(_,name,height,caption)=>{

@@ -3,25 +3,26 @@
   "week": 6,
   "kind": "Main",
   "pages": [
-    "preview",
-    "pointer",
-    "stop"
+    "button",
+    "light",
+    "temperature",
+    "concept"
   ],
   "inputs": [
     {
       "file": "docs/teaching_drafts/week6_redesign/week6_main.md",
-      "sha256": "062165afd339d48454f794da1b4393817e0d125fb5fd5aaebf0eff5cbaa4dd39"
+      "sha256": "cb7e5b2c2c01f21db93e523f5d21615ab3d4073ea26500111aa06a773c899813"
     },
     {
       "file": "scripts/build_cumulative_lesson.cjs",
-      "sha256": "847e69a5ee69259600ef160ce789ffec5be6d2cbe50bb428a5c1e4f11e016a50"
+      "sha256": "3500eaef10a345d2167296e6a231a478a27d8630253c73d1125ae187b2a83a30"
     },
     {
       "file": "docs/teaching_drafts/week6_redesign/build.cjs",
       "sha256": "512bd3b9a0d38c016d1caf8d7df89b12633df9074650af55dc977dfa2c2274bb"
     }
   ],
-  "pdfSha256": "72c6b87083cca1b1ba0b6f18944e599b5d179909e580f5b5d5619e3b7425a147",
+  "pdfSha256": "f994e3d94573d8d70f8e56bd76af6f1deed8d718954755f20c0445383eb69b58",
   "layoutPassed": true,
   "physicalTested": false
 }

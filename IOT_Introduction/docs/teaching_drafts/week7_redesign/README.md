@@ -1,11 +1,12 @@
 # Week7：環境作品整合
 
-現行 Main 是作品需求、預期行為、驗證與少量問答。維護來源為本目錄 `week7_main.md`；完整接線、程式設定、短原理及答案在教師的私有 `week7_answers`。
+現行 Main 有 Q1 兩地環境比較器、Q2 可暫停環境提醒器、Q3 可切換感測器的紙指針，以及 Q4 舵機動作時板子重啟的排錯觀念題。前兩題不用舵機；第三題完整保留預覽、外接供電、STOP 與時限。每週從零接線，OLED 為主要畫面。維護來源為本目錄 `week7_main.md`；完整接線、程式設定、短原理及答案在教師的私有 `week7_answers`。本次改寫尚未發布，舊發布紀錄不代表現稿已同步。
 
 ```powershell
+node IOT_Introduction/docs/teaching_drafts/week6_answers/generate_artifacts.cjs
+node IOT_Introduction/scripts/package_answer_programs.cjs 7
 node IOT_Introduction/docs/teaching_drafts/week7_redesign/build.cjs
 node IOT_Introduction/docs/teaching_drafts/week7_redesign/build.cjs --answers
-node IOT_Introduction/scripts/package_answer_programs.cjs 7
 python IOT_Introduction/scripts/verify_cumulative_lesson.py 7 --render
 python IOT_Introduction/scripts/verify_cumulative_lesson.py 7 --answers --render
 ```

@@ -3,24 +3,26 @@
   "week": 4,
   "kind": "Main",
   "pages": [
-    "live",
-    "snapshot"
+    "display",
+    "alert",
+    "compare",
+    "concept"
   ],
   "inputs": [
     {
       "file": "docs/teaching_drafts/week4_redesign/week4_main.md",
-      "sha256": "4da802f69d3746443f8cd3807544d2ba38935b6e93a3678614ece3ca58c0768f"
+      "sha256": "77b1cc2bb7b40e5125054fd4b76ea14078c5e5a4b76be43b1e4a1c1a32022b2c"
     },
     {
       "file": "scripts/build_cumulative_lesson.cjs",
-      "sha256": "847e69a5ee69259600ef160ce789ffec5be6d2cbe50bb428a5c1e4f11e016a50"
+      "sha256": "3500eaef10a345d2167296e6a231a478a27d8630253c73d1125ae187b2a83a30"
     },
     {
       "file": "docs/teaching_drafts/week4_redesign/build.cjs",
       "sha256": "d434f273b36125e449290983da823a35496c1a5322872293e844ca0c7708e63a"
     }
   ],
-  "pdfSha256": "2e2de86e5a9ddc53642bac4a4a7f05ca86544b96f1d52f8f91fd1b659e06ae6f",
+  "pdfSha256": "a5f0c4f7d96137201d5e0e2bdeeed3041d57e5c77a128c44899d8c2d78a23cef",
   "layoutPassed": true,
   "physicalTested": false
 }

@@ -20,7 +20,7 @@ const course = path.resolve(__dirname, '../../..');
 const answers = process.argv.includes('--answers');
 const destination = answers ? path.resolve(__dirname, '../week3_answers') : __dirname;
 const stem = answers ? 'week3Ans' : 'week3_main';
-const title = answers ? 'Week 3 Ans · 光線顯示與按鈕快照' : 'Week 3 · 光線顯示與按鈕快照';
+const title = answers ? 'Week 3 Ans · 三個光線作品' : 'Week 3 · 三個光線作品';
 const tmp = path.join(destination, 'tmp');
 fs.mkdirSync(tmp, { recursive: true });
 const esc = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
@@ -216,7 +216,7 @@ if (new Set(parts.map(m => m[1])).size !== parts.length) throw Error('Duplicate 
 if (!answers && /\{\{program:/.test(input)) throw Error('Main is an exam; programs belong in Ans');
 const pages = [];
 const inputs = [];
-if (answers) for (const name of ['oled_fixed_text','oled_light','oled_light_snapshot']) {
+if (answers) for (const name of ['oled_fixed_text','oled_light','oled_light_snapshot','oled_shade_counter']) {
   const p=path.join(destination,'programs',name,name+'.ino');
   inputs.push({path:path.relative(course,p).replaceAll('\\','/'),sha256:hash(fs.readFileSync(p,'utf8'))});
 }

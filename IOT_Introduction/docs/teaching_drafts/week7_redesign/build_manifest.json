@@ -3,24 +3,26 @@
   "week": 7,
   "kind": "Main",
   "pages": [
-    "integrate",
-    "diagnose"
+    "compare",
+    "warning",
+    "switch",
+    "concept"
   ],
   "inputs": [
     {
       "file": "docs/teaching_drafts/week7_redesign/week7_main.md",
-      "sha256": "b2c491898a24cc00c5f6ba9b83c2b3048e74604e0eec87f023a69a5d20c98776"
+      "sha256": "2db06941f378d3addaf3ab82881981c3b56a8ec516c273ccbc645f44d7504863"
     },
     {
       "file": "scripts/build_cumulative_lesson.cjs",
-      "sha256": "847e69a5ee69259600ef160ce789ffec5be6d2cbe50bb428a5c1e4f11e016a50"
+      "sha256": "3500eaef10a345d2167296e6a231a478a27d8630253c73d1125ae187b2a83a30"
     },
     {
       "file": "docs/teaching_drafts/week7_redesign/build.cjs",
       "sha256": "61cf587692de4d9da358c18da9f46bd878e5ed0b73a747aa6c259fa7f61becd6"
     }
   ],
-  "pdfSha256": "f3df5a22b79d5fd07db40991fa7b695f1fc39173c1f6562b214c602456917605",
+  "pdfSha256": "045aee42bc617aecabeb4ae024dd479cb0b35b7b5c2fe3f9c9db7701e4694023",
   "layoutPassed": true,
   "physicalTested": false
 }

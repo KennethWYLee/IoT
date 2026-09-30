@@ -1,6 +1,8 @@
 # 每週 Arduino 程式
 
-依最新授權，GitHub 的 `program` **只公開 Week3**。其他週程式由教師在雲端 `IoT / IOT_Introduction / program` 提供，不能因已有本機檔案就視為獲准公開。
+各週完整程式與 Ans 在教師指定的課堂時點一起開放。GitHub 的 `program/weekN` 預設由 `.gitignore` 排除，教師開放該週後才加入；目前已開放 Week3。一般 commit、push 或本機已有檔案，不表示其他週獲准公開。
+
+教師雲端程式位於 `IoT / IOT_Introduction / program`，可保存各週完整版本；提供學生的程式與 Ans 須符合當次開放範圍。
 
 [Week3 程式與開檔順序](week3/README.md) · [Week3 Main](../IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3_main.pdf) · [Week3 Ans](../IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf)
 

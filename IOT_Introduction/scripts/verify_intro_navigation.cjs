@@ -137,7 +137,7 @@ const gallery=require('./hardware_galleries.cjs');
 assert(docs[0].includes(gallery.gallery(1,path.join(root,files[0]))),'Week 1 gallery matches catalog');
 assert(!docs[0].includes('week2_main.pdf#page=6'));
 assert(!docs[0].includes('week2_main.ipynb'));
-assert(docs[1].includes('Week 3：光線顯示與按鈕快照'));
+for(const heading of ['Q1','光線觀測器','Q2','Q3','Q4'])assert(docs[1].includes(heading),`Current Week 3 three works and concept: ${heading}`);
 assert(!docs[1].includes('完整備課版'));
 require('node:child_process').execFileSync(process.execPath,[path.join(__dirname,'sync_week3_main.cjs'),'--check'],{stdio:'inherit'});
 assert(fs.existsSync(path.join(root,'IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.pdf')));

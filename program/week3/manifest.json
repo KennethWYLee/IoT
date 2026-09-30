@@ -16,6 +16,11 @@
       "source": "docs/teaching_drafts/week3_answers/programs/oled_light_snapshot/oled_light_snapshot.ino",
       "destination": "oled_light_snapshot/oled_light_snapshot.ino",
       "sha256": "d6fc74e881004d27f66a8af68b5aedf5e77369a34a4209ce710fca0f27316dd6"
+    },
+    {
+      "source": "docs/teaching_drafts/week3_answers/programs/oled_shade_counter/oled_shade_counter.ino",
+      "destination": "oled_shade_counter/oled_shade_counter.ino",
+      "sha256": "ada20bca2f55015bc304aff607283bacaf8b9020086175659c908ef9e4e55d37"
     }
   ]
 }

@@ -18,8 +18,8 @@ def digest(path):
 
 texts = []
 for pdf, manifest_path, expected in [
-    (MAIN, HERE/'checks/published_main.json', 3),
-    (ANS/'week2Ans.pdf', ANS/'checks/published_answers.json', 11),
+    (MAIN, HERE/'checks/published_main.json', 4),
+    (ANS/'week2Ans.pdf', ANS/'checks/published_answers.json', 12),
 ]:
     manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
     assert manifest['pdf_sha256'] == digest(pdf)
@@ -50,8 +50,8 @@ main, ans = texts
 assert all(q in main and q in ans for q in ['Q1', 'Q2', 'Q3', 'Q4'])
 assert not any(x in main for x in ['void setup', 'void loop', '.ino', 'INPUT_PULLUP', 'readyForPress', 'GPIO5', '參考答案'])
 assert not any(x in ans for x in ['void setup', 'void loop'])
-assert ans.index('接 USB') < ans.index('GPIO5') < ans.index('INPUT_PULLUP') < ans.index('同題號回答')
-for name, page_number in [('week2_hello_serial',2), ('week2_button_state',7), ('week2_button_count',9)]:
+assert ans.index('接 USB') < ans.index('GPIO5') < ans.index('INPUT_PULLUP') < ans.index('正常按放')
+for name, page_number in [('week2_hello_serial',2), ('week2_button_state',7), ('week2_button_count',8), ('week2_button_toggle',9), ('week2_stopwatch',10)]:
     file = ANS/'programs'/name/f'{name}.ino'
     assert file.exists() and file.parent.name == file.stem
     assert f'programs/{name}/{name}.ino' in ans
@@ -62,18 +62,26 @@ assert len(sim['results']) == 10 and all(t['passed'] for t in sim['results'])
 for name, sha in sim['sources'].items():
     assert hashlib.sha256((ANS/'programs'/name/f'{name}.ino').read_bytes()).hexdigest() == sha
 compile_report = json.loads((ANS/'checks/arduino_compile.json').read_text())
-assert len(compile_report['results']) == 3
+assert len(compile_report['results']) == 5
 for result in compile_report['results']:
     assert result['exit_code'] == 0
     file = ANS/'programs'/result['sketch']/f"{result['sketch']}.ino"
     assert hashlib.sha256(file.read_bytes()).hexdigest() == result['sha256']
 archive = ANS/'supplemental/pre_cumulative_20260930/programs'
+packaged_archive = ANS/'legacy_packaged_20260930_three_artifacts'
 for name in ['hello_first', 'button_follow_along', 'counter_practice', 'room_counter']:
-    assert (archive/name/f'{name}.ino').read_bytes() == (ANS/'programs'/name/f'{name}.ino').read_bytes()
-report = {'main_pages':3, 'answer_pages':11, 'checks':['source/PDF hashes','page count and footers',
+    assert (archive/name/f'{name}.ino').read_bytes() == (packaged_archive/name/f'{name}.ino').read_bytes()
+assert {p.name for p in (ANS/'programs').iterdir() if p.is_dir()} == {
+    'week2_hello_serial', 'week2_button_state', 'week2_button_count',
+    'week2_button_toggle', 'week2_stopwatch'}
+native = json.loads((ANS/'checks/artifact_native.json').read_text())
+assert len(native['cases']) == 3 and all(c['passed'] for c in native['cases'])
+for case in native['cases']:
+    assert hashlib.sha256((ANS/'programs'/case['sketch']/f"{case['sketch']}.ino").read_bytes()).hexdigest() == case['sha256']
+report = {'main_pages':4, 'answer_pages':12, 'checks':['source/PDF hashes','page count and footers',
     'loaded images','DOM overflow and footer clearance','Main answer isolation','no full code in PDFs',
     'Q1-Q4 alignment','program folder/name and GPIO5 mapping','source simulation current',
-    'three target-compile hashes current','four original program archives byte-identical'],
-    'limitations':['visual review is recorded separately','no physical hardware validation','simulation is not native C++ execution']}
+    'five target-compile hashes current', 'three native artifact tests current','four original program archives byte-identical'],
+    'limitations':['visual review is recorded separately','no physical hardware validation','legacy simulation and native fake-I/O results are separate']}
 (ANS/'checks/cumulative_pdf_check.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
 print(json.dumps(report,indent=2))

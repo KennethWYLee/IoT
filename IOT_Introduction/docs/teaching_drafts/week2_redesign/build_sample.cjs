@@ -18,16 +18,16 @@ const source = answers ? path.join(answerDir, 'current_lesson.cjs') : path.join(
 read(source);
 // Main never loads private lessons or answer sketches.
 if (answers) {
-  for (const name of ['week2_hello_serial', 'week2_button_state', 'week2_button_count']) {
+  for (const name of ['week2_hello_serial', 'week2_button_state', 'week2_button_count', 'week2_button_toggle', 'week2_stopwatch']) {
     read(path.join(answerDir, 'programs', name, `${name}.ino`));
   }
 }
 const pages = require(source)({page, photo, reference}).map((p, i, all) => p.replace('<footer></footer>',
-  `<footer><span>Week 2 · ${answers ? '教學與解答' : '一顆按鈕計數'}</span><span>${i + 1} / ${all.length}</span></footer>`));
+  `<footer><span>Week 2 · ${answers ? '教學與解答' : '三個按鈕作品'}</span><span>${i + 1} / ${all.length}</span></footer>`));
 const css = read(path.join(__dirname, 'print.css')).toString();
 const htmlFile = path.join(out, answers ? 'week2Ans.html' : 'Week2_main_layout_sample.html');
 const pdfFile = answers ? path.join(answerDir, 'week2Ans.pdf') : path.join(root, 'IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.pdf');
-fs.writeFileSync(htmlFile, `<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>Week 2 一顆按鈕計數</title><style>${css}</style></head><body>${pages.join('')}</body></html>`);
+fs.writeFileSync(htmlFile, `<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>Week 2 三個按鈕作品</title><style>${css}</style></head><body>${pages.join('')}</body></html>`);
 (async () => {
   const browser = await chromium.launch({channel: 'msedge', headless: true});
   try {

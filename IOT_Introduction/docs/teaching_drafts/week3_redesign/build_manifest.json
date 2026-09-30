@@ -3,20 +3,24 @@
   "pages": [
     {
       "number": 1,
-      "id": "goal"
+      "id": "observer"
     },
     {
       "number": 2,
-      "id": "tests"
+      "id": "snapshot"
     },
     {
       "number": 3,
-      "id": "questions"
+      "id": "counter"
+    },
+    {
+      "number": 4,
+      "id": "concept"
     }
   ],
-  "sourceSha256": "6c560cab7363c26d6a975fd247e9280f10df0ceb48b3f1ea357c7a8a25db2811",
-  "builderSha256": "f257999e769fc80939cbcccca27df9296cd3ea34d6c065ef2609ef3c4aab466a",
+  "sourceSha256": "607e08c2be54dc88dcd5566a1655b0f6390e7ff652474cd4bd8d76016dcc97ad",
+  "builderSha256": "094e4cdc6e0bb975bfc904358c0e1f2b26e58772f8cd235fdfe2006a774ee690",
   "sketches": [],
   "photos": [],
-  "pdfSha256": "f13f38ef644873386f570b5bd9e07b8f3ea736dea890db91e0ceeca23acab7de"
+  "pdfSha256": "d11f7e6fec193779c9ae7a91baa0b013ea77e95ee081cd5e559d43501f04d9f6"
 }

@@ -1,11 +1,12 @@
-# Week6：舵機紙指針與停止
+# Week6：三種舵機紙指針
 
-現行 Main 是作品需求、預期行為、驗證與少量問答。維護來源為本目錄 `week6_main.md`；完整接線、程式設定、短原理及答案在教師的私有 `week6_answers`。
+現行 Main 有 Q1 按鈕七格紙指針、Q2 光線狀態紙指針、Q3 溫度狀態紙指針，以及 Q4 訊號／供電／共地觀念題。預覽與停止是三件作品的共同安全要求，不各算一題。每週從零接線，OLED 為主要畫面，本週不用 RGB。維護來源為本目錄 `week6_main.md`；完整接線、程式設定、短原理及答案在教師的私有 `week6_answers`。本次改寫尚未發布，舊發布紀錄不代表現稿已同步。
 
 ```powershell
+node IOT_Introduction/docs/teaching_drafts/week6_answers/generate_artifacts.cjs
+node IOT_Introduction/scripts/package_answer_programs.cjs 6
 node IOT_Introduction/docs/teaching_drafts/week6_redesign/build.cjs
 node IOT_Introduction/docs/teaching_drafts/week6_redesign/build.cjs --answers
-node IOT_Introduction/scripts/package_answer_programs.cjs 6
 python IOT_Introduction/scripts/verify_cumulative_lesson.py 6 --render
 python IOT_Introduction/scripts/verify_cumulative_lesson.py 6 --answers --render
 ```

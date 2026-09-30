@@ -2,10 +2,12 @@
 
 ## 現行本機版本
 
-2026-09-30 依課程規劃第四節重建：Main 3 頁，私人 Ans 11 頁。一顆按鈕、GPIO5；GPIO4 留給後續光敏。不新增第二顆按鈕、長按連加、0～20 上下限或外部電阻實驗。
+2026-09-30 依課程規劃第四節重建：Main 4 頁，私人 Ans 12 頁。一顆按鈕、GPIO5；GPIO4 留給後續光敏。不新增第二顆按鈕、長按連加、0～20 上下限或外部電阻實驗。
+
+教師後續更正：每週從空麵包板、全部斷電開始；同堂各步驟可保留接線。下課先拔 USB 與全部電源，再拆除所有導線及元件；下週依程式與接線紀錄重新組裝，不保留實物接線。
 
 - 學生 Main：[正式 Main PDF](../../../Week_02_ESP32_Hardware_Basics/week2_main.pdf)；本目錄 `Week2_main_layout_sample.pdf` 是相同副本。
-- Main 維護來源：`exam_pages.cjs`，含首次上傳成果、單鍵計數成果、驗證與 Q1～Q4。沒有程式檔名、答案程式或實作接線步驟。
+- Main 維護來源：`exam_pages.cjs`，Q1 單鍵計數器、Q2 ON／OFF 文字開關、Q3 可暫停單鍵碼表、Q4 上拉觀念；首次上傳留在 Ans 準備。沒有程式檔名、答案程式或實作接線步驟。
 - 列印版型：`print.css`；入口與渲染：`build_sample.cjs`。保留既有 A4、字體、配色及頁尾。
 - 私人 Ans 的 `current_lesson.cjs` 先教操作，末段同號回答；新 .ino 只在私人 `week2_answers/programs`。
 - 舊教學來源與程式未當成新的主線；完整舊版已另保存於私人 `week2_answers/supplemental/pre_cumulative_20260930`，不構成共同必做。
@@ -27,10 +29,10 @@ node IOT_Introduction/scripts/package_answer_programs.cjs 2 --check
 
 ## 驗證界線
 
-Main、Ans 已重建、逐頁檢查；三支新程式使用 Arduino-ESP32 3.3.12 目標編譯。另以替代 I/O 執行由來源轉換的 JavaScript 控制流程，測試按下、放開、彈跳、計時與起始行為；這不是原生 C++ 主機執行，也不是硬體實測。
+Main、Ans 已重建、逐頁檢查；五支現行程式使用 Arduino-ESP32 3.3.12 目標編譯。另以替代 I/O 執行由來源轉換的 JavaScript 控制流程，測試按下、放開、彈跳、計時與起始行為；另以原生 C++ 替身執行三個作品，確認長按、彈跳、重啟與計時溢位；這仍不是硬體實測。
 
 GPIO5 選擇依 BOARD-T01 2026-09-07 按放紀錄與板卡廠商腳位表，麵包板及四腳方向依既有接點紀錄。須核對每組實際板型、按鈕組別、資料線及新版實際按放；沒有上電、Upload 或新實機結果。
 
-未改共享準則、課程計畫、根索引、其他週或 Git 排除規則；未 stage、commit、push 或上傳。正式週目錄舊 Ans 副本不在本分工修改範圍，新 Ans 在私人目錄。
+本次更正未改共享準則、課程計畫、根索引、其他週或 Git 排除規則；沒有 Git 操作或上傳。正式週目錄的 Main 與 Ans 已更新，Ans 與私人維護目錄的重建輸出相同。
 
-詳細證據與變更清單：[本輪紀錄](../week2_answers/2026-09-30-cumulative-rebuild.md)。
+詳細證據與變更清單：[本輪紀錄](../week2_answers/20260930_three_artifacts.md)。
