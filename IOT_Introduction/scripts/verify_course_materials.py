@@ -273,7 +273,7 @@ def main() -> int:
     for file in sorted(public_files):
         relative = file.relative_to(ROOT).as_posix()
         for pattern, approved in (
-            (r"^program/week(\d+)(?:/|$)", {3}),
+            (r"^program/week(\d+)(?:/|$)", {2, 3}),
             (r"^IOT_Introduction/Week_\d+_[^/]+/week(\d+)Ans\.pdf$", {2, 3, 4}),
         ):
             match = re.match(pattern, relative, flags=re.IGNORECASE)

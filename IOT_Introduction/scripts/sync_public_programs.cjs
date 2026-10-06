@@ -5,7 +5,7 @@ const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
 const course = path.resolve(__dirname, '..');
 const root = path.dirname(course);
-const approvedWeeks = [3];
+const approvedWeeks = [2, 3];
 const args = process.argv.slice(2);
 assert(args.every(a => a === '--check' || /^\d+$/.test(a)), 'Unknown argument');
 const weeks = args.filter(a => /^\d+$/.test(a)).map(Number);

@@ -20,6 +20,8 @@ U8G2_SSD1315_128X64_NONAME_F_HW_I2C oled(
 #endif
 
 const int PIN_LIGHT = 4;
+// -1 reads the sensor; 0..4095 substitutes explicit software test data.
+const int TEST_RAW = -1;
 const uint32_t UPDATE_MS = 200;
 bool ready = false, busReady = false;
 int raw = 0;
@@ -30,7 +32,8 @@ void drawValues() {
   oled.clearBuffer();
   snprintf(line, sizeof(line), "RAW %d", raw);
   oled.drawStr(0, 14, line);
-  oled.drawStr(0, 34, "LIGHT");
+  if (raw == 0 || raw == 4095) oled.drawStr(0, 34, "CHECK");
+  oled.drawStr(0, 54, TEST_RAW >= 0 ? "TEST" : "LIVE");
   oled.sendBuffer();
 }
 
@@ -61,7 +64,7 @@ bool startDisplay() {
   Wire.setTimeOut(20);
   oled.setPowerSave(0);
   oled.setFont(u8g2_font_6x12_tf);
-  raw = analogRead(PIN_LIGHT);
+  raw = TEST_RAW >= 0 ? TEST_RAW : analogRead(PIN_LIGHT);
   drawValues();
   lastDraw = millis();
   Serial.printf("event=ready oled_address=0x%02X controller=%d\n",
@@ -75,6 +78,9 @@ void setup() {
   const int pins[] = {PIN_LIGHT, PIN_SDA, PIN_SCL};
   if (!PROFILE_CONFIRMED) {
     Serial.println("event=blocked reason=check_configuration"); return;
+  }
+  if (TEST_RAW < -1 || TEST_RAW > 4095) {
+    Serial.println("event=blocked reason=invalid_test_raw"); return;
   }
   for (int i = 0; i < 3; ++i) {
     if (pins[i] < 0) { Serial.println("event=blocked reason=check_configuration"); return; }
@@ -104,7 +110,7 @@ void loop() {
   if (!hasAck()) {
     Serial.println("event=stopped reason=oled_no_ack"); ready = false; return;
   }
-  raw = analogRead(PIN_LIGHT);
+  raw = TEST_RAW >= 0 ? TEST_RAW : analogRead(PIN_LIGHT);
   lastDraw = now;
   drawValues();
 }

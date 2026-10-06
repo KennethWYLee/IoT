@@ -56,7 +56,7 @@ IOT_Introduction/docs/teaching_drafts/week15_answers/
 
 # Main is public. Release each week's Ans PDF and program during class only
 # when the instructor opens that week. Week2-4 Ans PDFs are released.
-# Code is not updated by the Oct6 PDF release; existing Week3 code stays.
+# The subsequent Oct6 request releases current Week2 and Week3 programs.
 # Answer maintenance sources and checks remain local; publish selected copies.
 /IOT_Introduction/docs/teaching_drafts/week*_answers/
 /IOT_Introduction/**/week*Ans.pdf
@@ -64,4 +64,5 @@ IOT_Introduction/docs/teaching_drafts/week15_answers/
 !/IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf
 !/IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4Ans.pdf
 /program/*/
+!/program/week2/
 !/program/week3/

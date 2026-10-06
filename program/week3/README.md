@@ -9,11 +9,13 @@
 | 順序 | 開啟檔案 | 成功結果 |
 |---|---|---|
 | 準備 | [oled_fixed_text.ino](oled_fixed_text/oled_fixed_text.ino) | OLED 出現固定文字，先確認螢幕接通 |
-| Q1 | [oled_light.ino](oled_light/oled_light.ino) | OLED 顯示光線原始讀值，遮光時觀察變化 |
+| Q1／Q4 | [oled_light.ino](oled_light/oled_light.ino) | OLED 顯示 RAW 與 LIVE；原始讀值為 0 或 4095 時顯示 CHECK |
 | Q2 | [oled_light_snapshot.ino](oled_light_snapshot/oled_light_snapshot.ino) | 顯示目前、保存值及次數；按一下保存、長按不連加 |
 | Q3 | [oled_shade_counter.ino](oled_shade_counter/oled_shade_counter.ino) | 計算遮光次數，按鈕暫停／恢復；恢復時已遮住不補算 |
 
 Q3 先保留 `LIGHT_LIMIT=-1` 上傳看 RAW，再用本組沒遮光／遮光範圍設定分界。遮光數字較大設 `SHADE_IS_HIGH=true`，較小設 `false`；範圍重疊先排查。固定文字是接線準備，不算第四件作品。
+
+Q4 使用 `oled_light.ino`：依 Main 依序將 `TEST_RAW` 設為 720、0、4095，重新上傳後看 RAW、CHECK 與 TEST。這些是程式測試資料，不是感測器實測值。測完改回 `TEST_RAW=-1` 並重新上傳，確認 LIVE 後再遮光觀察。
 
 每支 `.ino` 保留同名資料夾。依 Ans 核對實物後才將 `PROFILE_CONFIRMED` 設為 `true`；預設 false 不會啟動硬體，Serial Monitor 115200 會顯示原因。
 

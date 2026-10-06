@@ -1,0 +1,31 @@
+{
+  "week": 2,
+  "textHashLineEndings": "LF",
+  "files": [
+    {
+      "source": "docs/teaching_drafts/week2_answers/programs/week2_hello_serial/week2_hello_serial.ino",
+      "destination": "week2_hello_serial/week2_hello_serial.ino",
+      "sha256": "95c9dc0591430e40d5f84b90cc2a2c4d1086318c11fcf0a35a019c44e4c6f86c"
+    },
+    {
+      "source": "docs/teaching_drafts/week2_answers/programs/week2_button_state/week2_button_state.ino",
+      "destination": "week2_button_state/week2_button_state.ino",
+      "sha256": "df9af0e84c23fc8cd981a465539bece3ae2fee3e607778de181c05fce876d5c4"
+    },
+    {
+      "source": "docs/teaching_drafts/week2_answers/programs/week2_button_count/week2_button_count.ino",
+      "destination": "week2_button_count/week2_button_count.ino",
+      "sha256": "6553c74b92d876295818c31a282fe7ab36bee7ff2335d9ee0a8dcf499edcc95d"
+    },
+    {
+      "source": "docs/teaching_drafts/week2_answers/programs/week2_button_toggle/week2_button_toggle.ino",
+      "destination": "week2_button_toggle/week2_button_toggle.ino",
+      "sha256": "7156813a24d7a315478c49853497839419d172fda0cfca48734e9eb1ac71cff2"
+    },
+    {
+      "source": "docs/teaching_drafts/week2_answers/programs/week2_stopwatch/week2_stopwatch.ino",
+      "destination": "week2_stopwatch/week2_stopwatch.ino",
+      "sha256": "c238561c22f6d32477aaf1d2cd6ebedbb8a7cc211ad6a568abe5df683006b05c"
+    }
+  ]
+}

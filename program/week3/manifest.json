@@ -10,7 +10,7 @@
     {
       "source": "docs/teaching_drafts/week3_answers/programs/oled_light/oled_light.ino",
       "destination": "oled_light/oled_light.ino",
-      "sha256": "7ac12525722b9632af943780df01ae1b0808a174a54feb9a5af8a28bf71527c2"
+      "sha256": "632cc1455d907c516e9edff4471ff6bf66d30da954ab9b0d3ed23a8cdc25351c"
     },
     {
       "source": "docs/teaching_drafts/week3_answers/programs/oled_light_snapshot/oled_light_snapshot.ino",

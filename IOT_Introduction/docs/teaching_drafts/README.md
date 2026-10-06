@@ -21,7 +21,7 @@ Week7只整合已學材料。OLED自Week3起作裝置主要顯示，Serial留作
 
 Week2 使用 `week2_redesign/build_sample.cjs`；Week3 使用 `week3_redesign/build.cjs` 及 `scripts/sync_week3_main.cjs`。
 Week4～7 維護 `weekN_redesign/weekN_main.md`，以各目錄 `build.cjs` 產生 Main；加 `--answers` 讀取私有 `weekN_answers/weekNAns.md`。
-完整程式依私有 `programs.sources.json` 產生同週 `programs`。Main 全部公開；2026-10-06 教師另批准 Week1～4 Main／Ans，Week1 沒有獨立 Ans，公開複本為原週目錄的 Week2、Week3、Week4 Ans PDF。Week4 Ans 建置後，將 `week4_answers/week4Ans.pdf` 複製至 `../../Week_04_Sensors_and_Data_Quality/week4Ans.pdf` 並核對 SHA-256；維護來源／測試仍忽略。本次不新增或更新 GitHub 程式，既有 Week3 程式保留但未同步本輪教材。雲端程式位於 `IoT/IOT_Introduction/program`，教師完整更新與學生開放分別核對。
+完整程式依私有 `programs.sources.json` 產生同週 `programs`。Main 全部公開；2026-10-06 教師另批准 Week1～4 Main／Ans，Week1 沒有獨立 Ans，公開複本為原週目錄的 Week2、Week3、Week4 Ans PDF。Week4 Ans 建置後，將 `week4_answers/week4Ans.pdf` 複製至 `../../Week_04_Sensors_and_Data_Quality/week4Ans.pdf` 並核對 SHA-256；維護來源／測試仍忽略。教師同日進一步批准最新 Week2、Week3 程式，執行 `scripts/sync_public_programs.cjs 2 3` 匯出同名 Arduino 資料夾，再加 `--check` 核對；其他週程式不公開。雲端程式位於 `IoT/IOT_Introduction/program`，教師完整更新與學生開放分別核對。[Week2／3 程式發布紀錄](../lab_notes/2026-10-06-week23-program-publication.md)。
 圖文與程式對應、目前頁數及未實測事項記在本輪紀錄。下列是舊版沿革，不是現行入口或必做要求。
 
 ## 歷次修改紀錄

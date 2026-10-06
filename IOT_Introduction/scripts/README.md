@@ -75,11 +75,10 @@ installation, HTTPS/LAN or live WebSocket test.
 ### Public program download copies
 
 The Oct6 PDF release allows Week2-4 Ans PDFs (Week1 has no separate Ans).
-It does not add or update GitHub program files. Existing Week3 programs stay
-at their previously released revision; use the teacher's Drive for current code.
-Only Week3 program copies have prior GitHub release approval.
-Its current download location is repository-root `program/week3/`, with one
-same-named Arduino folder per sketch. The current four sketches are fixed-text
+The subsequent instructor request also releases current Week2 and Week3 programs.
+Download locations are repository-root `program/week2/` and `program/week3/`, with one
+same-named Arduino folder per sketch. Week2 has five sketches: Hello, button
+status, count, ON/OFF and stopwatch. Week3's four sketches are fixed-text
 setup, live light, snapshot and shade counter; superseded sketches are not current
 download entries. Week1 was removed from the latest Git index while kept locally
 and supplied on Drive. Future approved weeks can use `program/weekN/`;
@@ -87,8 +86,8 @@ no other week is enabled automatically. Existing private canonical sources remai
 the editing source. Do not overwrite student edits to an exported copy.
 
 ```powershell
-node IOT_Introduction/scripts/sync_public_programs.cjs 3
-node IOT_Introduction/scripts/sync_public_programs.cjs 3 --check
+node IOT_Introduction/scripts/sync_public_programs.cjs 2 3
+node IOT_Introduction/scripts/sync_public_programs.cjs 2 3 --check
 ```
 
 The exporter copies only `.ino` entries from the weekly source list (Week1's list
@@ -119,8 +118,8 @@ Canonical files remain the editing source; regenerate copies after changing them
 
 These commands require the instructor's local answer sources; a public repository
 clone alone does not include them. The latest rebuild updates the full teacher
-programs on Drive under `IoT/IOT_Introduction/program`; no program changes from
-this revision are committed to GitHub.
+programs on Drive under `IoT/IOT_Introduction/program`; only Week2 and Week3
+program download copies have current GitHub release approval.
 Neither these scripts nor PDF builders upload anything. Do not add other answer
 folders to Git or change publication scope without a new request.
 
