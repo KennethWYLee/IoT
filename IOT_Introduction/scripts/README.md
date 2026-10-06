@@ -25,8 +25,9 @@ Weeks 11, 12, 14 and 15 use their weekly Markdown and the network exporter below
 
 The 2026-10-06 revision puts purpose, expected behavior and observable checks in
 Main, and wiring, program opening, results and troubleshooting before short theory
-in Ans. Week4 has four practical works and eight OLED/Serial sketches. Q3 uses
-`alarm_logger.html`; Q4 uses `alarm_analysis.html` plus `analysis_client.js` and
+in Ans. Week4 has four practical works and eight OLED/Serial sketches. Q3 keeps
+alarm counts, time and acknowledgements on the device; Q4 alone saves CSV and
+reports, using `alarm_analysis.html` plus `analysis_client.js` and
 `alarm_report.js` for save-before-analysis USB feedback. Other weeks use their
 existing parts and works, not Week4's CSV design. Current evidence and limits are
 in [the practical-first record](../docs/lab_notes/2026-10-06-practical-first-weeks.md).

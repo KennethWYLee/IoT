@@ -6,13 +6,13 @@
     "display",
     "alert",
     "recorder",
-    "record_file",
-    "analysis"
+    "analysis",
+    "analysis_files"
   ],
   "inputs": [
     {
       "file": "docs/teaching_drafts/week4_redesign/week4_main.md",
-      "sha256": "d0783229933ed20a67ce39b9cf42773308df326b7dbaaeeb91fcccb3cac87375"
+      "sha256": "8a6568c43a3b3fc19f9cbff680b705d0ce89c1a27730fb71cc1aa7552f495f8e"
     },
     {
       "file": "scripts/build_cumulative_lesson.cjs",
@@ -23,7 +23,7 @@
       "sha256": "d434f273b36125e449290983da823a35496c1a5322872293e844ca0c7708e63a"
     }
   ],
-  "pdfSha256": "f16f72747a9066ea594f0bc211fb9a375cb30dcc34254aca79e559f12c769579",
+  "pdfSha256": "1539f0e14ed109e07a2192196a26ab6197016d8d4bcd73a6d655bb5bb3b0f7c3",
   "layoutPassed": true,
   "physicalTested": false
 }
