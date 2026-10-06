@@ -19,9 +19,9 @@ GND a3、3V3 a6，OLED b3/b6，光敏 c3/c6，原按鈕 d3→a22。
 Week4 新增 e3→f3 延伸共同 GND，DHT GND g3、VCC d6；Week5 RGB −h3；
 Week6 STOP i3、舵機與外接電源共同負極 j3。舵機正電源不接 3.3 V 列。
 
-僅 Week4 可等效選用 OLED 或 Serial Monitor，Ans／program 須提供兩種版本，學生擇一。
-Week4 的 Serial Monitor 版本不要求接 OLED。三件作品的對應兩版要求相同：Q1 光敏與 DHT 顯示，Q2 DHT 提示，Q3 DHT 與按鈕保存 A/B 比較，
-無效溫濕度顯示 `--`。不降低難度、不新增必買器材，也不改其他週以 OLED 作主要顯示的安排。
+僅 Week4 可等效選用 OLED 或 Serial 輸出，Ans／program 須提供兩種版本，學生擇一。
+2026-10-06 教材安排更新，不是新增實測：Week4 四件作品為 Q1 光敏與 DHT 顯示、Q2 DHT 提示、Q3 DHT 與按鈕警報紀錄、Q4 電腦保存 CSV 並將分析結果回傳裝置。
+Serial 版不要求接 OLED；Q4 連線時在工具看裝置實際回傳，不同時開 Serial Monitor。無效溫濕度顯示 `--`，未收到新分析顯示等待或逾時。GPIO、供電、按鈕與模組核對要求不變，未新增必買器材，也不改其他週以 OLED 作主要顯示的安排。
 
 下課先停止操作，關閉並斷開 USB、外接供電等所有電源，確認斷電後才拆下跳線與模組、收納零件。
 這是課堂操作規則，不是回報某套器材已經拆線；下列日期交接與未確認事項仍依原實測紀錄。

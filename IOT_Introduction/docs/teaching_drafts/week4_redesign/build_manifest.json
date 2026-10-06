@@ -5,24 +5,25 @@
   "pages": [
     "display",
     "alert",
-    "compare",
-    "concept"
+    "recorder",
+    "record_file",
+    "analysis"
   ],
   "inputs": [
     {
       "file": "docs/teaching_drafts/week4_redesign/week4_main.md",
-      "sha256": "77b1cc2bb7b40e5125054fd4b76ea14078c5e5a4b76be43b1e4a1c1a32022b2c"
+      "sha256": "d0783229933ed20a67ce39b9cf42773308df326b7dbaaeeb91fcccb3cac87375"
     },
     {
       "file": "scripts/build_cumulative_lesson.cjs",
-      "sha256": "3500eaef10a345d2167296e6a231a478a27d8630253c73d1125ae187b2a83a30"
+      "sha256": "bce816c50627d0181a4031e162ddcc5ae812c22983630c56c6983c31eb0e85bb"
     },
     {
       "file": "docs/teaching_drafts/week4_redesign/build.cjs",
       "sha256": "d434f273b36125e449290983da823a35496c1a5322872293e844ca0c7708e63a"
     }
   ],
-  "pdfSha256": "a5f0c4f7d96137201d5e0e2bdeeed3041d57e5c77a128c44899d8c2d78a23cef",
+  "pdfSha256": "f16f72747a9066ea594f0bc211fb9a375cb30dcc34254aca79e559f12c769579",
   "layoutPassed": true,
   "physicalTested": false
 }

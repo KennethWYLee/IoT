@@ -12,7 +12,7 @@ const course=path.resolve(__dirname,'..');
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const input=file=>({file:path.relative(course,file).replaceAll('\\','/'),sha256:sha(/\.(md|cjs|json|ino|css)$/.test(file)?fs.readFileSync(file,'utf8').replace(/\r\n/g,'\n'):fs.readFileSync(file))});
-const titles={4:'環境顯示、提示與比較',5:'用 RGB 製作狀態提示燈',6:'三種舵機紙指針',7:'環境作品整合練習'};
+const titles={4:'環境顯示與警報分析',5:'用 RGB 製作狀態提示燈',6:'三種舵機紙指針',7:'環境作品整合練習'};
 const css=`
 @page{size:A4;margin:0}*{box-sizing:border-box}body{margin:0;color:#293e43;font-family:'Microsoft JhengHei',sans-serif;font-size:12pt;line-height:1.6;letter-spacing:0}
 .page{width:210mm;height:297mm;padding:14mm 17mm 16mm;break-after:page;position:relative;background:white}.page:last-child{break-after:auto}

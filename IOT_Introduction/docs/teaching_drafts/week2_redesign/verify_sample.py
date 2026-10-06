@@ -50,7 +50,9 @@ main, ans = texts
 assert all(q in main and q in ans for q in ['Q1', 'Q2', 'Q3', 'Q4'])
 assert not any(x in main for x in ['void setup', 'void loop', '.ino', 'INPUT_PULLUP', 'readyForPress', 'GPIO5', '參考答案'])
 assert not any(x in ans for x in ['void setup', 'void loop'])
-assert ans.index('接 USB') < ans.index('GPIO5') < ans.index('INPUT_PULLUP') < ans.index('正常按放')
+assert ans.index('接 USB') < ans.index('GPIO5') < ans.index('Q4．狀態與次數') < ans.index('INPUT_PULLUP')
+assert 'pressed count=0' in main and 'released count=0' in main and 'pressed count=0' in ans
+assert 'Q4 · 實作檢查' in main and '只取消晶片內的上拉' not in main
 for name, page_number in [('week2_hello_serial',2), ('week2_button_state',7), ('week2_button_count',8), ('week2_button_toggle',9), ('week2_stopwatch',10)]:
     file = ANS/'programs'/name/f'{name}.ino'
     assert file.exists() and file.parent.name == file.stem

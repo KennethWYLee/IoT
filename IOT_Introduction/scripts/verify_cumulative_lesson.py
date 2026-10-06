@@ -42,10 +42,10 @@ else:
     for item in config['files']:
         assert (directory/'programs'/item['destination']).read_bytes() == (course/item['source']).read_bytes(), item['destination']
     if args.week == 4:
-        assert len(config['entries']) == 6, 'Week 4 needs three works with two display versions each'
+        assert len(config['entries']) == 8, 'Week 4 needs four works with two display versions each'
         assert 'Serial Monitor' in source
         names = {entry['file'] for entry in config['entries']}
-        for kind in ('display','alert','compare'):
+        for kind in ('display','alert','recorder','analysis'):
             for output in ('oled','serial'):
                 name = f'environment_{kind}_{output}'
                 assert f'{name}/{name}.ino' in names

@@ -11,9 +11,9 @@
 | 週次 | 日期 | 內容 | 現行 Main |
 |---:|---|---|---|
 | 1 | 09-09 | 採購、Arduino／ESP32 設定、儲存修改與編譯 | [PDF](Week_01_Course_Orientation/week1_main.pdf)／[網頁文字](Week_01_Course_Orientation/week1_main.md) |
-| 2 | 09-16 | 第一次上傳；按鈕計數、ON/OFF 切換、單鍵碼表 | [PDF](Week_02_ESP32_Hardware_Basics/week2_main.pdf) |
-| 3 | 09-23 | OLED：光線觀測、快照、可暫停計數 | [Main](Week_03_Electrical_Measurement_and_ADC/week3_main.pdf)／[Ans](Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf)／[程式](../program/week3/README.md) |
-| 4 | 09-30 | DHT：環境顯示、超標提示、A/B 比較；OLED 或 Serial Monitor 擇一 | [PDF](docs/teaching_drafts/week4_redesign/week4_main.pdf) |
+| 2 | 09-16 | 第一次上傳；按鈕計數、ON/OFF 切換、單鍵碼表 | [Main](Week_02_ESP32_Hardware_Basics/week2_main.pdf)／[Ans](Week_02_ESP32_Hardware_Basics/week2Ans.pdf) |
+| 3 | 09-23 | OLED：光線觀測、快照、可暫停計數 | [Main](Week_03_Electrical_Measurement_and_ADC/week3_main.pdf)／[Ans](Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf) |
+| 4 | 09-30 | DHT：環境顯示、超標提示、警報紀錄、電腦分析回傳；OLED 或 Serial 擇一 | [Main](docs/teaching_drafts/week4_redesign/week4_main.pdf)／[Ans](Week_04_Sensors_and_Data_Quality/week4Ans.pdf) |
 | 5 | 10-07 | RGB：桌面狀態、光線狀態、溫濕度提醒 | [PDF](docs/teaching_drafts/week5_redesign/week5_main.pdf) |
 | 6 | 10-14 | 手動、光線、溫度紙指針；外接電源與停止 | [PDF](docs/teaching_drafts/week6_redesign/week6_main.pdf) |
 | 7 | 10-21 | 環境比較、可暫停提醒、可切換感測方式的紙指針 | [PDF](docs/teaching_drafts/week7_redesign/week7_main.pdf) |
@@ -35,20 +35,20 @@
 - Ans：從空麵包板開始，提供當週完整安全接線與程式開檔步驟，確認成功畫面；再看短篇原理、反例及同題號答案。
 - Program：完整 `.ino` 在同名資料夾。下載後依 Ans 核對設定，不把網頁另存成程式。
 
-Week4 的三件作品是環境顯示器、環境超標提示器、兩個位置的環境比較器；每件均提供 OLED／Serial Monitor 兩版，學生擇一，功能要求相同。Q1 用光敏與 DHT，Q2 只用 DHT，Q3 用 DHT 與按鈕；無效溫濕度顯示 `--`，不冒充正常值。其他週顯示安排、採購與配分不變。
+Week4 有四件實作：環境顯示器、超標提示器、警報紀錄器、電腦分析結果顯示，各有 OLED／Serial 版。Q3 用按鈕確認、計次、計時與 USB CSV 報告；Q4 在電腦建立不同檔名的 CSV，逐筆保存並分析，再將次數、累計及最長時間回傳 ESP32。Serial 版在工具看裝置實際回傳，不同時開 Serial Monitor。沒有有效值顯示 `--`／UNKNOWN，沒有新分析顯示等待或逾時。Q1 用光敏與 DHT，Q2 只用 DHT，Q3、Q4 用 DHT 與按鈕。
 
-Week2～7 每週三件不同用途的作品（Q1～Q3）加一題觀念（Q4），由簡到深；不把同一作品的操作步驟拆成三題。每件只使用需要的元件，同堂可沿用已確認接線。Main 先說作品、預期結果和驗證，再留必要作答；Ans 先接線、程式、結果與排錯，最後補短原理。Week1、考試及報告週不套用此題數，不另加配分或課後繳交。
+Week2～7 保留 Q1～Q3 三件不同用途的作品，由簡到深；Q4 改用既有作品與材料做可觀察的操作，再回答結果。Week4 的 Q4 是完整的電腦分析作品，不強迫其他週加同樣規模的第四件作品。每件只接需要的元件，同堂可沿用已確認接線。後段網路週也先操作與驗證，再解釋；Week1、考試、報告、出國及空白週不套固定題數，不另加配分或課後繳交。
 
-Week1 的安裝教學直接在 Main，沒有另設答案卷。GitHub 所有 Main 開放；各週 Ans 與對應 program 由教師在課堂進行中開放。目前已開放 Week3，其他週維持 `.gitignore`，不依日期或一般更新指令自動公開。教師雲端可保存全套檔案，學生的答案／程式入口依相同時點提供。
+Week1 的安裝教學直接在 Main，沒有另設答案卷。GitHub 所有 Main 開放；教師於 2026-10-06 另批准公開 Week1～4 Main／Ans，因此新增 Week2、Week4 Ans，保留 Week3 Ans。其他週答案維持 `.gitignore`。本次不新增或更新 GitHub 程式；既有 Week3 程式未同步本輪教材，最新程式在教師雲端 `IoT/IOT_Introduction/program`。PDF 與程式的公開時點分別由教師決定，雲端更新不變更分享權限。
 
 Week4～7 請使用上表入口，原週目錄的舊 Notebook／PDF 是歷史版本，不代表目前必做進度。
 
 ## 本次驗證範圍
 
-本輪重建 Week1～7，並同步 Week8／9／10／16 通知；Week11 之後的網路教材未重新設計。PDF、程式編譯和桌面測試不能代替實物確認，DHT 腳序、RGB 電流、舵機帶載電源與安全行程仍須依每組實物核對。
+2026-10-06 本輪先重建 Week4，再逐週檢查現行教材。Week1～7 與後段網路週調整操作與說明順序；考試、報告、出國及空白週保留原安排。PDF、程式編譯和桌面測試不能代替實物確認，DHT 腳序、RGB 電流、舵機帶載電源與安全行程仍須依每組實物核對。
 
 實作考的正式配分、時間、個人或分組、可用資料與 AI 規則尚待教師確認；不把課堂可查資料的安排自動套到考試。
 
 ## 教師與維護資料
 
-[課程計畫](docs/course/18_week_plan.md) · [教材修訂準則](docs/teaching_drafts/week2_redesign/revision_guidelines.md) · [維護來源](docs/teaching_drafts/README.md) · [本次修訂與發布紀錄](docs/lab_notes/2026-09-30-cumulative-rebuild.md) · [硬體狀態](docs/hardware/hardware_state.md)
+[課程計畫](docs/course/18_week_plan.md) · [教材修訂準則](docs/teaching_drafts/week2_redesign/revision_guidelines.md) · [維護來源](docs/teaching_drafts/README.md) · [本輪修訂](docs/lab_notes/2026-10-06-practical-first-weeks.md) · [本輪發布](docs/lab_notes/2026-10-06-practical-publication.md) · [硬體狀態](docs/hardware/hardware_state.md)

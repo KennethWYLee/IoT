@@ -47,7 +47,7 @@ if ANSWERS:
     assert {p.name for p in (HERE / "programs").iterdir() if p.is_dir()} == {
         "oled_fixed_text", "oled_light", "oled_light_snapshot", "oled_shade_counter"}
     assert ids == ["start", "oledwire", "fixedsettings", "fixedresult", "lightwire",
-                   "lightresult", "allwiring", "snapshotresult", "calibration", "counterresult", "adctheory",
+                   "lightresult", "allwiring", "snapshotresult", "calibration", "counterresult", "healthresult", "adctheory",
                    "savetheory", "answers"]
     for sketch in ("oled_fixed_text", "oled_light", "oled_light_snapshot", "oled_shade_counter"):
         assert f"{sketch}/{sketch}.ino" in source
@@ -60,6 +60,8 @@ if ANSWERS:
     assert "0.720 V" in source and "lux" in source
     assert "savedRaw" in source and "SHADE_IS_HIGH" in source and "LIGHT_LIMIT" in source
     assert "先不接 GPIO 或 GND" in source
+    assert source.index('<!-- page: healthresult') < source.index('<!-- page: adctheory')
+    assert 'TEST_RAW=-1' in source and 'TEST' in source and 'CHECK' in source
 else:
     assert source.index('<aside class="safety">') < source.index('### 作品要求')
     assert ids == ["observer", "snapshot", "counter", "concept"]
@@ -68,6 +70,7 @@ else:
     assert "畫面示例" in source and "LAST ---" in source and "SAVED 0" in source
     assert source.count('<div class="write-space"') == 4
     assert chr(96) * 3 not in source
+    assert 'Q4 · 實作' in source and 'TEST' in source and 'CHECK' in source
 
 audit = json.loads((HERE / "tmp/layout_check.json").read_text(encoding="utf-8"))
 assert all(not p["overflow"] and p["gap"] >= 8 and not p["horizontal"]

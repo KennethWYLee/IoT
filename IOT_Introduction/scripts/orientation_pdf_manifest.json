@@ -1,13 +1,13 @@
 {
   "format": 1,
-  "browser": "154.0.4258.48",
+  "browser": "154.0.4258.62",
   "documents": [
     {
       "source": "IOT_Introduction/Week_01_Course_Orientation/week1_main.md",
       "pdf": "IOT_Introduction/Week_01_Course_Orientation/week1_main.pdf",
-      "pdf_sha256": "f2b437752d2a5c5ee9b087ebf9504ba649369953649529931516868eb3b084b5",
+      "pdf_sha256": "af0fd0f956451e0da26eeb24dfeda36dbda3d02b16f4cdf5e5ded6e555eca98f",
       "inputs": {
-        "IOT_Introduction/Week_01_Course_Orientation/week1_main.md": "977a7bc17128010ba272a0d6d9222e6034afc54f24e9c3ec558b278c2074ea61",
+        "IOT_Introduction/Week_01_Course_Orientation/week1_main.md": "dff41025b69bd4b6eafe2912c71c6b1296b0a01823e12fdf110472bb292ff1bd",
         "IOT_Introduction/scripts/build_orientation_pdfs.cjs": "941940b00eff52c7f73a24f84552d8416f7840a933986b20988251214c61ad78",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
@@ -55,14 +55,14 @@
         "literalBold": false,
         "images": 38,
         "paperHeights": [
-          24914
+          24872
         ]
       }
     },
     {
       "source": "IOT_Introduction/Week_08_Project_Report_1/week8_main.md",
       "pdf": "IOT_Introduction/Week_08_Project_Report_1/week8_main.pdf",
-      "pdf_sha256": "aac3d587bb2d64feb0429960e8efec00bc33b783b3f1f974521b8cb4839d989b",
+      "pdf_sha256": "0115b74cfdfb8eab3079b0821f7d7664615c9ea9959db5457cc818033717b583",
       "inputs": {
         "IOT_Introduction/Week_08_Project_Report_1/week8_main.md": "4b408c926e804d5154cb4de8e54650886e1de6d049296fff96920ed6de4cd245",
         "IOT_Introduction/scripts/build_orientation_pdfs.cjs": "941940b00eff52c7f73a24f84552d8416f7840a933986b20988251214c61ad78"
@@ -82,7 +82,7 @@
     {
       "source": "IOT_Introduction/Week_09_Self_Study/week9_main.md",
       "pdf": "IOT_Introduction/Week_09_Self_Study/week9_main.pdf",
-      "pdf_sha256": "943a06f38e6e21c53fad91fd3e04118c625d7fba01ec4513a6fe24695377368c",
+      "pdf_sha256": "f076e9859f6aacc9a033e9e4f4d59afe7274006528f3892e31496fa60eb40119",
       "inputs": {
         "IOT_Introduction/Week_09_Self_Study/week9_main.md": "8fcf6e93f7bef1e29392c510b9f4c4897e397fdd1e3f20e374492fde28a329cd",
         "IOT_Introduction/scripts/build_orientation_pdfs.cjs": "941940b00eff52c7f73a24f84552d8416f7840a933986b20988251214c61ad78"
@@ -102,7 +102,7 @@
     {
       "source": "IOT_Introduction/Week_10_Individual_Written_Exam/week10_main.md",
       "pdf": "IOT_Introduction/Week_10_Individual_Written_Exam/week10_main.pdf",
-      "pdf_sha256": "b94424ae251c73a186730f89afbe468f19e4217355997d6ee91236433e9a6df4",
+      "pdf_sha256": "1db2c94e32ea8b9e40f7ae37feef31c0d3db90546b19cf508a559d36f9bde11c",
       "inputs": {
         "IOT_Introduction/Week_10_Individual_Written_Exam/week10_main.md": "6923ded28de6fdf44619579f749bf2cb59e50c2a82fd4665492c2411f3b1bbc7",
         "IOT_Introduction/scripts/build_orientation_pdfs.cjs": "941940b00eff52c7f73a24f84552d8416f7840a933986b20988251214c61ad78"
@@ -122,9 +122,9 @@
     {
       "source": "IOT_Introduction/Week_16_Integrated_Framework_Exam/week16_main.md",
       "pdf": "IOT_Introduction/Week_16_Integrated_Framework_Exam/week16_main.pdf",
-      "pdf_sha256": "755b815401e2404fcbb9572ed2b473a5bce0c30ae267df12bf0079c471414edc",
+      "pdf_sha256": "1e082986cc99262a325cba1688c96108c0aef8014a1e8c5d8898cc9d33c1ac98",
       "inputs": {
-        "IOT_Introduction/Week_16_Integrated_Framework_Exam/week16_main.md": "cd3228c3e5c78dca4c6b28bc72c41b13fe3fd8792a3458e6074c7500a03688e8",
+        "IOT_Introduction/Week_16_Integrated_Framework_Exam/week16_main.md": "4262cc0f02fe4c6f3bec8d2e994f950c7e5d936cbb9ec4eadaa90e1aadb0dce8",
         "IOT_Introduction/scripts/build_orientation_pdfs.cjs": "941940b00eff52c7f73a24f84552d8416f7840a933986b20988251214c61ad78"
       },
       "images": 0,
@@ -135,7 +135,7 @@
         "literalBold": false,
         "images": 0,
         "paperHeights": [
-          669
+          747
         ]
       }
     }

@@ -1,13 +1,13 @@
 {
   "format": 1,
-  "browser": "154.0.4258.37",
+  "browser": "154.0.4258.62",
   "documents": [
     {
       "source": "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md",
       "pdf": "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.pdf",
-      "pdf_sha256": "e6fb0b7be036b5c952ad1271b55147fc12f32cc5e6805e502bd14102a1e13511",
+      "pdf_sha256": "5a01c18879159fda257cac405afc9b0e857efeefeb67e1315c7020b879f70243",
       "inputs": {
-        "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md": "ea1942f16c43583eef8f6a4326bdaee611869e7c93e4c40a14df990238894a59",
+        "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md": "36ca7c41a36af9ceff370ee3d9461f21a032304543d370b1ad30649ad0cdd3fa",
         "IOT_Introduction/scripts/export_network_pdfs.cjs": "a8052f03f5474ec530e9326dc22fbacdeec888a9230dbc4b5a68c9553fb5219c"
       },
       "images": 0
@@ -15,9 +15,9 @@
     {
       "source": "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md",
       "pdf": "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.pdf",
-      "pdf_sha256": "6705cb93c7cff39ce6185a340d22302a4cce80622dfe605e05a56b28a69f0646",
+      "pdf_sha256": "2fbad09e5687a0199dd8cd5d65b64ee6c4ecc7f3693b7073ba30f38543902e2f",
       "inputs": {
-        "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md": "bb04289ecdfaf2d010b833aa45dc7bf906453f92a55bd4dd4776e14466f2072c",
+        "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md": "945fda59c6c27ec2a232c148a510ea15d293a6ac5bc4914dd1cef6a394c630fe",
         "IOT_Introduction/scripts/export_network_pdfs.cjs": "a8052f03f5474ec530e9326dc22fbacdeec888a9230dbc4b5a68c9553fb5219c"
       },
       "images": 0
@@ -25,9 +25,9 @@
     {
       "source": "IOT_Introduction/Week_14_Mobile_PWA/week14_main.md",
       "pdf": "IOT_Introduction/Week_14_Mobile_PWA/week14_main.pdf",
-      "pdf_sha256": "0a36bdfcc579111f4d9d6d1bffd16d1de3520894f33046f39d47d8632f3e0db8",
+      "pdf_sha256": "241b4de8d968899ab278f11de9ab99575f16cf0bce7127c58c38312bbc6590dd",
       "inputs": {
-        "IOT_Introduction/Week_14_Mobile_PWA/week14_main.md": "0e552c4f5f4fa52069a63524556c3c5ae4f2defdfb44aba6dfbb9e1ce2ec1000",
+        "IOT_Introduction/Week_14_Mobile_PWA/week14_main.md": "06d56e2f3ce05e752bdb781611d01a26c00622d7a849fb83cd2653f7449a8bb4",
         "IOT_Introduction/scripts/export_network_pdfs.cjs": "a8052f03f5474ec530e9326dc22fbacdeec888a9230dbc4b5a68c9553fb5219c"
       },
       "images": 0
@@ -35,9 +35,9 @@
     {
       "source": "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.md",
       "pdf": "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.pdf",
-      "pdf_sha256": "412ddfb14d90f775e7df979da011b6ad9614cef858776b2655918226f823a0fe",
+      "pdf_sha256": "9de18b43297ca2c13f23553a58ba36a9e1e9cd4834a9e826eba0094ebde5ea35",
       "inputs": {
-        "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.md": "e7d2b90421b94fcc41658d7c9389830a042b8b4814d5f2022d18316755c85951",
+        "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.md": "c2d431c13e47bd06e1451910cb47f29cd0f246d2a9aba6df709c12e913bc2aa1",
         "IOT_Introduction/scripts/export_network_pdfs.cjs": "a8052f03f5474ec530e9326dc22fbacdeec888a9230dbc4b5a68c9553fb5219c"
       },
       "images": 0

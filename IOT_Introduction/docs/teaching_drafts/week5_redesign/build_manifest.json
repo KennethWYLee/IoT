@@ -11,18 +11,18 @@
   "inputs": [
     {
       "file": "docs/teaching_drafts/week5_redesign/week5_main.md",
-      "sha256": "f840abae80810b4061a2f32496f8d646166bc5ae537a96c00898c4a72926e21f"
+      "sha256": "feb3900602871b1d0db212eb26398cbffa019ce772c1d0e482ecc867eadb38bc"
     },
     {
       "file": "scripts/build_cumulative_lesson.cjs",
-      "sha256": "3500eaef10a345d2167296e6a231a478a27d8630253c73d1125ae187b2a83a30"
+      "sha256": "bce816c50627d0181a4031e162ddcc5ae812c22983630c56c6983c31eb0e85bb"
     },
     {
       "file": "docs/teaching_drafts/week5_redesign/build.cjs",
       "sha256": "51e0ddf626bd45289e5a0fed968bc9a9d1215e2f1f15d7e5aa7e83e7e7ae1195"
     }
   ],
-  "pdfSha256": "ca6b7f74247cd7f73fcdb7f7775e268846b16e371ee0f1a9c4ce744045d618a2",
+  "pdfSha256": "e3235e4ea1810a02fc4fb3d783a39a36bd6878355623e40cb6d75ff3477f29d8",
   "layoutPassed": true,
   "physicalTested": false
 }

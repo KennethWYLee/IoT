@@ -272,11 +272,13 @@ def main() -> int:
     # Apply the current publication boundary, without removing historical examples.
     for file in sorted(public_files):
         relative = file.relative_to(ROOT).as_posix()
-        for pattern in (r"^program/week(\d+)(?:/|$)",
-                        r"^IOT_Introduction/Week_\d+_[^/]+/week(\d+)Ans\.pdf$"):
+        for pattern, approved in (
+            (r"^program/week(\d+)(?:/|$)", {3}),
+            (r"^IOT_Introduction/Week_\d+_[^/]+/week(\d+)Ans\.pdf$", {2, 3, 4}),
+        ):
             match = re.match(pattern, relative, flags=re.IGNORECASE)
-            if match and int(match.group(1)) != 3:
-                errors.append(f"{relative}: only Week 3 programs/Ans are authorized public")
+            if match and int(match.group(1)) not in approved:
+                errors.append(f"{relative}: outside approved PDF/program publication scope")
     for document in all_documents:
         try:
             content = document_content(document)
@@ -289,7 +291,7 @@ def main() -> int:
         number = week_number(directory)
         files = sorted(path.name for path in directory.iterdir() if path in public_files)
         if number == 2:
-            expected = ["week2_main.pdf"]
+            expected = ["week2Ans.pdf", "week2_main.pdf"]
             if files != expected:
                 errors.append(f"{directory.name}: expected only {expected}, found {files}")
             manifest_path = COURSE / "docs/teaching_drafts/week2_redesign/checks/published_main.json"
@@ -305,7 +307,7 @@ def main() -> int:
                 data = source.read_text(encoding="utf-8").replace("\r\n", "\n").encode("utf-8") if source.suffix in {".cjs", ".ino", ".css"} else source.read_bytes()
                 if hashlib.sha256(data).hexdigest() != expected_hash:
                     errors.append(f"Week 2 layout source changed: {name}")
-            summaries.append(f"Week 02: public Main PDF ({manifest['pages']} pages); private answers excluded")
+            summaries.append(f"Week 02: public Main PDF ({manifest['pages']} pages) and Ans PDF; answer sources excluded")
             continue
         expected = (
             [f"week{number}_main.ipynb", f"week{number}_main.pdf"]
@@ -316,8 +318,8 @@ def main() -> int:
             expected.append(f"week{number}_main.pdf")
         if number == 1:
             expected.append("programs.sources.json")
-        if number == 3:
-            expected.append("week3Ans.pdf")
+        if number in {3, 4}:
+            expected.append(f"week{number}Ans.pdf")
         if files != sorted(expected):
             errors.append(f"{directory.name}: expected only {sorted(expected)}, found {files}")
             continue

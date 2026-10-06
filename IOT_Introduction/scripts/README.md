@@ -23,6 +23,14 @@ define the current question papers and separate answer lessons; the notebook com
 older formal edition and must not be used to overwrite the current lesson sources.
 Weeks 11, 12, 14 and 15 use their weekly Markdown and the network exporter below.
 
+The 2026-10-06 revision puts purpose, expected behavior and observable checks in
+Main, and wiring, program opening, results and troubleshooting before short theory
+in Ans. Week4 has four practical works and eight OLED/Serial sketches. Q3 uses
+`alarm_logger.html`; Q4 uses `alarm_analysis.html` plus `analysis_client.js` and
+`alarm_report.js` for save-before-analysis USB feedback. Other weeks use their
+existing parts and works, not Week4's CSV design. Current evidence and limits are
+in [the practical-first record](../docs/lab_notes/2026-10-06-practical-first-weeks.md).
+
 The current Week2 builder also updates its formal PDF. Week3-7 Main PDFs contain
 questions; `--answers` builds the separate local ignored answer lesson.
 Keep the answer directory off public Git. Example:
@@ -66,11 +74,14 @@ installation, HTTPS/LAN or live WebSocket test.
 
 ### Public program download copies
 
-The latest instructor instruction permits only Week3 programs on GitHub.
+The Oct6 PDF release allows Week2-4 Ans PDFs (Week1 has no separate Ans).
+It does not add or update GitHub program files. Existing Week3 programs stay
+at their previously released revision; use the teacher's Drive for current code.
+Only Week3 program copies have prior GitHub release approval.
 Its current download location is repository-root `program/week3/`, with one
-same-named Arduino folder per sketch. The three current OLED-first sketches are
-listed first; historical Week3 sketches are retained but are not the current
-common lesson. Week1 was removed from the latest Git index while kept locally
+same-named Arduino folder per sketch. The current four sketches are fixed-text
+setup, live light, snapshot and shade counter; superseded sketches are not current
+download entries. Week1 was removed from the latest Git index while kept locally
 and supplied on Drive. Future approved weeks can use `program/weekN/`;
 no other week is enabled automatically. Existing private canonical sources remain
 the editing source. Do not overwrite student edits to an exported copy.
@@ -107,8 +118,9 @@ folder names and Git exclusion. It does not compile or execute the programs.
 Canonical files remain the editing source; regenerate copies after changing them.
 
 These commands require the instructor's local answer sources; a public repository
-clone alone does not include them. The latest rebuild publishes current Week1-7
-programs to Drive under `IoT/IOT_Introduction/program`, but only Week3 to GitHub.
+clone alone does not include them. The latest rebuild updates the full teacher
+programs on Drive under `IoT/IOT_Introduction/program`; no program changes from
+this revision are committed to GitHub.
 Neither these scripts nor PDF builders upload anything. Do not add other answer
 folders to Git or change publication scope without a new request.
 

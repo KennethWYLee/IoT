@@ -19,10 +19,12 @@ page(3, 'Q3 · 實作', '可以暫停的單鍵碼表', '用途：累計實際進
 <table class="settings"><tr><th>狀態</th><th>顯示示例</th></tr><tr><td>第一次暫停</td><td>STOP elapsed_ms=2100</td></tr><tr><td>暫停兩秒後</td><td>仍為 2100</td></tr><tr><td>繼續約一秒再暫停</td><td>STOP elapsed_ms=3200</td></tr></table><p class="sources">2100、3200 是示例，不是要求抄出的實測值。最後數字應只多出再次 RUN 的時間。</p>
 <h2>完成後回答</h2><p>記下暫停前、暫停約兩秒後、再次計時後的三個實際數字。</p><div class="write-space" style="height:28mm"></div>
 `),
-page(4, 'Q4 · 觀念', '放開按鈕時，訊號由誰決定？', '上拉電阻是晶片內的一個電阻，讓輸入接點經電阻接向 3.3 V。', `
-<p>本題用 GND 作 0 V 參考。HIGH 表示輸入電壓高，LOW 表示輸入電壓低；它們不是按下次數。</p>
-<figure><svg viewBox="0 0 650 110" role="img" aria-label="3.3V經內部上拉電阻接輸入，放開的按鈕使通往GND的路斷開"><text x="5" y="55" font-size="18">3.3 V</text><path d="M68 48H115 M225 48H405 M485 48H560" fill="none" stroke="#246f74" stroke-width="3"/><rect x="115" y="34" width="110" height="28" fill="#fff2dc" stroke="#80632d"/><text x="170" y="24" font-size="18" text-anchor="middle">上拉電阻</text><circle cx="310" cy="48" r="5" fill="#246f74"/><text x="310" y="88" font-size="18" text-anchor="middle">輸入接點</text><path d="M405 48L475 24" stroke="#246f74" stroke-width="3"/><text x="445" y="88" font-size="18" text-anchor="middle">按鈕放開</text><text x="567" y="55" font-size="18">GND</text></svg><figcaption>線是電路連接，不是實物排針順序。這些情況只作紙上推理，不改線製造故障。</figcaption></figure>
-<p>正常接法中，放開及按下時，各會讀到 HIGH 還是 LOW？請說明輸入接點分別連到哪裡。</p><div class="write-space" style="height:35mm"></div>
-<p>只取消晶片內的上拉電阻，按鈕及其餘接線不變。放開時能保證讀到 LOW 嗎？為什麼？</p><div class="write-space" style="height:35mm"></div>
+page(4, 'Q4 · 實作檢查', '按鈕狀態與重啟後的次數', '用途：分清按鈕現在是否按住，與這次啟動後已接受幾次新按下。沿用 Q1 計數器，不增加元件。', `
+<h2>作品要做到</h2><ul><li>Serial Monitor 同時顯示 pressed（按住）或 released（放開），以及 count 次數。</li><li>按住按鈕並按板上 RST 重啟；狀態應為按住，但次數清為 0。</li><li>先放開，再按一次，才接受第一次新按下。繼續按住不連加。</li></ul>
+<h2>預期結果與驗證</h2>
+<table class="settings"><tr><th>操作</th><th>最新顯示</th></tr><tr><td>按住按鈕，按 RST；仍按住約兩秒</td><td>pressed count=0，保持不變</td></tr><tr><td>放開約一秒</td><td>released count=0</td></tr><tr><td>再按住約兩秒</td><td>pressed count=1，保持不變</td></tr></table>
+<p class="sources">預期格式示例。看最新一行；狀態改變才新增一行，不要求每秒重複列印。</p>
+<h2>完成後回答</h2><p>展示上述操作。按住並重啟後，狀態與次數各是什麼？接著做什麼動作，次數才第一次增加？</p><div class="write-space" style="height:40mm"></div>
+<aside class="safety">檢查使用原本正常接法，不取消上拉或帶電拔線。下課先拔除全部電源，再拆除元件。</aside>
 `)
 ];

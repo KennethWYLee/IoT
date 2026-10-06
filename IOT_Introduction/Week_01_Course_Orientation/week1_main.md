@@ -8,13 +8,9 @@ Students have no hardware this week. Install Arduino IDE and the ESP32 package,
 then open, save, modify and compile Hello. First upload and hardware operation
 begin in Week 2. The objectives below are semester-end abilities, not first-lesson requirements.
 
-### 本週先想清楚的問題
+### 本週的操作
 
-先看下方作品示意，回答：使用者做什麼、作品應有什麼反應、你會觀察什麼來確認它真的發生？這是課堂討論，不另外繳交。了解課程安排後，依[第一次操作](#week-2-preclass-setup)完成軟體設定。
-
-________________________________________________________________
-
-________________________________________________________________
+先依[中文採購清單](#purchase-table)確認要準備的器材，再做[第 7 節軟體操作](#week-2-preclass-setup)：安裝、選板型、開啟 Hello、另存副本、修改文字，最後按 Verify。完成時展示重新開啟的修改檔與本次編譯完成訊息，不需要開發板。
 
 實作週的 Main 提供作品要求、預期結果、驗證方式與作答空間；完整教學與解答另列 Ans。Week 1 的安裝與設定步驟直接保留在本講義。Week 8 改為一次實作考，第一次報告移至 Week 10，Week 16 為一般實作課；兩次筆試取消。
 
@@ -38,7 +34,7 @@ ________________________________________________________________
 *這是作品行為示意，不是接線圖，也不是已完成實機驗證的成品。Week 1 沒有硬體，不組裝或通電。*
 
 先找三件事：哪個零件接收動作、程式要保存什麼、哪個零件讓人看見結果。
-Week 2 從一顆按鈕開始，Week 3 加入光敏與 OLED，之後每週保留成果再增加一部分；Week 7 用已學材料整合練習。
+Week 2 從一顆按鈕開始，Week 3 加入光敏與 OLED，之後運用已學操作加入新元件；Week 7 用已學材料整合練習。每週從空麵包板重新接線，保留的是程式與操作經驗，不是上週的電路。
 了解用途後，再依[中文採購清單](#purchase-table)準備每組一套；課程與評量如下。
 
 ### 教學目標
@@ -52,7 +48,7 @@ Week 2 從一顆按鈕開始，Week 3 加入光敏與 OLED，之後每週保留�
 
 ### 教學內容
 
-課程從按鈕與 ESP32-S3 開始，逐週加入光敏與 OLED、DHT 溫濕度、RGB 狀態燈及舵機紙指針。保留已成功的接線與操作，再練習讓讀值、顯示與實體反應配合；不要求每週全部拆掉重接。
+課程從按鈕與 ESP32-S3 開始，逐週加入光敏與 OLED、DHT 溫濕度、RGB 狀態燈及舵機紙指針。沿用已學會的操作，練習讓讀值、顯示與實體反應配合。每週下課先斷開全部電源，再拆下導線與元件；下週從空麵包板開始。Week 1 只有電腦操作，不接線。
 
 接著將裝置連上網路，建立後端、資料庫與手機介面，學習資料紀錄、遠端控制及故障處理。期末完成具有明確用途、測試證據與重建文件的作品；題目由學生自行決定。
 
@@ -490,7 +486,7 @@ Week 6先辨認IN／OUT並量測、調整輸出，再確認舵機負載電壓、
 
 ## 7. Arduino 與 ESP32 第一次操作
 
-**要做出的結果：** 重新開啟自己儲存的 Hello 程式，按 Verify 後，Output 顯示編譯完成及程式大小；修改文字後再編譯一次。本週只有電腦，不需要任何元件，也不連裝置 Wi-Fi。
+**要做出的結果：** 開啟 Hello，另存自己的副本，把文字改為 My ESP32，儲存後重新開啟，再按 Verify。Output 應顯示編譯完成及程式大小。本週只有電腦，不需要任何元件，也不連裝置 Wi-Fi。
 
 先認識兩樣東西：**Arduino IDE 是電腦上用來寫程式、檢查程式及上傳的軟體；ESP32-S3 開發板是實際執行程式的硬體。** 使用 Arduino IDE 不代表要另買 Arduino UNO 板。
 
@@ -498,7 +494,7 @@ Week 6先辨認IN／OUT並量測、調整輸出，再確認舵機負載電壓、
 
 **本週沒有硬體是正常安排。** 不要求找 Port、安裝尚未出現裝置的驅動、Upload 或實機 Serial 輸出。第一次上傳與文字觀察在 Week 2 帶做，不是本週完成條件。
 
-[安裝軟體](#w1-install)｜[板卡設定](#w1-settings)｜[開啟與儲存 Hello](#w1-hello)｜[編譯結果](#w1-compile)｜[修改與重編譯](#w1-edit)｜[排錯](#w1-troubleshoot)｜[進入 Week 2 前](#w1-readiness)
+[安裝軟體](#w1-install)｜[板卡設定](#w1-settings)｜[開啟與儲存 Hello](#w1-hello)｜[修改文字](#w1-edit)｜[編譯結果](#w1-compile)｜[排錯](#w1-troubleshoot)｜[進入 Week 2 前](#w1-readiness)
 
 <a id="w1-install"></a>
 
@@ -529,9 +525,13 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 4. 找作者為 **Espressif Systems** 的 `esp32`，版本選 **3.3.11**，按 INSTALL。這是本課既有程式使用的版本，不要求追最新版。
 5. 等該項顯示 **3.3.11 installed**，再關閉並重新開啟 Arduino IDE。
 
+<div class="figure-unit">
+
 ![Espressif 官方 Boards Manager 畫面，下面一項為 esp32 by Espressif Systems](../docs/teaching_drafts/week2_redesign/reference_images/esp-install.webp)
 
 *圖片為[Espressif 官方操作示例](https://developer.espressif.com/blog/2025/10/arduino-get-started/)，其中是舊版 3.3.1；本課選 3.3.11。不要選上面的 Arduino ESP32 Boards，也不要照圖中其他板型設定。*
+
+</div>
 
 **完成時確認：** Boards Manager 顯示 Espressif 的 esp32 已安裝，不是只有下載進度。若安裝失敗，依[排錯表](#w1-troubleshoot)處理。安裝來源依據：[Espressif 安裝說明](https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html)。
 
@@ -575,13 +575,23 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 
 **完成時確認：** 能指出自己的資料夾與 `hello_first.ino`，重新開啟後仍看得到程式。找不到教師提供的檔案時，先向教師取得檔案；不是另裝程式庫或任找其他 Hello 範例。
 
+<a id="w1-edit"></a>
+
+### 7.5 改一行文字，儲存並重新開啟
+
+1. 找到 `Serial.println("Hello");`，只把雙引號內的 `Hello` 改為 `My ESP32`。保留雙引號、括號與分號。
+2. 按 **Ctrl+S**，關閉自己的檔案，再從保存位置重新開啟。
+3. 確認檔案中仍是 `My ESP32`，不是原來的 Hello。接著做 7.6，檢查修改後的程式。
+
+**完成時確認：** 能指出自己的檔案位置及修改的文字。重新開啟仍保留修改，才表示這份副本已儲存。
+
 <a id="w1-compile"></a>
 
-### 7.5 按 Verify，讀編譯結果
+### 7.6 按 Verify，讀編譯結果
 
 **先預測：** 沒有接開發板，Verify 能否完成？完成後，能否聲稱已看見板子送出的 Hello？
 
-1. 確認目前開啟自己的 Hello，Board 仍是 **ESP32S3 Dev Module**，設定與 7.3 相同。
+1. 確認目前開啟剛才修改並重新開啟的副本，Board 仍是 **ESP32S3 Dev Module**，設定與 7.3 相同。
 2. 按左上方勾勾 **Verify（驗證／編譯）**，或選 **Sketch → Verify/Compile**。本週不按右箭頭 Upload。
 3. 等編譯結束，查看下方 **Output**。成功時會顯示編譯完成及程式使用的儲存空間／記憶體大小；不能只看工具列沒有紅色就認定成功。
 4. 若看到 `Compilation error` 或 `exit status 1`，保留完整 Output，依 7.7 排錯後再編譯。
@@ -592,16 +602,7 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 
 **如何判讀自己剛才看到的結果：** 若 Output 顯示完成與使用大小，表示電腦能替選定板型編譯這份程式。這是編譯結果，不是實機輸出；本週不應在 Serial Monitor 看到 Hello。不同套件版本的大小可能不同，不以單一示例數字當答案。
 
-<a id="w1-edit"></a>
-
-### 7.6 改一行文字，儲存並重新編譯
-
-1. 找到 `Serial.println("Hello");`，只把雙引號內的 `Hello` 改為 `My ESP32`。保留雙引號、括號與分號。
-2. **先預測：** 改動文字後，Verify 是否仍能完成？Output 是否會因此每秒新增一行 `My ESP32`？
-3. 按 **Ctrl+S**，再按 Verify；等結束後重新讀 Output，不沿用前一次成功的判斷。
-4. 關閉再開啟自己的檔案，確認 `My ESP32` 仍在，再編譯一次。這同時確認存檔位置、修改有保存，以及重新開啟後仍能編譯。
-
-**如何判讀：** 新一次完成訊息表示修改後的程式通過編譯。Output 是編譯訊息，不會以程式的每秒間隔顯示 `My ESP32`。本週沒有板子，因此不聲稱文字已在板上執行。成功與否以你自己的 Output 為準；這裡沒有預先填入實測結果。
+**修改後的結果：** Output 是編譯訊息，不會每秒顯示 `My ESP32`。成功與否以這次 Output 為準，不沿用先前的成功訊息。
 
 `setup()` 裡的內容預定在程式啟動時執行一次，`loop()` 裡的內容預定反覆執行。Hello 裡的 `Serial.println(...)` 準備傳送文字，`delay(1000)` 是等待約 1000 毫秒。Week 2 上傳後再觀察實際文字與間隔；本週先會找到並修改這一行，不要求先學完按鈕計數器。
 

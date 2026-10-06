@@ -1,10 +1,10 @@
 {
   "pdf": "IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2_main.pdf",
   "pages": 4,
-  "pdf_sha256": "c370b74c74a7ccef4fa9a0d9a835c48863a9b8295f02052b45d018f2425f7c2f",
+  "pdf_sha256": "86c74cc4e255073890da46a250a58a801a3d19b6e12f30dc37cd7d08ac082d76",
   "inputs": {
-    "IOT_Introduction/docs/teaching_drafts/week2_redesign/build_sample.cjs": "085f7ee3ae2ee97336cdbef8399739ef75aaa1d442b5dbaeac33d5b9a091a034",
-    "IOT_Introduction/docs/teaching_drafts/week2_redesign/exam_pages.cjs": "f19521b631fd023724e7f778a7f48cc8dd5f13f58d7bd47377a308cbf3c9614c",
+    "IOT_Introduction/docs/teaching_drafts/week2_redesign/build_sample.cjs": "e9f37477ca36bafa1bc289f41ef6f591771799d6d6191bb13037dbcb7204888e",
+    "IOT_Introduction/docs/teaching_drafts/week2_redesign/exam_pages.cjs": "95eaf47bdd2c56c109f6662fa913d9d0228ec6a49f67a6c1fbbfcfa5deef814e",
     "IOT_Introduction/docs/teaching_drafts/week2_redesign/print.css": "ec0ad311cb53a72976388f2497ca34fb2ceb0ce1e7a61e4e1e8b4d010cb7b8f3"
   }
 }

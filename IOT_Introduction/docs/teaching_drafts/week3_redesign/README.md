@@ -1,16 +1,16 @@
 # Week 3 Main 與 Ans
 
-## 現行本機版：三個作品加一題觀念
+## 現行本機版：三個作品與讀值檢查
 
-Main 4 頁、Ans 13 頁。Q1 桌上光線觀測器、Q2 按鈕光線快照、Q3 可暫停遮光計數器；Q4 說明 ADC raw 及持續為 0 的檢查。三件作品有獨立用途與程式，不把接線步驟算成三件作品。
+2026-10-06：Main 4 頁、Ans 14 頁。Q1 桌上光線觀測器、Q2 按鈕光線快照、Q3 可暫停遮光計數器；前三題作品定義不變。Q4 重用 Q1 程式做讀值檢查：0／4095 顯示 CHECK，其他值只顯示數字，不宣稱亮暗。用程式指定 720／0／4095 並標 TEST，再恢復 LIVE 的實際讀取，不短接或帶電拔線測試。
 
 每週從空麵包板開始；Ans 完整列出 OLED、光敏及按鈕接法，同堂可以沿用成功接線。下課先拔所有電源再拆線，沒有跨週保留實物的前提。
 
-目前三支作品程式為 oled_light、oled_light_snapshot、oled_shade_counter；另保留 oled_fixed_text 作 OLED 接線準備，不算第四件作品。Q3 需本組光線校正，支持遮光變大或變小。舊九支不回到學生入口。
+目前三支作品程式為 oled_light、oled_light_snapshot、oled_shade_counter；另保留 oled_fixed_text 作 OLED 接線準備，不算第四件作品。Q4 使用 oled_light 的 TEST_RAW，不增程式或硬體。Q3 需本組光線校正，支持遮光變大或變小。舊九支不回到學生入口。
 
 重建：`node build.cjs`，Ans 加 `--answers`；`python verify.py` 做來源／PDF 雜湊及逐頁渲染，Ans 同樣加 `--answers`。正式週目錄 Main 與 notebook 由既有 `scripts/sync_week3_main.cjs` 產生；Ans 使用逐位元一致的副本。完整程式不印入 PDF，Main 不載入解答。
 
-詳細測試與限制見私人 `../week3_answers/20260930_three_artifacts.md`。本次只更新本機，沒有 commit、push 或雲端發布。
+最新修訂與驗證見[本輪紀錄](../../lab_notes/2026-10-06-practical-first-weeks.md)。Week3 先前已公開；本次只同步本機正式 Main、Ans 與 program/week3 副本，沒有 commit、push 或雲端發布，遠端仍是前一版。
 
 ## 以下保留舊版沿革，不是目前學生要求
 

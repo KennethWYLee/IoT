@@ -20,7 +20,7 @@ const course = path.resolve(__dirname, '../../..');
 const answers = process.argv.includes('--answers');
 const destination = answers ? path.resolve(__dirname, '../week3_answers') : __dirname;
 const stem = answers ? 'week3Ans' : 'week3_main';
-const title = answers ? 'Week 3 Ans · 三個光線作品' : 'Week 3 · 三個光線作品';
+const title = answers ? 'Week 3 Ans · 光線實作' : 'Week 3 · 光線實作';
 const tmp = path.join(destination, 'tmp');
 fs.mkdirSync(tmp, { recursive: true });
 const esc = s => String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');

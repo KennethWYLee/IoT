@@ -1,6 +1,6 @@
 # Week 2–7 主教材重設稿入口
 
-2026-09-30 最新改版決定：Week2按鈕、Week3加光敏與OLED、Week4加DHT、Week5加RGB、Week6加舵機，
+2026-09-30 基本週次安排：Week2按鈕、Week3加光敏與OLED、Week4加DHT、Week5加RGB、Week6加舵機，
 Week7只整合已學材料。OLED自Week3起作裝置主要顯示，Serial留作排錯（僅Week4可等效選用OLED或Serial Monitor）；Ans改為先接線、開程式及看成功畫面，
 答案與詳細原理在後，不再用完整填答卷開場。授課內容與分工已寫入[課程規劃](../course/18_week_plan.md)及
 [修訂準則](week2_redesign/revision_guidelines.md)。學生 Main／Ans／program 已重建，見[本輪驗證與發布紀錄](../lab_notes/2026-09-30-cumulative-rebuild.md)。
@@ -8,20 +8,20 @@ Week7只整合已學材料。OLED自Week3起作裝置主要顯示，Serial留作
 教師後續更正：**每週硬體實作都從空麵包板重新搭建，下課拆線收納。**沿用的是知識、已學功能與同一批零件，
 不是上週的實體電路。各週操作講義須有本週完整接線圖、表與步驟；同堂階段之間可保留已確認接線，改線先斷電。
 收尾先停止操作，關閉並斷開 USB、外接供電等所有電源，確認斷電後才拆下跳線與模組、收納零件。
-此原則也適用 Week7 之後原有活動中的硬體操作，不增加活動、採購或評量；本段是現行編修要求，
-不表示所有學生教材已完成這項更正。下方歷史版本及其發布紀錄不因此改寫。
+此原則也適用 Week7 之後原有活動中的硬體操作，不增加活動、採購或評量；本輪已核對並補齊現行操作教材，
+結果見下方本機修訂紀錄。下方歷史版本及其發布紀錄不因此改寫。
 
 ## 現行維護入口
 
-Week2～7 每週三件不同用途的作品（Q1～Q3）加一題觀念（Q4），由簡到深；不把同一作品的操作步驟拆成三題。每件只使用需要的元件，同堂可沿用已確認接線。Main 先說作品、預期結果和驗證，再留必要作答；Ans 先接線、程式、結果與排錯，最後補短原理。Week1、考試及報告週不套用此題數，不另加配分或課後繳交。
+2026-10-06 現行要求：Week2～7 保留 Q1～Q3 三件不同用途的作品，Q4 用已有作品與材料做可觀察的操作；不強迫每週再增加一件大作品。Main 先說作品、預期結果和驗證，再留必要作答；Ans 先完整接線、開程式、看結果與排錯，最後補短原理。後段網路週在既有作品內採相同順序。Week1、考試、報告、出國及空白週保留原用途，不套題數，不另加配分或課後繳交。
 
-Week4 的三件作品是環境顯示器、環境超標提示器、兩個位置的環境比較器；每件均提供 OLED／Serial Monitor 兩版，學生擇一，功能要求相同。Q1 用光敏與 DHT，Q2 只用 DHT，Q3 用 DHT 與按鈕；無效溫濕度顯示 `--`，不冒充正常值。其他週顯示安排、採購與配分不變。
+2026-10-06 Week4：四件實作為環境顯示器、超標提示器、警報紀錄器、電腦分析結果顯示，各有 OLED／Serial 版。Q3 的工具保存 CSV 並產生報告；Q4 的工具每次建立新 CSV，保存資料後分析並回傳裝置，Serial 版看實際回傳區。Main 5 頁、Ans 12 頁，program 共八支作品程式及本機工具。教師後續授權 commit、push 與雲端更新；下方分工、頁數及發布狀態是歷史紀錄。
 
-本輪三作品修訂先留本機，沒有 commit、push 或上傳；見[修訂紀錄](../lab_notes/2026-09-30-three-practical-works.md)。
+本輪實作順序修訂見[逐週修訂與驗證紀錄](../lab_notes/2026-10-06-practical-first-weeks.md)，後續授權及實際同步結果見[本輪發布紀錄](../lab_notes/2026-10-06-practical-publication.md)。較早三作品版結果保留在[舊發布紀錄](../lab_notes/2026-09-30-three-practical-publication.md)。
 
 Week2 使用 `week2_redesign/build_sample.cjs`；Week3 使用 `week3_redesign/build.cjs` 及 `scripts/sync_week3_main.cjs`。
 Week4～7 維護 `weekN_redesign/weekN_main.md`，以各目錄 `build.cjs` 產生 Main；加 `--answers` 讀取私有 `weekN_answers/weekNAns.md`。
-完整程式依私有 `programs.sources.json` 產生同週 `programs`。Main 全部公開；各週 Ans PDF 與 `program/weekN` 預設忽略，由教師在該堂課進行中指定開放，目前已開放 Week3。開放時只調整該週分發複本的忽略規則並提交，不移除答案維護來源／測試目錄的忽略規則。雲端程式位於 `IoT/IOT_Introduction/program`，教師完整更新與學生開放分別核對。
+完整程式依私有 `programs.sources.json` 產生同週 `programs`。Main 全部公開；2026-10-06 教師另批准 Week1～4 Main／Ans，Week1 沒有獨立 Ans，公開複本為原週目錄的 Week2、Week3、Week4 Ans PDF。Week4 Ans 建置後，將 `week4_answers/week4Ans.pdf` 複製至 `../../Week_04_Sensors_and_Data_Quality/week4Ans.pdf` 並核對 SHA-256；維護來源／測試仍忽略。本次不新增或更新 GitHub 程式，既有 Week3 程式保留但未同步本輪教材。雲端程式位於 `IoT/IOT_Introduction/program`，教師完整更新與學生開放分別核對。
 圖文與程式對應、目前頁數及未實測事項記在本輪紀錄。下列是舊版沿革，不是現行入口或必做要求。
 
 ## 歷次修改紀錄
