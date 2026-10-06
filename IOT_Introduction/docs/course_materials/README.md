@@ -3,6 +3,11 @@
 學生與教師閱讀各週教材，請使用[18週教材入口](../../README.md)。
 本資料夾保存備課規劃、共用模板與生成來源，不是另一套必讀講義。
 
+2026-10-06：依現行 Week4 整理的通用原則見下方「每週教材設計框架」。
+目前 Main／Ans／program 的維護來源及建置方法查[現行教材維護入口](../teaching_drafts/README.md)
+與[工具說明](../../scripts/README.md)，以指定週 README 的最新安排為準。
+下方舊課卡、藍圖、遊戲及 notebook 來源保留供追溯，不自動成為全班必做內容。
+
 | 用途 | 文件 |
 |---|---|
 | 設計、修訂與驗收教材 | [每週教材設計框架](weekly_lesson_design_framework.md) |
@@ -13,13 +18,11 @@
 | 共用程式骨架 | [程式片段](starter_code_snippets.md) |
 | 遊戲規則與跨週設計 | [紅綠燈遮光挑戰](traffic_light_challenge_design.md) |
 | Week 1～7操作分段與本輪驗證 | [2026-09-14漸進實作修訂](../lab_notes/2026-09-14-progressive-lessons.md) |
-| Week 3分類新增來源 | [week3_classification.source.md](week3_classification.source.md) |
-| Week 4～7文字維護來源 | [Week 4](week4_main.source.md)／[Week 5](week5_main.source.md)／[Week 6](week6_main.source.md)／[Week 7](week7_main.source.md) |
+| 舊 Week 3分類來源 | [week3_classification.source.md](week3_classification.source.md) |
+| 舊 Week 4～7 notebook 文字來源 | [Week 4](week4_main.source.md)／[Week 5](week5_main.source.md)／[Week 6](week6_main.source.md)／[Week 7](week7_main.source.md) |
 
-Week 2與Week 3原有文字直接維護於各自Notebook；Week 3分類延伸由獨立來源生成；圖解依[工具說明](../../scripts/README.md)
-重新生成。Week 4～7先修改來源、共用程式或圖解生成器，再產生
-對應的weekN_main.ipynb，
-不要獨立修改生成後的副本。
+舊 notebook 的來源與生成器只用於該歷史版本；不得用來覆蓋現行 Main／Ans PDF。
+修改現行教材前先確認其維護來源，再產生程式複本、圖與 PDF，不直接修改生成後的副本。
 
 課程範圍以[正式18週計畫](../course/18_week_plan.md)為準；指定硬體是否已驗證，
 查[硬體狀態](../hardware/hardware_state.md)及[實作紀錄](../lab_notes/README.md)。
