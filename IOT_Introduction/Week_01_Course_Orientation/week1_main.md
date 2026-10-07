@@ -26,6 +26,8 @@ begin in Week 2. The objectives below are semester-end abilities, not first-less
 
 想像一個放在桌上的光線顯示器：遮住光敏模組，OLED 上的目前值改變；按一下按鈕，保存當時的值。移開遮擋後，目前值繼續改變，保存值要等下次按下才更新。
 
+光敏模組把光線變化轉成訊號電壓；ESP32 是執行程式的開發板，讀取並保存數字。按鈕是送出按下訊號的開關；OLED 是顯示 ESP32 傳來文字的小螢幕，不負責量測或保存。
+
 | 操作 | OLED 上要觀察的結果 |
 |---|---|
 | 改變照到光敏模組的光線 | 目前值改變；不預設數字一定變大或變小 |
@@ -122,7 +124,7 @@ system announcement.
 | 2 | 09-16 | First upload and one-button counting | First USB/Serial operation; one press adds one, holding does not keep adding |
 | 3 | 09-23 | Light readings and button snapshots on OLED | Test light sensing and OLED separately, then show current and saved values |
 | 4 | 09-30 | Add temperature and humidity | Retain the light display and button; show readings, units and read failures |
-| 5 | 10-07 | RGB environmental status | Retain the display and saved values; match OLED status text to the actual light color |
+| 5 | 10-07 | RGB status, countdown and environment inspection | Match OLED and RGB; calibrate light, save selected readings and compare them |
 | 6 | 10-14 | Add an SG90 paper pointer | Verify external power, safe travel, position commands, stopping and power-off |
 | 7 | 10-21 | Integration with taught materials | Combine practiced input, display and output behavior; no new parts or game rules |
 | 8 | 10-28 | One practical exam | Use only materials and operations already taught and practiced; rules and weight pending |

@@ -1,0 +1,16 @@
+{
+  "week": 5,
+  "textHashLineEndings": "LF",
+  "files": [
+    {
+      "source": "docs/teaching_drafts/week5_answers/src/desk_status/desk_status.ino",
+      "destination": "desk_status/desk_status.ino",
+      "sha256": "756f96288b7c703821e315a11369a5b250e7c075752d1312e339664cd2205d21"
+    },
+    {
+      "source": "docs/teaching_drafts/week5_answers/src/focus_countdown/focus_countdown.ino",
+      "destination": "focus_countdown/focus_countdown.ino",
+      "sha256": "260ddb763f8bd3131b99aae62f92503b96ae9df669bc41b9c5f120fb7a4aac9c"
+    }
+  ]
+}

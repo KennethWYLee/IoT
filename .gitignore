@@ -2,6 +2,9 @@ course_ref/
 tmp/
 _outputs/
 
+# Historical lesson copies may contain unreleased answer and program sources.
+/IOT_Introduction/docs/teaching_drafts/archives/
+
 # Local-only agent instructions and project context (all case variants)
 [Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
 [Cc][Ll][Aa][Uu][Dd][Ee].[Mm][Dd]
@@ -55,8 +58,8 @@ IOT_Introduction/docs/teaching_drafts/week14_answers/
 IOT_Introduction/docs/teaching_drafts/week15_answers/
 
 # Main is public. Release each week's Ans PDF and program during class only
-# when the instructor opens that week. Week2-4 Ans PDFs are released.
-# The Oct6 request releases Week2/3; Oct7 releases only Week4 Q1/Q2.
+# when the instructor opens that week. Week2-5 Ans PDFs are released.
+# Oct7 releases Week4 Q1-Q4 and Week5 Q1/Q2; no automatic later releases.
 # Answer maintenance sources and checks remain local; publish selected copies.
 /IOT_Introduction/docs/teaching_drafts/week*_answers/
 /IOT_Introduction/**/week*Ans.pdf

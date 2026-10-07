@@ -1,6 +1,7 @@
 module.exports = ({page}) => [
 page(1, 'Q1 · 實作', '一顆按鈕計數器', '用途：用按鈕記下完成了幾次動作，結果顯示在 Serial Monitor。', `
 <p>Serial Monitor 是 Arduino IDE 中顯示板子傳回文字的視窗。三件作品依序練習<b>記次數、保留開關狀態、累計活動時間</b>。各自只用一顆按鈕，不增加 LED；同堂可沿用已確認接線，分別上傳程式。</p>
+<p>按鈕是按下才接通的開關；ESP32 開發板執行程式、計次及保存次數，再傳到電腦顯示。麵包板讓元件不用焊接就能連起來，接法看 Ans。</p>
 <aside class="safety">每週從空麵包板開始。接線及改線前拔除 USB 與全部電源；不把按鈕直接接在電源正極與 GND 之間。下課先斷開全部電源，再拆除導線與元件收好。</aside>
 <h2>作品要做到</h2><ul><li>重啟後次數為 0；放開後每按一次加 1。</li><li>按住約兩秒只算一次；必須放開再按才增加。</li><li>開機時若按住，不自動加次數，先放開再按。</li></ul>
 <h2>預期結果與驗證</h2><table class="settings"><tr><th>操作</th><th>最新顯示</th></tr><tr><td>放開按鈕，按板上 RST 重啟</td><td>count=0</td></tr><tr><td>按住兩秒</td><td>count=1，保持不變</td></tr><tr><td>放開約一秒，再按</td><td>count=2</td></tr></table>
@@ -14,6 +15,7 @@ page(2, 'Q2 · 實作', '按一下切換的文字開關', '用途：手放開後
 <h2>完成後回答</h2><p>展示 ON 與 OFF 的切換。第一次放開按鈕後，畫面保留什麼？</p><div class="write-space" style="height:35mm"></div>
 `),
 page(3, 'Q3 · 實作', '可以暫停的單鍵碼表', '用途：累計實際進行活動的時間，休息時暫停，再按可接著計時。', `
+<p>按鈕送出開始／暫停操作；ESP32 程式計算並保存累計時間，Serial Monitor 顯示結果。</p>
 <h2>作品要做到</h2><ul><li>重啟顯示 STOP、elapsed_ms=0。STOP 表示暫停；RUN 表示正在計時。</li><li>按一下開始，下一次按下暫停，再按從原數字繼續；暫停期間不累加。</li><li>elapsed_ms 是累計時間，單位毫秒（ms）：1000 ms = 1 秒。按住只切換一次。</li><li>放開後按板上 RST 清為 0 並停止；開機按住也必須先放開。</li></ul>
 <h2>預期結果與驗證</h2><p>開始後等約兩秒再暫停；暫停約兩秒；再開始約一秒後暫停。手動操作不要求精準到毫秒。</p>
 <table class="settings"><tr><th>狀態</th><th>顯示示例</th></tr><tr><td>第一次暫停</td><td>STOP elapsed_ms=2100</td></tr><tr><td>暫停兩秒後</td><td>仍為 2100</td></tr><tr><td>繼續約一秒再暫停</td><td>STOP elapsed_ms=3200</td></tr></table><p class="sources">2100、3200 是示例，不是要求抄出的實測值。最後數字應只多出再次 RUN 的時間。</p>

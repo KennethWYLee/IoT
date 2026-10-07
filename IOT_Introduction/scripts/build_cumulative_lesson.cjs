@@ -42,10 +42,11 @@ async function build(week){
   const ids=parts.map(x=>x[1]);
   if(new Set(ids).size!==ids.length)throw Error('Duplicate page id');
   const inputs=[input(source),input(__filename),input(path.join(course,`docs/teaching_drafts/week${week}_redesign/build.cjs`))];
-  if(answers)inputs.push(input(path.join(course,'docs/teaching_drafts/week4_answers/cumulative_figures.cjs')));
+  const figureFile=path.join(course,week===5?'docs/teaching_drafts/week5_answers/figures.cjs':'docs/teaching_drafts/week4_answers/cumulative_figures.cjs');
+  if(answers)inputs.push(input(figureFile));
   if(usesSetup)inputs.push(input(setupFile));
   const render=s=>marked.parse(s.replace(/\{\{page:([\w-]+)\}\}/g,(_,id)=>{if(!ids.includes(id))throw Error('Unknown page '+id);return String(ids.indexOf(id)+1);})
-    .replace(/\{\{diagram:([\w-]+)\}\}/g,(_,id)=>{if(!answers)throw Error('Answer figure in Main');return require('../docs/teaching_drafts/week4_answers/cumulative_figures.cjs').diagram(id,week);})
+    .replace(/\{\{diagram:([\w-]+)\}\}/g,(_,id)=>{if(!answers)throw Error('Answer figure in Main');return require(figureFile).diagram(id,week);})
     .replace(/\{\{(photo|screenshot):([^|]+)\|(\d+)\|([^}]+)\}\}/g,(_,kind,name,height,caption)=>{
       const base=path.join(course,kind==='photo'?'docs/images/hardware/actual':'docs/images/screenshots');
       const file=path.resolve(base,name),relative=path.relative(base,file);
@@ -55,7 +56,8 @@ async function build(week){
       inputs.push({file:path.relative(course,file).replaceAll('\\','/'),sha256:sha(bytes)});
       return `<figure><img src="data:${type};base64,${bytes.toString('base64')}" style="height:${height}mm" alt="${esc(caption)}"><figcaption>${esc(caption)}</figcaption></figure>`;
     }));
-  const html='<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>'+stem+'</title><style>'+css+'</style><body>'+parts.map((p,i)=>`<section class="page" data-id="${p[1]}"><header><span>Week ${week} · ${titles[week]}</span><span>${esc(p[2])}</span></header><main>${render(p[3])}</main><footer><span>Week ${week} · ${answers?'Ans':'Main'}</span><span>${i+1} / ${parts.length}</span></footer></section>`).join('')+'</body></html>';
+  const lessonCss=week===5?css+'table{line-height:1.45}th,td{padding:2mm}':css;
+  const html='<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>'+stem+'</title><style>'+lessonCss+'</style><body>'+parts.map((p,i)=>`<section class="page" data-id="${p[1]}"><header><span>Week ${week} · ${titles[week]}</span><span>${esc(p[2])}</span></header><main>${render(p[3])}</main><footer><span>Week ${week} · ${answers?'Ans':'Main'}</span><span>${i+1} / ${parts.length}</span></footer></section>`).join('')+'</body></html>';
   if(/\{\{/.test(html))throw Error('Unresolved directive');
   const review=path.join(course,'..',`_outputs/cumulative_rebuild_20260930/${stem}`);
   fs.mkdirSync(review,{recursive:true});

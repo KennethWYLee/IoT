@@ -27,8 +27,8 @@ The 2026-10-06 revision puts purpose, expected behavior and observable checks in
 Main, and wiring, program opening, results and troubleshooting before short theory
 in Ans. Week4 has four practical works and eight OLED/Serial sketches. Q3 keeps
 alarm counts, time and acknowledgements on the device; Q4 alone saves CSV and
-reports, using `alarm_analysis.html` plus `analysis_client.js` and
-`alarm_report.js` for save-before-analysis USB feedback. Other weeks use their
+reports, using `dual_alarm_analysis.html`, `dual_analysis_ui.js`, `analysis_client.js`,
+`dual_alarm_report.js` and `alarm_report.js` for save-before-analysis USB feedback. Other weeks use their
 existing parts and works, not Week4's CSV design. Current evidence and limits are
 in [the practical-first record](../docs/lab_notes/2026-10-06-practical-first-weeks.md).
 
@@ -77,9 +77,11 @@ installation, HTTPS/LAN or live WebSocket test.
 
 The Oct6 PDF release allows Week2-4 Ans PDFs (Week1 has no separate Ans).
 The subsequent instructor request releases current Week2 and Week3 programs.
-The Oct7 request additionally releases only Week4 Q1/Q2: environment_display and
-environment_alert, each with OLED and Serial variants. Week4 Q3/Q4 and PC tools
-remain private; the exporter and .gitignore both enforce this four-file allowlist.
+The latest Oct7 request releases all Week4 Q1–Q4 sketches, with OLED and Serial
+variants, and the dual-alarm PC tool. Week5 additionally releases its Main/Ans
+PDFs and only desk_status (Q1) and focus_countdown (Q2). Its night_light (Q3)
+and environment_inspection (Q4) remain private. Exact exporter and .gitignore
+allowlists enforce these choices; the calendar does not authorize a release.
 Download locations are repository-root `program/week2/` and `program/week3/`, with one
 same-named Arduino folder per sketch. Week2 has five sketches: Hello, button
 status, count, ON/OFF and stopwatch. Week3's four sketches are fixed-text
@@ -94,6 +96,7 @@ node IOT_Introduction/scripts/sync_public_programs.cjs 2 3
 node IOT_Introduction/scripts/sync_public_programs.cjs 2 3 --check
 node IOT_Introduction/scripts/sync_public_programs.cjs 4
 node IOT_Introduction/scripts/sync_public_programs.cjs 4 --check
+node IOT_Introduction/scripts/sync_public_programs.cjs 5 --check
 ```
 
 The exporter copies only `.ino` entries from the weekly source list (Week1's list
@@ -127,7 +130,7 @@ Canonical files remain the editing source; regenerate copies after changing them
 These commands require the instructor's local answer sources; a public repository
 clone alone does not include them. The latest rebuild updates the full teacher
 programs on Drive under `IoT/IOT_Introduction/program`; only Week2/3 and the
-four Week4 Q1/Q2 program download copies have current GitHub release approval.
+all eight Week4 sketches and its PC tool, plus Week5 Q1/Q2, have current GitHub release approval.
 Neither these scripts nor PDF builders upload anything. Do not add other answer
 folders to Git or change publication scope without a new request.
 

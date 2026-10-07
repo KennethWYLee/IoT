@@ -11,17 +11,17 @@
   "inputs": [
     {
       "file": "docs/teaching_drafts/week4_redesign/week4_main_withClaude.md",
-      "sha256": "3602ec313b77685584134c82202afa60d818f353b41e36dc336430884407eb6e"
+      "sha256": "3d1b47eaef81834b37e25ef94ee8f2b135dfce32d89037a3f54ad841aa788450"
     },
     {
       "file": "docs/teaching_drafts/week4_answers/build_withClaude.cjs",
-      "sha256": "9c004f76f63a8efa7faf68706a8cf433c938da0f4950fd04c7145942d5907171"
+      "sha256": "dfbad6e6aa5b62f755b3af96f071016c8823157804ae603ae8c278901dce1389"
     },
     {
       "file": "docs/images/screenshots/week4_dual_alarm_pc_20261007.png",
       "sha256": "a02eba2d96009704345b8be24640890187330db22672517289eff3af74d1aa50"
     }
   ],
-  "pdfSha256": "d10f8468d6cb404bc40daa7b758f000213e3bd4f96b978fbfcd1af688dd7f7e1",
+  "pdfSha256": "a774652975ad28e32bd389263a1d5150c2397222ca526fe93151ecd3e3062227",
   "physicalTested": false
 }

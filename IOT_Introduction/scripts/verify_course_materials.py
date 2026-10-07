@@ -273,8 +273,8 @@ def main() -> int:
     for file in sorted(public_files):
         relative = file.relative_to(ROOT).as_posix()
         for pattern, approved in (
-            (r"^program/week(\d+)(?:/|$)", {2, 3, 4}),
-            (r"^IOT_Introduction/Week_\d+_[^/]+/week(\d+)Ans\.pdf$", {2, 3, 4}),
+            (r"^program/week(\d+)(?:/|$)", {2, 3, 4, 5}),
+            (r"^IOT_Introduction/Week_\d+_[^/]+/week(\d+)Ans\.pdf$", {2, 3, 4, 5}),
         ):
             match = re.match(pattern, relative, flags=re.IGNORECASE)
             if match and int(match.group(1)) not in approved:
@@ -286,8 +286,24 @@ def main() -> int:
             "program/week4/environment_display_serial/environment_display_serial.ino",
             "program/week4/environment_alert_oled/environment_alert_oled.ino",
             "program/week4/environment_alert_serial/environment_alert_serial.ino",
+            "program/week4/environment_recorder_oled/environment_recorder_oled.ino",
+            "program/week4/environment_recorder_serial/environment_recorder_serial.ino",
+            "program/week4/environment_analysis_oled/environment_analysis_oled.ino",
+            "program/week4/environment_analysis_serial/environment_analysis_serial.ino",
+            "program/week4/START_HERE.md",
+            "program/week4/dual_alarm_analysis.html",
+            "program/week4/alarm_report.js",
+            "program/week4/dual_alarm_report.js",
+            "program/week4/analysis_client.js",
+            "program/week4/dual_analysis_ui.js",
         }:
-            errors.append(f"{relative}: outside approved Week4 Q1/Q2 publication scope")
+            errors.append(f"{relative}: outside approved Week4 Q1-Q4 publication scope")
+        if relative.startswith("program/week5/") and relative not in {
+            "program/week5/README.md", "program/week5/manifest.json",
+            "program/week5/desk_status/desk_status.ino",
+            "program/week5/focus_countdown/focus_countdown.ino",
+        }:
+            errors.append(f"{relative}: outside approved Week5 Q1/Q2 publication scope")
     for document in all_documents:
         try:
             content = document_content(document)
@@ -327,7 +343,7 @@ def main() -> int:
             expected.append(f"week{number}_main.pdf")
         if number == 1:
             expected.append("programs.sources.json")
-        if number in {3, 4}:
+        if number in {3, 4, 5}:
             expected.append(f"week{number}Ans.pdf")
         # The instructor authorized a separate Week4 comparison, not replacement.
         comparison_files = ['README_withClaude.md', 'week4_main_withClaude.pdf',

@@ -4,25 +4,28 @@
   "kind": "Main",
   "pages": [
     "desk",
-    "light",
-    "climate",
-    "reason"
+    "countdown",
+    "night",
+    "night-test",
+    "inspect",
+    "inspect-test",
+    "inspect-screens"
   ],
   "inputs": [
     {
       "file": "docs/teaching_drafts/week5_redesign/week5_main.md",
-      "sha256": "feb3900602871b1d0db212eb26398cbffa019ce772c1d0e482ecc867eadb38bc"
+      "sha256": "9cb1e358dcd716ee2dd420d060be11d30a14ae776f2619c55940f0be9b0a4d80"
     },
     {
       "file": "scripts/build_cumulative_lesson.cjs",
-      "sha256": "bce816c50627d0181a4031e162ddcc5ae812c22983630c56c6983c31eb0e85bb"
+      "sha256": "acc98dea107eac5b098a2e56970353153295ec28e1df996a14b179a76b761383"
     },
     {
       "file": "docs/teaching_drafts/week5_redesign/build.cjs",
       "sha256": "51e0ddf626bd45289e5a0fed968bc9a9d1215e2f1f15d7e5aa7e83e7e7ae1195"
     }
   ],
-  "pdfSha256": "e3235e4ea1810a02fc4fb3d783a39a36bd6878355623e40cb6d75ff3477f29d8",
+  "pdfSha256": "733314dcfedfb14ffb2bb910829eb86b7b055861e81254082398f3141d2d758e",
   "layoutPassed": true,
   "physicalTested": false
 }
