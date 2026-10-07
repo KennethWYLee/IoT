@@ -6,7 +6,7 @@
 - [Week1：採購與 Arduino／ESP32 電腦設定](IOT_Introduction/Week_01_Course_Orientation/week1_main.pdf)
 - [Week2 Ans](IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2Ans.pdf) · [Week3 Ans](IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf) · [Week4 Ans](IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4Ans.pdf)
 - [Week4 修訂版 Main／Ans](IOT_Introduction/Week_04_Sensors_and_Data_Quality/README_withClaude.md)（`_withClaude`；舊版保留）
-- [Week2 程式](program/week2/README.md) · [Week3 程式](program/week3/README.md) · [Week4 Q1、Q2 程式](program/week4/README.md)
+- [Week2 程式](program/week2/README.md) · [Week3 程式](program/week3/README.md) · [Week4 Q1～Q4 程式](program/week4/README.md)
 - [Drone：無人機專題](Drone/README.md)
 
 2026-09-30 重建：Week1 尚無元件，先完成採購與電腦設定；Week2 按鈕，Week3 加光敏與 OLED，Week4 加 DHT，Week5 加 RGB，Week6 加舵機，Week7 整合已學內容。OLED 自 Week3 起作主要畫面，Serial 留作排錯；僅 Week4 可等效選用 OLED 或 Serial Monitor。
@@ -23,7 +23,7 @@ Main 提供作品、預期結果、驗證及少量問答。Ans 先接線、開�
 
 使用一個公開 GitHub repository，以 `.gitignore` 控制尚未公布的答案與程式。所有現行 Main 開放；教師於 2026-10-06 另批准公開 Week1～4 的 Main／Ans。Week1 安裝教學直接在 Main，沒有獨立 Ans；目前公開 Week2、Week3、Week4 Ans PDF，其他週答案仍忽略。
 
-PDF 與程式分別由教師決定何時公開。教師於 2026-10-06 批准公開最新 Week2、Week3 程式；2026-10-07 另批准 Week4 Q1、Q2 的 OLED／Serial 四支程式，放在 `program/week4`。Week4 Q3、Q4、電腦工具、其他週程式與答案維護來源仍留本機。每支 `.ino` 保留同名 Arduino 資料夾；不因一般 commit、push 或已有檔案就公開其他程式。
+PDF 與程式分別由教師決定何時公開。教師於 2026-10-06 批准公開最新 Week2、Week3 程式；2026-10-07 另批准 Week4 Q1～Q4 的 OLED／Serial 八支程式及 Q4 電腦工具，放在 `program/week4`。其他週程式與答案維護來源仍留本機；Week5 本次重建完成後僅公開 Q1、Q2 程式及 Ans。每支 `.ino` 保留同名 Arduino 資料夾；不因一般 commit、push 或已有檔案就公開其他程式。
 
 雲端程式位置：`codex / 課堂教材 / IoT / IOT_Introduction / program`，依週次分類。教師雲端保存完整 Main、Ans 與程式；提供學生的入口由教師決定，不因上傳就變更分享權限。[本輪修訂](IOT_Introduction/docs/lab_notes/2026-10-06-practical-first-weeks.md) · [本輪發布紀錄](IOT_Introduction/docs/lab_notes/2026-10-06-practical-publication.md)。
 

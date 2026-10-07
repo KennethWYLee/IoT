@@ -3,6 +3,36 @@
   "textHashLineEndings": "LF",
   "files": [
     {
+      "source": "docs/teaching_drafts/week4_answers/program_start.md",
+      "destination": "START_HERE.md",
+      "sha256": "9804f24e9cd6e571a6c38c316a393987fe9be4a7dda3cb99e0467a66117c89f6"
+    },
+    {
+      "source": "docs/teaching_drafts/week4_answers/tools/alarm_report.js",
+      "destination": "alarm_report.js",
+      "sha256": "2accec8ead8c4b78d6af30399b67e1c608cd3e483e4faefc52808533a5f64a12"
+    },
+    {
+      "source": "docs/teaching_drafts/week4_answers/tools/analysis_client.js",
+      "destination": "analysis_client.js",
+      "sha256": "0b2c148cb6f1b6f323de38a5125f9c77dbb2dbe8567a37d046749d72fd93406c"
+    },
+    {
+      "source": "docs/teaching_drafts/week4_answers/tools/dual_alarm_report.js",
+      "destination": "dual_alarm_report.js",
+      "sha256": "a38469497da52da733569d8995acf659096387a7de23af111c4e32d119716b02"
+    },
+    {
+      "source": "docs/teaching_drafts/week4_answers/tools/dual_analysis_ui.js",
+      "destination": "dual_analysis_ui.js",
+      "sha256": "8cd31b0129bba5407ae5dcba1c84f2a1e3f70e8cbcc8dd8e1e27ddf00b57ccda"
+    },
+    {
+      "source": "docs/teaching_drafts/week4_answers/tools/dual_alarm_analysis.html",
+      "destination": "dual_alarm_analysis.html",
+      "sha256": "306b8348d5e31cb95c7eba336ac0f0584dd7d2745a044257959834e32169e14a"
+    },
+    {
       "source": "docs/teaching_drafts/week4_answers/src/environment_display_oled/environment_display_oled.ino",
       "destination": "environment_display_oled/environment_display_oled.ino",
       "sha256": "37134fb83e0ba141ff2c00964c33878ea193d613e46386462a86b838135c3da5"
@@ -21,6 +51,26 @@
       "source": "docs/teaching_drafts/week4_answers/src/environment_alert_serial/environment_alert_serial.ino",
       "destination": "environment_alert_serial/environment_alert_serial.ino",
       "sha256": "4270f3b37227bbdb790992374267f9d4a0ac5b7ff5438a37b4f2b4cfe4649b7e"
+    },
+    {
+      "source": "docs/teaching_drafts/week4_answers/src/environment_recorder_oled/environment_recorder_oled.ino",
+      "destination": "environment_recorder_oled/environment_recorder_oled.ino",
+      "sha256": "19d13d2b4aeacf21d32e725fd7ad793f855d8936366a1d60630b55beca360ca5"
+    },
+    {
+      "source": "docs/teaching_drafts/week4_answers/src/environment_recorder_serial/environment_recorder_serial.ino",
+      "destination": "environment_recorder_serial/environment_recorder_serial.ino",
+      "sha256": "f489ad23a00f79b7d4167fb8c86da5484ae3d96f2ec7fc1319a61224581b227f"
+    },
+    {
+      "source": "docs/teaching_drafts/week4_answers/src/environment_analysis_oled/environment_analysis_oled.ino",
+      "destination": "environment_analysis_oled/environment_analysis_oled.ino",
+      "sha256": "774a39f26d32ab4906d6ecfd0c0ce281c8ef491ab9be0af3e3649b14d29880de"
+    },
+    {
+      "source": "docs/teaching_drafts/week4_answers/src/environment_analysis_serial/environment_analysis_serial.ino",
+      "destination": "environment_analysis_serial/environment_analysis_serial.ino",
+      "sha256": "ff8ca420a9c44cf6cd4429970bdac332dee0caea9b90f6c6a71935dacd9c2ec6"
     }
   ],
   "textHashWhitespace": "Strip trailing spaces and tabs"

@@ -1,15 +1,23 @@
-# Week4 Q1、Q2 程式
+# Week4 Q1～Q4 程式
 
 [Main](../../IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.pdf) · [Ans 接線與操作](../../IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4Ans.pdf)
 
 [修訂版 Main／Ans](../../IOT_Introduction/Week_04_Sensors_and_Data_Quality/README_withClaude.md) 補上實物腳位、完整接線圖及逐步排錯；舊版保留。
 
-目前只公開 Q1、Q2。Q3、Q4 程式與電腦工具由教師另行提供，不在這個公開資料夾。
+Q1～Q4 各提供 OLED／Serial Monitor 版。完整操作見修訂版 Ans；下載後保留每支程式的同名資料夾。
 
 | 題目 | OLED 版 | Serial Monitor 版 | 成功結果 |
 |---|---|---|---|
 | Q1 桌上環境顯示器 | [environment_display_oled.ino](environment_display_oled/environment_display_oled.ino) | [environment_display_serial.ino](environment_display_serial/environment_display_serial.ino) | 顯示光線 RAW、溫度 T、相對濕度 RH |
 | Q2 環境超標提示器 | [environment_alert_oled.ino](environment_alert_oled/environment_alert_oled.ino) | [environment_alert_serial.ino](environment_alert_serial/environment_alert_serial.ino) | 分別判斷溫度、濕度，顯示 HIGH／NORMAL 與總狀態 |
+| Q3 環境警報紀錄器 | [environment_recorder_oled.ino](environment_recorder_oled/environment_recorder_oled.ino) | [environment_recorder_serial.ino](environment_recorder_serial/environment_recorder_serial.ino) | 顯示警報次數、累計時間及按鈕確認 |
+| Q4 電腦分析結果顯示 | [environment_analysis_oled.ino](environment_analysis_oled/environment_analysis_oled.ino) | [environment_analysis_serial.ino](environment_analysis_serial/environment_analysis_serial.ino) | 保存 CSV，分析光線／溫度並回傳裝置 |
+
+## Q4 電腦工具
+
+下載 [dual_alarm_analysis.html](dual_alarm_analysis.html) 及 [alarm_report.js](alarm_report.js)、[dual_alarm_report.js](dual_alarm_report.js)、[analysis_client.js](analysis_client.js)、[dual_analysis_ui.js](dual_analysis_ui.js)，五個檔案放在同一資料夾。用桌面 Chrome／Edge 開本機 HTML，不是 GitHub 的文字預覽。
+
+上傳 Q4 後關閉 Serial Monitor／Plotter。依序連接裝置、等待「Q4 裝置已就緒」、選擇可寫入資料夾、開始新紀錄。OLED 看兩組統計；Serial 版看工具的「裝置回傳」。實體按鈕只表示已看到當次警報，不清零、不停止計時，也不建立 CSV。[完整開檔說明](START_HERE.md)。
 
 ## 開檔與設定
 

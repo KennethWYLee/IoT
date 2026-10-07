@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-Hant">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week4 光線與溫度警報</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f7f7;color:#293e43;font:15px/1.5 system-ui,sans-serif;letter-spacing:0}main{max-width:1100px;margin:auto;padding:20px}h1{font-size:24px;margin:0 0 14px}h2{font-size:18px;margin:20px 0 8px}button{font:inherit;background:white;border:1px solid #93a5a8;border-radius:4px;padding:8px 12px;cursor:pointer}button:disabled{opacity:.5;cursor:default}#start{background:#176b60;color:white}nav{display:flex;gap:8px;flex-wrap:wrap}section{border-top:1px solid #c5d1d3;margin-top:18px;padding-top:12px}.details{display:flex;gap:10px 24px;flex-wrap:wrap;font-size:13px}.details span{overflow-wrap:anywhere}#status{padding:8px 0;color:#176b60}#status[data-state=failed]{color:#aa342c}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.stats>div{background:white;padding:12px;border-left:3px solid #176b60}.light>div{border-color:#937322}strong{display:block;font-size:26px}.plots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}canvas{width:100%;height:200px;background:white}figure{margin:0}figcaption{font-size:13px}pre{background:#203334;color:#eef7f6;padding:12px;overflow-x:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;border-bottom:1px solid #c5d1d3;padding:6px}#events td{font-size:13px}#warnings{color:#a34435}@media(max-width:650px){main{padding:12px}h1{font-size:21px}.plots{grid-template-columns:1fr}.stats{gap:6px}.stats>div{padding:8px}strong{font-size:22px}}
+</style>
+<main id="dual-analysis-app">
+<h1>Week4 光線與溫度警報</h1>
+<nav>
+<button id="connect">連接裝置</button><button id="folder">選擇資料夾</button>
+<button id="start">開始新紀錄</button><button id="stop">停止紀錄</button>
+<button id="disconnect">中斷連線</button><button id="report">下載報告</button>
+</nav>
+<div id="status" role="status"></div>
+<div class="details"><span>資料夾：<b id="folder-name">未選擇</b></span><span>CSV：<b id="filename">--</b></span><span>已存：<b id="saved">0</b> 筆</span><span id="file-state">--</span></div>
+<section><div id="live">RAW:-- T:-- C RH:-- %</div><div id="feedback">尚未傳送</div>
+<h2>光線警報</h2><div class="stats light"><div>次數<strong id="light-count">--</strong></div><div>累計秒數<strong id="light-total">--</strong></div><div>最長秒數<strong id="light-longest">--</strong></div></div>
+<h2>溫度警報</h2><div class="stats"><div>次數<strong id="temp-count">--</strong></div><div>累計秒數<strong id="temp-total">--</strong></div><div>最長秒數<strong id="temp-longest">--</strong></div></div>
+<p>DHT 讀取失敗：<span id="failed">--</span> 筆</p><ul id="warnings"></ul></section>
+<section class="plots"><figure><canvas id="light-plot"></canvas><figcaption>光線 RAW</figcaption></figure><figure><canvas id="temp-plot"></canvas><figcaption>溫度 °C</figcaption></figure><figure><canvas id="rh-plot"></canvas><figcaption>相對濕度 %</figcaption></figure></section>
+<section><h2>裝置回傳</h2><pre id="device-return">尚未收到裝置回傳</pre></section>
+<section><h2>警報事件</h2><table><thead><tr><th>秒</th><th>來源</th><th>事件</th><th>狀態</th></tr></thead><tbody id="events"></tbody></table></section>
+</main>
+<script src="alarm_report.js"></script><script src="dual_alarm_report.js"></script>
+<script src="analysis_client.js"></script><script src="dual_analysis_ui.js"></script>
+</html>
