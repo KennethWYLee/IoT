@@ -46,10 +46,14 @@ async function build(week){
   if(usesSetup)inputs.push(input(setupFile));
   const render=s=>marked.parse(s.replace(/\{\{page:([\w-]+)\}\}/g,(_,id)=>{if(!ids.includes(id))throw Error('Unknown page '+id);return String(ids.indexOf(id)+1);})
     .replace(/\{\{diagram:([\w-]+)\}\}/g,(_,id)=>{if(!answers)throw Error('Answer figure in Main');return require('../docs/teaching_drafts/week4_answers/cumulative_figures.cjs').diagram(id,week);})
-    .replace(/\{\{photo:([^|]+)\|(\d+)\|([^}]+)\}\}/g,(_,name,height,caption)=>{
-      const file=path.join(course,'docs/images/hardware/actual',name);const bytes=fs.readFileSync(file);
-      inputs.push({file:path.relative(course,file),sha256:sha(bytes)});
-      return `<figure><img src="data:image/jpeg;base64,${bytes.toString('base64')}" style="height:${height}mm" alt="${esc(caption)}"><figcaption>${esc(caption)}</figcaption></figure>`;
+    .replace(/\{\{(photo|screenshot):([^|]+)\|(\d+)\|([^}]+)\}\}/g,(_,kind,name,height,caption)=>{
+      const base=path.join(course,kind==='photo'?'docs/images/hardware/actual':'docs/images/screenshots');
+      const file=path.resolve(base,name),relative=path.relative(base,file);
+      if(!relative||relative.startsWith('..')||path.isAbsolute(relative))throw Error('Invalid image path');
+      const type=path.extname(file).toLowerCase()==='.png'?'image/png':'image/jpeg';
+      const bytes=fs.readFileSync(file);
+      inputs.push({file:path.relative(course,file).replaceAll('\\','/'),sha256:sha(bytes)});
+      return `<figure><img src="data:${type};base64,${bytes.toString('base64')}" style="height:${height}mm" alt="${esc(caption)}"><figcaption>${esc(caption)}</figcaption></figure>`;
     }));
   const html='<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>'+stem+'</title><style>'+css+'</style><body>'+parts.map((p,i)=>`<section class="page" data-id="${p[1]}"><header><span>Week ${week} · ${titles[week]}</span><span>${esc(p[2])}</span></header><main>${render(p[3])}</main><footer><span>Week ${week} · ${answers?'Ans':'Main'}</span><span>${i+1} / ${parts.length}</span></footer></section>`).join('')+'</body></html>';
   if(/\{\{/.test(html))throw Error('Unresolved directive');

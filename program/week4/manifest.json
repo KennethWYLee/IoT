@@ -1,0 +1,27 @@
+{
+  "week": 4,
+  "textHashLineEndings": "LF",
+  "files": [
+    {
+      "source": "docs/teaching_drafts/week4_answers/src/environment_display_oled/environment_display_oled.ino",
+      "destination": "environment_display_oled/environment_display_oled.ino",
+      "sha256": "37134fb83e0ba141ff2c00964c33878ea193d613e46386462a86b838135c3da5"
+    },
+    {
+      "source": "docs/teaching_drafts/week4_answers/src/environment_display_serial/environment_display_serial.ino",
+      "destination": "environment_display_serial/environment_display_serial.ino",
+      "sha256": "fa4eadb4e4d6de098819928fec4d2c248b2fa8e82a080cab8b8c435359b2e3bc"
+    },
+    {
+      "source": "docs/teaching_drafts/week4_answers/src/environment_alert_oled/environment_alert_oled.ino",
+      "destination": "environment_alert_oled/environment_alert_oled.ino",
+      "sha256": "a0b1070868f115ea749971fbb0bb2803814db6743a5188bf8002f2a719f8e0a7"
+    },
+    {
+      "source": "docs/teaching_drafts/week4_answers/src/environment_alert_serial/environment_alert_serial.ino",
+      "destination": "environment_alert_serial/environment_alert_serial.ino",
+      "sha256": "4270f3b37227bbdb790992374267f9d4a0ac5b7ff5438a37b4f2b4cfe4649b7e"
+    }
+  ],
+  "textHashWhitespace": "Strip trailing spaces and tabs"
+}

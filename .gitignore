@@ -56,7 +56,7 @@ IOT_Introduction/docs/teaching_drafts/week15_answers/
 
 # Main is public. Release each week's Ans PDF and program during class only
 # when the instructor opens that week. Week2-4 Ans PDFs are released.
-# The subsequent Oct6 request releases current Week2 and Week3 programs.
+# The Oct6 request releases Week2/3; Oct7 releases only Week4 Q1/Q2.
 # Answer maintenance sources and checks remain local; publish selected copies.
 /IOT_Introduction/docs/teaching_drafts/week*_answers/
 /IOT_Introduction/**/week*Ans.pdf
@@ -66,3 +66,19 @@ IOT_Introduction/docs/teaching_drafts/week15_answers/
 /program/*/
 !/program/week2/
 !/program/week3/
+!/program/week4/
+/program/week4/*
+!/program/week4/README.md
+!/program/week4/manifest.json
+!/program/week4/environment_display_oled/
+!/program/week4/environment_display_serial/
+!/program/week4/environment_alert_oled/
+!/program/week4/environment_alert_serial/
+/program/week4/environment_display_oled/*
+/program/week4/environment_display_serial/*
+/program/week4/environment_alert_oled/*
+/program/week4/environment_alert_serial/*
+!/program/week4/environment_display_oled/environment_display_oled.ino
+!/program/week4/environment_display_serial/environment_display_serial.ino
+!/program/week4/environment_alert_oled/environment_alert_oled.ino
+!/program/week4/environment_alert_serial/environment_alert_serial.ino

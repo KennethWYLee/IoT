@@ -76,7 +76,10 @@ installation, HTTPS/LAN or live WebSocket test.
 ### Public program download copies
 
 The Oct6 PDF release allows Week2-4 Ans PDFs (Week1 has no separate Ans).
-The subsequent instructor request also releases current Week2 and Week3 programs.
+The subsequent instructor request releases current Week2 and Week3 programs.
+The Oct7 request additionally releases only Week4 Q1/Q2: environment_display and
+environment_alert, each with OLED and Serial variants. Week4 Q3/Q4 and PC tools
+remain private; the exporter and .gitignore both enforce this four-file allowlist.
 Download locations are repository-root `program/week2/` and `program/week3/`, with one
 same-named Arduino folder per sketch. Week2 has five sketches: Hello, button
 status, count, ON/OFF and stopwatch. Week3's four sketches are fixed-text
@@ -89,12 +92,16 @@ the editing source. Do not overwrite student edits to an exported copy.
 ```powershell
 node IOT_Introduction/scripts/sync_public_programs.cjs 2 3
 node IOT_Introduction/scripts/sync_public_programs.cjs 2 3 --check
+node IOT_Introduction/scripts/sync_public_programs.cjs 4
+node IOT_Introduction/scripts/sync_public_programs.cjs 4 --check
 ```
 
 The exporter copies only `.ino` entries from the weekly source list (Week1's list
 is beside its maintained Markdown; answer-week lists remain private),
-normalizes line endings to LF, and writes a SHA-256 manifest. It refuses unknown
-weeks or independently edited destinations. It does not commit, push, upload to
+normalizes line endings to LF, and writes a SHA-256 manifest.
+Week4 exports also remove trailing spaces/tabs, explicitly recorded in its manifest;
+the canonical source and teacher's edited working copy are not changed.
+It refuses unknown weeks or independently edited destinations. It does not commit, push, upload to
 Drive, compile, flash, or test hardware. PDF filenames and program basenames stay
 unchanged. The public README maps the Ans's `programs/` paths to `program/week3/`.
 
@@ -119,8 +126,8 @@ Canonical files remain the editing source; regenerate copies after changing them
 
 These commands require the instructor's local answer sources; a public repository
 clone alone does not include them. The latest rebuild updates the full teacher
-programs on Drive under `IoT/IOT_Introduction/program`; only Week2 and Week3
-program download copies have current GitHub release approval.
+programs on Drive under `IoT/IOT_Introduction/program`; only Week2/3 and the
+four Week4 Q1/Q2 program download copies have current GitHub release approval.
 Neither these scripts nor PDF builders upload anything. Do not add other answer
 folders to Git or change publication scope without a new request.
 

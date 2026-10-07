@@ -13,7 +13,7 @@
 | 1 | 09-09 | 採購、Arduino／ESP32 設定、儲存修改與編譯 | [PDF](Week_01_Course_Orientation/week1_main.pdf)／[網頁文字](Week_01_Course_Orientation/week1_main.md) |
 | 2 | 09-16 | 第一次上傳；按鈕計數、ON/OFF 切換、單鍵碼表 | [Main](Week_02_ESP32_Hardware_Basics/week2_main.pdf)／[Ans](Week_02_ESP32_Hardware_Basics/week2Ans.pdf)／[程式](../program/week2/README.md) |
 | 3 | 09-23 | OLED：光線觀測、快照、可暫停計數 | [Main](Week_03_Electrical_Measurement_and_ADC/week3_main.pdf)／[Ans](Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf)／[程式](../program/week3/README.md) |
-| 4 | 09-30 | DHT：環境顯示、超標提示、警報紀錄、電腦分析回傳；OLED 或 Serial 擇一 | [Main](docs/teaching_drafts/week4_redesign/week4_main.pdf)／[Ans](Week_04_Sensors_and_Data_Quality/week4Ans.pdf) |
+| 4 | 09-30 | DHT：環境顯示、超標提示、警報紀錄、電腦分析回傳；OLED 或 Serial 擇一 | [Main](docs/teaching_drafts/week4_redesign/week4_main.pdf)／[Ans](Week_04_Sensors_and_Data_Quality/week4Ans.pdf)／[Q1、Q2 程式](../program/week4/README.md) |
 | 5 | 10-07 | RGB：桌面狀態、光線狀態、溫濕度提醒 | [PDF](docs/teaching_drafts/week5_redesign/week5_main.pdf) |
 | 6 | 10-14 | 手動、光線、溫度紙指針；外接電源與停止 | [PDF](docs/teaching_drafts/week6_redesign/week6_main.pdf) |
 | 7 | 10-21 | 環境比較、可暫停提醒、可切換感測方式的紙指針 | [PDF](docs/teaching_drafts/week7_redesign/week7_main.pdf) |
@@ -35,11 +35,11 @@
 - Ans：從空麵包板開始，提供當週完整安全接線與程式開檔步驟，確認成功畫面；再看短篇原理、反例及同題號答案。
 - Program：完整 `.ino` 在同名資料夾。下載後依 Ans 核對設定，不把網頁另存成程式。
 
-Week4 有四件實作：環境顯示器、超標提示器、警報紀錄器、電腦分析結果顯示，各有 OLED／Serial 版。Q3 用按鈕確認，在裝置計次、計時；Q4 才在電腦保存 CSV、產生報告並即時分析，再將次數、累計及最長時間回傳 ESP32。Q4 Serial 版在工具看裝置實際回傳，不同時開 Serial Monitor。沒有有效值顯示 `--`／UNKNOWN，沒有新分析顯示等待或逾時。Q1 用光敏與 DHT，Q2 只用 DHT，Q3、Q4 用 DHT 與按鈕。
+Week4 有四件實作：環境顯示器、超標提示器、警報紀錄器、電腦分析結果顯示，各有 OLED／Serial 版。Q3 用按鈕確認，在裝置計次、計時；Q4 保留光敏、DHT、按鈕，在電腦保存 CSV、產生報告，將光線與溫度各自的次數、累計及最長時間回傳 ESP32，濕度只顯示。Q4 Serial 版在工具看裝置實際回傳，不同時開 Serial Monitor。沒有有效值顯示 `--`／UNKNOWN，沒有新分析顯示等待或逾時。Q1 用光敏與 DHT，Q2 只用 DHT，Q3 用 DHT 與按鈕。
 
 Week2～7 保留 Q1～Q3 三件不同用途的作品，由簡到深；Q4 改用既有作品與材料做可觀察的操作，再回答結果。Week4 的 Q4 是完整的電腦分析作品，不強迫其他週加同樣規模的第四件作品。每件只接需要的元件，同堂可沿用已確認接線。後段網路週也先操作與驗證，再解釋；Week1、考試、報告、出國及空白週不套固定題數，不另加配分或課後繳交。
 
-Week1 的安裝教學直接在 Main，沒有另設答案卷。GitHub 所有 Main 開放；教師於 2026-10-06 另批准公開 Week1～4 Main／Ans，因此新增 Week2、Week4 Ans，保留 Week3 Ans。其他週答案維持 `.gitignore`。教師同日進一步批准最新 Week2、Week3 程式，公開於 `program/week2`、`program/week3`，其他週程式仍忽略。教師雲端 `IoT/IOT_Introduction/program` 保存完整程式。PDF 與程式的公開時點分別由教師決定，雲端更新不變更分享權限。
+Week1 的安裝教學直接在 Main，沒有另設答案卷。GitHub 所有 Main 開放；教師於 2026-10-06 批准公開 Week1～4 Main／Ans，因此目前有 Week2、Week3、Week4 Ans。其他週答案維持 `.gitignore`。已公開完整 Week2、Week3 程式；2026-10-07 另公開 [Week4 Q1、Q2 程式](../program/week4/README.md)，共四支 OLED／Serial 版本。Week4 Q3、Q4、電腦工具與其他週程式仍不公開。教師雲端 `IoT/IOT_Introduction/program` 保存完整程式，這次 GitHub 更新不代表雲端已更新，也不變更分享權限。
 
 Week4～7 請使用上表入口，原週目錄的舊 Notebook／PDF 是歷史版本，不代表目前必做進度。
 

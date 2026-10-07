@@ -7,23 +7,28 @@
     "alert",
     "recorder",
     "analysis",
+    "analysis_screen",
     "analysis_files"
   ],
   "inputs": [
     {
       "file": "docs/teaching_drafts/week4_redesign/week4_main.md",
-      "sha256": "8a6568c43a3b3fc19f9cbff680b705d0ce89c1a27730fb71cc1aa7552f495f8e"
+      "sha256": "19fbf58b405e00107f1da715625bb6a2e016caa3ffe43dd98a7c1536896a891c"
     },
     {
       "file": "scripts/build_cumulative_lesson.cjs",
-      "sha256": "bce816c50627d0181a4031e162ddcc5ae812c22983630c56c6983c31eb0e85bb"
+      "sha256": "06f6e86ec4925317a56431e3bff03777915f2ea38e210c519fd80f27c34f759c"
     },
     {
       "file": "docs/teaching_drafts/week4_redesign/build.cjs",
       "sha256": "d434f273b36125e449290983da823a35496c1a5322872293e844ca0c7708e63a"
+    },
+    {
+      "file": "docs/images/screenshots/week4_dual_alarm_pc_20261007.png",
+      "sha256": "a02eba2d96009704345b8be24640890187330db22672517289eff3af74d1aa50"
     }
   ],
-  "pdfSha256": "1539f0e14ed109e07a2192196a26ab6197016d8d4bcd73a6d655bb5bb3b0f7c3",
+  "pdfSha256": "e5ba26d8ec211dc738d0aee1d0d4ecbe24527525a7b1cdd8d2d5754fcff46764",
   "layoutPassed": true,
   "physicalTested": false
 }

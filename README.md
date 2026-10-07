@@ -5,12 +5,12 @@
 - [IoT：18 週教材](IOT_Introduction/README.md)
 - [Week1：採購與 Arduino／ESP32 電腦設定](IOT_Introduction/Week_01_Course_Orientation/week1_main.pdf)
 - [Week2 Ans](IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2Ans.pdf) · [Week3 Ans](IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf) · [Week4 Ans](IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4Ans.pdf)
-- [Week2 程式](program/week2/README.md) · [Week3 程式](program/week3/README.md)
+- [Week2 程式](program/week2/README.md) · [Week3 程式](program/week3/README.md) · [Week4 Q1、Q2 程式](program/week4/README.md)
 - [Drone：無人機專題](Drone/README.md)
 
 2026-09-30 重建：Week1 尚無元件，先完成採購與電腦設定；Week2 按鈕，Week3 加光敏與 OLED，Week4 加 DHT，Week5 加 RGB，Week6 加舵機，Week7 整合已學內容。OLED 自 Week3 起作主要畫面，Serial 留作排錯；僅 Week4 可等效選用 OLED 或 Serial Monitor。
 
-Week4 有四件實作：環境顯示器、超標提示器、警報紀錄器、電腦分析結果顯示；每件均提供 OLED／Serial 兩版。Q3 在裝置累計警報次數與時間；Q4 才保存 CSV、產生警報分析報告，並把次數、累計及最長時間回傳裝置。實體按鈕只確認警報；沒有新的電腦分析時顯示等待或逾時，不沿用舊結果。Q1 用光敏與 DHT，Q2 只用 DHT，Q3、Q4 用 DHT 與按鈕。
+Week4 有四件實作：環境顯示器、超標提示器、警報紀錄器、電腦分析結果顯示；每件均提供 OLED／Serial 兩版。Q3 在裝置累計警報次數與時間；Q4 保留光敏、DHT、按鈕，保存 CSV、產生報告，將光線與溫度各自的次數、累計及最長時間回傳裝置，濕度只顯示。實體按鈕只確認警報；沒有新的電腦分析時顯示等待或逾時，不沿用舊結果。Q1 用光敏與 DHT，Q2 只用 DHT，Q3 用 DHT 與按鈕。
 
 2026-10-06 修訂：各實作週先說作品用途、預期結果與驗證，Ans 先接線、開程式、看結果及排錯，再解釋原理。Week2～7 保留 Q1～Q3 三件不同用途的作品，Q4 以已學材料做可觀察的操作；Week4 的 Q4 是完整的電腦分析作品，不要求每週都多做一件大作品。後段網路週在既有作品內採同一順序；Week1、考試、報告、出國及空白週不套固定題數，不另加配分或課後繳交。
 
@@ -22,7 +22,7 @@ Main 提供作品、預期結果、驗證及少量問答。Ans 先接線、開�
 
 使用一個公開 GitHub repository，以 `.gitignore` 控制尚未公布的答案與程式。所有現行 Main 開放；教師於 2026-10-06 另批准公開 Week1～4 的 Main／Ans。Week1 安裝教學直接在 Main，沒有獨立 Ans；目前公開 Week2、Week3、Week4 Ans PDF，其他週答案仍忽略。
 
-PDF 與程式分別由教師決定何時公開。教師於 2026-10-06 進一步批准公開最新 Week2、Week3 程式，分別放在 `program/week2`、`program/week3`，保留同名 Arduino 資料夾及 `.ino`。其他週程式、答案維護來源與測試仍留本機；新增週次不因已有檔案就公開。
+PDF 與程式分別由教師決定何時公開。教師於 2026-10-06 批准公開最新 Week2、Week3 程式；2026-10-07 另批准 Week4 Q1、Q2 的 OLED／Serial 四支程式，放在 `program/week4`。Week4 Q3、Q4、電腦工具、其他週程式與答案維護來源仍留本機。每支 `.ino` 保留同名 Arduino 資料夾；不因一般 commit、push 或已有檔案就公開其他程式。
 
 雲端程式位置：`codex / 課堂教材 / IoT / IOT_Introduction / program`，依週次分類。教師雲端保存完整 Main、Ans 與程式；提供學生的入口由教師決定，不因上傳就變更分享權限。[本輪修訂](IOT_Introduction/docs/lab_notes/2026-10-06-practical-first-weeks.md) · [本輪發布紀錄](IOT_Introduction/docs/lab_notes/2026-10-06-practical-publication.md)。
 

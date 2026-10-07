@@ -273,12 +273,21 @@ def main() -> int:
     for file in sorted(public_files):
         relative = file.relative_to(ROOT).as_posix()
         for pattern, approved in (
-            (r"^program/week(\d+)(?:/|$)", {2, 3}),
+            (r"^program/week(\d+)(?:/|$)", {2, 3, 4}),
             (r"^IOT_Introduction/Week_\d+_[^/]+/week(\d+)Ans\.pdf$", {2, 3, 4}),
         ):
             match = re.match(pattern, relative, flags=re.IGNORECASE)
             if match and int(match.group(1)) not in approved:
                 errors.append(f"{relative}: outside approved PDF/program publication scope")
+        if relative.startswith("program/week4/") and relative not in {
+            "program/week4/README.md",
+            "program/week4/manifest.json",
+            "program/week4/environment_display_oled/environment_display_oled.ino",
+            "program/week4/environment_display_serial/environment_display_serial.ino",
+            "program/week4/environment_alert_oled/environment_alert_oled.ino",
+            "program/week4/environment_alert_serial/environment_alert_serial.ino",
+        }:
+            errors.append(f"{relative}: outside approved Week4 Q1/Q2 publication scope")
     for document in all_documents:
         try:
             content = document_content(document)
