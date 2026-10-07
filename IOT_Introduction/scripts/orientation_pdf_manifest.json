@@ -5,9 +5,9 @@
     {
       "source": "IOT_Introduction/Week_01_Course_Orientation/week1_main.md",
       "pdf": "IOT_Introduction/Week_01_Course_Orientation/week1_main.pdf",
-      "pdf_sha256": "9de9fd099a7bdab6e4cfdde378bbeb42e3ce40a3c9e4079a247ae0f094626e48",
+      "pdf_sha256": "3dcf83eb60c95f41ecb18067dfb2845c0ca937582966aec38a0f89b0579f67b9",
       "inputs": {
-        "IOT_Introduction/Week_01_Course_Orientation/week1_main.md": "aa841f48915023d1ce074ce195b8c192167412a8a3886c0fca55d9063b8963ba",
+        "IOT_Introduction/Week_01_Course_Orientation/week1_main.md": "a0a9bd2df3762dafc884982693ad5814dd12f9bbd9de7dc0b18538461d76b0b6",
         "IOT_Introduction/scripts/build_orientation_pdfs.cjs": "941940b00eff52c7f73a24f84552d8416f7840a933986b20988251214c61ad78",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_1.png": "5984dbf6f0882aa9fecb24502fb598e3109ddcc9e25703788134e751b82556cc",
         "IOT_Introduction/docs/images/hardware/actual/ESP32S3_2.png": "c06861102a7f7aa85a9023b82ea1ae654c0560e9d989d043df6e0e54fda6ab18",
@@ -55,7 +55,7 @@
         "literalBold": false,
         "images": 38,
         "paperHeights": [
-          24925
+          25468
         ]
       }
     },

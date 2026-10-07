@@ -142,30 +142,7 @@ def replace_function(source: str, signature: str, replacement: str) -> str:
 
 
 def build_week15_sketch() -> str:
-    source = extract_only_complete_sketch(MQTT_WEEK)
-    content = AUTOMATION_WEEK.read_text(encoding="utf-8")
-    blocks = re.findall(r"```cpp\s*\n(.*?)\n```", content, flags=re.DOTALL)
-    if len(blocks) != 7:
-        raise ValueError(f"expected seven Week 15 modification blocks, found {len(blocks)}")
-
-    source = source.replace(
-        "const unsigned long TELEMETRY_MS = 2000;",
-        "const unsigned long TELEMETRY_MS = 2000;\n\n" + blocks[0],
-        1,
-    )
-    _, profile_end = function_span(source, "bool profileReady()")
-    source = source[:profile_end] + "\n\n" + blocks[1] + source[profile_end:]
-    source = replace_function(source, "void enterState(", blocks[2])
-    source = replace_function(source, "void executeCommand(", blocks[4])
-    physical_start, _ = function_span(source, "void readPhysicalInputs(")
-    source = source[:physical_start] + blocks[3] + "\n\n" + source[physical_start:]
-    source = replace_function(source, "void readPhysicalInputs(", blocks[5])
-    loop_start, loop_end = function_span(source, "void loop()")
-    loop = source[loop_start:loop_end]
-    loop = loop.replace("  readPhysicalInputs();", "  readPhysicalInputs();\n  " + blocks[6], 1)
-    source = source[:loop_start] + loop + source[loop_end:]
-    source = source.replace('Serial.printf("week=12 device=', 'Serial.printf("week=15 device=', 1)
-    return source
+    return extract_only_complete_sketch(AUTOMATION_WEEK)
 
 
 def compile_sketch(

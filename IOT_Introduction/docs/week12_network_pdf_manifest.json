@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "browser": "154.0.4258.62",
+  "documents": [
+    {
+      "source": "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md",
+      "pdf": "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.pdf",
+      "pdf_sha256": "b79ebef7f9a09545eb43103007b3a3589f2ce178d1e004d7005503bc949e3f3e",
+      "inputs": {
+        "IOT_Introduction/Week_12_MQTT_Database_and_Logs/week12_main.md": "b67893efdb24453147ea5823f4dc8083023bfa080dfe21f2d9bec1657fb50be3",
+        "IOT_Introduction/scripts/export_network_pdfs.cjs": "de4014e2dad5b95c790be6ff54b843f612bf8a3b37b9491ae96d6cb6363839dc"
+      },
+      "images": 0
+    }
+  ]
+}

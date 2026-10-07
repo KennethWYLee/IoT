@@ -6,12 +6,13 @@
     "compare",
     "warning",
     "switch",
+    "switch-test",
     "concept"
   ],
   "inputs": [
     {
       "file": "docs/teaching_drafts/week7_redesign/week7_main.md",
-      "sha256": "40cb80cf5e02376ab05c1d56fec8edbb07cb8cc6ad1b457650d0d0def14f4d1e"
+      "sha256": "0530cd1d0de2b508b9b45595fd2e67df74a1521b344b96d716c9a96836326065"
     },
     {
       "file": "scripts/build_cumulative_lesson.cjs",
@@ -22,7 +23,7 @@
       "sha256": "61cf587692de4d9da358c18da9f46bd878e5ed0b73a747aa6c259fa7f61becd6"
     }
   ],
-  "pdfSha256": "289467f1789fce197dcb47d870873b513ad97a8b0adba62a5a3defcb2826e68a",
+  "pdfSha256": "49a2f1a672d10f9242360f4a6687487bda4d00e643b3a09c2a0c6f7a541a859e",
   "layoutPassed": true,
   "physicalTested": false
 }

@@ -98,10 +98,10 @@
             <option value="reset">reset</option>
           </select>
         </label>
-        <button id="send-command" type="submit">Send command</button>
+        <button id="send-command" type="submit">送出命令</button>
       </form>
-      <p>手機顯示「requested」只代表Backend收件；必須等相同`command_id`出現
-        accepted及最終done／rejected／error／timeout，才能判定硬體結果。</p>
+      <p>requested 表示後端收到要求，accepted 表示裝置收到。核對同一 command_id 的
+        最終結果，再確認實物；done 是裝置程式的回報，timeout 是期限內未確認，不能當成已完成。</p>
     </section>
 
     <section aria-labelledby="summary-heading">
@@ -119,7 +119,7 @@
       <p id="events-message" class="empty">Loading…</p>
       <div class="table-wrap">
         <table id="events-table" hidden>
-          <thead><tr><th>Server time</th><th>Event</th><th>State</th><th>Value</th><th>Valid</th><th>Reason</th></tr></thead>
+          <thead><tr><th>Event ID</th><th>Server time</th><th>Event</th><th>State</th><th>Value</th><th>Valid</th><th>Reason</th></tr></thead>
           <tbody id="events"></tbody>
         </table>
       </div>
@@ -188,6 +188,7 @@
       ui.eventsMessage.textContent = items.length === 0 ? '目前沒有符合條件的事件。' : '';
       for (const item of items) {
         const row = document.createElement('tr');
+        appendCell(row, 'Event ID', item.id);
         appendCell(row, 'Server time', item.recorded_at);
         appendCell(row, 'Event', item.event_type);
         appendCell(row, 'State', item.state);

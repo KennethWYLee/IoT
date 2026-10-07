@@ -8,16 +8,20 @@ const {pathToFileURL} = require('node:url');
 const root = path.resolve(__dirname, '../..');
 const answerIndex = process.argv.indexOf('--answers');
 const answerWeek = answerIndex >= 0 ? Number(process.argv[answerIndex+1]) : null;
+const weekIndex = process.argv.indexOf('--week');
+const selectedWeek = weekIndex >= 0 ? Number(process.argv[weekIndex+1]) : null;
+if(selectedWeek !== null && ![11,12,14,15].includes(selectedWeek))throw Error('Use --week 11, 12, 14 or 15');
+if(answerWeek !== null && selectedWeek !== null)throw Error('Use either --week or --answers');
 if(answerWeek !== null && ![11,12,14,15].includes(answerWeek))throw Error('Use --answers 11, 12, 14 or 15');
 const answerDir = answerWeek ? path.join(root,'IOT_Introduction/docs/teaching_drafts/week'+answerWeek+'_answers') : null;
-const scratch = answerDir ? path.join(answerDir,'tmp') : path.join(root, '_outputs/network_pdfs');
-const manifestPath = answerDir ? path.join(answerDir,'network_pdf_manifest.json') : path.join(root, 'IOT_Introduction/docs/network_pdf_manifest.json');
+const scratch = answerDir ? path.join(answerDir,'tmp') : path.join(root, '_outputs/network_pdfs', selectedWeek ? 'week'+selectedWeek : '');
+const manifestPath = answerDir ? path.join(answerDir,'network_pdf_manifest.json') : path.join(root, 'IOT_Introduction/docs',selectedWeek ? 'week'+selectedWeek+'_network_pdf_manifest.json' : 'network_pdf_manifest.json');
 const lessons = answerDir ? [path.relative(root,path.join(answerDir,'week'+answerWeek+'Ans.md')).replaceAll('\\','/')] : [
   [11, 'Week_11_HTTP_WebSocket_Backend'],
   [12, 'Week_12_MQTT_Database_and_Logs'],
   [14, 'Week_14_Mobile_PWA'],
   [15, 'Week_15_Automation_and_Safety'],
-].map(([week, folder]) => `IOT_Introduction/${folder}/week${week}_main.md`);
+].filter(([week])=>selectedWeek===null || week===selectedWeek).map(([week, folder]) => `IOT_Introduction/${folder}/week${week}_main.md`);
 const relative = file => path.relative(root, file).replaceAll('\\', '/');
 const digest = file => crypto.createHash('sha256').update(/\.(md|cjs|svg)$/.test(file)
   ? fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n') : fs.readFileSync(file)).digest('hex');

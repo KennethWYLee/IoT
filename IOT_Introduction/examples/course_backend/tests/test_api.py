@@ -13,6 +13,18 @@ def load_app(tmp_path, monkeypatch):
     return app.app
 
 
+def test_unknown_device_is_successfully_empty(tmp_path, monkeypatch):
+    with TestClient(load_app(tmp_path, monkeypatch)) as client:
+        for endpoint in ("events", "commands"):
+            response = client.get(f"/api/{endpoint}?device_id=never-used-device")
+            assert response.status_code == 200
+            assert response.json() == []
+        stats = client.get("/api/stats?device_id=never-used-device")
+        assert stats.status_code == 200
+        for field in ("event_count", "invalid_event_count", "command_count"):
+            assert stats.json()[field] == 0
+
+
 def test_event_is_stored_and_listed(tmp_path, monkeypatch):
     with TestClient(load_app(tmp_path, monkeypatch)) as client:
         response = client.post(

@@ -56,7 +56,7 @@ assert 'Q4 · 實作檢查' in main and '只取消晶片內的上拉' not in mai
 for name, page_number in [('week2_hello_serial',2), ('week2_button_state',7), ('week2_button_count',8), ('week2_button_toggle',9), ('week2_stopwatch',10)]:
     file = ANS/'programs'/name/f'{name}.ino'
     assert file.exists() and file.parent.name == file.stem
-    assert f'programs/{name}/{name}.ino' in ans
+    assert f'program/week2/{name}/{name}.ino' in ans
     if name != 'week2_hello_serial':
         assert 'BUTTON_PIN = 5;' in file.read_text()
 sim = json.loads((ANS/'checks/source_simulation.json').read_text())

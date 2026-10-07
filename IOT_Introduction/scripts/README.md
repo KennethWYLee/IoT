@@ -147,6 +147,11 @@ python IOT_Introduction/scripts/export_network_sketches.py
 python IOT_Introduction/scripts/export_network_sketches.py --check
 ```
 
+For sequential revisions, add `--week 11` (or 12/15) to either command to avoid
+rewriting other weeks. Generated copies can already be tracked by legacy history;
+editing them does not authorize publishing a newly revised program. Check the
+instructor's current release decision before staging.
+
 Commit generated `.ino` and placeholder `secrets.example.h` files with their
 sources when publication is authorized. Never generate or publish real secrets.
 Export verification is not compilation, network testing, or a physical test.
@@ -168,6 +173,9 @@ directory if needed; `BROWSER_CHANNEL` selects another installed Chromium browse
 The Node-only `--check` compares Markdown, image, exporter and PDF hashes against
 `docs/network_pdf_manifest.json`. Text hashes normalize CRLF/LF across computers.
 Use `--answers 11` (or 12, 14, 15) with both the exporter and verifier to build/check a local answer PDF.
+Use `--week 11` (or 12, 14, 15) for one Main only. Its independent manifest is
+`docs/week11_network_pdf_manifest.json`; the default aggregate manifest remains
+separate and must be rebuilt before claiming that all network PDFs are current.
 Current Main PDFs contain questions; Ans refers to the separately packaged complete sketches.
 The Python verifier requires PyMuPDF, Pillow and Poppler. It checks page bounds, text and
 links, renders every page, and creates contact sheets and `checks.json` under the

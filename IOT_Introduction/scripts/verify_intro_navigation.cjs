@@ -145,9 +145,10 @@ const publicFiles=require('node:child_process').execFileSync('git',['ls-files','
 for(const file of publicFiles){
  const program=/^program\/week(\d+)(?:\/|$)/i.exec(file);
  const answer=/^IOT_Introduction\/Week_\d+_[^/]+\/week(\d+)Ans\.pdf$/i.exec(file);
- for(const match of [program,answer])if(match)assert.equal(Number(match[1]),3,`Only Week 3 programs/Ans are authorized public: ${file}`);
+ for(const match of [program,answer])if(match)assert([2,3,4,5].includes(Number(match[1])),`Unreleased programs/Ans: ${file}`);
+ if(program && Number(program[1])===5)assert(/^program\/week5\/(?:README\.md|manifest\.json|desk_status\/|focus_countdown\/)/.test(file),`Week5 release is Q1/Q2 only: ${file}`);
 }
-console.log(`PASS introductory navigation: ${links} local anchor links, compile-only Week 1, current Week 3 Main and public-only Week 3 programs/Ans.`);
+console.log(`PASS introductory navigation: ${links} local anchor links, compile-only Week 1, current Week 3 Main and explicit Week2-5 release boundaries.`);
 
 async function render(){
  const {marked}=await import(pathToFileURL(require.resolve('marked')).href);

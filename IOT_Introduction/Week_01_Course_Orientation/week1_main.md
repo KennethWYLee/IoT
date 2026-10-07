@@ -10,11 +10,11 @@ begin in Week 2. The objectives below are semester-end abilities, not first-less
 
 ### 本週的操作
 
-先依[中文採購清單](#purchase-table)確認要準備的器材，再做[第 7 節軟體操作](#week-2-preclass-setup)：安裝、選板型、開啟 Hello、另存副本、修改文字，最後按 Verify。完成時展示重新開啟的修改檔與本次編譯完成訊息，不需要開發板。
+先依[中文採購清單](#purchase-table)確認要準備的器材，再做[第 7 節軟體操作](#week-2-preclass-setup)：安裝、選板型、開啟 Hello、另存副本、修改文字，最後按勾勾檢查程式（Verify／編譯）。完成時展示重新開啟的修改檔；這次編譯輸出應有兩行使用大小，且沒有錯誤，不需要開發板。
 
 實作週的 Main 提供作品要求、預期結果、驗證方式與作答空間；完整教學與解答另列 Ans。Week 1 的安裝與設定步驟直接保留在本講義。Week 8 改為一次實作考，第一次報告移至 Week 10，Week 16 為一般實作課；兩次筆試取消。
 
-**本週做到：** 安裝 Arduino IDE 與 ESP32 套件、選對板型，開啟並儲存 Hello，改一行文字後重新編譯成功。全班不接板、不找 Port、不裝裝置驅動、不上傳、不看實機 Serial 輸出。編譯成功不表示程式已在板上執行。
+**本週做到：** 安裝 Arduino IDE 與 ESP32 套件、選對板型，開啟並儲存 Hello，改一行文字後重新編譯成功。全班不接板，不做連接埠選擇、裝置驅動安裝、上傳或板上文字觀察。編譯成功不表示程式已在板上執行。
 
 先看作品用途及採購清單，再直接做[第 7 節安裝與編譯](#week-2-preclass-setup)。全學期要求、零件照片與歷史購物圖片供查閱，不必第一堂逐頁理解。
 
@@ -488,7 +488,7 @@ Week 6先辨認IN／OUT並量測、調整輸出，再確認舵機負載電壓、
 
 ## 7. Arduino 與 ESP32 第一次操作
 
-**要做出的結果：** 開啟 Hello，另存自己的副本，把文字改為 My ESP32，儲存後重新開啟，再按 Verify。Output 應顯示編譯完成及程式大小。本週只有電腦，不需要任何元件，也不連裝置 Wi-Fi。
+**要做出的結果：** 開啟 Hello，另存自己的副本，把文字改為 My ESP32，儲存後重新開啟，再按勾勾檢查程式（Verify／編譯）。下方輸出區（Output）應有程式與變數的兩行使用大小，且沒有錯誤。本週只有電腦，不需要任何元件，也不連裝置 Wi-Fi。
 
 先認識兩樣東西：**Arduino IDE 是電腦上用來寫程式、檢查程式及上傳的軟體；ESP32-S3 開發板是實際執行程式的硬體。** 使用 Arduino IDE 不代表要另買 Arduino UNO 板。
 
@@ -504,17 +504,21 @@ Week 6先辨認IN／OUT並量測、調整輸出，再確認舵機負載電壓、
 
 本週不接開發板。已有 Arduino IDE 2 的同學開啟它後，接著做 7.2。
 
-1. 開啟[Arduino 官方下載頁](https://www.arduino.cc/en/software/)，選 Arduino IDE 2 的 Windows 64-bit 安裝檔，不選網頁版 Cloud Editor。
-2. 在電腦的「下載」資料夾開啟 `.exe`。閱讀並接受授權後，依畫面完成安裝。
+1. 開啟[Arduino 官方下載頁](https://www.arduino.cc/en/software/)，選 Arduino IDE 2 的 Windows 64-bit `.exe` 安裝檔；本流程不選 MSI、ZIP 或網頁版 Cloud Editor。
+2. 在電腦的「下載」資料夾開啟 `.exe`。閱讀並接受授權後，依畫面完成安裝。若 Windows 詢問是否允許變更電腦，先核對是剛從官網取得的 Arduino IDE 安裝程式，再依電腦管理規範繼續。
 3. 完成時選 Run Arduino IDE，或從開始選單開啟 Arduino IDE。第一次開啟若仍在下載工具，等它完成。
 
 **完成時看到：** 可以輸入程式的編輯區。此時只是軟體已開啟，還沒安裝 ESP32 支援。
 
 學校電腦若沒有安裝權限，請教師或管理人員協助，不繞過限制。這次操作不需要 Arduino 雲端帳號或付費方案。
 
+若另外詢問裝置驅動或防火牆存取，先保留畫面請教師核對，不一律允許。沒有裝置時，本課不要求另外下載驅動。
+
 ### 7.2 加入 ESP32 開發板套件
 
 **開發板套件是一組工具，讓 IDE 知道怎麼把程式轉成 ESP32 能執行的內容，並傳進板子。** 它和 Arduino IDE 分開安裝。
+
+下列網址提供 Espressif 的套件清單，讓開發板管理員知道到哪裡找 ESP32 支援。保存網址後，要能搜尋到作者為 Espressif Systems 的 `esp32`，才接著安裝。
 
 1. 點 **File → Preferences（檔案 → 偏好設定）**。
 2. 找到 **Additional boards manager URLs**，貼上下列網址。已有其他網址時，開啟右側清單按鈕，另加一行，不刪掉原設定。按 OK 儲存。
@@ -524,7 +528,7 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 ```
 
 3. 點 **Tools → Board → Boards Manager（工具 → 開發板 → 開發板管理員）**，搜尋 `esp32`。
-4. 找作者為 **Espressif Systems** 的 `esp32`，版本選 **3.3.11**，按 INSTALL。這是本課既有程式使用的版本，不要求追最新版。
+4. 找作者為 **Espressif Systems** 的 `esp32`。在這一項的版本下拉選單選 **3.3.11**，再按 INSTALL。這是本課指定版本，不選清單預設的最新版。下載與安裝可能需幾分鐘以上，進度結束前不要關閉 IDE。
 5. 等該項顯示 **3.3.11 installed**，再關閉並重新開啟 Arduino IDE。
 
 <div class="figure-unit">
@@ -559,6 +563,8 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 
 每選完一項，重新開啟 Tools 選下一項；其餘保留預設。找不到項目時，先核對板型和套件版本，不挑名字相近的選項。
 
+**完成時確認：** 重新開啟 Tools，逐行對照選單上目前顯示的值與表格，例如 `Board: "ESP32S3 Dev Module"`、`PSRAM: "OPI PSRAM"`。不必重新選一遍。
+
 照表設定，不要求背誦 Flash／PSRAM 原理或選單縮寫。表中上傳與 USB 選項只是先保存課堂設定，不表示本週要連板或上傳。Week 2 會核對實物與接頭後才開始操作。
 
 選單意義見[Espressif Tools 說明](https://docs.espressif.com/projects/arduino-esp32/en/latest/guides/tools_menu.html)；Board 與 Port 的差別見[Arduino 選板說明](https://support.arduino.cc/hc/en-us/articles/4406856349970-Select-board-and-port-in-Arduino-IDE)。
@@ -572,8 +578,9 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 
 1. 從教師當次提供的本機或課程雲端位置取得 Hello 資料夾；若收到壓縮檔，先解壓縮。不假設程式已放在公開 GitHub。
 2. 在 IDE 選 **File → Open（檔案 → 開啟）**，找到資料夾裡的 `hello_first.ino`。開啟後應能找到 `setup()`、`loop()` 及含有 `"Hello"` 的一行。
-3. 選 **File → Save As（另存新檔）**，在自己的課程工作資料夾保存副本，名稱保留 `hello_first`。不要覆蓋教師範例或自己的舊作業。
-4. 按 **Ctrl+S**。關閉這份草稿，再用 **File → Open** 從剛才保存的位置重新開啟。
+3. 先不要修改程式。選 **File → Save As（另存新檔）**，選與教師範例不同的課程工作資料夾，名稱保留 `hello_first`。記下存放位置；完成後應有 `hello_first/hello_first.ino`。若該位置已有同名程式，另選新資料夾，不覆蓋舊作業。
+4. 按 **Ctrl+S**，選 **Sketch → Show Sketch Folder（顯示程式資料夾）**。它會開啟檔案總管；地址列應是剛才選的位置下的 `hello_first`，裡面有 `hello_first.ino`，不是教師範例的資料夾。
+5. 選 **File → Close（關閉）**，再用 **File → Open** 從剛才確認的位置重新開啟。若關閉了整個 IDE，重新開啟 IDE 後再做 File → Open。
 
 **完成時確認：** 能指出自己的資料夾與 `hello_first.ino`，重新開啟後仍看得到程式。找不到教師提供的檔案時，先向教師取得檔案；不是另裝程式庫或任找其他 Hello 範例。
 
@@ -582,7 +589,7 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 ### 7.5 改一行文字，儲存並重新開啟
 
 1. 找到 `Serial.println("Hello");`，只把雙引號內的 `Hello` 改為 `My ESP32`。保留雙引號、括號與分號。
-2. 按 **Ctrl+S**，關閉自己的檔案，再從保存位置重新開啟。
+2. 按 **Ctrl+S**，用 **Sketch → Show Sketch Folder** 確認副本位置，再依 7.4 的關閉與開啟方法重新開啟。
 3. 確認檔案中仍是 `My ESP32`，不是原來的 Hello。接著做 7.6，檢查修改後的程式。
 
 **完成時確認：** 能指出自己的檔案位置及修改的文字。重新開啟仍保留修改，才表示這份副本已儲存。
@@ -593,20 +600,22 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 
 **先預測：** 沒有接開發板，Verify 能否完成？完成後，能否聲稱已看見板子送出的 Hello？
 
-1. 確認目前開啟剛才修改並重新開啟的副本，Board 仍是 **ESP32S3 Dev Module**，設定與 7.3 相同。
+1. 用 **Sketch → Show Sketch Folder** 確認開啟的是自己的修改副本；依 7.3 的完成確認對照 Tools，目前 Board 應為 **ESP32S3 Dev Module**。若不同，先回 7.3 重選並核對設定，再編譯。
 2. 按左上方勾勾 **Verify（驗證／編譯）**，或選 **Sketch → Verify/Compile**。本週不按右箭頭 Upload。
-3. 等編譯結束，查看下方 **Output**。成功時會顯示編譯完成及程式使用的儲存空間／記憶體大小；不能只看工具列沒有紅色就認定成功。
+3. 等編譯結束，查看下方 **Output**。英文訊息可找到 `Sketch uses ... bytes`（程式使用空間）與 `Global variables use ... bytes`（變數使用記憶體），並確認這次編譯沒有錯誤；中文介面的字樣可能不同。第一次編譯可能需幾分鐘，不連續重按。
 4. 若看到 `Compilation error` 或 `exit status 1`，保留完整 Output，依 7.7 排錯後再編譯。
 
 ![Arduino IDE 工具列示例：本週只按左側勾勾 Verify，不按右箭頭 Upload](../docs/teaching_drafts/week2_redesign/reference_images/arduino-upload.png)
 
 *圖片來源：[Arduino 操作說明](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started/ide-v2-uploading-a-sketch/)。只辨認勾勾位置；圖中的 UNO 不是本課板型，右箭頭不是本週操作。*
 
-**如何判讀自己剛才看到的結果：** 若 Output 顯示完成與使用大小，表示電腦能替選定板型編譯這份程式。這是編譯結果，不是實機輸出；本週不應在 Serial Monitor 看到 Hello。不同套件版本的大小可能不同，不以單一示例數字當答案。
+**如何判讀自己剛才看到的結果：** 若這次 Output 出現上述兩行使用大小，且沒有 `error:` 或 `Compilation error`，表示電腦能替選定板型編譯這份程式。不必在輸出區找到「成功」二字。這是編譯結果，不是實機輸出；本週不應在 Serial Monitor 看到 Hello。不同套件版本的大小可能不同，不以單一示例數字當答案。
 
 **修改後的結果：** Output 是編譯訊息，不會每秒顯示 `My ESP32`。成功與否以這次 Output 為準，不沿用先前的成功訊息。
 
-`setup()` 裡的內容預定在程式啟動時執行一次，`loop()` 裡的內容預定反覆執行。Hello 裡的 `Serial.println(...)` 準備傳送文字，`delay(1000)` 是等待約 1000 毫秒。Week 2 上傳後再觀察實際文字與間隔；本週先會找到並修改這一行，不要求先學完按鈕計數器。
+`setup()` 裡的內容預定在程式啟動時執行一次，`loop()` 裡的內容預定反覆執行。`Serial.begin(115200)` 啟用序列通訊，速度為 115200；`Serial.println(...)` 準備把文字經 USB 傳給電腦。Week 2 的文字觀察視窗（Serial Monitor）要選相同速度。
+
+Tools 的 Upload Speed 是把程式傳進板子的速度；它與 `Serial.begin` 的數字在這份設定中剛好相同，用途不同。`delay(1000)` 是等待約 1000 毫秒，也就是 1 秒。Week 2 上傳後再觀察實際文字與間隔；本週先會找到並修改文字，不要求先學完按鈕計數器。
 
 <a id="w1-troubleshoot"></a>
 
@@ -614,12 +623,13 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 
 | 你看到的情況 | 先做這件事 |
 |---|---|
-| ESP32 套件下載失敗 | 保留 Boards Manager 的完整錯誤，確認網路與 7.2 的穩定版網址，再重試；不要改裝名字相近的套件 |
+| 搜尋不到作者為 Espressif Systems 的 esp32 | 回 7.2 第 2 步，確認整行網址仍在、已按 OK，重開 IDE 再搜尋；不改裝 Arduino ESP32 Boards |
+| ESP32 套件下載失敗 | 保留 Boards Manager 的完整錯誤，確認網路與 7.2 的網址，再重試；不要改裝名字相近的套件 |
 | 找不到 ESP32S3 Dev Module | 核對作者 Espressif Systems、課堂版本 3.3.11 及 installed 狀態，重開 IDE；已裝其他版本先請教師確認 |
 | 沒有 Port，或顯示沒有連線裝置 | 本週沒有開發板是正常情況；手動選 Board 即可，不安裝尚未出現裝置的驅動 |
 | 找不到自己的 Hello | 在 File → Open 找自己保存的資料夾，不在 ZIP 預覽中操作；若來源檔尚未取得，請教師提供 |
-| Verify 失敗 | 看 Output 第一個具體錯誤；核對雙引號、括號、大括號及分號，不只看最後一行 exit status 1 |
-| 修改後重新開啟卻還是 Hello | 核對目前開啟的檔案位置，確認 Ctrl+S 已完成，再開自己的副本 |
+| Verify 失敗 | 在 Output 找第一個含 `error:` 的行，查看旁邊的檔名與行號；核對雙引號、括號、大括號及分號，不只看最後一行 exit status 1 |
+| 修改後重新開啟卻還是 Hello | 用 Sketch → Show Sketch Folder 確認目前開的是哪個資料夾，再開自己的副本；確認 Ctrl+S 已完成 |
 | 編譯成功但沒有 My ESP32 文字 | 本週只編譯，不會執行板上程式；不要為此嘗試 Upload 或開 Serial Monitor |
 
 需要協助時，展示目前畫面，說明停在「安裝、開檔、儲存或編譯」哪一步，並保留完整錯誤。這不是另交一份截圖作業。
@@ -632,7 +642,7 @@ https://espressif.github.io/arduino-esp32/package_esp32_index.json
 
 - 能開啟 Arduino IDE，找到已安裝的 ESP32 套件與 ESP32S3 Dev Module。
 - 能從自己的資料夾重新開啟 `hello_first.ino`，指出修改後的文字。
-- 能按 Verify，指出當次 Output 的完成訊息與使用大小；若失敗，能指出第一個具體錯誤。
+- 能按 Verify，指出當次 Output 的兩行使用大小且沒有錯誤；若失敗，能指出第一個具體錯誤。
 - 能說明本週完成的是編譯，尚未上傳或觀察板上的執行結果。
 - 知道 Week 2 要帶筆電與充電器、USB 資料線，以及原清單的開發板、麵包板、兩顆按鈕、杜邦線；確認本組電表已備妥。
 

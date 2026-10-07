@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "browser": "154.0.4258.62",
+  "documents": [
+    {
+      "source": "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md",
+      "pdf": "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.pdf",
+      "pdf_sha256": "5c1ae5380afe4298a39cec37548553bf633b3842f30a83a43a90c0fdcf655a1a",
+      "inputs": {
+        "IOT_Introduction/Week_11_HTTP_WebSocket_Backend/week11_main.md": "d503dc63ae44f17e3dfe789a6ac9f2ed973709c85fc999938ea8f8048d77d52b",
+        "IOT_Introduction/scripts/export_network_pdfs.cjs": "de4014e2dad5b95c790be6ff54b843f612bf8a3b37b9491ae96d6cb6363839dc"
+      },
+      "images": 0
+    }
+  ]
+}

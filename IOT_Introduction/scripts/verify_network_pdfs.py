@@ -12,11 +12,14 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[2]
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--answers", type=int, choices=(11,12,14,15))
+parser.add_argument("--week", type=int, choices=(11,12,14,15))
 args = parser.parse_args()
+if args.answers and args.week:
+    parser.error('Use either --week or --answers')
 answer_dir = ROOT / f'IOT_Introduction/docs/teaching_drafts/week{args.answers}_answers' if args.answers else None
 OUT = answer_dir / 'tmp/review' if answer_dir else ROOT / '_outputs/network_pdfs/review'
 OUT.mkdir(parents=True, exist_ok=True)
-manifest_path = answer_dir / 'network_pdf_manifest.json' if answer_dir else ROOT / 'IOT_Introduction/docs/network_pdf_manifest.json'
+manifest_path = answer_dir / 'network_pdf_manifest.json' if answer_dir else ROOT / 'IOT_Introduction/docs' / (f'week{args.week}_network_pdf_manifest.json' if args.week else 'network_pdf_manifest.json')
 manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
 poppler = shutil.which('pdftoppm') or str(Path.home() / '.cache/codex-runtimes/codex-primary-runtime/dependencies/native/poppler/Library/bin/pdftoppm.exe')
 if not Path(poppler).exists():

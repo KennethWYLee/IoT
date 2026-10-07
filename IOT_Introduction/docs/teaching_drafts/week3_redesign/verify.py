@@ -48,7 +48,7 @@ if ANSWERS:
         "oled_fixed_text", "oled_light", "oled_light_snapshot", "oled_shade_counter"}
     assert ids == ["start", "oledwire", "fixedsettings", "fixedresult", "lightwire",
                    "lightresult", "allwiring", "snapshotresult", "calibration", "counterresult", "healthresult", "adctheory",
-                   "savetheory", "answers"]
+                   "savetheory"]
     for sketch in ("oled_fixed_text", "oled_light", "oled_light_snapshot", "oled_shade_counter"):
         assert f"{sketch}/{sketch}.ino" in source
         sketch_source = (HERE / "programs" / sketch / f"{sketch}.ino").read_text()
@@ -56,7 +56,11 @@ if ANSWERS:
         assert "OLED_CONTROLLER 1306" in sketch_source
         assert "OLED_CONTROLLER == 1315" in sketch_source
         assert "Wire.begin(PIN_SDA, PIN_SCL, 100000)" in sketch_source
-    assert "e20、f20、e22、f22" in source and "d3→a22" in source
+    assert "e20、f20、e22、f22" in source and "− 軌→a22" in source
+    assert "同一段" in source and "S→GPIO4" in source
+    assert not re.search(r"a3|a6|a15|c15|d3→a22", source)
+    assert source.index("S 先不接 GPIO4") < source.index("才用母對母線接")
+    assert source.index("只用程式測試數字") < source.index("找到 `TEST_RAW=-1`")
     assert "0.720 V" in source and "lux" in source
     assert "savedRaw" in source and "SHADE_IS_HIGH" in source and "LIGHT_LIMIT" in source
     assert "先不接 GPIO 或 GND" in source
@@ -79,7 +83,7 @@ assert all(i["loaded"] for i in audit["images"])
 poppler = shutil.which("pdftoppm")
 if not poppler:
     raise SystemExit("pdftoppm not found; no render pass claimed")
-out = HERE / "tmp/cumulative_render"
+out = HERE / "tmp/cumulative_render" / sha(HERE / f"{STEM}.pdf")[:12]
 out.mkdir(parents=True, exist_ok=True)
 subprocess.run([poppler, "-r", "120", "-png", str(HERE / f"{STEM}.pdf"),
                 str(out / "page")], check=True)

@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "browser": "154.0.4258.62",
+  "documents": [
+    {
+      "source": "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.md",
+      "pdf": "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.pdf",
+      "pdf_sha256": "2a054ad9ea85b6c1de985accec74102d2e39a299af5a0f4bf5f0b85391375df2",
+      "inputs": {
+        "IOT_Introduction/Week_15_Automation_and_Safety/week15_main.md": "0b349c02d0bbed46a58b94a3f25a533889aec8f00a2500aadd88974e6f2f9dd9",
+        "IOT_Introduction/scripts/export_network_pdfs.cjs": "de4014e2dad5b95c790be6ff54b843f612bf8a3b37b9491ae96d6cb6363839dc"
+      },
+      "images": 0
+    }
+  ]
+}

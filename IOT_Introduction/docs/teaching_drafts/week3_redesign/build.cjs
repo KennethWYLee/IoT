@@ -133,10 +133,44 @@ function snapshotWiring() {
   s+=tx(15,574,'線兩端依實物印字辨認；列距省略，不是等比例安裝照片。',21);
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 595" role="img">${s}</svg>`;
 }
+function railWiring(withLight=false, withButton=false) {
+  const rows = [
+    ['板 3V3', '＋電源軌', withLight ? 'OLED VDD、光敏供電腳' : 'OLED VDD', colors.red],
+    ['板 GND', '− 電源軌', withLight ? 'OLED GND、光敏 −' : 'OLED GND', colors.black],
+    ['板 8', '直接接線', 'OLED SDA', colors.teal],
+    ['板 9', '直接接線', 'OLED SCK（程式 SCL）', colors.teal],
+  ];
+  if (withLight) rows.push(['板 4', '直接接線', '光敏 S', colors.teal]);
+  if (withButton) rows.push(['板 5', '接麵包板 a20', '按鈕第 20 列接點組', colors.teal], ['− 軌', '接麵包板 a22', '按鈕第 22 列接點組', colors.black]);
+  let s = text(325,24,'接線兩端示意；不表示電流或資料方向',18,'middle');
+  rows.forEach(([left, middle, right, color], i) => {
+    const y = 66 + i * 48;
+    s += text(12,y,left,20)+line(105,y-6,162,y-6,color)
+      +box(162,y-29,156,42,middle)+line(318,y-6,356,y-6,color)
+      +text(362,y,right,19);
+  });
+  let h = 62 + rows.length * 48;
+  if (withButton) {
+    const y = h + 30;
+    s += text(12,y,'− 軌接 a22；按鈕跨中央溝槽',20);
+    'abcdefghij'.split('').forEach((c,i)=>s+=text(167+i*34+(i>=5?30:0),y+32,c,17,'middle'));
+    s += '<rect x="318" y="'+(y+39)+'" width="38" height="83" fill="#dce3e4"/>';
+    [20,22].forEach((r,i)=>{
+      const cy=y+58+i*44;
+      s += text(118,cy-10,r,18,'middle')+line(167,cy,303,cy,colors.teal,'stroke-dasharray="3 4"')+line(367,cy,503,cy,colors.teal,'stroke-dasharray="3 4"');
+      s += text(14,cy+6,i ? '− 軌' : '板 5',18)+line(66,cy,167,cy,i ? colors.black : colors.teal)+dot(167,cy);
+      for(let c=0;c<10;c++) s += `<circle cx="${167+c*34+(c>=5?30:0)}" cy="${cy}" r="5" fill="white" stroke="#526c70"/>`;
+      s += line(303,cy,367,cy,colors.gold)+dot(303,cy)+dot(367,cy);
+    });
+    s += text(325,y+147,'金色線：按鈕固定相通的腳；按下才接通兩組。',17,'middle')+text(325,y+172,'虛線：麵包板內部同列相通，不是要加的線。',17,'middle');
+    h = y + 188;
+  } else s += text(325,h-6,'＋／− 各用同一段相通的電源軌；不可接在一起。',17,'middle');
+  return svg(s,h);
+}
 const diagrams = {
- oledfirst:()=>nodes([[3,'板 GND → a3','b3 → OLED GND'],[6,'板 3V3 → a6','b6 → OLED VDD']]).replace('</svg>',text(20,232,'板 8 → OLED SDA；板 9 → OLED SCK（SCL）',20)+'</svg>').replace('viewBox="0 0 650 199"','viewBox="0 0 650 258"'),
- lightadded:()=>nodes([[3,'保留板 GND → a3','c3 ← 光敏 −'],[6,'保留板 3V3 → a6','c6 ← 光敏供電'],[15,'光敏 S → a15','c15 → 板 4']]),
- fullsnapshotwiring:snapshotWiring,
+ oledfirst:()=>railWiring(),
+ lightadded:()=>railWiring(true),
+ fullsnapshotwiring:()=>railWiring(true,true),
  oledpower:()=>svg(
    text(325,22,'供電回路示意：傳統電流分成兩條支路',18,'middle')
    +box(10,72,95,44,'3V3')+box(250,45,155,44,'光敏模組')
@@ -309,7 +343,8 @@ footer{position:absolute;bottom:9mm;left:17mm;right:17mm;display:flex;justify-co
 .write-space{border:1px solid #a7b9bc;margin:3mm 0 4mm;background:white}
 .response-table td{height:13mm}
 #exercisemeter figure.diagram{margin:2mm 0}#exercisemeter .diagram svg{max-height:52mm}
-#allwiring .diagram svg{max-height:125mm}#oledwire .diagram svg{max-height:65mm}
+#allwiring .diagram svg{max-height:108mm}#oledwire .diagram svg{max-height:65mm}#lightwire .diagram svg{max-height:65mm}
+${answers ? 'body{line-height:1.55}p{margin:2.5mm 0}li{margin:1.5mm 0}figure{margin:3mm 0}' : ''}
 @media screen{.page{margin:8mm auto;box-shadow:0 1px 6px #aaa}}
 `;
 const html='<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>'+title+'</title><style>'+css+'</style></head><body>'+pages.map((p,i)=>`<section id="${p.id}" class="page"><header><span>${esc(title)}</span><span>${esc(p.tag)}</span></header><main>${p.html||render(p.body)}</main><footer><span>${esc(title)}</span><span>${i+1} / ${pages.length}</span></footer></section>`).join('')+'</body></html>';

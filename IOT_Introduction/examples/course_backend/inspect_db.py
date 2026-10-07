@@ -6,6 +6,7 @@ import argparse
 import json
 import os
 import sqlite3
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -39,6 +40,8 @@ def show_events(
     device_id: str | None,
     event_type: str | None,
     limit: int,
+    since: str | None = None,
+    until: str | None = None,
 ) -> None:
     clauses: list[str] = []
     parameters: list[Any] = []
@@ -48,6 +51,12 @@ def show_events(
     if event_type:
         clauses.append("event_type = ?")
         parameters.append(event_type)
+    if since:
+        clauses.append("recorded_at >= ?")
+        parameters.append(since)
+    if until:
+        clauses.append("recorded_at <= ?")
+        parameters.append(until)
     where = f"WHERE {' AND '.join(clauses)}" if clauses else ""
     parameters.append(limit)
     rows = connection.execute(
@@ -99,6 +108,16 @@ def show_summary(connection: sqlite3.Connection) -> None:
     )
 
 
+def utc_time(value: str) -> str:
+    try:
+        instant = datetime.fromisoformat(value)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError("time must use ISO 8601") from exc
+    if instant.tzinfo is None:
+        raise argparse.ArgumentTypeError("time must include a timezone")
+    return instant.astimezone(timezone.utc).isoformat()
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Read the course SQLite database safely")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -108,6 +127,8 @@ def build_parser() -> argparse.ArgumentParser:
     events = subparsers.add_parser("events")
     events.add_argument("--device")
     events.add_argument("--type")
+    events.add_argument("--since", type=utc_time)
+    events.add_argument("--until", type=utc_time)
     events.add_argument("--limit", type=int, default=10, choices=range(1, 201), metavar="1..200")
 
     commands = subparsers.add_parser("commands")
@@ -118,13 +139,16 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
-    arguments = build_parser().parse_args()
+    parser = build_parser()
+    arguments = parser.parse_args()
+    if arguments.command == "events" and arguments.since and arguments.until and arguments.since > arguments.until:
+        parser.error("since must not be later than until")
     try:
         with connect_read_only() as connection:
             if arguments.command == "schema":
                 show_schema(connection)
             elif arguments.command == "events":
-                show_events(connection, arguments.device, arguments.type, arguments.limit)
+                show_events(connection, arguments.device, arguments.type, arguments.limit, arguments.since, arguments.until)
             elif arguments.command == "commands":
                 show_commands(connection, arguments.device, arguments.status, arguments.limit)
             else:
