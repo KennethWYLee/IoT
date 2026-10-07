@@ -2,6 +2,8 @@
 
 [Main](../../IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4_main.pdf) · [Ans 接線與操作](../../IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4Ans.pdf)
 
+[修訂版 Main／Ans](../../IOT_Introduction/Week_04_Sensors_and_Data_Quality/README_withClaude.md) 補上實物腳位、完整接線圖及逐步排錯；舊版保留。
+
 目前只公開 Q1、Q2。Q3、Q4 程式與電腦工具由教師另行提供，不在這個公開資料夾。
 
 | 題目 | OLED 版 | Serial Monitor 版 | 成功結果 |
@@ -23,8 +25,12 @@
 - 安裝 Adafruit 的 **DHT sensor library**、**Adafruit Unified Sensor**；OLED 版另需 **U8g2**。Serial 版不需要 OLED，也不需要 U8g2。
 - Serial Monitor 速度 **115200**。DHT 每 2.5 秒讀取一次；上傳後等待新讀值，`--` 不是 0。
 
+每次開另一題都用 Ctrl+F 查 `PIN_DHT`、`DHT_WIRING_CONFIRMED`；OLED 版另查 `OLED_CONTROLLER`，不能以為上一個檔案的修改會自動套用。接線已核對後，上傳 Q1 初期的 WAIT DHT 是等待第一次讀取；約 5 秒後應有溫濕度數字，持續等待才按 Ans 排錯。
+
 Q2 預設門檻為 `TEMP_LIMIT_C = 28.0`、`RH_LIMIT_PERCENT = 65.0`。大於才 HIGH，等於未超標；任一項 HIGH 就 ALERT。這些是練習門檻，不是健康或設備安全標準。
 
 Q1 不接按鈕，Q2 不新增按鈕。若 OLED 黑畫面，先核對四條線、控制器設定與實際上傳的檔案；DHT 無有效值先斷電核對 DATA 的 GPIO、供電及接地。
+
+OLED 版正常時 Serial Monitor 沒有讀值輸出；螢幕沒有回應時才印 OLED: check… 的提示。偶爾一次 WAIT DHT 可先等下一次讀取，持續沒有數字才按 Ans 排錯；不把失敗填成 0。
 
 程式公開版使用講義預設設定，不採教師 GPIO1 的個人工作檔。公開複本只統一換行並移除行尾空白，不更動程式邏輯。目標編譯與桌面測試不能替代本組實物核對。下課保存自己的程式，斷電後拆線收納。

@@ -329,6 +329,19 @@ def main() -> int:
             expected.append("programs.sources.json")
         if number in {3, 4}:
             expected.append(f"week{number}Ans.pdf")
+        # The instructor authorized a separate Week4 comparison, not replacement.
+        comparison_files = ['README_withClaude.md', 'week4_main_withClaude.pdf',
+                            'week4Ans_withClaude.pdf']
+        if number == 4 and any(name in files for name in comparison_files):
+            expected.extend(comparison_files)
+            for folder, name in [('week4_redesign', 'week4_main_withClaude.pdf'),
+                                 ('week4_answers', 'week4Ans_withClaude.pdf')]:
+                source = COURSE / 'docs/teaching_drafts' / folder / name
+                public = directory / name
+                if not source.is_file() or not public.is_file():
+                    errors.append(f'Week4 comparison source or PDF missing: {name}')
+                elif source.read_bytes() != public.read_bytes():
+                    errors.append(f'Week4 comparison PDF differs from its build: {name}')
         if files != sorted(expected):
             errors.append(f"{directory.name}: expected only {sorted(expected)}, found {files}")
             continue

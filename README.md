@@ -5,6 +5,7 @@
 - [IoT：18 週教材](IOT_Introduction/README.md)
 - [Week1：採購與 Arduino／ESP32 電腦設定](IOT_Introduction/Week_01_Course_Orientation/week1_main.pdf)
 - [Week2 Ans](IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2Ans.pdf) · [Week3 Ans](IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf) · [Week4 Ans](IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4Ans.pdf)
+- [Week4 修訂版 Main／Ans](IOT_Introduction/Week_04_Sensors_and_Data_Quality/README_withClaude.md)（`_withClaude`；舊版保留）
 - [Week2 程式](program/week2/README.md) · [Week3 程式](program/week3/README.md) · [Week4 Q1、Q2 程式](program/week4/README.md)
 - [Drone：無人機專題](Drone/README.md)
 

@@ -1,0 +1,27 @@
+{
+  "kind": "Main",
+  "pages": [
+    "display",
+    "alert",
+    "recorder",
+    "analysis",
+    "analysis_screen",
+    "analysis_files"
+  ],
+  "inputs": [
+    {
+      "file": "docs/teaching_drafts/week4_redesign/week4_main_withClaude.md",
+      "sha256": "3602ec313b77685584134c82202afa60d818f353b41e36dc336430884407eb6e"
+    },
+    {
+      "file": "docs/teaching_drafts/week4_answers/build_withClaude.cjs",
+      "sha256": "9c004f76f63a8efa7faf68706a8cf433c938da0f4950fd04c7145942d5907171"
+    },
+    {
+      "file": "docs/images/screenshots/week4_dual_alarm_pc_20261007.png",
+      "sha256": "a02eba2d96009704345b8be24640890187330db22672517289eff3af74d1aa50"
+    }
+  ],
+  "pdfSha256": "d10f8468d6cb404bc40daa7b758f000213e3bd4f96b978fbfcd1af688dd7f7e1",
+  "physicalTested": false
+}
