@@ -5,7 +5,7 @@
     {
       "source": "docs/teaching_drafts/week5_answers/src/desk_status/desk_status.ino",
       "destination": "desk_status/desk_status.ino",
-      "sha256": "756f96288b7c703821e315a11369a5b250e7c075752d1312e339664cd2205d21"
+      "sha256": "0970c878d8b95b2a26fe6d472d048ca1f4d94abd2fe0c83ecc033f2ee668a7db"
     },
     {
       "source": "docs/teaching_drafts/week5_answers/src/focus_countdown/focus_countdown.ino",

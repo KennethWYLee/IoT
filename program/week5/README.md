@@ -4,8 +4,8 @@
 
 | 題目 | 完整檔案 | 結果 |
 |---|---|---|
-| Q1 桌上狀態燈 | [desk_status.ino](desk_status/desk_status.ino) | 有空綠、忙碌紅、暫離藍；OLED 文字一致 |
-| Q2 倒數提醒燈 | [focus_countdown.ino](focus_countdown/focus_countdown.ino) | 30 秒倒數，綠／藍／紅提醒；按下取消回等待 |
+| Q1 單按鈕變色燈 | [desk_status.ino](desk_status/desk_status.ino) | 短按開啟／換色，長按關閉；OLED 顯示選色與亮滅 |
+| Q2 OLED 倒數提醒燈 | [focus_countdown.ino](focus_countdown/focus_countdown.ino) | 30 秒倒數，綠／藍／紅提醒；按下取消回等待 |
 
 按鈕提供操作，ESP32 執行程式並保存狀態，OLED 顯示文字，RGB 提供遠看可辨認的燈色。兩題都不需要感測器。
 
@@ -17,6 +17,8 @@ RGB 必須由教師確認共地、板上限流、HIGH 點亮及電流適用，�
 
 安裝 U8g2（olikraus），USB 資料線接板背 COM；板型及其餘 Tools 設定查 Ans 附錄。每次換檔重新核對確認設定及控制器，不會自動沿用前一題的修改。
 
-Q2 的 `DURATION_SECONDS=30`、`WARNING_SECONDS=10`；剩 30～11 秒綠、10～1 秒藍、0 秒紅。倒數中或結束後按一下取消，回 READY／30 秒／關燈，不是暫停或直接重開。按住只接受一次，必須放開再按。
+Q1 開機關閉、選紅；短按不到 1 秒，放開後才開啟或換色。開啟時紅→綠→藍→紅；長按達 1 秒關閉並保留選色，放開不會重新開燈。再次短按以先前選色開啟。SELECT 是選色，LED 是實際亮滅。
+
+Q2 的 `DURATION_SECONDS=30`、`WARNING_SECONDS=10`；剩 30～11 秒綠、10～1 秒藍、0 秒紅。倒數中或結束後按一下取消，回 READY／30 秒／關燈，不是暫停或直接重開。按住只接受一次，必須放開再按；本題不分長短按、不手動選色。
 
 Q3、Q4 程式僅由教師提供，本資料夾不含未公開答案。完整操作與排錯見 Ans；編譯和主機測試不代表實物已測。下課全部斷電，再拆線收納。

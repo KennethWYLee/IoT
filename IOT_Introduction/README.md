@@ -14,7 +14,7 @@
 | 2 | 09-16 | 第一次上傳；按鈕計數、ON/OFF 切換、單鍵碼表 | [Main](Week_02_ESP32_Hardware_Basics/week2_main.pdf)／[Ans](Week_02_ESP32_Hardware_Basics/week2Ans.pdf)／[程式](../program/week2/README.md) |
 | 3 | 09-23 | OLED：光線觀測、快照、可暫停計數 | [Main](Week_03_Electrical_Measurement_and_ADC/week3_main.pdf)／[Ans](Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf)／[程式](../program/week3/README.md) |
 | 4 | 09-30 | DHT：環境顯示、超標提示、警報紀錄、電腦分析回傳；OLED 或 Serial 擇一 | [Main](docs/teaching_drafts/week4_redesign/week4_main.pdf)／[Ans](Week_04_Sensors_and_Data_Quality/week4Ans.pdf)／[Q1～Q4 程式](../program/week4/README.md) |
-| 5 | 10-07 | RGB：桌面狀態、倒數提醒、夜燈、環境巡檢 | [Main](Week_05_RGB_OLED_Countdown/week5_main.pdf)／[Ans](Week_05_RGB_OLED_Countdown/week5Ans.pdf)／[Q1、Q2 程式](../program/week5/README.md) |
+| 5 | 10-07 | RGB：單按鈕變色、OLED 倒數、自動夜燈、環境巡檢 | [Main](Week_05_RGB_OLED_Countdown/week5_main.pdf)／[Ans](Week_05_RGB_OLED_Countdown/week5Ans.pdf)／[Q1、Q2 程式](../program/week5/README.md) |
 | 6 | 10-14 | 手動、光線、溫度紙指針；外接電源與停止 | [PDF](docs/teaching_drafts/week6_redesign/week6_main.pdf) |
 | 7 | 10-21 | 環境比較、可暫停提醒、可切換感測方式的紙指針 | [PDF](docs/teaching_drafts/week7_redesign/week7_main.pdf) |
 | 8 | 10-28 | 第一次實作考 | [通知 PDF](Week_08_Project_Report_1/week8_main.pdf) |
@@ -39,7 +39,7 @@ Week4 有四件實作：環境顯示器、超標提示器、警報紀錄器、�
 
 Week2～7 保留 Q1～Q3 三件不同用途的作品，由簡到深；Q4 改用既有作品與材料做可觀察的操作，再回答結果。Week4 的 Q4 是完整的電腦分析作品，不強迫其他週加同樣規模的第四件作品。每件只接需要的元件，同堂可沿用已確認接線。後段網路週也先操作與驗證，再解釋；Week1、考試、報告、出國及空白週不套固定題數，不另加配分或課後繳交。
 
-Week1 的安裝教學直接在 Main，沒有另設答案卷。GitHub 所有 Main 開放，Ans PDF 目前公開 Week2～5。已公開完整 Week2、Week3 程式；2026-10-07 另公開 [Week4 Q1～Q4 程式及電腦工具](../program/week4/README.md)，共八支 OLED／Serial 版本。Week5 公開 Q1、Q2 程式，Q3、Q4 程式不公開。教師雲端 `IoT/IOT_Introduction/program` 保存完整程式，不變更分享權限。
+Week1 的安裝教學直接在 Main，沒有另設答案卷。GitHub repository 目前為 private；所有 Main 與 Week2～5 Ans PDF 已納入，存取仍受 repository 權限限制。已釋出完整 Week2、Week3 程式；2026-10-07 另釋出 [Week4 Q1～Q4 程式及電腦工具](../program/week4/README.md)，共八支 OLED／Serial 版本。Week5 只放 Q1、Q2 程式，Q3、Q4 程式不加入 Git。教師雲端 `IoT/IOT_Introduction/program` 保存完整程式，不變更分享權限。最新 Week5 修訂與同步範圍見[發布紀錄](docs/lab_notes/2026-10-11-week5-publication.md)。
 
 Week4～7 請使用上表入口。Week5～7 原週目錄的 Main PDF 已同步現行題目；舊 Notebook 仍是歷史版本，不代表目前必做進度。Week4 原版與 `_withClaude` 比較版分別保留。
 

@@ -75,16 +75,54 @@ void showLines() {
   if(!acknowledge(oledAddress)) {oledReady=false; setColor(0);}
 }
 
-int deskState=0;
+enum ButtonAction {NO_ACTION, SHORT_PRESS, LONG_PRESS};
+ButtonAction readGesture(); // Keep Arduino's generated declaration after the enum.
+const uint32_t HOLD_MS=1000;
+bool pressActive=false, longSent=false;
+uint32_t pressedAt=0;
+void resetGesture() {resetButton(); pressActive=longSent=false;}
+ButtonAction readGesture() {
+  const uint32_t now=millis(); const int reading=digitalRead(PIN_BUTTON);
+  if(reading!=lastReading) {lastReading=reading; changedAt=now;}
+  if(uint32_t(now-changedAt)<40) return NO_ACTION;
+  if(reading!=stableButton) {
+    stableButton=reading;
+    if(reading==LOW && releaseSeen) {
+      releaseSeen=false; pressActive=true; longSent=false; pressedAt=changedAt;
+    } else if(reading==HIGH) {
+      releaseSeen=true;
+      if(pressActive) {
+        pressActive=false;
+        if(longSent) return NO_ACTION;
+        return uint32_t(changedAt-pressedAt)>=HOLD_MS?LONG_PRESS:SHORT_PRESS;
+      }
+    }
+  }
+  if(reading==HIGH) releaseSeen=true;
+  if(pressActive && !longSent && reading==LOW && uint32_t(now-pressedAt)>=HOLD_MS) {
+    longSent=true; return LONG_PRESS;
+  }
+  return NO_ACTION;
+}
+
+bool lampOn=false;
+int selectedColor=1;
 void setup() {beginHardware();}
 void loop() {
-  if(!displayAvailable()) {resetButton(); return;}
-  if(buttonPressed()) deskState=(deskState+1)%3;
-  const int color=deskState==0?2:deskState==1?1:3;
+  if(!displayAvailable()) {resetGesture(); lampOn=false; return;}
+  const ButtonAction action=readGesture();
+  if(action==LONG_PRESS) lampOn=false;
+  else if(action==SHORT_PRESS) {
+    if(lampOn) selectedColor=selectedColor%3+1;
+    else lampOn=true;
+  }
+  const int color=lampOn?selectedColor:0;
   setColor(color); clearLines();
-  snprintf(lines[0],sizeof(lines[0]),"DESK STATUS");
-  snprintf(lines[1],sizeof(lines[1]),"%s",deskState==0?"AVAILABLE":deskState==1?"BUSY":"AWAY");
-  snprintf(lines[2],sizeof(lines[2]),"LED:%s",colorName(color));
-  snprintf(lines[4],sizeof(lines[4]),"PRESS TO CHANGE");
+  snprintf(lines[0],sizeof(lines[0]),"COLOR LAMP");
+  snprintf(lines[1],sizeof(lines[1]),"POWER:%s",lampOn?"ON":"OFF");
+  snprintf(lines[2],sizeof(lines[2]),"SELECT:%s",colorName(selectedColor));
+  snprintf(lines[3],sizeof(lines[3]),"LED:%s",colorName(color));
+  snprintf(lines[4],sizeof(lines[4]),"SHORT:%s",lampOn?"COLOR":"ON");
+  snprintf(lines[5],sizeof(lines[5]),"HOLD 1s:OFF");
   if(uint32_t(millis()-lastFrame)>=100) showLines();
 }
