@@ -22,7 +22,7 @@ Main 提供作品、預期結果、驗證及少量問答。Ans 先接線、開�
 
 ## 發布範圍
 
-GitHub repository 目前為 private，維持教師於 2026-10-08 指定的狀態；以 `.gitignore` 控制尚未釋出的答案與程式。所有現行 Main 已納入 Git；Week1 安裝教學直接在 Main，沒有獨立 Ans；目前另獲授權納入 Week2～5 Ans PDF，其他週答案仍忽略。能否開啟 GitHub 檔案仍取決於 repository 存取權限。
+GitHub repository 已依教師於 2026-10-12 的指示改為 public，不用登入即可讀取已發布教材。以 `.gitignore` 排除尚未釋出的答案與程式；它不會隱藏已提交的 Git 歷史。所有現行 Main 已納入 Git；Week1 安裝教學直接在 Main，沒有獨立 Ans；目前另獲授權納入 Week2～5 Ans PDF，其他週答案仍忽略。
 
 PDF 與程式分別由教師決定何時公開。教師於 2026-10-06 批准公開最新 Week2、Week3 程式；2026-10-07 另批准 Week4 Q1～Q4 的 OLED／Serial 八支程式及 Q4 電腦工具，放在 `program/week4`。Week5 公開 Main、Ans 與 Q1、Q2 程式；Q3、Q4 和其他週未授權程式仍留本機與教師雲端。每支 `.ino` 保留同名 Arduino 資料夾；不因一般 commit、push 或已有檔案就公開其他程式。
 
