@@ -14,7 +14,7 @@
   "inputs": [
     {
       "file": "docs/teaching_drafts/week5_redesign/week5_main.md",
-      "sha256": "41e9c034cc015e2d4337f824e1a94006bfe77c34e4559ce454561127c5cff622"
+      "sha256": "67eafd8aec9e0194d93283711785629a2e8aee1456924d1dc37c444fc82cea9f"
     },
     {
       "file": "scripts/build_cumulative_lesson.cjs",
@@ -25,7 +25,7 @@
       "sha256": "51e0ddf626bd45289e5a0fed968bc9a9d1215e2f1f15d7e5aa7e83e7e7ae1195"
     }
   ],
-  "pdfSha256": "7d89a7d2544c0563143780490fe7ec1fdb463070924ab21089cf56a2e2a46f90",
+  "pdfSha256": "465d38658b7866d89ed4cfc21700d1203feb0469de97effdf8d7d26c27a09495",
   "layoutPassed": true,
   "physicalTested": false
 }

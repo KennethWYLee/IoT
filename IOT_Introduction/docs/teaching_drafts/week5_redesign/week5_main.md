@@ -1,7 +1,7 @@
 <!-- page: desk | Q1 · 單按鈕變色 -->
 ## Q1．單按鈕變色燈
 本週做手動變色燈、OLED 倒數器、自動小夜燈、環境巡檢器。Q1 從空麵包板開始；接線與程式查 Week5 Ans。
-**作品：**用一顆按鈕開燈、選顏色及關燈，OLED 顯示選色與亮滅。
+**作品：**用一顆按鈕開燈、選顏色及關燈，OLED 顯示選色與亮滅。[觀看 Q1 動畫](https://github.com/KennethWYLee/IoT/blob/main/IOT_Introduction/Week_05_RGB_OLED_Countdown/animations/week5_q1.gif)（教學示意，非實物錄影）。
 
 **各元件用途：**按鈕把按下／放開的操作送給 ESP32 開發板；ESP32 判斷按多久、記住選色並控制亮滅。OLED 是文字螢幕；RGB 內含紅、綠、藍三種發光元件，本題一次亮一色。
 
@@ -26,7 +26,7 @@ OLED 的 SELECT 是所選顏色；LED 是現在亮的顏色，OFF 表示關閉�
 
 <!-- page: countdown | Q2 · 倒數提醒 -->
 ## Q2．OLED 倒數提醒燈
-**作品：**做一個 OLED 30 秒倒數器，螢幕顯示剩幾秒，RGB 提醒還有時間、快到時間或已到時間。
+**作品：**做一個 OLED 30 秒倒數器，螢幕顯示剩幾秒，RGB 提醒還有時間、快到時間或已到時間。[觀看 Q2 動畫](https://github.com/KennethWYLee/IoT/blob/main/IOT_Introduction/Week_05_RGB_OLED_Countdown/animations/week5_q2.gif)（教學示意，非實物錄影）。
 
 **各元件用途：**按鈕送出開始或取消的操作；ESP32 計算剩餘秒數；OLED 顯示秒數與操作提示；RGB 用燈色提醒進度。本題不用感測器，時間由程式計算。FOCUS TIMER 是畫面上的倒數器名稱。
 
@@ -53,7 +53,7 @@ PRESS TO CANCEL</pre>
 
 <!-- page: night | Q3 · 光線自動反應 -->
 ## Q3．可選色的自動小夜燈
-**作品：**你先決定要不要啟用夜燈、選哪一色；啟用後由光線決定是否亮燈。停用後，即使很暗也不亮。
+**作品：**你先決定要不要啟用夜燈、選哪一色；啟用後由光線決定是否亮燈。停用後，即使很暗也不亮。[觀看 Q3 動畫](https://github.com/KennethWYLee/IoT/blob/main/IOT_Introduction/Week_05_RGB_OLED_Countdown/animations/week5_q3.gif)（模擬讀值，非實物錄影）。
 
 | 元件 | 在這件作品做什麼 |
 |---|---|
@@ -104,7 +104,7 @@ SHORT:COLOR HOLD:OFF</pre>
 
 <!-- page: inspect | Q4 · 保存與比較 -->
 ## Q4．環境巡檢與比較
-**作品：**在不同位置或光線下保存環境資料，比較自己選擇記錄的樣本；同時用燈提醒目前環境。
+**作品：**在不同位置或光線下保存環境資料，比較自己選擇記錄的樣本；同時用燈提醒目前環境。[觀看 Q4 動畫](https://github.com/KennethWYLee/IoT/blob/main/IOT_Introduction/Week_05_RGB_OLED_Countdown/animations/week5_q4.gif)（模擬資料，非實物錄影）。
 
 **各元件用途：**光敏提供光線訊號；DHT11 是溫濕度感測模組，提供溫度 T（°C）與相對濕度 RH（%）。ESP32 判斷目前狀態並保存你選的資料；OLED 顯示即時值、保存結果與統計；RGB 提醒目前狀態；按鈕先設定光線，設定完成後改為要求保存一筆。
 
