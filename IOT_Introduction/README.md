@@ -8,6 +8,10 @@
 
 ## 18 週導覽
 
+2026-10-14 實際授課為 Week5（RGB 與小夜燈），較原排程慢一週。下表日期保留原排程，實際授課與考試日期依教師公告。
+
+課前材料：[Week6 帶白紙與遮光紙](Week_06_Servo_Pointer/README.md) · [Week7 帶小紙箱與白紙](Week_07_Traffic_Light_Challenge/README.md) · [Week8 完整材料清單](Week_08_Project_Report_1/README.md)。
+
 | 週次 | 日期 | 內容 | 現行 Main |
 |---:|---|---|---|
 | 1 | 09-09 | 採購、Arduino／ESP32 設定、儲存修改與編譯 | [PDF](Week_01_Course_Orientation/week1_main.pdf)／[網頁文字](Week_01_Course_Orientation/week1_main.md) |
@@ -15,9 +19,9 @@
 | 3 | 09-23 | OLED：光線觀測、快照、可暫停計數 | [Main](Week_03_Electrical_Measurement_and_ADC/week3_main.pdf)／[Ans](Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf)／[程式](../program/week3/README.md) |
 | 4 | 09-30 | DHT：環境顯示、超標提示、警報紀錄、電腦分析回傳；OLED 或 Serial 擇一 | [Main](docs/teaching_drafts/week4_redesign/week4_main.pdf)／[Ans](Week_04_Sensors_and_Data_Quality/week4Ans.pdf)／[Q1～Q4 程式](../program/week4/README.md) |
 | 5 | 10-07 | RGB：單按鈕變色、OLED 倒數、自動夜燈、環境巡檢 | [Main](Week_05_RGB_OLED_Countdown/week5_main.pdf)／[Ans](Week_05_RGB_OLED_Countdown/week5Ans.pdf)／[Q1、Q2 程式](../program/week5/README.md) |
-| 6 | 10-14 | 手動、光線、溫度紙指針；外接電源與停止 | [PDF](docs/teaching_drafts/week6_redesign/week6_main.pdf) |
-| 7 | 10-21 | 環境比較、可暫停提醒、可切換感測方式的紙指針 | [PDF](docs/teaching_drafts/week7_redesign/week7_main.pdf) |
-| 8 | 10-28 | 第一次實作考 | [通知 PDF](Week_08_Project_Report_1/week8_main.pdf) |
+| 6 | 10-14 | 舵機：按鈕指針、10秒翻牌、光線自動指針、環境警示 | [Main](Week_06_Servo_Pointer/week6_main.pdf)／[動畫](Week_06_Servo_Pointer/animations/README.md) |
+| 7 | 10-21 | 紙箱包裹監測：環境看板、開啟計次、提示旗、保留警示 | [Main](Week_07_Traffic_Light_Challenge/week7_main.pdf)／[動畫](Week_07_Traffic_Light_Challenge/animations/README.md) |
+| 8 | 10-28 | 第一次實作考，先公告材料 | [材料清單 PDF](Week_08_Project_Report_1/week8_main.pdf) |
 | 9 | 11-04 | 教師出國，不到校、不收新成果 | [PDF](Week_09_Self_Study/week9_main.pdf) |
 | 10 | 11-11 | 第一次專題報告：題目與技術可行性 | [PDF](Week_10_Individual_Written_Exam/week10_main.pdf) |
 | 11 | 11-18 | Wi-Fi、HTTP、JSON、WebSocket 與後端 | [PDF](Week_11_HTTP_WebSocket_Backend/week11_main.pdf) |
