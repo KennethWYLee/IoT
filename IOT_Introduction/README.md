@@ -22,7 +22,7 @@
 | 6 | 10-14 | 舵機：按鈕指針、10秒翻牌、光線自動指針、環境警示 | [Main](Week_06_Servo_Pointer/week6_main.pdf)／[Ans](Week_06_Servo_Pointer/week6Ans.pdf)／[動畫](Week_06_Servo_Pointer/animations/README.md) |
 | 7 | 10-21 | 紙箱包裹監測：環境看板、開啟計次、提示旗、保留警示 | [Main](Week_07_Traffic_Light_Challenge/week7_main.pdf)／[動畫](Week_07_Traffic_Light_Challenge/animations/README.md) |
 | 8 | 10-28 | 第一次實作考，先公告材料 | [材料清單 PDF](Week_08_Project_Report_1/week8_main.pdf) |
-| 9 | 11-04 | 教師出國，不到校、不收新成果 | [PDF](Week_09_Self_Study/week9_main.pdf) |
+| 9 | 11-04 | 教師出國，不到校、不收新成果 | [PDF](Week_09_Self_Study/week9_main.pdf)／[專題審查初稿](Week_09_Self_Study/README.md) |
 | 10 | 11-11 | 第一次專題報告：題目與技術可行性 | [PDF](Week_10_Individual_Written_Exam/week10_main.pdf) |
 | 11 | 11-18 | Wi-Fi、HTTP、JSON、WebSocket 與後端 | [PDF](Week_11_HTTP_WebSocket_Backend/week11_main.pdf) |
 | 12 | 11-25 | MQTT、資料庫與紀錄 | [PDF](Week_12_MQTT_Database_and_Logs/week12_main.pdf) |

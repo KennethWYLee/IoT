@@ -360,6 +360,8 @@ def main() -> int:
                     errors.append(f'Week4 comparison PDF differs from its build: {name}')
         if number in {6, 7, 8}:
             expected.append("README.md")
+        if number == 9:
+            expected.extend(["README.md", "專題審查初稿_v26.pdf"])
         if files != sorted(expected):
             errors.append(f"{directory.name}: expected only {sorted(expected)}, found {files}")
             continue
