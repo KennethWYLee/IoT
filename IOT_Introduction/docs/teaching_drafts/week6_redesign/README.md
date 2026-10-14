@@ -17,4 +17,4 @@ python IOT_Introduction/scripts/verify_cumulative_lesson.py 6 --answers --render
 
 [動畫總覽](../../../Week_06_Servo_Pointer/animations/README.md)左邊固定完整步驟，箭頭標示目前步驟；右邊顯示按鈕、外接電源、紙指針示意與原程式OLED文字。模擬輸入由主機重播四支程式，不是實物錄影；安全行程測試值不提供學生直接套用。
 
-2026-10-14 教師授權提前更新 Week6、7：本週 Main 補 A4 白紙與不透光紙準備，GitHub 發布 Main 與四題動畫；Ans 與程式仍由教師在課堂提供。教師雲端更新完整 Main、Ans、程式與動畫。編譯、主機及動畫核對不等於實物供電、行程或停止已驗證。
+2026-10-14 教師授權提前更新 Week6、7：本週 Main 補 A4 白紙與不透光紙準備，GitHub 發布 Main 與四題動畫。教師隨後另行授權公開 Week6 Ans PDF，程式仍由教師在課堂提供。教師雲端保存完整 Main、Ans、程式與動畫。編譯、主機及動畫核對不等於實物供電、行程或停止已驗證。

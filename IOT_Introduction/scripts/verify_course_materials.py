@@ -274,7 +274,7 @@ def main() -> int:
         relative = file.relative_to(ROOT).as_posix()
         for pattern, approved in (
             (r"^program/week(\d+)(?:/|$)", {2, 3, 4, 5}),
-            (r"^IOT_Introduction/Week_\d+_[^/]+/week(\d+)Ans\.pdf$", {2, 3, 4, 5}),
+            (r"^IOT_Introduction/Week_\d+_[^/]+/week(\d+)Ans\.pdf$", {2, 3, 4, 5, 6}),
         ):
             match = re.match(pattern, relative, flags=re.IGNORECASE)
             if match and int(match.group(1)) not in approved:
@@ -343,7 +343,7 @@ def main() -> int:
             expected.append(f"week{number}_main.pdf")
         if number == 1:
             expected.append("programs.sources.json")
-        if number in {3, 4, 5}:
+        if number in {3, 4, 5, 6}:
             expected.append(f"week{number}Ans.pdf")
         # The instructor authorized a separate Week4 comparison, not replacement.
         comparison_files = ['README_withClaude.md', 'week4_main_withClaude.pdf',
