@@ -358,6 +358,8 @@ def main() -> int:
                     errors.append(f'Week4 comparison source or PDF missing: {name}')
                 elif source.read_bytes() != public.read_bytes():
                     errors.append(f'Week4 comparison PDF differs from its build: {name}')
+        if number in {6, 7, 8}:
+            expected.append("README.md")
         if files != sorted(expected):
             errors.append(f"{directory.name}: expected only {sorted(expected)}, found {files}")
             continue
@@ -394,7 +396,7 @@ def main() -> int:
 
         if number in {8, 10, 16}:
             expected_terms = {
-                8: ("實作考通知", "2026-10-28", "尚待教師確認", "不是正式試題"),
+                8: ("實作考材料準備", "電子零件", "紙材與工具", "題目與驗收方式另行公布"),
                 10: ("第一次專題報告", "2026-11-11", "12–15", "15%"),
                 16: ("一般實作課", "2026-12-23", "不另交本週報告", "不是第二次筆試"),
             }

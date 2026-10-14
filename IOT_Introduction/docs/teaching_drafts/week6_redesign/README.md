@@ -1,6 +1,8 @@
-# Week6：三種舵機紙指針
+# Week6：舵機、倒數與環境提示
 
-現行 Main 有 Q1 按鈕七格紙指針、Q2 光線狀態紙指針、Q3 溫度狀態紙指針；Q4 沿用 Q1 短實作核對 REASON:STOP／REASON:TIMEOUT。只增停止原因顯示，保留停止鎖定、預覽、安全啟用與手動斷外接電源；不故意製造接線故障。每週從空麵包板開始，OLED 為主要畫面，本週不用 RGB。維護來源為本目錄 `week6_main.md`；完整接線、程式設定、短原理及答案在教師的私有 `week6_answers`。本次改寫尚未發布，舊發布紀錄不代表現稿已同步。
+2026-10-12 教師確認四題：Q1 按鈕三位置紙指針、Q2 十秒倒數翻牌、Q3 光線自動指針、Q4 光敏與溫濕度的環境警示。每題交代元件用途、預期行為與實物驗證。OLED 是命令，不是位置量測；外接供電、共地、安全行程、STOP、30秒停止及人工關電要求保留。
+
+維護 Main 在本目錄，Ans／生成器／四支程式在私有 `../week6_answers`。舊版保存在 `../archives/week6_before_20261012`；舊 temperature_pointer 不是現行題目。
 
 ```powershell
 node -e "require('./IOT_Introduction/docs/teaching_drafts/week6_answers/generate_artifacts.cjs').generate(6)"
@@ -11,11 +13,8 @@ python IOT_Introduction/scripts/verify_cumulative_lesson.py 6 --render
 python IOT_Introduction/scripts/verify_cumulative_lesson.py 6 --answers --render
 ```
 
-建置需 Node 的 marked、playwright、Microsoft Edge 與 Microsoft JhengHei；驗證使用 Python 的 pypdf 及 Poppler。先更新程式複本再驗證 Ans。
+建置需要 Node 的 marked、playwright、Edge、Microsoft JhengHei；可從 Codex bundled runtime 的 NODE_PATH 載入套件。Week6 有獨立建置器，不改其他週的共同建置器。PDF 逐頁核對邊界、圖、字型與來源雜湊，輸出到本週正式目錄；程式複本另核對清單。
 
-建置會核對每頁區塊邊界、圖片、頁碼及來源雜湊，渲染另存於被 Git 忽略的 `_outputs`。仍需目視檢查，不能把程式編譯或桌面測試寫成實機通過。
+[動畫總覽](../../../Week_06_Servo_Pointer/animations/README.md)左邊固定完整步驟，箭頭標示目前步驟；右邊顯示按鈕、外接電源、紙指針示意與原程式OLED文字。模擬輸入由主機重播四支程式，不是實物錄影；安全行程測試值不提供學生直接套用。
 
-GitHub 本週只發布 Main 和必要的維護來源，Ans 與新程式只由教師雲端提供。舊 review 記錄及程式只供歷史追查，不代表目前共同必做內容。
-本輪內容與驗證見[實作優先修訂紀錄](../../lab_notes/2026-10-06-practical-first-weeks.md)及[私有程式與版面檢查](../week5_answers/checks/practical_20261006/README.md)。[2026-09-30 重建紀錄](../../lab_notes/2026-09-30-cumulative-rebuild.md)保留為歷史參考。本次未發布，也未操作硬體。
-
-2026-10-07 現稿見[逐週修訂紀錄](../../lab_notes/2026-10-07-sequential-week-revisions.md)；七組桌面測試 131 項檢查、六組板型編譯通過，尚無硬體實測。Ans 不再列印完整程式。
+2026-10-14 教師授權提前更新 Week6、7：本週 Main 補 A4 白紙與不透光紙準備，GitHub 發布 Main 與四題動畫；Ans 與程式仍由教師在課堂提供。教師雲端更新完整 Main、Ans、程式與動畫。編譯、主機及動畫核對不等於實物供電、行程或停止已驗證。
