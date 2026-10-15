@@ -8,6 +8,7 @@
 - [Week4 修訂版 Main／Ans](IOT_Introduction/Week_04_Sensors_and_Data_Quality/README_withClaude.md)（`_withClaude`；舊版保留）
 - [Week5 Main](IOT_Introduction/Week_05_RGB_OLED_Countdown/week5_main.pdf) · [Week5 Ans](IOT_Introduction/Week_05_RGB_OLED_Countdown/week5Ans.pdf) · [Week5 Q1、Q2 程式](program/week5/README.md) · [Week5 Q1～Q4 動畫總覽：同頁播放](IOT_Introduction/Week_05_RGB_OLED_Countdown/animations/README.md)
 - [Week6 Main](IOT_Introduction/Week_06_Servo_Pointer/week6_main.pdf) · [Week6 Ans](IOT_Introduction/Week_06_Servo_Pointer/week6Ans.pdf) · [Week6 Q1～Q4 動畫](IOT_Introduction/Week_06_Servo_Pointer/animations/README.md)
+- [Week7 Main](IOT_Introduction/Week_07_Traffic_Light_Challenge/week7_main.pdf) · [Week7 Ans](IOT_Introduction/Week_07_Traffic_Light_Challenge/week7Ans.pdf) · [Week7 Q1～Q4 動畫](IOT_Introduction/Week_07_Traffic_Light_Challenge/animations/README.md)
 - [Week2 程式](program/week2/README.md) · [Week3 程式](program/week3/README.md) · [Week4 Q1～Q4 程式](program/week4/README.md)
 - [Drone：無人機專題](Drone/README.md)
 
@@ -23,7 +24,7 @@ Main 提供作品、預期結果、驗證及少量問答。Ans 先接線、開�
 
 ## 發布範圍
 
-GitHub repository 已依教師於 2026-10-12 的指示改為 public，不用登入即可讀取已發布教材。以 `.gitignore` 排除尚未釋出的答案與程式；它不會隱藏已提交的 Git 歷史。所有現行 Main 已納入 Git；Week1 安裝教學直接在 Main，沒有獨立 Ans；目前另獲授權納入 Week2～6 Ans PDF，其他週答案仍忽略。
+GitHub repository 已依教師於 2026-10-12 的指示改為 public，不用登入即可讀取已發布教材。以 `.gitignore` 排除尚未釋出的答案與程式；它不會隱藏已提交的 Git 歷史。所有現行 Main 已納入 Git；Week1 安裝教學直接在 Main，沒有獨立 Ans；目前另獲授權納入 Week2～7 Ans PDF，其他週答案仍忽略。
 
 PDF 與程式分別由教師決定何時公開。教師於 2026-10-06 批准公開最新 Week2、Week3 程式；2026-10-07 另批准 Week4 Q1～Q4 的 OLED／Serial 八支程式及 Q4 電腦工具，放在 `program/week4`。Week5 公開 Main、Ans 與 Q1、Q2 程式；Q3、Q4 和其他週未授權程式仍留本機與教師雲端。每支 `.ino` 保留同名 Arduino 資料夾；不因一般 commit、push 或已有檔案就公開其他程式。
 
