@@ -20,11 +20,12 @@ async function run(){
  const inputs=[input(source),input(__filename)], figures=path.join(course,'docs/teaching_drafts/week4_answers/cumulative_figures.cjs');
  if(answers)inputs.push(input(figures));
  function render(s){return marked.parse(s.replace(/\{\{page:([\w-]+)\}\}/g,(_,id)=>{if(!ids.includes(id))throw Error(id);return String(ids.indexOf(id)+1);})
- .replace(/\{\{diagram:([\w-]+)\}\}/g,(_,id)=>{if(!answers)throw Error('Answer figure in Main');return require(figures).diagram(id,6);})
+ .replace(/\{\{diagram:([\w-]+)\}\}/g,(_,id)=>{if(['focus-model','feeder-model','feeder-mechanism','shade-model','rgb-wiring','servo-power'].includes(id))return require('../week6_answers/two_works/figures.cjs').diagram(id);if(!answers)throw Error('Answer figure in Main');return require(figures).diagram(id,6);})
  .replace(/\{\{photo:([^|]+)\|(\d+)\|([^}]+)\}\}/g,(_,name,height,caption)=>{const file=path.join(course,'docs/images/hardware/actual',name);inputs.push(input(file));return '<figure><img src="data:'+(/\.png$/i.test(name)?'image/png':'image/jpeg')+';base64,'+fs.readFileSync(file).toString('base64')+'" style="height:'+height+'mm" alt="'+esc(caption)+'"><figcaption>'+esc(caption)+'</figcaption></figure>';}));}
- const html='<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>'+stem+'</title><style>'+css+'</style><body>'+parts.map((p,i)=>'<section class="page" data-id="'+p[1]+'"><header><span>Week 6 · 舵機、倒數與環境提示</span><span>'+esc(p[2])+'</span></header><main>'+render(p[3])+'</main><footer><span>Week 6 · '+(answers?'Ans':'Main')+'</span><span>'+(i+1)+' / '+parts.length+'</span></footer></section>').join('')+'</body></html>';
+ inputs.push(input(path.resolve(__dirname,'../week6_answers/two_works/figures.cjs')));
+ const html='<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>'+stem+'</title><style>'+css+'</style><body>'+parts.map((p,i)=>'<section class="page" data-id="'+p[1]+'"><header><span>Week 6 · 餵食器與自動遮陽板</span><span>'+esc(p[2])+'</span></header><main>'+render(p[3])+'</main><footer><span>Week 6 · '+(answers?'Ans':'Main')+'</span><span>'+(i+1)+' / '+parts.length+'</span></footer></section>').join('')+'</body></html>';
  if(/\{\{/.test(html))throw Error('Unresolved directive');
- const review=path.join(course,'../_outputs/week6_20261012',stem);fs.mkdirSync(review,{recursive:true});
+ const review=path.join(course,'../_outputs/week6_feeder_20261019',stem);fs.mkdirSync(review,{recursive:true});
  const htmlFile=path.join(review,stem+'.html');fs.writeFileSync(htmlFile,html);fs.writeFileSync(path.join(folder,stem+'.html'),html);
  const browser=await chromium.launch({channel:'msedge',headless:true});
  try{

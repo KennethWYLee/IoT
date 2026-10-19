@@ -19,7 +19,7 @@
 | 3 | 09-23 | OLED：光線觀測、快照、可暫停計數 | [Main](Week_03_Electrical_Measurement_and_ADC/week3_main.pdf)／[Ans](Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf)／[程式](../program/week3/README.md) |
 | 4 | 09-30 | DHT：環境顯示、超標提示、警報紀錄、電腦分析回傳；OLED 或 Serial 擇一 | [Main](docs/teaching_drafts/week4_redesign/week4_main.pdf)／[Ans](Week_04_Sensors_and_Data_Quality/week4Ans.pdf)／[Q1～Q4 程式](../program/week4/README.md) |
 | 5 | 10-07 | RGB：單按鈕變色、OLED 倒數、自動夜燈、環境巡檢 | [Main](Week_05_RGB_OLED_Countdown/week5_main.pdf)／[Ans](Week_05_RGB_OLED_Countdown/week5Ans.pdf)／[Q1、Q2 程式](../program/week5/README.md) |
-| 6 | 10-14 | 舵機：按鈕指針、10秒翻牌、光線自動指針、環境警示 | [Main](Week_06_Servo_Pointer/week6_main.pdf)／[Ans](Week_06_Servo_Pointer/week6Ans.pdf)／[動畫](Week_06_Servo_Pointer/animations/README.md) |
+| 6 | 10-14 | 舵機：定時感應餵食器、自動遮陽板 | [Main](Week_06_Servo_Pointer/week6_main.pdf)／[Ans](Week_06_Servo_Pointer/week6Ans.pdf)／[線上3D動畫](https://iot-week6-two-works.wy-lee9591.chatgpt.site/) |
 | 7 | 10-21 | 紙箱包裹監測：環境看板、開啟計次、提示旗、保留警示 | [Main](Week_07_Traffic_Light_Challenge/week7_main.pdf)／[Ans](Week_07_Traffic_Light_Challenge/week7Ans.pdf)／[動畫](Week_07_Traffic_Light_Challenge/animations/README.md) |
 | 8 | 10-28 | 第一次實作考，先公告材料 | [材料清單 PDF](Week_08_Project_Report_1/week8_main.pdf) |
 | 9 | 11-04 | 教師出國，不到校、不收新成果 | [PDF](Week_09_Self_Study/week9_main.pdf)／[專題審查初稿](Week_09_Self_Study/README.md) |
@@ -41,9 +41,9 @@
 
 Week4 有四件實作：環境顯示器、超標提示器、警報紀錄器、電腦分析結果顯示，各有 OLED／Serial 版。Q3 用按鈕確認，在裝置計次、計時；Q4 保留光敏、DHT、按鈕，在電腦保存 CSV、產生報告，將光線與溫度各自的次數、累計及最長時間回傳 ESP32，濕度只顯示。Q4 Serial 版在工具看裝置實際回傳，不同時開 Serial Monitor。沒有有效值顯示 `--`／UNKNOWN，沒有新分析顯示等待或逾時。Q1 用光敏與 DHT，Q2 只用 DHT，Q3 用 DHT 與按鈕。
 
-Week2～7 保留 Q1～Q3 三件不同用途的作品，由簡到深；Q4 改用既有作品與材料做可觀察的操作，再回答結果。Week4 的 Q4 是完整的電腦分析作品，不強迫其他週加同樣規模的第四件作品。每件只接需要的元件，同堂可沿用已確認接線。後段網路週也先操作與驗證，再解釋；Week1、考試、報告、出國及空白週不套固定題數，不另加配分或課後繳交。
+除 Week6 外，Week2～7 保留 Q1～Q3 三件不同用途的作品，由簡到深；Q4 改用既有作品與材料做可觀察的操作，再回答結果。Week6 改為定時感應餵食器模型與自動遮陽板兩件完整作品，兩題均用光敏，DHT 不列必接。Week4 的 Q4 是完整的電腦分析作品，不強迫其他週加同樣規模的第四件作品。每件只接需要的元件，同堂可沿用已確認接線。後段網路週也先操作與驗證，再解釋；Week1、考試、報告、出國及空白週不套固定題數，不另加配分或課後繳交。
 
-Week6 每組帶 A4 白紙 2～3 張與小片不透光紙；Week7 帶可開合小紙箱、A4 白紙一張、剪刀、膠帶與筆。Week6、7 Main、Ans 與各四段動畫已發布到 GitHub，兩週程式由教師於課堂提供，本次不公開程式。Week8 只公開材料通知。
+Week6 每組帶 A4 白紙 2～3 張、小片不透光紙、小紙盒／紙杯與少量小紙球；Week7 帶可開合小紙箱、A4 白紙一張、剪刀、膠帶與筆。Week6 兩件作品的 Main／Ans 與完整互動動畫已同步 GitHub，並有可直接播放的學生網頁；原四題 GIF 留作歷史版本。Week7 Main、Ans 與四段動畫已發布，兩週程式由教師於課堂提供。Week8 只公開材料通知。
 
 Week1 的安裝教學直接在 Main，沒有另設答案卷。GitHub repository 目前為 public；所有 Main 與 Week2～7 Ans PDF 已納入，已發布教材可直接讀取。已釋出完整 Week2、Week3 程式；2026-10-07 另釋出 [Week4 Q1～Q4 程式及電腦工具](../program/week4/README.md)，共八支 OLED／Serial 版本。Week5 只放 Q1、Q2 程式，Q3、Q4 程式不加入 Git。教師雲端 `IoT/IOT_Introduction/program` 保存完整程式，不變更分享權限。最新 Week5 修訂與同步範圍見[發布紀錄](docs/lab_notes/2026-10-11-week5-publication.md)。
 

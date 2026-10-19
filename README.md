@@ -7,7 +7,7 @@
 - [Week2 Ans](IOT_Introduction/Week_02_ESP32_Hardware_Basics/week2Ans.pdf) · [Week3 Ans](IOT_Introduction/Week_03_Electrical_Measurement_and_ADC/week3Ans.pdf) · [Week4 Ans](IOT_Introduction/Week_04_Sensors_and_Data_Quality/week4Ans.pdf)
 - [Week4 修訂版 Main／Ans](IOT_Introduction/Week_04_Sensors_and_Data_Quality/README_withClaude.md)（`_withClaude`；舊版保留）
 - [Week5 Main](IOT_Introduction/Week_05_RGB_OLED_Countdown/week5_main.pdf) · [Week5 Ans](IOT_Introduction/Week_05_RGB_OLED_Countdown/week5Ans.pdf) · [Week5 Q1、Q2 程式](program/week5/README.md) · [Week5 Q1～Q4 動畫總覽：同頁播放](IOT_Introduction/Week_05_RGB_OLED_Countdown/animations/README.md)
-- [Week6 Main](IOT_Introduction/Week_06_Servo_Pointer/week6_main.pdf) · [Week6 Ans](IOT_Introduction/Week_06_Servo_Pointer/week6Ans.pdf) · [Week6 Q1～Q4 動畫](IOT_Introduction/Week_06_Servo_Pointer/animations/README.md)
+- [Week6 Main](IOT_Introduction/Week_06_Servo_Pointer/week6_main.pdf) · [Week6 Ans](IOT_Introduction/Week_06_Servo_Pointer/week6Ans.pdf) · [Week6 兩件作品線上動畫與 Ans](https://iot-week6-two-works.wy-lee9591.chatgpt.site/)
 - [Week7 Main](IOT_Introduction/Week_07_Traffic_Light_Challenge/week7_main.pdf) · [Week7 Ans](IOT_Introduction/Week_07_Traffic_Light_Challenge/week7Ans.pdf) · [Week7 Q1～Q4 動畫](IOT_Introduction/Week_07_Traffic_Light_Challenge/animations/README.md)
 - [Week2 程式](program/week2/README.md) · [Week3 程式](program/week3/README.md) · [Week4 Q1～Q4 程式](program/week4/README.md)
 - [Drone：無人機專題](Drone/README.md)
