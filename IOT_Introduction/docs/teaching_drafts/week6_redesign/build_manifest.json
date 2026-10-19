@@ -12,7 +12,7 @@
   "inputs": [
     {
       "file": "docs/teaching_drafts/week6_redesign/week6_main.md",
-      "sha256": "fa126956289afeac84529df1e2d6f49b0dac0c9d91e1b068e25e58244c16260a"
+      "sha256": "c75e8d63a3aedf78775c4991bb5ea3d014a9a0105932735943cda0d9f7c598a3"
     },
     {
       "file": "docs/teaching_drafts/week6_redesign/build.cjs",
@@ -23,7 +23,7 @@
       "sha256": "9173afa93a9ea507ad0a17801ec8d3bf36f45f86a3c0d2df5ac58c62fce2e6e0"
     }
   ],
-  "pdfSha256": "0fc0cf4173acd4472dbe0799991e96c2e6bb35fb467147cfe01b2e62fcc5536e",
+  "pdfSha256": "490d0af1caaf8d4919ad1f033488d2116df4023dda7c42cd0de3566dafa945fa",
   "layoutPassed": true,
   "physicalTested": false
 }
