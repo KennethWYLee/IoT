@@ -118,3 +118,14 @@ IOT_Introduction/docs/teaching_drafts/week15_answers/
 /program/week5/focus_countdown/*
 !/program/week5/desk_status/desk_status.ino
 !/program/week5/focus_countdown/focus_countdown.ino
+
+# Oct20: release the servo diagnostic and instructor Cat continuation copy.
+!/program/week6/
+/program/week6/*
+!/program/week6/README.md
+!/program/week6/servo_quick_test/
+/program/week6/servo_quick_test/*
+!/program/week6/servo_quick_test/servo_quick_test.ino
+!/program/week6/cat_feeder/
+/program/week6/cat_feeder/*
+!/program/week6/cat_feeder/cat_feeder.ino
