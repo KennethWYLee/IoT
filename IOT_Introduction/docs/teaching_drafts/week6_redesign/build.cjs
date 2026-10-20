@@ -25,7 +25,7 @@ async function run(){
  inputs.push(input(path.resolve(__dirname,'../week6_answers/two_works/figures.cjs')));
  const html='<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>'+stem+'</title><style>'+css+'</style><body>'+parts.map((p,i)=>'<section class="page" data-id="'+p[1]+'"><header><span>Week 6 · 餵食器與自動遮陽板</span><span>'+esc(p[2])+'</span></header><main>'+render(p[3])+'</main><footer><span>Week 6 · '+(answers?'Ans':'Main')+'</span><span>'+(i+1)+' / '+parts.length+'</span></footer></section>').join('')+'</body></html>';
  if(/\{\{/.test(html))throw Error('Unresolved directive');
- const review=path.join(course,'../_outputs/week6_feeder_20261019',stem);fs.mkdirSync(review,{recursive:true});
+ const review=path.join(process.env.WEEK6_REVIEW_DIR||path.join(course,'../_outputs/week6_feeder_20261019'),stem);fs.mkdirSync(review,{recursive:true});
  const htmlFile=path.join(review,stem+'.html');fs.writeFileSync(htmlFile,html);fs.writeFileSync(path.join(folder,stem+'.html'),html);
  const browser=await chromium.launch({channel:'msedge',headless:true});
  try{
@@ -34,7 +34,7 @@ async function run(){
   fs.writeFileSync(path.join(review,'layout.json'),JSON.stringify(audit,null,2));if(audit.some(p=>p.overflow.length||p.brokenImages))throw Error('Layout failed: '+JSON.stringify(audit.filter(p=>p.overflow.length||p.brokenImages)));
   const pdf=path.join(folder,stem+'.pdf');await page.pdf({path:pdf,printBackground:true,preferCSSPageSize:true});
   for(let i=0;i<parts.length;i++)await page.locator('.page').nth(i).screenshot({path:path.join(review,'page-'+String(i+1).padStart(2,'0')+'.png')});
-  if(answers){const config=path.join(folder,'programs.sources.json');inputs.push(input(config));for(const f of JSON.parse(fs.readFileSync(config)).files)inputs.push(input(path.join(course,f.source)));}
+  if(answers){const config=path.join(folder,'programs.sources.json');inputs.push(input(config));for(const f of JSON.parse(fs.readFileSync(config)).files)inputs.push(input(path.join(course,f.source)));inputs.push(input(path.join(folder,'src/servo_quick_test/servo_quick_test.ino')));}
   const manifest={format:2,week:6,kind:answers?'Ans':'Main',pages:ids,inputs,pdfSha256:sha(fs.readFileSync(pdf)),layoutPassed:true,physicalTested:false};fs.writeFileSync(path.join(folder,'build_manifest.json'),JSON.stringify(manifest,null,2)+'\n');
   fs.copyFileSync(pdf,path.join(course,'Week_06_Servo_Pointer',stem+'.pdf'));console.log(JSON.stringify({pdf,pages:ids.length,review}));
  }finally{await browser.close();}

@@ -12,18 +12,18 @@
   "inputs": [
     {
       "file": "docs/teaching_drafts/week6_redesign/week6_main.md",
-      "sha256": "c75e8d63a3aedf78775c4991bb5ea3d014a9a0105932735943cda0d9f7c598a3"
+      "sha256": "b4caa8a4ec3de58f8938c3fc2c69a90abeb5270942cd250b30948003f7bf4235"
     },
     {
       "file": "docs/teaching_drafts/week6_redesign/build.cjs",
-      "sha256": "c801fefebfd6ee26e7ef487cc0533b340a6702a36cae5a67bd754d6699846426"
+      "sha256": "95dbca37ac49ab0148ce2aa5e0def5627b28a8ce6b075bc4d1f0275588f6d734"
     },
     {
       "file": "docs/teaching_drafts/week6_answers/two_works/figures.cjs",
-      "sha256": "9173afa93a9ea507ad0a17801ec8d3bf36f45f86a3c0d2df5ac58c62fce2e6e0"
+      "sha256": "2e155758aff4342bd0bf5d121bec8097a52fb644b4eda7c198b3784d26a89c09"
     }
   ],
-  "pdfSha256": "490d0af1caaf8d4919ad1f033488d2116df4023dda7c42cd0de3566dafa945fa",
+  "pdfSha256": "6a4b4824ad1bfd0ea3296073cc98cf30010624ec98658c260f14a615dd0d0601",
   "layoutPassed": true,
   "physicalTested": false
 }
