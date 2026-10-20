@@ -3,24 +3,22 @@
   "week": 7,
   "kind": "Main",
   "pages": [
-    "display",
-    "counter",
-    "flag",
-    "flag-test",
-    "alert",
-    "limits"
+    "prepare",
+    "bin",
+    "parcel",
+    "operate"
   ],
   "inputs": [
     {
       "file": "docs/teaching_drafts/week7_redesign/week7_main.md",
-      "sha256": "893ef3d8c61ee64047d0de78966ad5ca3d888b35fdfb3806b95b6a9f9e76f4fe"
+      "sha256": "75bb26ed6c65347652de635ee92480de673c04169694c854c1bd937310f52b50"
     },
     {
       "file": "docs/teaching_drafts/week7_redesign/build.cjs",
-      "sha256": "1e04dfdd2647103c222fd35bfebb388b069f24602bf77f220b3c41d9fa3b3911"
+      "sha256": "51cc43c961e4b75454eb3b0435c8c166effca6913473513d84ee6c685e0fbd58"
     }
   ],
-  "pdfSha256": "7d817ce690da70d0e1bdfba6b138cafee89f15de374c1721320b76053a1dfe1a",
+  "pdfSha256": "d97f5f1a086938fb77d822e015b999ecc808e61551302cdf90539e7afb3cd81e",
   "layoutPassed": true,
   "physicalTested": false
 }

@@ -22,9 +22,9 @@ async function run(){
  function render(s){return marked.parse(s.replace(/\{\{page:([\w-]+)\}\}/g,(_,id)=>{if(!ids.includes(id))throw Error(id);return String(ids.indexOf(id)+1);})
  .replace(/\{\{diagram:([\w-]+)\}\}/g,(_,id)=>{if(!answers)throw Error('Answer figure in Main');return require(figures).diagram(id,7);})
  .replace(/\{\{photo:([^|]+)\|(\d+)\|([^}]+)\}\}/g,(_,name,height,caption)=>{const file=path.join(course,'docs/images/hardware/actual',name);inputs.push(input(file));return '<figure><img src="data:'+(/\.png$/i.test(name)?'image/png':'image/jpeg')+';base64,'+fs.readFileSync(file).toString('base64')+'" style="height:'+height+'mm" alt="'+esc(caption)+'"><figcaption>'+esc(caption)+'</figcaption></figure>';}));}
- const html='<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>'+stem+'</title><style>'+css+'</style><body>'+parts.map((p,i)=>'<section class="page" data-id="'+p[1]+'"><header><span>Week 7 · 紙箱包裹監測</span><span>'+esc(p[2])+'</span></header><main>'+render(p[3])+'</main><footer><span>Week 7 · '+(answers?'Ans':'Main')+'</span><span>'+(i+1)+' / '+parts.length+'</span></footer></section>').join('')+'</body></html>';
+ const html='<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>'+stem+'</title><style>'+css+'</style><body>'+parts.map((p,i)=>'<section class="page" data-id="'+p[1]+'"><header><span>Week 7 · 感應開蓋與開箱警示</span><span>'+esc(p[2])+'</span></header><main>'+render(p[3])+'</main><footer><span>Week 7 · '+(answers?'Ans':'Main')+'</span><span>'+(i+1)+' / '+parts.length+'</span></footer></section>').join('')+'</body></html>';
  if(/\{\{/.test(html))throw Error('Unresolved directive');
- const review=path.join(course,'../_outputs/week7_20261012',stem);fs.mkdirSync(review,{recursive:true});
+ const review=path.join(process.env.WEEK7_REVIEW_DIR||path.join(course,'../_outputs/week7_20261012'),stem);fs.mkdirSync(review,{recursive:true});
  const htmlFile=path.join(review,stem+'.html');fs.writeFileSync(htmlFile,html);fs.writeFileSync(path.join(folder,stem+'.html'),html);
  const browser=await chromium.launch({channel:'msedge',headless:true});
  try{
