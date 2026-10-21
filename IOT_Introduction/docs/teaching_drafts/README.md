@@ -91,7 +91,7 @@ Week11、12、14、15 維護每週 Markdown。兩類均有本機 weekNAns，並�
 | Week 4 | [環境紀錄、失敗與遮光提醒](week4_redesign/week4_main.pdf) | [README](week4_redesign/README.md)、[檢查紀錄](week4_redesign/review.md) |
 | Week 5 | [RGB、OLED 與倒數](week5_redesign/week5_main.pdf) | [README](week5_redesign/README.md)、[檢查紀錄](week5_redesign/review.md) |
 | Week 6 | [舵機紙指針與加減計數](week6_redesign/week6_main.pdf) | [README](week6_redesign/README.md)、[檢查紀錄](week6_redesign/review.md) |
-| Week 7 | [紅綠燈遮光挑戰整合](week7_redesign/week7_main.pdf) | [README](week7_redesign/README.md)、[檢查紀錄](week7_redesign/review.md) |
+| Week 7 | 教材修訂中，舊版已撤下 | 修訂後另行通知 |
 
 2026-09-17：依教師要求接續完成 Week 6 重設稿，保留現行「SG90 紙指針」主題。網路通訊在現行第 11 週，不套用早期第 6 週通訊規劃。教師已授權提交及推送本輪進度；正式出口仍未替換，舵機供電與上電順序的實機驗證仍未完成。
 
@@ -115,7 +115,7 @@ Week11、12、14、15 維護每週 Markdown。兩類均有本機 weekNAns，並�
 | Week 4 | 按鈕＋KY-018＋DHT11 | 無有效 DHT 時不收錄，但保留跳過紀錄 |
 | Week 5 | Week 2 雙按鈕＋OLED | 可調整、開始／中止的倒數器，改五秒一格 |
 | Week 6 | Week 2 按鈕作 STOP、Week 5 OLED、SG90 | Serial 加減計數指針，改每次兩格並限制 0～6；不是新增兩個實體加減按鈕 |
-| Week 7 | 雙按鈕＋KY＋RGB＋OLED；受限加入 SG90／蜂鳴器 | 相同規則與事件序列，只改每色 3／5／1.5 秒，區分計分測試與實物結果 |
+| Week 7 | 教材修訂中，舊版已撤下 | 修訂後另行通知 |
 
 新增活動取代部分重複操作或作延伸，不把三週都加長成同一堂課必做。技術驗證及限制見 [整合範例檢查](integration_checks/README.md)。
 

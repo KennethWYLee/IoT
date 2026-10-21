@@ -129,3 +129,14 @@ IOT_Introduction/docs/teaching_drafts/week15_answers/
 !/program/week6/cat_feeder/
 /program/week6/cat_feeder/*
 !/program/week6/cat_feeder/cat_feeder.ino
+
+# Oct21: Week7 withdrawn while the one-work App lesson is revised locally.
+/IOT_Introduction/Week_07_Traffic_Light_Challenge/
+/IOT_Introduction/docs/course_materials/week7_main.source.md
+/IOT_Introduction/docs/teaching_drafts/week7_redesign/
+/IOT_Introduction/docs/images/wiring/week7-*
+/IOT_Introduction/docs/lab_notes/*week7*
+/IOT_Introduction/examples/board_t01_diagnostics/week7_*/
+/IOT_Introduction/examples/week07_traffic_light_challenge/
+/IOT_Introduction/scripts/tests/game/week7_checks.cpp
+/IOT_Introduction/scripts/week7_figures.cjs
