@@ -140,3 +140,18 @@ IOT_Introduction/docs/teaching_drafts/week15_answers/
 /IOT_Introduction/examples/week07_traffic_light_challenge/
 /IOT_Introduction/scripts/tests/game/week7_checks.cpp
 /IOT_Introduction/scripts/week7_figures.cjs
+
+# Oct22: Week7 animation and preview PDFs only; device/App code stays private.
+!/IOT_Introduction/Week_07_Traffic_Light_Challenge/
+/IOT_Introduction/Week_07_Traffic_Light_Challenge/*
+!/IOT_Introduction/Week_07_Traffic_Light_Challenge/README.md
+!/IOT_Introduction/Week_07_Traffic_Light_Challenge/week7_main.pdf
+!/IOT_Introduction/Week_07_Traffic_Light_Challenge/week7Ans.pdf
+!/IOT_Introduction/Week_07_Traffic_Light_Challenge/animations/
+/IOT_Introduction/Week_07_Traffic_Light_Challenge/animations/*
+!/IOT_Introduction/Week_07_Traffic_Light_Challenge/animations/README.md
+!/IOT_Introduction/Week_07_Traffic_Light_Challenge/animations/index.html
+!/IOT_Introduction/Week_07_Traffic_Light_Challenge/animations/week7_lid_assembly.gif
+!/IOT_Introduction/Week_07_Traffic_Light_Challenge/animations/sg90_cup_lid_assembly.png
+!/IOT_Introduction/Week_07_Traffic_Light_Challenge/animations/THREE-LICENSE.txt
+!/IOT_Introduction/Week_07_Traffic_Light_Challenge/animations/LUCIDE-LICENSE.txt
